@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Ching Divination</title>
+    <link rel="stylesheet" href="./styles.css"> <!-- Link to your CSS file -->
+		<script src="./lib/gif.js"></script>
+</head>
+<body>
+	
+	<!-- Header with Navigation Links -->
+    <header class="header">
+        <nav>
+            <ul class="nav-links">
+                <li><a href="../index.html">Hub</a></li>
+                <li><a href="#tossMethod">Toss Method</a></li>
+               <li><a href="#savedReadingsContainer" id="savedReadingsLink">Saved Readings</a></li>
+							 <li><a href="../IchingPhoto/index.html">I Ching Photo</a></li>
+                <li><a href="#ichingExplanation">About</a></li>
+            </ul>
+        </nav>
+    </header>
+		
+    <button id="toggle-nav" class="toggle-button">☰ Nav</button>
+    <div id="navigation" class="navigation hidden">
+      
+      <a href="../index.html" class="neumorphic-tab">Home</a>
+      
+      <a href="../Donations/index.html" class="neumorphic-tab">Donations Page</a>
+      
+      <a href="#" class="neumorphic-tab" data-expand="submenu-black-business">Black Business Eugene</a>
+      <div id="submenu-black-business" class="submenu hidden">
+        <a href="../BlackBuisnessEugene/index.html" class="neumorphic-tab">Black Business Directory</a>
+        <a href="../BlackBuisnessEugene/blackbusinessformpage.html" class="neumorphic-tab">Black Business Form</a>
+      </div>
+    
+      <a href="#" class="neumorphic-tab" data-expand="submenu-community-garden">Community Gardens</a>
+    <div id="submenu-community-garden" class="submenu hidden">
+      <a href="../CommunityGardensLists/index.html" class="neumorphic-tab">Full List of All Gardens</a>
+      <a href="../CommunityGardenLand/index.html" class="neumorphic-tab">Mobile Landing</a>
+      <a href="../CommunityGardenLand/indexDesktop.html" class="neumorphic-tab">Desktop Landing</a>
+      <a href="../CommunityGardensMaps/indexEugeneMap.html" class="neumorphic-tab">Eugene Garden Map</a>
+       <a href="../CommunityGardensMaps/indexPortlandMap.html" class="neumorphic-tab">Portland Garden Map</a>
+      <a href="../CommunityGardensInfo/index.html" class="neumorphic-tab">Community Garden Info</a>
+      <a href="../CommunityGardensLists/indexEugene.html" class="neumorphic-tab">Eugene Garden List</a>
+      <a href="../CommunityGardensLists/indexPortland.html" class="neumorphic-tab">Portland Garden List</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-visualizers">Sound & Voice Visualizers</a>
+    <div id="submenu-visualizers" class="submenu hidden">
+      <a href="../SoundActivatedVisualizor/index.html" class="neumorphic-tab">Voice Activated Visualizer</a>
+      <a href="../SoundVisualizerWmedia/index.html" class="neumorphic-tab">Sound Visualizer w/Media Loader</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-arp">ARP Synths</a>
+    <div id="submenu-arp" class="submenu hidden">
+      <a href="../ArpAppNoVisualHighFi/index.html" class="neumorphic-tab">ARP App: No Visual (High-Fi)</a>
+      <a href="../ArpAppNoVisualLoFi/index.html" class="neumorphic-tab">ARP App: No Visual (Lo-Fi)</a>
+      <a href="../ArpAppWithVisual/index.html" class="neumorphic-tab">ARP App: With Visual</a>
+      
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-loopstation">Loop Stations</a>
+    <div id="submenu-loopstation" class="submenu hidden">
+      <!-- Animated Music Loopers -->
+      <a href="../Bboy/index.html" class="neumorphic-tab">NoWhere Man Looper</a>
+    
+      <a href="../BJungle/index.html" class="neumorphic-tab">BJungle Looper</a>
+    
+      <!-- Loop Stations -->
+      <a href="../LoopStation/index.html" class="neumorphic-tab">Loop Station</a>
+    
+      <!-- Advanced Loop Stations with Effects -->
+      <a href="../LoopStationHiFi/index.html" class="neumorphic-tab">Loop Station HiFi (Advanced Effects)</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-music">Music Vue Library</a>
+    <div id="submenu-music" class="submenu hidden">
+      <!-- Main Music Library -->
+      <a href="../MusicLibrary/index.html" class="neumorphic-tab">Music Library Lite</a>
+    
+      <!-- Music Library with Visualizer -->
+      <a href="../MusicLibraryVis/index.html" class="neumorphic-tab">Music Library (Visualizer)</a>
+    </div>
+    
+    <!-- Music Collection Section -->
+    <a href="#" class="neumorphic-tab" data-expand="submenu-music_collection">Music Collections</a>
+    <div id="submenu-music_collection" class="submenu hidden">
+      <a href="../DeJahn/index.html" class="neumorphic-tab">DeJahn</a>
+      <a href="../SeekerStar/index.html" class="neumorphic-tab">Seeker & the Star</a>
+      <a href="../GroundCherry/index.html" class="neumorphic-tab">Ground Cherry</a>
+      <a href="../PeruvianMelt/index.html" class="neumorphic-tab">Peruvian Melt</a>
+        <a href="../comingSoon.html" class="neumorphic-tab">Abyss of Bliss</a>
+        
+    <a href="https://www.artabillies.com/inprogression" class="neumorphic-tab">INPROGRESSION Artabillies</a>
+    
+    <a href="https://youtube.com/playlist?list=PLsiMr0_hgaOmqlIGzjHZBzi94yaRgQ38L&si=DMZc6ng8GWx8uMbU" class="neumorphic-tab">INPROGRESSION DVD</a>
+      </div>
+      
+        <a href="../ChooseYourOwnAdventure/prologue.html" class="neumorphic-tab">Choose Your Own Adventure</a>
+    
+     <a href="#" class="neumorphic-tab" data-expand="submenu-games">Games</a>
+    <div id="submenu-games" class="submenu hidden">
+      <a href="../NewSchoolGameKid/index.html" class="neumorphic-tab">New School Game: Kid Sprite</a>
+      <a href="../NewSchoolGameWizard/index.html" class="neumorphic-tab">New School Game: Wizard Sprite</a>
+      <a href="../OldSchoolGameDesktop/index.html" class="neumorphic-tab">Old School Game: Desktop</a>
+      <a href="../OldSchoolGameMobile/index.html" class="neumorphic-tab">Old School Game: Mobile</a>
+      <a href="../TerminalGameTransition/index.html" class="neumorphic-tab">Terminal Transition Game</a>
+      <a href="../bergs-of-life/index.html" class="neumorphic-tab">Bergs of Life</a>
+      <a href="../comingSoon.html" class="neumorphic-tab">SideScroll Game</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-claw-machine">Claw Machine</a>
+    <div id="submenu-claw-machine" class="submenu hidden">
+      <a href="../claw-machine/index.html" class="neumorphic-tab">Claw Machine OG</a>
+      <a href="../claw-machineGame/index.html" class="neumorphic-tab">Claw Machine Enhanced</a>
+    </div>
+    
+      <a href="#" class="neumorphic-tab" data-expand="submenu-glo-calculato">Glo-Calculato</a>
+      <div id="submenu-glo-calculato" class="submenu hidden">
+        <a href="../GloCalculatoLanding/index.html" class="neumorphic-tab">Glo-Calculato Landing</a>
+        <a href="../GloCalculato/index.html" class="neumorphic-tab">Full-Sized Glo-Calculato</a>
+        <a href="../GloCalculatoLanding/GLO-CALCULATO/Glo-Calculato.zip" class="neumorphic-tab">Download Glo-Calculato</a>
+      </div>
+    
+      <a href="#" class="neumorphic-tab" data-expand="submenu-tarot">Tarot</a>
+    <div id="submenu-tarot" class="submenu hidden">
+      <!-- Main Tarot Landing and Learning -->
+      <a href="../TarotLanding/index.html" class="neumorphic-tab">Tarot Orientation Landing</a>
+      <a href="../TarotLanding/HowTo.html" class="neumorphic-tab">How To: Tarot – FOOD4THOTH</a>
+      <a href="../TarotFlipCardGallery/index.html" class="neumorphic-tab">Quick Reference Flip Gallery</a>
+    
+      <!-- General Tarot Decks and Readings -->
+      <a href="../TarotTogetherNoAge/index.html" class="neumorphic-tab">Tarot Card Gallery (3 Decks)</a>
+      <a href="../TarotTogetherNoAge4Decks/index.html" class="neumorphic-tab">Tarot Card Gallery (4 Decks)</a>
+      <a href="../CelticCrossTarot/index.html" class="neumorphic-tab">Celtic Cross Reading</a>
+      <a href="../ThreeCardTarot/index.html" class="neumorphic-tab">Three-Card Tarot w/ Gallery</a>
+      <a href="../ThreeCardTarotByItself/index.html" class="neumorphic-tab">Three-Card Tarot Reading</a>
+    
+      <!-- Cyberpunk and Thematic Tarot Decks -->
+      <a href="../TarotSacredGeometry/index.html" class="neumorphic-tab">Sacred Geometry Tarot</a>
+      <a href="../TarotCyberPunkDark/index.html" class="neumorphic-tab">CyberPunk Dark Tarot</a>
+      <a href="../TarotCyberPunkMelo/index.html" class="neumorphic-tab">CyberPunk Melo Tarot</a>
+      <a href="../TarotOG/index.html" class="neumorphic-tab">OG Tarot w/Voice Commands</a>
+      
+      <!-- Experimental and Custom Decks -->
+      <a href="../EgyptianTarot/index.html" class="neumorphic-tab">Custom Egyptian Major Arcana (1–22)</a>
+      <a href="../EgyptianTarotFull/index.html" class="neumorphic-tab">Custom Sacred Geometry (1–78)</a>
+      <a href="../TarotJungian/index.html" class="neumorphic-tab">Jungian Thoth Tarot Spread</a>
+      <a href="../TarotTextList/index.html" class="neumorphic-tab">Cyberpunk Tarot Text Library</a>
+      
+      <a href="../DrawTarot/index.html" class="neumorphic-tab">All Spreads</a>
+    
+      <!-- Majix Tarot Galleries (Individual Arcana) -->
+      <a href="../MajixLanding/index.html" class="neumorphic-tab">Majix Galleries Landing</a>
+      <a href="../MajixTarotMajor/index.html" class="neumorphic-tab">Majix Major Arcana</a>
+      <a href="../MajixTarotWands/index.html" class="neumorphic-tab">Majix Wands</a>
+      <a href="../MajixTarotCups/index.html" class="neumorphic-tab">Majix Cups</a>
+      <a href="../MajixTarotSwords/index.html" class="neumorphic-tab">Majix Swords</a>
+      <a href="../MajixTarotPentacles/index.html" class="neumorphic-tab">Majix Pentacles</a>
+      <a href="../MajixTarotAll/index.html" class="neumorphic-tab">Majix All Cards</a>
+      
+      <a href="../TarotGalleries/index.html" class="neumorphic-tab">Explore All Galleries</a>
+    
+      <a href="../TarotCrystalQueens/indexAge.html" class="neumorphic-tab">18+ Crystal Queens Tarot</a>
+      <a href="../TarotCyberPunkX/indexAge.html" class="neumorphic-tab">18+ CyberPunk X Tarot</a>
+      <a href="../TarotAgeVerify/index.html" class="neumorphic-tab">FOOD4THOTH 18+ Tarot Gallery</a>
+      
+      <a href="../TarotAllResources/index.html" class="neumorphic-tab">All Resources</a>
+    
+      <!-- Additional Resources -->
+      <a href="../comingSoon.html" class="neumorphic-tab">More Tarot</a>
+      <a href="../parental-controls.html" class="neumorphic-tab">Parental Controls</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-iching">I Ching</a>
+    <div id="submenu-iching" class="submenu hidden">
+      <a href="../Iching/index.html" class="neumorphic-tab">I Ching Simple</a>
+      <a href="../IchingFractal/index.html" class="neumorphic-tab">I Ching Fractal</a>
+      <a href="../IchingPhoto/index.html" class="neumorphic-tab">I Ching Fractal/Photo</a>
+      <a href="../Iching/ichingAnimeLoop.html" class="neumorphic-tab">I Ching Anime Loop</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-hakim-bey">Hakim Bey</a>
+      <div id="submenu-hakim-bey" class="submenu hidden">
+        <a href="../HakimBey/index.html" class="neumorphic-tab">Hakim Bey Anarchy Page</a>
+        <a href="../HakimBey/joinTheMovement.html" class="neumorphic-tab">Anarchy Collective Contact</a>
+      </div>
+    
+      <a href="#" class="neumorphic-tab" data-expand="submenu-hashisheen">Hashisheen Album Reviews</a>
+      <div id="submenu-hashisheen" class="submenu hidden">
+         <a href="../EndOfLawHASHISHEEN/AllHashineenReviews.html" class="neumorphic-tab">Landing Page</a>
+        <a href="../EndOfLawHASHISHEEN/FullAlbumReview.html" class="neumorphic-tab">Full Album Review</a>
+         <a href="../EndOfLawHASHISHEEN/index1.html" class="neumorphic-tab">Hashisheen Album Review (Track 1)</a>
+        <a href="../EndOfLawHASHISHEEN/index2.html" class="neumorphic-tab">Hashisheen Album Review (Track 2)</a>
+        <a href="../EndOfLawHASHISHEEN/index3.html" class="neumorphic-tab">Hashisheen Album Review (Track 3)</a>
+        <a href="../EndOfLawHASHISHEEN/index4.html" class="neumorphic-tab">Hashisheen Album Review (Track 4)</a>
+        <a href="../EndOfLawHASHISHEEN/index5.html" class="neumorphic-tab">Hashisheen Album Review (Track 5)</a>
+        <a href="../EndOfLawHASHISHEEN/index6.html" class="neumorphic-tab">Hashisheen Album Review (Track 6)</a>
+        <a href="../EndOfLawHASHISHEEN/index7.html" class="neumorphic-tab">Hashisheen  Album Review (Track 7)</a>
+        <a href="../EndOfLawHASHISHEEN/index8.html" class="neumorphic-tab">Hashisheen Album Review (Track 8)</a>
+        <a href="../EndOfLawHASHISHEEN/index9.html" class="neumorphic-tab">Hashisheen Album Review (Track 9)</a>
+        <a href="../EndOfLawHASHISHEEN/index10.html" class="neumorphic-tab">Hashisheen Album Review (Track 10)</a>
+        <a href="../EndOfLawHASHISHEEN/index11.html" class="neumorphic-tab">Hashisheen Album Review (Track 11)</a>
+        <a href="../EndOfLawHASHISHEEN/index12.html" class="neumorphic-tab">Hashisheen Album Review (Track 12)</a>
+        <a href="../EndOfLawHASHISHEEN/index13.html" class="neumorphic-tab">Hashisheen Album Review (Track 13)</a>
+        <a href="../EndOfLawHASHISHEEN/index14.html" class="neumorphic-tab">Hashisheen Album Review (Track 14)</a>
+        <a href="../EndOfLawHASHISHEEN/index15.html" class="neumorphic-tab">Hashisheen Album Review (Track 15)</a>
+        <a href="../EndOfLawHASHISHEEN/index16.html" class="neumorphic-tab">Hashisheen Album Review (Track 16)</a>
+        <a href="../EndOfLawHASHISHEEN/index17.html" class="neumorphic-tab">Hashisheen Album Review (Track 17)</a>
+        <a href="../EndOfLawHASHISHEEN/index18.html" class="neumorphic-tab">Hashisheen Album Review (Track 18)</a>
+        <a href="../EndOfLawHASHISHEEN/index19.html" class="neumorphic-tab">Hashisheen Album Review (Track 19)</a>
+        <a href="../EndOfLawHASHISHEEN/index20.html" class="neumorphic-tab">Hashisheen Album Review (Track 20)</a>
+        <a href="../EndOfLawHASHISHEEN/index21.html" class="neumorphic-tab">Hashisheen Album Review (Track 21)</a>
+        <a href="../EndOfLawHASHISHEEN/index22.html" class="neumorphic-tab">Hashisheen Album Review (Track 22)</a>
+        <a href="../comingSoon.html" class="neumorphic-tab">More Reviews</a>
+      </div>
+      
+      <a href="../DrawingFractals/index.html" class="neumorphic-tab">Draw w/Fractals</a>
+      
+      <a href="../RainbowGathering/index.html" class="neumorphic-tab">Rainbow Recordings</a>
+      
+      <a href="#" class="neumorphic-tab" data-expand="submenu-rainbows">Rainbow Reveals & Generators</a>
+    <div id="submenu-rainbows" class="submenu hidden">
+      <!-- Rainbow Reveals -->
+      <a href="../Rainbows4Thoth/Reveal1.html" class="neumorphic-tab">Rainbow Reveal 1</a>
+      <a href="../Rainbows4Thoth/Reveal2.html" class="neumorphic-tab">Rainbow Reveal 2</a>
+      <a href="../Rainbows4Thoth/ListReveal.html" class="neumorphic-tab">Rainbow Reveal List</a>
+    
+      <!-- Rainbow Generators -->
+      <a href="../RainbowFracGenerator/index.html" class="neumorphic-tab">Fractal Generator</a>
+      
+      <a href="../RainbowGenerator/index.html" class="neumorphic-tab">Rainbow Shape Generator</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-mescalito">Mescalito Reveals</a>
+    <div id="submenu-mescalito" class="submenu hidden">
+      <!-- Rainbow Reveals -->
+      <a href="../Mescalito/Reveal1.html" class="neumorphic-tab">Mescalito Reveal 1</a>
+      <a href="../Mescalito/Reveal2.html" class="neumorphic-tab">Mescalito Reveal 2</a>
+      <a href="../Mescalito/ListReveal.html" class="neumorphic-tab">Mescalito Reveal List</a>
+    </div>
+      
+      <a href="#" class="neumorphic-tab" data-expand="submenu-akashic">Akashic Records</a>
+    <div id="submenu-akashic" class="submenu hidden">
+      <a href="../css-only-3d-image-carousel/index.html" class="neumorphic-tab">Main Landing</a>
+      <a href="../AkashicAsclepiusDeep/index.html" class="neumorphic-tab">Akashic Asclepius Deep</a>
+      <a href="../AkashicAsclepiusLite/index.html" class="neumorphic-tab">Akashic Asclepius Lite</a>
+      <a href="../AkashicEmeraldAsAbove/index.html" class="neumorphic-tab">Akashic Emerald As Above</a>
+      <a href="../AkashicEmeraldDeep/index.html" class="neumorphic-tab">Akashic Emerald Deep</a>
+      <a href="../AkashicEmeraldLite/index.html" class="neumorphic-tab">Akashic Emerald Lite</a>
+      <a href="../AkashicHermiticum/index.html" class="neumorphic-tab">Akashic Hermiticum</a>
+      <a href="../AkashicHymnLite/index.html" class="neumorphic-tab">Akashic Hymn Lite</a>
+      <a href="../AkashicNag/index.html" class="neumorphic-tab">Akashic Nag</a>
+      <a href="../AkashicNag13Codex/index.html" class="neumorphic-tab">Akashic Nag 13 Codex</a>
+      <a href="../AkashicNagTreaties/index.html" class="neumorphic-tab">Akashic Nag Treaties</a>
+      <a href="../AkashicThothDeep/index.html" class="neumorphic-tab">Akashic Thoth Deep</a>
+      <a href="../AkashicThothLite/index.html" class="neumorphic-tab">Akashic Thoth Lite</a>
+      <a href="../comingSoon.html" class="neumorphic-tab">More Records</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-anarchy">Anarchy Comics & Info</a>
+    <div id="submenu-anarchy" class="submenu hidden">
+      <a href="../AnarchyComicBreakFree/index.html" class="neumorphic-tab">Anarchy Comic: Break Free</a>
+      <a href="../AnarchyComicCocoon/index.html" class="neumorphic-tab">Anarchy Comic: Cocoon</a>
+      <a href="../AnarchyDepth/index.html" class="neumorphic-tab">Anarchy Depth</a>
+      <a href="../AnarchyIsAlwaysMobile/index.html" class="neumorphic-tab">Anarchy Is Always Mobile</a>
+      <a href="../AnarchyPoetics/index.html" class="neumorphic-tab">Anarchy Poetics</a>
+      <a href="../AnarchyTAZ/index.html" class="neumorphic-tab">Anarchy TAZ</a>
+      <a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-eyespy">Eye Spy</a>
+    <div id="submenu-eyespy" class="submenu hidden">
+      <a href="../EyeSPY1/index.html" class="neumorphic-tab">Eye Spy Game 20 (1st Edition)</a>
+      <a href="../EyeSPY2/index.html" class="neumorphic-tab">Eye Spy Game 46 (2nd Edition)</a>
+      <a href="../EyeSPY3/index.html" class="neumorphic-tab">Eye Spy Game 66 (3rd Edition)</a>
+      <a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-tide-walk">Tide Walk</a>
+    <div id="submenu-tide-walk" class="submenu hidden">
+      <a href="../TideApp/index.html" class="neumorphic-tab">Tide Walk USA</a>
+      <a href="../TideApp/indexOregon.html" class="neumorphic-tab">Tide Walk Oregon</a>
+      <a href="../TideApp/indexBoston.html" class="neumorphic-tab">Tide Walk Boston</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-trent">Trent</a>
+    <div id="submenu-trent" class="submenu hidden">
+      <a href="../TrentOfTheDay/index.html" class="neumorphic-tab">Trent of the Day</a>
+      <a href="../TrentStorybook1stMobile/index.html" class="neumorphic-tab">Trent Storybook</a>
+      <a href="../TrentStorybook1stMobile/contact.html" class="neumorphic-tab">Contact</a>
+      <a href="../TrentStorybook1stMobile/about.html" class="neumorphic-tab">About</a>
+      <a href="../comingSoon.html" class="neumorphic-tab">Space StoryBook</a>
+    </div>
+    
+    <!-- Prayer Section -->
+    <a href="#" class="neumorphic-tab" data-expand="submenu-prayer">Prayer For Love</a>
+    <div id="submenu-prayer" class="submenu hidden">
+      <a href="../PrayerForLove/index.html" class="neumorphic-tab">Prayer For Love</a>
+      <a href="../PrayerThanks/index.html" class="neumorphic-tab">Thanks & Graditude</a>
+      <a href="../PrayerChildrensStill/index.html" class="neumorphic-tab">Prayer Childrens Still image</a>
+      <a href="../PrayerChildrensFade/index.html" class="neumorphic-tab">Prayer Childrens Fade</a>
+        <a href="../PrayerChildrensFlip/index.html" class="neumorphic-tab">Prayer Childrens Flip</a>
+      </div>
+      
+    <a href="../Haudenosaunee/index.html" class="neumorphic-tab">Haudenosaunee Thanksgiving</a>
+    
+    <a href="../Inprogression/index.html" class="neumorphic-tab">INPROGRESSION</a>
+    
+    <a href="../MindMelt/index.html" class="neumorphic-tab">MindMelt</a>
+    
+    <a href="../behind-the-fold/index.html" class="neumorphic-tab">Behind the Fold</a>
+    
+    <a href="../skating-bunny/index.html" class="neumorphic-tab">Rabbit Hole</a>
+    
+    <!-- Socials Section -->
+    <a href="#" class="neumorphic-tab" data-expand="submenu-socials">Socials</a>
+    <div id="submenu-socials" class="submenu hidden">
+    
+        <!-- FOOD4THOTH Links -->
+        <a href="https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho" class="neumorphic-tab" target="_blank">FOOD4THOTH Instagram</a>
+        <a href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi" class="neumorphic-tab" target="_blank">FOOD4THOTH Facebook</a>
+    
+        <!-- INPROGRESSION Links -->
+        <a href="https://www.facebook.com/share/19M7DM1SrT/?mibextid=wwXIfr" class="neumorphic-tab" target="_blank">INPROGRESSION Facebook</a>
+    
+        <!-- ARTABILLIES Links -->
+        <a href="https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ==" class="neumorphic-tab" target="_blank">ARTABILLIES Instagram</a>
+        <a href="https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi" class="neumorphic-tab" target="_blank">ARTABILLIES Facebook</a>
+        <a href="https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP" class="neumorphic-tab" target="_blank">ARTABILLIES Facebook Group</a>
+        <a href="https://www.artabillies.com/contact-us" class="neumorphic-tab" target="_blank">Contact Artabillies</a>
+        <a href="https://www.artabillies.com/artist-info" class="neumorphic-tab" target="_blank">Artabillies Artists</a>
+        
+    <a href="https://www.facebook.com/share/1A3Puz9LiE/?mibextid=wwXIfr" class="neumorphic-tab">Peruvian Melt Facebook</a>
+    <a href="https://www.facebook.com/share/1ASf9gTHNd/?mibextid=wwXIfr" class="neumorphic-tab">Seeker and the Star Facebook</a>
+    <a href="https://www.facebook.com/share/15JCrs2ByF/?mibextid=wwXIfr" class="neumorphic-tab">INPROGRESSION Facebook</a>
+    <a href="https://www.facebook.com/share/14u1KuMKxKC/?mibextid=wwXIfr" class="neumorphic-tab">Abyss of Bliss Facebook</a>
+    <a href="https://www.facebook.com/share/1A92psCHBz/?mibextid=wwXIfr" class="neumorphic-tab">DeJahn's Facebook</a>
+    
+    <a href="https://www.instagram.com/trent_son_of_reznor?igsh=MTNpam0zZDY3dGludg==" class="neumorphic-tab">Trent's Instagram</a>
+    </div>
+    
+    <!-- Music Collection Section -->
+    <a href="#" class="neumorphic-tab" data-expand="submenu-youtube">YouTube</a>
+    <div id="submenu-youtube" class="submenu hidden">
+      
+      
+    <a href="https://youtube.com/playlist?list=PL2P9hSa1PuEh6kMDZk3VMK7qPYKxECmEX&si=RyjXAR8fyDIKDXjq" class="neumorphic-tab">Artabillies Videos</a>
+    <a href="https://youtube.com/playlist?list=PL2P9hSa1PuEhO0ax57jPofQtKw4q-Ac66&si=SUZaW6uJkIpXOa2a" class="neumorphic-tab">Artabillies Music</a>
+    
+    <a href="https://youtube.com/playlist?list=PLe089QV1U3-LFF_RgkdEC1OobqUnw8G3P&si=efVtCycW88FjotuS" class="neumorphic-tab">Peruvian Melt Playlist</a>
+    <a href="https://youtube.com/playlist?list=PLsiMr0_hgaOmqlIGzjHZBzi94yaRgQ38L&si=DMZc6ng8GWx8uMbU" class="neumorphic-tab">INPROGRESSION DVD</a>
+    <a href="https://youtube.com/playlist?list=PLe089QV1U3-LJfWXtDubFrSggdQrSAtQr&si=HHvg-AxCR9B5K0P1" class="neumorphic-tab">Ground Cherry</a>
+    <a href="https://youtube.com/playlist?list=PLHLqP3bn74o1JZi7PwVssJZmJ6-3eZ-UQ&si=Nm_FdCnyWb1EcZOn" class="neumorphic-tab">DeJahn's Playlist</a>
+    <a href="https://youtube.com/@dejahnlamar3569?si=_lah2UhBbNcV8Y8_" class="neumorphic-tab">DeJahn's YouTube</a>
+    <a href="https://youtube.com/@artabillies8291?si=3aRiP1B0ltfkvCPO" class="neumorphic-tab">Artabillies YouTube</a>
+      </div>
+      
+      
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-rstory">Rstory</a>
+    <div id="submenu-rstory" class="submenu hidden">
+      <!-- Rstory Links -->
+      <a href="https://rstory.io/Dobbs_GATE.html" class="neumorphic-tab">Do You Do Dobbs Gallery</a>
+      <a href="../RstoryArtabillies/index.html" class="neumorphic-tab">Rstory Artabillies & Food4Thoth</a>
+      <!-- Articles & Additional Resources -->
+        <a href="https://hive.blog/crypto/@rstory/artabillies-receives-1m-rstory-gratitude-tokens" class="neumorphic-tab" target="_blank">ARTABILLIES Article</a>
+        <a href="https://rstory.io" class="neumorphic-tab" target="_blank"> Rstory Official Website</a>
+        <a href="https://t.me/+m-WEaUc7Ud8yY2Qx" class="neumorphic-tab" target="_blank">RSTORY Telegram Community</a>
+        <a href="https://github.com/ma-da/rstory" class="neumorphic-tab" target="_blank"> RSTORY GitHub</a>
+    </div>
+    
+    <a href="https://github.com/Dseekeroftruth" class="neumorphic-tab">GitHub</a>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-summary">Summary</a>
+    <div id="submenu-summary" class="submenu hidden">
+      <a href="../CollectiveSummary/index.html" class="neumorphic-tab">Collective Summary 1.0</a>
+      <a href="../CollectiveSummary/index2.html" class="neumorphic-tab">Collective Summary 2.0</a>
+    </div>
+      <a href="../Artabillies/index.html" class="neumorphic-tab">Artabillies Info</a>
+      <a href="https://www.artabillies.com/" class="neumorphic-tab">Artabillies.com</a>
+      <a href="../portfolio.html" class="neumorphic-tab">Portfolio</a>
+      <a href="../comingSoon.html" class="neumorphic-tab">Desktop Landing</a>
+      <a href="../contact.html" class="neumorphic-tab">Contact</a>
+      <a href="mailto:food4thoth@proton.me" class="neumorphic-tab">Email: food4thoth@proton.me</a>
+      <a href="../README.md" class="neumorphic-tab">F4T ReadMe</a>
+    </div>
+	
+	
+    <!-- Theme Customization -->
+    <button id="darkModeToggle">Toggle Dark Mode</button>
+		
+	<div id="appIntroduction" class="introduction">
+    <h2 class="page-title">FOOD4THOTH <br /><br /> I Ching Divination & Fractal Synergy</h2>
+
+    <p>This app provides a <strong>modern approach</strong> to the <strong>ancient practice</strong> of I Ching divination. With both <strong>traditional methods</strong> and <strong>new fractal-based insights</strong>, you can explore the wisdom of the I Ching in a way that suits your personal style. Here’s how to utilize the app’s features:</p>
+
+    <ul>
+        <li><strong>🔮 Coin Toss Method:</strong> Use the digital coin toss to generate a reading. Click the <strong>"Toss Coins"</strong> button, and <strong>all 6 lines</strong> of the hexagram will be calculated instantly.</li>
+
+        <li><strong>📝 Manual Input:</strong> If you prefer to input your results manually, select the <strong>"Manual Input"</strong> option. Enter one of the following for each line until the hexagram is complete:
+            <ul>
+                <li><strong>Open (⚊)</strong></li>
+                <li><strong>Closed (⚋)</strong></li>
+                <li><strong>Changing Open (⚉)</strong></li>
+                <li><strong>Changing Closed (⚍)</strong></li>
+            </ul>
+            This approach allows for a <strong>personalized</strong> divination experience.</li>
+
+        <li><strong>🔄 Combination of Methods:</strong> Feel free to <strong>mix both methods</strong>. You can <strong>manually input</strong> some lines and use the <strong>digital coin toss</strong> for others to create a <strong>unique</strong> reading.</li>
+
+        <li><strong>🌌 Fractal-Based I Ching Generation:</strong> A completely new way to generate I Ching hexagrams!
+            <ul>
+                <li><strong>Create a fractal by clicking or drawing on the canvas.</strong></li>
+                <li>The fractal’s <strong>brightness, symmetry, and complexity</strong> influence the <strong>hexagram lines</strong>.</li>
+                <li>Each fractal represents <strong>a moment in time</strong>, capturing the <strong>flow of cosmic energy</strong>.</li>
+                <li>Fractal structures will <strong>dynamically generate a hexagram</strong>, blending divination with visual intuition.</li>
+            </ul>
+            This method <strong>harmonizes ancient mysticism with modern generative art</strong>, offering a <strong>visually engaging way</strong> to interpret I Ching readings.</li>
+
+        <li><strong>💾 Save Readings:</strong> Once a hexagram is generated, use the <strong>"Save Reading"</strong> button to store it for future reference. This allows you to <strong>build a personal collection</strong> of readings over time.</li>
+
+        <li><strong>📜 Load Previous Readings:</strong> Click <strong>"Load Saved Readings"</strong> to view your stored readings. This feature lets you <strong>reflect on past insights</strong> and compare them against your current situation.</li>
+
+        <li><strong>🧹 Clear Saved Readings:</strong> To start afresh, use the <strong>"Clear Readings"</strong> button. This will <strong>remove all stored readings</strong>, providing a <strong>clean slate</strong> for your divination journey.</li>
+
+        <li><strong>🔄 Reset:</strong> If you wish to begin a <strong>new reading</strong> after manually inputting 6 tosses, you can either input another manually or click <strong>"Start Over"</strong> to <strong>reset</strong> and generate a fresh hexagram.</li>
+    </ul>
+
+    <p>Explore the ancient wisdom of the I Ching in a way that aligns with your intuitive practices. Whether you prefer the <strong>spontaneity of digital coin tosses</strong>, the <strong>deliberate nature of manual input</strong>, or the <strong>innovative approach of fractal-based divination</strong>, this app is designed to adapt to your preferences.</p>
+</div>
+
+<div class="scroll-buttons">
+    <button onclick="scrollToTop()">&#9650;</button> <!-- Up Arrow -->
+    <button onclick="scrollToBottom()">&#9660;</button> <!-- Down Arrow -->
+</div>
+    
+    <!-- Toss Method Selection -->
+<div id="tossMethod">
+    <label>
+        <input type="radio" name="tossMethod" value="traditional" checked> Traditional Coin Toss
+    </label>
+    <label>
+        <input type="radio" name="tossMethod" value="manual"> Manual Input
+    </label>
+</div>
+
+<!-- Manual Input Field (Initially Hidden) -->
+<div id="manualInputContainer" class="hidden">
+    <p>Select line type:</p>
+    <select id="manualInput">
+        <option value="">-- Select a line --</option>
+        <option value="open">Open</option>
+        <option value="closed">Closed</option>
+        <option value="changing open">Changing Open</option>
+        <option value="changing closed">Changing Closed</option>
+    </select>
+    <button id="manualInputSubmit">Submit Line</button>
+    <button id="manualTossButton">Toss Coins for Line</button> <!-- New Button -->
+</div>
+<!-- Hide the iframe initially -->
+<iframe src="ichingAnime.html" id="animationIframe" class="hidden" style="width:100%; height:65vh; border:none;" scrolling="no"></iframe>
+
+    <!-- Toss Coins Button -->
+    <button id="tossButton">Toss Coins</button>
+
+    <!-- Line images will be inserted here -->
+    <div id="lines"></div>
+
+    <!-- Hexagram interpretations -->
+    <div id="hexagramText"></div>
+    <div id="changedHexagramText"></div>
+		
+		<button id="saveReading">Save Reading</button> <!-- Correct ID -->
+    <button id="loadReadings">Load Saved Readings</button> <!-- Correct ID -->
+
+    <div id="savedReadingsContainer" class="saved-readings-container hidden">
+    <button id="closeReadings">Close</button>
+    <button id="clearReadings">Clear Readings</button> <!-- Clear readings button -->
+    <div id="readingsContent"></div> <!-- Container for dynamic readings content -->
+</div>
+
+<div id="fractal-Iching">
+<!-- Fractal I Ching Section -->
+<hr />
+
+
+<h2 style="margin-top: 60px;">Fractal I Ching</h2>
+<p>
+  This script generates hexagrams using the color data from a fractal image
+  of the Zaslavsky web map. Click or drag on the canvas to draw. The image
+  is generated using the mouse coordinates + system time, so it rarely repeats.
+</p>
+</div>
+
+<!-- Additional fractal settings -->
+<div id="fractalSettings">
+	<!-- Controls for symmetry and canvas size -->
+<div>
+  <label for="fractalCanvasSize">Canvas Size:</label>
+  <select id="fractalCanvasSize">
+    <option value="200">200</option>
+    <option value="400" selected>400</option>
+    <option value="600">600</option>
+    <option value="1000">1000</option>
+  </select>
+
+  <label for="symmetrySelect">Symmetry (q):</label>
+  <select id="symmetrySelect">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3" selected>3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="12">12</option>
+    <option value="16">16</option>
+    <option value="64">64</option>
+  </select>
+
+
+<select id="fractalTypeSelect">
+  <option value="flow" selected>Flow Field</option>
+  <option value="spiral">Spiral</option>
+  <option value="tree">Branching Tree</option>
+  <option value="julia">Julia Set</option>
+  <option value="labyrinth">Labyrinth</option>
+
+  <!-- NEW: Additional fractal styles -->
+  <option value="mandelbrot">Mandelbrot</option>
+  <option value="fern">Barnsley Fern</option>
+</select>
+	
+  <label>Tree Depth:
+    <input type="number" id="depthInput" value="10" min="1" max="20" />
+  </label>
+  <label>Spiral Factor:
+    <input type="range" id="spiralFactorRange" min="0.01" max="0.2" step="0.01" value="0.1" />
+  </label>
+  <label>Julia Iterations:
+    <input type="number" id="juliaIterationsInput" value="100" min="10" max="1000"/>
+  </label>
+	<label>Mandelbrot Iterations:
+  <input type="number" id="mandelbrotIterationsInput" value="300" min="50" max="2000" />
+</label>
+</div>
+</div>
+
+
+<div id="fractalCanvasWrapper">
+<canvas
+  id="fractalCanvas"
+  width="400"
+  height="400"
+  style="border: 1px solid #ccc; cursor: crosshair; margin: 10px 0;"
+>
+  Your browser does not support HTML5 Canvas.
+</canvas>
+</div>
+
+<div>
+  <label>
+    <input type="checkbox" id="saveFractalImagesCheckbox" />
+    Save all images to the gallery below
+  </label>
+	
+	 <button id="clearFractalCanvasBtn">Clear Canvas</button>
+	 
+   <button id="fractalHexagramBtn">Get Hexagram</button>
+<!-- Where the fractal-based lines and hexagrams appear -->
+<div id="fractalLinesContainer"></div>
+<div id="fractalHexagramText"></div>
+<div id="fractalChangedHexagramText"></div>
+
+<button id="saveFractalReadingBtn">Save Fractal Reading</button>
+<button id="clearFractalHexBtn">Clear Fractal Hex</button>
+</div>
+
+<div id="fractalGalleryWrapper" style="margin-top:20px;">
+  <h2>Fractal Gallery</h2>
+  <div id="fractalGallery" class="gallery-grid"> </div>
+
+  <!-- Buttons for managing selections -->
+  <button id="deleteSelectedBtn">🗑️ Delete Selected</button>
+  <button id="clearFractalGalleryBtn">🧹 Clear Gallery</button>
+  <button id="saveAllFractalsBtn">💾 Save All Images</button>
+  <br /><br />
+</div>
+  
+	
+	
+	<div id="gifSettings">
+    <label for="quality">Quality:</label>
+    <input type="range" id="quality" min="1" max="30" value="10">
+    <span id="qualityValue">10</span>
+
+    <label for="width">Width:</label>
+    <input type="number" id="width" value="400" min="100" max="1000">
+
+    <label for="height">Height:</label>
+    <input type="number" id="height" value="400" min="100" max="1000">
+
+    <label for="speed">Speed (Frame Delay in ms):</label>
+    <input type="number" id="speed" value="100" min="10" max="1000">
+		<button id="createGifBtn">Create GIF</button>
+</div>
+	
+
+
+
+</div>
+
+
+
+    <!-- Detailed I Ching explanation section -->
+    <div id="ichingExplanation">
+        <h2>About I Ching</h2>
+        <div class="iching-content">
+    <p><strong>The I Ching (pronounced “yee jing”)</strong>, also known as the Book of Changes, is one of the oldest Chinese classical texts, originating around 1000-750 BCE, although some components are believed to date back even further. It is a deeply philosophical, spiritual, and divinatory work that explores the nature of change and the interaction of opposing yet complementary forces in the universe, often referred to as Yin and Yang. The I Ching serves as both a manual of ancient wisdom and a tool for divination, used to gain insight into personal and universal situations.</p>
+
+    <h2>The Structure of the I Ching</h2>
+    <p>The I Ching consists of 64 hexagrams, each composed of six stacked lines that can either be broken (representing Yin) or unbroken (representing Yang). These hexagrams symbolize various states of change, situations, and archetypal patterns of life. Each hexagram has a unique meaning and is associated with philosophical teachings, providing guidance and reflection for various situations.</p>
+
+    <h2>Hexagrams</h2>
+    <p>A hexagram is a combination of two trigrams, each made up of three lines. The eight possible trigrams are:</p>
+    <ul>
+        <li>Qian (☰) - Heaven, creative force.</li>
+        <li>Kun (☷) - Earth, receptive force.</li>
+        <li>Zhen (☳) - Thunder, movement.</li>
+        <li>Xun (☴) - Wind/Wood, gentle penetration.</li>
+        <li>Kan (☵) - Water, danger, depth.</li>
+        <li>Li (☲) - Fire, clarity.</li>
+        <li>Gen (☶) - Mountain, stillness.</li>
+        <li>Dui (☱) - Lake, joy.</li>
+    </ul>
+    <p>Each hexagram’s meaning depends on the combination and interaction of these trigrams. Additionally, each line within a hexagram can change, indicating different aspects of the reading and the potential transformations in the situation.</p>
+
+    <h2>How to Perform an I Ching Reading</h2>
+    <p>Performing an I Ching reading involves creating a hexagram by determining the state (broken or unbroken) of each of the six lines. There are several traditional methods to do this, including using yarrow stalks, coins, or a more simplified modern approach. Here’s a step-by-step guide using the coin method, which is one of the most accessible ways to conduct a reading.</p>
+
+    <h3>1. Prepare Your Space and Mind</h3>
+    <p>Before beginning the reading, find a quiet, calm space where you won’t be disturbed. Many consider it helpful to take a moment to clear your mind and focus on the question or situation you seek guidance on. Formulate your question clearly, as this will guide the interpretation of the hexagram.</p>
+
+    <h3>2. Gather the Materials</h3>
+    <p>For the coin method, you will need:</p>
+    <ul>
+        <li>Three coins (preferably of the same kind)</li>
+        <li>A piece of paper and a pen to record the results.</li>
+    </ul>
+
+    <h3>3. Throw the Coins</h3>
+    <p>You will create a hexagram by throwing the coins six times, each throw representing a line of the hexagram, starting from the bottom (first line) and building upward to the top (sixth line). For each throw:</p>
+    <ol>
+        <li>Toss the three coins and observe whether each lands heads (Yang, unbroken line) or tails (Yin, broken line).</li>
+        <li>Assign numerical values to the coin results:
+            <ul>
+                <li>Heads (Yang) = 3 points</li>
+                <li>Tails (Yin) = 2 points</li>
+            </ul>
+        </li>
+        <li>Add up the points from the three coins:
+            <ul>
+                <li>A total of 6 (all tails) is a changing Yin line (broken line with potential for change).</li>
+                <li>A total of 7 (two tails, one head) is a stable Yang line (unbroken line).</li>
+                <li>A total of 8 (two heads, one tail) is a stable Yin line (broken line).</li>
+                <li>A total of 9 (all heads) is a changing Yang line (unbroken line with potential for change).</li>
+            </ul>
+        </li>
+        <li>Record the line. For changing lines (6 or 9), note that these lines will change to their opposite (broken to unbroken or vice versa) in a second hexagram, indicating potential transformation in the situation.</li>
+    </ol>
+
+    <h3>4. Build the Hexagram</h3>
+    <p>After six throws, you will have constructed a hexagram starting from the bottom line to the top. Each hexagram corresponds to a number between 1 and 64, which you will refer to in the I Ching text or translation.</p>
+
+    <h3>5. Consult the I Ching Text</h3>
+    <p>Once you have your hexagram, look up its meaning in an I Ching book or a translation. Each hexagram has an associated name, symbolism, and explanation of its meaning. It is also accompanied by a description of the individual lines, especially if you have any changing lines (those that are 6 or 9). The changing lines add depth to the reading, suggesting areas of change or potential transformation.</p>
+    <ul>
+        <li><strong>Primary Hexagram:</strong> Represents the current situation or primary condition of the query.</li>
+        <li><strong>Changing Lines:</strong> If there are changing lines, they offer specific insights and areas of focus within the hexagram’s interpretation.</li>
+        <li><strong>Secondary Hexagram:</strong> If there are changing lines, after applying their changes, you derive a second hexagram, representing the evolving future state or potential outcome of the situation.</li>
+    </ul>
+
+    <h3>6. Interpret the Hexagram(s)</h3>
+    <ul>
+        <li>Read the description and meaning of the primary hexagram as it pertains to your situation.</li>
+        <li>If there are changing lines, refer to their specific meanings to understand the nuances they introduce to the reading.</li>
+        <li>If a secondary hexagram is formed due to changing lines, it provides insight into the potential changes or future state of the situation.</li>
+    </ul>
+
+    <h2>Example of an I Ching Reading</h2>
+    <p>Suppose you toss the coins six times and get the following results (from bottom to top):</p>
+    <ol>
+        <li>7 (stable Yang, unbroken line)</li>
+        <li>8 (stable Yin, broken line)</li>
+        <li>6 (changing Yin, broken line that will change to Yang)</li>
+        <li>7 (stable Yang, unbroken line)</li>
+        <li>9 (changing Yang, unbroken line that will change to Yin)</li>
+        <li>8 (stable Yin, broken line)</li>
+    </ol>
+    <p>This hexagram corresponds to a specific number in the I Ching, which you then look up. The presence of changing lines (in positions 3 and 5) indicates that the situation is not static and may evolve. The reading involves interpreting both the initial hexagram and the one formed after applying the changes.</p>
+
+    <h2>Key Concepts in Interpreting the I Ching</h2>
+    <ul>
+        <li><strong>Yin and Yang:</strong> The I Ching’s philosophy is grounded in the balance and interplay between Yin (receptive, passive, dark) and Yang (active, creative, light). Each hexagram and line reflects this balance in various life circumstances.</li>
+        <li><strong>Change:</strong> Central to the I Ching is the concept of change. The hexagrams and changing lines illustrate how situations transform, providing guidance on how to navigate life’s uncertainties.</li>
+        <li><strong>Reflection:</strong> The I Ching is not a predictive tool in the traditional sense. Instead, it encourages introspection, offering perspectives that may not have been considered.</li>
+    </ul>
+
+    <h2>Closing Thoughts</h2>
+    <p>The I Ching is as much a tool for meditation and reflection as it is for divination. Its teachings offer wisdom on how to align oneself with the natural flow of events and to act harmoniously in response to life’s changing circumstances. By understanding its hexagrams and the inherent dynamics between Yin and Yang, one can gain insight into personal situations and the larger patterns of life.</p>
+    <p>When doing an I Ching reading, approach it with an open mind, allowing its philosophical depth to guide your thoughts and actions in dealing with the situation at hand.</p>
+</div>
+
+
+
+
+<footer class="footer">
+        <p>
+					<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="./README.md"  class="styled-link">ReadMe</a></p>
+    </footer>
+		
+		
+		
+		<script src="./nav_script.js"></script>
+
+    <script src="./hexscript.js" defer></script>
+		
+		<script>
+let currentFractalReading = {}; // for fractal-based hex
+
+document.getElementById("fractalHexagramBtn")
+          .addEventListener("click", getHexagramFromFractal);
+			
+// ------------------------
+// ADVANCED FRACTAL SCRIPT (Touch + Pressure, Multiple Fractals)
+// ------------------------
+
+let fractalCanvas = null;
+let fractalCtx = null;
+let isDrawingFractal = false;
+
+// Used for iterative fractals: bigger = denser
+const N_POINTS = 90000;
+
+// Pointer coordinates & pressure
+let lastPointerX = 200;
+let lastPointerY = 200;
+let lastPressure = 1.0;
+
+document.addEventListener("DOMContentLoaded", () => {
+  fractalCanvas = document.getElementById("fractalCanvas");
+  fractalCtx = fractalCanvas.getContext("2d");
+	
+	// Set default canvas size to 350
+  const sizeSelect = document.getElementById("fractalCanvasSize");
+  sizeSelect.value = "400"; // Set dropdown to 350
+  fractalCanvas.width = 400;
+  fractalCanvas.height = 400;
+
+  // Mouse events
+  fractalCanvas.addEventListener("mousedown", handlePointerDown);
+  fractalCanvas.addEventListener("mousemove", handlePointerMove);
+  document.addEventListener("mouseup", () => (isDrawingFractal = false));
+
+  // Touch events
+  fractalCanvas.addEventListener("touchstart", handlePointerDown, { passive: false });
+  fractalCanvas.addEventListener("touchmove", handlePointerMove, { passive: false });
+  document.addEventListener("touchend", () => (isDrawingFractal = false));
+  document.addEventListener("touchcancel", () => (isDrawingFractal = false));
+
+  // Clear & Hexagram & Gallery
+  document.getElementById("clearFractalCanvasBtn")
+          .addEventListener("click", clearFractalCanvas);
+  
+  
+
+  // Canvas size
+  document.getElementById("fractalCanvasSize")
+          .addEventListener("change", resizeFractalCanvas);
+});
+
+
+/** 
+ * MOUSE / TOUCH DOWN
+ */
+function handlePointerDown(evt) {
+  evt.preventDefault();
+  isDrawingFractal = true;
+  updatePointerCoords(evt);
+  drawFractal();
+}
+
+/** 
+ * MOUSE / TOUCH MOVE
+ */
+function handlePointerMove(evt) {
+  if (!isDrawingFractal) return;
+  evt.preventDefault();
+  updatePointerCoords(evt);
+  drawFractal();
+}
+
+/**
+ * Updates lastPointerX/Y and tries to get press force from evt
+ */
+function updatePointerCoords(evt) {
+  const rect = fractalCanvas.getBoundingClientRect();
+  let clientX, clientY, force;
+
+  if (evt.touches && evt.touches.length > 0) {
+    clientX = evt.touches[0].clientX;
+    clientY = evt.touches[0].clientY;
+    force = evt.touches[0].force || 0; // iOS Safari
+  } else {
+    clientX = evt.clientX;
+    clientY = evt.clientY;
+    // Some browsers with pointer events might have evt.pressure
+    force = evt.pressure || 0;
+  }
+
+  lastPointerX = clientX - rect.left;
+  lastPointerY = clientY - rect.top;
+
+  // fallback if no pressure => 1.0
+  lastPressure = force > 0 ? force : 1.0;
+
+  // Add time offset so each new draw is unique
+  const tOff = (Date.now() % 1000) / 1000;
+  lastPointerX += tOff;
+  lastPointerY += tOff;
+}
+
+function drawFractal() {
+  const fractalType = document.getElementById("fractalTypeSelect").value;
+
+  switch (fractalType) {
+    case "flow": 
+      drawFlowFractal();
+      break;
+
+    case "spiral": 
+      drawSpiralFractal();
+      break;
+
+    case "tree": 
+      drawTreeFractal();
+      break;
+
+    case "julia":
+      drawJuliaFractal();
+      break;
+
+    case "labyrinth":
+      drawLabyrinthFractal();
+      break;
+
+    case "mandelbrot":
+  // Instead of the old dynamic version, call:
+  drawMandelbrotRandom();
+  break;
+
+    case "fern":
+      drawBarnsleyFernDynamic();
+      break;
+
+    default:
+      // optional fallback
+      console.warn("Unknown fractalType:", fractalType);
+      break;
+  }
+
+  // Auto-save if checked
+  const saveAll = document.getElementById("saveFractalImagesCheckbox").checked;
+  if (saveAll) {
+    saveFractalToGallery();
+  }
+}
+
+/** 
+ * 1) FLOW FIELD FRACTAL
+ *    More color variation than your old "flow field" version.
+ */
+function drawFlowFractal() {
+  const w = fractalCanvas.width;
+  const h = fractalCanvas.height;
+
+  // We'll draw short lines that follow a pseudo-flow
+  for (let i = 0; i < 6000; i++) {
+    let rx = Math.random() * w;
+    let ry = Math.random() * h;
+
+    // angle influenced by pointer coords & pressure
+    let angle = Math.sin((rx + lastPointerX) * 0.01) +
+                Math.cos((ry + lastPointerY) * 0.01);
+    angle *= 0.5 + lastPressure; // scale by pressure
+
+    const segLen = 12;
+    let x2 = rx + segLen * Math.cos(angle);
+    let y2 = ry + segLen * Math.sin(angle);
+
+    // color
+    let hue = ((rx + ry) * 0.2 + angle * 50) % 360;
+    fractalCtx.strokeStyle = `hsl(${hue},100%,50%)`;
+    fractalCtx.beginPath();
+    fractalCtx.moveTo(rx, ry);
+    fractalCtx.lineTo(x2, y2);
+    fractalCtx.stroke();
+  }
+}
+
+/**
+ * 2) SPIRAL FRACTAL
+ *    Harder press => bigger swirl. Also uses spiralFactorRange.
+ */
+function drawSpiralFractal() {
+  const cx = lastPointerX;
+  const cy = lastPointerY;
+
+  const swirlFactor = parseFloat(document.getElementById("spiralFactorRange").value) || 0.1;
+  let angleIncrement = swirlFactor + 0.06 * lastPressure; 
+  let radiusIncrement = 0.05 + 0.06 * lastPressure; 
+  let branchFactor   = 0.03 + 0.03 * lastPressure; 
+
+  let angle = 0;
+  let radius = 0;
+
+  for (let i = 0; i < N_POINTS; i++) {
+    let x = cx + radius * Math.cos(angle);
+    let y = cy + radius * Math.sin(angle);
+
+    // color
+    const hue = (i * 0.5) % 360;
+    fractalCtx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+    fractalCtx.fillRect(x, y, 1.5, 1.5);
+
+    // side branch
+    const sign = Math.random() < 0.5 ? -1 : 1;
+    let bx = x + sign * branchFactor * radius * Math.cos(angle * 2);
+    let by = y + sign * branchFactor * radius * Math.sin(angle * 2);
+    fractalCtx.fillRect(bx, by, 1.5, 1.5);
+
+    angle += angleIncrement;
+    radius += radiusIncrement;
+  }
+}
+
+/**
+ * 3) BRANCHING TREE FRACTAL
+ *    Harder press => bigger trunk & branch factor. Depth from #depthInput.
+ */
+function drawTreeFractal() {
+  
+
+  const startX = lastPointerX;
+  const startY = lastPointerY;
+  const depth = parseInt(document.getElementById("depthInput").value, 10) || 10;
+
+  const trunkLen = (50 + Math.random() * 40) * lastPressure;
+  const angleVar = 20 + 15 * lastPressure;
+  const branchFactor = 0.7 + 0.2 * (lastPressure - 1);
+
+  drawTreeBranch(startX, startY, trunkLen, -90, depth, angleVar, branchFactor);
+}
+
+function drawTreeBranch(x1, y1, length, angleDeg, depth, angleVar, branchFactor) {
+  if (depth <= 0) return;
+  
+  let rad = (Math.PI / 180) * angleDeg;
+  let x2 = x1 + length * Math.cos(rad);
+  let y2 = y1 + length * Math.sin(rad);
+
+  // color by depth
+  const hue = (depth * 40) % 360;
+  fractalCtx.strokeStyle = `hsl(${hue}, 100%, 60%)`;
+  fractalCtx.lineWidth = Math.max(1, depth * 0.5);
+  
+  fractalCtx.beginPath();
+  fractalCtx.moveTo(x1, y1);
+  fractalCtx.lineTo(x2, y2);
+  fractalCtx.stroke();
+
+  const newDepth = depth - 1;
+  const newLen = length * branchFactor;
+  const offset = Math.random() * angleVar;
+
+  // branch left
+  drawTreeBranch(x2, y2, newLen, angleDeg - offset, newDepth, angleVar, branchFactor);
+  // branch right
+  drawTreeBranch(x2, y2, newLen, angleDeg + offset, newDepth, angleVar, branchFactor);
+
+  // maybe a middle branch
+  if (Math.random() > 0.5) {
+    drawTreeBranch(x2, y2, newLen * 0.8, angleDeg, newDepth, angleVar, branchFactor);
+  }
+}
+
+function drawMandelbrotRandom() {
+  const w = fractalCanvas.width;
+  const h = fractalCanvas.height;
+  
+  // **READ USER ITERATION INPUT**:
+  // e.g. #mandelbrotIterationsInput has a default of 300
+  const maxIter = parseInt(
+    document.getElementById("mandelbrotIterationsInput").value,
+    10
+  ) || 300;
+
+  // Random zoom (any range you like)
+  const zoom = Math.random() * 2 + 2;
+
+  // Random center offsets (again, pick any range you like)
+  const offsetX = Math.random() * 1 - 1;  // [-1..0]
+  const offsetY = Math.random() * 1 - 1;  // [-1..0]
+
+  // Create blank imageData
+  let imageData = fractalCtx.createImageData(w, h);
+  let data = imageData.data;
+  let idx = 0;
+  
+  // Optional fade out old fractals so each new one doesn't fully erase them
+  fractalCtx.fillStyle = "rgba(0,0,0,0.1)";
+  fractalCtx.fillRect(0, 0, w, h);
+
+  // Loop over each pixel
+  for (let py = 0; py < h; py++) {
+    // Map pixel Y to the complex plane
+    let cy = (py - h / 2) / (0.5 * zoom * h) + offsetY;
+    
+    for (let px = 0; px < w; px++) {
+      // Map pixel X to the complex plane
+      let cx = (px - w / 2) / (0.5 * zoom * w) + offsetX;
+      
+      // Standard mandelbrot iteration
+      let [iter, escaped] = mandelbrotIterations(cx, cy, maxIter);
+      
+      // Color based on iteration
+      // e.g. a rainbow that changes every iteration
+      let hue = (iter * 100) % 360; 
+      let col = hslToRgb(hue, 1, 0.5);
+
+      // Set pixel
+      data[idx++] = col.r;
+      data[idx++] = col.g;
+      data[idx++] = col.b;
+      data[idx++] = 255;
+    }
+  }
+
+  // Render onto canvas
+  fractalCtx.putImageData(imageData, 0, 0);
+}
+
+// user controls
+  const maxIter = parseInt(document.getElementById('mandelbrotIterationsInput')?.value || '300', 10);
+  const q = parseInt(document.getElementById('symmetrySelect').value, 10) || 1;
+
+/**
+ * Returns [iterationCount, escapedOrNot] for a single point in the complex plane.
+ */
+function mandelbrotIterations(cx, cy, maxIter) {
+  let zx = 0, zy = 0;
+  let iter = 0;
+  
+  while (iter < maxIter) {
+    let xTemp = zx*zx - zy*zy + cx;
+    zy = 2 * zx * zy + cy;
+    zx = xTemp;
+
+    if (zx*zx + zy*zy > 4) {
+      return [iter, true];
+    }
+    iter++;
+  }
+  return [iter, false];
+}
+
+
+
+function drawBarnsleyFernDynamic() {
+  // Partial fade for trails
+  fractalCtx.fillStyle = "rgba(0,0,0,0.1)";
+  fractalCtx.fillRect(0, 0, fractalCanvas.width, fractalCanvas.height);
+
+  const w = fractalCanvas.width;
+  const h = fractalCanvas.height;
+
+  // More points => bushier fern
+  const numPoints = 30000;
+
+  // Bigger scale so the fern is larger
+  // At pressure=1 => ~25, at pressure=2 => ~40
+  let scaleFactor = 25 + 15 * (lastPressure - 1);
+
+  // Shift it upward (so it's near top). We'll place the "base" at ~70% from top:
+  // Adjust these numbers to taste.
+  let verticalBase = h * 0.70;
+
+  // Let’s offset the fern horizontally based on pointer X
+  // pointer left => negative offset, pointer right => positive
+  let offsetX = (lastPointerX - w / 2) * .05; 
+  // offsetY for further upward shift; you can adjust it more if desired
+  let offsetY = (lastPointerY - h / 2) * 0.05; 
+
+  // We'll do a rotation for extra variation
+  let rotationDegrees = (lastPointerX / w) * 720;
+  let rotationRadians = (Math.PI / 180) * rotationDegrees;
+  let cosA = Math.cos(rotationRadians);
+  let sinA = Math.sin(rotationRadians);
+
+  // Starting point in “fern space”
+  let x = 0, y = 0; 
+
+  for (let i = 0; i < numPoints; i++) {
+    // Barnsley IFS
+    let r = Math.random();
+    let xNew, yNew;
+
+    if (r < 0.01) {
+      // f1
+      xNew = 0;
+      yNew = 0.16 * y;
+    } else if (r < 0.85) {
+      // f2 => increased chance for more 'stem'
+      xNew = 0.85 * x + 0.04 * y;
+      yNew = -0.04 * x + 0.85 * y + 1.6;
+    } else if (r < 0.92) {
+      // f3 => slightly changed probability
+      xNew = 0.20 * x - 0.26 * y;
+      yNew = 0.23 * x + 0.22 * y + 1.6;
+    } else {
+      // f4
+      xNew = -0.15 * x + 0.28 * y;
+      yNew = 0.26 * x + 0.24 * y + 0.44;
+    }
+
+    x = xNew;
+    y = yNew;
+
+    // Rotate
+    let rx = x * cosA - y * sinA;
+    let ry = x * sinA + y * cosA;
+
+    // Scale + translation
+    let px = Math.floor(w / 2 + offsetX + rx * scaleFactor);
+    let py = Math.floor(verticalBase - offsetY - ry * scaleFactor);
+
+    // Full rainbow color for each point
+    // We'll link it to i so it continuously changes
+    let hue = (i * 0.2) % 360;
+    fractalCtx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+
+    fractalCtx.fillRect(px, py, 1, 1);
+  }
+}
+
+/**
+ * 4) JULIA SET
+ *    Drawn per-pixel. Harder press => modifies 'c' parameter for more variation.
+ */
+function drawJuliaFractal() {
+  const w = fractalCanvas.width;
+  const h = fractalCanvas.height;
+  const maxIter = parseInt(document.getElementById("juliaIterationsInput").value, 10) || 100;
+
+  // c parameter derived from pointer + pressure
+  // e.g. range it in [-1..1]
+  let cr = ((lastPointerX / w) - 0.5) * 2 * lastPressure;
+  let ci = ((lastPointerY / h) - 0.5) * 2 * lastPressure;
+
+  // imageData for direct pixel filling
+  let imageData = fractalCtx.createImageData(w, h);
+  let data = imageData.data;
+
+  let idx = 0;
+  for (let py = 0; py < h; py++) {
+    let y0 = (py / h) * 4 - 2;  // map to [-2..2]
+
+    for (let px = 0; px < w; px++) {
+      let x0 = (px / w) * 4 - 2; // map to [-2..2]
+
+      let x = x0, y = y0;
+      let iteration = 5;
+      while (x*x + y*y < 4 && iteration < maxIter) {
+        let xTemp = x*x - y*y + cr;
+        y = 2*x*y + ci;
+        x = xTemp;
+        iteration++;
+      }
+
+      // color based on iteration
+      let ratio = iteration / maxIter;
+      let hue = Math.floor(ratio * 1480) % 720;
+      let col = hslToRgb(hue, 1.0, .5);
+
+      data[idx]   = col.r;   // R
+      data[idx+1] = col.g;   // G
+      data[idx+2] = col.b;   // B
+      data[idx+3] = 255;     // A
+      idx += 4;
+    }
+  }
+  fractalCtx.putImageData(imageData, 0, 0);
+}
+
+/**
+ * Convert an HSL color to an {r,g,b} object for easy pixel filling
+ */
+function hslToRgb(h, s, l) {
+  // adapted from a standard HSL to RGB formula
+  h = (h % 360) / 360;
+  let r, g, b;
+  if (s === 0) {
+    r = g = b = l;
+  } else {
+    const hue2rgb = (p, q, t) => {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1/6) return p + (q - p) * 6 * t;
+      if (t < 1/2) return q;
+      if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+      return p;
+    };
+    const q = l < 0.5 ? l * (1 + s) : l + s - l*s;
+    const p = 2*l - q;
+    r = hue2rgb(p, q, h + 1/3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1/3);
+  }
+  return {
+    r: Math.round(r * 255),
+    g: Math.round(g * 255),
+    b: Math.round(b * 255)
+  };
+}
+
+/**
+ * 5) LABYRINTH FRACTAL
+ *    Draw a square-spiral labyrinth from pointer outward.
+ */
+function drawLabyrinthFractal() {
+  const cx = Math.floor(lastPointerX);
+  const cy = Math.floor(lastPointerY);
+
+  // We'll do a simple square spiral expansion
+  // Each layer is bigger, with some randomization to create a labyrinth effect.
+  let step = 5;
+  let dir = 0; // 0=right,1=down,2=left,3=up
+  let x = cx, y = cy;
+  let hue = Math.random() * 360;
+
+  fractalCtx.strokeStyle = "yellow";
+  fractalCtx.lineWidth = 1.5;
+
+  // We'll expand ~600 steps
+  for (let i = 0; i < 600; i++) {
+    // random color shift
+    hue += 3;
+    fractalCtx.strokeStyle = `hsl(${hue % 360}, 100%, 50%)`;
+
+    let nx = x, ny = y;
+    switch (dir) {
+      case 0: nx = x + step; break; // right
+      case 1: ny = y + step; break; // down
+      case 2: nx = x - step; break; // left
+      case 3: ny = y - step; break; // up
+    }
+
+    fractalCtx.beginPath();
+    fractalCtx.moveTo(x, y);
+    fractalCtx.lineTo(nx, ny);
+    fractalCtx.stroke();
+
+    x = nx;
+    y = ny;
+
+    if (i % 2 === 0) {
+      step += 5; // expand every 2 segments
+    }
+
+    dir = (dir + 1) % 4; // rotate direction
+  }
+}
+
+/**
+ * Clears the canvas
+ */
+function clearFractalCanvas() {
+  fractalCtx.clearRect(0, 0, fractalCanvas.width, fractalCanvas.height);
+}
+
+/**
+ * Resize the canvas
+ */
+function resizeFractalCanvas() {
+  const newSize = parseInt(document.getElementById("fractalCanvasSize").value, 10);
+  fractalCanvas.width = newSize;
+  fractalCanvas.height = newSize;
+  clearFractalCanvas();
+}
+
+
+
+/**
+ * Saves the fractal image to the gallery with a selection checkbox
+ */
+function saveFractalToGallery() {
+    const dataURL = fractalCanvas.toDataURL("image/png");
+    const gallery = document.getElementById("fractalGallery");
+
+    const container = document.createElement("div");
+    container.classList.add("fractal-item");
+
+    const img = document.createElement("img");
+    img.src = dataURL;
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+
+    // Toggle selection state when clicking image or checkbox
+    img.addEventListener("click", () => {
+        container.classList.toggle("selected");
+        checkbox.checked = !checkbox.checked;
+    });
+    checkbox.addEventListener("change", () => {
+        container.classList.toggle("selected", checkbox.checked);
+    });
+
+    container.appendChild(checkbox);
+    container.appendChild(img);
+    gallery.appendChild(container);
+}
+
+/**
+ * Deletes selected fractals from the gallery
+ */
+function deleteSelectedFractals() {
+    const selectedItems = document.querySelectorAll(".fractal-item.selected");
+
+    if (selectedItems.length === 0) {
+        alert("No images selected!");
+        return;
+    }
+
+    selectedItems.forEach(item => item.remove());
+}
+
+
+
+/**
+ * Save all images in the gallery to the user's device as separate files
+ */
+function saveAllFractalImages() {
+    const gallery = document.getElementById("fractalGallery");
+    const images = gallery.getElementsByTagName("img");
+
+    if (images.length === 0) {
+        alert("No fractal images to save!");
+        return;
+    }
+
+    let delay = 1500; // 500ms delay to prevent browser throttling
+
+    for (let i = 0; i < images.length; i++) {
+        ((index) => {
+            setTimeout(() => {
+                let img = images[index];
+
+                fetch(img.src)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const blobURL = URL.createObjectURL(blob);
+                        const link = document.createElement("a");
+                        link.href = blobURL;
+                        link.download = `fractal_${index + 1}.png`;
+
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+
+                        // Free memory
+                        URL.revokeObjectURL(blobURL);
+                    })
+                    .catch(error => console.error("Error downloading image:", error));
+            }, index * delay);
+        })(i);
+    }
+}
+
+function createGifFromGallery() {
+  const gallery = document.getElementById("fractalGallery");
+  const images = gallery.getElementsByTagName("img");
+
+  if (!images.length) {
+    alert("No images in the gallery to create a GIF from!");
+    return;
+  }
+
+  // 1) Read user-selected options
+  const quality = parseInt(document.getElementById("quality").value, 10);
+  const userWidth = parseInt(document.getElementById("width").value, 10);
+  const userHeight = parseInt(document.getElementById("height").value, 10);
+  const speed = parseInt(document.getElementById("speed").value, 10);
+
+  // 2) Create the GIF instance (width/height optional).
+  //    We'll pass them to ensure the final GIF is recognized as that size.
+  const gif = new GIF({
+    workers: 2,
+    quality: quality,
+    width: userWidth,
+    height: userHeight,
+    workerScript: './lib/gif.worker.js'
+  });
+
+  // 3) For each <img> in the gallery, draw it on a canvas that's userWidth x userHeight
+  //    so it gets stretched exactly.
+  for (let i = 0; i < images.length; i++) {
+    const canvas = document.createElement('canvas');
+    canvas.width = userWidth;
+    canvas.height = userHeight;
+
+    const ctx = canvas.getContext('2d');
+    // Draw the <img> stretched to fill the canvas
+    ctx.drawImage(images[i], 0, 0, userWidth, userHeight);
+
+    // Add the canvas as a frame with the chosen delay
+    gif.addFrame(canvas, { delay: speed });
+  }
+
+  // 4) When finished encoding => let the user download the .gif
+  gif.on('finished', function(blob) {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'fractal_gallery.gif';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url); // free memory
+  });
+
+  // 5) Start rendering
+  gif.render();
+}
+
+// Attach event listener to the "Save All" button
+document.getElementById("saveAllFractalsBtn")
+        .addEventListener("click", saveAllFractalImages);
+
+/**
+ * Clear gallery
+ */
+function clearFractalGallery() {
+  document.getElementById("fractalGallery").innerHTML = "";
+}
+
+document.getElementById("createGifBtn")
+        .addEventListener("click", createGifFromGallery);
+// Attach delete event
+    document.getElementById("deleteSelectedBtn").addEventListener("click", deleteSelectedFractals);
+document.getElementById("clearFractalGalleryBtn")
+          .addEventListener("click", clearFractalGallery);
+					
+document.getElementById('quality').addEventListener('input', function() {
+  document.getElementById('qualityValue').textContent = this.value;
+});
+
+document.getElementById('saveFractalReadingBtn')
+  .addEventListener('click', saveFractalReading);
+	
+function getHexagramFromFractal() {
+  // 1) Get fractal pixel data
+  const width = fractalCanvas.width;
+  const height = fractalCanvas.height;
+  const imageData = fractalCtx.getImageData(0, 0, width, height);
+  const data = imageData.data;
+
+  // 2) Sum R+G+B
+  let totalColor = 0;
+  for (let i = 0; i < data.length; i += 4) {
+    totalColor += data[i] + data[i + 1] + data[i + 2];
+  }
+
+  // 3) mod 262144 => 6-digit octal
+  const modValue = totalColor % 262144;
+  let octalString = modValue.toString(8).padStart(6, "0");
+
+  // 4) digit->line#  (6/7/8/9)
+  const digitToLine = { "0":6, "1":7, "2":7, "3":7, "4":8, "5":8, "6":8, "7":9 };
+  let lineNumbers = [];
+  for (let i = 0; i < 6; i++) {
+    lineNumbers.push(digitToLine[ octalString[i] ]);
+  }
+
+  // Convert line numbers => fractalLines / fractalChangedLines
+  let fractalLines = [];
+  let fractalChangedLines = [];
+  lineNumbers.forEach(num => {
+    if (num === 6) {
+      fractalLines.push("open");
+      fractalChangedLines.push("closed");
+    } else if (num === 7) {
+      fractalLines.push("closed");
+      fractalChangedLines.push("closed");
+    } else if (num === 8) {
+      fractalLines.push("open");
+      fractalChangedLines.push("open");
+    } else if (num === 9) {
+      fractalLines.push("closed");
+      fractalChangedLines.push("open");
+    }
+  });
+
+  // Reverse for bottom-up
+  const hexagramKey = fractalLines.slice().reverse().join(",");
+  const changedKey = fractalChangedLines.slice().reverse().join(",");
+
+  // Lookup hexagrams
+  const primaryNum = hexagrams[hexagramKey];
+  const changedNum = hexagrams[changedKey];
+
+  const primaryHex = primaryNum ? findHexagramByNumber(primaryNum) : null;
+  const changedHex = changedNum ? findHexagramByNumber(changedNum) : null;
+
+  // Identify which lines are changing (6 or 9)
+  // We'll store { line: index+1, meaning: "...from primaryHex.changingLines?" }
+  let changingLineIndices = [];
+  lineNumbers.forEach((val, idx) => {
+    if (val === 6 || val === 9) {
+      changingLineIndices.push(idx + 1); // +1 for 1-based lines
+    }
+  });
+
+  // Build reading object specifically for fractals
+  currentFractalReading = {
+    primaryHexagram: {
+      number: primaryNum || 0,
+      lines: fractalLines,
+      name: primaryHex?.name || "Unknown",
+      description: primaryHex?.description || "No description",
+      changingLines: changingLineIndices.map(lineIndex => ({
+        line: lineIndex,
+        meaning: primaryHex && primaryHex.changingLines
+          ? primaryHex.changingLines[lineIndex] || "No meaning found"
+          : "No meaning found"
+      }))
+    },
+    changedHexagram: changedHex
+      ? {
+          number: changedNum,
+          lines: fractalChangedLines,
+          name: changedHex?.name || "Unknown",
+          description: changedHex?.description || "No description"
+        }
+      : null
+  };
+
+  // Display results to the page
+  displayFractalHexResults(currentFractalReading);
+}
+
+function displayFractalHexResults(fractalReading) {
+  const fractalHexText = document.getElementById("fractalHexagramText");
+  const fractalChangedHexText = document.getElementById("fractalChangedHexagramText");
+
+  // If no valid primary hex
+  if (!fractalReading.primaryHexagram.number) {
+    fractalHexText.innerHTML = `<p>No valid fractal hexagram (sum=0?).</p>`;
+    fractalChangedHexText.innerHTML = "";
+    return;
+  }
+
+  // Primary Hex
+  let html = `
+    <div class="hexagram-card">
+      <h3>Fractal Hexagram ${fractalReading.primaryHexagram.number}:
+          ${fractalReading.primaryHexagram.name}</h3>
+      <p>${fractalReading.primaryHexagram.description}</p>
+  `;
+
+  // If any changing lines
+  if (fractalReading.primaryHexagram.changingLines.length > 0) {
+    html += `<p><strong>Changing Lines:</strong></p>`;
+    fractalReading.primaryHexagram.changingLines.forEach(cl => {
+      html += `<p>Line ${cl.line}: ${cl.meaning}</p>`;
+    });
+  }
+
+  html += `</div>`; // close .hexagram-card
+  fractalHexText.innerHTML = html;
+
+  // Changed Hex
+  if (fractalReading.changedHexagram) {
+    fractalChangedHexText.innerHTML = `
+      <div class="hexagram-card">
+        <h3>Changed Hexagram ${fractalReading.changedHexagram.number}:
+            ${fractalReading.changedHexagram.name}</h3>
+        <p>${fractalReading.changedHexagram.description}</p>
+      </div>
+    `;
+  } else {
+    fractalChangedHexText.innerHTML = "<p>No changed hexagram (all stable lines).</p>";
+  }
+}
+
+	
+function saveFractalReading() {
+  // If no fractal reading has been generated
+  if (!currentFractalReading.primaryHexagram
+   || !currentFractalReading.primaryHexagram.number) {
+    alert("No fractal hexagram to save. Please draw a fractal and click 'Get Hexagram' first.");
+    return;
+  }
+
+  // Add fractal reading to the same localStorage array
+  const readings = JSON.parse(localStorage.getItem('readings')) || [];
+  readings.push(currentFractalReading);
+  localStorage.setItem('readings', JSON.stringify(readings));
+
+  alert("Fractal reading saved successfully!");
+}
+
+/** Clears just the fractal hex display & object */
+function clearFractalHexagram() {
+  currentFractalReading = {};
+  document.getElementById("fractalHexagramText").innerHTML = "";
+  document.getElementById("fractalChangedHexagramText").innerHTML = "";
+}
+
+document.getElementById('clearFractalHexBtn')
+  .addEventListener('click', clearFractalHexagram);
+</script>
+		
+</body>
+</html>

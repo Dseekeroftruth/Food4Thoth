@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iching Sprite Animation</title>
+    <link rel="stylesheet" href="styles1.css">
+</head>
+<body>
+    <div class="sprite-animation"></div>
+
+    <!-- Preload images (hidden from view) -->
+    <div class="preload-images">
+        <img src="images/Untitled.PNG" alt="Preload">
+        <img src="images/Untitled2.PNG" alt="Preload">
+        <img src="images/Untitled3.PNG" alt="Preload">
+        <img src="images/Untitled4.PNG" alt="Preload">
+        <img src="images/Untitled5.PNG" alt="Preload">
+        <img src="images/Untitled6.PNG" alt="Preload">
+        <img src="images/Untitled7.PNG" alt="Preload">
+        <img src="images/Untitled8.PNG" alt="Preload">
+        <img src="images/Untitled9.PNG" alt="Preload">
+        <img src="images/Untitled10.PNG" alt="Preload">
+        <img src="images/Untitled11.PNG" alt="Preload">
+        <img src="images/Untitled12.PNG" alt="Preload">
+        <img src="images/Untitled13.PNG" alt="Preload">
+        <img src="images/Untitled14.PNG" alt="Preload">
+        <img src="images/Untitled15.PNG" alt="Preload">
+        <img src="images/Untitled16.PNG" alt="Preload">
+        <img src="images/Untitled17.PNG" alt="Preload">
+        <img src="images/Untitled18.PNG" alt="Preload">
+      
+        
+        <img src="images/Untitled24.PNG" alt="Preload">
+    </div>
+		<script>
+    // Apply dark mode from localStorage on iframe load
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+    if (savedDarkMode) {
+        document.body.classList.add("dark-mode");
+    }
+
+    // Listen for dark mode messages from the main page
+    window.addEventListener("message", (event) => {
+        if (event.data.darkMode !== undefined) {
+            if (event.data.darkMode) {
+                document.body.classList.add("dark-mode");
+            } else {
+                document.body.classList.remove("dark-mode");
+            }
+        }
+    });
+		
+    window.addEventListener("message", (event) => {
+        if (event.data.triggerAnimation) {
+            startAnimation();
+        }
+    });
+
+    function startAnimation() {
+        const sprite = document.querySelector('.sprite-animation');
+        sprite.classList.add('animate');
+			}
+</script>
+</body>
+</html>
+
+
+    
