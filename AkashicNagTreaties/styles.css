@@ -1,0 +1,407 @@
+ :root {
+      /* Rainbow background gradient colors */
+      --rainbow-start: #ff0000; /* Red */
+      --rainbow-mid1: #ff7f00; /* Orange */
+      --rainbow-mid2: #ffff00; /* Yellow */
+      --rainbow-mid3: #00ff00; /* Green */
+      --rainbow-mid4: #0000ff; /* Blue */
+      --rainbow-mid5: #4b0082; /* Indigo */
+      --rainbow-end: #8f00ff;  /* Violet */
+    }
+		
+		html, body {
+  touch-action: manipulation; /* Disables double-tap zoom on mobile */
+  -webkit-user-select: none;  /* Prevents accidental text selection */
+  user-select: none;
+}
+
+button, a, input, select, textarea {
+  touch-action: manipulation; /* Ensures double-tap doesn't zoom */
+}
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      height: 100%;
+      overflow: hidden;
+      background: linear-gradient(to bottom right,
+        var(--rainbow-start),
+        var(--rainbow-mid1),
+        var(--rainbow-mid2),
+        var(--rainbow-mid3),
+        var(--rainbow-mid4),
+        var(--rainbow-mid5),
+        var(--rainbow-end)
+      );
+      background-size: 200% 200%;
+      animation: rainbowShift 10s infinite alternate;
+    }
+
+    @keyframes rainbowShift {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #000;
+      color: #fff;
+      padding: .5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+			padding-bottom: 15px;
+			color: gold;
+			font-family: fantasy, sans-serif;
+    font-display: swap;
+			font-weight: bolder;
+			font-size: .9rem;
+			
+    }
+
+    header .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+
+    .gallery-container {
+      display: flex;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      height: 100vh;
+      padding-top: 50px; /* adjust for header height */
+      scroll-behavior: smooth;
+			scroll-padding-top: 50px;
+    }
+
+    .story-panel {
+      width: 100vw;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      background: #fefefe;
+      padding: 1rem;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+			scroll-snap-align: start;
+  /* Add the following line to force stopping on each panel */
+  scroll-snap-stop: always;
+    }
+
+    .image-wrapper {
+      max-width: 80%;
+      padding-top: 45px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+
+    .image-wrapper img {
+      width: 70vw;
+      height: auto;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 2px solid gold;
+    }
+
+    .story-text-container {
+      max-width: 80%;
+      height: 25vh;
+      top: 372px;
+      overflow-y: auto;
+      position: absolute;
+      padding: 1rem;
+      scroll-behavior: smooth;
+    }
+
+    .sentence {
+      color: white;
+      opacity: 0;
+      margin: 3rem 0;
+      padding: 1rem;
+      background: #000;
+      transform: translateY(20px);
+      border: 2px solid gold;
+      border-radius: 20px;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    .controls {
+      position: fixed;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      z-index: 1000;
+    }
+
+    .controls button {
+      background: #000;
+      color: #fff;
+      border: none;
+      position: bottom;
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 20px;
+      border: 2px solid gold;
+    }
+
+    /* Inline prev/next buttons inside story text */
+.prev-story1, .next-story1 {
+  background: #000;
+  color: #fff;
+  border: 2px solid gold;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  margin: 0; /* Remove any gap */
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle; /* Align with sentence */
+  line-height: 1; /* Ensure no extra spacing inside */
+	position: bottom;
+}
+
+
+
+/* Align buttons snugly below the sentence */
+.sentence + .prev-story1,
+.sentence + .next-story1 {
+  margin-top: 0.5rem; /* Optional spacing, adjust as needed */
+  display: inline-block;
+}
+
+
+.navigation {
+    position: -webkit-sticky; /* For Safari */
+    position: center;
+		
+    top: 0;
+    z-index: 1000; /* Ensure it's on top of other elements */
+    background-color: #e0e0e0; /* Match your site's background */
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		max-height: 70vh; /* Ensure it doesn't exceed 80% of the viewport height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: 50px;
+		left: 1px;
+    align-items: center;
+		justify-content: center;
+		width: 99%;
+    padding: 5px 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+		font-weight: bolder;
+		
+}
+
+.toggle-button:hover {
+    background-color: black;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+		pointer-events: none; 
+		display: none;
+}
+
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 80px; /* Adjust to stay below the toggle button */
+    right: 10px;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		height: 50%;
+		overflow-y: auto; /* Enable vertical scrolling */
+		
+		
+}
+				
+        .neumorphic-tab {
+					
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: clamp(12px, 1.2vw, 22px);
+						text-align: center;
+        }
+        .neumorphic-tab:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab.active {
+            background: #d1d1d1;
+        }
+
+.footer {
+    text-align: center;
+    position: fixed;
+    bottom: -5px;
+    background-color: black;
+    color: #e0e0e0;
+    width: 100%;
+    font-size: 8px;
+    padding: 2px 0;  /* Reduce top and bottom padding */
+    margin-top: 0;   /* Ensure no extra space above */
+    line-height: .5;  /* Reduce spacing between text lines */
+}
+.footer a {
+    color: #ff6600;
+    text-decoration: none;
+}
+.footer a:hover {
+    text-decoration: underline;
+}
+				
+				/* Responsive adjustments for tablets & up */
+@media (min-width: 768px) {
+	
+    .story-text-container {
+      max-width: 80%;
+      height: 25vh;
+      top: 56vh;
+      
+    }
+}
+
+/* For even larger screens, you can tweak further */
+@media (min-width: 1024px) {
+	
+   .story-text-container {
+      max-width: 80%;
+      height: 25vh;
+      top: 56vh;
+      
+    
+  }
+}
+
+/* Styles When Inside an iframe (only applies if JavaScript adds the class) */
+body.iframe-mode {
+    font-size: 10px; /* Reduce font size only for iframe */
+}
+    /* Make sure this doesn't affect normal mobile screens */
+    body.iframe-mode header {
+			
+        font-size: 10px;
+    }
+		
+		body.iframe-mode .story-text-container {
+			
+        top: 311px;
+    }
+		
+		body.iframe-mode .sentence {
+			
+        font-size: 15px;
+    }
+		
+		body.iframe-mode .sentence {
+			
+        padding: 7px;
+    }
+		
+		body.iframe-mode header {
+			
+        margin-top: -3px;
+    }
+
+    body.iframe-mode header .nav-links a {
+        margin: 0 5px;
+    }
+		
+		body.iframe-mode .toggle-button {
+			top: 40px
+			
+		}
+		
+		body.iframe-mode .toggle-button {
+			font-size: 10px;
+		}
+		
+		body.iframe-mode .logo {
+			font-size: 12px;
+		}
+		
+		
+/* Keep the same style while ensuring it's a clickable link */
+.logo {
+    color: gold; /* Maintain text color */
+    font-family: fantasy;
+    font-weight: bolder;
+    font-size: .8rem;
+    text-decoration: none; /* Remove default underline */
+    display: inline-block; /* Ensure proper spacing */
+}
+
+/* Ensure clickable behavior while maintaining the look */
+.logo:hover {
+    text-decoration: underline; /* Optional: Add underline effect on hover */
+}
+
+.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+
+
