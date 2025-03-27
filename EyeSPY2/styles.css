@@ -1,0 +1,309 @@
+/* ========== BASIC STYLING ========== */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh; /* Ensure full height */
+      display: flex;
+      flex-direction: column;
+    }
+
+    #game-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #scrollable-area {
+      flex: 1;
+      overflow: auto; /* Allow scrolling */
+      position: relative;
+      margin-bottom: 165px; /* Prevent the footer from overlapping the scrollable area */
+    }
+
+    #landscape {
+      position: relative;
+      width: 2000px; /* Example size of the landscape */
+      height: 1500px;
+      background: url('./images/323A13CE-45F5-4BA2-99B6-6C1FCA3738C9.webp') no-repeat center center;
+      background-size: cover;
+    }
+
+    .object {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      pointer-events: auto;
+      user-select: none;
+      z-index: 10;
+    }
+
+    
+
+    /* ========== NAVIGATION ========== */
+    .toggle-button {
+      position: fixed;
+      top: 4px;
+      left: 4px;
+      padding: 5px 10px;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 12px;
+      box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+
+    .toggle-button:hover {
+      background-color: black;
+    }
+
+    .hidden {
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+      transition: all 0.5s ease;
+      pointer-events: none; /* This prevents any clicks on it */
+      display: none;
+    }
+
+    .navigation {
+      position: fixed;
+      top: 40px; /* Adjust to stay below the toggle button */
+      left: 10px;
+      background-color: #e0e0e0;
+      padding: 5px;
+      border-radius: 15px;
+      box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      z-index: 1000;
+      height: 50%;
+      overflow-y: auto; /* Enable vertical scrolling */
+    }
+
+    .neumorphic-tab {
+      display: inline-block;
+      margin: 2px 2px;
+      padding: 3px 3px;
+      border-radius: 25px;
+      background: #e0e0e0;
+      box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      font-size: clamp(16px, 1.2vw, 22px);
+      text-align: center;
+    }
+    .neumorphic-tab:hover {
+      box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+    }
+    .neumorphic-tab.active {
+      background: #d1d1d1;
+    }
+
+    .submenu {
+      padding-left: 20px; /* Indent submenu items */
+      background-color: #f0f0f0;
+      border-left: 2px solid #ccc;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      display: flex;
+      flex-direction: column;
+    }
+    .submenu a {
+      font-size: 0.9rem;
+      padding: 2px 10px;
+      border-radius: 10px;
+      margin-bottom: 7px;
+      margin-top: 5px;
+    }
+    .submenu.hidden {
+      display: none;
+    }
+
+    /* ========== SPARKLES, CONFETTI, MELT EFFECT ========== */
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+    .sparkle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: radial-gradient(circle, white, transparent);
+      border-radius: 50%;
+      animation: sparkle 1s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes rainbow-glitter {
+      0% { background-color: red; }
+      16% { background-color: orange; }
+      33% { background-color: yellow; }
+      50% { background-color: green; }
+      66% { background-color: blue; }
+      83% { background-color: indigo; }
+      100% { background-color: violet; }
+    }
+    .rainbow-glitter {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: red;
+      animation: rainbow-glitter 2s infinite;
+      z-index: 1000;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100vh); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes melt {
+      0% { transform: scaleY(1); }
+      100% { transform: scaleY(0); }
+    }
+    #landscape.melt {
+      animation: melt 3s ease-in-out forwards;
+    }
+
+    /* ========== MEDIA QUERIES ========== */
+    @media (orientation: landscape) {
+      footer {
+        font-size: 0.7rem;
+      }
+    }
+    @media (min-width: 768px) {
+      footer {
+        font-size: 0.95rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      footer {
+        font-size: 20px;
+      }
+    }
+
+    /* ========== IFRAME MODE ========== */
+    body.iframe-mode {
+      font-size: 8px; /* Reduce font size only for iframe */
+    }
+    body.iframe-mode footer {
+      font-size: 0.365rem;
+    }
+		
+		footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #333;
+      color: white;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+			
+
+      /* We'll use a flex layout that has a top row for the tally
+         and a bottom area for the item list */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 5px 10px;
+			margin-left: -10px;
+			
+    }
+
+    /* Tally area */
+    #tally-wrapper {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 5px; /* spacing before the list */
+			
+    }
+    #tally-label {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: bold;
+      display: inline-block;
+      padding: 4px 8px;
+      background: #444;
+      border-radius: 4px;
+			margin-left: -20px;
+			
+    }
+
+    /* Found-list area */
+    #found-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      /* We use flex-wrap and a maximum height with scroll if needed */
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+
+      max-height: 100px; /* Adjust to taste; ensures the footer is not too tall */
+      overflow-y: auto;  /* Scroll if the list is too tall */
+      width: 100%;
+			margin-left: -10px;
+			padding-bottom: 25px;
+    }
+
+    #found-list li {
+      text-decoration: none;
+      color: white;
+      background: #444;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      white-space: nowrap; /* Prevent awkward text wraps within an item name */
+			
+    }
+
+    #found-list li.found {
+      text-decoration: line-through;
+      color: #888;
+      background: #222;
+    }
+
+    /* Optional: define a hover effect for items in the footer list */
+    #found-list li:hover {
+      background: #555;
+    }
+		
+		.bottom-footer {
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: #fff; /* Adjust as needed */
+  
+  padding: 2px 0;
+  white-space: nowrap; /* Ensures text stays in one line */
+	background: black;
+}
+
+.bottom-footer a {
+  color: #ff6600; /* Link color */
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 12px;
+}
