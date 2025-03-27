@@ -1,0 +1,462 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%; /* Ensures the body covers the full height of the page */
+    font-family: sans-serif;
+    background: #222;
+    background-image: url("./images/BFA6C55E-FDAF-4624-BC82-900CEF3B7D15.webp");
+    background-size: cover;       /* Ensures the image covers the entire area */
+    background-position: center;  /* Center the image */
+    background-attachment: fixed; /* Keeps the image fixed during scrolling */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+}
+
+    .container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .sprite {
+      position: absolute;
+      cursor: pointer;
+      user-select: none; /* avoid text selection on drag */
+    }
+
+    /* Existing parts */
+    #nose {
+      top: 33%;
+      left: 35%;
+      width: 400px;
+      height: auto;
+      z-index: 10;
+    }
+    #leftEar {
+      top: 25%;
+      left: 10%;
+      width: 300px;
+      height: auto;
+      z-index: 10;
+    }
+    #rightEar {
+      top: 25%;
+      left: 69%;
+      width: 300px;
+      height: auto;
+      z-index: 10;
+    }
+
+    /* Tie (draggable for Reverb) */
+    #tie {
+      top: 57%;
+      left: 38%;
+      width: 300px;
+      height: auto;
+      cursor: grab;
+      z-index: 20;
+    }
+    #tie:active {
+      cursor: grabbing;
+    }
+
+    /* 1) Mustache (draggable for Distortion) */
+    #mustache {
+      top: 44%;
+      left: 35%;
+      width: 400px;
+      height: auto;
+      cursor: grab;
+      z-index: 20;
+    }
+    #mustache:active {
+      cursor: grabbing;
+    }
+
+    /* 2) Glasses (draggable for Delay) */
+    #glasses {
+      top: 20%;
+      left: 30%;
+      width: 500px;
+      height: auto;
+      cursor: grab;
+      z-index: 20;
+    }
+    #glasses:active {
+      cursor: grabbing;
+    }
+
+    /* Additional toggling body parts: mouth, eyes, hands, feet */
+    #mouth {
+      top: 50%;
+      left: 35%;
+      width: 400px;
+      height: auto;
+      z-index: 10;
+    }
+    #leftEye {
+      top: 26%;
+      left: 32%;
+      width: 200px;
+      height: auto;
+      z-index: 10;
+    }
+    #rightEye {
+      top: 26%;
+      left: 58%;
+      width: 200px;
+      height: auto;
+      z-index: 10;
+    }
+    #leftHand {
+      top: 45%;
+      left: 10%;
+      width: 250px;
+      height: auto;
+      z-index: 10;
+    }
+    #rightHand {
+      top: 45%;
+      left: 75%;
+      width: 250px;
+      height: auto;
+      z-index: 10;
+    }
+    #leftFoot {
+      top: 70%;
+      left: 17%;
+      width: 250px;
+      height: auto;
+      z-index: 10;
+    }
+    #rightFoot {
+      top: 70%;
+      left: 65%;
+      width: 250px;
+      height: auto;
+      z-index: 10;
+    }
+		
+		/* Initially hide the instructions */
+#instructions {
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 10px;
+    font-size: 2rem;
+    border-radius: 4px;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+/* Hidden state */
+.hidden {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    display: none; /* Ensures no space is occupied */
+}
+
+
+
+    /* Button for showing/hiding instructions */
+#toggleInstructions {
+    position: absolute;
+    top: 5px;
+    right: 60%;
+    padding: 8px 12px;
+    font-size: 1rem;
+    background: #ff007f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px #ff007f;
+    transition: all 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+#toggleInstructions:hover {
+    background: #ff66a5;
+}
+
+/* Scale down instructions when inside iframe */
+body.iframe-mode #instructions {
+    font-size: 12px;
+    padding: 8px;
+    top: 5px;
+    left: 5px;
+}
+
+body.iframe-mode #toggleInstructions {
+    font-size: .5rem;
+    padding: 5px 8px;
+		right: 35%;
+}
+
+    /* Play Button Specific Styling */
+#playBtn {
+    padding: 8px 12px;
+    font-size: 1.5rem;
+    background: #ff007f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px #ff007f;
+    transition: all 0.3s ease-in-out;
+    margin-right: 10px;
+}
+
+/* Stop Button Specific Styling */
+#stopBtn {
+    padding: 8px 12px;
+    font-size: 1.5rem;
+    background: #ff007f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px #ff007f;
+    transition: all 0.3s ease-in-out;
+    margin-right: 10px;
+}
+
+/* Scale down buttons in iframe mode */
+body.iframe-mode #controls button {
+    font-size: 0.5rem;
+    padding: 5px 8px;
+    box-shadow: 0 0 5px #ff007f;
+}
+
+
+		
+		/* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+}
+
+.toggle-button:hover {
+    background-color: black;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+		pointer-events: none; /* This prevents any clicks on it */
+		display: none;
+}
+
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 80px; /* Adjust to stay below the toggle button */
+    right: 10px;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		height: 50%;
+		overflow-y: auto; /* Enable vertical scrolling */
+		font-size: 1.5rem;
+		
+}
+				
+        .neumorphic-tab {
+					
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: clamp(22px, 1.2vw, 28px);
+						text-align: center;
+        }
+        .neumorphic-tab:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab.active {
+            background: #d1d1d1;
+        }
+				
+				.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 1.5rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+.footer {
+    text-align: center;
+    position: fixed;
+    bottom: 0px;
+    background-color: black;
+    color: #e0e0e0;
+    width: 100%;
+    font-size: 2rem;
+    padding: 10px 10px;  /* Reduce top and bottom padding */
+    
+    line-height: .5;  /* Reduce spacing between text lines */
+		margin-top: 20px;
+		left: 0;
+}
+.footer a {
+    color: #ff6600;
+    text-decoration: none;
+}
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Pulsing rainbow glow for active sprites */
+.sprite.active {
+  animation: rainbowGlow 2s infinite alternate ease-in-out;
+  filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.8));
+}
+
+@keyframes rainbowGlow {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.8)); /* Red */
+  }
+  20% {
+    filter: drop-shadow(0 0 20px rgba(255, 165, 0, 0.8)); /* Orange */
+  }
+  40% {
+    filter: drop-shadow(0 0 20px rgba(255, 255, 0, 0.8)); /* Yellow */
+  }
+  60% {
+    filter: drop-shadow(0 0 20px rgba(0, 255, 0, 0.8)); /* Green */
+  }
+  80% {
+    filter: drop-shadow(0 0 20px rgba(0, 0, 255, 0.8)); /* Blue */
+  }
+  100% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(128, 0, 128, 0.8)); /* Purple */
+  }
+}
+
+
+
+/* When inside an iframe, scale down the entire layout */
+body.iframe-mode .footer {
+    font-size: .8rem;
+}
+
+/* When inside an iframe, scale down the entire layout */
+body.iframe-mode .toggle-button {
+    font-size: .6rem;
+}
+
+/* When inside an iframe, scale down the entire layout */
+body.iframe-mode {
+    transform: scale(1); /* Adjust scale factor as needed */
+    transform-origin: top left;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+
+/* Alternatively, scale elements individually when in iframe */
+body.iframe-mode #nose,
+
+body.iframe-mode #mustache,
+
+body.iframe-mode #mouth,
+
+body.iframe-mode #leftFoot,
+body.iframe-mode #rightFoot {
+    width: 22%; /* Reduce width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Alternatively, scale elements individually when in iframe */
+body.iframe-mode #nose,
+
+body.iframe-mode #mustache,
+
+body.iframe-mode #mouth {
+    width: 30%; /* Reduce width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+body.iframe-mode #leftEar,
+body.iframe-mode #rightEar
+{
+    width: 18%; /* Reduce width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+body.iframe-mode #leftHand,
+body.iframe-mode #rightHand
+{
+    width: 18%; /* Reduce width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+body.iframe-mode #tie
+{
+    width: 20%; /* Reduce width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+body.iframe-mode #glasses
+{
+    width: 40%; /* Reduce width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+body.iframe-mode #leftEye,
+body.iframe-mode #rightEye
+{
+    width: 12%; /* Reduce width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+body.iframe-mode #stopBtn,
+body.iframe-mode #playBtn {
+    font-size: .8rem;
+}
+
