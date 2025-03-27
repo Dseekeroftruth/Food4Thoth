@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parental Controls</title>
+    <link rel="stylesheet" href="stylesPC.css">
+</head>
+
+<style>
+body {
+	padding-bottom: 20px;
+}
+
+.iframe-container {
+  position: fixed;
+  top: -10%;
+  left: 50%;
+  width: 50vw;
+  height: 50vh;
+  z-index: 10;
+	border: none;
+}
+
+.logo-animation {
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Prevents iframe interaction initially */
+  opacity: 1;
+  transition: opacity 0.5s ease;
+	border: none;
+}
+
+.touch-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  cursor: pointer;
+  border: none;
+}
+
+.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+/* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: 10px;
+    right: 5px;
+    padding: 5px 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+}
+
+.toggle-button:hover {
+    background-color: black;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+		pointer-events: none; /* This prevents any clicks on it */
+		display: none;
+}
+
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 60px; /* Adjust to stay below the toggle button */
+    right: 10px;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		height: 50%;
+		overflow-y: auto; /* Enable vertical scrolling */
+		
+		
+}
+				
+        .neumorphic-tab {
+					
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: clamp(16px, 1.2vw, 22px);
+						text-align: center;
+        }
+        .neumorphic-tab:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab.active {
+            background: #d1d1d1;
+        }
+
+				.footer {
+    text-align: center;
+    position: fixed;
+    bottom: 0px;
+    background-color: black;
+    color: #ffffff !important;
+    width: 100%;
+    font-size: .7rem;
+    padding: 2px 0;  /* Reduce top and bottom padding */
+    margin-top: 0;   /* Ensure no extra space above */
+    line-height: .5;  /* Reduce spacing between text lines */
+		left: 0;
+}
+.footer a {
+    color: #ff6600;
+    text-decoration: none;
+}
+.footer a:hover {
+    text-decoration: underline;
+}
+
+body {
+    background-color: #ffffff; /* Light background */
+    color: #000000; /* Dark text for contrast */
+}
+
+.container {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+h1, h2, ul, ol, li {
+    color: #000000; /* Ensures text is visible */
+}
+
+.submenu {
+    background-color: #f8f8f8; /* Light background for submenu */
+}
+
+.submenu a {
+    color: #000000;
+}
+
+.navigation {
+    background-color: #e0e0e0; /* Lighter navigation background */
+}
+
+.footer {
+    background-color: #222; /* Dark footer */
+    color: purple;
+}
+
+</style>
+<body>
+	
+	  <button id="toggle-nav" class="toggle-button">☰ Nav</button>
+<div id="navigation" class="navigation hidden">
+	
+	<a href="./indexStill.html" class="neumorphic-tab">Food4Thoth Main</a>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-black-business">Black Business Eugene</a>
+  <div id="submenu-black-business" class="submenu hidden">
+    <a href="./BlackBuisnessEugene/index.html" class="neumorphic-tab">Black Business Directory</a>
+    <a href="./BlackBuisnessEugene/blackbusinessformpage.html" class="neumorphic-tab">Black Business Form</a>
+		<a href="./BlackBuisnessEugene/README.md" class="neumorphic-tab">ReadMe</a>
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-community-garden">Community Gardens</a>
+<div id="submenu-community-garden" class="submenu hidden">
+  <a href="./CommunityGardens/ALLLISTCommunitygardenall2.html" class="neumorphic-tab">Full List of All Gardens</a>
+	<a href="./CommunityGardens/indexMobileLanding.html" class="neumorphic-tab">Mobile Landing</a>
+  <a href="./CommunityGardens/COMMUNITYGARDENANIMATIONdesktop.html" class="neumorphic-tab">Desktop Landing</a>
+  <a href="./CommunityGardens/EugeneCommunitygardenall3.html" class="neumorphic-tab">Eugene Community Garden Map</a>
+	 <a href="./CommunityGardens/PortlandCommunitygardenall3.html" class="neumorphic-tab">Portland Community Garden Map</a>
+  <a href="./CommunityGardens/INFOCommunitygardenall2.html" class="neumorphic-tab">Community Garden Info</a>
+  <a href="./CommunityGardens/ListCommunityGardenEugene.html" class="neumorphic-tab">Eugene Garden List</a>
+  <a href="./CommunityGardens/ListCommunitygardenPortland.html" class="neumorphic-tab">Portland Garden List</a>
+	<a href="./CommunityGardens/README.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-visualizers">Sound & Voice Visualizers</a>
+<div id="submenu-visualizers" class="submenu hidden">
+  <a href="./SoundActivatedVisualizor/index2.html" class="neumorphic-tab">Voice Activated Visualizer</a>
+  <a href="./SoundActivatedVisualizor/index6.html" class="neumorphic-tab">Sound Visualizer w/Media Loader</a>
+  <a href="./SoundActivatedVisualizor/README.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-arp">ARP Synths</a>
+<div id="submenu-arp" class="submenu hidden">
+  <a href="./ArpAppNoVisualHighFi/index.html" class="neumorphic-tab">ARP App: No Visual (High-Fi)</a>
+  <a href="./ArpAppNoVisualLoFi/index.html" class="neumorphic-tab">ARP App: No Visual (Lo-Fi)</a>
+  <a href="./ArpAppWithVisual/index.html" class="neumorphic-tab">ARP App: With Visual</a>
+	<a href="./ArpAppNoVisualHighFi/readme.md" class="neumorphic-tab">ReadMe</a>
+	<a href="./ArpAppWithVisual/readme.md" class="neumorphic-tab">w/Visualizer ReadMe</a>
+</div>
+
+ <a href="#" class="neumorphic-tab" data-expand="submenu-games">Games</a>
+<div id="submenu-games" class="submenu hidden">
+  <a href="./NewSchoolGameKid/index2.html" class="neumorphic-tab">New School Game: Kid Sprite</a>
+  <a href="./NewSchoolGameWizard/index4.html" class="neumorphic-tab">New School Game: Wizard Sprite</a>
+  <a href="./OldSchoolGameDesktop/index2.html" class="neumorphic-tab">Old School Game: Desktop</a>
+  <a href="./OldSchoolGameMobile/index2.html" class="neumorphic-tab">Old School Game: Mobile</a>
+  <a href="./TerminalGameTransition/index.html" class="neumorphic-tab">Terminal Transition Game</a>
+	<a href="./comingSoon.html" class="neumorphic-tab">SideScroll Game</a>
+  <a href="./OldSchoolGameMobile/README.md" class="neumorphic-tab">Game ReadMe</a>
+</div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-glo-calculato">Glo-Calculato</a>
+  <div id="submenu-glo-calculato" class="submenu hidden">
+    <a href="./Glo-Calculato1/RainbowGlowCalculato.html" class="neumorphic-tab">Glo-Calculato Landing</a>
+    <a href="./Glo-Calculato1/SMARTglowCalc.html" class="neumorphic-tab">Full-Sized Glo-Calculato</a>
+    <a href="./Glo-Calculato/GLO-CALCULATO/Glo-Calculato.zip" class="neumorphic-tab">Download Glo-Calculato</a>
+		<a href="./Glo-Calculato1/README.md" class="neumorphic-tab">ReadMe</a>
+    <a href="./Glo-Calculato1/SMARTglowCalcDonations.html" class="neumorphic-tab">Donations Page</a>
+		<a href="./Glo-Calculato1/READMEDonations.md" class="neumorphic-tab">Donations ReadMe</a>
+		
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-hakim-bey">Hakim Bey</a>
+  <div id="submenu-hakim-bey" class="submenu hidden">
+    <a href="./HakimBey/hakimbey9.html" class="neumorphic-tab">Hakim Bey Anarchy Page</a>
+    <a href="./HakimBey/joinTheMovement.html" class="neumorphic-tab">Anarchy Collective Contact</a>
+		<a href="./HakimBey/README.md" class="neumorphic-tab">ReadMe</a>
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-tarot">Tarot</a>
+<div id="submenu-tarot" class="submenu hidden">
+  <a href="./TarotTogetherNoAge/index.html" class="neumorphic-tab">Tarot Main Landing (No Age Restriction)</a>
+  <a href="./TarotSacredGeometry/index.html" class="neumorphic-tab">Sacred Geometry Tarot</a>
+  <a href="./TarotCyberPunkDark/index.html" class="neumorphic-tab">CyberPunk Dark Tarot</a>
+  <a href="./TarotCyberPunkMelo/index.html" class="neumorphic-tab">CyberPunk Melo Tarot</a>
+	<a href="./TarotOG/musicscrolltarotvoice5.html" class="neumorphic-tab">OG Tarot w/Voice Commands</a>
+	<a href="./TarotTextList/CyberTarotText.html" class="neumorphic-tab">Description List</a>
+	<a href="./comingSoon.html" class="neumorphic-tab">More Tarot</a>
+	 <a href="./TarotAgeVerify/index.html" class="neumorphic-tab">18+ Content Landing</a>
+  <a href="./TarotCrystalQueens/indexAge.html" class="neumorphic-tab">18+ Crystal Queens Tarot</a>
+  <a href="./TarotCyberPunkX/indexAge.html" class="neumorphic-tab">18+ CyberPunk X Tarot</a>
+	<a href="./parental-controls.html" class="neumorphic-tab">Parental Controls</a>
+	<a href="./READMEParental.md" class="neumorphic-tab">Parental ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-iching">I Ching</a>
+<div id="submenu-iching" class="submenu hidden">
+  <a href="./Iching/index.html" class="neumorphic-tab">I Ching Main Page</a>
+  <a href="./Iching/ichingAnimeLoop.html" class="neumorphic-tab">I Ching Anime Loop</a>
+  <a href="./Iching/README.md" class="neumorphic-tab">I Ching ReadMe</a>
+</div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-hashisheen">Hashisheen Album Reviews</a>
+  <div id="submenu-hashisheen" class="submenu hidden">
+		 <a href="./EndOfLawHASHISHEEN/AllHashineenReviews.html" class="neumorphic-tab">Landing Page</a>
+    <a href="./EndOfLawHASHISHEEN/FullAlbumReview.html" class="neumorphic-tab">Full Album Review</a>
+     <a href="./EndOfLawHASHISHEEN/index1.html" class="neumorphic-tab">Hashisheen Album Review (Track 1)</a>
+    <a href="./EndOfLawHASHISHEEN/index2.html" class="neumorphic-tab">Hashisheen Album Review (Track 2)</a>
+    <a href="./EndOfLawHASHISHEEN/index3.html" class="neumorphic-tab">Hashisheen Album Review (Track 3)</a>
+    <a href="./EndOfLawHASHISHEEN/index4.html" class="neumorphic-tab">Hashisheen Album Review (Track 4)</a>
+    <a href="./EndOfLawHASHISHEEN/index5.html" class="neumorphic-tab">Hashisheen Album Review (Track 5)</a>
+    <a href="./EndOfLawHASHISHEEN/index6.html" class="neumorphic-tab">Hashisheen Album Review (Track 6)</a>
+    <a href="./EndOfLawHASHISHEEN/index7.html" class="neumorphic-tab">Hashisheen  Album Review (Track 7)</a>
+    <a href="./EndOfLawHASHISHEEN/index8.html" class="neumorphic-tab">Hashisheen Album Review (Track 8)</a>
+    <a href="./EndOfLawHASHISHEEN/index9.html" class="neumorphic-tab">Hashisheen Album Review (Track 9)</a>
+    <a href="./EndOfLawHASHISHEEN/index10.html" class="neumorphic-tab">Hashisheen Album Review (Track 10)</a>
+    <a href="./EndOfLawHASHISHEEN/index11.html" class="neumorphic-tab">Hashisheen Album Review (Track 11)</a>
+    <a href="./EndOfLawHASHISHEEN/index12.html" class="neumorphic-tab">Hashisheen Album Review (Track 12)</a>
+    <a href="./EndOfLawHASHISHEEN/index13.html" class="neumorphic-tab">Hashisheen Album Review (Track 13)</a>
+    <a href="./EndOfLawHASHISHEEN/index14.html" class="neumorphic-tab">Hashisheen Album Review (Track 14)</a>
+    <a href="./EndOfLawHASHISHEEN/index15.html" class="neumorphic-tab">Hashisheen Album Review (Track 15)</a>
+    <a href="./EndOfLawHASHISHEEN/index16.html" class="neumorphic-tab">Hashisheen Album Review (Track 16)</a>
+    <a href="./EndOfLawHASHISHEEN/index17.html" class="neumorphic-tab">Hashisheen Album Review (Track 17)</a>
+    <a href="./EndOfLawHASHISHEEN/index18.html" class="neumorphic-tab">Hashisheen Album Review (Track 18)</a>
+    <a href="./EndOfLawHASHISHEEN/index19.html" class="neumorphic-tab">Hashisheen Album Review (Track 19)</a>
+    <a href="./EndOfLawHASHISHEEN/index20.html" class="neumorphic-tab">Hashisheen Album Review (Track 20)</a>
+    <a href="./EndOfLawHASHISHEEN/index21.html" class="neumorphic-tab">Hashisheen Album Review (Track 21)</a>
+    <a href="./EndOfLawHASHISHEEN/index22.html" class="neumorphic-tab">Hashisheen Album Review (Track 22)</a>
+		<a href="./comingSoon.html" class="neumorphic-tab">More Reviews</a>
+		<a href="./EndOfLawHASHISHEEN/README.md" class="neumorphic-tab">ReadMe</a>
+  </div>
+	
+	<a href="#" class="neumorphic-tab" data-expand="submenu-akashic">Akashic Records</a>
+<div id="submenu-akashic" class="submenu hidden">
+  <a href="./css-only-3d-image-carousel/index.html" class="neumorphic-tab">Main Landing</a>
+  <a href="./AkashicAsclepiusDeep/index.html" class="neumorphic-tab">Akashic Asclepius Deep</a>
+  <a href="./AkashicAsclepiusLite/index.html" class="neumorphic-tab">Akashic Asclepius Lite</a>
+  <a href="./AkashicEmeraldAsAbove/index.html" class="neumorphic-tab">Akashic Emerald As Above</a>
+  <a href="./AkashicEmeraldDeep/index.html" class="neumorphic-tab">Akashic Emerald Deep</a>
+  <a href="./AkashicEmeraldLite/index.html" class="neumorphic-tab">Akashic Emerald Lite</a>
+  <a href="./AkashicHermiticum/index.html" class="neumorphic-tab">Akashic Hermiticum</a>
+  <a href="./AkashicHymnLite/index.html" class="neumorphic-tab">Akashic Hymn Lite</a>
+  <a href="./AkashicNag/index.html" class="neumorphic-tab">Akashic Nag</a>
+  <a href="./AkashicNag13Codex/index.html" class="neumorphic-tab">Akashic Nag 13 Codex</a>
+  <a href="./AkashicNagTreaties/index.html" class="neumorphic-tab">Akashic Nag Treaties</a>
+  <a href="./AkashicThothDeep/index.html" class="neumorphic-tab">Akashic Thoth Deep</a>
+  <a href="./AkashicThothLite/index.html" class="neumorphic-tab">Akashic Thoth Lite</a>
+	<a href="./comingSoon.html" class="neumorphic-tab">More Pages</a>
+	<a href="./AkashicAsclepiusDeep/README.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-anarchy">Anarchy Comics & Info</a>
+<div id="submenu-anarchy" class="submenu hidden">
+  <a href="./AnarchyComicBreakFree/index.html" class="neumorphic-tab">Anarchy Comic: Break Free</a>
+  <a href="./AnarchyComicCocoon/index.html" class="neumorphic-tab">Anarchy Comic: Cocoon</a>
+  <a href="./AnarchyDepth/index.html" class="neumorphic-tab">Anarchy Depth</a>
+  <a href="./AnarchyIsAlwaysMobile/index.html" class="neumorphic-tab">Anarchy Is Always Mobile</a>
+  <a href="./AnarchyPoetics/index.html" class="neumorphic-tab">Anarchy Poetics</a>
+  <a href="./AnarchyTAZ/index.html" class="neumorphic-tab">Anarchy TAZ</a>
+	<a href="./comingSoon.html" class="neumorphic-tab">More Pages</a>
+	<a href="./AnarchyComicBreakFree/readme.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-eyespy">Eye Spy</a>
+<div id="submenu-eyespy" class="submenu hidden">
+  <a href="./EyeSPY1/index.html" class="neumorphic-tab">Eye Spy Game (1st Edition)</a>
+	<a href="./comingSoon.html" class="neumorphic-tab">More Pages</a>
+  <a href="./EyeSPY1/readme.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-tide-walk">Tide Walk</a>
+<div id="submenu-tide-walk" class="submenu hidden">
+  <a href="./TideApp/indexOregon.html" class="neumorphic-tab">Tide Walk Oregon</a>
+  <a href="./TideApp/indexBoston.html" class="neumorphic-tab">Tide Walk Boston</a>
+  <a href="./TideApp/readme.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-trent">Trent</a>
+<div id="submenu-trent" class="submenu hidden">
+  <a href="./TrentOfTheDay/index.html" class="neumorphic-tab">Trent of the Day</a>
+  <a href="./TrentStorybook1stMobile/index.html" class="neumorphic-tab">Trent Storybook</a>
+  <a href="./TrentStorybook1stMobile/contact.html" class="neumorphic-tab">Contact</a>
+  <a href="./TrentStorybook1stMobile/about.html" class="neumorphic-tab">About</a>
+	<a href="./comingSoon.html" class="neumorphic-tab">Space StoryBook</a>
+  <a href="./TrentOfTheDay/README.md" class="neumorphic-tab">Trent of the Day ReadMe</a>
+  <a href="./TrentStorybook1stMobile/readme.md" class="neumorphic-tab">Trent Storybook ReadMe</a>
+</div>
+
+  <a href="./ChooseYourOwnAdventure/prologue.html" class="neumorphic-tab">Choose Your Own Adventure</a>
+	<a href="./RstoryArtabillies/index.html" class="neumorphic-tab">Rstory</a>
+	<a href="./CollectiveSummary/index.html" class="neumorphic-tab">Collective Summary</a>
+  <a href="http://www.food4thoth.com" class="neumorphic-tab">Food4Thoth</a>
+  <a href="http://www.artabillies.com" class="neumorphic-tab">Artabillies</a>
+	<a href="./contact.html" class="neumorphic-tab">Food4Thoth Page Contact</a>
+  <a href="mailto:food4thoth@proton.me" class="neumorphic-tab">Email: food4thoth@proton.me</a>
+	<a href="./portfolio.html" class="neumorphic-tab">Portfolio Page</a>
+	<a href="./comingSoon.html" class="neumorphic-tab">MindMelt</a>
+	<a href="./comingSoon.html" class="neumorphic-tab">Food4Thoth Desktop Landing</a>
+	<a href="./README.md" class="neumorphic-tab">Food4Thoth ReadMe</a>
+</div>
+	
+	<!-- Autoplay Video (Spiral Fractal) -->
+<div class="iframe-container">
+  <iframe class="logo-animation" id="toggleIframe" 
+          src="./optimus-prime-toggle-with-css-transform-cpc-toggles/index.html">
+  </iframe>
+  <div class="touch-overlay" id="touchOverlay"></div>
+</div>
+
+
+		
+    <div class="container">
+        <header>
+            <h1>Parental Controls Guide</h1>
+            <p>Learn how to block websites and manage access for a safer browsing experience.</p>
+        </header>
+        <section>
+            <h2>1. Using Browser Settings</h2>
+            <p>Most modern browsers provide parental controls or allow you to block specific websites. Here’s how:</p>
+            <ul>
+                <li><strong>Google Chrome:</strong>
+                    <ol>
+                        <li>Open Chrome and go to <code>Settings</code>.</li>
+                        <li>Click on <code>Privacy and Security</code>.</li>
+                        <li>Under <code>Site Settings</code>, choose <code>Block</code> and add the URLs of the websites you want to block.</li>
+                        <li>Save your settings.</li>
+                    </ol>
+                </li>
+                <li><strong>Firefox:</strong>
+                    <ol>
+                        <li>Install a parental control add-on such as <code>LeechBlock</code>.</li>
+                        <li>Configure the add-on to block specific websites.</li>
+                    </ol>
+                </li>
+                <li><strong>Microsoft Edge:</strong>
+                    <ol>
+                        <li>Go to <code>Settings > Family Safety</code>.</li>
+                        <li>Sign in with your Microsoft account and set up parental controls.</li>
+                    </ol>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Using Router Settings</h2>
+            <p>Block websites for all devices on your home network by configuring your router:</p>
+            <ol>
+                <li>Log in to your router’s web interface (usually <code>192.168.0.1</code> or <code>192.168.1.1</code>).</li>
+                <li>Find the <code>Parental Controls</code> or <code>Website Blocking</code> section in the router’s settings.</li>
+                <li>Add the URLs of the websites you want to block.</li>
+                <li>Save your settings and restart the router if needed.</li>
+            </ol>
+            <p>Refer to your router's user manual for specific instructions.</p>
+        </section>
+
+        <section>
+            <h2>3. Using Windows Hosts File</h2>
+            <p>You can block websites on a Windows computer by editing the <code>hosts</code> file:</p>
+            <ol>
+                <li>Open <code>Notepad</code> as an administrator.</li>
+                <li>Go to <code>C:\Windows\System32\drivers\etc</code> and open the <code>hosts</code> file.</li>
+                <li>Add a line like <code>127.0.0.1 [website-url]</code> for each website you want to block (e.g., <code>127.0.0.1 example.com</code>).</li>
+                <li>Save the file and restart your browser.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>4. Using macOS Parental Controls</h2>
+            <p>macOS provides built-in tools for blocking websites:</p>
+            <ol>
+                <li>Go to <code>System Preferences > Screen Time</code>.</li>
+                <li>Select <code>Content & Privacy</code>.</li>
+                <li>Click on <code>Web Content</code> and choose <code>Limit Adult Websites</code>.</li>
+                <li>Add specific URLs to the block list.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>5. Using Third-Party Software</h2>
+            <p>If the above methods are not sufficient, consider third-party parental control software:</p>
+            <ul>
+                <li><strong>Net Nanny:</strong> A comprehensive parental control solution.</li>
+                <li><strong>Qustodio:</strong> Blocks websites, monitors activity, and manages screen time.</li>
+                <li><strong>OpenDNS:</strong> Free service that blocks websites at the network level.</li>
+            </ul>
+						
+						<p>For more information, refer to our <a href="./contact.html">Contact Us</a> page.</p>
+        </section>
+		
+		<footer class="footer">
+        <p>
+					<a href="./index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="./READMEParental.md"  class="styled-link">ReadMe</a></p>
+    </footer>
+		
+		<script>
+			
+			const iframe = document.getElementById('toggleIframe');
+const touchOverlay = document.getElementById('touchOverlay');
+
+touchOverlay.addEventListener('click', () => {
+  if (iframe.style.pointerEvents === 'none') {
+    iframe.style.pointerEvents = 'auto'; // Enable interaction with the iframe
+    touchOverlay.style.display = 'none'; // Hide the overlay to allow scrolling
+  } else {
+    iframe.style.pointerEvents = 'none'; // Disable interaction with the iframe
+    touchOverlay.style.display = 'block'; // Show the overlay again
+  }
+});
+		</script>
+		
+			<script src="./nav_script.js"></script>
+		
+</body>
+</html>
