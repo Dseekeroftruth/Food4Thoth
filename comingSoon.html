@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food4Thoth - Coming Soon</title>
+    <style>
+        /* General Page Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+            background-color: black;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Full-Screen Background Animation */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+
+        /* Rotating Circles Animation */
+        .base {
+            width: 300px;
+            height: 300px;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .circ {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 10px solid white;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        /* Dynamic Rotation Animations */
+        @keyframes rotate-circles {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .base {
+            animation: rotate-circles 10s linear infinite;
+        }
+
+        /* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: 5px;
+		left: 5px;
+    align-items: center;
+		justify-content: center;
+		
+    padding: 5px 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+		font-weight: bolder;
+		
+}
+
+.toggle-button:hover {
+    background-color: black;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+		pointer-events: none; 
+		display: none;
+}
+
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 80px; /* Adjust to stay below the toggle button */
+    right: 25%;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		height: 50%;
+		overflow-y: auto; /* Enable vertical scrolling */
+		
+		
+}
+				
+        .neumorphic-tab {
+					
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: clamp(12px, 1.2vw, 22px);
+						text-align: center;
+        }
+        .neumorphic-tab:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab.active {
+            background: #d1d1d1;
+        }
+
+        /* Logo Animations */
+        .logo-animation {
+            position: absolute;
+            border: none;
+        }
+
+        /* Footer */
+        footer {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .styled-link {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+				
+				/* COMING SOON Text */
+.coming-soon {
+    position: absolute;
+    bottom: 30vh; /* Positioned above bottom logos */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10vw;
+    font-weight: bold;
+    color: #ffcc00;
+    text-shadow: 4px 4px 10px rgba(255, 204, 0, 0.8), -4px -4px 10px rgba(255, 204, 0, 0.8);
+    letter-spacing: 10px;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: pulse-glow 2s infinite alternate;
+		
+
+}
+
+
+
+/* Animation for a glowing effect */
+@keyframes pulse-glow {
+    0% {
+        text-shadow: 4px 4px 15px rgba(255, 204, 0, 1), -4px -4px 15px rgba(255, 204, 0, 1);
+    }
+    100% {
+        text-shadow: 6px 6px 30px rgba(255, 204, 0, 1), -6px -6px 30px rgba(255, 204, 0, 1);
+    }
+}
+
+/* Each letter animates slightly */
+.coming-soon span {
+    display: inline-block;
+    animation: float-text 2s infinite alternate ease-in-out;
+}
+
+/* Floating effect per letter */
+@keyframes float-text {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Offset animations per letter for a wave effect */
+.coming-soon span:nth-child(1) { animation-delay: 0s; }
+.coming-soon span:nth-child(2) { animation-delay: 0.1s; }
+.coming-soon span:nth-child(3) { animation-delay: 0.2s; }
+.coming-soon span:nth-child(4) { animation-delay: 0.3s; }
+.coming-soon span:nth-child(5) { animation-delay: 0.4s; }
+.coming-soon span:nth-child(6) { animation-delay: 0.5s; }
+.coming-soon span:nth-child(7) { animation-delay: 0.6s; }
+.coming-soon span:nth-child(8) { animation-delay: 0.7s; }
+.coming-soon span:nth-child(9) { animation-delay: 0.8s; }
+.coming-soon span:nth-child(10) { animation-delay: 0.9s; }
+
+.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+
+    </style>
+</head>
+<body>
+
+  <button id="toggle-nav" class="toggle-button">☰ Nav</button>
+<div id="navigation" class="navigation hidden">
+	
+	<a href="./indexStill.html" class="neumorphic-tab">Food4Thoth Main</a>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-black-business">Black Business Eugene</a>
+  <div id="submenu-black-business" class="submenu hidden">
+    <a href="./BlackBuisnessEugene/index.html" class="neumorphic-tab">Black Business Directory</a>
+    <a href="./BlackBuisnessEugene/blackbusinessformpage.html" class="neumorphic-tab">Black Business Form</a>
+		<a href="./BlackBuisnessEugene/README.md" class="neumorphic-tab">ReadMe</a>
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-community-garden">Community Gardens</a>
+<div id="submenu-community-garden" class="submenu hidden">
+  <a href="./CommunityGardens/ALLLISTCommunitygardenall2.html" class="neumorphic-tab">Full List of All Gardens</a>
+	<a href="./CommunityGardens/indexMobileLanding.html" class="neumorphic-tab">Mobile Landing</a>
+  <a href="./CommunityGardens/COMMUNITYGARDENANIMATIONdesktop.html" class="neumorphic-tab">Desktop Landing</a>
+  <a href="./CommunityGardens/EugeneCommunitygardenall3.html" class="neumorphic-tab">Eugene Community Garden Map</a>
+	 <a href="./CommunityGardens/PortlandCommunitygardenall3.html" class="neumorphic-tab">Portland Community Garden Map</a>
+  <a href="./CommunityGardens/INFOCommunitygardenall2.html" class="neumorphic-tab">Community Garden Info</a>
+  <a href="./CommunityGardens/ListCommunityGardenEugene.html" class="neumorphic-tab">Eugene Garden List</a>
+  <a href="./CommunityGardens/ListCommunitygardenPortland.html" class="neumorphic-tab">Portland Garden List</a>
+	<a href="./CommunityGardens/README.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-visualizers">Sound & Voice Visualizers</a>
+<div id="submenu-visualizers" class="submenu hidden">
+  <a href="./SoundActivatedVisualizor/index2.html" class="neumorphic-tab">Voice Activated Visualizer</a>
+  <a href="./SoundActivatedVisualizor/index6.html" class="neumorphic-tab">Sound Visualizer w/Media Loader</a>
+  <a href="./SoundActivatedVisualizor/README.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-arp">ARP Synths</a>
+<div id="submenu-arp" class="submenu hidden">
+  <a href="./ArpAppNoVisualHighFi/index.html" class="neumorphic-tab">ARP App: No Visual (High-Fi)</a>
+  <a href="./ArpAppNoVisualLoFi/index.html" class="neumorphic-tab">ARP App: No Visual (Lo-Fi)</a>
+  <a href="./ArpAppWithVisual/index.html" class="neumorphic-tab">ARP App: With Visual</a>
+	<a href="./ArpAppNoVisualHighFi/readme.md" class="neumorphic-tab">ReadMe</a>
+	<a href="./ArpAppWithVisual/readme.md" class="neumorphic-tab">w/Visualizer ReadMe</a>
+</div>
+
+ <a href="#" class="neumorphic-tab" data-expand="submenu-games">Games</a>
+<div id="submenu-games" class="submenu hidden">
+  <a href="./NewSchoolGameKid/index2.html" class="neumorphic-tab">New School Game: Kid Sprite</a>
+  <a href="./NewSchoolGameWizard/index4.html" class="neumorphic-tab">New School Game: Wizard Sprite</a>
+  <a href="./OldSchoolGameDesktop/index2.html" class="neumorphic-tab">Old School Game: Desktop</a>
+  <a href="./OldSchoolGameMobile/index2.html" class="neumorphic-tab">Old School Game: Mobile</a>
+  <a href="./TerminalGameTransition/index.html" class="neumorphic-tab">Terminal Transition Game</a>
+	<a href="./comingSoon.html" class="neumorphic-tab">SideScroll Game</a>
+  <a href="./OldSchoolGameMobile/README.md" class="neumorphic-tab">Game ReadMe</a>
+</div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-glo-calculato">Glo-Calculato</a>
+  <div id="submenu-glo-calculato" class="submenu hidden">
+    <a href="./Glo-Calculato1/RainbowGlowCalculato.html" class="neumorphic-tab">Glo-Calculato Landing</a>
+    <a href="./Glo-Calculato1/SMARTglowCalc.html" class="neumorphic-tab">Full-Sized Glo-Calculato</a>
+    <a href="./Glo-Calculato/GLO-CALCULATO/Glo-Calculato.zip" class="neumorphic-tab">Download Glo-Calculato</a>
+		<a href="./Glo-Calculato1/README.md" class="neumorphic-tab">ReadMe</a>
+    <a href="./Glo-Calculato1/SMARTglowCalcDonations.html" class="neumorphic-tab">Donations Page</a>
+		<a href="./Glo-Calculato1/READMEDonations.md" class="neumorphic-tab">Donations ReadMe</a>
+		
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-hakim-bey">Hakim Bey</a>
+  <div id="submenu-hakim-bey" class="submenu hidden">
+    <a href="./HakimBey/hakimbey9.html" class="neumorphic-tab">Hakim Bey Anarchy Page</a>
+    <a href="./HakimBey/joinTheMovement.html" class="neumorphic-tab">Anarchy Collective Contact</a>
+		<a href="./HakimBey/README.md" class="neumorphic-tab">ReadMe</a>
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-tarot">Tarot</a>
+<div id="submenu-tarot" class="submenu hidden">
+  <a href="./TarotTogetherNoAge/index.html" class="neumorphic-tab">Tarot Main Landing (No Age Restriction)</a>
+  <a href="./TarotSacredGeometry/index.html" class="neumorphic-tab">Sacred Geometry Tarot</a>
+  <a href="./TarotCyberPunkDark/index.html" class="neumorphic-tab">CyberPunk Dark Tarot</a>
+  <a href="./TarotCyberPunkMelo/index.html" class="neumorphic-tab">CyberPunk Melo Tarot</a>
+	<a href="./TarotOG/musicscrolltarotvoice5.html" class="neumorphic-tab">OG Tarot w/Voice Commands</a>
+	<a href="./TarotTextList/CyberTarotText.html" class="neumorphic-tab">Description List</a>
+	<a href="./comingSoon.html" class="neumorphic-tab">More Tarot</a>
+	 <a href="./TarotAgeVerify/index.html" class="neumorphic-tab">18+ Content Landing</a>
+  <a href="./TarotCrystalQueens/indexAge.html" class="neumorphic-tab">18+ Crystal Queens Tarot</a>
+  <a href="./TarotCyberPunkX/indexAge.html" class="neumorphic-tab">18+ CyberPunk X Tarot</a>
+	<a href="./parental-controls.html" class="neumorphic-tab">Parental Controls</a>
+	<a href="./READMEParental.md" class="neumorphic-tab">Parental ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-iching">I Ching</a>
+<div id="submenu-iching" class="submenu hidden">
+  <a href="./Iching/index.html" class="neumorphic-tab">I Ching Main Page</a>
+  <a href="./Iching/ichingAnimeLoop.html" class="neumorphic-tab">I Ching Anime Loop</a>
+  <a href="./Iching/README.md" class="neumorphic-tab">I Ching ReadMe</a>
+</div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-hashisheen">Hashisheen Album Reviews</a>
+  <div id="submenu-hashisheen" class="submenu hidden">
+		 <a href="./EndOfLawHASHISHEEN/AllHashineenReviews.html" class="neumorphic-tab">Landing Page</a>
+    <a href="./EndOfLawHASHISHEEN/FullAlbumReview.html" class="neumorphic-tab">Full Album Review</a>
+     <a href="./EndOfLawHASHISHEEN/index1.html" class="neumorphic-tab">Hashisheen Album Review (Track 1)</a>
+    <a href="./EndOfLawHASHISHEEN/index2.html" class="neumorphic-tab">Hashisheen Album Review (Track 2)</a>
+    <a href="./EndOfLawHASHISHEEN/index3.html" class="neumorphic-tab">Hashisheen Album Review (Track 3)</a>
+    <a href="./EndOfLawHASHISHEEN/index4.html" class="neumorphic-tab">Hashisheen Album Review (Track 4)</a>
+    <a href="./EndOfLawHASHISHEEN/index5.html" class="neumorphic-tab">Hashisheen Album Review (Track 5)</a>
+    <a href="./EndOfLawHASHISHEEN/index6.html" class="neumorphic-tab">Hashisheen Album Review (Track 6)</a>
+    <a href="./EndOfLawHASHISHEEN/index7.html" class="neumorphic-tab">Hashisheen  Album Review (Track 7)</a>
+    <a href="./EndOfLawHASHISHEEN/index8.html" class="neumorphic-tab">Hashisheen Album Review (Track 8)</a>
+    <a href="./EndOfLawHASHISHEEN/index9.html" class="neumorphic-tab">Hashisheen Album Review (Track 9)</a>
+    <a href="./EndOfLawHASHISHEEN/index10.html" class="neumorphic-tab">Hashisheen Album Review (Track 10)</a>
+    <a href="./EndOfLawHASHISHEEN/index11.html" class="neumorphic-tab">Hashisheen Album Review (Track 11)</a>
+    <a href="./EndOfLawHASHISHEEN/index12.html" class="neumorphic-tab">Hashisheen Album Review (Track 12)</a>
+    <a href="./EndOfLawHASHISHEEN/index13.html" class="neumorphic-tab">Hashisheen Album Review (Track 13)</a>
+    <a href="./EndOfLawHASHISHEEN/index14.html" class="neumorphic-tab">Hashisheen Album Review (Track 14)</a>
+    <a href="./EndOfLawHASHISHEEN/index15.html" class="neumorphic-tab">Hashisheen Album Review (Track 15)</a>
+    <a href="./EndOfLawHASHISHEEN/index16.html" class="neumorphic-tab">Hashisheen Album Review (Track 16)</a>
+    <a href="./EndOfLawHASHISHEEN/index17.html" class="neumorphic-tab">Hashisheen Album Review (Track 17)</a>
+    <a href="./EndOfLawHASHISHEEN/index18.html" class="neumorphic-tab">Hashisheen Album Review (Track 18)</a>
+    <a href="./EndOfLawHASHISHEEN/index19.html" class="neumorphic-tab">Hashisheen Album Review (Track 19)</a>
+    <a href="./EndOfLawHASHISHEEN/index20.html" class="neumorphic-tab">Hashisheen Album Review (Track 20)</a>
+    <a href="./EndOfLawHASHISHEEN/index21.html" class="neumorphic-tab">Hashisheen Album Review (Track 21)</a>
+    <a href="./EndOfLawHASHISHEEN/index22.html" class="neumorphic-tab">Hashisheen Album Review (Track 22)</a>
+		<a href="./comingSoon.html" class="neumorphic-tab">More Reviews</a>
+		<a href="./EndOfLawHASHISHEEN/README.md" class="neumorphic-tab">ReadMe</a>
+  </div>
+	
+	<a href="#" class="neumorphic-tab" data-expand="submenu-akashic">Akashic Records</a>
+<div id="submenu-akashic" class="submenu hidden">
+  <a href="./css-only-3d-image-carousel/index.html" class="neumorphic-tab">Main Landing</a>
+  <a href="./AkashicAsclepiusDeep/index.html" class="neumorphic-tab">Akashic Asclepius Deep</a>
+  <a href="./AkashicAsclepiusLite/index.html" class="neumorphic-tab">Akashic Asclepius Lite</a>
+  <a href="./AkashicEmeraldAsAbove/index.html" class="neumorphic-tab">Akashic Emerald As Above</a>
+  <a href="./AkashicEmeraldDeep/index.html" class="neumorphic-tab">Akashic Emerald Deep</a>
+  <a href="./AkashicEmeraldLite/index.html" class="neumorphic-tab">Akashic Emerald Lite</a>
+  <a href="./AkashicHermiticum/index.html" class="neumorphic-tab">Akashic Hermiticum</a>
+  <a href="./AkashicHymnLite/index.html" class="neumorphic-tab">Akashic Hymn Lite</a>
+  <a href="./AkashicNag/index.html" class="neumorphic-tab">Akashic Nag</a>
+  <a href="./AkashicNag13Codex/index.html" class="neumorphic-tab">Akashic Nag 13 Codex</a>
+  <a href="./AkashicNagTreaties/index.html" class="neumorphic-tab">Akashic Nag Treaties</a>
+  <a href="./AkashicThothDeep/index.html" class="neumorphic-tab">Akashic Thoth Deep</a>
+  <a href="./AkashicThothLite/index.html" class="neumorphic-tab">Akashic Thoth Lite</a>
+	<a href="./comingSoon.html" class="neumorphic-tab">More Pages</a>
+	<a href="./AkashicAsclepiusDeep/README.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-anarchy">Anarchy Comics & Info</a>
+<div id="submenu-anarchy" class="submenu hidden">
+  <a href="./AnarchyComicBreakFree/index.html" class="neumorphic-tab">Anarchy Comic: Break Free</a>
+  <a href="./AnarchyComicCocoon/index.html" class="neumorphic-tab">Anarchy Comic: Cocoon</a>
+  <a href="./AnarchyDepth/index.html" class="neumorphic-tab">Anarchy Depth</a>
+  <a href="./AnarchyIsAlwaysMobile/index.html" class="neumorphic-tab">Anarchy Is Always Mobile</a>
+  <a href="./AnarchyPoetics/index.html" class="neumorphic-tab">Anarchy Poetics</a>
+  <a href="./AnarchyTAZ/index.html" class="neumorphic-tab">Anarchy TAZ</a>
+	<a href="./comingSoon.html" class="neumorphic-tab">More Pages</a>
+	<a href="./AnarchyComicBreakFree/readme.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-eyespy">Eye Spy</a>
+<div id="submenu-eyespy" class="submenu hidden">
+  <a href="./EyeSPY1/index.html" class="neumorphic-tab">Eye Spy Game (1st Edition)</a>
+	<a href="./comingSoon.html" class="neumorphic-tab">More Pages</a>
+  <a href="./EyeSPY1/readme.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-tide-walk">Tide Walk</a>
+<div id="submenu-tide-walk" class="submenu hidden">
+  <a href="./TideApp/indexOregon.html" class="neumorphic-tab">Tide Walk Oregon</a>
+  <a href="./TideApp/indexBoston.html" class="neumorphic-tab">Tide Walk Boston</a>
+  <a href="./TideApp/readme.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-trent">Trent</a>
+<div id="submenu-trent" class="submenu hidden">
+  <a href="./TrentOfTheDay/index.html" class="neumorphic-tab">Trent of the Day</a>
+  <a href="./TrentStorybook1stMobile/index.html" class="neumorphic-tab">Trent Storybook</a>
+  <a href="./TrentStorybook1stMobile/contact.html" class="neumorphic-tab">Contact</a>
+  <a href="./TrentStorybook1stMobile/about.html" class="neumorphic-tab">About</a>
+	<a href="./comingSoon.html" class="neumorphic-tab">Space StoryBook</a>
+  <a href="./TrentOfTheDay/README.md" class="neumorphic-tab">Trent of the Day ReadMe</a>
+  <a href="./TrentStorybook1stMobile/readme.md" class="neumorphic-tab">Trent Storybook ReadMe</a>
+</div>
+
+  <a href="./ChooseYourOwnAdventure/prologue.html" class="neumorphic-tab">Choose Your Own Adventure</a>
+	<a href="./RstoryArtabillies/index.html" class="neumorphic-tab">Rstory</a>
+	<a href="./CollectiveSummary/index.html" class="neumorphic-tab">Collective Summary</a>
+  <a href="http://www.food4thoth.com" class="neumorphic-tab">Food4Thoth</a>
+  <a href="http://www.artabillies.com" class="neumorphic-tab">Artabillies</a>
+	<a href="./contact.html" class="neumorphic-tab">Food4Thoth Page Contact</a>
+  <a href="mailto:food4thoth@proton.me" class="neumorphic-tab">Email: food4thoth@proton.me</a>
+	<a href="./portfolio.html" class="neumorphic-tab">Portfolio Page</a>
+	<a href="./comingSoon.html" class="neumorphic-tab">MindMelt</a>
+	<a href="./comingSoon.html" class="neumorphic-tab">Food4Thoth Desktop Landing</a>
+	<a href="./README.md" class="neumorphic-tab">Food4Thoth ReadMe</a>
+</div>
+
+    <!-- Logo Animations -->
+		
+	
+    <iframe class="logo-animation" src="./Artabillies4ThothAnimate/F4TLOGO5.html" style="width: 100%; height: 100vh; top: 10px;"></iframe>
+		<iframe class="logo-animation" src="./Artabillies4ThothAnimate/F4TLOGO4.html" style="width: 100%; height: 25vh; top: 0px;"></iframe>
+    <iframe class="logo-animation" src="./Artabillies4ThothAnimate/F4TLOGO3.2.html" style="width: 100%; height: 10vh; top: -30px; position: sticky;"></iframe>
+  
+    <iframe class="logo-animation" src="./Artabillies4ThothAnimate/F4TLOGO2.1.html" style="width: 20%; height: 10%; top: 0px; left: 40%;"></iframe>
+
+    <!-- Additional Logos at Bottom -->
+    <iframe class="logo-animation" src="./Artabillies4ThothAnimate/F4TLOGO6.1.html" style="width: 25%; height: 20%; bottom: 70px; left: -20px;"></iframe>
+    <iframe class="logo-animation" src="./Artabillies4ThothAnimate/F4TLOGO7.1.html" style="width: 25%; height: 20%; bottom: 70px; right: -20px;"></iframe>
+    <iframe class="logo-animation" src="./Artabillies4ThothAnimate/F4TLOGO8.1.html" style="width: 25%; height: 20%; bottom: 90px; left: 36%;"></iframe>
+    <iframe class="logo-animation" src="./Artabillies4ThothAnimate/F4TLOGO9.1.html" style="width: 80%; height: 100%; top: -200px; right: 10%;"></iframe>
+
+    <!-- Autoplay Video (Spiral Fractal) -->
+    <iframe class="logo-animation" src="./spiral/index.html" style="width: 100vw; height: 100vh; position: fixed; top: -100px; left: 0; opacity: 0.3;"></iframe>
+<!-- COMING SOON TEXT -->
+
+
+    <div class="coming-soon">
+        <span>C</span><span>O</span><span>M</span><span>I</span><span>N</span><span>G</span>
+        <span>S</span><span>O</span><span>O</span><span>N</span>
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+			
+        <p>© 2025 Food4Thoth | <a href="readme.md" class="styled-link">ReadMe</a> | <a href="mailto:food4thoth@proton.me" class="styled-link">Contact</a></p>
+					<iframe class="logo-animation" src="./Artabillies4ThothAnimate/F4TLOGO3.2.html" style="width: 100%; height: 2vh; margin-left: -20px; bottom: -30px; position: sticky;"></iframe>
+    </footer>
+
+		<script src="./nav_script.js"></script>
+		
+ 
+</body>
+</html>
