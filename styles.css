@@ -146,7 +146,7 @@ a:hover {
     width: 70%;
     height: 100%;
     padding: 10px;
-		margin: 0: auto;
+		margin: 0 auto;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
@@ -309,7 +309,7 @@ a:hover {
 
 .footer {
 		font-size: .5rem;
-		font color: #000;
+		color: #000;
 		background-color: pink;
 		display: flex;
     justify-content: center; /* Center horizontally */
@@ -933,7 +933,3 @@ a:active {
     font-size: 16px;
   }
 }
-
-
-
-
