@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>How To: Tarot – FOOD4THOTH</title>
+
+  <link id="bootstrap-css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+<script>
+  // Wait briefly to check if Bootstrap loaded
+  window.addEventListener('load', function () {
+    const test = document.createElement('div');
+    test.className = 'd-none'; // Bootstrap 4 utility class
+    document.body.appendChild(test);
+    const isLoaded = getComputedStyle(test).display === 'none';
+    document.body.removeChild(test);
+
+    if (!isLoaded) {
+      console.warn('CDN failed — loading local fallback');
+      document.getElementById('bootstrap-css').href = './libs/bootstrap.min.css';
+    }
+  });
+</script>
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Sans+Narrow" rel="stylesheet" />
+
+  <!-- Your Existing CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+  <script>
+  window.jQuery || document.write('<script src="./libs/jquery.min.js"><\/script>');
+</script>
+</head>
+
+<body>
+  <div class="background">
+    <div class="project container">
+      <!-- ROW 1: Banner -->
+      <div class="row" id="row1">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <img class="banner" src="./images/Banner.png" alt="Off Beat Tarot banner" />
+        </div>
+      </div>
+
+      <!-- ROW 2: Navigation -->
+      <div class="row" id="row2">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <table class="navigation1">
+            <tr>
+              <!-- Adjust these links as needed -->
+             <td><a href="../index.html">Food4Thoth</a></td>
+              <td><a href="./index.html">Home</a></td>
+              <td><a href="../TarotTogetherNoAge4Decks/index.html">Cards</a></td>
+              <td><a href="../DrawTarot/index.html">Spreads</a></td>
+							<td><a href="../TarotAllResources/index.html">All Resources</a></td>
+							<td><a href="../TarotGalleries/index.html">Galleries</a></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+			
+			<div class="scroll-buttons">
+    <button onclick="scrollToTop()">&#9650;</button> <!-- Up Arrow -->
+    <button onclick="scrollToBottom()">&#9660;</button> <!-- Down Arrow -->
+</div>
+
+      <!-- ROW 3: Main Content -->
+      <div class="row" id="row3">
+        <!-- If you'd like a sidebar, you can uncomment or adapt this col -->
+        <!--
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <div class="sidebar">
+            <div class="codhead">Quick Links</div>
+            <p>Insert any quick links or short info here if desired.</p>
+          </div>
+        </div>
+        -->
+
+        <!-- Main Column for How-To Text -->
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="philosophy">
+            <button id="toggle-nav" class="toggle-button">☰ Nav</button>
+            <div id="navigation" class="navigation hidden">
+              
+              <a href="../index.html" class="neumorphic-tab">Home</a>
+              
+              <a href="../Donations/index.html" class="neumorphic-tab">Donations Page</a>
+              
+              <a href="#" class="neumorphic-tab" data-expand="submenu-black-business">Black Business Eugene</a>
+              <div id="submenu-black-business" class="submenu hidden">
+                <a href="../BlackBuisnessEugene/index.html" class="neumorphic-tab">Black Business Directory</a>
+                <a href="../BlackBuisnessEugene/blackbusinessformpage.html" class="neumorphic-tab">Black Business Form</a>
+              </div>
+            
+              <a href="#" class="neumorphic-tab" data-expand="submenu-community-garden">Community Gardens</a>
+            <div id="submenu-community-garden" class="submenu hidden">
+              <a href="../CommunityGardensLists/index.html" class="neumorphic-tab">Full List of All Gardens</a>
+              <a href="../CommunityGardenLand/index.html" class="neumorphic-tab">Mobile Landing</a>
+              <a href="../CommunityGardenLand/indexDesktop.html" class="neumorphic-tab">Desktop Landing</a>
+              <a href="../CommunityGardensMaps/indexEugeneMap.html" class="neumorphic-tab">Eugene Garden Map</a>
+               <a href="../CommunityGardensMaps/indexPortlandMap.html" class="neumorphic-tab">Portland Garden Map</a>
+              <a href="../CommunityGardensInfo/index.html" class="neumorphic-tab">Community Garden Info</a>
+              <a href="../CommunityGardensLists/indexEugene.html" class="neumorphic-tab">Eugene Garden List</a>
+              <a href="../CommunityGardensLists/indexPortland.html" class="neumorphic-tab">Portland Garden List</a>
+            </div>
+            
+            <a href="#" class="neumorphic-tab" data-expand="submenu-visualizers">Sound & Voice Visualizers</a>
+            <div id="submenu-visualizers" class="submenu hidden">
+              <a href="../SoundActivatedVisualizor/index.html" class="neumorphic-tab">Voice Activated Visualizer</a>
+              <a href="../SoundVisualizerWmedia/index.html" class="neumorphic-tab">Sound Visualizer w/Media Loader</a>
+            </div>
+            
+            <a href="#" class="neumorphic-tab" data-expand="submenu-arp">ARP Synths</a>
+            <div id="submenu-arp" class="submenu hidden">
+              <a href="../ArpAppNoVisualHighFi/index.html" class="neumorphic-tab">ARP App: No Visual (High-Fi)</a>
+              <a href="../ArpAppNoVisualLoFi/index.html" class="neumorphic-tab">ARP App: No Visual (Lo-Fi)</a>
+              <a href="../ArpAppWithVisual/index.html" class="neumorphic-tab">ARP App: With Visual</a>
+              
+            </div>
+            
+            <a href="#" class="neumorphic-tab" data-expand="submenu-loopstation">Loop Stations</a>
+            <div id="submenu-loopstation" class="submenu hidden">
+              <!-- Animated Music Loopers -->
+              <a href="../Bboy/index.html" class="neumorphic-tab">NoWhere Man Looper</a>
+            
+              <a href="../BJungle/index.html" class="neumorphic-tab">BJungle Looper</a>
+            
+              <!-- Loop Stations -->
+              <a href="../LoopStation/index.html" class="neumorphic-tab">Loop Station</a>
+            
+              <!-- Advanced Loop Stations with Effects -->
+              <a href="../LoopStationHiFi/index.html" class="neumorphic-tab">Loop Station HiFi (Advanced Effects)</a>
+            </div>
+            
+            <a href="#" class="neumorphic-tab" data-expand="submenu-music">Music Vue Library</a>
+            <div id="submenu-music" class="submenu hidden">
+              <!-- Main Music Library -->
+              <a href="../MusicLibrary/index.html" class="neumorphic-tab">Music Library Lite</a>
+            
+              <!-- Music Library with Visualizer -->
+              <a href="../MusicLibraryVis/index.html" class="neumorphic-tab">Music Library (Visualizer)</a>
+            </div>
+            
+            <!-- Music Collection Section -->
+            <a href="#" class="neumorphic-tab" data-expand="submenu-music_collection">Music Collections</a>
+            <div id="submenu-music_collection" class="submenu hidden">
+              <a href="../DeJahn/index.html" class="neumorphic-tab">DeJahn</a>
+              <a href="../SeekerStar/index.html" class="neumorphic-tab">Seeker & the Star</a>
+              <a href="../GroundCherry/index.html" class="neumorphic-tab">Ground Cherry</a>
+              <a href="../PeruvianMelt/index.html" class="neumorphic-tab">Peruvian Melt</a>
+                <a href="../comingSoon.html" class="neumorphic-tab">Abyss of Bliss</a>
+                
+            <a href="https://www.artabillies.com/inprogression" class="neumorphic-tab">INPROGRESSION Artabillies</a>
+            
+            <a href="https://youtube.com/playlist?list=PLsiMr0_hgaOmqlIGzjHZBzi94yaRgQ38L&si=DMZc6ng8GWx8uMbU" class="neumorphic-tab">INPROGRESSION DVD</a>
+              </div>
+              
+                <a href="../ChooseYourOwnAdventure/prologue.html" class="neumorphic-tab">Choose Your Own Adventure</a>
+            
+             <a href="#" class="neumorphic-tab" data-expand="submenu-games">Games</a>
+            <div id="submenu-games" class="submenu hidden">
+              <a href="../NewSchoolGameKid/index.html" class="neumorphic-tab">New School Game: Kid Sprite</a>
+              <a href="../NewSchoolGameWizard/index.html" class="neumorphic-tab">New School Game: Wizard Sprite</a>
+              <a href="../OldSchoolGameDesktop/index.html" class="neumorphic-tab">Old School Game: Desktop</a>
+              <a href="../OldSchoolGameMobile/index.html" class="neumorphic-tab">Old School Game: Mobile</a>
+              <a href="../TerminalGameTransition/index.html" class="neumorphic-tab">Terminal Transition Game</a>
+              <a href="../bergs-of-life/index.html" class="neumorphic-tab">Bergs of Life</a>
+              <a href="../comingSoon.html" class="neumorphic-tab">SideScroll Game</a>
+            </div>
+            
+            <a href="#" class="neumorphic-tab" data-expand="submenu-claw-machine">Claw Machine</a>
+            <div id="submenu-claw-machine" class="submenu hidden">
+              <a href="../claw-machine/index.html" class="neumorphic-tab">Claw Machine OG</a>
+              <a href="../claw-machineGame/index.html" class="neumorphic-tab">Claw Machine Enhanced</a>
+            </div>
+            
+              <a href="#" class="neumorphic-tab" data-expand="submenu-glo-calculato">Glo-Calculato</a>
+              <div id="submenu-glo-calculato" class="submenu hidden">
+                <a href="../GloCalculatoLanding/index.html" class="neumorphic-tab">Glo-Calculato Landing</a>
+                <a href="../GloCalculato/index.html" class="neumorphic-tab">Full-Sized Glo-Calculato</a>
+                <a href="../GloCalculatoLanding/GLO-CALCULATO/Glo-Calculato.zip" class="neumorphic-tab">Download Glo-Calculato</a>
+              </div>
+            
+              <a href="#" class="neumorphic-tab" data-expand="submenu-tarot">Tarot</a>
+            <div id="submenu-tarot" class="submenu hidden">
+              <!-- Main Tarot Landing and Learning -->
+              <a href="../TarotLanding/index.html" class="neumorphic-tab">Tarot Orientation Landing</a>
+              <a href="../TarotLanding/HowTo.html" class="neumorphic-tab">How To: Tarot – FOOD4THOTH</a>
+              <a href="../TarotFlipCardGallery/index.html" class="neumorphic-tab">Quick Reference Flip Gallery</a>
+            
+              <!-- General Tarot Decks and Readings -->
+              <a href="../TarotTogetherNoAge/index.html" class="neumorphic-tab">Tarot Card Gallery (3 Decks)</a>
+              <a href="../TarotTogetherNoAge4Decks/index.html" class="neumorphic-tab">Tarot Card Gallery (4 Decks)</a>
+              <a href="../CelticCrossTarot/index.html" class="neumorphic-tab">Celtic Cross Reading</a>
+              <a href="../ThreeCardTarot/index.html" class="neumorphic-tab">Three-Card Tarot w/ Gallery</a>
+              <a href="../ThreeCardTarotByItself/index.html" class="neumorphic-tab">Three-Card Tarot Reading</a>
+            
+              <!-- Cyberpunk and Thematic Tarot Decks -->
+              <a href="../TarotSacredGeometry/index.html" class="neumorphic-tab">Sacred Geometry Tarot</a>
+              <a href="../TarotCyberPunkDark/index.html" class="neumorphic-tab">CyberPunk Dark Tarot</a>
+              <a href="../TarotCyberPunkMelo/index.html" class="neumorphic-tab">CyberPunk Melo Tarot</a>
+              <a href="../TarotOG/index.html" class="neumorphic-tab">OG Tarot w/Voice Commands</a>
+              
+              <!-- Experimental and Custom Decks -->
+              <a href="../EgyptianTarot/index.html" class="neumorphic-tab">Custom Egyptian Major Arcana (1–22)</a>
+              <a href="../EgyptianTarotFull/index.html" class="neumorphic-tab">Custom Sacred Geometry (1–78)</a>
+              <a href="../TarotJungian/index.html" class="neumorphic-tab">Jungian Thoth Tarot Spread</a>
+              <a href="../TarotTextList/index.html" class="neumorphic-tab">Cyberpunk Tarot Text Library</a>
+              
+              <a href="../DrawTarot/index.html" class="neumorphic-tab">All Spreads</a>
+            
+              <!-- Majix Tarot Galleries (Individual Arcana) -->
+              <a href="../MajixLanding/index.html" class="neumorphic-tab">Majix Galleries Landing</a>
+              <a href="../MajixTarotMajor/index.html" class="neumorphic-tab">Majix Major Arcana</a>
+              <a href="../MajixTarotWands/index.html" class="neumorphic-tab">Majix Wands</a>
+              <a href="../MajixTarotCups/index.html" class="neumorphic-tab">Majix Cups</a>
+              <a href="../MajixTarotSwords/index.html" class="neumorphic-tab">Majix Swords</a>
+              <a href="../MajixTarotPentacles/index.html" class="neumorphic-tab">Majix Pentacles</a>
+              <a href="../MajixTarotAll/index.html" class="neumorphic-tab">Majix All Cards</a>
+              
+              <a href="../TarotGalleries/index.html" class="neumorphic-tab">Explore All Galleries</a>
+            
+              <a href="../TarotCrystalQueens/indexAge.html" class="neumorphic-tab">18+ Crystal Queens Tarot</a>
+              <a href="../TarotCyberPunkX/indexAge.html" class="neumorphic-tab">18+ CyberPunk X Tarot</a>
+              <a href="../TarotAgeVerify/index.html" class="neumorphic-tab">FOOD4THOTH 18+ Tarot Gallery</a>
+              
+              <a href="../TarotAllResources/index.html" class="neumorphic-tab">All Resources</a>
+            
+              <!-- Additional Resources -->
+              <a href="../comingSoon.html" class="neumorphic-tab">More Tarot</a>
+              <a href="../parental-controls.html" class="neumorphic-tab">Parental Controls</a>
+            </div>
+            
+            <a href="#" class="neumorphic-tab" data-expand="submenu-iching">I Ching</a>
+            <div id="submenu-iching" class="submenu hidden">
+              <a href="../Iching/index.html" class="neumorphic-tab">I Ching Simple</a>
+              <a href="../IchingFractal/index.html" class="neumorphic-tab">I Ching Fractal</a>
+              <a href="../IchingPhoto/index.html" class="neumorphic-tab">I Ching Fractal/Photo</a>
+              <a href="../Iching/ichingAnimeLoop.html" class="neumorphic-tab">I Ching Anime Loop</a>
+            </div>
+            
+            <a href="#" class="neumorphic-tab" data-expand="submenu-hakim-bey">Hakim Bey</a>
+              <div id="submenu-hakim-bey" class="submenu hidden">
+                <a href="../HakimBey/index.html" class="neumorphic-tab">Hakim Bey Anarchy Page</a>
+                <a href="../HakimBey/joinTheMovement.html" class="neumorphic-tab">Anarchy Collective Contact</a>
+              </div>
+            
+              <a href="#" class="neumorphic-tab" data-expand="submenu-hashisheen">Hashisheen Album Reviews</a>
+              <div id="submenu-hashisheen" class="submenu hidden">
+                 <a href="../EndOfLawHASHISHEEN/AllHashineenReviews.html" class="neumorphic-tab">Landing Page</a>
+                <a href="../EndOfLawHASHISHEEN/FullAlbumReview.html" class="neumorphic-tab">Full Album Review</a>
+                 <a href="../EndOfLawHASHISHEEN/index1.html" class="neumorphic-tab">Hashisheen Album Review (Track 1)</a>
+                <a href="../EndOfLawHASHISHEEN/index2.html" class="neumorphic-tab">Hashisheen Album Review (Track 2)</a>
+                <a href="../EndOfLawHASHISHEEN/index3.html" class="neumorphic-tab">Hashisheen Album Review (Track 3)</a>
+                <a href="../EndOfLawHASHISHEEN/index4.html" class="neumorphic-tab">Hashisheen Album Review (Track 4)</a>
+                <a href="../EndOfLawHASHISHEEN/index5.html" class="neumorphic-tab">Hashisheen Album Review (Track 5)</a>
+                <a href="../EndOfLawHASHISHEEN/index6.html" class="neumorphic-tab">Hashisheen Album Review (Track 6)</a>
+                <a href="../EndOfLawHASHISHEEN/index7.html" class="neumorphic-tab">Hashisheen  Album Review (Track 7)</a>
+                <a href="../EndOfLawHASHISHEEN/index8.html" class="neumorphic-tab">Hashisheen Album Review (Track 8)</a>
+                <a href="../EndOfLawHASHISHEEN/index9.html" class="neumorphic-tab">Hashisheen Album Review (Track 9)</a>
+                <a href="../EndOfLawHASHISHEEN/index10.html" class="neumorphic-tab">Hashisheen Album Review (Track 10)</a>
+                <a href="../EndOfLawHASHISHEEN/index11.html" class="neumorphic-tab">Hashisheen Album Review (Track 11)</a>
+                <a href="../EndOfLawHASHISHEEN/index12.html" class="neumorphic-tab">Hashisheen Album Review (Track 12)</a>
+                <a href="../EndOfLawHASHISHEEN/index13.html" class="neumorphic-tab">Hashisheen Album Review (Track 13)</a>
+                <a href="../EndOfLawHASHISHEEN/index14.html" class="neumorphic-tab">Hashisheen Album Review (Track 14)</a>
+                <a href="../EndOfLawHASHISHEEN/index15.html" class="neumorphic-tab">Hashisheen Album Review (Track 15)</a>
+                <a href="../EndOfLawHASHISHEEN/index16.html" class="neumorphic-tab">Hashisheen Album Review (Track 16)</a>
+                <a href="../EndOfLawHASHISHEEN/index17.html" class="neumorphic-tab">Hashisheen Album Review (Track 17)</a>
+                <a href="../EndOfLawHASHISHEEN/index18.html" class="neumorphic-tab">Hashisheen Album Review (Track 18)</a>
+                <a href="../EndOfLawHASHISHEEN/index19.html" class="neumorphic-tab">Hashisheen Album Review (Track 19)</a>
+                <a href="../EndOfLawHASHISHEEN/index20.html" class="neumorphic-tab">Hashisheen Album Review (Track 20)</a>
+                <a href="../EndOfLawHASHISHEEN/index21.html" class="neumorphic-tab">Hashisheen Album Review (Track 21)</a>
+                <a href="../EndOfLawHASHISHEEN/index22.html" class="neumorphic-tab">Hashisheen Album Review (Track 22)</a>
+                <a href="../comingSoon.html" class="neumorphic-tab">More Reviews</a>
+              </div>
+              
+              <a href="../DrawingFractals/index.html" class="neumorphic-tab">Draw w/Fractals</a>
+              
+              <a href="../RainbowGathering/index.html" class="neumorphic-tab">Rainbow Recordings</a>
+              
+              <a href="#" class="neumorphic-tab" data-expand="submenu-rainbows">Rainbow Reveals & Generators</a>
+            <div id="submenu-rainbows" class="submenu hidden">
+              <!-- Rainbow Reveals -->
+              <a href="../Rainbows4Thoth/Reveal1.html" class="neumorphic-tab">Rainbow Reveal 1</a>
+              <a href="../Rainbows4Thoth/Reveal2.html" class="neumorphic-tab">Rainbow Reveal 2</a>
+              <a href="../Rainbows4Thoth/ListReveal.html" class="neumorphic-tab">Rainbow Reveal List</a>
+            
+              <!-- Rainbow Generators -->
+              <a href="../RainbowFracGenerator/index.html" class="neumorphic-tab">Fractal Generator</a>
+              
+              <a href="../RainbowGenerator/index.html" class="neumorphic-tab">Rainbow Shape Generator</a>
+            </div>
+            
+            <a href="#" class="neumorphic-tab" data-expand="submenu-mescalito">Mescalito Reveals</a>
+            <div id="submenu-mescalito" class="submenu hidden">
+              <!-- Rainbow Reveals -->
+              <a href="../Mescalito/Reveal1.html" class="neumorphic-tab">Mescalito Reveal 1</a>
+              <a href="../Mescalito/Reveal2.html" class="neumorphic-tab">Mescalito Reveal 2</a>
+              <a href="../Mescalito/ListReveal.html" class="neumorphic-tab">Mescalito Reveal List</a>
+            </div>
+              
+              <a href="#" class="neumorphic-tab" data-expand="submenu-akashic">Akashic Records</a>
+            <div id="submenu-akashic" class="submenu hidden">
+              <a href="../css-only-3d-image-carousel/index.html" class="neumorphic-tab">Main Landing</a>
+              <a href="../AkashicAsclepiusDeep/index.html" class="neumorphic-tab">Akashic Asclepius Deep</a>
+              <a href="../AkashicAsclepiusLite/index.html" class="neumorphic-tab">Akashic Asclepius Lite</a>
+              <a href="../AkashicEmeraldAsAbove/index.html" class="neumorphic-tab">Akashic Emerald As Above</a>
+              <a href="../AkashicEmeraldDeep/index.html" class="neumorphic-tab">Akashic Emerald Deep</a>
+              <a href="../AkashicEmeraldLite/index.html" class="neumorphic-tab">Akashic Emerald Lite</a>
+              <a href="../AkashicHermiticum/index.html" class="neumorphic-tab">Akashic Hermiticum</a>
+              <a href="../AkashicHymnLite/index.html" class="neumorphic-tab">Akashic Hymn Lite</a>
+              <a href="../AkashicNag/index.html" class="neumorphic-tab">Akashic Nag</a>
+              <a href="../AkashicNag13Codex/index.html" class="neumorphic-tab">Akashic Nag 13 Codex</a>
+              <a href="../AkashicNagTreaties/index.html" class="neumorphic-tab">Akashic Nag Treaties</a>
+              <a href="../AkashicThothDeep/index.html" class="neumorphic-tab">Akashic Thoth Deep</a>
+              <a href="../AkashicThothLite/index.html" class="neumorphic-tab">Akashic Thoth Lite</a>
+              <a href="../comingSoon.html" class="neumorphic-tab">More Records</a>
+            </div>
+            
+            <a href="#" class="neumorphic-tab" data-expand="submenu-anarchy">Anarchy Comics & Info</a>
+            <div id="submenu-anarchy" class="submenu hidden">
+              <a href="../AnarchyComicBreakFree/index.html" class="neumorphic-tab">Anarchy Comic: Break Free</a>
+              <a href="../AnarchyComicCocoon/index.html" class="neumorphic-tab">Anarchy Comic: Cocoon</a>
+              <a href="../AnarchyDepth/index.html" class="neumorphic-tab">Anarchy Depth</a>
+              <a href="../AnarchyIsAlwaysMobile/index.html" class="neumorphic-tab">Anarchy Is Always Mobile</a>
+              <a href="../AnarchyPoetics/index.html" class="neumorphic-tab">Anarchy Poetics</a>
+              <a href="../AnarchyTAZ/index.html" class="neumorphic-tab">Anarchy TAZ</a>
+              <a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+            </div>
+            
+            <a href="#" class="neumorphic-tab" data-expand="submenu-eyespy">Eye Spy</a>
+            <div id="submenu-eyespy" class="submenu hidden">
+              <a href="../EyeSPY1/index.html" class="neumorphic-tab">Eye Spy Game 20 (1st Edition)</a>
+              <a href="../EyeSPY2/index.html" class="neumorphic-tab">Eye Spy Game 46 (2nd Edition)</a>
+              <a href="../EyeSPY3/index.html" class="neumorphic-tab">Eye Spy Game 66 (3rd Edition)</a>
+              <a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+            </div>
+            
+            <a href="#" class="neumorphic-tab" data-expand="submenu-tide-walk">Tide Walk</a>
+            <div id="submenu-tide-walk" class="submenu hidden">
+              <a href="../TideApp/index.html" class="neumorphic-tab">Tide Walk USA</a>
+              <a href="../TideApp/indexOregon.html" class="neumorphic-tab">Tide Walk Oregon</a>
+              <a href="../TideApp/indexBoston.html" class="neumorphic-tab">Tide Walk Boston</a>
+            </div>
+            
+            <a href="#" class="neumorphic-tab" data-expand="submenu-trent">Trent</a>
+            <div id="submenu-trent" class="submenu hidden">
+              <a href="../TrentOfTheDay/index.html" class="neumorphic-tab">Trent of the Day</a>
+              <a href="../TrentStorybook1stMobile/index.html" class="neumorphic-tab">Trent Storybook</a>
+              <a href="../TrentStorybook1stMobile/contact.html" class="neumorphic-tab">Contact</a>
+              <a href="../TrentStorybook1stMobile/about.html" class="neumorphic-tab">About</a>
+              <a href="../comingSoon.html" class="neumorphic-tab">Space StoryBook</a>
+            </div>
+            
+            <!-- Prayer Section -->
+            <a href="#" class="neumorphic-tab" data-expand="submenu-prayer">Prayer For Love</a>
+            <div id="submenu-prayer" class="submenu hidden">
+              <a href="../PrayerForLove/index.html" class="neumorphic-tab">Prayer For Love</a>
+              <a href="../PrayerThanks/index.html" class="neumorphic-tab">Thanks & Graditude</a>
+              <a href="../PrayerChildrensStill/index.html" class="neumorphic-tab">Prayer Childrens Still image</a>
+              <a href="../PrayerChildrensFade/index.html" class="neumorphic-tab">Prayer Childrens Fade</a>
+                <a href="../PrayerChildrensFlip/index.html" class="neumorphic-tab">Prayer Childrens Flip</a>
+              </div>
+              
+            <a href="../Haudenosaunee/index.html" class="neumorphic-tab">Haudenosaunee Thanksgiving</a>
+            
+            <a href="../Inprogression/index.html" class="neumorphic-tab">INPROGRESSION</a>
+            
+            <a href="../MindMelt/index.html" class="neumorphic-tab">MindMelt</a>
+            
+            <a href="../behind-the-fold/index.html" class="neumorphic-tab">Behind the Fold</a>
+            
+            <a href="../skating-bunny/index.html" class="neumorphic-tab">Rabbit Hole</a>
+            
+            <!-- Socials Section -->
+            <a href="#" class="neumorphic-tab" data-expand="submenu-socials">Socials</a>
+            <div id="submenu-socials" class="submenu hidden">
+            
+                <!-- FOOD4THOTH Links -->
+                <a href="https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho" class="neumorphic-tab" target="_blank">FOOD4THOTH Instagram</a>
+                <a href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi" class="neumorphic-tab" target="_blank">FOOD4THOTH Facebook</a>
+            
+                <!-- INPROGRESSION Links -->
+                <a href="https://www.facebook.com/share/19M7DM1SrT/?mibextid=wwXIfr" class="neumorphic-tab" target="_blank">INPROGRESSION Facebook</a>
+            
+                <!-- ARTABILLIES Links -->
+                <a href="https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ==" class="neumorphic-tab" target="_blank">ARTABILLIES Instagram</a>
+                <a href="https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi" class="neumorphic-tab" target="_blank">ARTABILLIES Facebook</a>
+                <a href="https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP" class="neumorphic-tab" target="_blank">ARTABILLIES Facebook Group</a>
+                <a href="https://www.artabillies.com/contact-us" class="neumorphic-tab" target="_blank">Contact Artabillies</a>
+                <a href="https://www.artabillies.com/artist-info" class="neumorphic-tab" target="_blank">Artabillies Artists</a>
+                
+            <a href="https://www.facebook.com/share/1A3Puz9LiE/?mibextid=wwXIfr" class="neumorphic-tab">Peruvian Melt Facebook</a>
+            <a href="https://www.facebook.com/share/1ASf9gTHNd/?mibextid=wwXIfr" class="neumorphic-tab">Seeker and the Star Facebook</a>
+            <a href="https://www.facebook.com/share/15JCrs2ByF/?mibextid=wwXIfr" class="neumorphic-tab">INPROGRESSION Facebook</a>
+            <a href="https://www.facebook.com/share/14u1KuMKxKC/?mibextid=wwXIfr" class="neumorphic-tab">Abyss of Bliss Facebook</a>
+            <a href="https://www.facebook.com/share/1A92psCHBz/?mibextid=wwXIfr" class="neumorphic-tab">DeJahn's Facebook</a>
+            
+            <a href="https://www.instagram.com/trent_son_of_reznor?igsh=MTNpam0zZDY3dGludg==" class="neumorphic-tab">Trent's Instagram</a>
+            </div>
+            
+            <!-- Music Collection Section -->
+            <a href="#" class="neumorphic-tab" data-expand="submenu-youtube">YouTube</a>
+            <div id="submenu-youtube" class="submenu hidden">
+              
+              
+            <a href="https://youtube.com/playlist?list=PL2P9hSa1PuEh6kMDZk3VMK7qPYKxECmEX&si=RyjXAR8fyDIKDXjq" class="neumorphic-tab">Artabillies Videos</a>
+            <a href="https://youtube.com/playlist?list=PL2P9hSa1PuEhO0ax57jPofQtKw4q-Ac66&si=SUZaW6uJkIpXOa2a" class="neumorphic-tab">Artabillies Music</a>
+            
+            <a href="https://youtube.com/playlist?list=PLe089QV1U3-LFF_RgkdEC1OobqUnw8G3P&si=efVtCycW88FjotuS" class="neumorphic-tab">Peruvian Melt Playlist</a>
+            <a href="https://youtube.com/playlist?list=PLsiMr0_hgaOmqlIGzjHZBzi94yaRgQ38L&si=DMZc6ng8GWx8uMbU" class="neumorphic-tab">INPROGRESSION DVD</a>
+            <a href="https://youtube.com/playlist?list=PLe089QV1U3-LJfWXtDubFrSggdQrSAtQr&si=HHvg-AxCR9B5K0P1" class="neumorphic-tab">Ground Cherry</a>
+            <a href="https://youtube.com/playlist?list=PLHLqP3bn74o1JZi7PwVssJZmJ6-3eZ-UQ&si=Nm_FdCnyWb1EcZOn" class="neumorphic-tab">DeJahn's Playlist</a>
+            <a href="https://youtube.com/@dejahnlamar3569?si=_lah2UhBbNcV8Y8_" class="neumorphic-tab">DeJahn's YouTube</a>
+            <a href="https://youtube.com/@artabillies8291?si=3aRiP1B0ltfkvCPO" class="neumorphic-tab">Artabillies YouTube</a>
+              </div>
+              
+              
+            
+            <a href="#" class="neumorphic-tab" data-expand="submenu-rstory">Rstory</a>
+            <div id="submenu-rstory" class="submenu hidden">
+              <!-- Rstory Links -->
+              <a href="https://rstory.io/Dobbs_GATE.html" class="neumorphic-tab">Do You Do Dobbs Gallery</a>
+              <a href="../RstoryArtabillies/index.html" class="neumorphic-tab">Rstory Artabillies & Food4Thoth</a>
+              <!-- Articles & Additional Resources -->
+                <a href="https://hive.blog/crypto/@rstory/artabillies-receives-1m-rstory-gratitude-tokens" class="neumorphic-tab" target="_blank">ARTABILLIES Article</a>
+                <a href="https://rstory.io" class="neumorphic-tab" target="_blank"> Rstory Official Website</a>
+                <a href="https://t.me/+m-WEaUc7Ud8yY2Qx" class="neumorphic-tab" target="_blank">RSTORY Telegram Community</a>
+                <a href="https://github.com/ma-da/rstory" class="neumorphic-tab" target="_blank"> RSTORY GitHub</a>
+            </div>
+            
+            <a href="https://github.com/Dseekeroftruth" class="neumorphic-tab">GitHub</a>
+            
+            <a href="#" class="neumorphic-tab" data-expand="submenu-summary">Summary</a>
+            <div id="submenu-summary" class="submenu hidden">
+              <a href="../CollectiveSummary/index.html" class="neumorphic-tab">Collective Summary 1.0</a>
+              <a href="../CollectiveSummary/index2.html" class="neumorphic-tab">Collective Summary 2.0</a>
+            </div>
+              <a href="../Artabillies/index.html" class="neumorphic-tab">Artabillies Info</a>
+              <a href="https://www.artabillies.com/" class="neumorphic-tab">Artabillies.com</a>
+              <a href="../portfolio.html" class="neumorphic-tab">Portfolio</a>
+              <a href="../comingSoon.html" class="neumorphic-tab">Desktop Landing</a>
+              <a href="../contact.html" class="neumorphic-tab">Contact</a>
+              <a href="mailto:food4thoth@proton.me" class="neumorphic-tab">Email: food4thoth@proton.me</a>
+              <a href="../README.md" class="neumorphic-tab">F4T ReadMe</a>
+            </div>
+            <div class="philhead">How To: Tarot – An Extensive Guide for Intuitive and Practical Mastery</div>
+						
+            
+            <!-- All the text from your outline -->
+            <div class="philbody" style="margin-top: 1rem;">
+              
+              <h3>Introduction: What is Tarot? <a href="../TarotAllResources/index.html" class="cta-button-sacred">All Resources</a></h3>
+              <p>Tarot is an ancient divination system that combines symbolism, numerology, astrology, and spiritual wisdom to provide insight into life’s questions. The deck consists of 78 cards divided into two parts: the Major Arcana (22 cards), which deal with overarching life themes, and the Minor Arcana (56 cards), which focus on daily experiences and specific details. Tarot is more than a tool for fortune-telling—it is a mirror reflecting your inner world, revealing truths, patterns, and possible outcomes.</p>
+
+              <p>In this comprehensive guide, you will learn:</p>
+              <ol>
+                <li>How to Choose a Deck</li>
+                <li>The Structure of the Tarot</li>
+                <li>Understanding Each Card’s Meaning</li>
+                <li>Preparing for a Tarot Reading</li>
+                <li>Step-by-Step Reading Process</li>
+                <li>Different Types of Spreads</li>
+                <li>Intuitive vs. Traditional Readings</li>
+                <li>Cleansing and Charging Your Deck</li>
+                <li>Advanced Techniques and Combining Systems</li>
+                <li>Common Mistakes and How to Avoid Them</li>
+              </ol>
+
+              <hr />
+							
+							<h4>✨ Explore FOOD4THOTH’s Tarot Galleries:</h4>
+						<div class="cta-grid">	
+          <p>
+          <a href="../TarotTogetherNoAge/index.html" class="cta-button-sacred">🌠 FOOD4THOTH Tarot Gallery</a>
+					<a href="../MajixTarotMajor/index.html" target="_blank" class="cta-button cta-button-dark">Arcana Majix</a>
+					<a href="../MajixTarotWands/index.html" target="_blank" class="cta-button cta-button-cosmic">Wands Majix</a>
+					<a href="../MajixTarotCups/index.html" target="_blank" class="cta-button cta-button-melo">Cups Majix</a>
+          <a href="../MajixTarotSwords/index.html" target="_blank" class="cta-button cta-button-abyssal">Swords Majix</a>
+          <a href="../MajixTarotPentacles/index.html" target="_blank" class="cta-button cta-button-neon-noir">Pentacles Majix</a>
+          <a href="../MajixTarotAll/index.html" target="_blank" class="cta-button cta-button-sacred">All Cards Majix</a>
+         <a href="../MajixLanding/index.html" target="_blank" class="cta-button cta-button-verdant">All Majix Galleries</a>
+        <a href="../TarotFlipCardGallery/index.html" target="_blank" class="cta-button-geometry">🃏 Quick Reference Gallery</a>
+        <a href="../TarotAgeVerify/index.html" target="_blank" class="cta-button-sensual">🔮 Enter the 18+ Digital Arcana</a>
+				<a href="../TarotGalleries/index.html" target="_blank" class="cta-button-donate">All Galleries</a>
+          
+        </p>
+			</div>
+
+        <hr />
+
+
+              <h3>1. Choosing Your Tarot Deck</h3>
+              <p>Your first step is to find a deck that resonates with you. Traditional decks like the Rider-Waite-Smith are widely used and highly recommended for beginners because of their clear imagery and symbolism. Other popular decks include:</p>
+              <ul>
+                <li><strong>Thoth Tarot</strong> – More esoteric, with complex symbolism rooted in Kabbalah and astrology.</li>
+                <li><strong>Marseille Tarot</strong> – Known for its simplicity and historical significance.</li>
+                <li><strong>Themed Decks</strong> – Such as fantasy, nature, animals, or mythology.</li>
+              </ul>
+              <p>
+                When choosing a deck, consider:
+                <ul>
+                  <li><strong>Imagery:</strong> Do the visuals speak to you?</li>
+                  <li><strong>Symbolism:</strong> Is the symbolism easy to understand?</li>
+                  <li><strong>Theme:</strong> Does the deck’s theme align with your personal interests or spiritual practice?</li>
+                </ul>
+              </p>
+              <p><em>Tip:</em> You don’t need someone to gift you a Tarot deck—it’s a myth. Trust your intuition and pick what feels right!</p>
+
+              <hr />
+							
+							 <h4>✨ Explore FOOD4THOTH’s Themes</h4>
+					<div class="cta-grid">		 
+        <p>
+					
+          <a href="../TarotOG/index.html" class="cta-button-verdant">📜 OG Traditional Tarot</a>
+          <a href="../TarotSacredGeometry/index.html" class="cta-button-geometry">⚛️ Sacred Geometry Tarot</a>
+          <a href="../TarotCyberPunkDark/index.html" class="cta-button-dark">🖤 Cyberpunk Dark Tarot</a>
+          <a href="../TarotCyberPunkMelo/index.html" class="cta-button-cosmic">🌃 Cyberpunk Melo Tarot</a>
+          <a href="../TarotCrystalQueens/indexAge.html" class="cta-button-sensual">💎 Crystal Queens Tarot (18+)</a>
+          <a href="../TarotCyberPunkX/indexAge.html" class="cta-button-neon-noir">🔞 Cyberpunk-X Tarot (18+)</a>
+					 
+					
+        </p>
+			</div>
+
+        <hr />
+
+              <h3>2. Understanding the Structure of the Tarot <a href="../TarotTextList/index.html" target="_blank" class="cta-button-cyberpunk">🚀 Enter the Text Libary</a></h3>
+<p>Tarot is a symbolic system that reflects the journey of life, spiritual lessons, and everyday experiences. The deck consists of <strong>78 cards</strong>, divided into two main categories:</p>
+<ul>
+  <li><strong>Major Arcana (22 Cards):</strong> Represent life’s profound lessons and spiritual evolution.</li>
+  <li><strong>Minor Arcana (56 Cards):</strong> Reflect everyday experiences and challenges, divided into four elemental suits.</li>
+</ul>
+
+<hr>
+
+<h4>🌟 Major Arcana (22 Cards) – The Journey of the Soul <a href="../MajixTarotMajor/index.html" target="_blank" class="cta-button cta-button-dark">Arcana Majix</a></h4>
+
+<p>The Major Arcana cards depict significant life lessons and spiritual milestones. They narrate <strong>The Fool’s Journey</strong>, a metaphor for personal growth, transformation, and enlightenment.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Card Name</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>0</td><td>The Fool</td><td>New beginnings, spontaneity, innocence, clear conscience</td></tr>
+    <tr><td>I</td><td>The Magician</td><td>Manifestation, conscious awareness, power, concentration</td></tr>
+    <tr><td>II</td><td>The High Priestess</td><td>Intuition, clairvoyance, perceptiveness, hidden knowledge</td></tr>
+    <tr><td>III</td><td>The Empress</td><td>Creativity, abundance, nurturing, fertility, mothering energy</td></tr>
+    <tr><td>IV</td><td>The Emperor</td><td>Structure, authority, regulation, fatherhood, control</td></tr>
+    <tr><td>V</td><td>The Hierophant</td><td>Belief systems, education, tradition, group identity</td></tr>
+    <tr><td>VI</td><td>The Lovers</td><td>Relationships, choices, union, passion, temptation</td></tr>
+    <tr><td>VII</td><td>The Chariot</td><td>Willpower, victory, determination, self-discipline</td></tr>
+    <tr><td>VIII</td><td>Strength</td><td>Patience, compassion, inner power, courage, resilience</td></tr>
+    <tr><td>IX</td><td>The Hermit</td><td>Solitude, introspection, wisdom, self-discovery</td></tr>
+    <tr><td>X</td><td>The Wheel of Fortune</td><td>Destiny, change, karma, turning points, cycles</td></tr>
+    <tr><td>XI</td><td>Justice</td><td>Fairness, truth, accountability, balance, law</td></tr>
+    <tr><td>XII</td><td>The Hanged Man</td><td>Surrender, perspective, sacrifice, letting go</td></tr>
+    <tr><td>XIII</td><td>Death</td><td>Endings, transformation, rebirth, shedding the old</td></tr>
+    <tr><td>XIV</td><td>Temperance</td><td>Harmony, moderation, balance, integration</td></tr>
+    <tr><td>XV</td><td>The Devil</td><td>Bondage, materialism, temptations, fears, illusions</td></tr>
+    <tr><td>XVI</td><td>The Tower</td><td>Sudden change, upheaval, destruction, revelation</td></tr>
+    <tr><td>XVII</td><td>The Star</td><td>Hope, inspiration, renewal, divine guidance</td></tr>
+    <tr><td>XVIII</td><td>The Moon</td><td>Illusions, subconscious, mystery, dreams, uncertainty</td></tr>
+    <tr><td>XIX</td><td>The Sun</td><td>Joy, enlightenment, clarity, success, positivity</td></tr>
+    <tr><td>XX</td><td>Judgment</td><td>Rebirth, reflection, awakening, self-realization</td></tr>
+    <tr><td>XXI</td><td>The World</td><td>Completion, fulfillment, achievement, wholeness</td></tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h4>📖 Minor Arcana (56 Cards) – Everyday Experiences</h4>
+
+<a href="../MajixTarotWands/index.html" target="_blank" class="cta-button cta-button-cosmic">Wands Majix</a>
+					<a href="../MajixTarotCups/index.html" target="_blank" class="cta-button cta-button-melo">Cups Majix</a>
+          <a href="../MajixTarotSwords/index.html" target="_blank" class="cta-button cta-button-abyssal">Swords Majix</a>
+          <a href="../MajixTarotPentacles/index.html" target="_blank" class="cta-button cta-button-neon-noir">Pentacles Majix</a>
+<p>The Minor Arcana consists of <strong>four suits</strong>, each associated with an element and aspect of life. Each suit has <strong>10 numbered cards (Ace to 10)</strong> and <strong>4 court cards (Page, Knight, Queen, King)</strong> representing different maturity levels and personality archetypes.</p>
+
+<h5><strong>🔥 Wands (Fire) – Creativity, Passion, Action</strong></h5>
+<ul>
+    <li>Ace – New ventures, energy, enthusiasm</li>
+  <li>Two – Planning, future vision, decision-making</li>
+  <li>Three – Expansion, foresight, progress</li>
+  <li>Four – Celebration, stability, harmony</li>
+  <li>Five – Conflict, competition, challenges</li>
+  <li>Six – Victory, recognition, success</li>
+  <li>Seven – Perseverance, defense, resilience</li>
+  <li>Eight – Swift action, travel, rapid progress</li>
+  <li>Nine – Wounded warrior, persistence, strength</li>
+  <li>Ten – Burden, responsibility, hard work</li>
+  <li>Page – Adventurous, eager learner, new ideas</li>
+  <li>Knight – Bold, impulsive, driven, restless</li>
+  <li>Queen – Confident, visionary, charismatic</li>
+  <li>King – Leadership, entrepreneur, authority</li>
+
+</ul>
+
+<h5><strong>💧 Cups (Water) – Emotions, Relationships, Intuition</strong></h5>
+<ul>
+    <li>Ace – New emotions, deep feelings, intuition</li>
+  <li>Two – Partnerships, soul connections, unity</li>
+  <li>Three – Friendship, joy, celebration</li>
+  <li>Four – Discontent, contemplation, stagnation</li>
+  <li>Five – Loss, disappointment, grief</li>
+  <li>Six – Nostalgia, childhood memories, sentimentality</li>
+  <li>Seven – Choices, fantasy, illusions</li>
+  <li>Eight – Walking away, seeking deeper meaning</li>
+  <li>Nine – Emotional fulfillment, wishes granted</li>
+  <li>Ten – Love, happiness, family, emotional success</li>
+  <li>Page – Sensitive, dreamer, artistic, intuitive</li>
+  <li>Knight – Romantic, charming, emotionally intense</li>
+  <li>Queen – Compassionate, nurturing, intuitive</li>
+  <li>King – Wise, emotionally balanced, understanding</li>
+
+</ul>
+
+<h5><strong>🌬 Swords (Air) – Intellect, Communication, Challenges</strong></h5>
+<ul>
+   <li>Ace – Truth, clarity, mental breakthroughs</li>
+  <li>Two – Indecision, stalemate, difficult choices</li>
+  <li>Three – Heartbreak, sorrow, grief</li>
+  <li>Four – Rest, recovery, introspection</li>
+  <li>Five – Conflict, betrayal, tension</li>
+  <li>Six – Transition, moving forward, healing</li>
+  <li>Seven – Deception, strategy, hidden motives</li>
+  <li>Eight – Limitation, self-doubt, restriction</li>
+  <li>Nine – Anxiety, worry, nightmares</li>
+  <li>Ten – Endings, betrayal, dramatic loss</li>
+  <li>Page – Curious, analytical, observant</li>
+  <li>Knight – Direct, assertive, quick-witted</li>
+  <li>Queen – Intelligent, perceptive, independent</li>
+  <li>King – Logical, disciplined, authoritative</li>
+</ul>
+
+<h5><strong>🌿 Pentacles (Earth) – Material World, Finances, Stability</strong></h5>
+<ul>
+   <li>Ace – New financial opportunities, abundance</li>
+  <li>Two – Balance, adaptability, resourcefulness</li>
+  <li>Three – Skill, teamwork, craftsmanship</li>
+  <li>Four – Stability, security, material attachment</li>
+  <li>Five – Financial hardship, loss, struggle</li>
+  <li>Six – Generosity, giving, financial support</li>
+  <li>Seven – Patience, long-term investments</li>
+  <li>Eight – Mastery, diligence, focus</li>
+  <li>Nine – Self-sufficiency, luxury, independence</li>
+  <li>Ten – Wealth, family legacy, success</li>
+  <li>Page – Ambitious, learning, financial growth</li>
+  <li>Knight – Hardworking, reliable, methodical</li>
+  <li>Queen – Practical, nurturing, business-savvy</li>
+  <li>King – Wealthy, responsible, disciplined</li>
+</ul>
+
+<hr>
+
+<h4>✨ Key Takeaways</h4>
+<ul>
+  <li><strong>The Major Arcana</strong> represents profound life lessons and spiritual evolution.</li>
+  <li><strong>The Minor Arcana</strong> reflects day-to-day challenges and growth in four key areas:</li>
+  <ul>
+    <li>🔥 <strong>Wands</strong>: Creativity, ambition, action.</li>
+    <li>💧 <strong>Cups</strong>: Emotions, relationships, intuition.</li>
+    <li>🌬 <strong>Swords</strong>: Intellect, communication, conflicts.</li>
+    <li>🌿 <strong>Pentacles</strong>: Wealth, stability, material success.</li>
+  </ul>
+  <li>Each suit follows a **progression from Ace to 10**, with **Court Cards** embodying different personality traits.</li>
+	 <a href="../TarotFlipCardGallery/index.html" target="_blank" class="cta-button-geometry">🃏 Quick Reference Gallery</a>
+</ul>
+
+
+              <h3>3. Preparing for a Tarot Reading</h3>
+              <p>To achieve a clear, focused reading, you need the right mindset and environment.</p>
+
+              <h4>Cleanse and Charge Your Deck</h4>
+              <ul>
+                <li><strong>Before Your First Reading</strong>: Cleanse your deck to remove any residual energy.</li>
+                <li><strong>Methods</strong>: Use sage, sound cleansing (bells or singing bowls), crystals (such as selenite), or moonlight.</li>
+                <li><strong>Regular Cleansing</strong>: Repeat the cleansing process periodically or when the deck feels heavy or unclear.</li>
+              </ul>
+
+              <h4>Create a Sacred Space</h4>
+              <ul>
+                <li>Find a quiet, comfortable place where you won’t be disturbed.</li>
+                <li>Light candles or incense to set the mood.</li>
+                <li>Bring crystals, such as amethyst for intuition or clear quartz for clarity.</li>
+                <li>Focus on grounding yourself. Close your eyes and take a few deep breaths to center your energy.</li>
+              </ul>
+
+              <h4>Set an Intention</h4>
+              <ul>
+                <li>What do you seek from this reading?</li>
+                <li>Clear intentions lead to clear answers. Be specific but open.</li>
+              </ul>
+              <p><em>Example:</em> Instead of “Will I get a new job?”, try “What should I focus on to improve my career prospects?”</p>
+
+              <hr />
+
+              <h3>4. Step-by-Step Reading Process</h3>
+              <ol>
+                <li><strong>Shuffle the Cards</strong><br />
+                  Focus on your question while shuffling. There’s no wrong way to shuffle—use whatever feels natural.
+                </li>
+                <li><strong>Cut and Draw</strong><br />
+                  Once shuffled, cut the deck into three piles and reassemble it. Draw the number of cards required for your spread.
+                </li>
+                <li><strong>Lay Out the Cards</strong><br />
+                  Place the cards in the chosen spread (see next section for spread options).
+                </li>
+                <li><strong>Interpret the Cards</strong><br />
+                  <ul>
+                    <li>Look at each card individually: What symbols stand out?</li>
+                    <li>Consider the card’s position: In a spread, each position has a meaning (e.g., past, present, future).</li>
+                    <li>Weave the story: How do the cards relate to each other?</li>
+                  </ul>
+                </li>
+              </ol>
+
+              <hr />
+
+              <h3>5. Different Types of Spreads
+								<a href="../DrawTarot/index.html" class="cta-button-sacred">All Spreads</a></h3>
+              <p>Start with simple spreads and gradually move to more complex ones.</p>
+
+              <h4><strong>One-Card Spread</strong></h4>
+              <p>Perfect for daily guidance or simple yes/no questions.</p>
+					<div class="cta-grid">		
+        <p>
+          <a href="../TarotOG/index.html" class="cta-button-verdant">📜 OG Traditional Tarot</a>
+          <a href="../TarotSacredGeometry/index.html" class="cta-button-sacred">⚛️ Sacred Geometry Tarot</a>
+          <a href="../TarotCyberPunkDark/index.html" class="cta-button-dark">🖤 Cyberpunk Dark Tarot</a>
+          <a href="../TarotCyberPunkMelo/index.html" class="cta-button-cosmic">🌃 Cyberpunk Melo Tarot</a>
+          <a href="../TarotCrystalQueens/indexAge.html" class="cta-button-sensual">💎 Crystal Queens Tarot (18+)</a>
+          <a href="../TarotCyberPunkX/indexAge.html" class="cta-button-neon-noir">🔞 Cyberpunk-X Tarot (18+)</a>
+        </p>
+			</div>
+
+              <h4><strong>Three-Card Spread</strong></h4>
+              <ul>
+                <li>Past – Present – Future</li>
+                <li>Mind – Body – Spirit</li>
+                <li>Situation – Challenge – Advice</li>
+								<a href="../ThreeCardTarotByItself/index.html" target="_blank" class="cta-button-abyssal">Three Card Spread</a>
+                <a href="../ThreeCardTarot/index.html" target="_blank" class="cta-button-cosmic">Three Card w/ Quick Reference Gallery</a>
+              </ul>
+
+              <h4><strong>Celtic Cross (10 Cards)</strong></h4>
+              <p>A comprehensive spread for in-depth readings. Covers everything from external influences to future outcomes.<br /><a href="../CelticCrossTarot/index.html" target="_blank" class="cta-button-verdant">🌿 Celtic Cross Tarot 🌿</a></p>
+
+              <h4><strong>Jungian</strong></h4>
+              <p>6 Card Spread based on Thoth and Jungian design <br /><a href="../TarotJungian/index.html" target="_blank" class="cta-button-donate">🔮 Jungian Spread</a></p>
+
+              <hr />
+
+              <h3>6. Intuitive vs. Traditional Readings</h3>
+              <p><strong>Traditional Approach:</strong> Based on established meanings from guides or teachers.</p>
+              <p><strong>Intuitive Reading:</strong> Trusting your gut and letting the imagery speak to you.</p>
+              <p><em>Tip:</em> Combine both! Start with the card’s traditional meaning, then listen to your intuition for personalized messages.</p>
+
+              <hr />
+
+              <h3>7. Advanced Techniques</h3>
+              <p>Once you’re comfortable with basic readings, you can explore advanced techniques:</p>
+
+              <h4>Reversals</h4>
+              <p>Reading reversed cards (upside-down) adds depth to the interpretation. They can indicate blocked energy, delays, or the shadow aspect of the card.</p>
+
+              <h4>Astrology and Numerology</h4>
+              <p>Incorporate these systems to enhance your readings. For example, The Chariot corresponds to Cancer, emphasizing emotional control and determination.</p>
+
+              <h4>Elemental Dignities</h4>
+              <p>This technique involves analyzing how elements (fire, water, air, earth) interact in a spread to reveal hidden dynamics.</p>
+
+              <hr />
+
+              <h3>8. Common Mistakes and How to Avoid Them</h3>
+              <ol>
+                <li><strong>Relying Too Much on the Guidebook</strong><br />Learn the basics, but trust your intuition.</li>
+                <li><strong>Asking the Same Question Repeatedly</strong><br />Tarot works best when you give it time to unfold.</li>
+                <li><strong>Fear of Negative Cards</strong><br />No card is inherently bad. Even Death and The Tower represent transformation and necessary change.</li>
+              </ol>
+
+              <hr />
+
+              <h3>9. Tarot as a Tool for Growth</h3>
+              <p>Tarot is not just for predicting the future—it’s a tool for self-reflection and personal growth. Use it to:</p>
+              <ul>
+                <li><strong>Gain Clarity:</strong> On relationships, career, and life decisions.</li>
+                <li><strong>Deepen Self-Awareness:</strong> Identify patterns and limiting beliefs.</li>
+                <li><strong>Explore Your Subconscious:</strong> Access insights from your higher self.</li>
+              </ul>
+
+              <hr />
+
+              <h3>10. Daily Practice for Mastery</h3>
+              <ul>
+                <li><strong>Draw a Daily Card:</strong> Reflect on its meaning throughout the day.</li>
+                <li><strong>Keep a Tarot Journal:</strong> Record your readings, interpretations, and reflections.</li>
+                <li><strong>Practice on Friends:</strong> Gain confidence by reading for others.</li>
+              </ul>
+
+              <h4>Conclusion: Trust the Journey</h4>
+              <p>Tarot is a lifelong journey of learning and discovery. The more you practice, the deeper your connection with the cards will grow. Remember that each reading is an opportunity to listen to your inner voice and align with your highest path.</p>
+              <p><strong>Final Tip:</strong> Tarot doesn’t tell you what will happen—it shows you what you need to know to navigate your life with clarity and purpose. Enjoy the journey, and let the cards be your guide.</p>
+							
+							  <h2>🧿 I Ching Divination<br />An Ancient Oracle for Modern Times</h2>
+
+  <p>
+    While **Tarot** offers a deep symbolic system rooted in Western esotericism, the **I Ching**—also known as the *Book of Changes*—is an **ancient Chinese divination system** that provides insight through a dynamic interplay of **yin and yang energy**.  
+  </p>
+
+  <p>
+    The **I Ching** is built upon 64 **hexagrams**, each representing a universal archetype of **change, wisdom, and cosmic flow**. Unlike Tarot, which provides pictorial stories, the **I Ching** offers **philosophical guidance** that adapts to your specific question and the changing forces at play.
+  </p>
+
+  <h3>🔮 Why Choose the I Ching?</h3>
+  <ul>
+    <li><strong>🌗 Yin-Yang Balance:</strong> Explores the **dual nature** of every situation.</li>
+    <li><strong>🌀 Flow of Change:</strong> Recognizes that **nothing is static**, guiding you through transitions.</li>
+    <li><strong>⚡ Dynamic Readings:</strong> Uses a **virtual coin toss** or manual hexagram input.</li>
+    <li><strong>📜 Timeless Wisdom:</strong> Rooted in **Confucian, Taoist, and Daoist philosophy**.</li>
+    <li><strong>🌟 Perfect Companion to Tarot:</strong> A **different perspective** that enriches your practice.</li>
+  </ul>
+
+  <h3>🖥️ Explore I Ching in the Digital Age</h3>
+  <p>
+    Our **interactive I Ching app** allows you to **cast hexagrams** digitally and explore their meanings in a **modern, cyber-mystic interface**.
+  </p>
+
+  <p>
+    <a href="../Iching/index.html" target="_blank" class="cta-button-neon-noir">🌐 Access the Cyber I Ching</a>
+  </p>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" id="row4">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="footer format">
+          <div class="copyright">
+            <div> © 2025 <a href="../index.html" target="_blank">Food4Thoth</a>. All rights reserved. </div>
+						<p>Support our projects via<br /><a href="../Donations/index.html" target="_blank"><strong>Donate Button</strong></a>, <a href="https://paypal.me/artabillies" target="_blank"><strong>PayPal</strong></a>, or <a href="https://venmo.com/u/DeJahnvu" target="_blank"><strong>Venmo</strong></a></p>
+          </div>
+					
+				
+
+          <div class="donate format">
+            <div class="donate-text"><a href="../index.html" target="_blank"><strong>FOOD4THOTH</strong></a> Tarot this is currently run by a single person. <br> Any help is appreciated and goes into growing the site.</div>
+            <a target = "_blank" href = "../Donations/index.html"><img alt="donate button" class="donate-button" src="./images/Donate.png"></a> 
+						<p>View more creations @ <a href="http://www.artabillies.com" target="_blank"><strong>Artabillies</strong></a>
+     
+      <p>For inquiries or feedback, email us at <a href="mailto:food4thoth@proton.me"><strong>food4thoth@proton.me</strong></a></p>
+     <a href="./HowToREADME.md"  class="styled-link"><strong>ReadMe</strong></a> | <a href="../contact.html"  class="styled-link"><strong>Contact</strong></a></p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+	
+	<script>
+				
+				
+
+// Scroll to the top of the page
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Smooth scrolling effect
+    });
+}
+
+// Scroll to the bottom of the page
+function scrollToBottom() {
+    window.scrollTo({
+        top: document.body.scrollHeight, // Scroll to the full height of the page
+        behavior: 'smooth' // Smooth scrolling effect
+    });
+}
+    </script>
+		
+		<script src="./nav_script.js"></script>
+
+<script src="./iframe_script.js"></script>
+
+  <!-- If you have a separate JS file for interactions, reference it here -->
+  <!-- <script src="../js/index.js"></script> -->
+
+</body>
+</html>

@@ -1,0 +1,607 @@
+body {
+	background-color: #682546;
+}
+
+*{
+  box-sizing: border-box;
+  margin: auto;
+}
+
+.format{
+  font-size: 0;
+}
+
+.project{
+  background-color: #cfc9bb;
+}
+
+.background{
+  background-color: #682546;
+}
+
+.banner{
+  width: 100%;
+}
+
+.navigation1 {
+  width: 100%;
+  font-family: 'PT Sans Narrow', sans-serif;
+  text-align: center;
+  font-size: 1.8rem;
+  background-color: #3a364c;
+  color: #cfc9bb;
+}
+
+.sidebar{
+  width: 100%;
+  background-color: #8c6749;
+  color: #cfc9bb;
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.codhead{
+  font-family: 'PT Sans', sans-serif;
+  font-size: 1.6rem;
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.codimg{
+  width: 75%;
+  padding: 10px;
+}
+
+.codname{
+  text-align: center;
+  font-size: 1.4rem;
+  margin: 0.5rem;
+}
+
+.coddesc{
+  text-align: left;
+}
+
+.selecthoro{
+  width: 80%;
+  margin-left: 1.25rem;
+  background-color: #d3a23d;
+}
+
+.horodesc{
+  padding: 10px;
+  text-align: left;
+}
+
+.philosophy{
+  text-align: center;
+  margin: auto 0;
+	
+}
+
+.philhead{
+  font-family: 'PT Sans', sans-serif;
+  font-weight: bold;
+  font-size: 3rem;
+  color: #682546;
+  text-align: left;
+	
+}
+
+.philbody{
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-size: 1.3rem;
+  text-align: left;
+}
+
+.philimg{
+  height: 20rem;
+  margin: 25px;
+	width: 100%;
+	margin-left: -10px;
+}
+
+.copyright{
+  font-size: 1rem;
+  display:inline-block;
+  width: 60%;
+}
+
+.donate{
+  font-size: 1rem;
+  display: inline-block;
+}
+
+.donate-text{
+  display: inline-block;
+}
+
+.donate-button{
+  display: inline-block;
+	margin-left: 70px;
+}
+
+.footer{
+  background-color: #3a364c;
+  color: #cfc9bb;
+  padding: 10px;
+}
+
+.tarot{
+  display: none;
+}
+
+a:link, a:visited {
+  color: #cfc9bb;
+  text-decoration: none;
+}
+
+a:hover{
+  color: white;
+  text-decoration: none;
+}
+
+	  .cta-button-sacred {
+    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #d4af37, #5a3e1b);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(212, 175, 55, 0.5);
+    transition: background 0.3s ease-in-out, transform 0.2s;
+  }
+
+  .cta-button-sacred:hover {
+    background: linear-gradient(135deg, #e8c75d, #724f28);
+    transform: scale(1.05);
+  }
+
+  .sacred-theme {
+    background: rgba(20, 10, 5, 0.95);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 4px 4px 16px rgba(212, 175, 55, 0.3);
+    color: #ffffff;
+  }
+
+    .cta-button-dark {
+    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #ff0000, #660000);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(255, 0, 0, 0.5);
+    transition: background 0.3s ease-in-out, transform 0.2s;
+  }
+
+  .cta-button-dark:hover {
+    background: linear-gradient(135deg, #ff3333, #990000);
+    transform: scale(1.05);
+  }
+
+  .dark-theme {
+    background: rgba(5, 5, 15, 0.95);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 4px 4px 16px rgba(255, 0, 0, 0.3);
+    color: #ffffff;
+	}
+		
+		  .cta-button-melo {
+    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #ff00ff, #00ffff);
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(0, 255, 255, 0.5);
+    transition: background 0.3s ease-in-out, transform 0.2s;
+  }
+
+  .cta-button-melo:hover {
+    background: linear-gradient(135deg, #ff77ff, #77ffff);
+    transform: scale(1.05);
+  }
+
+  .melo-theme {
+    background: rgba(15, 15, 30, 0.9);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 4px 4px 16px rgba(0, 255, 255, 0.3);
+    color: #ffffff;
+  }
+
+    .cta-button-geometry {
+    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #3b8d99, #6b5b95);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease-in-out, transform 0.2s;
+  }
+
+  .cta-button-geometry:hover {
+    background: linear-gradient(135deg, #5aafab, #8874b8);
+    transform: scale(1.05);
+  }
+
+  .geo-theme {
+    background: rgba(20, 20, 20, 0.9);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 4px 4px 20px rgba(46, 204, 113, 0.5);
+ 
+    color: #ffffff;
+  }
+
+   .cta-button-sensual {
+    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #ff007f, #7d0079);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(255, 0, 127, 0.5);
+    transition: background 0.3s ease-in-out, transform 0.2s;
+  }
+
+  .cta-button-sensual:hover {
+    background: linear-gradient(135deg, #ff4da6, #a30099);
+    transform: scale(1.05);
+  }
+
+  .sensual-theme {
+    background: rgba(50, 10, 20, 0.95);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 4px 4px 16px rgba(255, 0, 127, 0.3);
+    color: #ffffff;
+  }
+
+  .cta-button-cyberpunk {
+    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #ff00ff, #001eff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(255, 0, 255, 0.5);
+    transition: background 0.3s ease-in-out, transform 0.2s;
+  }
+
+  .cta-button-cyberpunk:hover {
+    background: linear-gradient(135deg, #ff33ff, #335dff);
+    transform: scale(1.05);
+  }
+
+  .cyberpunk-x-theme {
+    background: rgba(50, 10, 20, 0.95);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 4px 4px 16px rgba(255, 0, 255, 0.3);
+    color: #ffffff;
+  }
+	
+	.cta-button-cosmic {
+  display: inline-block;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #3399ff, #6600cc); /* Galactic blue to deep violet */
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: 3px 3px 12px rgba(51, 153, 255, 0.5);
+  transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+.cta-button-cosmic:hover {
+  background: linear-gradient(135deg, #66b3ff, #7700dd);
+  transform: scale(1.05);
+}
+
+.cta-button-abyssal {
+  display: inline-block;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #0033cc, #000066); /* Deep blue tones */
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: 3px 3px 12px rgba(0, 51, 204, 0.5);
+  transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+.cta-button-abyssal:hover {
+  background: linear-gradient(135deg, #0044ff, #001144);
+  transform: scale(1.05);
+}
+
+.cta-button-neon-noir {
+  display: inline-block;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #ff00ff, #001eff); /* Neon magenta to electric blue */
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: 3px 3px 12px rgba(255, 0, 255, 0.5);
+  transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+.cta-button-neon-noir:hover {
+  background: linear-gradient(135deg, #ff33ff, #335dff);
+  transform: scale(1.05);
+}
+
+  /* Unique styles for each iframe theme */
+    .theme-sacred {
+      background: rgba(255, 215, 0, 0.15);
+      border: 2px solid #d4af37;
+    }
+
+    .theme-dark {
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid #ff0000;
+    }
+		
+		
+    .theme-geometry {
+      background: rgba(20, 20, 20, 0.9);
+      border: 2px solid #3b8d99;
+    }
+		
+		.theme-crystal {
+      background: rgba(50, 10, 30, 0.9);
+      border: 2px solid #ff007f;
+    }
+		
+		.theme-abyssal {
+  background: rgba(10, 10, 40, 0.75); /* Deep blue with transparency */
+  border: 2px solid #0033cc; /* Electric blue */
+  box-shadow: 0 0 15px rgba(0, 51, 204, 0.5);
+}
+
+.theme-neon-noir {
+  background: rgba(20, 0, 40, 0.7); /* Dark violet hue */
+  border: 2px solid #ff00ff; /* Neon magenta */
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.6);
+}
+
+.theme-verdant {
+  background: rgba(5, 40, 10, 0.75); /* Deep green with transparency */
+  border: 2px solid #00ff66; /* Neon green */
+  box-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
+}
+
+.cta-button-verdant {
+  display: inline-block;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #00ff66, #005522); /* Neon green to deep forest green */
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: 3px 3px 12px rgba(0, 255, 102, 0.5);
+  transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+.cta-button-verdant:hover {
+  background: linear-gradient(135deg, #33ff99, #007733);
+  transform: scale(1.05);
+}
+
+/* Scroll Buttons Container */
+.scroll-buttons {
+    position: fixed;
+    right: 8px;
+    top: 65%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+		z-index: 9999;
+}
+
+.scroll-buttons button {
+    all: unset;
+    width: 1rem 
+    height: auto;
+    font-size: .7rem;
+    background: linear-gradient(135deg, #330033, #660066, #ff00cc); /* Neon gradient */
+    color: #fff;
+    color: #333;
+    padding: 0;
+    padding-top: 13px;
+		padding-bottom: 10px;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    box-shadow: 0 0 15px #ff00cc, 0 0 25px #ff66ff, 0 0 40px #00ccff; /* Neon glow effect */
+    border: 2px solid #ff00cc;
+    transition: box-shadow 0.3s ease, background-color 0.3s, transform 0.2s;
+		z-index: 1000;
+}
+
+/* Hover effect for buttons */
+.scroll-buttons button:hover {
+    background-color: #ccc;
+    box-shadow: inset 2px 2px 5px #bebebe, inset -2px -2px 5px #ffffff;
+    transform: scale(1.05);
+}
+
+/* Center Buttons */
+.cta-button,
+.view-full,
+.cta-button-sacred,
+.cta-button-dark,
+.cta-button-melo,
+.cta-button-geometry,
+.cta-button-sensual,
+.cta-button-cyberpunk {
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+}
+
+/* Donation Buttons */
+.cta-button-donate {
+  display: inline-block;
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #d4af37, #724f28);
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 6px;
+  box-shadow: 3px 3px 8px rgba(212, 175, 55, 0.5);
+  transition: background 0.3s ease-in-out, transform 0.2s;
+	margin-bottom: 20px;
+}
+
+.cta-button-donate:hover {
+  background: linear-gradient(135deg, #e8c75d, #5a3e1b);
+  transform: scale(1.05);
+}
+
+.cta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  justify-content: center;
+  text-align: center;
+  margin: 20px 0px;
+}
+
+.cta-grid a {
+  text-align: center;
+  padding: 12px;
+  font-size: 1.5rem;
+  white-space: nowrap;
+	margin-bottom: 20px;
+	margin-right: 20px;
+}
+
+/* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    padding: 5px 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 2rem;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+}
+
+.toggle-button:hover {
+    background-color: black;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+		pointer-events: none; /* This prevents any clicks on it */
+		display: none;
+}
+
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 60px; /* Adjust to stay below the toggle button */
+    left: 25%;
+		width: 50vw;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		height: 50%;
+		overflow-y: auto; /* Enable vertical scrolling */
+		color: black !important;
+		
+}
+				
+        .neumorphic-tab {
+					
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: black !important;
+            font-weight: bold;
+            font-size: clamp(16px, 1.2vw, 22px);
+						text-align: center;
+        }
+        .neumorphic-tab:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab.active {
+            background: #d1d1d1;
+        }
+				
+				.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+		color: black;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+		color: black;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+
+body.iframe-mode .navigation1 {
+    font-size: .9rem; /* Reduce font size only for iframe */
+}
+
+body.iframe-mode .toggle-button {
+    font-size: .4rem; /* Reduce font size only for iframe */
+		top: 2px;
+    left: 2px;
+}
+
+body.iframe-mode .neumorphic-tab {
+    font-size: .7rem; /* Reduce font size only for iframe */
+}
