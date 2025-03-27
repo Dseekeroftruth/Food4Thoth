@@ -1,0 +1,544 @@
+ /* ... [Your existing CSS styles] ... */
+				body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #e0e0e0;
+            color: #333;
+            margin: 20px;
+            padding: 0px;
+            text-align: center;
+            font-size: clamp(16px, 1.2vw, 150px);
+            margin-bottom: 50px;
+        }
+				
+				/* Prevent native scroll anchoring behavior */
+  html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 5px; /* Prevent header overlap */
+      overflow-anchor: none; /* Disable native scroll anchoring */
+  }
+
+  /* Ensure search input doesn't trigger zoom on mobile */
+  input[type="text"], input {
+      font-size: 16px; /* Prevent iOS zoom */
+  }
+
+  /* Adjust iframe loading behavior to avoid jumps */
+  iframe {
+      min-height: 500px; /* Prevent height collapse before load */
+      display: block;
+  }
+	
+.navigation1 {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+		position: fixed;
+    top: 0;
+    z-index: 1000; /* Ensure it's on top of other elements */
+    background-color: #e0e0e0; /* Match your site's background */
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		max-height: 70vh; /* Ensure it doesn't exceed 80% of the viewport height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Toggle Button Styling */
+.toggle-button1 {
+    position: fixed;
+    top: 5px;
+    right: 10px;
+    padding: 5px 10px;
+    background: grey;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+}
+
+.toggle-button1:hover {
+    background-color: grey;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+
+
+.hidden {
+    display: none;
+}
+
+
+/* Neumorphic Navigation Container */
+.navigation1 {
+    position: fixed;
+    top: 50px; /* Adjust to stay below the toggle button */
+    right: 10px;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		overflow-y: auto; /* Enable vertical scrolling */
+		
+}
+				
+        .neumorphic-tab1 {
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: clamp(12px, 1.2vw, 22px);
+        }
+        .neumorphic-tab1:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab1.active {
+            background: #d1d1d1;
+        }
+	
+	.navigation {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+		position: fixed;
+    top: 0;
+    z-index: 1000; /* Ensure it's on top of other elements */
+    background-color: #e0e0e0; /* Match your site's background */
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		max-height: 70vh; /* Ensure it doesn't exceed 80% of the viewport height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: 5px;
+    left: 10px;
+    padding: 5px 10px;
+    background: grey;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+}
+
+.toggle-button:hover {
+    background-color: grey;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+
+
+.hidden {
+    display: none;
+}
+
+
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 50px; /* Adjust to stay below the toggle button */
+    left: 5px;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		
+}
+				
+        .neumorphic-tab {
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: clamp(12px, 1.2vw, 22px);
+        }
+        .neumorphic-tab:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab.active {
+            background: #d1d1d1;
+        }
+        /* Search container styling */
+        .search-container {
+            position: relative;
+					  left: 10px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Search input field */
+        .search-input {
+            width: 100%;
+            padding: 15px 20px 15px 50px; /* Left padding for clear button */
+            border-radius: 25px;
+            border: none;
+            background: #e0e0e0;
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+            font-size: 18px;
+            outline: none;
+        }
+
+        /* Clear button */
+        .clear-button {
+            position: absolute;
+            left: 15px; /* Positioned inside the input field */
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #888;
+            display: none; /* Initially hidden */
+        }
+
+        /* Suggestions box */
+        .search-suggestions {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            background: #f9f9f9;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            border-radius: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none; /* Hidden by default */
+            z-index: 100;
+        }
+
+        .suggestion-item {
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .suggestion-item:hover {
+            background-color: #e0e0e0;
+        }
+        .category {
+            margin-top: 40px;
+        }
+				/* Neumorphic Contact Form Section */
+.contact-section {
+    background: #e0e0e0;
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 800px;
+    margin: 40px auto;
+    box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+    text-align: center;
+}
+
+.contact-section h2 {
+    margin-bottom: 20px;
+    font-size: clamp(24px, 1.2vw, 100px);
+    color: #333;
+}
+
+/* Neumorphic Form Styling */
+.contact-section form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* Label Styling */
+.contact-section label {
+    text-align: left;
+    margin-top: 15px;
+    font-size: clamp(14px, 1.2vw, 40px);
+    color: #555;
+}
+
+/* Input and Textarea Styling with Neumorphism */
+.contact-section input,
+.contact-section textarea {
+    width: 100%;
+    padding: 15px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 20px;
+    font-size: clamp(14px, 1.2vw, 30px);
+    background: #e0e0e0;
+    box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.contact-section textarea {
+    resize: vertical;
+}
+
+/* Neumorphic Button Styling */
+.contact-section button {
+    margin-top: 20px;
+    padding: 15px;
+    background: #e0e0e0;
+    color: #333;
+    border: none;
+    border-radius: 25px;
+    font-size: clamp(16px, 1.2vw, 50px);
+    cursor: pointer;
+    box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+    transition: box-shadow 0.3s ease;
+}
+
+.contact-section button:hover {
+    box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+}
+
+/* Neumorphic Business Info Section */
+.business-info {
+    max-width: 1200px;
+    margin: 30px auto;
+    background: #e0e0e0;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+}
+
+.business-info h2 {
+    font-size: clamp(22px, 2vw, 40px);
+    margin-bottom: 15px;
+    color: #333;
+    
+}
+
+.business-info p {
+    font-size: clamp(16px, 1.2vw, 36px);
+    color: black;
+    line-height: 1.2;
+		font-style: bold;
+}
+
+.business-info ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 15px;
+}
+
+.business-info li {
+    font-size: clamp(14px, 1.2vw, 26px);
+    margin-bottom: 10px;
+    color: #444;
+}
+
+.business-info a {
+    color: #007BFF;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.business-info a:hover {
+    color: #0056b3;
+}
+
+.business {
+    font-size: clamp(14px, 2vw, 40px);
+}
+
+.instagram-embed {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically (if needed) */
+    margin: 20px 0; /* Add margin for spacing */
+}
+
+.centered-container {
+    display: flex;
+    justify-content: center; /* Center content inside */
+    align-items: center;
+    width: 100%;
+    max-width: 2400px;
+    padding: 10px; /* Extra padding for breathing room */
+    margin: auto;
+    box-sizing: border-box;
+}
+
+.category {
+    background: #e0e0e0;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+    max-width: 2400px;
+    width: 80%; /* Adjust width for desktop screens */
+    text-align: center;
+    box-sizing: border-box;
+    margin: auto; /* Ensure it stays centered */
+}
+
+/* Scroll Buttons */
+        .scroll-buttons {
+            position: fixed;
+            right: 3px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+						z-index: 999;
+        }
+
+        .scroll-buttons button {
+            width: 40px;
+            height: 90px;
+            background: #e0e0e0;
+						padding-bottom: 5px;
+						padding-top: 5px;
+            color: #333;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            box-shadow: 2px 2px 5px #bebebe, -2px -2px 5px #ffffff;
+            transition: box-shadow 0.3s ease, background-color 0.3s;
+        }
+
+        .scroll-buttons button:hover {
+            box-shadow: inset 2px 2px 5px #bebebe, inset -2px -2px 5px #ffffff;
+            background-color: #d1d1d1;
+        }
+
+        /* Ensure responsiveness for mobile */
+        @media (max-width: 600px) {
+            .scroll-buttons button {
+                width: 25px;
+                height: 60px;
+                font-size: 11px;
+            }
+        }
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .category {
+        width: 70%; /* Wider on larger screens */
+        padding: 50px;
+    }
+
+    .search-container {
+        width: 60%; /* Search input smaller on large screens */
+    }
+}
+
+@media (max-width: 800px) {
+    .category {
+        width: 90%; /* Slightly smaller on medium screens */
+    }
+}
+
+@media (max-width: 600px) {
+    .category {
+        padding: 20px;
+        width: 100%; /* Full width for mobile */
+    }
+
+    .search-input {
+        font-size: 14px;
+    }
+
+    .business-info {
+        padding: 20px;
+    }
+
+    .contact-section input,
+    .contact-section textarea {
+        font-size: 14px;
+    }
+        /* Add styles for the iframe previews */
+        .business-preview {
+            margin-top: 15px;
+        }
+        .business-preview iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: inset 4px 4px 8px #bebebe, inset -4px -4px 8px #ffffff;
+        }
+}
+
+	.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+.footer {
+    text-align: center;
+    position: fixed;
+    bottom: -5px;
+    background-color: black;
+    color: #e0e0e0;
+    width: 100%;
+    font-size: 1rem;
+    padding: 2px 0;  /* Reduce top and bottom padding */
+    margin-top: 0;   /* Ensure no extra space above */
+    line-height: .5;  /* Reduce spacing between text lines */
+		left: 0;
+}
+.footer a {
+    color: #ff6600;
+    text-decoration: none;
+}
+.footer a:hover {
+    text-decoration: underline;
+}
