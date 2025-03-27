@@ -1,0 +1,179 @@
+/* Cyberpunk Neon Rainbow Styles */
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      font-family: 'Press Start 2P', cursive;
+      color: #fff;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+
+    #controls {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .button {
+      background: linear-gradient(45deg, #ff00cc, #333399);
+      border: none;
+      color: #fff;
+      padding: 15px 25px;
+      margin-bottom: 30px;
+      font-size: .7rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 0 10px #ff00cc, 0 0 20px #333399;
+      transition: transform 0.2s;
+    }
+
+    .button:hover {
+      transform: scale(1.05);
+    }
+
+    select {
+      background: #1f1f1f;
+      border: 2px solid #ff00cc;
+      color: #fff;
+      padding: 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff00cc;
+      margin-bottom: 10px;
+    }
+
+    select option {
+      background: #1f1f1f;
+      color: #fff;
+    }
+
+    canvas {
+      display: block;
+    }
+		
+		.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+/* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: 10px;
+		right: 5px;
+    align-items: center;
+		justify-content: center;
+		
+    padding: 10px 20px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+		font-weight: bolder;
+		
+}
+
+.toggle-button:hover {
+    background-color: black;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+		pointer-events: none; 
+		display: none;
+}
+
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 80px; /* Adjust to stay below the toggle button */
+    right: 10px;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		height: 40%;
+		overflow-y: auto; /* Enable vertical scrolling */
+		
+		
+}
+				
+        .neumorphic-tab {
+					
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: clamp(12px, 1.2vw, 22px);
+						text-align: center;
+        }
+        .neumorphic-tab:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab.active {
+            background: #d1d1d1;
+        }
+
+.footer {
+    text-align: center;
+    position: fixed;
+    bottom: -5px;
+    background-color: black;
+    color: #e0e0e0;
+    width: 100%;
+    font-size: 8px;
+    padding: 2px 0;  /* Reduce top and bottom padding */
+    margin-top: 0;   /* Ensure no extra space above */
+    line-height: .5;  /* Reduce spacing between text lines */
+}
+.footer a {
+    color: #ff6600;
+    text-decoration: none;
+}
+.footer a:hover {
+    text-decoration: underline;
+}
