@@ -1,0 +1,422 @@
+/* Base Styles */
+@property --a {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+html{
+	background-color: pink;
+	
+}
+
+/* Keep background fixed and centered */
+body {
+    background-image: 
+        url("./images/17background.PNG"), 
+        linear-gradient(to bottom, #2e3b4e, #16222a);
+    background-size: cover;
+    background-position: center; /* Proper centering */
+    background-attachment: fixed; /* Fix background */
+    
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow-y: auto;
+}
+
+.calculator, .calculator button {
+    will-change: transform;
+}
+
+/* Ensure the image fits perfectly inside the output */
+#outputImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: scale; /* Ensures the image scales correctly */
+    opacity: 1;
+    transition: opacity 1s ease-in-out; /* Smooth fade-out effect */
+		border-radius: 10px;
+}
+
+/* Hide the image with a smooth fade-out */
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Ensure the output container is positioned correctly */
+.output {
+    position: relative; /* Necessary for absolute positioning of the image */
+    overflow: hidden; /* Prevent overflow */
+}
+
+/* Calculator container with scrollable behavior */
+.calculator-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensure it takes full height */
+    width: 80%;
+    overflow-y: auto; /* Allow scrolling when needed */
+    padding: 3px;
+    box-sizing: border-box;
+		margin: 0 auto; /* Ensure centered horizontally */
+}
+
+/* Calculator styling */
+.calculator {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .75rem;
+    background-color: #1e1e1e;
+    padding: 1rem;
+    border-radius: 12px;
+    background: conic-gradient(from var(--a, 0deg), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    border: solid 6px transparent;
+    background-clip: border-box;
+    animation: rotateGlow 4s linear infinite;
+    filter: url(#glow-1);
+    max-width: 1200px;
+    width: 80%;
+    max-height: fit-content;
+    margin: 0 auto; /* Center horizontally */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.calculator button {
+    width: 50%;
+    height: 90px;
+    aspect-ratio: 1; /* Ensure square buttons */
+    font-size: calc(.8rem + 0.5vw); /* Responsive font size */
+    color: white;
+    position: relative;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 1;
+    overflow: hidden;
+    background: conic-gradient(from var(--a, 0deg), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    animation: rotateGlow 4s linear infinite;
+    filter: url(#glow-1);
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.5); /* Fallback */
+    max-height: fit-content;
+}
+
+.calculator button::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    background-color: #2c2c2c;
+    border-radius: 8px;
+    z-index: -1;
+}
+
+/* Calculator output area */
+.calculator .output {
+    grid-column: span 4; /* Full width across all columns */
+    min-height: 75px;
+    background-color: #2c2c2c;
+    color: white;
+    font-size: calc(2rem + 1vw);
+    padding: 10px;
+    text-align: right;
+    border-radius: 10px;
+    overflow-y: auto;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+}
+
+.calculator button:active {
+    transform: scale(0.95);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.button:focus {
+    outline: 2px solid #00ff99;
+    outline-offset: 2px;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: background-color 0.2s, outline 0.2s;
+}
+
+.footer {
+		font-size: 1rem;
+		font color: #000;
+		background-color: pink;
+		display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    width: 100%; /* Full width of the viewport */
+    padding: 3px;
+    box-sizing: border-box;
+    margin: 0 auto; /* Ensure centered horizontally */
+}
+
+/* Hidden element styling */
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+/* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: 1px;
+    left: 10px;
+    padding: 5px 10px;
+    background: conic-gradient(from var(--a, 0deg), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    color: black;
+    border: solid 4px transparent;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+    animation: rotateGlow 4s linear infinite;
+    filter: url(#glow-1);
+    z-index: 1000;
+    transition: background-color 0.3s;
+		font-style: bold;
+}
+
+.toggle-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Dark Mode Toggle Button */
+.dark-mode .toggle-button {
+    background: conic-gradient(from var(--a, 0deg), #222, #333, #444, #555, #222);
+    color: #ddd;
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+}
+
+.dark-mode .toggle-button:hover {
+    background-color: #666;
+}
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 200px;
+    right: 5px;
+    background-color: #1e1e1e;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    max-height: 50vh;
+    overflow-y: auto;
+    text-align: center;
+    filter: url(#glow-1);
+    animation: rotateGlow 4s linear infinite;
+		z-index: 999;
+}
+
+/* Dark Mode for Neumorphic Navigation Container */
+.dark-mode .navigation {
+    background: conic-gradient(from var(--a, 0deg), #444, #333, #222, #111, #444);
+    box-shadow: 0 0 20px rgba(0, 255, 153, 0.5);
+}
+
+/* Neumorphic Tab Styling */
+.neumorphic-tab {
+    display: inline-block;
+    margin: 2px 2px;
+    padding: 3px 3px;
+    border-radius: 25px;
+    background: conic-gradient(from var(--a, 0deg), #e0e0e0, #bebebe, #ffffff, #d1d1d1, #e0e0e0);
+    color: #333;
+    font-weight: bold;
+    font-size: clamp(12px, 1.2vw, 22px);
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+    animation: rotateGlow 4s linear infinite;
+    transition: box-shadow 0.3s;
+}
+
+.dark-mode .neumorphic-tab {
+    background: conic-gradient(from var(--a, 0deg), #555, #444, #333, #222, #555);
+    color: #ddd;
+}
+
+.neumorphic-tab:hover {
+    box-shadow: inset 8px 8px 16px rgba(255, 255, 255, 0.5), inset -8px -8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .neumorphic-tab:hover {
+    box-shadow: inset 8px 8px 16px rgba(0, 255, 153, 0.3), inset -8px -8px 16px rgba(0, 0, 0, 0.7);
+}
+
+/* Active State for Neumorphic Tab */
+.neumorphic-tab.active {
+    background: #d1d1d1;
+}
+
+.dark-mode .neumorphic-tab.active {
+    background: #666;
+}
+
+
+@keyframes rotateGlow {
+    to {
+        --a: 360deg;
+    }
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .calculator {
+        gap: 10px;
+        padding: 5px;
+        max-width: 600vw; /* Adjust size for landscape mode */
+        max-height: 600vh; /* Allow space for scrolling */
+        height: 100%;
+    }
+
+    .calculator button {
+        width: 50px;
+        height: 50px;
+        font-size: 1rem;
+    }
+
+    .calculator .output {
+        height: 50px;
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .calculator {
+        gap: 5px;
+        padding: 15px;
+        max-width: 600vw; /* Adjust size for landscape mode */
+        max-height: 600vh; /* Allow space for scrolling */
+        height: 100%;
+    }
+
+    .calculator button {
+        width: 70px;
+        height: 50px;
+        font-size: 1.1rem;
+    }
+
+    .calculator .output {
+        height: 15px;
+        font-size: 2rem;
+    }
+}
+
+/* Handle layout in landscape mode */
+@media (orientation: landscape) {
+    .calculator-container {
+        align-items: flex-start; /* Allow top alignment */
+        padding-top: 0px;
+        padding-bottom: 100px;
+        width: 50%;
+				max-width: 600vw; /* Adjust size for landscape mode */
+        max-height: 600vh; /* Allow space for scrolling */
+    }
+
+    .calculator {
+        max-width: 600vw; /* Adjust size for landscape mode */
+        max-height: 600vh; /* Allow space for scrolling */
+    }
+
+    .calculator button {
+        width: 100%;
+    }
+}
+
+/* Handle layout in portrait mode */
+@media (orientation: portrait) {
+    .calculator-container {
+        align-items: flex-start; /* Allow top alignment */
+        padding-top: 20px;
+        padding-bottom: 100px;
+        width: 75%;
+				height: 50%;
+				max-width: 600vw; /* Adjust size for Portait mode */
+        max-height: 70vh; /* Allow space for scrolling */
+    }
+
+    .calculator {
+        max-width: 600vw; /* Adjust size for Portrait mode */
+        max-height: 600vh; /* Allow space for scrolling */
+				width: 150%;
+				height: 100%;
+				font-size: 1rem;
+    }
+
+    .calculator button {
+        width: 100%;
+				max-width: 600vw; /* Adjust size for Portait mode */
+        max-height: 8vh; 
+				height: 80%;
+				font-size: (1rem + 0.5vw);
+                min-height: 30px;
+    }
+		
+		.calculator .output {
+        min-height: 100px;
+    }
+}
+
+
+/* Large screens */
+@media (min-width: 1920px) {
+    .calculator {
+        gap: 15px;
+        padding: 30px;
+        max-width: 600vw; /* Adjust size for landscape mode */
+        max-height: 600vh; /* Allow space for scrolling */
+        height: 80%;
+    }
+
+    .calculator button {
+        font-size: 3rem;
+        width: 100%;
+        height: 50%;
+        max-width: 40vw; /* Adjust size for landscape mode */
+        max-height: 10vh; /* Allow space for scrolling */
+        padding-top: 60px;
+        padding-bottom: 100px;
+    }
+
+    .calculator .output {
+        font-size: 10rem;
+        min-height: 200px;
+        max-height: 10px;
+    }
+}
+
+.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: .9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
