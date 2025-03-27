@@ -1,0 +1,123 @@
+/* Responsive adjustments for tablets & up */
+@media (min-width: 768px) {
+	 body{
+		 font-size: 16px; 
+	 }
+		  #toggle-arp-btn {
+			 font-size: 16px;
+		 writing-mode: vertical-rl; /* Vertical orientation */
+}
+
+ #start-audio-btn {
+			 
+			 font-size: 16px;
+		 writing-mode: vertical-rl; /* Vertical orientation */
+     }
+}
+
+/* For even larger screens, you can tweak further */
+@media (min-width: 1024px) {
+	 body{
+		 font-size: 16px; 
+	 }
+		 #toggle-arp-btn {
+			 font-size: 16px;
+		 writing-mode: vertical-rl; /* Vertical orientation */
+}
+
+     #start-audio-btn {
+			 
+			 font-size: 16px;
+		 writing-mode: vertical-rl; /* Vertical orientation */
+     }
+}
+
+/* Responsive Scaling Inside iframe */
+body.iframe-mode {
+    font-size: 10px; /* Base size for iframe */
+}
+
+/* Scale down buttons inside iframe */
+body.iframe-mode .nav-button,
+body.iframe-mode .toggle-button,
+body.iframe-mode #toggle-arp-btn,
+body.iframe-mode #start-audio-btn {
+    font-size: 16px; 
+    padding: 4px 8px;
+}
+
+/* Reduce button width in iframe */
+body.iframe-mode #toggle-arp-btn,
+body.iframe-mode #start-audio-btn {
+    width: 40px; /* Adjusts button width */
+    height: 100vh; /* Keeps full height */
+    writing-mode: vertical-rl; /* Vertical orientation */
+}
+
+/* Scale inputs appropriately inside iframe */
+body.iframe-mode input[type="number"],
+body.iframe-mode input[type="text"],
+body.iframe-mode select {
+    font-size: 10px;
+}
+
+/* Navigation Scaling */
+body.iframe-mode .navigation {
+    top: 30px;
+    height: 40%;
+    font-size: 12px;
+}
+
+body.iframe-mode .neumorphic-tab {
+    font-size: clamp(10px, 1vw, 14px); /* Scales with viewport */
+    padding: 3px;
+}
+
+/* Prevent navigation bar from breaking layout */
+body.iframe-mode .nav-bar {
+    left: -10px;
+	}
+	
+	.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+.footer {
+	
+    text-align: right;
+    position: absolute;
+    bottom: -5px;
+    
+    color: #e0e0e0;
+    width: 100vw;
+    font-size: 6px;
+    padding: 2px 0;  /* Reduce top and bottom padding */
+    margin-top: 60px;   /* Ensure no extra space above */
+    line-height: .5;  /* Reduce spacing between text lines */
+		right: 65px;
+}
+.footer a {
+    color: #ff6600;
+    text-decoration: none;
+}
+.footer a:hover {
+    text-decoration: underline;
+}
