@@ -1,0 +1,372 @@
+html {
+		background: black;
+	}
+    /* 
+      ==================
+      CYBERPUNK THEME 
+      ==================
+    */
+
+    /* Overall page styling */
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #0C0C0C; /* Dark background */
+      background: radial-gradient(circle at top left, #2a004f, #000000 80%);
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2em;
+			margin-bottom: 80px;
+    }
+
+    /* Heading style */
+    h1, h2 {
+      color: #00faff; /* Neon cyan/blue */
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #00faff;
+    }
+		
+		h2{
+			margin-left: 30px;
+		}
+
+    /* Container for the track list with flexbox layout for columns */
+#tracksContainer {
+  display: flex;
+  flex-wrap: wrap; /* Allows items to wrap into multiple rows */
+  gap: 20px; /* Space between items */
+  margin-top: 20px;
+  padding: 10px;
+  border: 2px solid #ff007f; /* Neon pink border */
+  border-radius: 8px;
+  box-shadow: 0 0 15px #ff007f;
+}
+
+/* Individual track item styled for a multi-column layout */
+.track {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: calc(33.33% - 20px); /* Three items per row */
+  box-sizing: border-box;
+  padding: 10px;
+  background: rgba(255, 0, 127, 0.1); /* Optional translucent background */
+  border-radius: 8px;
+  font-size: 1.5em;
+  box-shadow: 0 0 10px rgba(255, 0, 127, 0.3); /* Soft neon glow */
+}
+
+/* Checkbox style (for track toggles) */
+.track input[type="checkbox"] {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  accent-color: #ff007f;
+  margin-right: 35px;
+	margin-left: 10px;
+}
+    /* Buttons (Play/Stop) */
+    button {
+      background-color: #ff007f;  /* Neon pink */
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      margin: 5px;
+      border-radius: 4px;
+      font-size: 1.3em;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff007f;
+      transition: all 0.3s ease-in-out;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+			
+    }
+    button:hover {
+      box-shadow: 0 0 20px #ff66a5;
+    }
+
+    /* The select (song dropdown) */
+    select {
+      background-color: #1F1F1F;
+      color: #fff;
+      border: 2px solid #00faff;
+      border-radius: 4px;
+      padding: 6px;
+      font-size: 1.5em;
+      box-shadow: 0 0 5px #00faff;
+      cursor: pointer;
+      margin-left: 5px;
+      margin-right: 10px;
+    }
+
+    /* EFFECTS SECTION */
+    .effects {
+      margin-top: 30px;
+      padding: 10px;
+      border: 2px solid #00faff; /* Another neon color for variety */
+      border-radius: 8px;
+      box-shadow: 0 0 15px #00faff;
+			
+    }
+    
+    .effects div {
+      margin-bottom: 50px;
+			
+    }
+
+    .effects label {
+      margin: 0 8px 0 8px;
+      font-size: 1.5em;
+			
+    }
+		
+		.effects input[type="checkbox"] {
+	margin-top: 30px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  accent-color: #ff007f;
+	margin-right: 15px;
+	margin-left: 20px;
+  
+}
+
+    /* Range sliders - neon style */
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 400px;
+      height: 20px;
+      background: #333;
+      border-radius: 5px;
+      outline: none;
+      box-shadow: 0 0 5px #00ffc8;
+      margin-left: 30px;
+      vertical-align: middle;
+			
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 60px;
+      height: 60px;
+      background: #00ffc8; /* Neon greenish-cyan */
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffc8;
+			
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 40px;
+      height: 40px;
+      background: #00ffc8;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffc8;
+			
+    }
+		
+		/* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 5px 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+}
+
+.toggle-button:hover {
+    background-color: black;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+		pointer-events: none; /* This prevents any clicks on it */
+		display: none;
+}
+
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 80px; /* Adjust to stay below the toggle button */
+    right: 10px;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		height: 50%;
+		overflow-y: auto; /* Enable vertical scrolling */
+		font-size: 1.5rem;
+		
+}
+				
+        .neumorphic-tab {
+					
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: clamp(22px, 1.2vw, 28px);
+						text-align: center;
+        }
+        .neumorphic-tab:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab.active {
+            background: #d1d1d1;
+        }
+				
+				.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 1.5rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+.footer {
+    text-align: center;
+    position: fixed;
+    bottom: 0px;
+    background-color: black;
+    color: #e0e0e0;
+    width: 100%;
+    font-size: 2rem;
+    padding: 10px 10px;  /* Reduce top and bottom padding */
+    
+    line-height: .5;  /* Reduce spacing between text lines */
+		margin-top: 20px;
+		left: 0;
+		right: 0;
+}
+.footer a {
+    color: #ff6600;
+    text-decoration: none;
+}
+.footer a:hover {
+    text-decoration: underline;
+}
+
+html, body {
+    overflow-x: hidden;
+    touch-action: pan-y; /* Prevents side scrolling but allows vertical scrolling */
+}
+
+* {
+    -webkit-user-select: none; /* Disable user selection */
+    -webkit-touch-callout: none; /* Prevents callout menu on long press */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling */
+}
+
+* {
+    
+    box-sizing: border-box; /* Prevents padding/margins from affecting layout */
+}
+
+/* When inside an iframe, scale down the entire layout */
+body.iframe-mode {
+    
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Adjust individual elements inside iframe */
+body.iframe-mode .track {
+    width: calc(50% - 15px); /* Reduce to two items per row instead of three */
+    font-size: .7em; /* Reduce font size slightly */
+    padding: 5px;
+}
+
+body.iframe-mode .track input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+body.iframe-mode button {
+    padding: 4px 6px;
+    font-size: .7em;
+}
+
+body.iframe-mode select {
+    font-size: .9em;
+    padding: 4px;
+}
+
+body.iframe-mode .effects {
+    margin-top: 10px;
+    padding: 5px;
+    box-shadow: 0 0 10px #00faff;
+}
+
+body.iframe-mode .effects label {
+    font-size: .9em;
+}
+
+body.iframe-mode .effects input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+body.iframe-mode input[type="range"] {
+    width: 200px;
+    height: 15px;
+}
+
+body.iframe-mode input[type="range"]::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+}
+
+body.iframe-mode input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+}
+
+/* Footer inside the iframe popup */
+body.iframe-mode .footer {
+    position: relative; /* Instead of fixed */
+    bottom: auto; /* Remove forced positioning */
+    margin-top: 20px; /* Ensure it appears below the content */
+    font-size: .5rem; /* Reduce font size */
+    padding: 5px;
+    line-height: 1;
+    background-color: rgba(0, 0, 0, 0.8); /* Make it slightly transparent */
+}
