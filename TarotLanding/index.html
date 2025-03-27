@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Food4Thoth Tarot Landing</title>
+	
+<link id="bootstrap-css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+<script>
+  // Wait briefly to check if Bootstrap loaded
+  window.addEventListener('load', function () {
+    const test = document.createElement('div');
+    test.className = 'd-none'; // Bootstrap 4 utility class
+    document.body.appendChild(test);
+    const isLoaded = getComputedStyle(test).display === 'none';
+    document.body.removeChild(test);
+
+    if (!isLoaded) {
+      console.warn('CDN failed — loading local fallback');
+      document.getElementById('bootstrap-css').href = './libs/bootstrap.min.css';
+    }
+  });
+</script>
+			 <link href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Sans+Narrow" rel="stylesheet">
+			 <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class = "background">
+  <div class="project container">
+    <div class="row" id="row1">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <img class="banner" src="./images/Banner.png" alt="Off Beat Tarot banner">
+      </div>
+    </div>
+
+    <div class="row" id="row2">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <table class="navigation1">
+          <tr>
+            <td><a href="../index.html">Food4Thoth</a></td>
+              <td><a href="./HowTo.html">How To</a></td>
+              <td><a href="../TarotTogetherNoAge4Decks/index.html">Cards</a></td>
+              <td><a href="../DrawTarot/index.html">Spreads</a></td>
+							<td><a href="../TarotAllResources/index.html">All Resources</a></td>
+							<td><a href="../TarotGalleries/index.html">Galleries</a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+		
+    <button id="toggle-nav" class="toggle-button">☰ Nav</button>
+    <div id="navigation" class="navigation hidden">
+      
+      <a href="../index.html" class="neumorphic-tab">Home</a>
+      
+      <a href="../Donations/index.html" class="neumorphic-tab">Donations Page</a>
+      
+      <a href="#" class="neumorphic-tab" data-expand="submenu-black-business">Black Business Eugene</a>
+      <div id="submenu-black-business" class="submenu hidden">
+        <a href="../BlackBuisnessEugene/index.html" class="neumorphic-tab">Black Business Directory</a>
+        <a href="../BlackBuisnessEugene/blackbusinessformpage.html" class="neumorphic-tab">Black Business Form</a>
+      </div>
+    
+      <a href="#" class="neumorphic-tab" data-expand="submenu-community-garden">Community Gardens</a>
+    <div id="submenu-community-garden" class="submenu hidden">
+      <a href="../CommunityGardensLists/index.html" class="neumorphic-tab">Full List of All Gardens</a>
+      <a href="../CommunityGardenLand/index.html" class="neumorphic-tab">Mobile Landing</a>
+      <a href="../CommunityGardenLand/indexDesktop.html" class="neumorphic-tab">Desktop Landing</a>
+      <a href="../CommunityGardensMaps/indexEugeneMap.html" class="neumorphic-tab">Eugene Garden Map</a>
+       <a href="../CommunityGardensMaps/indexPortlandMap.html" class="neumorphic-tab">Portland Garden Map</a>
+      <a href="../CommunityGardensInfo/index.html" class="neumorphic-tab">Community Garden Info</a>
+      <a href="../CommunityGardensLists/indexEugene.html" class="neumorphic-tab">Eugene Garden List</a>
+      <a href="../CommunityGardensLists/indexPortland.html" class="neumorphic-tab">Portland Garden List</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-visualizers">Sound & Voice Visualizers</a>
+    <div id="submenu-visualizers" class="submenu hidden">
+      <a href="../SoundActivatedVisualizor/index.html" class="neumorphic-tab">Voice Activated Visualizer</a>
+      <a href="../SoundVisualizerWmedia/index.html" class="neumorphic-tab">Sound Visualizer w/Media Loader</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-arp">ARP Synths</a>
+    <div id="submenu-arp" class="submenu hidden">
+      <a href="../ArpAppNoVisualHighFi/index.html" class="neumorphic-tab">ARP App: No Visual (High-Fi)</a>
+      <a href="../ArpAppNoVisualLoFi/index.html" class="neumorphic-tab">ARP App: No Visual (Lo-Fi)</a>
+      <a href="../ArpAppWithVisual/index.html" class="neumorphic-tab">ARP App: With Visual</a>
+      
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-loopstation">Loop Stations</a>
+    <div id="submenu-loopstation" class="submenu hidden">
+      <!-- Animated Music Loopers -->
+      <a href="../Bboy/index.html" class="neumorphic-tab">NoWhere Man Looper</a>
+    
+      <a href="../BJungle/index.html" class="neumorphic-tab">BJungle Looper</a>
+    
+      <!-- Loop Stations -->
+      <a href="../LoopStation/index.html" class="neumorphic-tab">Loop Station</a>
+    
+      <!-- Advanced Loop Stations with Effects -->
+      <a href="../LoopStationHiFi/index.html" class="neumorphic-tab">Loop Station HiFi (Advanced Effects)</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-music">Music Vue Library</a>
+    <div id="submenu-music" class="submenu hidden">
+      <!-- Main Music Library -->
+      <a href="../MusicLibrary/index.html" class="neumorphic-tab">Music Library Lite</a>
+    
+      <!-- Music Library with Visualizer -->
+      <a href="../MusicLibraryVis/index.html" class="neumorphic-tab">Music Library (Visualizer)</a>
+    </div>
+    
+    <!-- Music Collection Section -->
+    <a href="#" class="neumorphic-tab" data-expand="submenu-music_collection">Music Collections</a>
+    <div id="submenu-music_collection" class="submenu hidden">
+      <a href="../DeJahn/index.html" class="neumorphic-tab">DeJahn</a>
+      <a href="../SeekerStar/index.html" class="neumorphic-tab">Seeker & the Star</a>
+      <a href="../GroundCherry/index.html" class="neumorphic-tab">Ground Cherry</a>
+      <a href="../PeruvianMelt/index.html" class="neumorphic-tab">Peruvian Melt</a>
+        <a href="../comingSoon.html" class="neumorphic-tab">Abyss of Bliss</a>
+        
+    <a href="https://www.artabillies.com/inprogression" class="neumorphic-tab">INPROGRESSION Artabillies</a>
+    
+    <a href="https://youtube.com/playlist?list=PLsiMr0_hgaOmqlIGzjHZBzi94yaRgQ38L&si=DMZc6ng8GWx8uMbU" class="neumorphic-tab">INPROGRESSION DVD</a>
+      </div>
+      
+        <a href="../ChooseYourOwnAdventure/prologue.html" class="neumorphic-tab">Choose Your Own Adventure</a>
+    
+     <a href="#" class="neumorphic-tab" data-expand="submenu-games">Games</a>
+    <div id="submenu-games" class="submenu hidden">
+      <a href="../NewSchoolGameKid/index.html" class="neumorphic-tab">New School Game: Kid Sprite</a>
+      <a href="../NewSchoolGameWizard/index.html" class="neumorphic-tab">New School Game: Wizard Sprite</a>
+      <a href="../OldSchoolGameDesktop/index.html" class="neumorphic-tab">Old School Game: Desktop</a>
+      <a href="../OldSchoolGameMobile/index.html" class="neumorphic-tab">Old School Game: Mobile</a>
+      <a href="../TerminalGameTransition/index.html" class="neumorphic-tab">Terminal Transition Game</a>
+      <a href="../bergs-of-life/index.html" class="neumorphic-tab">Bergs of Life</a>
+      <a href="../comingSoon.html" class="neumorphic-tab">SideScroll Game</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-claw-machine">Claw Machine</a>
+    <div id="submenu-claw-machine" class="submenu hidden">
+      <a href="../claw-machine/index.html" class="neumorphic-tab">Claw Machine OG</a>
+      <a href="../claw-machineGame/index.html" class="neumorphic-tab">Claw Machine Enhanced</a>
+    </div>
+    
+      <a href="#" class="neumorphic-tab" data-expand="submenu-glo-calculato">Glo-Calculato</a>
+      <div id="submenu-glo-calculato" class="submenu hidden">
+        <a href="../GloCalculatoLanding/index.html" class="neumorphic-tab">Glo-Calculato Landing</a>
+        <a href="../GloCalculato/index.html" class="neumorphic-tab">Full-Sized Glo-Calculato</a>
+        <a href="../GloCalculatoLanding/GLO-CALCULATO/Glo-Calculato.zip" class="neumorphic-tab">Download Glo-Calculato</a>
+      </div>
+    
+      <a href="#" class="neumorphic-tab" data-expand="submenu-tarot">Tarot</a>
+    <div id="submenu-tarot" class="submenu hidden">
+      <!-- Main Tarot Landing and Learning -->
+      <a href="../TarotLanding/index.html" class="neumorphic-tab">Tarot Orientation Landing</a>
+      <a href="../TarotLanding/HowTo.html" class="neumorphic-tab">How To: Tarot – FOOD4THOTH</a>
+      <a href="../TarotFlipCardGallery/index.html" class="neumorphic-tab">Quick Reference Flip Gallery</a>
+    
+      <!-- General Tarot Decks and Readings -->
+      <a href="../TarotTogetherNoAge/index.html" class="neumorphic-tab">Tarot Card Gallery (3 Decks)</a>
+      <a href="../TarotTogetherNoAge4Decks/index.html" class="neumorphic-tab">Tarot Card Gallery (4 Decks)</a>
+      <a href="../CelticCrossTarot/index.html" class="neumorphic-tab">Celtic Cross Reading</a>
+      <a href="../ThreeCardTarot/index.html" class="neumorphic-tab">Three-Card Tarot w/ Gallery</a>
+      <a href="../ThreeCardTarotByItself/index.html" class="neumorphic-tab">Three-Card Tarot Reading</a>
+    
+      <!-- Cyberpunk and Thematic Tarot Decks -->
+      <a href="../TarotSacredGeometry/index.html" class="neumorphic-tab">Sacred Geometry Tarot</a>
+      <a href="../TarotCyberPunkDark/index.html" class="neumorphic-tab">CyberPunk Dark Tarot</a>
+      <a href="../TarotCyberPunkMelo/index.html" class="neumorphic-tab">CyberPunk Melo Tarot</a>
+      <a href="../TarotOG/index.html" class="neumorphic-tab">OG Tarot w/Voice Commands</a>
+      
+      <!-- Experimental and Custom Decks -->
+      <a href="../EgyptianTarot/index.html" class="neumorphic-tab">Custom Egyptian Major Arcana (1–22)</a>
+      <a href="../EgyptianTarotFull/index.html" class="neumorphic-tab">Custom Sacred Geometry (1–78)</a>
+      <a href="../TarotJungian/index.html" class="neumorphic-tab">Jungian Thoth Tarot Spread</a>
+      <a href="../TarotTextList/index.html" class="neumorphic-tab">Cyberpunk Tarot Text Library</a>
+      
+      <a href="../DrawTarot/index.html" class="neumorphic-tab">All Spreads</a>
+    
+      <!-- Majix Tarot Galleries (Individual Arcana) -->
+      <a href="../MajixLanding/index.html" class="neumorphic-tab">Majix Galleries Landing</a>
+      <a href="../MajixTarotMajor/index.html" class="neumorphic-tab">Majix Major Arcana</a>
+      <a href="../MajixTarotWands/index.html" class="neumorphic-tab">Majix Wands</a>
+      <a href="../MajixTarotCups/index.html" class="neumorphic-tab">Majix Cups</a>
+      <a href="../MajixTarotSwords/index.html" class="neumorphic-tab">Majix Swords</a>
+      <a href="../MajixTarotPentacles/index.html" class="neumorphic-tab">Majix Pentacles</a>
+      <a href="../MajixTarotAll/index.html" class="neumorphic-tab">Majix All Cards</a>
+      
+      <a href="../TarotGalleries/index.html" class="neumorphic-tab">Explore All Galleries</a>
+    
+      <a href="../TarotCrystalQueens/indexAge.html" class="neumorphic-tab">18+ Crystal Queens Tarot</a>
+      <a href="../TarotCyberPunkX/indexAge.html" class="neumorphic-tab">18+ CyberPunk X Tarot</a>
+      <a href="../TarotAgeVerify/index.html" class="neumorphic-tab">FOOD4THOTH 18+ Tarot Gallery</a>
+      
+      <a href="../TarotAllResources/index.html" class="neumorphic-tab">All Resources</a>
+    
+      <!-- Additional Resources -->
+      <a href="../comingSoon.html" class="neumorphic-tab">More Tarot</a>
+      <a href="../parental-controls.html" class="neumorphic-tab">Parental Controls</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-iching">I Ching</a>
+    <div id="submenu-iching" class="submenu hidden">
+      <a href="../Iching/index.html" class="neumorphic-tab">I Ching Simple</a>
+      <a href="../IchingFractal/index.html" class="neumorphic-tab">I Ching Fractal</a>
+      <a href="../IchingPhoto/index.html" class="neumorphic-tab">I Ching Fractal/Photo</a>
+      <a href="../Iching/ichingAnimeLoop.html" class="neumorphic-tab">I Ching Anime Loop</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-hakim-bey">Hakim Bey</a>
+      <div id="submenu-hakim-bey" class="submenu hidden">
+        <a href="../HakimBey/index.html" class="neumorphic-tab">Hakim Bey Anarchy Page</a>
+        <a href="../HakimBey/joinTheMovement.html" class="neumorphic-tab">Anarchy Collective Contact</a>
+      </div>
+    
+      <a href="#" class="neumorphic-tab" data-expand="submenu-hashisheen">Hashisheen Album Reviews</a>
+      <div id="submenu-hashisheen" class="submenu hidden">
+         <a href="../EndOfLawHASHISHEEN/AllHashineenReviews.html" class="neumorphic-tab">Landing Page</a>
+        <a href="../EndOfLawHASHISHEEN/FullAlbumReview.html" class="neumorphic-tab">Full Album Review</a>
+         <a href="../EndOfLawHASHISHEEN/index1.html" class="neumorphic-tab">Hashisheen Album Review (Track 1)</a>
+        <a href="../EndOfLawHASHISHEEN/index2.html" class="neumorphic-tab">Hashisheen Album Review (Track 2)</a>
+        <a href="../EndOfLawHASHISHEEN/index3.html" class="neumorphic-tab">Hashisheen Album Review (Track 3)</a>
+        <a href="../EndOfLawHASHISHEEN/index4.html" class="neumorphic-tab">Hashisheen Album Review (Track 4)</a>
+        <a href="../EndOfLawHASHISHEEN/index5.html" class="neumorphic-tab">Hashisheen Album Review (Track 5)</a>
+        <a href="../EndOfLawHASHISHEEN/index6.html" class="neumorphic-tab">Hashisheen Album Review (Track 6)</a>
+        <a href="../EndOfLawHASHISHEEN/index7.html" class="neumorphic-tab">Hashisheen  Album Review (Track 7)</a>
+        <a href="../EndOfLawHASHISHEEN/index8.html" class="neumorphic-tab">Hashisheen Album Review (Track 8)</a>
+        <a href="../EndOfLawHASHISHEEN/index9.html" class="neumorphic-tab">Hashisheen Album Review (Track 9)</a>
+        <a href="../EndOfLawHASHISHEEN/index10.html" class="neumorphic-tab">Hashisheen Album Review (Track 10)</a>
+        <a href="../EndOfLawHASHISHEEN/index11.html" class="neumorphic-tab">Hashisheen Album Review (Track 11)</a>
+        <a href="../EndOfLawHASHISHEEN/index12.html" class="neumorphic-tab">Hashisheen Album Review (Track 12)</a>
+        <a href="../EndOfLawHASHISHEEN/index13.html" class="neumorphic-tab">Hashisheen Album Review (Track 13)</a>
+        <a href="../EndOfLawHASHISHEEN/index14.html" class="neumorphic-tab">Hashisheen Album Review (Track 14)</a>
+        <a href="../EndOfLawHASHISHEEN/index15.html" class="neumorphic-tab">Hashisheen Album Review (Track 15)</a>
+        <a href="../EndOfLawHASHISHEEN/index16.html" class="neumorphic-tab">Hashisheen Album Review (Track 16)</a>
+        <a href="../EndOfLawHASHISHEEN/index17.html" class="neumorphic-tab">Hashisheen Album Review (Track 17)</a>
+        <a href="../EndOfLawHASHISHEEN/index18.html" class="neumorphic-tab">Hashisheen Album Review (Track 18)</a>
+        <a href="../EndOfLawHASHISHEEN/index19.html" class="neumorphic-tab">Hashisheen Album Review (Track 19)</a>
+        <a href="../EndOfLawHASHISHEEN/index20.html" class="neumorphic-tab">Hashisheen Album Review (Track 20)</a>
+        <a href="../EndOfLawHASHISHEEN/index21.html" class="neumorphic-tab">Hashisheen Album Review (Track 21)</a>
+        <a href="../EndOfLawHASHISHEEN/index22.html" class="neumorphic-tab">Hashisheen Album Review (Track 22)</a>
+        <a href="../comingSoon.html" class="neumorphic-tab">More Reviews</a>
+      </div>
+      
+      <a href="../DrawingFractals/index.html" class="neumorphic-tab">Draw w/Fractals</a>
+      
+      <a href="../RainbowGathering/index.html" class="neumorphic-tab">Rainbow Recordings</a>
+      
+      <a href="#" class="neumorphic-tab" data-expand="submenu-rainbows">Rainbow Reveals & Generators</a>
+    <div id="submenu-rainbows" class="submenu hidden">
+      <!-- Rainbow Reveals -->
+      <a href="../Rainbows4Thoth/Reveal1.html" class="neumorphic-tab">Rainbow Reveal 1</a>
+      <a href="../Rainbows4Thoth/Reveal2.html" class="neumorphic-tab">Rainbow Reveal 2</a>
+      <a href="../Rainbows4Thoth/ListReveal.html" class="neumorphic-tab">Rainbow Reveal List</a>
+    
+      <!-- Rainbow Generators -->
+      <a href="../RainbowFracGenerator/index.html" class="neumorphic-tab">Fractal Generator</a>
+      
+      <a href="../RainbowGenerator/index.html" class="neumorphic-tab">Rainbow Shape Generator</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-mescalito">Mescalito Reveals</a>
+    <div id="submenu-mescalito" class="submenu hidden">
+      <!-- Rainbow Reveals -->
+      <a href="../Mescalito/Reveal1.html" class="neumorphic-tab">Mescalito Reveal 1</a>
+      <a href="../Mescalito/Reveal2.html" class="neumorphic-tab">Mescalito Reveal 2</a>
+      <a href="../Mescalito/ListReveal.html" class="neumorphic-tab">Mescalito Reveal List</a>
+    </div>
+      
+      <a href="#" class="neumorphic-tab" data-expand="submenu-akashic">Akashic Records</a>
+    <div id="submenu-akashic" class="submenu hidden">
+      <a href="../css-only-3d-image-carousel/index.html" class="neumorphic-tab">Main Landing</a>
+      <a href="../AkashicAsclepiusDeep/index.html" class="neumorphic-tab">Akashic Asclepius Deep</a>
+      <a href="../AkashicAsclepiusLite/index.html" class="neumorphic-tab">Akashic Asclepius Lite</a>
+      <a href="../AkashicEmeraldAsAbove/index.html" class="neumorphic-tab">Akashic Emerald As Above</a>
+      <a href="../AkashicEmeraldDeep/index.html" class="neumorphic-tab">Akashic Emerald Deep</a>
+      <a href="../AkashicEmeraldLite/index.html" class="neumorphic-tab">Akashic Emerald Lite</a>
+      <a href="../AkashicHermiticum/index.html" class="neumorphic-tab">Akashic Hermiticum</a>
+      <a href="../AkashicHymnLite/index.html" class="neumorphic-tab">Akashic Hymn Lite</a>
+      <a href="../AkashicNag/index.html" class="neumorphic-tab">Akashic Nag</a>
+      <a href="../AkashicNag13Codex/index.html" class="neumorphic-tab">Akashic Nag 13 Codex</a>
+      <a href="../AkashicNagTreaties/index.html" class="neumorphic-tab">Akashic Nag Treaties</a>
+      <a href="../AkashicThothDeep/index.html" class="neumorphic-tab">Akashic Thoth Deep</a>
+      <a href="../AkashicThothLite/index.html" class="neumorphic-tab">Akashic Thoth Lite</a>
+      <a href="../comingSoon.html" class="neumorphic-tab">More Records</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-anarchy">Anarchy Comics & Info</a>
+    <div id="submenu-anarchy" class="submenu hidden">
+      <a href="../AnarchyComicBreakFree/index.html" class="neumorphic-tab">Anarchy Comic: Break Free</a>
+      <a href="../AnarchyComicCocoon/index.html" class="neumorphic-tab">Anarchy Comic: Cocoon</a>
+      <a href="../AnarchyDepth/index.html" class="neumorphic-tab">Anarchy Depth</a>
+      <a href="../AnarchyIsAlwaysMobile/index.html" class="neumorphic-tab">Anarchy Is Always Mobile</a>
+      <a href="../AnarchyPoetics/index.html" class="neumorphic-tab">Anarchy Poetics</a>
+      <a href="../AnarchyTAZ/index.html" class="neumorphic-tab">Anarchy TAZ</a>
+      <a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-eyespy">Eye Spy</a>
+    <div id="submenu-eyespy" class="submenu hidden">
+      <a href="../EyeSPY1/index.html" class="neumorphic-tab">Eye Spy Game 20 (1st Edition)</a>
+      <a href="../EyeSPY2/index.html" class="neumorphic-tab">Eye Spy Game 46 (2nd Edition)</a>
+      <a href="../EyeSPY3/index.html" class="neumorphic-tab">Eye Spy Game 66 (3rd Edition)</a>
+      <a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-tide-walk">Tide Walk</a>
+    <div id="submenu-tide-walk" class="submenu hidden">
+      <a href="../TideApp/index.html" class="neumorphic-tab">Tide Walk USA</a>
+      <a href="../TideApp/indexOregon.html" class="neumorphic-tab">Tide Walk Oregon</a>
+      <a href="../TideApp/indexBoston.html" class="neumorphic-tab">Tide Walk Boston</a>
+    </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-trent">Trent</a>
+    <div id="submenu-trent" class="submenu hidden">
+      <a href="../TrentOfTheDay/index.html" class="neumorphic-tab">Trent of the Day</a>
+      <a href="../TrentStorybook1stMobile/index.html" class="neumorphic-tab">Trent Storybook</a>
+      <a href="../TrentStorybook1stMobile/contact.html" class="neumorphic-tab">Contact</a>
+      <a href="../TrentStorybook1stMobile/about.html" class="neumorphic-tab">About</a>
+      <a href="../comingSoon.html" class="neumorphic-tab">Space StoryBook</a>
+    </div>
+    
+    <!-- Prayer Section -->
+    <a href="#" class="neumorphic-tab" data-expand="submenu-prayer">Prayer For Love</a>
+    <div id="submenu-prayer" class="submenu hidden">
+      <a href="../PrayerForLove/index.html" class="neumorphic-tab">Prayer For Love</a>
+      <a href="../PrayerThanks/index.html" class="neumorphic-tab">Thanks & Graditude</a>
+      <a href="../PrayerChildrensStill/index.html" class="neumorphic-tab">Prayer Childrens Still image</a>
+      <a href="../PrayerChildrensFade/index.html" class="neumorphic-tab">Prayer Childrens Fade</a>
+        <a href="../PrayerChildrensFlip/index.html" class="neumorphic-tab">Prayer Childrens Flip</a>
+      </div>
+      
+    <a href="../Haudenosaunee/index.html" class="neumorphic-tab">Haudenosaunee Thanksgiving</a>
+    
+    <a href="../Inprogression/index.html" class="neumorphic-tab">INPROGRESSION</a>
+    
+    <a href="../MindMelt/index.html" class="neumorphic-tab">MindMelt</a>
+    
+    <a href="../behind-the-fold/index.html" class="neumorphic-tab">Behind the Fold</a>
+    
+    <a href="../skating-bunny/index.html" class="neumorphic-tab">Rabbit Hole</a>
+    
+    <!-- Socials Section -->
+    <a href="#" class="neumorphic-tab" data-expand="submenu-socials">Socials</a>
+    <div id="submenu-socials" class="submenu hidden">
+    
+        <!-- FOOD4THOTH Links -->
+        <a href="https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho" class="neumorphic-tab" target="_blank">FOOD4THOTH Instagram</a>
+        <a href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi" class="neumorphic-tab" target="_blank">FOOD4THOTH Facebook</a>
+    
+        <!-- INPROGRESSION Links -->
+        <a href="https://www.facebook.com/share/19M7DM1SrT/?mibextid=wwXIfr" class="neumorphic-tab" target="_blank">INPROGRESSION Facebook</a>
+    
+        <!-- ARTABILLIES Links -->
+        <a href="https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ==" class="neumorphic-tab" target="_blank">ARTABILLIES Instagram</a>
+        <a href="https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi" class="neumorphic-tab" target="_blank">ARTABILLIES Facebook</a>
+        <a href="https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP" class="neumorphic-tab" target="_blank">ARTABILLIES Facebook Group</a>
+        <a href="https://www.artabillies.com/contact-us" class="neumorphic-tab" target="_blank">Contact Artabillies</a>
+        <a href="https://www.artabillies.com/artist-info" class="neumorphic-tab" target="_blank">Artabillies Artists</a>
+        
+    <a href="https://www.facebook.com/share/1A3Puz9LiE/?mibextid=wwXIfr" class="neumorphic-tab">Peruvian Melt Facebook</a>
+    <a href="https://www.facebook.com/share/1ASf9gTHNd/?mibextid=wwXIfr" class="neumorphic-tab">Seeker and the Star Facebook</a>
+    <a href="https://www.facebook.com/share/15JCrs2ByF/?mibextid=wwXIfr" class="neumorphic-tab">INPROGRESSION Facebook</a>
+    <a href="https://www.facebook.com/share/14u1KuMKxKC/?mibextid=wwXIfr" class="neumorphic-tab">Abyss of Bliss Facebook</a>
+    <a href="https://www.facebook.com/share/1A92psCHBz/?mibextid=wwXIfr" class="neumorphic-tab">DeJahn's Facebook</a>
+    
+    <a href="https://www.instagram.com/trent_son_of_reznor?igsh=MTNpam0zZDY3dGludg==" class="neumorphic-tab">Trent's Instagram</a>
+    </div>
+    
+    <!-- Music Collection Section -->
+    <a href="#" class="neumorphic-tab" data-expand="submenu-youtube">YouTube</a>
+    <div id="submenu-youtube" class="submenu hidden">
+      
+      
+    <a href="https://youtube.com/playlist?list=PL2P9hSa1PuEh6kMDZk3VMK7qPYKxECmEX&si=RyjXAR8fyDIKDXjq" class="neumorphic-tab">Artabillies Videos</a>
+    <a href="https://youtube.com/playlist?list=PL2P9hSa1PuEhO0ax57jPofQtKw4q-Ac66&si=SUZaW6uJkIpXOa2a" class="neumorphic-tab">Artabillies Music</a>
+    
+    <a href="https://youtube.com/playlist?list=PLe089QV1U3-LFF_RgkdEC1OobqUnw8G3P&si=efVtCycW88FjotuS" class="neumorphic-tab">Peruvian Melt Playlist</a>
+    <a href="https://youtube.com/playlist?list=PLsiMr0_hgaOmqlIGzjHZBzi94yaRgQ38L&si=DMZc6ng8GWx8uMbU" class="neumorphic-tab">INPROGRESSION DVD</a>
+    <a href="https://youtube.com/playlist?list=PLe089QV1U3-LJfWXtDubFrSggdQrSAtQr&si=HHvg-AxCR9B5K0P1" class="neumorphic-tab">Ground Cherry</a>
+    <a href="https://youtube.com/playlist?list=PLHLqP3bn74o1JZi7PwVssJZmJ6-3eZ-UQ&si=Nm_FdCnyWb1EcZOn" class="neumorphic-tab">DeJahn's Playlist</a>
+    <a href="https://youtube.com/@dejahnlamar3569?si=_lah2UhBbNcV8Y8_" class="neumorphic-tab">DeJahn's YouTube</a>
+    <a href="https://youtube.com/@artabillies8291?si=3aRiP1B0ltfkvCPO" class="neumorphic-tab">Artabillies YouTube</a>
+      </div>
+      
+      
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-rstory">Rstory</a>
+    <div id="submenu-rstory" class="submenu hidden">
+      <!-- Rstory Links -->
+      <a href="https://rstory.io/Dobbs_GATE.html" class="neumorphic-tab">Do You Do Dobbs Gallery</a>
+      <a href="../RstoryArtabillies/index.html" class="neumorphic-tab">Rstory Artabillies & Food4Thoth</a>
+      <!-- Articles & Additional Resources -->
+        <a href="https://hive.blog/crypto/@rstory/artabillies-receives-1m-rstory-gratitude-tokens" class="neumorphic-tab" target="_blank">ARTABILLIES Article</a>
+        <a href="https://rstory.io" class="neumorphic-tab" target="_blank"> Rstory Official Website</a>
+        <a href="https://t.me/+m-WEaUc7Ud8yY2Qx" class="neumorphic-tab" target="_blank">RSTORY Telegram Community</a>
+        <a href="https://github.com/ma-da/rstory" class="neumorphic-tab" target="_blank"> RSTORY GitHub</a>
+    </div>
+    
+    <a href="https://github.com/Dseekeroftruth" class="neumorphic-tab">GitHub</a>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-summary">Summary</a>
+    <div id="submenu-summary" class="submenu hidden">
+      <a href="../CollectiveSummary/index.html" class="neumorphic-tab">Collective Summary 1.0</a>
+      <a href="../CollectiveSummary/index2.html" class="neumorphic-tab">Collective Summary 2.0</a>
+    </div>
+      <a href="../Artabillies/index.html" class="neumorphic-tab">Artabillies Info</a>
+      <a href="https://www.artabillies.com/" class="neumorphic-tab">Artabillies.com</a>
+      <a href="../portfolio.html" class="neumorphic-tab">Portfolio</a>
+      <a href="../comingSoon.html" class="neumorphic-tab">Desktop Landing</a>
+      <a href="../contact.html" class="neumorphic-tab">Contact</a>
+      <a href="mailto:food4thoth@proton.me" class="neumorphic-tab">Email: food4thoth@proton.me</a>
+      <a href="../README.md" class="neumorphic-tab">F4T ReadMe</a>
+    </div>
+
+    <div class="row" id="row3">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="sidebar">
+          <div class="codhead"> Card of the Day </div>
+          
+          
+         <!-- MAJOR ARCANA (22 cards: 0..21) -->
+<div class="tarot" id="card0">
+  <img class="codimg" src="https://image.ibb.co/n589cF/fool.png" alt="Card 0 - The Fool">
+  <div class="codname">Card 0 - The Fool</div>
+  <div class="coddesc">
+    <ul>
+      <li>New Beginnings</li>
+      <li>Naivety/Foolishness</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card1">
+  <img class="codimg" src="https://image.ibb.co/marUcF/magician.png" alt="Card 1 - The Magician">
+  <div class="codname">Card I - The Magician</div>
+  <div class="coddesc">
+    <ul>
+      <li>Creativity, New Projects</li>
+      <li>Willpower, Resourcefulness</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card2">
+  <img class="codimg" src="https://image.ibb.co/ggWWPv/highpriestess.png" alt="Card 2 - The High Priestess">
+  <div class="codname">Card II - The High Priestess</div>
+  <div class="coddesc">
+    <ul>
+      <li>Intuition, Mystery</li>
+      <li>Subconscious Wisdom</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card3">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 3 - The Empress">
+  <div class="codname">Card III - The Empress</div>
+  <div class="coddesc">
+    <ul>
+      <li>Fertility, Beauty</li>
+      <li>Abundance</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card4">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 4 - The Emperor">
+  <div class="codname">Card IV - The Emperor</div>
+  <div class="coddesc">
+    <ul>
+      <li>Authority, Structure</li>
+      <li>Fatherhood</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card5">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 5 - The Hierophant">
+  <div class="codname">Card V - The Hierophant</div>
+  <div class="coddesc">
+    <ul>
+      <li>Tradition, Conformity</li>
+      <li>Spiritual Wisdom</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card6">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 6 - The Lovers">
+  <div class="codname">Card VI - The Lovers</div>
+  <div class="coddesc">
+    <ul>
+      <li>Love, Harmony</li>
+      <li>Choices, Partnership</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card7">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 7 - The Chariot">
+  <div class="codname">Card VII - The Chariot</div>
+  <div class="coddesc">
+    <ul>
+      <li>Willpower, Victory</li>
+      <li>Self-Control</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card8">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 8 - Strength">
+  <div class="codname">Card VIII - Strength</div>
+  <div class="coddesc">
+    <ul>
+      <li>Bravery, Compassion</li>
+      <li>Inner Strength</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card9">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 9 - The Hermit">
+  <div class="codname">Card IX - The Hermit</div>
+  <div class="coddesc">
+    <ul>
+      <li>Introspection, Solitude</li>
+      <li>Inner Guidance</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card10">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 10 - Wheel of Fortune">
+  <div class="codname">Card X - Wheel of Fortune</div>
+  <div class="coddesc">
+    <ul>
+      <li>Cycles, Fate</li>
+      <li>Karma, Luck</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card11">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 11 - Justice">
+  <div class="codname">Card XI - Justice</div>
+  <div class="coddesc">
+    <ul>
+      <li>Fairness, Truth</li>
+      <li>Law, Accountability</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card12">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 12 - The Hanged Man">
+  <div class="codname">Card XII - The Hanged Man</div>
+  <div class="coddesc">
+    <ul>
+      <li>Sacrifice, Release</li>
+      <li>New Perspective</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card13">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 13 - Death">
+  <div class="codname">Card XIII - Death</div>
+  <div class="coddesc">
+    <ul>
+      <li>Transformation, Endings</li>
+      <li>Rebirth, Transition</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card14">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 14 - Temperance">
+  <div class="codname">Card XIV - Temperance</div>
+  <div class="coddesc">
+    <ul>
+      <li>Balance, Moderation</li>
+      <li>Healing, Patience</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card15">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 15 - The Devil">
+  <div class="codname">Card XV - The Devil</div>
+  <div class="coddesc">
+    <ul>
+      <li>Bondage, Addiction</li>
+      <li>Shadow Self, Materialism</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card16">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 16 - The Tower">
+  <div class="codname">Card XVI - The Tower</div>
+  <div class="coddesc">
+    <ul>
+      <li>Upheaval, Sudden Change</li>
+      <li>Revelation, Disruption</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card17">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 17 - The Star">
+  <div class="codname">Card XVII - The Star</div>
+  <div class="coddesc">
+    <ul>
+      <li>Hope, Inspiration</li>
+      <li>Serenity, Renewal</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card18">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 18 - The Moon">
+  <div class="codname">Card XVIII - The Moon</div>
+  <div class="coddesc">
+    <ul>
+      <li>Illusion, Fear</li>
+      <li>Subconscious, Dreams</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card19">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 19 - The Sun">
+  <div class="codname">Card XIX - The Sun</div>
+  <div class="coddesc">
+    <ul>
+      <li>Positivity, Vitality</li>
+      <li>Success, Warmth</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card20">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 20 - Judgement">
+  <div class="codname">Card XX - Judgement</div>
+  <div class="coddesc">
+    <ul>
+      <li>Reflection, Reckoning</li>
+      <li>Awakening</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card21">
+  <img class="codimg" src="https://upload.wikimedia.org/wikipedia/en/9/90/RWS_Tarot_00_Fool.jpg" alt="Card 21 - The World">
+  <div class="codname">Card XXI - The World</div>
+  <div class="coddesc">
+    <ul>
+      <li>Completion, Achievement</li>
+      <li>Fulfillment, Unity</li>
+    </ul>
+  </div>
+</div>
+
+<!-- WANDS (14 cards: 22..35) -->
+<div class="tarot" id="card22">
+  <img class="codimg" src="" alt="Card 22 - Ace of Wands">
+  <div class="codname">Card 22 - Ace of Wands</div>
+  <div class="coddesc">
+    <ul>
+      <li>Inspiration, Growth</li>
+      <li>New Opportunities</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card23">
+  <img class="codimg" src="" alt="Card 23 - Two of Wands">
+  <div class="codname">Card 23 - Two of Wands</div>
+  <div class="coddesc">
+    <ul>
+      <li>Planning, Decisions</li>
+      <li>Future Possibilities</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card24">
+  <img class="codimg" src="" alt="Card 24 - Three of Wands">
+  <div class="codname">Card 24 - Three of Wands</div>
+  <div class="coddesc">
+    <ul>
+      <li>Expansion, Foresight</li>
+      <li>Long-Term Plans</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card25">
+  <img class="codimg" src="" alt="Card 25 - Four of Wands">
+  <div class="codname">Card 25 - Four of Wands</div>
+  <div class="coddesc">
+    <ul>
+      <li>Celebration, Harmony</li>
+      <li>Community, Home</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card26">
+  <img class="codimg" src="" alt="Card 26 - Five of Wands">
+  <div class="codname">Card 26 - Five of Wands</div>
+  <div class="coddesc">
+    <ul>
+      <li>Conflict, Competition</li>
+      <li>Tension, Disagreement</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card27">
+  <img class="codimg" src="" alt="Card 27 - Six of Wands">
+  <div class="codname">Card 27 - Six of Wands</div>
+  <div class="coddesc">
+    <ul>
+      <li>Victory, Success</li>
+      <li>Recognition, Achievement</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card28">
+  <img class="codimg" src="" alt="Card 28 - Seven of Wands">
+  <div class="codname">Card 28 - Seven of Wands</div>
+  <div class="coddesc">
+    <ul>
+      <li>Perseverance, Defense</li>
+      <li>Maintaining Control</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card29">
+  <img class="codimg" src="" alt="Card 29 - Eight of Wands">
+  <div class="codname">Card 29 - Eight of Wands</div>
+  <div class="coddesc">
+    <ul>
+      <li>Speed, Action</li>
+      <li>Swift Movement</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card30">
+  <img class="codimg" src="" alt="Card 30 - Nine of Wands">
+  <div class="codname">Card 30 - Nine of Wands</div>
+  <div class="coddesc">
+    <ul>
+      <li>Resilience, Grit</li>
+      <li>Wounded Warrior</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card31">
+  <img class="codimg" src="" alt="Card 31 - Ten of Wands">
+  <div class="codname">Card 31 - Ten of Wands</div>
+  <div class="coddesc">
+    <ul>
+      <li>Burden, Responsibility</li>
+      <li>Hard Work, Stress</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card32">
+  <img class="codimg" src="" alt="Card 32 - Page of Wands">
+  <div class="codname">Card 32 - Page of Wands</div>
+  <div class="coddesc">
+    <ul>
+      <li>Enthusiasm, Exploration</li>
+      <li>Free Spirit</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card33">
+  <img class="codimg" src="" alt="Card 33 - Knight of Wands">
+  <div class="codname">Card 33 - Knight of Wands</div>
+  <div class="coddesc">
+    <ul>
+      <li>Action, Adventure</li>
+      <li>Impulsiveness</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card34">
+  <img class="codimg" src="" alt="Card 34 - Queen of Wands">
+  <div class="codname">Card 34 - Queen of Wands</div>
+  <div class="coddesc">
+    <ul>
+      <li>Confidence, Determination</li>
+      <li>Charisma, Independence</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card35">
+  <img class="codimg" src="" alt="Card 35 - King of Wands">
+  <div class="codname">Card 35 - King of Wands</div>
+  <div class="coddesc">
+    <ul>
+      <li>Vision, Leadership</li>
+      <li>Entrepreneurship</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CUPS (14 cards: 36..49) -->
+<div class="tarot" id="card36">
+  <img class="codimg" src="" alt="Card 36 - Ace of Cups">
+  <div class="codname">Card 36 - Ace of Cups</div>
+  <div class="coddesc">
+    <ul>
+      <li>New Love, Compassion</li>
+      <li>Emotional Beginnings</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card37">
+  <img class="codimg" src="" alt="Card 37 - Two of Cups">
+  <div class="codname">Card 37 - Two of Cups</div>
+  <div class="coddesc">
+    <ul>
+      <li>Partnership, Unity</li>
+      <li>Mutual Attraction</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card38">
+  <img class="codimg" src="" alt="Card 38 - Three of Cups">
+  <div class="codname">Card 38 - Three of Cups</div>
+  <div class="coddesc">
+    <ul>
+      <li>Celebration, Friendship</li>
+      <li>Community, Joy</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card39">
+  <img class="codimg" src="" alt="Card 39 - Four of Cups">
+  <div class="codname">Card 39 - Four of Cups</div>
+  <div class="coddesc">
+    <ul>
+      <li>Contemplation, Apathy</li>
+      <li>Reevaluation</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card40">
+  <img class="codimg" src="" alt="Card 40 - Five of Cups">
+  <div class="codname">Card 40 - Five of Cups</div>
+  <div class="coddesc">
+    <ul>
+      <li>Loss, Regret</li>
+      <li>Disappointment</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card41">
+  <img class="codimg" src="" alt="Card 41 - Six of Cups">
+  <div class="codname">Card 41 - Six of Cups</div>
+  <div class="coddesc">
+    <ul>
+      <li>Nostalgia, Innocence</li>
+      <li>Memories, Reunion</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card42">
+  <img class="codimg" src="" alt="Card 42 - Seven of Cups">
+  <div class="codname">Card 42 - Seven of Cups</div>
+  <div class="coddesc">
+    <ul>
+      <li>Choices, Illusions</li>
+      <li>Wishful Thinking</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card43">
+  <img class="codimg" src="" alt="Card 43 - Eight of Cups">
+  <div class="codname">Card 43 - Eight of Cups</div>
+  <div class="coddesc">
+    <ul>
+      <li>Walking Away, Searching</li>
+      <li>Abandonment</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card44">
+  <img class="codimg" src="" alt="Card 44 - Nine of Cups">
+  <div class="codname">Card 44 - Nine of Cups</div>
+  <div class="coddesc">
+    <ul>
+      <li>Contentment, Satisfaction</li>
+      <li>Wish Fulfillment</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card45">
+  <img class="codimg" src="" alt="Card 45 - Ten of Cups">
+  <div class="codname">Card 45 - Ten of Cups</div>
+  <div class="coddesc">
+    <ul>
+      <li>Happiness, Harmony</li>
+      <li>Family, Fulfillment</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card46">
+  <img class="codimg" src="" alt="Card 46 - Page of Cups">
+  <div class="codname">Card 46 - Page of Cups</div>
+  <div class="coddesc">
+    <ul>
+      <li>Creativity, Intuition</li>
+      <li>New Emotions</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card47">
+  <img class="codimg" src="" alt="Card 47 - Knight of Cups">
+  <div class="codname">Card 47 - Knight of Cups</div>
+  <div class="coddesc">
+    <ul>
+      <li>Romance, Charm</li>
+      <li>Following the Heart</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card48">
+  <img class="codimg" src="" alt="Card 48 - Queen of Cups">
+  <div class="codname">Card 48 - Queen of Cups</div>
+  <div class="coddesc">
+    <ul>
+      <li>Compassion, Calm</li>
+      <li>Emotional Security</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card49">
+  <img class="codimg" src="" alt="Card 49 - King of Cups">
+  <div class="codname">Card 49 - King of Cups</div>
+  <div class="coddesc">
+    <ul>
+      <li>Emotional Balance</li>
+      <li>Diplomacy, Control</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SWORDS (14 cards: 50..63) -->
+<div class="tarot" id="card50">
+  <img class="codimg" src="" alt="Card 50 - Ace of Swords">
+  <div class="codname">Card 50 - Ace of Swords</div>
+  <div class="coddesc">
+    <ul>
+      <li>Clarity, Breakthrough</li>
+      <li>Truth, New Ideas</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card51">
+  <img class="codimg" src="" alt="Card 51 - Two of Swords">
+  <div class="codname">Card 51 - Two of Swords</div>
+  <div class="coddesc">
+    <ul>
+      <li>Stalemate, Indecision</li>
+      <li>Blocked Emotions</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card52">
+  <img class="codimg" src="" alt="Card 52 - Three of Swords">
+  <div class="codname">Card 52 - Three of Swords</div>
+  <div class="coddesc">
+    <ul>
+      <li>Heartbreak, Suffering</li>
+      <li>Grief, Pain</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card53">
+  <img class="codimg" src="" alt="Card 53 - Four of Swords">
+  <div class="codname">Card 53 - Four of Swords</div>
+  <div class="coddesc">
+    <ul>
+      <li>Rest, Recuperation</li>
+      <li>Meditation, Contemplation</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card54">
+  <img class="codimg" src="" alt="Card 54 - Five of Swords">
+  <div class="codname">Card 54 - Five of Swords</div>
+  <div class="coddesc">
+    <ul>
+      <li>Conflict, Defeat</li>
+      <li>Tension, Betrayal</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card55">
+  <img class="codimg" src="" alt="Card 55 - Six of Swords">
+  <div class="codname">Card 55 - Six of Swords</div>
+  <div class="coddesc">
+    <ul>
+      <li>Transition, Moving On</li>
+      <li>Releasing Baggage</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card56">
+  <img class="codimg" src="" alt="Card 56 - Seven of Swords">
+  <div class="codname">Card 56 - Seven of Swords</div>
+  <div class="coddesc">
+    <ul>
+      <li>Deception, Strategy</li>
+      <li>Trickery, Tactics</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card57">
+  <img class="codimg" src="" alt="Card 57 - Eight of Swords">
+  <div class="codname">Card 57 - Eight of Swords</div>
+  <div class="coddesc">
+    <ul>
+      <li>Restriction, Fear</li>
+      <li>Feeling Trapped</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card58">
+  <img class="codimg" src="" alt="Card 58 - Nine of Swords">
+  <div class="codname">Card 58 - Nine of Swords</div>
+  <div class="coddesc">
+    <ul>
+      <li>Anxiety, Worry</li>
+      <li>Nightmares, Despair</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card59">
+  <img class="codimg" src="" alt="Card 59 - Ten of Swords">
+  <div class="codname">Card 59 - Ten of Swords</div>
+  <div class="coddesc">
+    <ul>
+      <li>Betrayal, Collapse</li>
+      <li>Painful Endings</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card60">
+  <img class="codimg" src="" alt="Card 60 - Page of Swords">
+  <div class="codname">Card 60 - Page of Swords</div>
+  <div class="coddesc">
+    <ul>
+      <li>Curiosity, Vigilance</li>
+      <li>Mental Energy</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card61">
+  <img class="codimg" src="" alt="Card 61 - Knight of Swords">
+  <div class="codname">Card 61 - Knight of Swords</div>
+  <div class="coddesc">
+    <ul>
+      <li>Action, Ambition</li>
+      <li>Quick Decisions</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card62">
+  <img class="codimg" src="" alt="Card 62 - Queen of Swords">
+  <div class="codname">Card 62 - Queen of Swords</div>
+  <div class="coddesc">
+    <ul>
+      <li>Honesty, Independence</li>
+      <li>Clear Thinking</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card63">
+  <img class="codimg" src="" alt="Card 63 - King of Swords">
+  <div class="codname">Card 63 - King of Swords</div>
+  <div class="coddesc">
+    <ul>
+      <li>Intellect, Authority</li>
+      <li>Truth, Discipline</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PENTACLES (14 cards: 64..77) -->
+<div class="tarot" id="card64">
+  <img class="codimg" src="" alt="Card 64 - Ace of Pentacles">
+  <div class="codname">Card 64 - Ace of Pentacles</div>
+  <div class="coddesc">
+    <ul>
+      <li>New Financial Opportunity</li>
+      <li>Prosperity, Manifestation</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card65">
+  <img class="codimg" src="" alt="Card 65 - Two of Pentacles">
+  <div class="codname">Card 65 - Two of Pentacles</div>
+  <div class="coddesc">
+    <ul>
+      <li>Balance, Adaptability</li>
+      <li>Time Management</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card66">
+  <img class="codimg" src="" alt="Card 66 - Three of Pentacles">
+  <div class="codname">Card 66 - Three of Pentacles</div>
+  <div class="coddesc">
+    <ul>
+      <li>Teamwork, Collaboration</li>
+      <li>Learning, Building</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card67">
+  <img class="codimg" src="" alt="Card 67 - Four of Pentacles">
+  <div class="codname">Card 67 - Four of Pentacles</div>
+  <div class="coddesc">
+    <ul>
+      <li>Control, Security</li>
+      <li>Conservation</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card68">
+  <img class="codimg" src="" alt="Card 68 - Five of Pentacles">
+  <div class="codname">Card 68 - Five of Pentacles</div>
+  <div class="coddesc">
+    <ul>
+      <li>Poverty, Hardship</li>
+      <li>Isolation, Worry</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card69">
+  <img class="codimg" src="" alt="Card 69 - Six of Pentacles">
+  <div class="codname">Card 69 - Six of Pentacles</div>
+  <div class="coddesc">
+    <ul>
+      <li>Generosity, Charity</li>
+      <li>Sharing Wealth</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card70">
+  <img class="codimg" src="" alt="Card 70 - Seven of Pentacles">
+  <div class="codname">Card 70 - Seven of Pentacles</div>
+  <div class="coddesc">
+    <ul>
+      <li>Patience, Perseverance</li>
+      <li>Long-Term Investment</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card71">
+  <img class="codimg" src="" alt="Card 71 - Eight of Pentacles">
+  <div class="codname">Card 71 - Eight of Pentacles</div>
+  <div class="coddesc">
+    <ul>
+      <li>Apprenticeship, Skill</li>
+      <li>Hard Work, Diligence</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card72">
+  <img class="codimg" src="" alt="Card 72 - Nine of Pentacles">
+  <div class="codname">Card 72 - Nine of Pentacles</div>
+  <div class="coddesc">
+    <ul>
+      <li>Luxury, Self-Sufficiency</li>
+      <li>Financial Independence</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card73">
+  <img class="codimg" src="" alt="Card 73 - Ten of Pentacles">
+  <div class="codname">Card 73 - Ten of Pentacles</div>
+  <div class="coddesc">
+    <ul>
+      <li>Wealth, Legacy</li>
+      <li>Family, Long-Term Success</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card74">
+  <img class="codimg" src="" alt="Card 74 - Page of Pentacles">
+  <div class="codname">Card 74 - Page of Pentacles</div>
+  <div class="coddesc">
+    <ul>
+      <li>Ambition, Diligence</li>
+      <li>Opportunity, Study</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card75">
+  <img class="codimg" src="" alt="Card 75 - Knight of Pentacles">
+  <div class="codname">Card 75 - Knight of Pentacles</div>
+  <div class="coddesc">
+    <ul>
+      <li>Hard Work, Routine</li>
+      <li>Responsibility, Efficiency</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card76">
+  <img class="codimg" src="" alt="Card 76 - Queen of Pentacles">
+  <div class="codname">Card 76 - Queen of Pentacles</div>
+  <div class="coddesc">
+    <ul>
+      <li>Nurturing, Practicality</li>
+      <li>Financial Security</li>
+    </ul>
+  </div>
+</div>
+
+<div class="tarot" id="card77">
+  <img class="codimg" src="" alt="Card 77 - King of Pentacles">
+  <div class="codname">Card 77 - King of Pentacles</div>
+  <div class="coddesc">
+    <ul>
+      <li>Wealth, Leadership</li>
+      <li>Stability, Discipline</li>
+    </ul>
+  </div>
+</div>
+
+          <div class="codhead"> Daily Horoscope </div>
+          <div>
+            <select id="pick-horoscope" class="selecthoro">
+        <option value = "aries">Aries</option>
+        <option value = "aquarius">Aquarius</option>
+        <option value = "cancer">Cancer</option>
+        <option value = "capricorn">Capricorn</option>
+        <option value = "gemini">Gemini</option>
+        <option value = "leo">Leo</option>
+        <option value = "virgo">Libra</option>
+        <option value = "pisces">Pisces</option>
+        <option value = "sagittarius">Sagittarius</option>
+        <option value = "scorpio">Scorpio</option>
+        <option value = "taurus">Taurus</option>
+        <option value = "virgo">Virgo</option>
+      </select>
+          </div>
+
+          <div class="horodesc">Much of your focus today will be on personal possessions and material goods in general, Aries. Think about what you can do to improve your home. Make your physical surroundings comfortable and inviting. Spend time alone in your sanctuary where
+            you can center and concentrate on the big picture. Physical comfort and beauty will translate into emotional security. </div>
+        </div>
+      </div>
+
+      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+        <div class = "philosophy">
+        <div class="philhead"> FOOD4THOTH Philosophy </div>
+        <div class="philbody"> FOOD4THOTH is devoted to a quick, easy, and free guide to diving into the world of Tarot. Our goal is to make Tarot more accessible to everyone. Tarot has a stigma of being associate with fortune telling and performing magic which unfortunately turns a lot of people away. We teach Tarot by way of storytelling and providing insight into life’s questions. What you do with the answers received from Tarot are up to you. We are creatures of free will, and there’s not a single entity who holds the keys to our future except us. 
+</div>
+        <img class="philimg" src="./images/CardSpread.png">
+        <div class="philbody"> Tarot can be as simple or as complex as you want it to be. With countless ways to interact with the cards, FOOD4THOTH Tarot barely scratches the surface. There’s many experts who have written books and host various sites that can provide you with further practice. However, FOOD4THOTH Tarot provides the information in a simple and easy way to get you started! 
+</div>
+      </div>
+    </div>
+    </div>
+
+    <div class="row" id="row4">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="footer format">
+          <div class="copyright">
+            <div> © 2025 <a href="../index.html" target="_blank"><strong>Food4Thoth</strong></a>. All rights reserved. </div>
+						<p>Support our projects via<br /><a href="../Donations/index.html" target="_blank"><strong>Donate Button</strong></a>, <a href="https://paypal.me/artabillies" target="_blank"><strong>PayPal</strong></a>, or <a href="https://venmo.com/u/DeJahnvu" target="_blank"><strong>Venmo</strong></a></p>
+          </div>
+					
+				
+
+          <div class="donate format">
+            <div class="donate-text"><a href="../index.html" target="_blank"><strong>FOOD4THOTH</strong></a> Tarot this is currently run by a single person. <br> Any help is appreciated and goes into growing the site.</div>
+            <a target = "_blank" href = "../Donations/index.html"><img alt="donate button" class="donate-button" src="./images/Donate.png"></a> 
+						<p>View more creations @ <a href="http://www.artabillies.com" target="_blank"><strong>Artabillies</strong></a>
+     
+      <p>For inquiries or feedback, email us at <a href="mailto:food4thoth@proton.me"><strong>food4thoth@proton.me</strong></a></p>
+     <a href="./README.md"  class="styled-link"><strong>ReadMe</strong></a> | <a href="../contact.html"  class="styled-link"><strong>Contact</strong></a></p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  
+
+	<script src="./nav_script.js"></script>
+
+<script src="./iframe_script.js"></script>
+
+</body>
+
+</html>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+  <script>
+  window.jQuery || document.write('<script src="./libs/jquery.min.js"><\/script>');
+</script>
+  <script  src="./script.js"></script>
+	
+	
+
+</body>
+</html>
