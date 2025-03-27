@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Not Hopalong</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="menu">
+  <p id="controls">close controls</p>
+  <div id="showhide">
+    <hr>
+    <div class="menugroup">
+      <p>parameters</p>
+      <p>a: <input type="number" id=a value=1 min=-2000 max=2000 step="any"></p>
+      <p>b: <input type="number" id=b value=3 min=-2000 max=2000 step="any"></p>
+      <p>c: <input type="number" id=c value=-0.8 min=-2000 max=2000 step="any"></p>
+      <p>iterations: <input type="number" id=nbiter value=50 min=3 max=200 step="1"></p>
+      <hr>
+    </div>
+    <div class="menugroup">
+      <p>color: </p>
+      <p>animate:<input type="checkbox" checked id="colorchange"></p>
+      <p>x: <input type="range" id=colorx value=0 min=0 max=6.28 step="any"></p>
+      <p>y: <input type="range" id=colory value=0 min=0 max=6.28 step="any"></p>
+      <hr>
+    </div>
+    <div class="menugroup">
+      <p>stretch</p>
+      <p><input type="radio" name="stretch" checked id="stretch0"> off</p>
+      <p><input type="radio" name="stretch" id="stretch1"> set</p>
+      <p><input type="radio" name="stretch" id="stretch2"> lock</p>
+      <hr>
+    </div>
+    <div class="menugroup">
+      <p>help:</p>
+      <p>Use wheel to zoom in/out</p>
+      <p>Drag to move canvas<br>
+        in x-y directions</p>
+      <p>See "details view" for <br>
+        the stretch function</p>
+    </div>
+  </div> <!-- showhide -->
+</div> <!-- menu -->
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
