@@ -1,0 +1,353 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+
+body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+						position: fixed;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            color: #fff;
+						font-size: 100px;
+            font-family: monospace;
+            overflow: hidden;
+			
+        }
+        #gameContainer {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            position: relative;
+			
+			
+        }
+        #gameCanvas {
+            max-width: 100vw;
+            max-height: 100vh;
+            display: none;
+			
+        }
+        #startScreen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+						font-size: 1.6rem;
+						
+						
+        }
+        #startScreen h1 {
+            margin-bottom: 5px;
+						margin-top: 0;
+        }
+        #startButton {
+            padding: 10px 20px;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 2rem;
+						font-family: 'Press Start 2P', monospace;
+						margin-bottom: 10px;
+        }
+        #tryAgain {
+            display: none;
+            padding: 10px 20px;
+            background-color: #444;
+            color: #fff;
+            cursor: pointer;
+						border: line;
+						border-color: lightblue grey;
+						border-width: 10px;
+            font-size: 3.5rem;
+            position: absolute;
+            top: 24vh;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+						font-family: 'Press Start 2P', monospace;
+        }
+        #highScores {
+            display: none;
+            margin-top: 20px;
+            color: #fff;
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li span {
+            font-weight: bold;
+        }
+				
+				.footer{
+					font-size: 18px;
+				}
+				
+				#landscapeOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+    z-index: 1000; /* Ensure it sits above all other content */
+    display: none; /* Initially hidden */
+}
+
+.pixel {
+	display: block;
+	position: relative;
+	width: 300px;
+	height: 110px;
+	color: white;
+	font-size: 8px;
+	text-transform: uppercase;
+	background-color: #06C1DE;
+	border: none;
+	
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 24px;
+	box-sizing: border-box;
+	cursor: pointer;
+	font-family: 'Press Start 2P', cursive;
+	outline: none;
+}
+.pixel::after {
+	content: "";
+	position: absolute;
+	width: 300px;
+	height: 120px;
+	top: 12px;
+	left: 0;
+	background-color: #047E91;
+	border-radius: 24px;
+	z-index: -1;
+}
+.pixel:hover {
+	background-color: #06B6D1;
+}
+.pixel:active {
+	top: 10px;
+}
+.pixel:active::after {
+	top: 2px;
+}
+
+.test {
+	float: left;
+	width: 100%;
+	height: 100%;
+	z-index: 5;
+	overflow-x: hidden;
+}
+
+/* Ensure everything scales within an iframe */
+body.iframe-mode {
+    font-size: .8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: black; /* Keeps the game visually contained */
+}
+
+/* Ensure `#startScreen` scales properly */
+body.iframe-mode #startScreen {
+    font-size: .8rem; 
+    text-align: center;
+    width: 100vw; 
+    max-width: 400px; 
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 10px;
+}
+
+body.iframe-mode #startButton {
+	font-size: .7rem;
+}
+
+body.iframe-mode #tryAgain {
+	font-size: 1rem;
+}
+
+body.iframe-mode .pixel {
+	width: 100px;
+}
+
+body.iframe-mode .pixel {
+	height: 50px;
+}
+
+body.iframe-mode .pixel::after {
+	width: 100px;
+}
+
+body.iframe-mode .pixel::after {
+	height: 50px;
+}
+
+
+body.iframe-mode #startScreen h1 {
+            margin-bottom: 5px;
+						margin-top: -25px;
+        }
+
+/* Scale text elements */
+body.iframe-mode h1,
+body.iframe-mode p,
+body.iframe-mode ul {
+    font-size: .9em; /* Adjust font size inside iframe */
+}
+
+/* Adjust button sizes */
+body.iframe-mode button {
+    font-size: .6rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+}
+
+/* Scale images dynamically */
+body.iframe-mode img {
+    width: 7vw; /* Use viewport width instead of fixed pixels */
+    max-width: 35px; /* Set a max limit */
+    height: auto;
+}
+
+/* Scale the game canvas */
+body.iframe-mode #gameCanvas {
+    width: 100vw;
+    height: 100vh;
+    max-width: 400px;
+    max-height: 100vh;
+    border: 2px solid white;
+}
+
+/* Landscape mode warning */
+body.iframe-mode #landscapeOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    text-align: center;
+}
+
+/* Responsive adjustments for tablets & up */
+@media (min-width: 768px) {
+    body.iframe-mode #startScreen {
+        font-size: .9rem;
+    }
+    body.iframe-mode button {
+        font-size: .9rem;
+    }
+}
+
+/* For even larger screens, you can tweak further */
+@media (min-width: 1024px) {
+    body.iframe-mode {
+        font-size: .9rem;
+    }
+    body.iframe-mode #startScreen {
+        width: 60vw;
+        padding: 2rem;
+    }
+    body.iframe-mode button {
+        font-size: .9rem;
+    }
+}
+
+/* Ensure iframe container scales properly */
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Scale power-ups and enemies */
+body.iframe-mode .game-object {
+    transform: scale(0.9);
+}
+
+/* Ensure everything scales down when in an iframe */
+body.iframe-mode {
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: black; /* Keeps the game visually contained */
+}
+
+/* Scale down #startScreen when inside an iframe */
+body.iframe-mode #startScreen {
+    font-size: 0.8rem;
+    text-align: center;
+    width: 100vw;
+    max-width: 400px;
+    padding: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 10px;
+}
+
+/* Reduce button sizes inside iframe */
+body.iframe-mode #startButton,
+body.iframe-mode #tryAgain {
+    font-size: .7rem;
+    padding: 0.5rem 1rem;
+}
+
+/* Scale images dynamically */
+body.iframe-mode img {
+    width: 7vw; /* Use viewport width instead of fixed pixels */
+    max-width: 35px; /* Set a max limit */
+    height: auto;
+}
+
+/* Ensure canvas scales properly */
+body.iframe-mode #gameCanvas {
+    width: 100vw;
+    height: 100vh;
+    max-width: 400px;
+    max-height: 100vh;
+    border: 2px solid white;
+}
+
+/* Adjust font sizes for scores and UI elements */
+body.iframe-mode canvas {
+    font-size: 0.8rem;
+}
+
+/* Ensure iframe container scales properly */
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+body.iframe-mode p {
+					margin-top: 10px;
+					margin: 8px;
+				}
