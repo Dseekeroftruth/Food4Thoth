@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARTABILITIES Logo Animation</title>
+    <style>
+        /* Styling to ensure full compatibility across spaces */
+        body {
+            margin: 0;
+            background: transparent;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        svg {
+            width: 300px;
+            height: 300px;
+        }
+
+        .path {
+            fill: none;
+            stroke: #00FF00;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 300;
+            stroke-dashoffset: 300;
+            animation: draw 2s ease-in-out forwards;
+        }
+
+        .splatter {
+            fill: #00FF00;
+            opacity: 0;
+            animation: splatter 0.6s ease-in-out forwards 2.2s;
+        }
+
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes splatter {
+            to {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+           <path class="path" d="M50,150 L100,50 L150,150 M75,100 L125,100"></path> <!-- A -->
+        <path class="path" d="M50,150 L50,50 Q50,20 80,20 L120,20 Q150,20 150,50 L150,100 Q150,130 120,130 L80,130 L150,200 "></path> <!-- R -->
+        <path class="path" d="M50,50 L150,50 M100,50 L100,150 "></path> <!-- T -->
+        <path class="path" d="M50,150 L100,50 L150,150 M75,100 L125,100"></path> <!-- A -->
+        <path class="path" d="M50,50 L50,150 Q50,170 70,170 Q90,170 90,150 L90,100 Q90,80 70,80 Q50,80 50,100 L50,150"></path> <!-- B -->
+        <path class="path" d="M50,20 L50,180 M50,20 C50,15 55,10 60,10 M50,20 C50,15 45,10 40,10 M50,180 C50,185 55,190 60,190 M50,180 
+        C50,185 45,190 40,190"></path> <!-- I -->
+        <path class="path" d="M30,20 L30,160 L70,160"></path> <!-- L -->
+        <path class="path" d="M30,20 L30,160 L70,160"></path> <!-- L -->
+        <path class="path" d="M50,20 L50,180 M50,20 C50,15 55,10 60,10 M50,20 C50,15 45,10 40,10 M50,180 C50,185 55,190 60,190 M50,180 
+        C50,185 45,190 40,190"></path> <!-- I -->
+        <path class="path" d="M20,20 L20,180 M20,20 L80,20 M20,100 L70,100 M20,180 L80,180"></path> <!-- E -->
+        <path class="path" d="M80,20 C40,20 40,100 80,100 C120,100 120,180 80,180"></path> <!-- S -->
+				<circle class="splatter" cx="125" cy="130" r="8"></circle> <!-- Decorative Dot/Splatter -->
+    </svg>
+</body>
+</html>

@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Art Animation</title>
+    <style>
+		body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+						width: auto;
+        }
+        /* Styling for the animated text container */
+        .logo-animation-container5 {
+            font-size: 1rem; /* Adjust size as needed */
+            line-height: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            white-space: pre; /* Preserve whitespace */
+            overflow: hidden; /* Hide overflow */
+            height: auto; /* Set a fixed height */
+            background-color: transparent;
+            color: #00FF00;
+			margin-top: 5px;
+        }
+
+        .logo-animation-container2 {
+            background-color: transparent;
+            color: #00FF00;
+            font-family: monospace;
+            white-space: pre;
+            padding: 0;
+            height: 250px; /* Set a fixed height to prevent layout shifts */
+            width: 100%;  /* Full width inside sidebar */
+            
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        #ascii-art {
+            font-size: 0.33rem; /* Adjust this to scale the text on different screen sizes */
+            line-height: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+						margin-left: 200px;
+            justify-content: center;
+            align-items: center;
+            max-width: 300px; /* Limit max width */
+        }
+
+                #ascii-art2 {
+            font-size: 1.3rem; /* Adjust this to scale the text on different screen sizes */
+            line-height: 1;
+            
+            height: 100%;
+						margin-right: 50%;
+            display: fixed;
+            justify-content: center;
+            align-items: center;
+            margin-top: -1%;
+						margin-left: 135%;
+        }
+				
+				.logo-animation-container svg {
+    width: 40%; /* Make it responsive */
+    height: 50%;
+		margin-top: 100px;
+		margin-left: 70%;
+		position: absolute;
+
+}
+
+
+
+
+      /* Basic SVG styling */
+        svg {
+            width: 325px;
+            height: 325px;
+            position: fixed;
+        }
+
+
+        .path {
+            fill: none;
+            stroke: #00FF00;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 10s ease-in-out infinite alternate;
+        }
+
+        .splatter {
+            fill: #00FF00;
+            opacity: 0;
+            animation: splatter 10s ease-in-out infinite alternate 2.2s;
+        }
+				
+				.center {
+					position: flex;
+            
+        }
+
+        /* Positioning and flipping each SVG */
+        .top-left {
+            top: 0;
+            left: 0;
+            transform: scaleX(1) scaleY(1);
+						position: flex;
+        }
+
+        .top-right {
+            top: 0;
+            right: 30%;
+            transform: scaleX(-1) scaleY(1);
+						position: flex;
+        }
+
+        .bottom-left {
+            bottom: 60%;
+            left: 0;
+            transform: scaleX(1) scaleY(-1);
+						position: flex;
+        }
+
+        .bottom-right {
+            bottom: 60%;
+            right: 30%;
+            transform: scaleX(-1) scaleY(-1);
+						position: flex;
+        }
+
+        /* Keyframes for animations */
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes splatter {
+            to {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+				
+				 .container {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+						margin-left: 30%;
+						max-width: 600px;
+        }
+		
+		.letter {
+            fill: none;
+            stroke: #00FF00;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 10s ease-in-out infinite alternate;
+        }
+				
+				
+/* Styles for landscape orientation */
+@media screen and (orientation: landscape) {
+    #ascii-art2 {
+        font-size: 1rem; /* Smaller font size for landscape mode */
+       
+    }
+}
+				
+    </style>
+</head>
+<body>
+	
+	 <svg viewBox="-500 600 1600 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+        <!-- Animated Letters -->
+        <!-- Letter A -->
+        <g transform="translate(0,0)">
+            <path class="letter" d="
+                M50,250 
+                L100,50 
+                L150,250 
+                M75,150 
+                L125,150 
+            " />
+        </g>
+        <!-- Letter R -->
+        <g transform="translate(100,0)">
+            <path class="letter" d="
+                M50,250 
+                L50,50 
+                Q50,20 80,20 
+                L120,20 
+                Q150,20 150,50 
+                L150,100 
+                Q150,130 120,130 
+                L80,130 
+                L150,200 
+            " />
+        </g>
+        <!-- Letter T -->
+        <g transform="translate(200,0)">
+            <path class="letter" d="
+                M50,50 
+                L150,50 
+                M100,50 
+                L100,250 
+            " />
+        </g>
+        <!-- Letter A -->
+        <g transform="translate(300,0)">
+            <path class="letter" d="
+                M50,250 
+                L100,50 
+                L150,250 
+                M75,150 
+                L125,150 
+            " />
+        </g>
+        <!-- Letter B -->
+        <g transform="translate(420,0)">
+            <path class="letter" d="
+                M50,50 
+                L50,250 
+                Q50,270 70,270 
+                Q90,270 90,250 
+                L90,170 
+                Q90,150 70,150 
+                Q50,150 50,170 
+                L50,250
+            " />
+        </g>
+        <!-- Letter I -->
+        <g transform="translate(500,0)">
+            <path class="letter" d="
+                M50,20 
+                L50,280 
+                M50,20 
+                C50,15 55,10 60,10 
+                M50,20 
+                C50,15 45,10 40,10 
+                M50,280 
+                C50,285 55,290 60,290 
+                M50,280 
+                C50,285 45,290 40,290 
+            " />
+        </g>
+        <!-- Letter L -->
+        <g transform="translate(550,0)">
+            <path class="letter" d="
+                M50,20 
+                L50,250 
+                L90,250 
+            " />
+        </g>
+        <!-- Letter L -->
+        <g transform="translate(650,0)">
+            <path class="letter" d="
+                M50,20 
+                L50,250 
+                L90,250 
+            " />
+        </g>
+        <!-- Letter I -->
+        <g transform="translate(750,0)">
+            <path class="letter" d="
+                M50,20 
+                L50,280 
+                M50,20 
+                C50,15 55,10 60,10 
+                M50,20 
+                C50,15 45,10 40,10 
+                M50,280 
+                C50,285 55,290 60,290 
+                M50,280 
+                C50,285 45,290 40,290 
+            " />
+        </g>
+        <!-- Letter E -->
+        <g transform="translate(850,0)">
+            <path class="letter" d="
+                M20,20 
+                L20,280 
+                M20,20 
+                L80,20 
+                M20,150 
+                L70,150 
+                M20,280 
+                L80,280 
+            " />
+        </g>
+        <!-- Letter S -->
+        <g transform="translate(900,0)">
+            <path class="letter" d="
+                M80,20
+                C40,20 40,100 80,100
+                C120,100 120,180 80,180
+            " />
+        </g>
+
+        <!-- Splatter Effects -->
+        <!-- Spread out splatters around the word -->
+        <circle class="splatter" cx="250" cy="150" r="5"></circle>
+        <circle class="splatter" cx="400" cy="170" r="8"></circle>
+        <circle class="splatter" cx="550" cy="130" r="6"></circle>
+        <circle class="splatter" cx="700" cy="90" r="4"></circle>
+        <circle class="splatter" cx="850" cy="210" r="5"></circle>
+        <circle class="splatter" cx="1000" cy="70" r="3"></circle>
+        <circle class="splatter" cx="1150" cy="190" r="4"></circle>
+        <circle class="splatter" cx="1300" cy="110" r="5"></circle>
+        <circle class="splatter" cx="1450" cy="150" r="3"></circle>
+        <circle class="splatter" cx="1600" cy="130" r="4"></circle>
+        <circle class="splatter" cx="80" cy="60" r="5" />
+        <circle class="splatter" cx="120" cy="100" r="4" />
+        <circle class="splatter" cx="80" cy="140" r="3" />
+        <circle class="splatter" cx="140" cy="80" r="6" />
+        <circle class="splatter" cx="25" cy="60" r="4" />
+        <circle class="splatter" cx="35" cy="140" r="5" />
+        <circle class="splatter" cx="45" cy="100" r="3" />
+        <circle class="splatter" cx="15" cy="180" r="6" />
+    </svg>
+	
+	
+	
+	<svg viewBox="-290 125 800 200" preserveAspectRatio="xMidYMid meet">
+           <path class="path" d="M50,150 L100,50 L150,150 M75,100 L125,100"></path> <!-- A -->
+        <path class="path" d="M50,150 L50,50 Q50,20 80,20 L120,20 Q150,20 150,50 L150,100 Q150,130 120,130 L80,130 L150,200 "></path> <!-- R -->
+        <path class="path" d="M50,50 L150,50 M100,50 L100,150 "></path> <!-- T -->
+        <path class="path" d="M50,150 L100,50 L150,150 M75,100 L125,100"></path> <!-- A -->
+        <path class="path" d="M50,50 L50,150 Q50,170 70,170 Q90,170 90,150 L90,100 Q90,80 70,80 Q50,80 50,100 L50,150"></path> <!-- B -->
+        <path class="path" d="M50,20 L50,180 M50,20 C50,15 55,10 60,10 M50,20 C50,15 45,10 40,10 M50,180 C50,185 55,190 60,190 M50,180 
+        C50,185 45,190 40,190"></path> <!-- I -->
+        <path class="path" d="M30,20 L30,160 L70,160"></path> <!-- L -->
+        <path class="path" d="M30,20 L30,160 L70,160"></path> <!-- L -->
+        <path class="path" d="M50,20 L50,180 M50,20 C50,15 55,10 60,10 M50,20 C50,15 45,10 40,10 M50,180 C50,185 55,190 60,190 M50,180 
+        C50,185 45,190 40,190"></path> <!-- I -->
+        <path class="path" d="M20,20 L20,180 M20,20 L80,20 M20,100 L70,100 M20,180 L80,180"></path> <!-- E -->
+        <path class="path" d="M80,20 C40,20 40,100 80,100 C120,100 120,180 80,180"></path> <!-- S -->
+				
+				<path class="path" d="M50,30 L50,170 C50,190 70,190 70,170 C70,160 60,160 60,170 L60,130 C60,120 80,120 80,130 C80,140 60,140 60,130 L60,90 C60,80 80,80 80,90 C80,100 60,100 60,90 L60,50 C60,40 80,40 80,50 C80,60 60,60 60,50 L60,30 Z"></path> <!-- S -->
+				 <path class="path" d="M20,20 L20,180 C20,190 30,190 30,180 L30,120 C30,110 40,110 40,120 L40,160 C40,170 30,170 30,160 L30,100 C30,90 40,90 40,100 L40,140 C40,150 30,150 30,140 L30,80 C30,70 40,70 40,80 L40,120 C40,130 30,130 30,120 L30,60 C30,50 20,50 20,60 L20,20 Z"></path> <!-- S -->
+				 
+				 <path class="path" d="M20,20 L20,180 C20,190 60,190 60,180 C60,160 20,160 20,180 L20,100 C20,120 60,120 60,100 C60,80 20,80 20,100 L20,20 Z"></path>
+        
+				<circle class="splatter" cx="125" cy="130" r="8"></circle> <!-- Decorative Dot/Splatter -->
+				
+				 <!-- Decorative Splatter Elements -->
+        <circle class="splatter" cx="80" cy="60" r="5" />
+        <circle class="splatter" cx="120" cy="100" r="4" />
+        <circle class="splatter" cx="80" cy="140" r="3" />
+        <circle class="splatter" cx="140" cy="80" r="6" />
+        <circle class="splatter" cx="25" cy="60" r="4" />
+        <circle class="splatter" cx="35" cy="140" r="5" />
+        <circle class="splatter" cx="45" cy="100" r="3" />
+        
+       
+        <circle class="splatter" cx="550" cy="130" r="6" />
+        <circle class="splatter" cx="700" cy="90" r="4" />
+        <circle class="splatter" cx="850" cy="210" r="5" />
+        <circle class="splatter" cx="1000" cy="70" r="3" />
+        <circle class="splatter" cx="1150" cy="190" r="4" />
+        <circle class="splatter" cx="1300" cy="110" r="5" />
+        <circle class="splatter" cx="1450" cy="150" r="3" />
+        <circle class="splatter" cx="1600" cy="130" r="4" />
+    </svg>
+		
+    <svg viewBox="50 0 600 700" preserveAspectRatio="xMidYMid meet">
+        <!-- Adjusted A symbol with extended lines -->
+        <path class="path" d="M30,170 L100,35 L170,170 M20,110 L180,110"></path> <!-- Extended A with top, arms, and legs beyond the circle -->
+
+        <!-- Circle inside with A lines extending beyond it -->
+        <circle cx="100" cy="100" r="60" class="path"></circle>
+    </svg>
+
+
+	
+
+			<svg viewBox="-500 125 800 200" preserveAspectRatio="xMidYMid meet">
+           <path class="path" d="
+            M200,100 
+            a100,100 0 1,0 0,200 
+            a100,100 0 1,0 0,-200
+            ">
+        </path>
+
+        <!-- Inscribed Square Path -->
+        <path class="path" d="
+            M200,100
+            L300,200 
+            L200,300 
+            L100,200 
+            Z">
+        </path>
+				<path class="path" d="
+            M200,50
+            c30,0 60,30 60,60 
+            c0,30 -30,60 -60,60 
+            c-30,0 -60,-30 -60,-60 
+            c0,-30 30,-60 60,-60 
+            
+            c20,0 40,20 40,40 
+            c0,20 -20,40 -40,40 
+            c-20,0 -40,-20 -40,-40 
+            c0,-20 20,-40 40,-40 
+            
+            c15,0 30,15 30,30 
+            c0,15 -15,30 -30,30 
+            c-15,0 -30,-15 -30,-30 
+            c0,-15 15,-30 30,-30 
+            
+            c10,0 20,10 20,20 
+            c0,10 -10,20 -20,20 
+            c-10,0 -20,-10 -20,-20 
+            c0,-10 10,-20 20,-20
+            
+            c7,0 15,7 15,15 
+            c0,7 -7,15 -15,15 
+            c-7,0 -15,-7 -15,-15 
+            c0,-7 7,-15 15,-15
+            
+            c5,0 10,5 10,10 
+            c0,5 -5,10 -10,10 
+            c-5,0 -10,-5 -10,-10 
+            c0,-5 5,-10 10,-10 
+            ">
+        </path>
+				<path class="path" d="
+            M200,50
+            c40,0 70,30 70,70
+            c0,40 -30,70 -70,70
+            c-40,0 -70,-30 -70,-70
+            c0,-40 30,-70 70,-70
+            
+            c30,0 50,25 50,50
+            c0,30 -25,50 -50,50
+            c-30,0 -50,-25 -50,-50
+            c0,-30 25,-50 50,-50
+            
+            c20,0 40,20 40,40
+            c0,20 -20,40 -40,40
+            c-20,0 -40,-20 -40,-40
+            c0,-20 20,-40 40,-40
+            
+            c15,0 30,15 30,30
+            c0,15 -15,30 -30,30
+            c-15,0 -30,-15 -30,-30
+            c0,-15 15,-30 30,-30
+            
+            c10,0 20,10 20,20
+            c0,10 -10,20 -20,20
+            c-10,0 -20,-10 -20,-20
+            c0,-10 10,-20 20,-20
+            
+            c7,0 15,7 15,15
+            c0,7 -7,15 -15,15
+            c-7,0 -15,-7 -15,-15
+            c0,-7 7,-15 15,-15
+            
+            c5,0 10,5 10,10
+            c0,5 -5,10 -10,10
+            c-5,0 -10,-5 -10,-10
+            c0,-5 5,-10 10,-10
+            ">
+        </path>
+				</svg>
+        </svg>
+        <!-- SVG instances for each corner -->
+        <svg class="top-left" viewBox="-600 0 1000 200" preserveAspectRatio="xMidYMid meet">
+            <!-- SVG paths here -->
+						<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of D -->
+        <path class="path" d="M50,20 Q130,100 50,180"></path> <!-- Curved right side of D -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of F -->
+        <path class="path" d="M50,20 L120,20"></path> <!-- Top horizontal line of F -->
+        <path class="path" d="M50,100 L100,100"></path> <!-- Middle horizontal line of F -->
+				  <path class="path" d="M80,50 C50,50 50,150 80,150 C110,150 110,50 80,50 Z"></path> <!-- 0 -->
+					<path class="path" d="M120,20 L120,180"></path> <!-- Vertical line of 4 -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal line of 4 -->
+        <path class="path" d="M50,100 L120,20"></path> <!-- Diagonal line of 4 -->
+				<path class="path" d="M50,20 L150,20 M100,20 L100,150"></path> <!-- T -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Left vertical line of H -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal crossbar of H -->
+        <path class="path" d="M120,20 L120,180"></path> <!-- Right vertical line of H -->
+				<path class="path" d="M80,20 L120,150 L40,150 Z"></path> <!-- D -->
+				<path class="path" d="M80,60 
+                             m-50,0 
+                             a50,50 0 1,0 100,0 
+                             a50,50 0 1,0 -100,0
+                             m20,-20 
+                             a30,30 0 1,1 60,0 
+                             a30,30 0 1,1 -60,0
+                             m10,-10 
+                             a15,15 0 1,0 30,0 
+                             a15,15 0 1,0 -30,0">
+        </path>
+				<path class="path" d="M80,50 L180,50 L180,150 L80,150 Z"></path> <!-- Square -->
+				<circle class="splatter" cx="125" cy="130" r="8"></circle> <!-- Decorative Dot/Splatter -->
+				
+				 <!-- Decorative Splatter Elements -->
+        <circle class="splatter" cx="80" cy="60" r="5" />
+        <circle class="splatter" cx="120" cy="100" r="4" />
+        <circle class="splatter" cx="80" cy="140" r="3" />
+        <circle class="splatter" cx="140" cy="80" r="6" />
+        <circle class="splatter" cx="25" cy="60" r="4" />
+        <circle class="splatter" cx="35" cy="140" r="5" />
+        <circle class="splatter" cx="45" cy="100" r="3" />
+       
+       
+        <circle class="splatter" cx="550" cy="130" r="6" />
+        <circle class="splatter" cx="700" cy="90" r="4" />
+        <circle class="splatter" cx="850" cy="210" r="5" />
+        <circle class="splatter" cx="1000" cy="70" r="3" />
+        <circle class="splatter" cx="1150" cy="190" r="4" />
+        <circle class="splatter" cx="1300" cy="110" r="5" />
+        <circle class="splatter" cx="1450" cy="150" r="3" />
+        <circle class="splatter" cx="1600" cy="130" r="4" />
+				
+				<path class="path" d="
+            M95,50 
+            m-50,0 
+            c20,-20 60,-20 80,0 
+            c20,20 20,60 0,80 
+            c-19,19 -55, 19 -70,0
+            c-19,-19 -19,-55 0,-70 
+            c18,-18 50,-18 70,0
+            c18,18 18,50 0,70 
+            c-17,17 -45,18 -60,0 
+            c-17,-17 -17,-45 0,-60 
+            c16,-16 40,-20 60,0 
+            c16,16 16,40 0,60 
+            c-15,15 -35,15 -50,0 
+            c-15,-15 -15,-35 0,-50 
+            c14,-14 30,-14 50,0 
+            c14,14 14,30 0,50
+            ">
+        </path>
+    </svg>
+        </svg>
+        <svg class="top-right" viewBox="-640 0 1000 200" preserveAspectRatio="xMidYMid meet">
+            <!-- SVG paths here -->
+						<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of D -->
+        <path class="path" d="M50,20 Q130,100 50,180"></path> <!-- Curved right side of D -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of F -->
+        <path class="path" d="M50,20 L120,20"></path> <!-- Top horizontal line of F -->
+        <path class="path" d="M50,100 L100,100"></path> <!-- Middle horizontal line of F -->
+				  <path class="path" d="M80,50 C50,50 50,150 80,150 C110,150 110,50 80,50 Z"></path> <!-- 0 -->
+					<path class="path" d="M120,20 L120,180"></path> <!-- Vertical line of 4 -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal line of 4 -->
+        <path class="path" d="M50,100 L120,20"></path> <!-- Diagonal line of 4 -->
+				<path class="path" d="M50,20 L150,20 M100,20 L100,150"></path> <!-- T -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Left vertical line of H -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal crossbar of H -->
+        <path class="path" d="M120,20 L120,180"></path> <!-- Right vertical line of H -->
+				<path class="path" d="M80,20 L120,150 L40,150 Z"></path> <!-- D -->
+				<path class="path" d="M80,60 
+                             m-50,0 
+                             a50,50 0 1,0 100,0 
+                             a50,50 0 1,0 -100,0
+                             m20,-20 
+                             a30,30 0 1,1 60,0 
+                             a30,30 0 1,1 -60,0
+                             m10,-10 
+                             a15,15 0 1,0 30,0 
+                             a15,15 0 1,0 -30,0">
+        </path>
+				<path class="path" d="M80,50 L180,50 L180,150 L80,150 Z"></path> <!-- Square -->
+				<circle class="splatter" cx="125" cy="130" r="8"></circle> <!-- Decorative Dot/Splatter -->
+				
+				 <!-- Decorative Splatter Elements -->
+        <circle class="splatter" cx="80" cy="60" r="5" />
+        <circle class="splatter" cx="120" cy="100" r="4" />
+        <circle class="splatter" cx="80" cy="140" r="3" />
+        <circle class="splatter" cx="140" cy="80" r="6" />
+        <circle class="splatter" cx="25" cy="60" r="4" />
+        <circle class="splatter" cx="35" cy="140" r="5" />
+        <circle class="splatter" cx="45" cy="100" r="3" />
+       
+       
+        <circle class="splatter" cx="550" cy="130" r="6" />
+        <circle class="splatter" cx="700" cy="90" r="4" />
+        <circle class="splatter" cx="850" cy="210" r="5" />
+        <circle class="splatter" cx="1000" cy="70" r="3" />
+        <circle class="splatter" cx="1150" cy="190" r="4" />
+        <circle class="splatter" cx="1300" cy="110" r="5" />
+        <circle class="splatter" cx="1450" cy="150" r="3" />
+        <circle class="splatter" cx="1600" cy="130" r="4" />
+				
+				<path class="path" d="
+            M95,50 
+            m-50,0 
+            c20,-20 60,-20 80,0 
+            c20,20 20,60 0,80 
+            c-19,19 -55, 19 -70,0
+            c-19,-19 -19,-55 0,-70 
+            c18,-18 50,-18 70,0
+            c18,18 18,50 0,70 
+            c-17,17 -45,18 -60,0 
+            c-17,-17 -17,-45 0,-60 
+            c16,-16 40,-20 60,0 
+            c16,16 16,40 0,60 
+            c-15,15 -35,15 -50,0 
+            c-15,-15 -15,-35 0,-50 
+            c14,-14 30,-14 50,0 
+            c14,14 14,30 0,50
+            ">
+        </path>
+    </svg>
+        </svg>
+        <svg class="bottom-left" viewBox="-600 400 1000 200" preserveAspectRatio="xMidYMid meet">
+            <!-- SVG paths here -->
+						<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of D -->
+        <path class="path" d="M50,20 Q130,100 50,180"></path> <!-- Curved right side of D -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of F -->
+        <path class="path" d="M50,20 L120,20"></path> <!-- Top horizontal line of F -->
+        <path class="path" d="M50,100 L100,100"></path> <!-- Middle horizontal line of F -->
+				  <path class="path" d="M80,50 C50,50 50,150 80,150 C110,150 110,50 80,50 Z"></path> <!-- 0 -->
+					<path class="path" d="M120,20 L120,180"></path> <!-- Vertical line of 4 -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal line of 4 -->
+        <path class="path" d="M50,100 L120,20"></path> <!-- Diagonal line of 4 -->
+				<path class="path" d="M50,20 L150,20 M100,20 L100,150"></path> <!-- T -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Left vertical line of H -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal crossbar of H -->
+        <path class="path" d="M120,20 L120,180"></path> <!-- Right vertical line of H -->
+				<path class="path" d="M80,20 L120,150 L40,150 Z"></path> <!-- D -->
+				<path class="path" d="M80,60 
+                             m-50,0 
+                             a50,50 0 1,0 100,0 
+                             a50,50 0 1,0 -100,0
+                             m20,-20 
+                             a30,30 0 1,1 60,0 
+                             a30,30 0 1,1 -60,0
+                             m10,-10 
+                             a15,15 0 1,0 30,0 
+                             a15,15 0 1,0 -30,0">
+        </path>
+				<path class="path" d="M80,50 L180,50 L180,150 L80,150 Z"></path> <!-- Square -->
+				<circle class="splatter" cx="125" cy="130" r="8"></circle> <!-- Decorative Dot/Splatter -->
+				
+				 <!-- Decorative Splatter Elements -->
+        <circle class="splatter" cx="80" cy="60" r="5" />
+        <circle class="splatter" cx="120" cy="100" r="4" />
+        <circle class="splatter" cx="80" cy="140" r="3" />
+        <circle class="splatter" cx="140" cy="80" r="6" />
+        <circle class="splatter" cx="25" cy="60" r="4" />
+        <circle class="splatter" cx="35" cy="140" r="5" />
+        <circle class="splatter" cx="45" cy="100" r="3" />
+       
+       
+        <circle class="splatter" cx="550" cy="130" r="6" />
+        <circle class="splatter" cx="700" cy="90" r="4" />
+        <circle class="splatter" cx="850" cy="210" r="5" />
+        <circle class="splatter" cx="1000" cy="70" r="3" />
+        <circle class="splatter" cx="1150" cy="190" r="4" />
+        <circle class="splatter" cx="1300" cy="110" r="5" />
+        <circle class="splatter" cx="1450" cy="150" r="3" />
+        <circle class="splatter" cx="1600" cy="130" r="4" />
+				
+				<path class="path" d="
+            M95,50 
+            m-50,0 
+            c20,-20 60,-20 80,0 
+            c20,20 20,60 0,80 
+            c-19,19 -55, 19 -70,0
+            c-19,-19 -19,-55 0,-70 
+            c18,-18 50,-18 70,0
+            c18,18 18,50 0,70 
+            c-17,17 -45,18 -60,0 
+            c-17,-17 -17,-45 0,-60 
+            c16,-16 40,-20 60,0 
+            c16,16 16,40 0,60 
+            c-15,15 -35,15 -50,0 
+            c-15,-15 -15,-35 0,-50 
+            c14,-14 30,-14 50,0 
+            c14,14 14,30 0,50
+            ">
+        </path>
+    </svg>
+        </svg>
+        <svg class="bottom-right" viewBox="-640 400 1000 200" preserveAspectRatio="xMidYMid meet">
+            <!-- SVG paths here -->
+						<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of D -->
+        <path class="path" d="M50,20 Q130,100 50,180"></path> <!-- Curved right side of D -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of F -->
+        <path class="path" d="M50,20 L120,20"></path> <!-- Top horizontal line of F -->
+        <path class="path" d="M50,100 L100,100"></path> <!-- Middle horizontal line of F -->
+				  <path class="path" d="M80,50 C50,50 50,150 80,150 C110,150 110,50 80,50 Z"></path> <!-- 0 -->
+					<path class="path" d="M120,20 L120,180"></path> <!-- Vertical line of 4 -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal line of 4 -->
+        <path class="path" d="M50,100 L120,20"></path> <!-- Diagonal line of 4 -->
+				<path class="path" d="M50,20 L150,20 M100,20 L100,150"></path> <!-- T -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Left vertical line of H -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal crossbar of H -->
+        <path class="path" d="M120,20 L120,180"></path> <!-- Right vertical line of H -->
+				<path class="path" d="M80,20 L120,150 L40,150 Z"></path> <!-- D -->
+				<path class="path" d="M80,60 
+                             m-50,0 
+                             a50,50 0 1,0 100,0 
+                             a50,50 0 1,0 -100,0
+                             m20,-20 
+                             a30,30 0 1,1 60,0 
+                             a30,30 0 1,1 -60,0
+                             m10,-10 
+                             a15,15 0 1,0 30,0 
+                             a15,15 0 1,0 -30,0">
+        </path>
+				<path class="path" d="M80,50 L180,50 L180,150 L80,150 Z"></path> <!-- Square -->
+				<circle class="splatter" cx="125" cy="130" r="8"></circle> <!-- Decorative Dot/Splatter -->
+				
+				 <!-- Decorative Splatter Elements -->
+        <circle class="splatter" cx="80" cy="60" r="5" />
+        <circle class="splatter" cx="120" cy="100" r="4" />
+        <circle class="splatter" cx="80" cy="140" r="3" />
+        <circle class="splatter" cx="140" cy="80" r="6" />
+        <circle class="splatter" cx="25" cy="60" r="4" />
+        <circle class="splatter" cx="35" cy="140" r="5" />
+        <circle class="splatter" cx="45" cy="100" r="3" />
+       
+       
+        <circle class="splatter" cx="550" cy="130" r="6" />
+        <circle class="splatter" cx="700" cy="90" r="4" />
+        <circle class="splatter" cx="850" cy="210" r="5" />
+        <circle class="splatter" cx="1000" cy="70" r="3" />
+        <circle class="splatter" cx="1150" cy="190" r="4" />
+        <circle class="splatter" cx="1300" cy="110" r="5" />
+        <circle class="splatter" cx="1450" cy="150" r="3" />
+        <circle class="splatter" cx="1600" cy="130" r="4" />
+				
+				<path class="path" d="
+            M95,50 
+            m-50,0 
+            c20,-20 60,-20 80,0 
+            c20,20 20,60 0,80 
+            c-19,19 -55, 19 -70,0
+            c-19,-19 -19,-55 0,-70 
+            c18,-18 50,-18 70,0
+            c18,18 18,50 0,70 
+            c-17,17 -45,18 -60,0 
+            c-17,-17 -17,-45 0,-60 
+            c16,-16 40,-20 60,0 
+            c16,16 16,40 0,60 
+            c-15,15 -35,15 -50,0 
+            c-15,-15 -15,-35 0,-50 
+            c14,-14 30,-14 50,0 
+            c14,14 14,30 0,50
+            ">
+        </path>
+    </svg>
+        </svg>
+    </div>
+	
+	
+	
+
+        </svg>
+    </div>
+    <!-- Container for the first ASCII art animation -->
+    <div class="logo-animation-container2">
+        <pre id="ascii-art"></pre>
+    </div>
+		
+		
+
+    <!-- Container for the second ASCII art animation -->
+    <div class="logo-animation-container5">
+        <pre id="ascii-art2"></pre>
+    </div>
+		
+		<svg viewBox="-290 180 800 200" preserveAspectRatio="xMidYMid meet">
+        <!-- SVG paths for "ARTABILITIES" in calligraphy style -->
+        <!-- Example paths (simplified for demonstration purposes) -->
+        <path class="path" d="M50,150 L100,50 L150,150 M75,100 L125,100"></path> <!-- A -->
+        <path class="path" d="M50,150 L50,50 Q50,20 80,20 L120,20 Q150,20 150,50 L150,100 Q150,130 120,130 L80,130 L150,200 "></path> <!-- R -->
+        <path class="path" d="M50,50 L150,50 M100,50 L100,150 "></path> <!-- T -->
+        <path class="path" d="M50,150 L100,50 L150,150 M75,100 L125,100"></path> <!-- A -->
+        <path class="path" d="M50,50 L50,150 Q50,170 70,170 Q90,170 90,150 L90,100 Q90,80 70,80 Q50,80 50,100 L50,150"></path> <!-- B -->
+        <path class="path" d="M50,20 L50,180 M50,20 C50,15 55,10 60,10 M50,20 C50,15 45,10 40,10 M50,180 C50,185 55,190 60,190 M50,180 
+        C50,185 45,190 40,190"></path> <!-- I -->
+        <path class="path" d="M30,20 L30,160 L70,160"></path> <!-- L -->
+        <path class="path" d="M30,20 L30,160 L70,160"></path> <!-- L -->
+        <path class="path" d="M50,20 L50,180 M50,20 C50,15 55,10 60,10 M50,20 C50,15 45,10 40,10 M50,180 C50,185 55,190 60,190 M50,180 
+        C50,185 45,190 40,190"></path> <!-- I -->
+        <path class="path" d="M20,20 L20,180 M20,20 L80,20 M20,100 L70,100 M20,180 L80,180"></path> <!-- E -->
+        <path class="path" d="M80,20 C40,20 40,100 80,100 C120,100 120,180 80,180"></path> <!-- S -->
+    </svg>
+		
+	
+	
+		
+	
+	<svg viewBox="0 -400 2000 300" preserveAspectRatio="xMidYMid meet">
+        <!-- Letters -->
+        <g transform="translate(0,0)">
+            <path class="letter" d="M50,250 L100,50 L150,250 M75,150 L125,150" />
+        </g>
+        <g transform="translate(100,0)">
+            <path class="letter" d="M50,250 L50,50 Q50,20 80,20 L120,20 Q150,20 150,50 L150,100 Q150,130 120,130 L80,130 L150,200" />
+        </g>
+        <g transform="translate(200,0)">
+            <path class="letter" d="M50,50 L150,50 M100,50 L100,250" />
+        </g>
+        <g transform="translate(300,0)">
+            <path class="letter" d="M50,250 L100,50 L150,250 M75,150 L125,150" />
+        </g>
+        <g transform="translate(420,0)">
+            <path class="letter" d="M50,50 L50,250 Q50,270 70,270 Q90,270 90,250 L90,170 Q90,150 70,150 Q50,150 50,170 L50,250" />
+        </g>
+        <g transform="translate(500,0)">
+            <path class="letter" d="M50,20 L50,280 M50,20 C50,15 55,10 60,10 M50,20 C50,15 45,10 40,10 M50,280 C50,285 55,290 60,290 M50,280 C50,285 45,290 40,290" />
+        </g>
+        <g transform="translate(550,0)">
+            <path class="letter" d="M50,20 L50,250 L90,250" />
+        </g>
+        <g transform="translate(650,0)">
+            <path class="letter" d="M50,20 L50,250 L90,250" />
+        </g>
+        <g transform="translate(750,0)">
+            <path class="letter" d="M50,20 L50,280 M50,20 C50,15 55,10 60,10 M50,20 C50,15 45,10 40,10 M50,280 C50,285 55,290 60,290 M50,280 C50,285 45,290 40,290" />
+        </g>
+        <g transform="translate(850,0)">
+            <path class="letter" d="M20,20 L20,280 M20,20 L80,20 M20,150 L70,150 M20,280 L80,280" />
+        </g>
+        <g transform="translate(900,0)">
+            <path class="letter" d="M80,20 C40,20 40,100 80,100 C120,100 120,180 80,180" />
+        </g>
+				
+				 </g>
+        <g transform="translate(1050,0)">
+            <path class="path" d="M50,150 L100,50 L150,150 M75,100 L125,100"></path> <!-- A -->
+        <path class="path" d="M50,150 L50,50 Q50,20 80,20 L120,20 Q150,20 150,50 L150,100 Q150,130 120,130 L80,130 L150,200 "></path> <!-- R -->
+        <path class="path" d="M50,50 L150,50 M100,50 L100,150 "></path> <!-- T -->
+        <path class="path" d="M50,150 L100,50 L150,150 M75,100 L125,100"></path> <!-- A -->
+        <path class="path" d="M50,50 L50,150 Q50,170 70,170 Q90,170 90,150 L90,100 Q90,80 70,80 Q50,80 50,100 L50,150"></path> <!-- B -->
+        <path class="path" d="M50,20 L50,180 M50,20 C50,15 55,10 60,10 M50,20 C50,15 45,10 40,10 M50,180 C50,185 55,190 60,190 M50,180 
+        C50,185 45,190 40,190"></path> <!-- I -->
+        <path class="path" d="M30,20 L30,160 L70,160"></path> <!-- L -->
+        <path class="path" d="M30,20 L30,160 L70,160"></path> <!-- L -->
+        <path class="path" d="M50,20 L50,180 M50,20 C50,15 55,10 60,10 M50,20 C50,15 45,10 40,10 M50,180 C50,185 55,190 60,190 M50,180 
+        C50,185 45,190 40,190"></path> <!-- I -->
+        <path class="path" d="M20,20 L20,180 M20,20 L80,20 M20,100 L70,100 M20,180 L80,180"></path> <!-- E -->
+        <path class="path" d="M80,20 C40,20 40,100 80,100 C120,100 120,180 80,180"></path> <!-- S -->
+        </g>
+        <path class="path" d="M50,30 L50,170 C50,190 70,190 70,170 C70,160 60,160 60,170 L60,130 C60,120 80,120 80,130 C80,140 60,140 60,130 L60,90 C60,80 80,80 80,90 C80,100 60,100 60,90 L60,50 C60,40 80,40 80,50 C80,60 60,60 60,50 L60,30 Z"></path> <!-- S -->
+        <path class="path" d="M20,20 L20,180 C20,190 30,190 30,180 L30,120 C30,110 40,110 40,120 L40,160 C40,170 30,170 30,160 L30,100 C30,90 40,90 40,100 L40,140 C40,150 30,150 30,140 L30,80 C30,70 40,70 40,80 L40,120 C40,130 30,130 30,120 L30,60 C30,50 20,50 20,60 L20,20 Z"></path> <!-- S -->
+        <path class="path" d="M20,20 L20,180 C20,190 60,190 60,180 C60,160 20,160 20,180 L20,100 C20,120 60,120 60,100 C60,80 20,80 20,100 L20,20 Z" />
+
+        <!-- Decorative Splatter Elements -->
+        <circle class="splatter" cx="80" cy="60" r="5" />
+        <circle class="splatter" cx="120" cy="100" r="4" />
+        <circle class="splatter" cx="80" cy="140" r="3" />
+        <circle class="splatter" cx="140" cy="80" r="6" />
+        <circle class="splatter" cx="25" cy="60" r="4" />
+        <circle class="splatter" cx="35" cy="140" r="5" />
+        <circle class="splatter" cx="45" cy="100" r="3" />
+        <circle class="splatter" cx="15" cy="180" r="6" />
+        <circle class="splatter" cx="250" cy="150" r="5" />
+        <circle class="splatter" cx="550" cy="130" r="6" />
+        <circle class="splatter" cx="700" cy="90" r="4" />
+        <circle class="splatter" cx="850" cy="210" r="5" />
+        <circle class="splatter" cx="1000" cy="70" r="3" />
+        <circle class="splatter" cx="1150" cy="190" r="4" />
+        <circle class="splatter" cx="1300" cy="110" r="5" />
+        <circle class="splatter" cx="1450" cy="150" r="3" />
+        <circle class="splatter" cx="1600" cy="130" r="4" />
+    </svg>
+
+    <!-- Script for the first ASCII art animation -->
+    <script>
+        (function () {
+            const asciiArt = `
+                                                                                                        
+                                                                                                        
+                                                                                                        
+                                                                                                        
+                                            ..:::--:-=--.                                               
+                                            .=-=+++=+==-.                                               
+                                            .-+=+++++==-.                                               
+                                             =+=+++++*=-...                                             
+                                          :-------======---.                                            
+                                          :--=====++====---:.      ...::...                             
+                                          ---=====++====----     .:::--====--..                         
+                                           -====+++++====+=.   .--:=====+=====-.                        
+                                          .---====+++===---.  .=-====:....=++==-.                       
+                                         :-----=======------:.=++===.     .++*==..                      
+                                       .:--::----===-------:-=-++==-       .**+=-.                      
+                                     .::::::::-------------::--==+==.      .=*+=-.                      
+                                   .:::::::::--------------::::--===-.    .-=++=..                      
+                                 .::::::.:::----------------:-::----=-    .=*+=-.                       
+                               .::::::::::---------------------:::---:.  .=++==.                        
+                              .:::::-:::--------------------------::--=..-+++=:..                       
+                            .::::-:::-------------------------------:---=+++=:..                        
+                           .::--:-----------------------------------------+=-.                          
+                           ::---------------------------=-==--------------:=..                          
+                         .::-----------------================--------------:-.                          
+                         ::---------**----==========-----========----------:.                           
+                        .:----------*#-====+%*=#+=====--===*#=====--+*-----::.                          
+                        .:----------=#=====#====%*=====+#-==##======*-------:.                          
+                        ::---------==##==*#======%+====%=====*#====*=-------::                          
+                       .:--------=====####=======+%+==%*======*#+=**==-------:.                         
+                       .::-------=====*#+==========%+%*=========#**===-------:.                         
+                       .:--------====####==========*%*==========*##====------:.                         
+                       .:--------==*#+==#+========+%*%==========#=##====-----:.                         
+                      ..:---------*#====##=======#%==*#========*===*#=-------:.                         
+                       .::-------#*======#======##====%+=====+#=====#*-------:.                         
+                       .::--------=======+====##=======#====##=========------:.                         
+                        ::--------====================================------::..                        
+                        ::-------====================================-------::.                         
+                        .:-----========================================-----::.                         
+                        .:-----=========================================----:..                         
+                        .:-----=========================================----:.                          
+                        .::----=================+=======================----:                           
+                         ::---====================+++===================----:.                          
+                         .:---====================++====================---:..                          
+                         .:---====================+++====================--:..                          
+                          :---===============+=+=++++++====+=============--:..                          
+                         .:---=========+====+=+=++++++++====+============--:..                          
+                          :---=============++++++++++++++++=+============--:                            
+                          :--=================+++++++++=+++++============--.                            
+                           --===========+=====+++++++++++++++===========---.                            
+                           .:-=============++++++++++++++++++===========-...                            
+                              .=========+===+++++++++++++++++==========...                              
+                               .. .===========+++=++==+++==========.. ..                                
+                                       ....=++++++++++++++......                                        
+                                                                                                        
+                                                                                                        
+`;
+
+            const preElement = document.getElementById('ascii-art');
+            let index = 0;
+            const batchSize = 15;
+            let forward = true;
+
+            function typeAsciiArt() {
+                if (forward) {
+                    if (index < asciiArt.length) {
+                        preElement.textContent += asciiArt.substr(index, batchSize);
+                        index += batchSize;
+                        setTimeout(typeAsciiArt, 20);
+                    } else {
+                        forward = false;
+                        setTimeout(typeAsciiArt, 500); // Pause before reversing
+                    }
+                } else {
+                    if (index > 0) {
+                        preElement.textContent = asciiArt.substr(0, index);
+                        index -= batchSize;
+                        setTimeout(typeAsciiArt, 20);
+                    } else {
+                        forward = true;
+                        setTimeout(typeAsciiArt, 500); // Pause before forwarding
+                    }
+                }
+            }
+
+            // Intersection Observer to trigger animation on view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        typeAsciiArt();
+                        observer.unobserve(entry.target); // Stop observing after starting
+                    }
+                });
+            }, {
+                threshold: 0.5 // Trigger when 50% of element is visible
+            });
+
+            observer.observe(document.querySelector('.logo-animation-container2'));
+        })();
+    </script>
+
+    <!-- Script for the second ASCII art animation -->
+    <script>
+        (function () {
+            const asciiArt = `
+A
+R
+T
+A
+B
+I
+L
+L
+I
+E
+S
+
+F
+O
+O
+D
+4
+T
+H
+O
+T
+H
+            `;
+
+            const preElement = document.getElementById('ascii-art2');
+            let index = 0;
+            const batchSize = 1;
+            const typingSpeed = 100; // Delay between characters in ms
+            const pauseDuration = 2000; // Pause duration at the end in ms
+
+            function typeAsciiArt() {
+                if (index < asciiArt.length) {
+                    preElement.textContent += asciiArt.substr(index, batchSize);
+                    index += batchSize;
+                    setTimeout(typeAsciiArt, typingSpeed);
+                } else {
+                    setTimeout(() => {
+                        preElement.textContent = '';
+                        index = 0;
+                        typeAsciiArt();
+                    }, pauseDuration);
+                }
+            }
+
+            // Start the animation when the page loads
+            window.addEventListener('load', typeAsciiArt);
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peace Sign Animation</title>
+    <style>
+        /* Styling to ensure full compatibility across spaces */
+        body {
+            margin: 0;
+            background: black;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        svg {
+            width: 80%;
+            height: 80%;
+        }
+
+        .path {
+            fill: none;
+            stroke: #00FF00;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 6s ease-in-out infinite alternate;
+        }
+
+        .splatter {
+            fill: #00FF00;
+            opacity: 0;
+            animation: splatter 6s ease-in-out infinite alternate 2s;
+        }
+
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes splatter {
+            to {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+        <!-- Outer Circle -->
+        <circle cx="100" cy="100" r="80" class="path"></circle>
+
+        <!-- Vertical Line -->
+        <line x1="100" y1="30" x2="100" y2="170" class="path"></line>
+
+        <!-- Diagonal Left -->
+        <line x1="100" y1="100" x2="60" y2="160" class="path"></line>
+
+        <!-- Diagonal Right -->
+        <line x1="100" y1="100" x2="140" y2="160" class="path"></line>
+    </svg>
+</body>
+</html>

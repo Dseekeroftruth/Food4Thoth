@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+		 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII JUG</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #00FF00;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+						width: auto;
+        }
+        #ascii-art {
+            font-size: 0.33rem; /* Adjust this to scale the text on different screen sizes */
+            line-height: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+						margin-left: 0;
+            justify-content: center;
+            align-items: center;
+            max-width: 300px; /* Limit max width */
+        }
+				
+				 .logo-animation-container2 {
+            background-color: transparent;
+            color: #00FF00;
+            font-family: monospace;
+            white-space: pre;
+            padding: 0;
+            height: 250px; /* Set a fixed height to prevent layout shifts */
+            width: 100%;  /* Full width inside sidebar */
+            
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+	<!-- Container for the first ASCII art animation -->
+    <div class="logo-animation-container2">
+        <pre id="ascii-art"></pre>
+    </div>
+	
+   
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    const asciiArt = `
+                                                                                                            
+                                                                                                            
+                                                                                                            
+                                                                                                            
+                                                ..:::--:-=--.                                               
+                                                .=-=+++=+==-.                                               
+                                                .-+=+++++==-.                                               
+                                                 =+=+++++*=-...                                             
+                                              :-------======---.                                            
+                                              :--=====++====---:.      ...::...                             
+                                              ---=====++====----     .:::--====--..                         
+                                               -====+++++====+=.   .--:=====+=====-.                        
+                                              .---====+++===---.  .=-====:....=++==-.                       
+                                             :-----=======------:.=++===.     .++*==..                      
+                                           .:--::----===-------:-=-++==-       .**+=-.                      
+                                         .::::::::-------------::--==+==.      .=*+=-.                      
+                                       .:::::::::--------------::::--===-.    .-=++=..                      
+                                     .::::::.:::----------------:-::----=-    .=*+=-.                       
+                                   .::::::::::---------------------:::---:.  .=++==.                        
+                                  .:::::-:::--------------------------::--=..-+++=:..                       
+                                .::::-:::-------------------------------:---=+++=:..                        
+                               .::--:-----------------------------------------+=-.                          
+                               ::---------------------------=-==--------------:=..                          
+                             .::-----------------================--------------:-.                          
+                             ::---------**----==========-----========----------:.                           
+                            .:----------*#-====+%*=#+=====--===*#=====--+*-----::.                          
+                            .:----------=#=====#====%*=====+#-==##======*-------:.                          
+                            ::---------==##==*#======%+====%=====*#====*=-------::                          
+                           .:--------=====####=======+%+==%*======*#+=**==-------:.                         
+                           .::-------=====*#+==========%+%*=========#**===-------:.                         
+                           .:--------====####==========*%*==========*##====------:.                         
+                           .:--------==*#+==#+========+%*%==========#=##====-----:.                         
+                          ..:---------*#====##=======#%==*#========*===*#=-------:.                         
+                           .::-------#*======#======##====%+=====+#=====#*-------:.                         
+                           .::--------=======+====##=======#====##=========------:.                         
+                            ::--------====================================------::..                        
+                            ::-------====================================-------::.                         
+                            .:-----========================================-----::.                         
+                            .:-----=========================================----:..                         
+                            .:-----=========================================----:.                          
+                            .::----=================+=======================----:                           
+                             ::---====================+++===================----:.                          
+                             .:---====================++====================---:..                          
+                             .:---====================+++====================--:..                          
+                              :---===============+=+=++++++====+=============--:..                          
+                             .:---=========+====+=+=++++++++====+============--:..                          
+                              :---=============++++++++++++++++=+============--:                            
+                              :--=================+++++++++=+++++============--.                            
+                               --===========+=====+++++++++++++++===========---.                            
+                               .:-=============++++++++++++++++++===========-...                            
+                                  .=========+===+++++++++++++++++==========...                              
+                                   .. .===========+++=++==+++==========.. ..                                
+                                           ....=++++++++++++++......                                        
+                                                                                                            
+                                                                                                            
+    `;
+
+    const preElement = document.getElementById("ascii-art");
+    let index = 0;
+    const batchSize = 15; // Number of characters to display per iteration
+
+    function typeAsciiArt() {
+        if (index < asciiArt.length) {
+            preElement.textContent += asciiArt.substr(index, batchSize);
+            index += batchSize;
+            setTimeout(typeAsciiArt, 0); // Minimal delay
+        }
+    }
+
+    // **Detect if inside an iframe**
+    function isInIframe() {
+        return window.self !== window.top;
+    }
+
+    // **Trigger ASCII animation when page loads or if inside an iframe**
+    if (isInIframe()) {
+        console.log("Page is loaded inside an iframe. Triggering animation.");
+        typeAsciiArt();
+    } else {
+        window.onload = typeAsciiArt;
+    }
+});
+    </script>
+</body>
+</html>

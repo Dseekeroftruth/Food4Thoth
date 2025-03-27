@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoplay Video (Muted)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+    <video id="autoPlayVideo" muted autoplay loop playsinline>
+        <source src="./Untitled.MP4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let video = document.getElementById("autoPlayVideo");
+
+            function playVideo() {
+                video.play().catch(error => {
+                    console.warn("Autoplay blocked. Trying again on user interaction.");
+                    document.addEventListener("click", () => video.play(), { once: true });
+                });
+            }
+
+            playVideo(); // Try playing immediately
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo Animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: black;
+            overflow: hidden;
+        }
+
+        .main-container {
+            position: absolute;
+            width: 100%;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .center-logo {
+            position: absolute;
+            z-index: 10;
+            width: 50vmin;
+            height: 400px;
+						top: 300px;
+        }
+
+        .tiled-background {
+            position: absolute;
+            width: 100%;
+            height: 600px;
+						top: 300px;
+						left: 190px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
+            opacity: 0.2;
+        }
+
+        .tile {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tile svg {
+            width: 100%;
+            height: 100%;
+            animation: fadeInOut 5s infinite ease-in-out;
+						position: absolute;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% {
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        /* Reuse existing styles for the logo */
+        .logo-animation-container4 svg {
+            width: 100%;
+            height: 400px;
+            position: absolute;
+						top:0;
+        }
+
+        .top-left {
+            transform: scaleX(1) scaleY(1);
+        }
+
+        .top-right {
+            transform: scaleX(-1) scaleY(1);
+        }
+
+        .bottom-left {
+            transform: scaleX(1) scaleY(-1);
+        }
+
+        .bottom-right {
+            transform: scaleX(-1) scaleY(-1);
+        }
+				
+				svg {
+            
+            position: absolute;
+						
+        }
+
+        .path {
+            fill: none;
+            stroke: #00FF00;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 10s ease-in-out infinite alternate;
+        }
+
+        .splatter {
+            fill: #00FF00;
+            opacity: 0;
+            animation: splatter 10s ease-in-out infinite alternate 2.2s;
+        }
+
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes splatter {
+            to {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Center Logo -->
+        <div class="center-logo">
+            <svg class="logo-animation-container4" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+                <!-- Copy your central SVG paths here -->
+								 <path class="path" d="
+            M200,100 
+            a100,100 0 1,0 0,200 
+            a100,100 0 1,0 0,-200
+            ">
+        </path>
+
+        <!-- Inscribed Square Path -->
+        <path class="path" d="
+            M200,100
+            L300,200 
+            L200,300 
+            L100,200 
+            Z">
+        </path>
+				<path class="path" d="
+            M200,50
+            c30,0 60,30 60,60 
+            c0,30 -30,60 -60,60 
+            c-30,0 -60,-30 -60,-60 
+            c0,-30 30,-60 60,-60 
+            
+            c20,0 40,20 40,40 
+            c0,20 -20,40 -40,40 
+            c-20,0 -40,-20 -40,-40 
+            c0,-20 20,-40 40,-40 
+            
+            c15,0 30,15 30,30 
+            c0,15 -15,30 -30,30 
+            c-15,0 -30,-15 -30,-30 
+            c0,-15 15,-30 30,-30 
+            
+            c10,0 20,10 20,20 
+            c0,10 -10,20 -20,20 
+            c-10,0 -20,-10 -20,-20 
+            c0,-10 10,-20 20,-20
+            
+            c7,0 15,7 15,15 
+            c0,7 -7,15 -15,15 
+            c-7,0 -15,-7 -15,-15 
+            c0,-7 7,-15 15,-15
+            
+            c5,0 10,5 10,10 
+            c0,5 -5,10 -10,10 
+            c-5,0 -10,-5 -10,-10 
+            c0,-5 5,-10 10,-10 
+            ">
+        </path>
+				<path class="path" d="
+            M200,50
+            c40,0 70,30 70,70
+            c0,40 -30,70 -70,70
+            c-40,0 -70,-30 -70,-70
+            c0,-40 30,-70 70,-70
+            
+            c30,0 50,25 50,50
+            c0,30 -25,50 -50,50
+            c-30,0 -50,-25 -50,-50
+            c0,-30 25,-50 50,-50
+            
+            c20,0 40,20 40,40
+            c0,20 -20,40 -40,40
+            c-20,0 -40,-20 -40,-40
+            c0,-20 20,-40 40,-40
+            
+            c15,0 30,15 30,30
+            c0,15 -15,30 -30,30
+            c-15,0 -30,-15 -30,-30
+            c0,-15 15,-30 30,-30
+            
+            c10,0 20,10 20,20
+            c0,10 -10,20 -20,20
+            c-10,0 -20,-10 -20,-20
+            c0,-10 10,-20 20,-20
+            
+            c7,0 15,7 15,15
+            c0,7 -7,15 -15,15
+            c-7,0 -15,-7 -15,-15
+            c0,-7 7,-15 15,-15
+            
+            c5,0 10,5 10,10
+            c0,5 -5,10 -10,10
+            c-5,0 -10,-5 -10,-10
+            c0,-5 5,-10 10,-10
+            ">
+        </path>
+				</svg>
+        </svg>
+        <!-- SVG instances for each corner -->
+        <svg class="top-left" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+            <!-- SVG paths here -->
+						<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of D -->
+        <path class="path" d="M50,20 Q130,100 50,180"></path> <!-- Curved right side of D -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of F -->
+        <path class="path" d="M50,20 L120,20"></path> <!-- Top horizontal line of F -->
+        <path class="path" d="M50,100 L100,100"></path> <!-- Middle horizontal line of F -->
+				  <path class="path" d="M80,50 C50,50 50,150 80,150 C110,150 110,50 80,50 Z"></path> <!-- 0 -->
+					<path class="path" d="M120,20 L120,180"></path> <!-- Vertical line of 4 -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal line of 4 -->
+        <path class="path" d="M50,100 L120,20"></path> <!-- Diagonal line of 4 -->
+				<path class="path" d="M50,20 L150,20 M100,20 L100,150"></path> <!-- T -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Left vertical line of H -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal crossbar of H -->
+        <path class="path" d="M120,20 L120,180"></path> <!-- Right vertical line of H -->
+				<path class="path" d="M80,20 L120,150 L40,150 Z"></path> <!-- D -->
+				<path class="path" d="M80,60 
+                             m-50,0 
+                             a50,50 0 1,0 100,0 
+                             a50,50 0 1,0 -100,0
+                             m20,-20 
+                             a30,30 0 1,1 60,0 
+                             a30,30 0 1,1 -60,0
+                             m10,-10 
+                             a15,15 0 1,0 30,0 
+                             a15,15 0 1,0 -30,0">
+        </path>
+				<path class="path" d="M80,50 L180,50 L180,150 L80,150 Z"></path> <!-- Square -->
+				<circle class="splatter" cx="125" cy="130" r="8"></circle> <!-- Decorative Dot/Splatter -->
+				
+				 <!-- Decorative Splatter Elements -->
+        <circle class="splatter" cx="80" cy="60" r="5" />
+        <circle class="splatter" cx="120" cy="100" r="4" />
+        <circle class="splatter" cx="80" cy="140" r="3" />
+        <circle class="splatter" cx="140" cy="80" r="6" />
+        <circle class="splatter" cx="25" cy="60" r="4" />
+        <circle class="splatter" cx="35" cy="140" r="5" />
+        <circle class="splatter" cx="45" cy="100" r="3" />
+       
+       
+        <circle class="splatter" cx="550" cy="130" r="6" />
+        <circle class="splatter" cx="700" cy="90" r="4" />
+        <circle class="splatter" cx="850" cy="210" r="5" />
+        <circle class="splatter" cx="1000" cy="70" r="3" />
+        <circle class="splatter" cx="1150" cy="190" r="4" />
+        <circle class="splatter" cx="1300" cy="110" r="5" />
+        <circle class="splatter" cx="1450" cy="150" r="3" />
+        <circle class="splatter" cx="1600" cy="130" r="4" />
+				
+				<path class="path" d="
+            M95,50 
+            m-50,0 
+            c20,-20 60,-20 80,0 
+            c20,20 20,60 0,80 
+            c-19,19 -55, 19 -70,0
+            c-19,-19 -19,-55 0,-70 
+            c18,-18 50,-18 70,0
+            c18,18 18,50 0,70 
+            c-17,17 -45,18 -60,0 
+            c-17,-17 -17,-45 0,-60 
+            c16,-16 40,-20 60,0 
+            c16,16 16,40 0,60 
+            c-15,15 -35,15 -50,0 
+            c-15,-15 -15,-35 0,-50 
+            c14,-14 30,-14 50,0 
+            c14,14 14,30 0,50
+            ">
+        </path>
+    </svg>
+        </svg>
+        <svg class="top-right" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+            <!-- SVG paths here -->
+						<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of D -->
+        <path class="path" d="M50,20 Q130,100 50,180"></path> <!-- Curved right side of D -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of F -->
+        <path class="path" d="M50,20 L120,20"></path> <!-- Top horizontal line of F -->
+        <path class="path" d="M50,100 L100,100"></path> <!-- Middle horizontal line of F -->
+				  <path class="path" d="M80,50 C50,50 50,150 80,150 C110,150 110,50 80,50 Z"></path> <!-- 0 -->
+					<path class="path" d="M120,20 L120,180"></path> <!-- Vertical line of 4 -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal line of 4 -->
+        <path class="path" d="M50,100 L120,20"></path> <!-- Diagonal line of 4 -->
+				<path class="path" d="M50,20 L150,20 M100,20 L100,150"></path> <!-- T -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Left vertical line of H -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal crossbar of H -->
+        <path class="path" d="M120,20 L120,180"></path> <!-- Right vertical line of H -->
+				<path class="path" d="M80,20 L120,150 L40,150 Z"></path> <!-- D -->
+				<path class="path" d="M80,60 
+                             m-50,0 
+                             a50,50 0 1,0 100,0 
+                             a50,50 0 1,0 -100,0
+                             m20,-20 
+                             a30,30 0 1,1 60,0 
+                             a30,30 0 1,1 -60,0
+                             m10,-10 
+                             a15,15 0 1,0 30,0 
+                             a15,15 0 1,0 -30,0">
+        </path>
+				<path class="path" d="M80,50 L180,50 L180,150 L80,150 Z"></path> <!-- Square -->
+				<circle class="splatter" cx="125" cy="130" r="8"></circle> <!-- Decorative Dot/Splatter -->
+				
+				 <!-- Decorative Splatter Elements -->
+        <circle class="splatter" cx="80" cy="60" r="5" />
+        <circle class="splatter" cx="120" cy="100" r="4" />
+        <circle class="splatter" cx="80" cy="140" r="3" />
+        <circle class="splatter" cx="140" cy="80" r="6" />
+        <circle class="splatter" cx="25" cy="60" r="4" />
+        <circle class="splatter" cx="35" cy="140" r="5" />
+        <circle class="splatter" cx="45" cy="100" r="3" />
+       
+       
+        <circle class="splatter" cx="550" cy="130" r="6" />
+        <circle class="splatter" cx="700" cy="90" r="4" />
+        <circle class="splatter" cx="850" cy="210" r="5" />
+        <circle class="splatter" cx="1000" cy="70" r="3" />
+        <circle class="splatter" cx="1150" cy="190" r="4" />
+        <circle class="splatter" cx="1300" cy="110" r="5" />
+        <circle class="splatter" cx="1450" cy="150" r="3" />
+        <circle class="splatter" cx="1600" cy="130" r="4" />
+				
+				<path class="path" d="
+            M95,50 
+            m-50,0 
+            c20,-20 60,-20 80,0 
+            c20,20 20,60 0,80 
+            c-19,19 -55, 19 -70,0
+            c-19,-19 -19,-55 0,-70 
+            c18,-18 50,-18 70,0
+            c18,18 18,50 0,70 
+            c-17,17 -45,18 -60,0 
+            c-17,-17 -17,-45 0,-60 
+            c16,-16 40,-20 60,0 
+            c16,16 16,40 0,60 
+            c-15,15 -35,15 -50,0 
+            c-15,-15 -15,-35 0,-50 
+            c14,-14 30,-14 50,0 
+            c14,14 14,30 0,50
+            ">
+        </path>
+    </svg>
+        </svg>
+        <svg class="bottom-left" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+            <!-- SVG paths here -->
+						<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of D -->
+        <path class="path" d="M50,20 Q130,100 50,180"></path> <!-- Curved right side of D -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of F -->
+        <path class="path" d="M50,20 L120,20"></path> <!-- Top horizontal line of F -->
+        <path class="path" d="M50,100 L100,100"></path> <!-- Middle horizontal line of F -->
+				  <path class="path" d="M80,50 C50,50 50,150 80,150 C110,150 110,50 80,50 Z"></path> <!-- 0 -->
+					<path class="path" d="M120,20 L120,180"></path> <!-- Vertical line of 4 -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal line of 4 -->
+        <path class="path" d="M50,100 L120,20"></path> <!-- Diagonal line of 4 -->
+				<path class="path" d="M50,20 L150,20 M100,20 L100,150"></path> <!-- T -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Left vertical line of H -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal crossbar of H -->
+        <path class="path" d="M120,20 L120,180"></path> <!-- Right vertical line of H -->
+				<path class="path" d="M80,20 L120,150 L40,150 Z"></path> <!-- D -->
+				<path class="path" d="M80,60 
+                             m-50,0 
+                             a50,50 0 1,0 100,0 
+                             a50,50 0 1,0 -100,0
+                             m20,-20 
+                             a30,30 0 1,1 60,0 
+                             a30,30 0 1,1 -60,0
+                             m10,-10 
+                             a15,15 0 1,0 30,0 
+                             a15,15 0 1,0 -30,0">
+        </path>
+				<path class="path" d="M80,50 L180,50 L180,150 L80,150 Z"></path> <!-- Square -->
+				<circle class="splatter" cx="125" cy="130" r="8"></circle> <!-- Decorative Dot/Splatter -->
+				
+				 <!-- Decorative Splatter Elements -->
+        <circle class="splatter" cx="80" cy="60" r="5" />
+        <circle class="splatter" cx="120" cy="100" r="4" />
+        <circle class="splatter" cx="80" cy="140" r="3" />
+        <circle class="splatter" cx="140" cy="80" r="6" />
+        <circle class="splatter" cx="25" cy="60" r="4" />
+        <circle class="splatter" cx="35" cy="140" r="5" />
+        <circle class="splatter" cx="45" cy="100" r="3" />
+       
+       
+        <circle class="splatter" cx="550" cy="130" r="6" />
+        <circle class="splatter" cx="700" cy="90" r="4" />
+        <circle class="splatter" cx="850" cy="210" r="5" />
+        <circle class="splatter" cx="1000" cy="70" r="3" />
+        <circle class="splatter" cx="1150" cy="190" r="4" />
+        <circle class="splatter" cx="1300" cy="110" r="5" />
+        <circle class="splatter" cx="1450" cy="150" r="3" />
+        <circle class="splatter" cx="1600" cy="130" r="4" />
+				
+				<path class="path" d="
+            M95,50 
+            m-50,0 
+            c20,-20 60,-20 80,0 
+            c20,20 20,60 0,80 
+            c-19,19 -55, 19 -70,0
+            c-19,-19 -19,-55 0,-70 
+            c18,-18 50,-18 70,0
+            c18,18 18,50 0,70 
+            c-17,17 -45,18 -60,0 
+            c-17,-17 -17,-45 0,-60 
+            c16,-16 40,-20 60,0 
+            c16,16 16,40 0,60 
+            c-15,15 -35,15 -50,0 
+            c-15,-15 -15,-35 0,-50 
+            c14,-14 30,-14 50,0 
+            c14,14 14,30 0,50
+            ">
+        </path>
+    </svg>
+        </svg>
+        <svg class="bottom-right" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+            <!-- SVG paths here -->
+						<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of D -->
+        <path class="path" d="M50,20 Q130,100 50,180"></path> <!-- Curved right side of D -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of F -->
+        <path class="path" d="M50,20 L120,20"></path> <!-- Top horizontal line of F -->
+        <path class="path" d="M50,100 L100,100"></path> <!-- Middle horizontal line of F -->
+				  <path class="path" d="M80,50 C50,50 50,150 80,150 C110,150 110,50 80,50 Z"></path> <!-- 0 -->
+					<path class="path" d="M120,20 L120,180"></path> <!-- Vertical line of 4 -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal line of 4 -->
+        <path class="path" d="M50,100 L120,20"></path> <!-- Diagonal line of 4 -->
+				<path class="path" d="M50,20 L150,20 M100,20 L100,150"></path> <!-- T -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Left vertical line of H -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal crossbar of H -->
+        <path class="path" d="M120,20 L120,180"></path> <!-- Right vertical line of H -->
+				<path class="path" d="M80,20 L120,150 L40,150 Z"></path> <!-- D -->
+				<path class="path" d="M80,60 
+                             m-50,0 
+                             a50,50 0 1,0 100,0 
+                             a50,50 0 1,0 -100,0
+                             m20,-20 
+                             a30,30 0 1,1 60,0 
+                             a30,30 0 1,1 -60,0
+                             m10,-10 
+                             a15,15 0 1,0 30,0 
+                             a15,15 0 1,0 -30,0">
+        </path>
+				<path class="path" d="M80,50 L180,50 L180,150 L80,150 Z"></path> <!-- Square -->
+				<circle class="splatter" cx="125" cy="130" r="8"></circle> <!-- Decorative Dot/Splatter -->
+				
+				 <!-- Decorative Splatter Elements -->
+        <circle class="splatter" cx="80" cy="60" r="5" />
+        <circle class="splatter" cx="120" cy="100" r="4" />
+        <circle class="splatter" cx="80" cy="140" r="3" />
+        <circle class="splatter" cx="140" cy="80" r="6" />
+        <circle class="splatter" cx="25" cy="60" r="4" />
+        <circle class="splatter" cx="35" cy="140" r="5" />
+        <circle class="splatter" cx="45" cy="100" r="3" />
+       
+       
+        <circle class="splatter" cx="550" cy="130" r="6" />
+        <circle class="splatter" cx="700" cy="90" r="4" />
+        <circle class="splatter" cx="850" cy="210" r="5" />
+        <circle class="splatter" cx="1000" cy="70" r="3" />
+        <circle class="splatter" cx="1150" cy="190" r="4" />
+        <circle class="splatter" cx="1300" cy="110" r="5" />
+        <circle class="splatter" cx="1450" cy="150" r="3" />
+        <circle class="splatter" cx="1600" cy="130" r="4" />
+				
+				<path class="path" d="
+            M95,50 
+            m-50,0 
+            c20,-20 60,-20 80,0 
+            c20,20 20,60 0,80 
+            c-19,19 -55, 19 -70,0
+            c-19,-19 -19,-55 0,-70 
+            c18,-18 50,-18 70,0
+            c18,18 18,50 0,70 
+            c-17,17 -45,18 -60,0 
+            c-17,-17 -17,-45 0,-60 
+            c16,-16 40,-20 60,0 
+            c16,16 16,40 0,60 
+            c-15,15 -35,15 -50,0 
+            c-15,-15 -15,-35 0,-50 
+            c14,-14 30,-14 50,0 
+            c14,14 14,30 0,50
+            ">
+        </path>
+            </svg>
+        </div>
+
+        <!-- Tiled Background -->
+        <div class="tiled-background">
+            <!-- Repeated tiles -->
+            <div class="tile">
+                <svg class="logo-animation-container4" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+                    <!-- Copy your SVG paths here -->
+										 <path class="path" d="
+            M200,100 
+            a100,100 0 1,0 0,200 
+            a100,100 0 1,0 0,-200
+            ">
+        </path>
+
+        <!-- Inscribed Square Path -->
+        <path class="path" d="
+            M200,100
+            L300,200 
+            L200,300 
+            L100,200 
+            Z">
+        </path>
+				<path class="path" d="
+            M200,50
+            c30,0 60,30 60,60 
+            c0,30 -30,60 -60,60 
+            c-30,0 -60,-30 -60,-60 
+            c0,-30 30,-60 60,-60 
+            
+            c20,0 40,20 40,40 
+            c0,20 -20,40 -40,40 
+            c-20,0 -40,-20 -40,-40 
+            c0,-20 20,-40 40,-40 
+            
+            c15,0 30,15 30,30 
+            c0,15 -15,30 -30,30 
+            c-15,0 -30,-15 -30,-30 
+            c0,-15 15,-30 30,-30 
+            
+            c10,0 20,10 20,20 
+            c0,10 -10,20 -20,20 
+            c-10,0 -20,-10 -20,-20 
+            c0,-10 10,-20 20,-20
+            
+            c7,0 15,7 15,15 
+            c0,7 -7,15 -15,15 
+            c-7,0 -15,-7 -15,-15 
+            c0,-7 7,-15 15,-15
+            
+            c5,0 10,5 10,10 
+            c0,5 -5,10 -10,10 
+            c-5,0 -10,-5 -10,-10 
+            c0,-5 5,-10 10,-10 
+            ">
+        </path>
+				<path class="path" d="
+            M200,50
+            c40,0 70,30 70,70
+            c0,40 -30,70 -70,70
+            c-40,0 -70,-30 -70,-70
+            c0,-40 30,-70 70,-70
+            
+            c30,0 50,25 50,50
+            c0,30 -25,50 -50,50
+            c-30,0 -50,-25 -50,-50
+            c0,-30 25,-50 50,-50
+            
+            c20,0 40,20 40,40
+            c0,20 -20,40 -40,40
+            c-20,0 -40,-20 -40,-40
+            c0,-20 20,-40 40,-40
+            
+            c15,0 30,15 30,30
+            c0,15 -15,30 -30,30
+            c-15,0 -30,-15 -30,-30
+            c0,-15 15,-30 30,-30
+            
+            c10,0 20,10 20,20
+            c0,10 -10,20 -20,20
+            c-10,0 -20,-10 -20,-20
+            c0,-10 10,-20 20,-20
+            
+            c7,0 15,7 15,15
+            c0,7 -7,15 -15,15
+            c-7,0 -15,-7 -15,-15
+            c0,-7 7,-15 15,-15
+            
+            c5,0 10,5 10,10
+            c0,5 -5,10 -10,10
+            c-5,0 -10,-5 -10,-10
+            c0,-5 5,-10 10,-10
+            ">
+        </path>
+				</svg>
+        </svg>
+        <!-- SVG instances for each corner -->
+        <svg class="top-left" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+            <!-- SVG paths here -->
+						<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of D -->
+        <path class="path" d="M50,20 Q130,100 50,180"></path> <!-- Curved right side of D -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of F -->
+        <path class="path" d="M50,20 L120,20"></path> <!-- Top horizontal line of F -->
+        <path class="path" d="M50,100 L100,100"></path> <!-- Middle horizontal line of F -->
+				  <path class="path" d="M80,50 C50,50 50,150 80,150 C110,150 110,50 80,50 Z"></path> <!-- 0 -->
+					<path class="path" d="M120,20 L120,180"></path> <!-- Vertical line of 4 -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal line of 4 -->
+        <path class="path" d="M50,100 L120,20"></path> <!-- Diagonal line of 4 -->
+				<path class="path" d="M50,20 L150,20 M100,20 L100,150"></path> <!-- T -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Left vertical line of H -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal crossbar of H -->
+        <path class="path" d="M120,20 L120,180"></path> <!-- Right vertical line of H -->
+				<path class="path" d="M80,20 L120,150 L40,150 Z"></path> <!-- D -->
+				<path class="path" d="M80,60 
+                             m-50,0 
+                             a50,50 0 1,0 100,0 
+                             a50,50 0 1,0 -100,0
+                             m20,-20 
+                             a30,30 0 1,1 60,0 
+                             a30,30 0 1,1 -60,0
+                             m10,-10 
+                             a15,15 0 1,0 30,0 
+                             a15,15 0 1,0 -30,0">
+        </path>
+				<path class="path" d="M80,50 L180,50 L180,150 L80,150 Z"></path> <!-- Square -->
+				<circle class="splatter" cx="125" cy="130" r="8"></circle> <!-- Decorative Dot/Splatter -->
+				
+				 <!-- Decorative Splatter Elements -->
+        <circle class="splatter" cx="80" cy="60" r="5" />
+        <circle class="splatter" cx="120" cy="100" r="4" />
+        <circle class="splatter" cx="80" cy="140" r="3" />
+        <circle class="splatter" cx="140" cy="80" r="6" />
+        <circle class="splatter" cx="25" cy="60" r="4" />
+        <circle class="splatter" cx="35" cy="140" r="5" />
+        <circle class="splatter" cx="45" cy="100" r="3" />
+       
+       
+        <circle class="splatter" cx="550" cy="130" r="6" />
+        <circle class="splatter" cx="700" cy="90" r="4" />
+        <circle class="splatter" cx="850" cy="210" r="5" />
+        <circle class="splatter" cx="1000" cy="70" r="3" />
+        <circle class="splatter" cx="1150" cy="190" r="4" />
+        <circle class="splatter" cx="1300" cy="110" r="5" />
+        <circle class="splatter" cx="1450" cy="150" r="3" />
+        <circle class="splatter" cx="1600" cy="130" r="4" />
+				
+				<path class="path" d="
+            M95,50 
+            m-50,0 
+            c20,-20 60,-20 80,0 
+            c20,20 20,60 0,80 
+            c-19,19 -55, 19 -70,0
+            c-19,-19 -19,-55 0,-70 
+            c18,-18 50,-18 70,0
+            c18,18 18,50 0,70 
+            c-17,17 -45,18 -60,0 
+            c-17,-17 -17,-45 0,-60 
+            c16,-16 40,-20 60,0 
+            c16,16 16,40 0,60 
+            c-15,15 -35,15 -50,0 
+            c-15,-15 -15,-35 0,-50 
+            c14,-14 30,-14 50,0 
+            c14,14 14,30 0,50
+            ">
+        </path>
+    </svg>
+        </svg>
+        <svg class="top-right" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+            <!-- SVG paths here -->
+						<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of D -->
+        <path class="path" d="M50,20 Q130,100 50,180"></path> <!-- Curved right side of D -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of F -->
+        <path class="path" d="M50,20 L120,20"></path> <!-- Top horizontal line of F -->
+        <path class="path" d="M50,100 L100,100"></path> <!-- Middle horizontal line of F -->
+				  <path class="path" d="M80,50 C50,50 50,150 80,150 C110,150 110,50 80,50 Z"></path> <!-- 0 -->
+					<path class="path" d="M120,20 L120,180"></path> <!-- Vertical line of 4 -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal line of 4 -->
+        <path class="path" d="M50,100 L120,20"></path> <!-- Diagonal line of 4 -->
+				<path class="path" d="M50,20 L150,20 M100,20 L100,150"></path> <!-- T -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Left vertical line of H -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal crossbar of H -->
+        <path class="path" d="M120,20 L120,180"></path> <!-- Right vertical line of H -->
+				<path class="path" d="M80,20 L120,150 L40,150 Z"></path> <!-- D -->
+				<path class="path" d="M80,60 
+                             m-50,0 
+                             a50,50 0 1,0 100,0 
+                             a50,50 0 1,0 -100,0
+                             m20,-20 
+                             a30,30 0 1,1 60,0 
+                             a30,30 0 1,1 -60,0
+                             m10,-10 
+                             a15,15 0 1,0 30,0 
+                             a15,15 0 1,0 -30,0">
+        </path>
+				<path class="path" d="M80,50 L180,50 L180,150 L80,150 Z"></path> <!-- Square -->
+				<circle class="splatter" cx="125" cy="130" r="8"></circle> <!-- Decorative Dot/Splatter -->
+				
+				 <!-- Decorative Splatter Elements -->
+        <circle class="splatter" cx="80" cy="60" r="5" />
+        <circle class="splatter" cx="120" cy="100" r="4" />
+        <circle class="splatter" cx="80" cy="140" r="3" />
+        <circle class="splatter" cx="140" cy="80" r="6" />
+        <circle class="splatter" cx="25" cy="60" r="4" />
+        <circle class="splatter" cx="35" cy="140" r="5" />
+        <circle class="splatter" cx="45" cy="100" r="3" />
+       
+       
+        <circle class="splatter" cx="550" cy="130" r="6" />
+        <circle class="splatter" cx="700" cy="90" r="4" />
+        <circle class="splatter" cx="850" cy="210" r="5" />
+        <circle class="splatter" cx="1000" cy="70" r="3" />
+        <circle class="splatter" cx="1150" cy="190" r="4" />
+        <circle class="splatter" cx="1300" cy="110" r="5" />
+        <circle class="splatter" cx="1450" cy="150" r="3" />
+        <circle class="splatter" cx="1600" cy="130" r="4" />
+				
+				<path class="path" d="
+            M95,50 
+            m-50,0 
+            c20,-20 60,-20 80,0 
+            c20,20 20,60 0,80 
+            c-19,19 -55, 19 -70,0
+            c-19,-19 -19,-55 0,-70 
+            c18,-18 50,-18 70,0
+            c18,18 18,50 0,70 
+            c-17,17 -45,18 -60,0 
+            c-17,-17 -17,-45 0,-60 
+            c16,-16 40,-20 60,0 
+            c16,16 16,40 0,60 
+            c-15,15 -35,15 -50,0 
+            c-15,-15 -15,-35 0,-50 
+            c14,-14 30,-14 50,0 
+            c14,14 14,30 0,50
+            ">
+        </path>
+    </svg>
+        </svg>
+        <svg class="bottom-left" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+            <!-- SVG paths here -->
+						<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of D -->
+        <path class="path" d="M50,20 Q130,100 50,180"></path> <!-- Curved right side of D -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of F -->
+        <path class="path" d="M50,20 L120,20"></path> <!-- Top horizontal line of F -->
+        <path class="path" d="M50,100 L100,100"></path> <!-- Middle horizontal line of F -->
+				  <path class="path" d="M80,50 C50,50 50,150 80,150 C110,150 110,50 80,50 Z"></path> <!-- 0 -->
+					<path class="path" d="M120,20 L120,180"></path> <!-- Vertical line of 4 -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal line of 4 -->
+        <path class="path" d="M50,100 L120,20"></path> <!-- Diagonal line of 4 -->
+				<path class="path" d="M50,20 L150,20 M100,20 L100,150"></path> <!-- T -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Left vertical line of H -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal crossbar of H -->
+        <path class="path" d="M120,20 L120,180"></path> <!-- Right vertical line of H -->
+				<path class="path" d="M80,20 L120,150 L40,150 Z"></path> <!-- D -->
+				<path class="path" d="M80,60 
+                             m-50,0 
+                             a50,50 0 1,0 100,0 
+                             a50,50 0 1,0 -100,0
+                             m20,-20 
+                             a30,30 0 1,1 60,0 
+                             a30,30 0 1,1 -60,0
+                             m10,-10 
+                             a15,15 0 1,0 30,0 
+                             a15,15 0 1,0 -30,0">
+        </path>
+				<path class="path" d="M80,50 L180,50 L180,150 L80,150 Z"></path> <!-- Square -->
+				<circle class="splatter" cx="125" cy="130" r="8"></circle> <!-- Decorative Dot/Splatter -->
+				
+				 <!-- Decorative Splatter Elements -->
+        <circle class="splatter" cx="80" cy="60" r="5" />
+        <circle class="splatter" cx="120" cy="100" r="4" />
+        <circle class="splatter" cx="80" cy="140" r="3" />
+        <circle class="splatter" cx="140" cy="80" r="6" />
+        <circle class="splatter" cx="25" cy="60" r="4" />
+        <circle class="splatter" cx="35" cy="140" r="5" />
+        <circle class="splatter" cx="45" cy="100" r="3" />
+       
+       
+        <circle class="splatter" cx="550" cy="130" r="6" />
+        <circle class="splatter" cx="700" cy="90" r="4" />
+        <circle class="splatter" cx="850" cy="210" r="5" />
+        <circle class="splatter" cx="1000" cy="70" r="3" />
+        <circle class="splatter" cx="1150" cy="190" r="4" />
+        <circle class="splatter" cx="1300" cy="110" r="5" />
+        <circle class="splatter" cx="1450" cy="150" r="3" />
+        <circle class="splatter" cx="1600" cy="130" r="4" />
+				
+				<path class="path" d="
+            M95,50 
+            m-50,0 
+            c20,-20 60,-20 80,0 
+            c20,20 20,60 0,80 
+            c-19,19 -55, 19 -70,0
+            c-19,-19 -19,-55 0,-70 
+            c18,-18 50,-18 70,0
+            c18,18 18,50 0,70 
+            c-17,17 -45,18 -60,0 
+            c-17,-17 -17,-45 0,-60 
+            c16,-16 40,-20 60,0 
+            c16,16 16,40 0,60 
+            c-15,15 -35,15 -50,0 
+            c-15,-15 -15,-35 0,-50 
+            c14,-14 30,-14 50,0 
+            c14,14 14,30 0,50
+            ">
+        </path>
+    </svg>
+        </svg>
+        <svg class="bottom-right" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+            <!-- SVG paths here -->
+						<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of D -->
+        <path class="path" d="M50,20 Q130,100 50,180"></path> <!-- Curved right side of D -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Vertical line of F -->
+        <path class="path" d="M50,20 L120,20"></path> <!-- Top horizontal line of F -->
+        <path class="path" d="M50,100 L100,100"></path> <!-- Middle horizontal line of F -->
+				  <path class="path" d="M80,50 C50,50 50,150 80,150 C110,150 110,50 80,50 Z"></path> <!-- 0 -->
+					<path class="path" d="M120,20 L120,180"></path> <!-- Vertical line of 4 -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal line of 4 -->
+        <path class="path" d="M50,100 L120,20"></path> <!-- Diagonal line of 4 -->
+				<path class="path" d="M50,20 L150,20 M100,20 L100,150"></path> <!-- T -->
+				<path class="path" d="M50,20 L50,180"></path> <!-- Left vertical line of H -->
+        <path class="path" d="M50,100 L120,100"></path> <!-- Horizontal crossbar of H -->
+        <path class="path" d="M120,20 L120,180"></path> <!-- Right vertical line of H -->
+				<path class="path" d="M80,20 L120,150 L40,150 Z"></path> <!-- D -->
+				<path class="path" d="M80,60 
+                             m-50,0 
+                             a50,50 0 1,0 100,0 
+                             a50,50 0 1,0 -100,0
+                             m20,-20 
+                             a30,30 0 1,1 60,0 
+                             a30,30 0 1,1 -60,0
+                             m10,-10 
+                             a15,15 0 1,0 30,0 
+                             a15,15 0 1,0 -30,0">
+        </path>
+				<path class="path" d="M80,50 L180,50 L180,150 L80,150 Z"></path> <!-- Square -->
+				<circle class="splatter" cx="125" cy="130" r="8"></circle> <!-- Decorative Dot/Splatter -->
+				
+				 <!-- Decorative Splatter Elements -->
+        <circle class="splatter" cx="80" cy="60" r="5" />
+        <circle class="splatter" cx="120" cy="100" r="4" />
+        <circle class="splatter" cx="80" cy="140" r="3" />
+        <circle class="splatter" cx="140" cy="80" r="6" />
+        <circle class="splatter" cx="25" cy="60" r="4" />
+        <circle class="splatter" cx="35" cy="140" r="5" />
+        <circle class="splatter" cx="45" cy="100" r="3" />
+       
+       
+        <circle class="splatter" cx="550" cy="130" r="6" />
+        <circle class="splatter" cx="700" cy="90" r="4" />
+        <circle class="splatter" cx="850" cy="210" r="5" />
+        <circle class="splatter" cx="1000" cy="70" r="3" />
+        <circle class="splatter" cx="1150" cy="190" r="4" />
+        <circle class="splatter" cx="1300" cy="110" r="5" />
+        <circle class="splatter" cx="1450" cy="150" r="3" />
+        <circle class="splatter" cx="1600" cy="130" r="4" />
+				
+				<path class="path" d="
+            M95,50 
+            m-50,0 
+            c20,-20 60,-20 80,0 
+            c20,20 20,60 0,80 
+            c-19,19 -55, 19 -70,0
+            c-19,-19 -19,-55 0,-70 
+            c18,-18 50,-18 70,0
+            c18,18 18,50 0,70 
+            c-17,17 -45,18 -60,0 
+            c-17,-17 -17,-45 0,-60 
+            c16,-16 40,-20 60,0 
+            c16,16 16,40 0,60 
+            c-15,15 -35,15 -50,0 
+            c-15,-15 -15,-35 0,-50 
+            c14,-14 30,-14 50,0 
+            c14,14 14,30 0,50
+            ">
+        </path>
+                </svg>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Art Animation</title>
+    <style>
+		body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+						width: auto;
+        }
+        /* Styling for the animated text container */
+        .logo-animation-container5 {
+            font-size: 1rem; /* Adjust size as needed */
+            line-height: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            white-space: pre; /* Preserve whitespace */
+            overflow: hidden; /* Hide overflow */
+            height: auto; /* Set a fixed height */
+            background-color: transparent;
+            color: #00FF00;
+        }
+
+        .logo-animation-container2 {
+            background-color: transparent;
+            color: #00FF00;
+            font-family: monospace;
+            white-space: pre;
+            padding: 0;
+            height: 250px; /* Set a fixed height to prevent layout shifts */
+            width: 100%;  /* Full width inside sidebar */
+            
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        #ascii-art {
+            font-size: 0.33rem; /* Adjust this to scale the text on different screen sizes */
+            line-height: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 300px; /* Limit max width */
+        }
+
+                #ascii-art2 {
+            font-size: 1.5rem; /* Adjust this to scale the text on different screen sizes */
+            line-height: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 300px; /* Limit max width */
+        }
+    </style>
+</head>
+<body>
+    <!-- Container for the first ASCII art animation -->
+    <div class="logo-animation-container2">
+        <pre id="ascii-art"></pre>
+    </div>
+
+    <!-- Container for the second ASCII art animation -->
+    <div class="logo-animation-container5">
+        <pre id="ascii-art2"></pre>
+    </div>
+
+    <!-- Script for the first ASCII art animation -->
+    <script>
+        (function () {
+            const asciiArt = `
+                                                                                                        
+                                                                                                        
+                                                                                                        
+                                                                                                        
+                                            ..:::--:-=--.                                               
+                                            .=-=+++=+==-.                                               
+                                            .-+=+++++==-.                                               
+                                             =+=+++++*=-...                                             
+                                          :-------======---.                                            
+                                          :--=====++====---:.      ...::...                             
+                                          ---=====++====----     .:::--====--..                         
+                                           -====+++++====+=.   .--:=====+=====-.                        
+                                          .---====+++===---.  .=-====:....=++==-.                       
+                                         :-----=======------:.=++===.     .++*==..                      
+                                       .:--::----===-------:-=-++==-       .**+=-.                      
+                                     .::::::::-------------::--==+==.      .=*+=-.                      
+                                   .:::::::::--------------::::--===-.    .-=++=..                      
+                                 .::::::.:::----------------:-::----=-    .=*+=-.                       
+                               .::::::::::---------------------:::---:.  .=++==.                        
+                              .:::::-:::--------------------------::--=..-+++=:..                       
+                            .::::-:::-------------------------------:---=+++=:..                        
+                           .::--:-----------------------------------------+=-.                          
+                           ::---------------------------=-==--------------:=..                          
+                         .::-----------------================--------------:-.                          
+                         ::---------**----==========-----========----------:.                           
+                        .:----------*#-====+%*=#+=====--===*#=====--+*-----::.                          
+                        .:----------=#=====#====%*=====+#-==##======*-------:.                          
+                        ::---------==##==*#======%+====%=====*#====*=-------::                          
+                       .:--------=====####=======+%+==%*======*#+=**==-------:.                         
+                       .::-------=====*#+==========%+%*=========#**===-------:.                         
+                       .:--------====####==========*%*==========*##====------:.                         
+                       .:--------==*#+==#+========+%*%==========#=##====-----:.                         
+                      ..:---------*#====##=======#%==*#========*===*#=-------:.                         
+                       .::-------#*======#======##====%+=====+#=====#*-------:.                         
+                       .::--------=======+====##=======#====##=========------:.                         
+                        ::--------====================================------::..                        
+                        ::-------====================================-------::.                         
+                        .:-----========================================-----::.                         
+                        .:-----=========================================----:..                         
+                        .:-----=========================================----:.                          
+                        .::----=================+=======================----:                           
+                         ::---====================+++===================----:.                          
+                         .:---====================++====================---:..                          
+                         .:---====================+++====================--:..                          
+                          :---===============+=+=++++++====+=============--:..                          
+                         .:---=========+====+=+=++++++++====+============--:..                          
+                          :---=============++++++++++++++++=+============--:                            
+                          :--=================+++++++++=+++++============--.                            
+                           --===========+=====+++++++++++++++===========---.                            
+                           .:-=============++++++++++++++++++===========-...                            
+                              .=========+===+++++++++++++++++==========...                              
+                               .. .===========+++=++==+++==========.. ..                                
+                                       ....=++++++++++++++......                                        
+                                                                                                        
+                                                                                                        
+`;
+
+            const preElement = document.getElementById('ascii-art');
+            let index = 0;
+            const batchSize = 15;
+            let forward = true;
+
+            function typeAsciiArt() {
+                if (forward) {
+                    if (index < asciiArt.length) {
+                        preElement.textContent += asciiArt.substr(index, batchSize);
+                        index += batchSize;
+                        setTimeout(typeAsciiArt, 20);
+                    } else {
+                        forward = false;
+                        setTimeout(typeAsciiArt, 500); // Pause before reversing
+                    }
+                } else {
+                    if (index > 0) {
+                        preElement.textContent = asciiArt.substr(0, index);
+                        index -= batchSize;
+                        setTimeout(typeAsciiArt, 20);
+                    } else {
+                        forward = true;
+                        setTimeout(typeAsciiArt, 500); // Pause before forwarding
+                    }
+                }
+            }
+
+            // Intersection Observer to trigger animation on view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        typeAsciiArt();
+                        observer.unobserve(entry.target); // Stop observing after starting
+                    }
+                });
+            }, {
+                threshold: 0.5 // Trigger when 50% of element is visible
+            });
+
+            observer.observe(document.querySelector('.logo-animation-container2'));
+        })();
+    </script>
+
+    <!-- Script for the second ASCII art animation -->
+    <script>
+        (function () {
+            const asciiArt = `
+A
+R
+T
+A
+B
+I
+L
+L
+I
+E
+S
+
+F
+O
+O
+D
+4
+T
+H
+O
+T
+H
+            `;
+
+            const preElement = document.getElementById('ascii-art2');
+            let index = 0;
+            const batchSize = 1;
+            const typingSpeed = 100; // Delay between characters in ms
+            const pauseDuration = 2000; // Pause duration at the end in ms
+
+            function typeAsciiArt() {
+                if (index < asciiArt.length) {
+                    preElement.textContent += asciiArt.substr(index, batchSize);
+                    index += batchSize;
+                    setTimeout(typeAsciiArt, typingSpeed);
+                } else {
+                    setTimeout(() => {
+                        preElement.textContent = '';
+                        index = 0;
+                        typeAsciiArt();
+                    }, pauseDuration);
+                }
+            }
+
+            // Start the animation when the page loads
+            window.addEventListener('load', typeAsciiArt);
+        })();
+    </script>
+</body>
+</html>

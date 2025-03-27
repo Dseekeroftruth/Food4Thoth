@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rounded Video with Auto Size</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .video-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            max-width: 100vw;
+            max-height: 100vh;
+            overflow: hidden; /* Ensures border-radius is applied properly */
+            border-radius: 25px; /* Rounded corners */
+        }
+        video {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 25px; /* Apply rounding to the video itself */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-container">
+        <video id="autoPlayVideo" muted autoplay loop playsinline>
+            <source src="./Untitled.mov" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let video = document.getElementById("autoPlayVideo");
+            let videoContainer = document.querySelector(".video-container");
+
+            function adjustBodySize() {
+                const aspectRatio = video.videoWidth / video.videoHeight;
+                if (aspectRatio) {
+                    document.body.style.height = `${window.innerWidth / aspectRatio}px`;
+                }
+            }
+
+            function playVideo() {
+                video.play().catch(error => {
+                    console.warn("Autoplay blocked. Trying again on user interaction.");
+                    document.addEventListener("click", () => video.play(), { once: true });
+                });
+            }
+
+            // Adjust size when metadata is loaded (ensures we have dimensions)
+            video.addEventListener("loadedmetadata", adjustBodySize);
+            window.addEventListener("resize", adjustBodySize);
+            
+            playVideo(); // Try playing immediately
+        });
+    </script>
+
+</body>
+</html>

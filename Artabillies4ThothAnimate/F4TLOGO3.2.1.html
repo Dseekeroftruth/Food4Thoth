@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fullscreen Responsive Video</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  overflow: hidden;
+  display: contents; /* NEW: Prevents unnecessary box sizing/padding */
+}
+
+ .video-container {
+  width: 100vw;
+  height: auto;
+  overflow: hidden;
+  line-height: 0; /* Prevent inline element gaps */
+}
+
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="video-container">
+    <video id="autoPlayVideo" muted autoplay loop playsinline>
+      <source src="./Untitled3.MP4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const video = document.getElementById("autoPlayVideo");
+
+      function playVideo() {
+        video.play().catch((error) => {
+          console.warn("Autoplay blocked. Trying again on user interaction.");
+          document.addEventListener("click", () => video.play(), { once: true });
+        });
+      }
+
+      playVideo();
+    });
+  </script>
+
+</body>
+</html>

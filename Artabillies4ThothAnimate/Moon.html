@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Looping Video</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+    <video id="loopVideo" muted loop playsinline>
+        <source src="./Untitled.MP4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let video = document.getElementById("loopVideo");
+
+            // Attempt to play the video when the page loads
+            function playVideo() {
+                video.play().catch(error => {
+                    console.warn("Autoplay blocked. Adding user interaction trigger.");
+                    document.addEventListener("click", () => video.play(), { once: true });
+                });
+            }
+
+            playVideo(); // Try playing immediately
+
+            // Ensure the video is always looping
+            video.addEventListener("ended", function() {
+                video.currentTime = 0;
+                video.play();
+            });
+
+            // Monitor playback state
+            setInterval(() => {
+                if (video.paused) {
+                    console.warn("Video paused. Restarting...");
+                    playVideo();
+                }
+            }, 2000);
+        });
+    </script>
+
+</body>
+</html>

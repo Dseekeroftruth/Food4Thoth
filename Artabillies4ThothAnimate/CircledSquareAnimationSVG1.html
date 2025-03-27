@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARTABILITIES Logo Animation</title>
+    <style>
+        /* Styling to ensure full compatibility across spaces */
+        body {
+            margin-top: -40%;
+            background: black;
+            overflow: hidden;
+            display: flex;
+            justify-content: top-center;
+            align-items: top-center;
+            height: 80%;
+        }
+
+        svg {
+            width: 600px;
+            height: 600px;
+        }
+
+        .path {
+            fill: none;
+            stroke: #00FF00;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 10s ease-in-out infinite alternate;
+        }
+
+        .splatter {
+            fill: #00FF00;
+            opacity: 0;
+            animation: splatter 10s ease-in-out infinite alternate 2.2s;
+        }
+
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes splatter {
+            to {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+           <path class="path" d="
+            M200,100 
+            a100,100 0 1,0 0,200 
+            a100,100 0 1,0 0,-200
+            ">
+        </path>
+
+        <!-- Inscribed Square Path -->
+        <path class="path" d="
+            M200,100
+            L300,200 
+            L200,300 
+            L100,200 
+            Z">
+        </path>
+				<path class="path" d="
+            M200,50
+            c30,0 60,30 60,60 
+            c0,30 -30,60 -60,60 
+            c-30,0 -60,-30 -60,-60 
+            c0,-30 30,-60 60,-60 
+            
+            c20,0 40,20 40,40 
+            c0,20 -20,40 -40,40 
+            c-20,0 -40,-20 -40,-40 
+            c0,-20 20,-40 40,-40 
+            
+            c15,0 30,15 30,30 
+            c0,15 -15,30 -30,30 
+            c-15,0 -30,-15 -30,-30 
+            c0,-15 15,-30 30,-30 
+            
+            c10,0 20,10 20,20 
+            c0,10 -10,20 -20,20 
+            c-10,0 -20,-10 -20,-20 
+            c0,-10 10,-20 20,-20
+            
+            c7,0 15,7 15,15 
+            c0,7 -7,15 -15,15 
+            c-7,0 -15,-7 -15,-15 
+            c0,-7 7,-15 15,-15
+            
+            c5,0 10,5 10,10 
+            c0,5 -5,10 -10,10 
+            c-5,0 -10,-5 -10,-10 
+            c0,-5 5,-10 10,-10 
+            ">
+        </path>
+				<path class="path" d="
+            M200,50
+            c40,0 70,30 70,70
+            c0,40 -30,70 -70,70
+            c-40,0 -70,-30 -70,-70
+            c0,-40 30,-70 70,-70
+            
+            c30,0 50,25 50,50
+            c0,30 -25,50 -50,50
+            c-30,0 -50,-25 -50,-50
+            c0,-30 25,-50 50,-50
+            
+            c20,0 40,20 40,40
+            c0,20 -20,40 -40,40
+            c-20,0 -40,-20 -40,-40
+            c0,-20 20,-40 40,-40
+            
+            c15,0 30,15 30,30
+            c0,15 -15,30 -30,30
+            c-15,0 -30,-15 -30,-30
+            c0,-15 15,-30 30,-30
+            
+            c10,0 20,10 20,20
+            c0,10 -10,20 -20,20
+            c-10,0 -20,-10 -20,-20
+            c0,-10 10,-20 20,-20
+            
+            c7,0 15,7 15,15
+            c0,7 -7,15 -15,15
+            c-7,0 -15,-7 -15,-15
+            c0,-7 7,-15 15,-15
+            
+            c5,0 10,5 10,10
+            c0,5 -5,10 -10,10
+            c-5,0 -10,-5 -10,-10
+            c0,-5 5,-10 10,-10
+            ">
+        </path>
+    </svg>
+</body>
+</html>
