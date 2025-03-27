@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Terminal Game in HTML</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 30px;
+            background-color: #000;
+            color: #fff;
+            font-family: monospace;
+            flex-direction: column;
+						overflow-x: hidden; /* Disable horizontal scrolling */
+						overflow-y: hidden; /* Disable horizontal scrolling */
+						touch-action: manipulation;
+						width: auto;
+						height: auto;
+        }
+        #gameCanvas {
+            border: 1px solid white;
+            background-color: #222;
+						width: 90vw;
+						
+        }
+				#startButton {
+            padding: 10px 20px;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+						position: absolute;
+        }
+        #tryAgain {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #highScores {
+            display: none;
+            margin-top: 20px;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="300" height="300"></canvas>
+		<button id="startButton">Start Game</button>
+    <button id="tryAgain">Try Again</button>
+    <div id="highScores"></div>
+
+    <!-- Audio elements for background music and sound effects using .wav files -->
+    <audio id="backgroundMusic" loop>
+        <source src="sounds/background-music.wav" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="gemSound">
+        <source src="sounds/gem-sound.wav" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="gameOverSound">
+        <source src="sounds/game-over-sound.wav" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
