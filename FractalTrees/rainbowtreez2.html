@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Fractal Rainbow in All Directions (Animated + Sway)</title>
+  <style>
+    body {
+      margin: 0; 
+      padding: 0;
+      overflow: hidden;
+      background: #222; 
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<canvas id="canvasAllDirections"></canvas>
+
+<script>
+// -----------------------------------------------------------------------------
+// 1) Canvas helper
+// -----------------------------------------------------------------------------
+class Canvas {
+  constructor(id) {
+    this.elem = document.getElementById(id);
+    this.ctx = this.elem.getContext('2d');
+    this.resize();
+    window.addEventListener('resize', () => this.resize(), false);
+  }
+
+  resize() {
+    this.elem.width = window.innerWidth;
+    this.elem.height = window.innerHeight;
+    this.width = this.elem.width;
+    this.height = this.elem.height;
+  }
+
+  clear() {
+    this.ctx.clearRect(0, 0, this.width, this.height);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 2) Fractal Rainbow in All Directions, with animated growth + sway
+// -----------------------------------------------------------------------------
+class FractalRainbowAllDirectionsAnimated {
+  constructor(canvasId) {
+    this.canvas = new Canvas(canvasId);
+    this.ctx = this.canvas.ctx;
+
+    // Fractal parameters:
+    this.maxDepth = 8;          // Maximum recursion depth
+    this.angle = Math.PI / 4;   // Branching angle
+    this.shrinkFactor = 0.7;    // Branch length & width shrink each recursion
+    this.baseBranchLength = 60;// Initial branch length
+    this.baseBranchWidth = 6;  // Initial branch width
+
+    // Animation parameters:
+    this.currentDepth = 0;      // How many levels we are currently drawing
+    this.growSpeed = 2000;      // ms to fully grow from depth=0 to depth=maxDepth
+    this.swayStartDelay = 1000; // ms after fully grown before swaying begins
+    this.swaySpeed = 2000;      // Controls how quickly it oscillates
+    this.swayAmount = 0.4;      // How large the sway angle is
+
+    this.sway_enabled = false;
+    this.sway_angle = 0;
+
+    // Start growing
+    this.animateGrowth();
+  }
+
+  // ------------------------
+  // 2A) Growth animation
+  // ------------------------
+  animateGrowth() {
+    let startTime = null;
+
+    const grow = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+
+      // Calculate fraction of total grow time
+      const fraction = Math.min(1, elapsed / this.growSpeed);
+      // Map fraction (0..1) to depth (0..maxDepth):
+      this.currentDepth = Math.floor(fraction * this.maxDepth);
+
+      // Redraw fractal with the current partial depth
+      this.draw();
+
+      if (this.currentDepth < this.maxDepth) {
+        requestAnimationFrame(grow);
+      } else {
+        // Once fully grown, start sway after a delay
+        setTimeout(() => {
+          this.sway_enabled = true;
+          this.swayTree();
+        }, this.swayStartDelay);
+      }
+    };
+
+    requestAnimationFrame(grow);
+  }
+
+  // ------------------------
+  // 2B) Sway animation
+  // ------------------------
+  swayTree() {
+    const sway = (timestamp) => {
+      if (this.sway_enabled) {
+        // Simple sine-based sway:
+        this.sway_angle = Math.sin(timestamp / this.swaySpeed) * this.swayAmount;
+
+        // Redraw with the new sway angle
+        this.draw();
+
+        requestAnimationFrame(sway);
+      }
+    };
+    requestAnimationFrame(sway);
+  }
+
+  // ------------------------
+  // 2C) Main draw function
+  // ------------------------
+  draw() {
+    this.canvas.clear();
+
+    const { width, height } = this.canvas;
+    this.ctx.save();
+    // Move origin to center of canvas
+    this.ctx.translate(width / 2, height / 2);
+
+    // We draw the fractal four times, each time rotating the canvas
+    // so that the fractal goes up, right, down, left.
+    const directions = [ 0, Math.PI / 2, Math.PI, (3 * Math.PI) / 2 ];
+
+    directions.forEach((dir) => {
+      this.ctx.save();
+      this.ctx.rotate(dir);
+      // Draw from the center upwards in local coordinates
+      this.drawBranch(this.baseBranchLength, this.baseBranchWidth, 0);
+      this.ctx.restore();
+    });
+
+    this.ctx.restore();
+  }
+
+  // ------------------------
+  // 2D) Recursive branch drawing
+  // ------------------------
+  /**
+   * drawBranch - Draws one branch + its sub-branches, up to currentDepth.
+   * 
+   * @param {number} length  - Current branch length
+   * @param {number} width   - Current branch thickness
+   * @param {number} depth   - Current recursion depth (0..this.maxDepth)
+   */
+  drawBranch(length, width, depth) {
+    // If we've reached the partial “grown” depth, stop.
+    if (depth >= this.currentDepth) return;
+    if (depth >= this.maxDepth) return;
+
+    // Draw a vertical line from (0,0) to (0, -length)
+    // 1) Outer stroke
+    this.ctx.beginPath();
+    this.ctx.moveTo(0, 0);
+    this.ctx.lineTo(0, -length);
+    this.ctx.lineWidth = width + 2; // slightly thicker
+    this.ctx.strokeStyle = this.getRainbowColor(depth, false);
+    this.ctx.stroke();
+
+    // 2) Inner stroke
+    this.ctx.beginPath();
+    this.ctx.moveTo(0, 0);
+    this.ctx.lineTo(0, -length);
+    this.ctx.lineWidth = width;
+    this.ctx.strokeStyle = this.getRainbowColor(depth, true);
+    this.ctx.stroke();
+
+    // Move "up" to the end of the branch
+    this.ctx.translate(0, -length);
+
+    // Sway angle offset if we’re in sway mode
+    const swayAdjustment = this.sway_enabled ? this.sway_angle : 0;
+
+    // Right branch
+    this.ctx.save();
+    this.ctx.rotate(this.angle + swayAdjustment);
+    this.drawBranch(length * this.shrinkFactor, width * this.shrinkFactor, depth + 1);
+    this.ctx.restore();
+
+    // Left branch
+    this.ctx.save();
+    this.ctx.rotate(-this.angle + swayAdjustment);
+    this.drawBranch(length * this.shrinkFactor, width * this.shrinkFactor, depth + 1);
+    this.ctx.restore();
+  }
+
+  // ------------------------
+  // 2E) Rainbow color helper
+  // ------------------------
+  /**
+   * Returns a rainbow color in HSL format, given recursion depth.
+   * The “outer” stroke is typically darker or complementary,
+   * while the “inner” stroke is brighter.
+   */
+  getRainbowColor(depth, isInner) {
+    // Hue cycles across 0..360 as depth goes 0..maxDepth
+    const hue = (depth * (360 / this.maxDepth)) % 360;
+
+    if (isInner) {
+      // Brighter color
+      return `hsl(${hue}, 100%, 60%)`;
+    } else {
+      // Darker or complementary color
+      return `hsl(${(hue + 180) % 360}, 100%, 30%)`;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 3) On page load, create the fractal
+// -----------------------------------------------------------------------------
+window.onload = function() {
+  new FractalRainbowAllDirectionsAnimated('canvasAllDirections');
+};
+</script>
+
+</body>
+</html>

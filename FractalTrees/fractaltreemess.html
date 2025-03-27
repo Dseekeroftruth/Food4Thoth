@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fractal Tree Forest Animation</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(skyblue, lawngreen);
+      overflow: hidden;
+    }
+
+    .canvas_wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    canvas {
+      display: block;
+      background: transparent;
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas_wrapper">
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <script>
+    class Canvas {
+      constructor(canvas, id) {
+        this.canvas = canvas;
+        this.elem = document.getElementById(id);
+        this.ctx = this.elem.getContext('2d');
+        
+        this.elem.width = window.innerWidth;
+        this.elem.height = window.innerHeight;
+        
+        this.width = this.elem.width;
+        this.height = this.elem.height;
+
+        window.addEventListener('resize', this.onWindowResize.bind(this), false);
+      }
+
+      // Clear a specific area where the tree exists (before redrawing in sway)
+      clearTreeArea(x, y, size) {
+        const buffer = size * 1.5;  // Clear a bit more space than tree size
+        this.ctx.clearRect(x - buffer / 2, y - buffer, buffer, buffer * 2);
+      }
+
+      onWindowResize() {
+        this.elem.width = window.innerWidth;
+        this.elem.height = window.innerHeight;
+        this.width = this.elem.width;
+        this.height = this.elem.height;
+      }
+    }
+
+    class FractalTree {
+      constructor(canvas, x, y, startLength, startWidth, maxOrder, growSpeed, swayStartDelay, callback) {
+        this.canvas = canvas;
+        this.ctx = this.canvas.ctx;
+        
+        this.x = x;  // X position of the tree
+        this.y = y;  // Y position (ground level) of the tree
+        this.start_length = startLength;
+        this.start_width = startWidth;
+        this.angle = Math.PI / 5;  // Initial branch angle
+        
+        this.max_order = maxOrder;  // Recursive depth of tree
+        this.current_order = 0;  // For progressive growth
+        this.sway_enabled = false;  // Control when swaying starts
+        this.sway_angle = 0;  // Angle for swaying effect
+        this.swayStartDelay = swayStartDelay; // Delay before the tree starts swaying
+        this.growSpeed = growSpeed; // Growth speed for individual tree
+        
+        this.callback = callback; // Callback to trigger after tree finishes growing
+        this.treeSize = this.start_length * Math.pow(0.7, this.max_order); // Tree size estimate for clearing
+        this.animateGrowth();
+      }
+
+      animateGrowth() {
+        let startTime = null;
+
+        const grow = (timestamp) => {
+          if (!startTime) startTime = timestamp;
+          const progress = timestamp - startTime;
+          this.current_order = Math.min(this.max_order, Math.floor(this.max_order * (progress / this.growSpeed)));
+          
+          this.draw();
+
+          if (this.current_order < this.max_order) {
+            requestAnimationFrame(grow);
+          } else {
+            // Call the callback when tree is fully grown
+            if (this.callback) {
+              this.callback();
+            }
+
+            // Start swaying after a delay
+            setTimeout(() => {
+              this.sway_enabled = true;
+              this.swayTree();
+            }, this.swayStartDelay);
+          }
+        };
+
+        requestAnimationFrame(grow);
+      }
+
+      swayTree() {
+        const swaySpeed = 2000;  // Time for one sway cycle (ms)
+        const swayAmount = 0.05;  // Sway angle adjustment
+
+        const sway = (timestamp) => {
+          if (this.sway_enabled) {
+            // Clear the previous drawing for this tree before swaying
+            this.canvas.clearTreeArea(this.x, this.y, this.treeSize);
+
+            // Adjust the angle for swaying using a sine wave
+            this.sway_angle = Math.sin(timestamp / swaySpeed) * swayAmount;
+            this.draw();
+            requestAnimationFrame(sway);
+          }
+        };
+
+        requestAnimationFrame(sway);
+      }
+
+      draw() {
+        this.ctx.save();
+        this.ctx.translate(this.x, this.y);  // Start from given position
+        this.ctx.strokeStyle = 'brown';
+
+        this.drawBranch(this.start_length, this.start_width, this.current_order);
+        this.ctx.restore();
+      }
+
+      drawBranch(length, width, order) {
+        if (order === 0) return;
+      
+        // Draw the outline first
+        this.ctx.lineWidth = width + 2;  // Outline width (slightly larger)
+        this.ctx.strokeStyle = 'green';  // Outline color
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, 0);
+        this.ctx.lineTo(0, -length);
+        this.ctx.stroke();
+      
+        // Draw the inner branch
+        this.ctx.lineWidth = width;  // Inner branch width
+        this.ctx.strokeStyle = 'brown';  // Inner branch color (tree color)
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, 0);
+        this.ctx.lineTo(0, -length);
+        this.ctx.stroke();
+      
+        // Move to the top of the current branch
+        this.ctx.translate(0, -length);
+      
+        // Apply sway effect if enabled
+        const swayAdjustment = this.sway_enabled ? this.sway_angle : 0;
+      
+        // Draw right branch
+        this.ctx.save();
+        this.ctx.rotate(this.angle + swayAdjustment);  // Right branch with sway
+        this.drawBranch(length * 0.7, width * 0.7, order - 1);
+        this.ctx.restore();
+      
+        // Draw left branch
+        this.ctx.save();
+        this.ctx.rotate(-this.angle + swayAdjustment);  // Left branch with sway
+        this.drawBranch(length * 0.7, width * 0.7, order - 1);
+        this.ctx.restore();
+      }
+    }
+
+    function createForest() {
+      const canvas = new Canvas(null, 'canvas');
+      let currentTree = 0;
+
+      // Array of tree configurations (positions, sizes, and other parameters)
+      const treeConfigs = [
+        { x: canvas.width / 2, y: canvas.height, length: 150, width: 10, maxOrder: 10, growSpeed: 3000 },
+        { x: canvas.width / 4, y: canvas.height - 50, length: 100, width: 6, maxOrder: 8, growSpeed: 3000 },
+        { x: canvas.width * 3 / 4, y: canvas.height - 50, length: 100, width: 6, maxOrder: 8, growSpeed: 3000 },
+        { x: canvas.width / 6, y: canvas.height - 100, length: 60, width: 4, maxOrder: 6, growSpeed: 3000 },
+        { x: canvas.width * 5 / 6, y: canvas.height - 100, length: 60, width: 4, maxOrder: 6, growSpeed: 3000 },
+        { x: canvas.width / 5, y: canvas.height - 70, length: 80, width: 5, maxOrder: 7, growSpeed: 3000 },
+        { x: canvas.width * 4 / 5, y: canvas.height - 70, length: 80, width: 5, maxOrder: 7, growSpeed: 3000 },
+        { x: canvas.width / 3, y: canvas.height - 60, length: 70, width: 5, maxOrder: 7, growSpeed: 3000 },
+        { x: canvas.width * 2 / 3, y: canvas.height - 60, length: 70, width: 5, maxOrder: 7, growSpeed: 3000 },
+        { x: canvas.width / 8, y: canvas.height - 120, length: 50, width: 3, maxOrder: 5, growSpeed: 3000 }
+      ];
+
+      function growNextTree() {
+        if (currentTree < treeConfigs.length) {
+          const config = treeConfigs[currentTree];
+          new FractalTree(
+            canvas,
+            config.x,
+            config.y,
+            config.length,
+            config.width,
+            config.maxOrder,
+            config.growSpeed,
+            5000,  // Sway start delay after tree is fully grown
+            growNextTree  // Callback to grow the next tree
+          );
+          currentTree++;
+        }
+      }
+
+      // Start by growing the first tree
+      growNextTree();
+    }
+
+    window.onload = function() {
+      createForest();
+    };
+  </script>
+</body>
+</html>

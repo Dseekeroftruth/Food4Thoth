@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Fractal Rainbow (Grow, Sway 5x, Expand, Repeat)</title>
+  <style>
+    body { margin: 0; padding: 0; overflow: hidden; background: #222; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+<canvas id="canvasAllDirections"></canvas>
+
+<script>
+class Canvas {
+  constructor(id) {
+    this.elem = document.getElementById(id);
+    this.ctx = this.elem.getContext("2d");
+    this.resize();
+    window.addEventListener("resize", () => this.resize(), false);
+  }
+
+  resize() {
+    this.elem.width = window.innerWidth;
+    this.elem.height = window.innerHeight;
+    this.width = this.elem.width;
+    this.height = this.elem.height;
+  }
+
+  clear() {
+    this.ctx.clearRect(0, 0, this.width, this.height);
+  }
+}
+
+class CyclicalFractal {
+  constructor(canvasId) {
+    this.canvas = new Canvas(canvasId);
+    this.ctx = this.canvas.ctx;
+
+    // Fractal Parameters
+    this.minDepth = 2;  
+    this.maxDepth = 12;  
+    this.currentDepth = this.minDepth;
+    this.targetDepth = this.minDepth + 1; 
+    this.depthDirection = 1;
+
+    this.angle = Math.PI / 4;
+    this.shrinkFactor = 0.7;
+    this.baseBranchLength = 60;
+    this.baseBranchWidth = 4;
+
+    // Animation Timings
+    this.growSpeed = 0.05;  
+    this.swayAmount = 0.3;
+    this.swaySpeed = 2000;
+    this.swayCyclesNeeded = 1;
+    this.swayCycleCount = 0;
+    this.swayAngle = 0;
+    this.runState = "growing";
+
+    console.log("Starting fractal animation...");
+
+    requestAnimationFrame((t) => this.update(t));
+  }
+
+  update(timestamp) {
+    switch (this.runState) {
+      case "growing":
+        this.updateGrowing();
+        break;
+      case "swaying":
+        this.updateSwaying(timestamp);
+        break;
+      case "waitingToGrow":
+        this.chooseNextDepth();
+        this.runState = "growing";
+        break;
+    }
+
+    this.draw();
+    requestAnimationFrame((t) => this.update(t));
+  }
+
+  /**
+   * Now handles both growing and shrinking:
+   */
+  updateGrowing() {
+    // If we're supposed to grow *up* to a larger depth
+    if (this.currentDepth < this.targetDepth) {
+      this.currentDepth += this.growSpeed;
+      if (this.currentDepth >= this.targetDepth) {
+        this.currentDepth = this.targetDepth;
+        console.log("Growth complete. Starting sway...");
+        this.startSwaying();
+      }
+    }
+    // If we're supposed to shrink *down* to a smaller depth
+    else if (this.currentDepth > this.targetDepth) {
+      this.currentDepth -= this.growSpeed;
+      if (this.currentDepth <= this.targetDepth) {
+        this.currentDepth = this.targetDepth;
+        console.log("Shrink complete. Starting sway...");
+        this.startSwaying();
+      }
+    }
+  }
+
+  startSwaying() {
+    this.runState = "swaying";
+    this.swayStartTime = performance.now();
+    this.swayCycleCount = 0;
+  }
+
+  updateSwaying(timestamp) {
+    const elapsed = (timestamp - this.swayStartTime) / this.swaySpeed;
+    this.swayAngle = Math.sin(elapsed * 2 * Math.PI) * this.swayAmount;
+
+    if (elapsed >= (this.swayCycleCount + 1) / this.swayCyclesNeeded) {
+      this.swayCycleCount++;
+      if (this.swayCycleCount >= this.swayCyclesNeeded) {
+        console.log("Sway done, choosing next depth...");
+        this.swayAngle = 0;
+        this.runState = "waitingToGrow";
+      }
+    }
+  }
+
+  chooseNextDepth() {
+    this.targetDepth += this.depthDirection;
+    console.log(`Expanding to depth ${this.targetDepth}`);
+
+    if (this.targetDepth > this.maxDepth) {
+  // Immediately step to (maxDepth - 1)
+  this.targetDepth = this.maxDepth - 1; 
+  this.depthDirection = -1;
+  console.log("Reached max depth, now shrinking...");
+} else if (this.targetDepth < this.minDepth) {
+  // Immediately step to (minDepth + 1)
+  this.targetDepth = this.minDepth + 1;
+  this.depthDirection = 1;
+  console.log("Reached min depth, now expanding...");
+}
+  }
+
+  draw() {
+    this.canvas.clear();
+    const { width, height } = this.canvas;
+    this.ctx.save();
+    this.ctx.translate(width / 2, height / 2);
+
+    // Draw in four directions
+    const directions = [0, Math.PI / 2, Math.PI, (3 * Math.PI) / 2];
+    directions.forEach((dir) => {
+      this.ctx.save();
+      this.ctx.rotate(dir);
+      this.drawBranch(this.baseBranchLength, this.baseBranchWidth, 0);
+      this.ctx.restore();
+    });
+
+    this.ctx.restore();
+  }
+
+  drawBranch(length, width, depth) {
+    if (depth >= Math.floor(this.currentDepth)) return;
+
+    // Outer stroke
+    this.ctx.beginPath();
+    this.ctx.moveTo(0, 0);
+    this.ctx.lineTo(0, -length);
+    this.ctx.lineWidth = width + 2;
+    this.ctx.strokeStyle = this.getRainbowColor(depth, false);
+    this.ctx.stroke();
+
+    // Inner stroke
+    this.ctx.beginPath();
+    this.ctx.moveTo(0, 0);
+    this.ctx.lineTo(0, -length);
+    this.ctx.lineWidth = width;
+    this.ctx.strokeStyle = this.getRainbowColor(depth, true);
+    this.ctx.stroke();
+
+    // Move up
+    this.ctx.translate(0, -length);
+
+    // Sway offset
+    const swayOffset = this.swayAngle;
+
+    // Draw left branch
+    this.ctx.save();
+    this.ctx.rotate(this.angle + swayOffset);
+    this.drawBranch(length * this.shrinkFactor, width * this.shrinkFactor, depth + 1);
+    this.ctx.restore();
+
+    // Draw right branch
+    this.ctx.save();
+    this.ctx.rotate(-this.angle + swayOffset);
+    this.drawBranch(length * this.shrinkFactor, width * this.shrinkFactor, depth + 1);
+    this.ctx.restore();
+  }
+
+  getRainbowColor(depth, isInner) {
+    const hue = (depth * (360 / this.maxDepth)) % 360;
+    return isInner
+      ? `hsl(${hue}, 100%, 60%)`
+      : `hsl(${(hue + 180) % 360}, 100%, 30%)`;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  new CyclicalFractal("canvasAllDirections");
+});
+</script>
+
+</body>
+</html>

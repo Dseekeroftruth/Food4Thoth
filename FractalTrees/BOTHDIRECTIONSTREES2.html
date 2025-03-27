@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fractal Tree - Trailing Effect (Top-Down and Bottom-Up)</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(skyblue, lawngreen);
+      overflow: hidden;
+    }
+
+    .canvas_wrapper {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas for Tree Animation -->
+  <div class="canvas_wrapper">
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <script>
+    // Canvas class to manage canvas element
+    class Canvas {
+      constructor(id) {
+        this.elem = document.getElementById(id);
+        this.ctx = this.elem.getContext('2d');
+        
+        this.elem.width = window.innerWidth;
+        this.elem.height = window.innerHeight;
+        this.width = this.elem.width;
+        this.height = this.elem.height;
+
+        window.addEventListener('resize', this.onWindowResize.bind(this), false);
+      }
+
+      clear() {
+        this.ctx.clearRect(0, 0, this.width, this.height);
+      }
+
+      onWindowResize() {
+        this.elem.width = window.innerWidth;
+        this.elem.height = window.innerHeight;
+        this.width = this.elem.width;
+        this.height = this.elem.height;
+        this.clear();
+      }
+    }
+
+    // FractalTree for bottom-up and top-down behavior
+    class FractalTree {
+      constructor(canvas, x, y, startLength, startWidth, maxOrder, swayStartDelay, growSpeed, direction = 1) {
+        this.canvas = canvas;
+        this.ctx = this.canvas.ctx;
+        this.x = x;
+        this.y = y;
+        this.start_length = startLength;
+        this.start_width = startWidth;
+        this.angle = Math.PI / 2;  // Customize the angle for more variety
+        this.max_order = maxOrder;
+        this.current_order = 0;
+        this.sway_enabled = false;
+        this.sway_angle = 0;
+        this.swayStartDelay = swayStartDelay;
+        this.growSpeed = growSpeed;
+        this.direction = direction; // 1 for bottom-up, -1 for top-down
+
+        this.animateGrowth();
+      }
+
+      animateGrowth() {
+        let startTime = null;
+
+        const grow = (timestamp) => {
+          if (!startTime) startTime = timestamp;
+          const progress = timestamp - startTime;
+          this.current_order = Math.min(this.max_order, Math.floor(this.max_order * (progress / this.growSpeed)));
+
+          this.draw();  // Draw the tree progressively
+
+          if (this.current_order < this.max_order) {
+            requestAnimationFrame(grow);
+          } else {
+            setTimeout(() => {
+              this.sway_enabled = true;
+              this.swayTree();
+            }, this.swayStartDelay);
+          }
+        };
+
+        requestAnimationFrame(grow);
+      }
+
+      swayTree() {
+        const swaySpeed = 2000;
+        const swayAmount = 0.05;
+
+        const sway = (timestamp) => {
+          if (this.sway_enabled) {
+            this.sway_angle = Math.sin(timestamp / swaySpeed) * swayAmount;
+            this.draw();
+            requestAnimationFrame(sway);
+          }
+        };
+
+        requestAnimationFrame(sway);
+      }
+
+      // Draw the tree for bottom-up (direction = 1)
+      drawBottomUp() {
+        this.ctx.save();
+        this.ctx.translate(this.x, this.y);  // Move to the base position of the tree
+        this.ctx.strokeStyle = 'brown';
+
+        this.drawBranch(this.start_length, this.start_width, this.current_order);
+        this.ctx.restore();
+      }
+
+      // Recursive function to draw branches for bottom-up tree
+      drawBranch(length, width, order) {
+        if (order === 0) return;
+
+        // Draw the outline first
+        this.ctx.lineWidth = width + 2;  // Outline width
+        this.ctx.strokeStyle = 'yellow';  // Outline color
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, 0);
+        this.ctx.lineTo(0, -length);
+        this.ctx.stroke();
+
+        // Draw the inner branch
+        this.ctx.lineWidth = width;
+        this.ctx.strokeStyle = 'purple';  // Tree branch color
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, 0);
+        this.ctx.lineTo(0, -length);
+        this.ctx.stroke();
+
+        // Move to the top of the branch
+        this.ctx.translate(0, -length);
+
+        // Apply sway effect if enabled
+        const swayAdjustment = this.sway_enabled ? this.sway_angle : 0;
+
+        // Draw right branch
+        this.ctx.save();
+        this.ctx.rotate(this.angle + swayAdjustment);
+        this.drawBranch(length * 0.7, width * 0.7, order - 1);
+        this.ctx.restore();
+
+        // Draw left branch
+        this.ctx.save();
+        this.ctx.rotate(-this.angle + swayAdjustment);
+        this.drawBranch(length * 0.7, width * 0.7, order - 1);
+        this.ctx.restore();
+      }
+
+      // Draw the tree for top-down (direction = -1)
+      drawTopDown() {
+        this.ctx.save();
+        this.ctx.translate(this.x, this.y);  // Start from given position
+        this.ctx.rotate(Math.PI * this.direction);  // Rotate for top-down
+        this.ctx.strokeStyle = 'brown';
+
+        this.drawBranchTopDown(this.start_length, this.start_width, this.current_order);
+        this.ctx.restore();
+      }
+
+      // Recursive function to draw branches for top-down tree
+      drawBranchTopDown(length, width, order) {
+        if (order === 0) return;
+
+        // Draw the outline first
+        this.ctx.lineWidth = width + 2;  // Outline width
+        this.ctx.strokeStyle = 'yellow';  // Outline color
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, 0);
+        this.ctx.lineTo(0, -length);
+        this.ctx.stroke();
+
+        // Draw the inner branch
+        this.ctx.lineWidth = width;
+        this.ctx.strokeStyle = 'purple';  // Tree branch color
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, 0);
+        this.ctx.lineTo(0, -length);
+        this.ctx.stroke();
+
+        // Move to the top of the current branch
+        this.ctx.translate(0, -length);
+
+        // Apply sway effect if enabled
+        const swayAdjustment = this.sway_enabled ? this.sway_angle : 0;
+
+        // Draw right branch
+        this.ctx.save();
+        this.ctx.rotate(this.angle + swayAdjustment);
+        this.drawBranchTopDown(length * 0.7, width * 0.7, order - 1);
+        this.ctx.restore();
+
+        // Draw left branch
+        this.ctx.save();
+        this.ctx.rotate(-this.angle + swayAdjustment);
+        this.drawBranchTopDown(length * 0.7, width * 0.7, order - 1);
+        this.ctx.restore();
+      }
+
+      // Conditional draw based on direction
+      draw() {
+        if (this.direction === 1) {
+          this.drawBottomUp();  // Bottom-up growth
+        } else {
+          this.drawTopDown();   // Top-down growth
+        }
+      }
+    }
+
+    function createForest() {
+      const canvas = new Canvas('canvas');
+
+      // Bottom-up trees
+      const bottomTreeConfigs = [
+        { x: canvas.width / 2, y: canvas.height, length: 150, width: 10, maxOrder: 10, growSpeed: 1000 },
+        { x: canvas.width / 4, y: canvas.height, length: 100, width: 6, maxOrder: 8, growSpeed: 1000 },
+        { x: canvas.width * 3 / 4, y: canvas.height, length: 100, width: 6, maxOrder: 8, growSpeed: 1000 }
+      ];
+
+      // Top-down trees
+      const topTreeConfigs = [
+        { x: canvas.width / 2, y: 0, length: 150, width: 10, maxOrder: 10, growSpeed: 1000 },
+        { x: canvas.width / 4, y: 0, length: 100, width: 6, maxOrder: 8, growSpeed: 1000 },
+        { x: canvas.width * 3 / 4, y: 0, length: 100, width: 6, maxOrder: 8, growSpeed: 1000 }
+      ];
+
+      // Create bottom-up trees
+      bottomTreeConfigs.forEach(config => {
+        new FractalTree(
+          canvas,
+          config.x,
+          config.y,
+          config.length,
+          config.width,
+          config.maxOrder,
+          5000,
+          config.growSpeed,
+          1  // Bottom-up
+        );
+      });
+
+      // Create top-down trees
+      topTreeConfigs.forEach(config => {
+        new FractalTree(
+          canvas,
+          config.x,
+          config.y,
+          config.length,
+          config.width,
+          config.maxOrder,
+          5000,
+          config.growSpeed,
+          -1  // Top-down
+        );
+      });
+    }
+
+    window.onload = function() {
+      createForest();
+    };
+  </script>
+</body>
+</html>

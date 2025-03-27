@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Fractal in All Directions</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #222;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<canvas id="canvasAllDirections"></canvas>
+
+<script>
+/**
+ * A simple Canvas helper class
+ */
+class Canvas {
+  constructor(id) {
+    this.elem = document.getElementById(id);
+    this.ctx = this.elem.getContext('2d');
+    
+    this.resize();
+    window.addEventListener('resize', () => this.resize(), false);
+  }
+
+  resize() {
+    this.elem.width = window.innerWidth;
+    this.elem.height = window.innerHeight;
+    this.width = this.elem.width;
+    this.height = this.elem.height;
+  }
+
+  clear() {
+    this.ctx.clearRect(0, 0, this.width, this.height);
+  }
+}
+
+/**
+ * Draws 4 fractals from the center, each going in a different direction:
+ *  - Up
+ *  - Right
+ *  - Down
+ *  - Left
+ *
+ * Applies a rainbow color scheme based on recursion depth and
+ * uses a "double stroke" (outer stroke + inner stroke).
+ */
+class FractalRainbowAllDirections {
+  constructor(canvasId) {
+    this.canvas = new Canvas(canvasId);
+    this.ctx = this.canvas.ctx;
+
+    // Fractal parameters (tweak as desired)
+    this.maxDepth = 8;            // how many levels of branching
+    this.branchLength = 100;      // initial branch length
+    this.branchWidth = 10;        // initial branch thickness
+    this.shrinkFactor = 0.7;      // each child branch is 70% of parent
+    this.angle = Math.PI / 4;     // branching angle (45 degrees)
+    
+    // Draw everything once
+    this.draw();
+  }
+
+  /**
+   * Main draw function: clears the canvas, then draws
+   * four fractal "trees" from the center in different directions.
+   */
+  draw() {
+    this.canvas.clear();
+    const { width, height } = this.canvas;
+    const centerX = width / 2;
+    const centerY = height / 2;
+
+    // Save and move to center
+    this.ctx.save();
+    this.ctx.translate(centerX, centerY);
+
+    // Directions (in radians): 0, 90°, 180°, 270°
+    const directions = [ 0, Math.PI / 2, Math.PI, (3 * Math.PI) / 2 ];
+
+    // Draw 4 fractals, each rotated differently
+    directions.forEach(direction => {
+      this.ctx.save();
+      this.ctx.rotate(direction);
+      // For “up” we do negative Y, so we draw upward by default.
+      // But by rotating the canvas, effectively the fractal goes
+      // in all directions (up, right, down, left).
+      this.drawBranch(
+        this.branchLength,
+        this.branchWidth,
+        0 // start at depth 0
+      );
+      this.ctx.restore();
+    });
+
+    this.ctx.restore();
+  }
+
+  /**
+   * Recursively draw a branch.  
+   * @param {number} length - current branch length
+   * @param {number} width  - current branch thickness
+   * @param {number} depth  - current recursion depth
+   */
+  drawBranch(length, width, depth) {
+    // Base case
+    if (depth >= this.maxDepth) return;
+
+    // The line goes from (0,0) to (0, -length)
+    // (we have rotated or translated the context for direction).
+    this.ctx.beginPath();
+    this.ctx.moveTo(0, 0);
+    this.ctx.lineTo(0, -length);
+
+    // 1) Outer stroke (thicker, darker or complementary color)
+    this.ctx.lineWidth = width + 2;
+    this.ctx.strokeStyle = this.getRainbowColor(depth, false /* outer color */);
+    this.ctx.stroke();
+
+    // 2) Inner stroke (slightly thinner, maybe brighter)
+    this.ctx.lineWidth = width;
+    this.ctx.strokeStyle = this.getRainbowColor(depth, true /* inner color */);
+    this.ctx.stroke();
+
+    // Move "up" the branch
+    this.ctx.translate(0, -length);
+
+    // Next recursion depth
+    const newDepth = depth + 1;
+    const newLength = length * this.shrinkFactor;
+    const newWidth = width * this.shrinkFactor;
+
+    // Branch angle adjustments
+    this.ctx.save();
+    this.ctx.rotate(this.angle);
+    this.drawBranch(newLength, newWidth, newDepth);
+    this.ctx.restore();
+
+    this.ctx.save();
+    this.ctx.rotate(-this.angle);
+    this.drawBranch(newLength, newWidth, newDepth);
+    this.ctx.restore();
+  }
+
+  /**
+   * Simple helper to return a rainbow color in HSL format
+   * based on the recursion depth. 
+   * You can tweak the formula for different palettes.
+   *
+   * @param {number} depth        - the current recursion depth
+   * @param {boolean} isInner     - whether this is the "inner" stroke
+   */
+  getRainbowColor(depth, isInner) {
+    const hue = (depth * (360 / this.maxDepth)) % 360;
+    // If you want the outer stroke to be darker or lighter than the inner:
+    if (isInner) {
+      // Brighter, e.g. lightness = 60%
+      return `hsl(${hue}, 100%, 60%)`;
+    } else {
+      // Darker or complementary effect, e.g. lightness = 30%
+      return `hsl(${(hue + 180) % 360}, 100%, 30%)`;
+    }
+  }
+}
+
+// On window load, create our fractal
+window.onload = function() {
+  new FractalRainbowAllDirections('canvasAllDirections');
+};
+</script>
+</body>
+</html>

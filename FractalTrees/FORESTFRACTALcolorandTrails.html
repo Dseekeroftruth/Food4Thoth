@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Combined Fractal Tree Animations</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(skyblue, lawngreen);
+      overflow: hidden;
+    }
+
+    .canvas_wrapper {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas for Tree Animation 1 -->
+  <div class="canvas_wrapper">
+    <canvas id="canvas1"></canvas>
+    <canvas id="canvas2"></canvas>
+    <canvas id="canvas3"></canvas>
+  </div>
+
+  <script>
+    // Canvas class for managing canvas
+    class Canvas {
+      constructor(id) {
+        this.elem = document.getElementById(id);
+        this.ctx = this.elem.getContext('2d');
+        
+        this.elem.width = window.innerWidth;
+        this.elem.height = window.innerHeight;
+        this.width = this.elem.width;
+        this.height = this.elem.height;
+
+        window.addEventListener('resize', this.onWindowResize.bind(this), false);
+      }
+
+      clear() {
+        this.ctx.clearRect(0, 0, this.width, this.height);
+      }
+
+      onWindowResize() {
+        this.elem.width = window.innerWidth;
+        this.elem.height = window.innerHeight;
+        this.width = this.elem.width;
+        this.height = this.elem.height;
+        this.clear();
+      }
+    }
+
+    // FractalTree1 (basic tree)
+    class FractalTree1 {
+      constructor(canvas_id) {
+        this.canvas = new Canvas(canvas_id);
+        this.ctx = this.canvas.ctx;
+        this.start_length = this.canvas.height / 4;
+        this.start_width = 10;
+        this.angle = Math.PI / 5;
+        this.max_order = 10;
+        this.current_order = 0;
+        this.sway_enabled = false;
+        this.sway_angle = 0;
+        this.draw();
+        this.animateGrowth();
+      }
+
+      animateGrowth() {
+        const growSpeed = 500;
+        let startTime = null;
+        const grow = (timestamp) => {
+          if (!startTime) startTime = timestamp;
+          const progress = timestamp - startTime;
+          this.current_order = Math.min(this.max_order, Math.floor(this.max_order * (progress / growSpeed)));
+          this.draw();
+          if (this.current_order < this.max_order) requestAnimationFrame(grow);
+          else this.sway_enabled = true, this.swayTree();
+        };
+        requestAnimationFrame(grow);
+      }
+
+      swayTree() {
+        const swaySpeed = 1000;
+        const swayAmount = 0.02;
+        const sway = (timestamp) => {
+          if (this.sway_enabled) {
+            this.sway_angle = Math.sin(timestamp / swaySpeed) * swayAmount;
+            this.draw();
+            requestAnimationFrame(sway);
+          }
+        };
+        requestAnimationFrame(sway);
+      }
+
+      draw() {
+        this.canvas.clear();
+        this.ctx.save();
+        this.ctx.translate(this.canvas.width / 2, this.canvas.height);
+        this.ctx.strokeStyle = 'pink';
+        this.drawBranch(this.start_length, this.start_width, this.current_order);
+        this.ctx.restore();
+      }
+
+      drawBranch(length, width, order) {
+        if (order === 0) return;
+        this.ctx.lineWidth = width;
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, 0);
+        this.ctx.lineTo(0, -length);
+        this.ctx.stroke();
+        this.ctx.translate(0, -length);
+        const swayAdjustment = this.sway_enabled ? this.sway_angle : 0;
+        this.ctx.save();
+        this.ctx.rotate(this.angle + swayAdjustment);
+        this.drawBranch(length * 0.7, width * 0.7, order - 1);
+        this.ctx.restore();
+        this.ctx.save();
+        this.ctx.rotate(-this.angle + swayAdjustment);
+        this.drawBranch(length * 0.7, width * 0.7, order - 1);
+        this.ctx.restore();
+      }
+    }
+
+    // FractalTree2 (with progressive creation)
+    class FractalTree2 {
+      constructor(canvas, x, y, startLength, startWidth, maxOrder, swayStartDelay, callback) {
+        this.canvas = canvas;
+        this.ctx = this.canvas.ctx;
+        this.x = x;
+        this.y = y;
+        this.start_length = startLength;
+        this.start_width = startWidth;
+        this.angle = Math.PI / 8;
+        this.max_order = maxOrder;
+        this.current_order = 0;
+        this.sway_enabled = false;
+        this.sway_angle = 0;
+        this.swayStartDelay = swayStartDelay;
+        this.callback = callback;
+        this.draw();
+        this.animateGrowth();
+      }
+
+      animateGrowth() {
+        const growSpeed = 500;
+        let startTime = null;
+        const grow = (timestamp) => {
+          if (!startTime) startTime = timestamp;
+          const progress = timestamp - startTime;
+          this.current_order = Math.min(this.max_order, Math.floor(this.max_order * (progress / growSpeed)));
+          this.draw();
+          if (this.current_order < this.max_order) requestAnimationFrame(grow);
+          else this.sway_enabled = true, this.swayTree();
+        };
+        requestAnimationFrame(grow);
+      }
+
+      swayTree() {
+        const swaySpeed = 2000;
+        const swayAmount = 0.05;
+
+        const sway = (timestamp) => {
+          if (this.sway_enabled) {
+            this.sway_angle = Math.sin(timestamp / swaySpeed) * swayAmount;
+            this.draw();
+            requestAnimationFrame(sway);
+          }
+        };
+
+        requestAnimationFrame(sway);
+      }
+
+      draw() {
+        this.canvas.clear();
+
+        this.ctx.save();
+        this.ctx.translate(this.x, this.y);  // Start from given position
+        this.ctx.strokeStyle = 'orange';
+
+        this.drawBranch(this.start_length, this.start_width, this.current_order);
+        this.ctx.restore();
+      }
+
+      drawBranch(length, width, order) {
+        if (order === 0) return;
+        
+        this.ctx.lineWidth = width;
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, 0);
+        this.ctx.lineTo(0, -length);
+        this.ctx.stroke();
+        
+        // Move to the top of the current branch
+        this.ctx.translate(0, -length);
+
+        // Apply sway effect if enabled
+        const swayAdjustment = this.sway_enabled ? this.sway_angle : 0;
+
+        // Draw right branch
+        this.ctx.save();
+        this.ctx.rotate(this.angle + swayAdjustment);  // Right branch with sway
+        this.drawBranch(length * 0.7, width * 0.7, order - 1);
+        this.ctx.restore();
+
+        // Draw left branch
+        this.ctx.save();
+        this.ctx.rotate(-this.angle + swayAdjustment);  // Left branch with sway
+        this.drawBranch(length * 0.7, width * 0.7, order - 1);
+        this.ctx.restore();
+      }
+    }
+
+    // FractalTree3 (with progressive creation)
+    class FractalTree3 {
+      constructor(canvas, x, y, startLength, startWidth, maxOrder, growSpeed, swayStartDelay, callback) {
+        this.canvas = canvas;
+        this.ctx = this.canvas.ctx;
+        this.x = x;
+        this.y = y;
+        this.start_length = startLength;
+        this.start_width = startWidth;
+        this.angle = Math.PI / 2;
+        this.max_order = maxOrder;
+        this.current_order = 0;
+        this.sway_enabled = false;
+        this.sway_angle = 0;
+        this.swayStartDelay = swayStartDelay;
+        this.growSpeed = growSpeed;
+        this.callback = callback;
+        this.treeSize = this.start_length * Math.pow(0.7, this.max_order);
+        this.animateGrowth();
+      }
+
+      animateGrowth() {
+        let startTime = null;
+
+        const grow = (timestamp) => {
+          if (!startTime) startTime = timestamp;
+          const progress = timestamp - startTime;
+          this.current_order = Math.min(this.max_order, Math.floor(this.max_order * (progress / this.growSpeed)));
+
+          this.draw();
+
+          if (this.current_order < this.max_order) {
+            requestAnimationFrame(grow);
+          } else {
+            setTimeout(() => {
+              this.sway_enabled = true;
+              this.swayTree();
+              if (this.callback) this.callback();
+            }, this.swayStartDelay);
+          }
+        };
+
+        requestAnimationFrame(grow);
+      }
+
+      swayTree() {
+        const swaySpeed = 1500;
+        const swayAmount = 0.05;
+
+        const sway = (timestamp) => {
+          if (this.sway_enabled) {
+            this.sway_angle = Math.sin(timestamp / swaySpeed) * swayAmount;
+            this.draw();
+            requestAnimationFrame(sway);
+          }
+        };
+
+        requestAnimationFrame(sway);
+      }
+
+      draw() {
+        this.ctx.save();
+        this.ctx.translate(this.x, this.y);  // Start from given position
+        this.ctx.strokeStyle = 'teal';
+
+        this.drawBranch(this.start_length, this.start_width, this.current_order);
+        this.ctx.restore();
+      }
+
+      drawBranch(length, width, order) {
+        if (order === 0) return;
+      
+        // Draw the outline first
+        this.ctx.lineWidth = width + 2;  // Outline width (slightly larger)
+        this.ctx.strokeStyle = 'yellow';  // Outline color
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, 0);
+        this.ctx.lineTo(0, -length);
+        this.ctx.stroke();
+      
+        // Draw the inner branch
+        this.ctx.lineWidth = width;  // Inner branch width
+        this.ctx.strokeStyle = 'Purple';  // Inner branch color (tree color)
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, 0);
+        this.ctx.lineTo(0, -length);
+        this.ctx.stroke();
+      
+        // Move to the top of the current branch
+        this.ctx.translate(0, -length);
+      
+        // Apply sway effect if enabled
+        const swayAdjustment = this.sway_enabled ? this.sway_angle : 0;
+      
+        // Draw right branch
+        this.ctx.save();
+        this.ctx.rotate(this.angle + swayAdjustment);  // Right branch with sway
+        this.drawBranch(length * 0.7, width * 0.7, order - 1);
+        this.ctx.restore();
+      
+        // Draw left branch
+        this.ctx.save();
+        this.ctx.rotate(-this.angle + swayAdjustment);  // Left branch with sway
+        this.drawBranch(length * 0.7, width * 0.7, order - 1);
+        this.ctx.restore();
+      }
+    }
+
+    // Functions to create forests for each tree class
+    function createForestForTree2() {
+      const canvas = new Canvas('canvas2');
+      let currentTree = 0;
+
+      const treeConfigs = [
+        { x: canvas.width / 2, y: canvas.height, length: 150, width: 10, maxOrder: 10, growSpeed: 500 },
+        { x: canvas.width / 4, y: canvas.height - 50, length: 100, width: 6, maxOrder: 8, growSpeed: 500 },
+        { x: canvas.width * 3 / 4, y: canvas.height - 50, length: 100, width: 6, maxOrder: 8, growSpeed: 500 },
+        { x: canvas.width / 6, y: canvas.height - 100, length: 60, width: 4, maxOrder: 6, growSpeed: 500 }
+      ];
+
+      function growNextTree() {
+        if (currentTree < treeConfigs.length) {
+          const config = treeConfigs[currentTree];
+          new FractalTree2(canvas, config.x, config.y, config.length, config.width, config.maxOrder, 5000, growNextTree);
+          currentTree++;
+        }
+      }
+
+      growNextTree();
+    }
+
+    function createForestForTree3() {
+      const canvas = new Canvas('canvas3');
+      let currentTree = 0;
+
+      const treeConfigs = [
+        { x: canvas.width / 2, y: canvas.height, length: 150, width: 10, maxOrder: 10, growSpeed: 500 },
+        { x: canvas.width / 4, y: canvas.height - 50, length: 100, width: 6, maxOrder: 8, growSpeed: 500 },
+        { x: canvas.width * 3 / 4, y: canvas.height - 50, length: 100, width: 6, maxOrder: 8, growSpeed: 500 },
+        
+      ];
+
+      function growNextTree() {
+        if (currentTree < treeConfigs.length) {
+          const config = treeConfigs[currentTree];
+          new FractalTree3(canvas, config.x, config.y, config.length, config.width, config.maxOrder, config.growSpeed, 0, growNextTree);
+          currentTree++;
+        }
+      }
+
+      growNextTree();
+    }
+
+    // Start all animations on window load
+    window.onload = function() {
+      new FractalTree1('canvas1');
+      createForestForTree2();
+      createForestForTree3();
+    };
+  </script>
+</body>
+</html>
