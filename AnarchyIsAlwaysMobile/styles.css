@@ -1,0 +1,428 @@
+body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .comic-strip {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 10px;
+            max-width: 1200px;
+            margin: 20px auto;
+						padding-top: 30px;
+        }
+
+        .panel {
+            position: relative;
+            border: 2px solid #000;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            padding: 10px;
+						
+        }
+
+        .panel img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .speech-bubble {
+            position: absolute;
+            background: #fff;
+            border: 2px solid #000;
+            padding: 10px;
+            border-radius: 15px;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 18px;
+            line-height: 1.2;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .speech-bubble.top-left {
+            top: 10px;
+            left: 10px;
+        }
+
+        .speech-bubble.top-right {
+            top: 10px;
+            right: 10px;
+        }
+
+        .speech-bubble.bottom-left {
+            bottom: 10px;
+            left: 10px;
+        }
+
+        .speech-bubble.bottom-right {
+            bottom: 10px;
+            right: 10px;
+        }
+				
+				/* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+}
+
+.toggle-button:hover {
+    background-color: black;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+		pointer-events: none; /* This prevents any clicks on it */
+		display: none;
+}
+
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 40px; /* Adjust to stay below the toggle button */
+    left: 10px;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		height: 50%;
+		overflow-y: auto; /* Enable vertical scrolling */
+		
+		
+}
+				
+        .neumorphic-tab {
+					
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: clamp(16px, 1.2vw, 22px);
+						text-align: center;
+        }
+        .neumorphic-tab:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab.active {
+            background: #d1d1d1;
+        }
+				
+				/* Navigation Bar Styling */
+.nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: absolute;
+    
+    background: #f9f9f9;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 5.5rem;
+    z-index: 1000;
+}
+
+/* Navigation Button Styling */
+.nav-button {
+    padding: 5px 15px;
+    background: black;
+    color: white;
+    border: none;
+
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: .8rem;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.nav-button:hover {
+    background-color: #333333;
+    transform: scale(1.05);
+}
+
+ /* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: auto;
+    
+		font-size: 1rem;
+}
+
+.styled-link {
+    color: #ff6600;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: color 0.3s, background-color 0.3s;
+}
+.styled-link:hover {
+    color: #ffffff;
+    background-color: #575757;
+    padding: 2px 5px; /* Optional hover effect */
+    border-radius: 4px; /* Optional for rounded corners */
+}
+
+
+
+
+.logo-animation-container svg {
+    width: 50%; /* Make it responsive */
+    height: 100%;
+		
+		margin-left: 25%;
+		
+
+}
+
+
+
+
+       .path {
+    fill: none;
+    stroke: #00FF00;
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: draw 10s ease-in-out infinite alternate, fadeEffect 20.5s ease-in-out infinite;
+}
+
+/* Animation for the stroke drawing effect */
+@keyframes draw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Animation for fading out and back in */
+@keyframes fadeEffect {
+    0%, 90% {
+        opacity: 1; /* Fully visible */
+    }
+    95% {
+        opacity: 0; /* Fade out quickly */
+    }
+    100% {
+        opacity: 1; /* Fade back in quickly */
+    }
+}
+
+/* Main Section */
+#ask-radical-imagination {
+    background-color: #262626;
+    color: #e0e0e0;
+    padding: 20px;
+    margin: 20px 0;
+    border-left: 5px solid #ff6600;
+    text-align: center;
+    border-radius: 10px;
+		width: auto;
+}
+
+#ask-radical-imagination h3 {
+    color: #ff6600;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+		width: auto;
+}
+
+#ask-radical-imagination p {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+		width: auto;
+}
+
+/* Logo Section */
+.logo-preview {
+    position: relative;
+    margin: 0 auto 20px auto;
+    width: auto;
+    text-align: center;
+}
+
+.logo-preview .logo-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Overlay Details */
+.logo-details {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #e0e0e0;
+    padding: 15px;
+    margin-top: -20px; /* Overlaps the logo */
+    border-radius: 0 0 10px 10px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.logo-details h4 {
+    color: #ff6600;
+    margin-bottom: 8px;
+    font-size: 2rem;
+}
+
+.logo-details h5 {
+    color: #ff6600;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+		text-align: center;
+}
+
+.logo-details ul {
+    list-style: none;
+    padding-left: 5px;
+		font-size: 1rem;
+}
+
+.logo-details ul li {
+    margin: 5px 0;
+    position: relative;
+    padding-left: 2px;
+}
+
+.logo-details ul li::before {
+    content: '•';
+    position: sticky;
+    left: 0;
+    color: #ff6600;
+		font-size: 1.5rem;
+}
+
+/* Call-to-Action */
+.styled-link1 {
+    font-size: 1.4rem;
+    background-color: #ff6600;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+		width: 90%;
+}
+
+.styled-link1:hover {
+    background-color: #e65c00;
+    transform: scale(1.05);
+}
+
+/* Call-to-Action */
+.styled-link3 {
+    font-size: 2rem;
+    background-color: #ff6600;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+		width: 90%;
+}
+
+.styled-link3:hover {
+    background-color: #e65c00;
+    transform: scale(1.05);
+}
+
+.description {
+	font-size: 2rem;
+}		
+
+/* Responsive adjustments for tablets & up */
+@media (min-width: 768px) {
+	
+}
+
+/* For even larger screens, you can tweak further */
+@media (min-width: 1024px) {
+	
+}
+
+/* Styles When Inside an iframe (only applies if JavaScript adds the class) */
+body.iframe-mode {
+    font-size: 16px; /* Reduce font size only for iframe */
+}
+		
+		body.iframe-mode .nav-bar {
+			left: -13px;
+    }
+		
+		body.iframe-mode .speech-bubble {
+			font-size: 15px;
+    }
+
+    body.iframe-mode .nav-button {
+        font-size: 11px;
+    }
+		
+		body.iframe-mode .nav-button {
+        padding: 4px 10px;
+    }
+		
+		body.iframe-mode .toggle-button {
+			top: 10px
+			
+			
+		}
+		
+		body.iframe-mode .toggle-button {
+			font-size: 10px;
+		}
+		
+		.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+
