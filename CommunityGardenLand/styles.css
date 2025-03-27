@@ -1,0 +1,327 @@
+body {
+            margin: 0;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Navigation bar at the top */
+        .navbar {
+            position: flex;
+            top: 0;
+            width: 100%;
+            background-color: #333;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-around;
+            z-index: 10;
+            font-size: 1.2rem;
+						
+        }
+
+        .navbar a {
+            color: white;
+						
+            text-decoration: none;
+            padding: 1rem .9rem;
+        }
+
+        .navbar a:hover {
+            background-color: #555;
+        }
+
+        /* Container for the animation */
+        .animation-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+						top: -38px;
+        }
+
+        /* The "soil" - the foundation of all anarchistic movements (ground) */
+        .ground {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 20vh;
+            background-color: #4b3b30;
+        }
+
+        /* Grass - Symbolizing the growth of early anarchistic ideas */
+        .grass {
+            position: absolute;
+            bottom: 20vh;
+            width: 100%;
+            height: 10vh;
+            background: linear-gradient(to bottom, #77b300, #4b6e00);
+            animation: growGrass 10s linear forwards;
+        }
+
+        .canvas_wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Prevent interference with user inputs */
+}
+
+canvas {
+    display: block;
+    width: 100%; /* Make the canvas scale to fit the wrapper */
+    height: 100%; /* Keep height proportional */
+    background: transparent;
+}
+
+        /* River representing the ongoing flow of ideas */
+        .river {
+            position: absolute;
+            bottom: 5vh;
+            left: 0;
+            width: 100%;
+            height: 5vh;
+            background: linear-gradient(to right, #0059b3, #1a8cff);
+            animation: flowRiver 15s linear infinite;
+        }
+
+        /* Flashing concepts throughout the animation */
+        .flashing-concepts {
+            position: absolute;
+            top: 15%;
+            left: 20%;
+            transform: translateX(-50%);
+            font-size: 4vw; /* Adjusted for responsiveness */
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: flashConcepts 30s linear infinite;
+        }
+
+        .flashing-concepts1 {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 4vw; /* Adjusted for responsiveness */
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: flashConcepts 30s linear infinite;
+        }
+
+        .flashing-concepts2 {
+            position: absolute;
+            top: 45%;
+            left: 80%;
+            transform: translateX(-50%);
+            font-size: 4vw; /* Adjusted for responsiveness */
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: flashConcepts 30s linear infinite;
+        }
+
+        @keyframes growGrass {
+            0% { height: 0; }
+            100% { height: 10vh; }
+        }
+
+        @keyframes flowRiver {
+            0% { background-position: 0; }
+            100% { background-position: 1000px; }
+        }
+
+        @keyframes flashConcepts {
+            0%, 20% { opacity: 0; }
+            25%, 45% { opacity: 1; }
+            50%, 70% { opacity: 0; }
+            75%, 95% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+				/* Toggle Button Styling */
+.toggle-button {
+    position: sticky;
+    top: 35px;
+    left: 10px;
+    padding: 5px 10px;
+    background: grey;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+    z-index: 1000;
+}
+
+.toggle-button:hover {
+    background-color: #555;
+}
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: sticky;
+    top: 70px;
+    right: 5px;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+    max-height: 50vh;
+    overflow-y: auto;
+		text-align: center;
+}
+
+/* Neumorphic Tab Styling */
+.neumorphic-tab {
+    display: inline-block;
+    margin: 2px 2px;
+    padding: 3px 3px;
+    border-radius: 25px;
+    background: #e0e0e0;
+    box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-size: clamp(12px, 1.2vw, 22px);
+}
+
+.neumorphic-tab:hover {
+    box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+}
+
+/* Active State for Neumorphic Tab */
+.neumorphic-tab.active {
+    background: #d1d1d1;
+}
+				
+				/* Responsive adjustments */
+@media (max-width: 768px) {
+    .canvas_wrapper {
+        height: 100vh; /* Reduce canvas height for smaller screens */
+    }
+		
+		.river{
+			height: 15%;
+		}
+		
+		.ground {
+			height: 35%;
+		}
+		
+		@keyframes growGrass {
+            30% { height: 20vh; }
+            100% { height: 20vh; }
+        }
+
+ 
+
+    .flashing-concepts,
+    .flashing-concepts1,
+    .flashing-concepts2 {
+        font-size: 3vw; /* Adjust text size for readability */
+    }
+}
+
+@media (max-width: 480px) {
+    .canvas_wrapper {
+        max-height: 
+				100vh; /* Further reduce canvas height for very small screens */
+    }
+
+    .navbar {
+        flex-direction: row; /* Stack navigation links vertically */
+        align-items: center;
+        font-size: 0.75rem; /* Smaller font size for compact layout */
+        padding: 0.3rem; /* Compact padding */
+    }
+
+    .navbar a {
+        padding: 0.2rem 0.5rem; /* Adjust padding for smaller touch zones */
+        font-size: .5rem; /* Adjust link font size */
+    }
+
+    .flashing-concepts,
+    .flashing-concepts1,
+    .flashing-concepts2 {
+        font-size: 4vw; /* Larger text size for better readability */
+    }
+}
+
+body.iframe-mode {
+    font-size: 7px; /* Reduce font size only for iframe */
+}
+    /* Make sure this doesn't affect normal mobile screens */
+    body.iframe-mode .navbar {
+			
+        font-size: 7px;
+    }
+		
+		body.iframe-mode .navbar {
+			
+        left: -7px;
+    }
+
+    body.iframe-mode .navbar a {
+        margin: 1px 1px;
+    }
+		
+		body.iframe-mode .navbar a {
+        padding: 1px 1px;
+    }
+		
+		body.iframe-mode .navbar a {
+        padding-bottom: 10px;
+    }
+		
+		body.iframe-mode .navbar a {
+        padding-right: 10px;
+    }
+		
+		
+		body.iframe-mode .toggle-button {
+			top: 15px
+			
+		}
+		
+		body.iframe-mode .navigation {
+			top: 80px
+			
+		}
+		
+		body.iframe-mode .toggle-button {
+			font-size: 10px;
+		}
+		
+		.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
