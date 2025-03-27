@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fullscreen GIF</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Prevents scrolling */
+    }
+    
+    html, body {
+      height: 96%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: black; /* Optional background */
+    }
+
+    img {
+			
+      width: 100vw;
+      height: 84vh;
+      object-fit: cover; /* Ensures GIF fills screen without distortion */
+    }
+  </style>
+</head>
+<body>
+  <img src="./IMG_1278.gif" alt="Fullscreen GIF">
+</body>
+</html>
