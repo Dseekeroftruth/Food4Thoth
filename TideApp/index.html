@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tide and Weather (Station ID or Lat|Lon)</title>
+	<!-- Chart.js CDN with local fallback -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  window.Chart || document.write('<script src="./chart.min.js"><\/script>');
+</script>
+	
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; 
+      padding: 0; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center;
+      background-color: #f8f9fa;
+    }
+
+    /* Container maintains aspect ratio */
+.header-container {
+  position: relative;
+  width: 100%;
+  max-width: 250px;
+  aspect-ratio: 1 / 1;
+  margin: 20px auto;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+#video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Ensure both videos are fullscreen within the container */
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 1s ease-in-out; /* Smooth fade transition */
+}
+
+/* Initial video visibility */
+#animation-video {
+  opacity: 1;
+}
+
+#loop-video {
+  opacity: 0; /* Hidden initially, fades in when needed */
+}
+
+    #overlay-text {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 1.5em; 
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      text-align: center;
+      pointer-events: none; 
+    }
+
+ 
+
+    #input-section {
+      margin-top: 10px;
+      text-align: center;
+    }
+    #location-input {
+      width: 300px;
+      font-size: 1rem;
+      padding: 6px;
+      margin: 5px;
+    }
+    #update-btn {
+      font-size: 1rem;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+
+    #chart-container {
+      width: 90%;
+      max-width: 800px;
+      aspect-ratio: 16 / 9;
+    }
+    #recommendation-container {
+      margin: 20px;
+      text-align: center;
+    }
+    .recommendation {
+      font-size: 1.1em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    #summary-container {
+      margin: 20px;
+      text-align: center;
+    }
+    #averages {
+      margin-bottom: 1em;
+    }
+    .preview {
+      padding-bottom: 20px;
+    }
+    iframe {
+      width: 80vw;
+      height: 400px;
+      border: none;
+			margin-bottom: 50px;
+    }
+		
+		h4 {
+      font-style: bold;
+      font-size: 2rem;
+      color: black;
+      text-align: center;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+		
+		/* --- TOGGLE BUTTON FOR NAV --- */
+    .toggle-button {
+      position: fixed;
+      top: 4px;
+      left: 4px;
+      padding: 5px 10px;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 12px;
+      box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+    .toggle-button:hover {
+      background-color: black;
+    }
+    .hidden {
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+      transition: all 0.5s ease;
+      pointer-events: none;
+      display: none;
+    }
+
+    /* --- NEUMORPHIC NAV CONTAINER --- */
+    .navigation {
+      position: fixed;
+      top: 40px; /* Adjust to stay below the toggle button */
+      left: 10px;
+      background-color: #e0e0e0;
+      padding: 5px;
+      border-radius: 15px;
+      box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      z-index: 1000;
+      height: 50%;
+      overflow-y: auto; /* Enable vertical scrolling */
+    }
+    .neumorphic-tab {
+      display: inline-block;
+      margin: 2px 2px;
+      padding: 3px 3px;
+      border-radius: 25px;
+      background: #e0e0e0;
+      box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      font-size: clamp(16px, 1.2vw, 22px);
+      text-align: center;
+    }
+    .neumorphic-tab:hover {
+      box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+    }
+    .neumorphic-tab.active {
+      background: #d1d1d1;
+    }
+		
+		
+    .submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+.footer {
+    text-align: center;
+    position: fixed;
+    bottom: -5px;
+    background-color: black;
+    color: #e0e0e0;
+    width: 100%;
+    font-size: 1rem;
+    padding: 2px 0;  /* Reduce top and bottom padding */
+    margin-top: 0;   /* Ensure no extra space above */
+    line-height: .5;  /* Reduce spacing between text lines */
+}
+.footer a {
+    color: #ff6600;
+    text-decoration: none;
+}
+.footer a:hover {
+    text-decoration: underline;
+}
+		
+  </style>
+</head>
+<body>
+	
+  <button id="toggle-nav" class="toggle-button">☰ Nav</button>
+  <div id="navigation" class="navigation hidden">
+    
+    <a href="../index.html" class="neumorphic-tab">Home</a>
+    
+    <a href="../Donations/index.html" class="neumorphic-tab">Donations Page</a>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-black-business">Black Business Eugene</a>
+    <div id="submenu-black-business" class="submenu hidden">
+      <a href="../BlackBuisnessEugene/index.html" class="neumorphic-tab">Black Business Directory</a>
+      <a href="../BlackBuisnessEugene/blackbusinessformpage.html" class="neumorphic-tab">Black Business Form</a>
+    </div>
+  
+    <a href="#" class="neumorphic-tab" data-expand="submenu-community-garden">Community Gardens</a>
+  <div id="submenu-community-garden" class="submenu hidden">
+    <a href="../CommunityGardensLists/index.html" class="neumorphic-tab">Full List of All Gardens</a>
+    <a href="../CommunityGardenLand/index.html" class="neumorphic-tab">Mobile Landing</a>
+    <a href="../CommunityGardenLand/indexDesktop.html" class="neumorphic-tab">Desktop Landing</a>
+    <a href="../CommunityGardensMaps/indexEugeneMap.html" class="neumorphic-tab">Eugene Garden Map</a>
+     <a href="../CommunityGardensMaps/indexPortlandMap.html" class="neumorphic-tab">Portland Garden Map</a>
+    <a href="../CommunityGardensInfo/index.html" class="neumorphic-tab">Community Garden Info</a>
+    <a href="../CommunityGardensLists/indexEugene.html" class="neumorphic-tab">Eugene Garden List</a>
+    <a href="../CommunityGardensLists/indexPortland.html" class="neumorphic-tab">Portland Garden List</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-visualizers">Sound & Voice Visualizers</a>
+  <div id="submenu-visualizers" class="submenu hidden">
+    <a href="../SoundActivatedVisualizor/index.html" class="neumorphic-tab">Voice Activated Visualizer</a>
+    <a href="../SoundVisualizerWmedia/index.html" class="neumorphic-tab">Sound Visualizer w/Media Loader</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-arp">ARP Synths</a>
+  <div id="submenu-arp" class="submenu hidden">
+    <a href="../ArpAppNoVisualHighFi/index.html" class="neumorphic-tab">ARP App: No Visual (High-Fi)</a>
+    <a href="../ArpAppNoVisualLoFi/index.html" class="neumorphic-tab">ARP App: No Visual (Lo-Fi)</a>
+    <a href="../ArpAppWithVisual/index.html" class="neumorphic-tab">ARP App: With Visual</a>
+    
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-loopstation">Loop Stations</a>
+  <div id="submenu-loopstation" class="submenu hidden">
+    <!-- Animated Music Loopers -->
+    <a href="../Bboy/index.html" class="neumorphic-tab">NoWhere Man Looper</a>
+  
+    <a href="../BJungle/index.html" class="neumorphic-tab">BJungle Looper</a>
+  
+    <!-- Loop Stations -->
+    <a href="../LoopStation/index.html" class="neumorphic-tab">Loop Station</a>
+  
+    <!-- Advanced Loop Stations with Effects -->
+    <a href="../LoopStationHiFi/index.html" class="neumorphic-tab">Loop Station HiFi (Advanced Effects)</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-music">Music Vue Library</a>
+  <div id="submenu-music" class="submenu hidden">
+    <!-- Main Music Library -->
+    <a href="../MusicLibrary/index.html" class="neumorphic-tab">Music Library Lite</a>
+  
+    <!-- Music Library with Visualizer -->
+    <a href="../MusicLibraryVis/index.html" class="neumorphic-tab">Music Library (Visualizer)</a>
+  </div>
+  
+  <!-- Music Collection Section -->
+  <a href="#" class="neumorphic-tab" data-expand="submenu-music_collection">Music Collections</a>
+  <div id="submenu-music_collection" class="submenu hidden">
+    <a href="../DeJahn/index.html" class="neumorphic-tab">DeJahn</a>
+    <a href="../SeekerStar/index.html" class="neumorphic-tab">Seeker & the Star</a>
+    <a href="../GroundCherry/index.html" class="neumorphic-tab">Ground Cherry</a>
+    <a href="../PeruvianMelt/index.html" class="neumorphic-tab">Peruvian Melt</a>
+      <a href="../comingSoon.html" class="neumorphic-tab">Abyss of Bliss</a>
+      
+  <a href="https://www.artabillies.com/inprogression" class="neumorphic-tab">INPROGRESSION Artabillies</a>
+  
+  <a href="https://youtube.com/playlist?list=PLsiMr0_hgaOmqlIGzjHZBzi94yaRgQ38L&si=DMZc6ng8GWx8uMbU" class="neumorphic-tab">INPROGRESSION DVD</a>
+    </div>
+    
+      <a href="../ChooseYourOwnAdventure/prologue.html" class="neumorphic-tab">Choose Your Own Adventure</a>
+  
+   <a href="#" class="neumorphic-tab" data-expand="submenu-games">Games</a>
+  <div id="submenu-games" class="submenu hidden">
+    <a href="../NewSchoolGameKid/index.html" class="neumorphic-tab">New School Game: Kid Sprite</a>
+    <a href="../NewSchoolGameWizard/index.html" class="neumorphic-tab">New School Game: Wizard Sprite</a>
+    <a href="../OldSchoolGameDesktop/index.html" class="neumorphic-tab">Old School Game: Desktop</a>
+    <a href="../OldSchoolGameMobile/index.html" class="neumorphic-tab">Old School Game: Mobile</a>
+    <a href="../TerminalGameTransition/index.html" class="neumorphic-tab">Terminal Transition Game</a>
+    <a href="../bergs-of-life/index.html" class="neumorphic-tab">Bergs of Life</a>
+    <a href="../comingSoon.html" class="neumorphic-tab">SideScroll Game</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-claw-machine">Claw Machine</a>
+  <div id="submenu-claw-machine" class="submenu hidden">
+    <a href="../claw-machine/index.html" class="neumorphic-tab">Claw Machine OG</a>
+    <a href="../claw-machineGame/index.html" class="neumorphic-tab">Claw Machine Enhanced</a>
+  </div>
+  
+    <a href="#" class="neumorphic-tab" data-expand="submenu-glo-calculato">Glo-Calculato</a>
+    <div id="submenu-glo-calculato" class="submenu hidden">
+      <a href="../GloCalculatoLanding/index.html" class="neumorphic-tab">Glo-Calculato Landing</a>
+      <a href="../GloCalculato/index.html" class="neumorphic-tab">Full-Sized Glo-Calculato</a>
+      <a href="../GloCalculatoLanding/GLO-CALCULATO/Glo-Calculato.zip" class="neumorphic-tab">Download Glo-Calculato</a>
+    </div>
+  
+    <a href="#" class="neumorphic-tab" data-expand="submenu-tarot">Tarot</a>
+  <div id="submenu-tarot" class="submenu hidden">
+    <!-- Main Tarot Landing and Learning -->
+    <a href="../TarotLanding/index.html" class="neumorphic-tab">Tarot Orientation Landing</a>
+    <a href="../TarotLanding/HowTo.html" class="neumorphic-tab">How To: Tarot – FOOD4THOTH</a>
+    <a href="../TarotFlipCardGallery/index.html" class="neumorphic-tab">Quick Reference Flip Gallery</a>
+  
+    <!-- General Tarot Decks and Readings -->
+    <a href="../TarotTogetherNoAge/index.html" class="neumorphic-tab">Tarot Card Gallery (3 Decks)</a>
+    <a href="../TarotTogetherNoAge4Decks/index.html" class="neumorphic-tab">Tarot Card Gallery (4 Decks)</a>
+    <a href="../CelticCrossTarot/index.html" class="neumorphic-tab">Celtic Cross Reading</a>
+    <a href="../ThreeCardTarot/index.html" class="neumorphic-tab">Three-Card Tarot w/ Gallery</a>
+    <a href="../ThreeCardTarotByItself/index.html" class="neumorphic-tab">Three-Card Tarot Reading</a>
+  
+    <!-- Cyberpunk and Thematic Tarot Decks -->
+    <a href="../TarotSacredGeometry/index.html" class="neumorphic-tab">Sacred Geometry Tarot</a>
+    <a href="../TarotCyberPunkDark/index.html" class="neumorphic-tab">CyberPunk Dark Tarot</a>
+    <a href="../TarotCyberPunkMelo/index.html" class="neumorphic-tab">CyberPunk Melo Tarot</a>
+    <a href="../TarotOG/index.html" class="neumorphic-tab">OG Tarot w/Voice Commands</a>
+    
+    <!-- Experimental and Custom Decks -->
+    <a href="../EgyptianTarot/index.html" class="neumorphic-tab">Custom Egyptian Major Arcana (1–22)</a>
+    <a href="../EgyptianTarotFull/index.html" class="neumorphic-tab">Custom Sacred Geometry (1–78)</a>
+    <a href="../TarotJungian/index.html" class="neumorphic-tab">Jungian Thoth Tarot Spread</a>
+    <a href="../TarotTextList/index.html" class="neumorphic-tab">Cyberpunk Tarot Text Library</a>
+    
+    <a href="../DrawTarot/index.html" class="neumorphic-tab">All Spreads</a>
+  
+    <!-- Majix Tarot Galleries (Individual Arcana) -->
+    <a href="../MajixLanding/index.html" class="neumorphic-tab">Majix Galleries Landing</a>
+    <a href="../MajixTarotMajor/index.html" class="neumorphic-tab">Majix Major Arcana</a>
+    <a href="../MajixTarotWands/index.html" class="neumorphic-tab">Majix Wands</a>
+    <a href="../MajixTarotCups/index.html" class="neumorphic-tab">Majix Cups</a>
+    <a href="../MajixTarotSwords/index.html" class="neumorphic-tab">Majix Swords</a>
+    <a href="../MajixTarotPentacles/index.html" class="neumorphic-tab">Majix Pentacles</a>
+    <a href="../MajixTarotAll/index.html" class="neumorphic-tab">Majix All Cards</a>
+    
+    <a href="../TarotGalleries/index.html" class="neumorphic-tab">Explore All Galleries</a>
+  
+    <a href="../TarotCrystalQueens/indexAge.html" class="neumorphic-tab">18+ Crystal Queens Tarot</a>
+    <a href="../TarotCyberPunkX/indexAge.html" class="neumorphic-tab">18+ CyberPunk X Tarot</a>
+    <a href="../TarotAgeVerify/index.html" class="neumorphic-tab">FOOD4THOTH 18+ Tarot Gallery</a>
+    
+    <a href="../TarotAllResources/index.html" class="neumorphic-tab">All Resources</a>
+  
+    <!-- Additional Resources -->
+    <a href="../comingSoon.html" class="neumorphic-tab">More Tarot</a>
+    <a href="../parental-controls.html" class="neumorphic-tab">Parental Controls</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-iching">I Ching</a>
+  <div id="submenu-iching" class="submenu hidden">
+    <a href="../Iching/index.html" class="neumorphic-tab">I Ching Simple</a>
+    <a href="../IchingFractal/index.html" class="neumorphic-tab">I Ching Fractal</a>
+    <a href="../IchingPhoto/index.html" class="neumorphic-tab">I Ching Fractal/Photo</a>
+    <a href="../Iching/ichingAnimeLoop.html" class="neumorphic-tab">I Ching Anime Loop</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-hakim-bey">Hakim Bey</a>
+    <div id="submenu-hakim-bey" class="submenu hidden">
+      <a href="../HakimBey/index.html" class="neumorphic-tab">Hakim Bey Anarchy Page</a>
+      <a href="../HakimBey/joinTheMovement.html" class="neumorphic-tab">Anarchy Collective Contact</a>
+    </div>
+  
+    <a href="#" class="neumorphic-tab" data-expand="submenu-hashisheen">Hashisheen Album Reviews</a>
+    <div id="submenu-hashisheen" class="submenu hidden">
+       <a href="../EndOfLawHASHISHEEN/AllHashineenReviews.html" class="neumorphic-tab">Landing Page</a>
+      <a href="../EndOfLawHASHISHEEN/FullAlbumReview.html" class="neumorphic-tab">Full Album Review</a>
+       <a href="../EndOfLawHASHISHEEN/index1.html" class="neumorphic-tab">Hashisheen Album Review (Track 1)</a>
+      <a href="../EndOfLawHASHISHEEN/index2.html" class="neumorphic-tab">Hashisheen Album Review (Track 2)</a>
+      <a href="../EndOfLawHASHISHEEN/index3.html" class="neumorphic-tab">Hashisheen Album Review (Track 3)</a>
+      <a href="../EndOfLawHASHISHEEN/index4.html" class="neumorphic-tab">Hashisheen Album Review (Track 4)</a>
+      <a href="../EndOfLawHASHISHEEN/index5.html" class="neumorphic-tab">Hashisheen Album Review (Track 5)</a>
+      <a href="../EndOfLawHASHISHEEN/index6.html" class="neumorphic-tab">Hashisheen Album Review (Track 6)</a>
+      <a href="../EndOfLawHASHISHEEN/index7.html" class="neumorphic-tab">Hashisheen  Album Review (Track 7)</a>
+      <a href="../EndOfLawHASHISHEEN/index8.html" class="neumorphic-tab">Hashisheen Album Review (Track 8)</a>
+      <a href="../EndOfLawHASHISHEEN/index9.html" class="neumorphic-tab">Hashisheen Album Review (Track 9)</a>
+      <a href="../EndOfLawHASHISHEEN/index10.html" class="neumorphic-tab">Hashisheen Album Review (Track 10)</a>
+      <a href="../EndOfLawHASHISHEEN/index11.html" class="neumorphic-tab">Hashisheen Album Review (Track 11)</a>
+      <a href="../EndOfLawHASHISHEEN/index12.html" class="neumorphic-tab">Hashisheen Album Review (Track 12)</a>
+      <a href="../EndOfLawHASHISHEEN/index13.html" class="neumorphic-tab">Hashisheen Album Review (Track 13)</a>
+      <a href="../EndOfLawHASHISHEEN/index14.html" class="neumorphic-tab">Hashisheen Album Review (Track 14)</a>
+      <a href="../EndOfLawHASHISHEEN/index15.html" class="neumorphic-tab">Hashisheen Album Review (Track 15)</a>
+      <a href="../EndOfLawHASHISHEEN/index16.html" class="neumorphic-tab">Hashisheen Album Review (Track 16)</a>
+      <a href="../EndOfLawHASHISHEEN/index17.html" class="neumorphic-tab">Hashisheen Album Review (Track 17)</a>
+      <a href="../EndOfLawHASHISHEEN/index18.html" class="neumorphic-tab">Hashisheen Album Review (Track 18)</a>
+      <a href="../EndOfLawHASHISHEEN/index19.html" class="neumorphic-tab">Hashisheen Album Review (Track 19)</a>
+      <a href="../EndOfLawHASHISHEEN/index20.html" class="neumorphic-tab">Hashisheen Album Review (Track 20)</a>
+      <a href="../EndOfLawHASHISHEEN/index21.html" class="neumorphic-tab">Hashisheen Album Review (Track 21)</a>
+      <a href="../EndOfLawHASHISHEEN/index22.html" class="neumorphic-tab">Hashisheen Album Review (Track 22)</a>
+      <a href="../comingSoon.html" class="neumorphic-tab">More Reviews</a>
+    </div>
+    
+    <a href="../DrawingFractals/index.html" class="neumorphic-tab">Draw w/Fractals</a>
+    
+    <a href="../RainbowGathering/index.html" class="neumorphic-tab">Rainbow Recordings</a>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-rainbows">Rainbow Reveals & Generators</a>
+  <div id="submenu-rainbows" class="submenu hidden">
+    <!-- Rainbow Reveals -->
+    <a href="../Rainbows4Thoth/Reveal1.html" class="neumorphic-tab">Rainbow Reveal 1</a>
+    <a href="../Rainbows4Thoth/Reveal2.html" class="neumorphic-tab">Rainbow Reveal 2</a>
+    <a href="../Rainbows4Thoth/ListReveal.html" class="neumorphic-tab">Rainbow Reveal List</a>
+  
+    <!-- Rainbow Generators -->
+    <a href="../RainbowFracGenerator/index.html" class="neumorphic-tab">Fractal Generator</a>
+    
+    <a href="../RainbowGenerator/index.html" class="neumorphic-tab">Rainbow Shape Generator</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-mescalito">Mescalito Reveals</a>
+  <div id="submenu-mescalito" class="submenu hidden">
+    <!-- Rainbow Reveals -->
+    <a href="../Mescalito/Reveal1.html" class="neumorphic-tab">Mescalito Reveal 1</a>
+    <a href="../Mescalito/Reveal2.html" class="neumorphic-tab">Mescalito Reveal 2</a>
+    <a href="../Mescalito/ListReveal.html" class="neumorphic-tab">Mescalito Reveal List</a>
+  </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-akashic">Akashic Records</a>
+  <div id="submenu-akashic" class="submenu hidden">
+    <a href="../css-only-3d-image-carousel/index.html" class="neumorphic-tab">Main Landing</a>
+    <a href="../AkashicAsclepiusDeep/index.html" class="neumorphic-tab">Akashic Asclepius Deep</a>
+    <a href="../AkashicAsclepiusLite/index.html" class="neumorphic-tab">Akashic Asclepius Lite</a>
+    <a href="../AkashicEmeraldAsAbove/index.html" class="neumorphic-tab">Akashic Emerald As Above</a>
+    <a href="../AkashicEmeraldDeep/index.html" class="neumorphic-tab">Akashic Emerald Deep</a>
+    <a href="../AkashicEmeraldLite/index.html" class="neumorphic-tab">Akashic Emerald Lite</a>
+    <a href="../AkashicHermiticum/index.html" class="neumorphic-tab">Akashic Hermiticum</a>
+    <a href="../AkashicHymnLite/index.html" class="neumorphic-tab">Akashic Hymn Lite</a>
+    <a href="../AkashicNag/index.html" class="neumorphic-tab">Akashic Nag</a>
+    <a href="../AkashicNag13Codex/index.html" class="neumorphic-tab">Akashic Nag 13 Codex</a>
+    <a href="../AkashicNagTreaties/index.html" class="neumorphic-tab">Akashic Nag Treaties</a>
+    <a href="../AkashicThothDeep/index.html" class="neumorphic-tab">Akashic Thoth Deep</a>
+    <a href="../AkashicThothLite/index.html" class="neumorphic-tab">Akashic Thoth Lite</a>
+    <a href="../comingSoon.html" class="neumorphic-tab">More Records</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-anarchy">Anarchy Comics & Info</a>
+  <div id="submenu-anarchy" class="submenu hidden">
+    <a href="../AnarchyComicBreakFree/index.html" class="neumorphic-tab">Anarchy Comic: Break Free</a>
+    <a href="../AnarchyComicCocoon/index.html" class="neumorphic-tab">Anarchy Comic: Cocoon</a>
+    <a href="../AnarchyDepth/index.html" class="neumorphic-tab">Anarchy Depth</a>
+    <a href="../AnarchyIsAlwaysMobile/index.html" class="neumorphic-tab">Anarchy Is Always Mobile</a>
+    <a href="../AnarchyPoetics/index.html" class="neumorphic-tab">Anarchy Poetics</a>
+    <a href="../AnarchyTAZ/index.html" class="neumorphic-tab">Anarchy TAZ</a>
+    <a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-eyespy">Eye Spy</a>
+  <div id="submenu-eyespy" class="submenu hidden">
+    <a href="../EyeSPY1/index.html" class="neumorphic-tab">Eye Spy Game 20 (1st Edition)</a>
+    <a href="../EyeSPY2/index.html" class="neumorphic-tab">Eye Spy Game 46 (2nd Edition)</a>
+    <a href="../EyeSPY3/index.html" class="neumorphic-tab">Eye Spy Game 66 (3rd Edition)</a>
+    <a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-tide-walk">Tide Walk</a>
+  <div id="submenu-tide-walk" class="submenu hidden">
+    <a href="../TideApp/index.html" class="neumorphic-tab">Tide Walk USA</a>
+    <a href="../TideApp/indexOregon.html" class="neumorphic-tab">Tide Walk Oregon</a>
+    <a href="../TideApp/indexBoston.html" class="neumorphic-tab">Tide Walk Boston</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-trent">Trent</a>
+  <div id="submenu-trent" class="submenu hidden">
+    <a href="../TrentOfTheDay/index.html" class="neumorphic-tab">Trent of the Day</a>
+    <a href="../TrentStorybook1stMobile/index.html" class="neumorphic-tab">Trent Storybook</a>
+    <a href="../TrentStorybook1stMobile/contact.html" class="neumorphic-tab">Contact</a>
+    <a href="../TrentStorybook1stMobile/about.html" class="neumorphic-tab">About</a>
+    <a href="../comingSoon.html" class="neumorphic-tab">Space StoryBook</a>
+  </div>
+  
+  <!-- Prayer Section -->
+  <a href="#" class="neumorphic-tab" data-expand="submenu-prayer">Prayer For Love</a>
+  <div id="submenu-prayer" class="submenu hidden">
+    <a href="../PrayerForLove/index.html" class="neumorphic-tab">Prayer For Love</a>
+    <a href="../PrayerThanks/index.html" class="neumorphic-tab">Thanks & Graditude</a>
+    <a href="../PrayerChildrensStill/index.html" class="neumorphic-tab">Prayer Childrens Still image</a>
+    <a href="../PrayerChildrensFade/index.html" class="neumorphic-tab">Prayer Childrens Fade</a>
+      <a href="../PrayerChildrensFlip/index.html" class="neumorphic-tab">Prayer Childrens Flip</a>
+    </div>
+    
+  <a href="../Haudenosaunee/index.html" class="neumorphic-tab">Haudenosaunee Thanksgiving</a>
+  
+  <a href="../Inprogression/index.html" class="neumorphic-tab">INPROGRESSION</a>
+  
+  <a href="../MindMelt/index.html" class="neumorphic-tab">MindMelt</a>
+  
+  <a href="../behind-the-fold/index.html" class="neumorphic-tab">Behind the Fold</a>
+  
+  <a href="../skating-bunny/index.html" class="neumorphic-tab">Rabbit Hole</a>
+  
+  <!-- Socials Section -->
+  <a href="#" class="neumorphic-tab" data-expand="submenu-socials">Socials</a>
+  <div id="submenu-socials" class="submenu hidden">
+  
+      <!-- FOOD4THOTH Links -->
+      <a href="https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho" class="neumorphic-tab" target="_blank">FOOD4THOTH Instagram</a>
+      <a href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi" class="neumorphic-tab" target="_blank">FOOD4THOTH Facebook</a>
+  
+      <!-- INPROGRESSION Links -->
+      <a href="https://www.facebook.com/share/19M7DM1SrT/?mibextid=wwXIfr" class="neumorphic-tab" target="_blank">INPROGRESSION Facebook</a>
+  
+      <!-- ARTABILLIES Links -->
+      <a href="https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ==" class="neumorphic-tab" target="_blank">ARTABILLIES Instagram</a>
+      <a href="https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi" class="neumorphic-tab" target="_blank">ARTABILLIES Facebook</a>
+      <a href="https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP" class="neumorphic-tab" target="_blank">ARTABILLIES Facebook Group</a>
+      <a href="https://www.artabillies.com/contact-us" class="neumorphic-tab" target="_blank">Contact Artabillies</a>
+      <a href="https://www.artabillies.com/artist-info" class="neumorphic-tab" target="_blank">Artabillies Artists</a>
+      
+  <a href="https://www.facebook.com/share/1A3Puz9LiE/?mibextid=wwXIfr" class="neumorphic-tab">Peruvian Melt Facebook</a>
+  <a href="https://www.facebook.com/share/1ASf9gTHNd/?mibextid=wwXIfr" class="neumorphic-tab">Seeker and the Star Facebook</a>
+  <a href="https://www.facebook.com/share/15JCrs2ByF/?mibextid=wwXIfr" class="neumorphic-tab">INPROGRESSION Facebook</a>
+  <a href="https://www.facebook.com/share/14u1KuMKxKC/?mibextid=wwXIfr" class="neumorphic-tab">Abyss of Bliss Facebook</a>
+  <a href="https://www.facebook.com/share/1A92psCHBz/?mibextid=wwXIfr" class="neumorphic-tab">DeJahn's Facebook</a>
+  
+  <a href="https://www.instagram.com/trent_son_of_reznor?igsh=MTNpam0zZDY3dGludg==" class="neumorphic-tab">Trent's Instagram</a>
+  </div>
+  
+  <!-- Music Collection Section -->
+  <a href="#" class="neumorphic-tab" data-expand="submenu-youtube">YouTube</a>
+  <div id="submenu-youtube" class="submenu hidden">
+    
+    
+  <a href="https://youtube.com/playlist?list=PL2P9hSa1PuEh6kMDZk3VMK7qPYKxECmEX&si=RyjXAR8fyDIKDXjq" class="neumorphic-tab">Artabillies Videos</a>
+  <a href="https://youtube.com/playlist?list=PL2P9hSa1PuEhO0ax57jPofQtKw4q-Ac66&si=SUZaW6uJkIpXOa2a" class="neumorphic-tab">Artabillies Music</a>
+  
+  <a href="https://youtube.com/playlist?list=PLe089QV1U3-LFF_RgkdEC1OobqUnw8G3P&si=efVtCycW88FjotuS" class="neumorphic-tab">Peruvian Melt Playlist</a>
+  <a href="https://youtube.com/playlist?list=PLsiMr0_hgaOmqlIGzjHZBzi94yaRgQ38L&si=DMZc6ng8GWx8uMbU" class="neumorphic-tab">INPROGRESSION DVD</a>
+  <a href="https://youtube.com/playlist?list=PLe089QV1U3-LJfWXtDubFrSggdQrSAtQr&si=HHvg-AxCR9B5K0P1" class="neumorphic-tab">Ground Cherry</a>
+  <a href="https://youtube.com/playlist?list=PLHLqP3bn74o1JZi7PwVssJZmJ6-3eZ-UQ&si=Nm_FdCnyWb1EcZOn" class="neumorphic-tab">DeJahn's Playlist</a>
+  <a href="https://youtube.com/@dejahnlamar3569?si=_lah2UhBbNcV8Y8_" class="neumorphic-tab">DeJahn's YouTube</a>
+  <a href="https://youtube.com/@artabillies8291?si=3aRiP1B0ltfkvCPO" class="neumorphic-tab">Artabillies YouTube</a>
+    </div>
+    
+    
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-rstory">Rstory</a>
+  <div id="submenu-rstory" class="submenu hidden">
+    <!-- Rstory Links -->
+    <a href="https://rstory.io/Dobbs_GATE.html" class="neumorphic-tab">Do You Do Dobbs Gallery</a>
+    <a href="../RstoryArtabillies/index.html" class="neumorphic-tab">Rstory Artabillies & Food4Thoth</a>
+    <!-- Articles & Additional Resources -->
+      <a href="https://hive.blog/crypto/@rstory/artabillies-receives-1m-rstory-gratitude-tokens" class="neumorphic-tab" target="_blank">ARTABILLIES Article</a>
+      <a href="https://rstory.io" class="neumorphic-tab" target="_blank"> Rstory Official Website</a>
+      <a href="https://t.me/+m-WEaUc7Ud8yY2Qx" class="neumorphic-tab" target="_blank">RSTORY Telegram Community</a>
+      <a href="https://github.com/ma-da/rstory" class="neumorphic-tab" target="_blank"> RSTORY GitHub</a>
+  </div>
+  
+  <a href="https://github.com/Dseekeroftruth" class="neumorphic-tab">GitHub</a>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-summary">Summary</a>
+  <div id="submenu-summary" class="submenu hidden">
+    <a href="../CollectiveSummary/index.html" class="neumorphic-tab">Collective Summary 1.0</a>
+    <a href="../CollectiveSummary/index2.html" class="neumorphic-tab">Collective Summary 2.0</a>
+  </div>
+    <a href="../Artabillies/index.html" class="neumorphic-tab">Artabillies Info</a>
+    <a href="https://www.artabillies.com/" class="neumorphic-tab">Artabillies.com</a>
+    <a href="../portfolio.html" class="neumorphic-tab">Portfolio</a>
+    <a href="../comingSoon.html" class="neumorphic-tab">Desktop Landing</a>
+    <a href="../contact.html" class="neumorphic-tab">Contact</a>
+    <a href="mailto:food4thoth@proton.me" class="neumorphic-tab">Email: food4thoth@proton.me</a>
+    <a href="../README.md" class="neumorphic-tab">F4T ReadMe</a>
+  </div>
+
+
+  <!-- HEADER / VIDEO BACKGROUND -->
+<div class="header-container">
+  <div id="video-container">
+    <!-- First Video (Plays Once) -->
+    <video id="animation-video" muted playsinline disablePictureInPicture>
+      <source src="Untitled.MP4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    
+    <!-- Second Video (Loops Forever, Preloaded & Hidden Initially) -->
+    <video id="loop-video" muted playsinline disablePictureInPicture loop>
+      <source src="Untitled1.MP4" type="video/mp4">
+    </video>
+    
+    <h1 id="overlay-text">Tide and Weather Visualization</h1>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const firstVideo = document.getElementById("animation-video");
+    const secondVideo = document.getElementById("loop-video");
+
+    // Ensure second video is preloaded (starts buffering)
+    secondVideo.load();
+
+    firstVideo.addEventListener("ended", function () {
+      // Crossfade: Fade out first video, fade in second video smoothly
+      firstVideo.style.opacity = "0";
+      secondVideo.style.opacity = "1";
+      secondVideo.play(); // Start looping video immediately
+    });
+
+    // Start first video immediately
+    firstVideo.play();
+  });
+</script>
+
+  <!-- LOCATION INPUT SECTION -->
+<div id="input-section">
+  <label for="station-select">Select a NOAA Station (WL+MET):</label>
+  <select id="station-select">
+    <option value="">-- Choose a Station --</option>
+
+    <!-- West Coast -->
+    <option value="9444090">WA - Neah Bay (9444090)</option>
+  
+    <option value="9447130">WA - Seattle (9447130)</option>
+    <option value="9446484">WA - Tacoma (9446484)</option>
+    <option value="9449424">WA - Toke Point (9449424)</option>
+
+   
+    <option value="9431647">OR - Port Orford (9431647)</option>
+    <option value="9432780">OR - Charleston (9432780)</option>
+    <option value="9435380">OR - South Beach (9435380)</option>
+  
+    <option value="9439040">OR - Astoria (9439040)</option>
+
+    <option value="9410170">CA - Crescent City (9410170)</option>
+    <option value="9411406">CA - Humboldt Bay (9411406)</option>
+    <option value="9414290">CA - San Francisco (9414290)</option>
+    <option value="9415020">CA - Alameda (9415020)</option>
+    <option value="9410660">CA - Los Angeles (Outer Harbor) (9410660)</option>
+    <!-- (Optional) Redwood City (9414523) if you want to include it -->
+
+    <!-- East Coast -->
+    <option value="8410140">ME - Eastport (8410140)</option>
+    <option value="8413320">ME - Bar Harbor (8413320)</option>
+    <option value="8418150">ME - Portland (8418150)</option>
+
+    <option value="8443970">MA - Boston (8443970)</option>
+    <option value="8447930">MA - Woods Hole (8447930)</option>
+
+    <option value="8452660">RI - Newport (8452660)</option>
+
+    <option value="8467150">CT - New London (8467150)</option>
+    <option value="8465705">CT - New Haven (8465705)</option>
+
+    <option value="8510560">NY - Montauk (8510560)</option>
+    <option value="8518750">NY - The Battery, NYC (8518750)</option>
+    <option value="8519483">NY - Kings Point (8519483)</option>
+
+    <option value="8531680">NJ - Sandy Hook (8531680)</option>
+    <option value="8534720">NJ - Atlantic City (8534720)</option>
+
+    <option value="8551910">DE - Reedy Point (8551910)</option>
+
+    <option value="8574680">MD - Annapolis (8574680)</option>
+    <option value="8575512">MD - Baltimore (8575512)</option>
+    <option value="8570283">MD - Ocean City (8570283)</option>
+
+    <option value="8632200">VA - Sewells Point (8632200)</option>
+    <option value="8638610">VA - Chesapeake Bay Bridge (8638610)</option>
+    <option value="8638863">VA - Wachapreague (8638863)</option>
+
+    <option value="8651370">NC - Beaufort (8651370)</option>
+    <option value="8656483">NC - Wilmington (8656483)</option>
+    <option value="8658163">NC - Duck (8658163)</option>
+
+    <option value="8665530">SC - Charleston (8665530)</option>
+
+    <option value="8670870">GA - Fort Pulaski (8670870)</option>
+
+    <option value="8720218">FL - Fernandina Beach (8720218)</option>
+  
+    <option value="8721604">FL - Dames Point (8721604)</option>
+    <option value="8722670">FL - Jacksonville (8722670)</option>
+    <option value="8724580">FL - Key West (8724580)</option>
+  </select>
+</div>
+
+  <!-- 2) Manual text input for custom NOAA station or lat|lon -->
+  <p>You may also type a custom NOAA Station ID <br /> (e.g. <strong>9439040</strong>)
+     or lat|lon (e.g. <strong>46.1879|-123.8313</strong>):</p>
+  <input id="location-input" type="text" 
+         placeholder="Station ID or lat|lon">
+  <button id="update-btn">Update Chart</button>
+</div>
+
+  <!-- MAIN CHART -->
+  <div id="chart-container">
+    <canvas id="tideWeatherChart"></canvas>
+  </div>
+
+  <!-- LINKS / NOAA -->
+  <p>
+    <a href="https://tidesandcurrents.noaa.gov/map/index.shtml?lat=44.824708282300236&lng=-123.71704101562501&zoom=8&type=active" target="_blank">NOAA Tides Map</a>
+  </p>
+
+  <!-- RECOMMENDATIONS -->
+  <div id="recommendation-container">
+    <div id="low-tide-recommendation" class="recommendation">Fetching best time to walk...</div>
+    <div id="sunset-tide-recommendation" class="recommendation">Fetching best sunset walk time...</div>
+  </div>
+
+  <!-- SUMMARY / AVERAGES -->
+  <div id="summary-container">
+    <h3>Daily Averages and Sunrise/Sunset</h3>
+    <div id="averages"></div><br /><br />
+    <p><strong>Sunrise Time:</strong> <span id="sunrise-time"></span></p>
+    <p><strong>Sunset Time:</strong> <span id="sunset-time"></span></p>
+  </div>
+
+  <!-- README PREVIEW -->
+  <div class="preview">
+    <h4 onclick="window.open('./README.md', '_blank')">README</h4>
+    <iframe src="./README.md"></iframe>
+  </div>
+
+  <script>
+    /* 
+      ============================
+          1) HELPER CONSTANTS
+      ============================
+    */
+
+    // NOAA Tides
+    const NOAA_API_BASE = "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter";
+    const NOAA_API_PARAMS = {
+      product: "predictions",
+      datum: "MLLW",
+      time_zone: "lst_ldt",
+      units: "metric",
+      interval: 6,     // 6-minute predictions
+      format: "json"
+    };
+
+    // Open-Meteo
+    const OPEN_METEO_API_BASE = "https://api.open-meteo.com/v1/forecast";
+
+    // Stations with BOTH Water Level + Meteorology
+const knownStations = {
+  // =========================
+  //      WEST COAST
+  // =========================
+
+  // ----- Washington -----
+  "9444090": { lat: 48.3685, lon: -124.6112 }, // Neah Bay
+
+  "9447130": { lat: 47.6036, lon: -122.3393 }, // Seattle
+  "9446484": { lat: 47.2806, lon: -122.4577 }, // Tacoma
+  "9449424": { lat: 46.7075, lon: -124.1667 }, // Toke Point
+
+  "9431647": { lat: 42.7438, lon: -124.4987 }, // Port Orford
+  "9432780": { lat: 43.3439, lon: -124.3244 }, // Charleston (Coos Bay)
+  "9435380": { lat: 44.6155, lon: -124.0462 }, // South Beach (Newport)
+ 
+  "9439040": { lat: 46.1879, lon: -123.8313 }, // Astoria
+
+  // ----- California -----
+  "9410170": { lat: 41.7450, lon: -124.1830 }, // Crescent City
+  "9411406": { lat: 40.7667, lon: -124.2170 }, // North Spit (Humboldt Bay)
+  "9414290": { lat: 37.8063, lon: -122.4658 }, // San Francisco
+  "9415020": { lat: 37.7714, lon: -122.2989 }, // Alameda (SF Bay)
+  "9410660": { lat: 33.7206, lon: -118.2702 }, // Los Angeles (Outer Harbor)
+  // (Optional) "9414523": { lat: 37.5083, lon: -122.2017 }, // Redwood City (also has MET)
+
+  // =========================
+  //      EAST COAST
+  // =========================
+
+  // ----- Maine -----
+  "8410140": { lat: 44.9033, lon: -66.9844 }, // Eastport
+  "8413320": { lat: 44.3922, lon: -68.2044 }, // Bar Harbor
+  "8418150": { lat: 43.6577, lon: -70.2486 }, // Portland
+
+  // ----- Massachusetts -----
+  "8443970": { lat: 42.3561, lon: -71.0506 }, // Boston
+  "8447930": { lat: 41.5235, lon: -70.6713 }, // Woods Hole
+
+  // ----- Rhode Island -----
+  "8452660": { lat: 41.5050, lon: -71.3267 }, // Newport
+
+  // ----- Connecticut -----
+  "8467150": { lat: 41.3556, lon: -72.0900 }, // New London
+  "8465705": { lat: 41.2833, lon: -72.9083 }, // New Haven
+
+  // ----- New York -----
+  "8510560": { lat: 41.0483, lon: -71.9600 }, // Montauk
+  "8518750": { lat: 40.7000, lon: -74.0130 }, // The Battery (NYC)
+  "8519483": { lat: 40.8100, lon: -73.7650 }, // Kings Point
+
+  // ----- New Jersey -----
+  "8531680": { lat: 40.4667, lon: -74.0050 }, // Sandy Hook
+  "8534720": { lat: 39.3550, lon: -74.4183 }, // Atlantic City
+
+  // ----- Delaware -----
+  "8551910": { lat: 39.5583, lon: -75.5733 }, // Reedy Point
+
+  // ----- Maryland -----
+  "8574680": { lat: 38.9833, lon: -76.4783 }, // Annapolis
+  "8575512": { lat: 39.2667, lon: -76.5783 }, // Baltimore
+  "8570283": { lat: 38.3283, lon: -75.0917 }, // Ocean City (Inlet)
+
+  // ----- Virginia -----
+  "8632200": { lat: 36.9460, lon: -76.3300 }, // Sewells Point
+  "8638610": { lat: 37.0033, lon: -76.0833 }, // Chesapeake Bay Bridge Tunnel
+  "8638863": { lat: 37.6083, lon: -75.6850 }, // Wachapreague
+
+  // ----- North Carolina -----
+  "8651370": { lat: 34.7177, lon: -76.6700 }, // Beaufort
+  "8656483": { lat: 34.2350, lon: -77.9544 }, // Wilmington
+  "8658163": { lat: 36.1833, lon: -75.7467 }, // Duck
+
+  // ----- South Carolina -----
+  "8665530": { lat: 32.7817, lon: -79.9253 }, // Charleston
+
+  // ----- Georgia -----
+  "8670870": { lat: 32.0333, lon: -80.9017 }, // Fort Pulaski
+
+  // ----- Florida (Atlantic) -----
+  "8720218": { lat: 30.6717, lon: -81.4650 }, // Fernandina Beach
+ 
+  "8721604": { lat: 30.3867, lon: -81.5100 }, // Dames Point (Jacksonville area)
+  "8722670": { lat: 30.3300, lon: -81.6667 }, // Jacksonville
+  "8724580": { lat: 24.5551, lon: -81.8067 }, // Key West
+};
+
+    let chartInstance = null;
+
+    /* 
+      ============================
+       2) HELPER FUNCTIONS
+      ============================
+    */
+
+    // ---------- 2A) NOAA TIDE DATA ----------
+    async function fetchTideData(station, beginDate, endDate) {
+      const params = new URLSearchParams({
+        ...NOAA_API_PARAMS,
+        station,
+        begin_date: beginDate,
+        end_date: endDate,
+      });
+      const response = await fetch(`${NOAA_API_BASE}?${params}`);
+      const data = await response.json();
+      if (!data.predictions) {
+        // No data or invalid station
+        return [];
+      }
+      return data.predictions.map((prediction) => ({
+        time: prediction.t,
+        height: parseFloat(prediction.v),
+        type: prediction.type === "H" ? "high" : "low",
+      }));
+    }
+
+    // ---------- 2B) WEATHER DATA + SUNRISE/SUNSET ----------
+    async function fetchWeatherData(lat, lon, startDate, endDate) {
+      const url = `${OPEN_METEO_API_BASE}?latitude=${lat}&longitude=${lon}` 
+                + `&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m,precipitation_probability`
+                + `&daily=sunrise,sunset&timezone=auto`
+                + `&start_date=${startDate}&end_date=${endDate}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      if (!data.hourly || !data.daily) {
+        return { hourlyData: [], dailyData: null };
+      }
+
+      // Build hourly data array
+      const hourlyData = data.hourly.time.map((time, index) => ({
+        time,
+        tempC: data.hourly.temperature_2m[index],
+        tempF: (data.hourly.temperature_2m[index] * 9) / 5 + 32, // °F
+        windSpeed: data.hourly.windspeed_10m[index],
+        windDir: data.hourly.winddirection_10m[index],
+        precipProb: data.hourly.precipitation_probability[index],
+      }));
+
+      // For simplicity, use the first day’s sunrise/sunset (or whichever you prefer)
+      const dailyData = {
+        sunrise: data.daily.sunrise[0],
+        sunset: data.daily.sunset[0],
+      };
+
+      return { hourlyData, dailyData };
+    }
+
+    // ---------- 2C) RENDER DAILY SUMMARY ----------
+    function updateSummaryContainer(hourlyData, dailyData) {
+      const dailyGroups = hourlyData.reduce((acc, hour) => {
+        const day = new Date(hour.time).toISOString().split("T")[0];
+        if (!acc[day]) acc[day] = [];
+        acc[day].push(hour);
+        return acc;
+      }, {});
+
+      const averagesContainer = document.getElementById("averages");
+      averagesContainer.innerHTML = "";
+
+      let dayIndex = 1;
+      for (const day in dailyGroups) {
+        const dayData = dailyGroups[day];
+        const totalHours = dayData.length;
+
+        const avgWind = dayData.reduce((sum, h) => sum + (h.windSpeed || 0), 0) / totalHours;
+        const avgPrecip = dayData.reduce((sum, h) => sum + (h.precipProb || 0), 0) / totalHours;
+        const avgTempF = dayData.reduce((sum, h) => sum + (h.tempF || 0), 0) / totalHours;
+
+        const dayHTML = `
+          <div>
+            <h4>Day ${dayIndex} (${day})</h4>
+            <p><strong>Avg Wind Speed:</strong> ${avgWind.toFixed(1)} mph</p>
+            <p><strong>Avg Precip. Probability:</strong> ${avgPrecip.toFixed(1)}%</p>
+            <p><strong>Avg Temperature:</strong> ${avgTempF.toFixed(1)} °F</p>
+          </div>
+        `;
+        averagesContainer.innerHTML += dayHTML;
+        dayIndex++;
+      }
+
+      if (dailyData) {
+        // Sunrise / Sunset
+        const sunriseTime = new Date(dailyData.sunrise).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        });
+        const sunsetTime = new Date(dailyData.sunset).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        });
+        document.getElementById("sunrise-time").textContent = sunriseTime;
+        document.getElementById("sunset-time").textContent = sunsetTime;
+      }
+    }
+
+    // ---------- 2D) BEST LOW TIDE TIME ----------
+    function getBestLowTideTime(tideData, weatherData) {
+      if (!tideData.length || !weatherData.length) return null;
+      
+      let bestTime = null;
+      let bestScore = Infinity;
+      const idealTemp = 67.5; // arbitrary "comfortable" temperature
+
+      tideData.forEach((tide) => {
+        if (tide.type !== "low") return; 
+
+        const tideTime = new Date(tide.time).getTime();
+        let closestWeather = null;
+        let closestDiff = Infinity;
+
+        // Find weather hour that’s closest in time
+        weatherData.forEach((w) => {
+          const wTime = new Date(w.time).getTime();
+          const diff = Math.abs(wTime - tideTime);
+          if (diff < closestDiff) {
+            closestDiff = diff;
+            closestWeather = w;
+          }
+        });
+        if (!closestWeather) return;
+
+        // Score each tide event
+        const tempF = closestWeather.tempF || 0;
+        const wind = closestWeather.windSpeed || 0;
+        const precip = closestWeather.precipProb || 0;
+        const tideScore = tide.height; // smaller tide => smaller score
+
+        // Weighted or additive scoring (very rough)
+        const tempScore = Math.abs(tempF - idealTemp);
+        const windScore = wind / 5;          // bigger wind => bigger score
+        const precipScore = precip / 10;     // bigger precip => bigger score
+
+        const totalScore = tempScore + windScore + precipScore + tideScore;
+        if (totalScore < bestScore) {
+          bestScore = totalScore;
+          bestTime = {
+            ...tide,
+            timeObj: new Date(tide.time),
+            tempF: tempF.toFixed(1),
+            wind: wind.toFixed(1),
+            precip: precip.toFixed(1),
+            tideHeight: tide.height.toFixed(2),
+          };
+        }
+      });
+
+      return bestTime;
+    }
+
+    // ---------- 2E) BEST LOW TIDE NEAR SUNSET ----------
+    function getBestSunsetLowTideTime(tideData, sunsetTime) {
+      if (!sunsetTime || !tideData.length) return null;
+
+      const sunset = new Date(sunsetTime).getTime();
+      let bestEvent = null;
+      let bestDiff = Infinity;
+
+      tideData.forEach((tide) => {
+        if (tide.type !== "low") return;
+        const tideTime = new Date(tide.time).getTime();
+        const diff = Math.abs(tideTime - sunset);
+        if (diff < bestDiff) {
+          bestDiff = diff;
+          bestEvent = tide;
+        }
+      });
+
+      return bestEvent
+        ? {
+            ...bestEvent,
+            timeObj: new Date(bestEvent.time),
+          }
+        : null;
+    }
+
+    // ---------- 2F) PARSE USER INPUT ----------
+    // Decide if user typed a station ID or lat|lon
+    function parseLocationInput(rawInput) {
+      const trimmed = rawInput.trim();
+
+      // Check if it contains a pipe => lat|lon
+      if (trimmed.includes("|")) {
+        // Attempt to split
+        const parts = trimmed.split("|").map((p) => p.trim());
+        if (parts.length === 2) {
+          const [latStr, lonStr] = parts;
+          const lat = parseFloat(latStr);
+          const lon = parseFloat(lonStr);
+          if (!isNaN(lat) && !isNaN(lon)) {
+            return { station: null, lat, lon };
+          }
+        }
+        // Return invalid
+        return { station: null, lat: null, lon: null };
+      } else {
+        // No pipe => assume station ID
+        // numeric check
+        if (/^\d+$/.test(trimmed)) {
+          return { station: trimmed, lat: null, lon: null };
+        } 
+        // Otherwise not recognized
+        return { station: null, lat: null, lon: null };
+      }
+    }
+
+    /* 
+      ============================
+       3) MAIN CHART + LOGIC
+      ============================
+    */
+
+    async function updateChart(userInput) {
+      // Parse user input 
+      const { station, lat, lon } = parseLocationInput(userInput);
+
+      // Build date strings for NOAA / Meteo
+      const now = new Date();
+      const todayStr = now.toISOString().split("T")[0]; // YYYY-MM-DD
+      const threeDaysLater = new Date(now.getTime() + 2 * 24 * 60 * 60 * 1000);
+      const threeDaysLaterStr = threeDaysLater.toISOString().split("T")[0];
+
+      // NOAA requires YYYYMMDD
+      const beginDate = todayStr.replace(/-/g, "");
+      const endDate = threeDaysLaterStr.replace(/-/g, "");
+
+      // 1) Figure out final lat/lon for weather
+      let finalLat = lat;
+      let finalLon = lon;
+
+      // If user gave a station but not lat/lon, try knownStations dictionary
+      if (station && knownStations[station]) {
+        finalLat = knownStations[station].lat;
+        finalLon = knownStations[station].lon;
+      }
+
+      // 2) Fetch TIDE data if we have a station
+      let tideData = [];
+      if (station) {
+        try {
+          tideData = await fetchTideData(station, beginDate, endDate);
+        } catch (e) {
+          console.error("Error fetching tide data:", e);
+        }
+      }
+
+      // 3) Fetch WEATHER if we have lat/lon
+      let hourlyData = [];
+      let dailyData = null;
+      if (finalLat != null && finalLon != null) {
+        try {
+          const weatherRes = await fetchWeatherData(finalLat, finalLon, todayStr, threeDaysLaterStr);
+          hourlyData = weatherRes.hourlyData;
+          dailyData = weatherRes.dailyData;
+        } catch (e) {
+          console.error("Error fetching weather data:", e);
+        }
+      }
+
+      // 4) Update summary container
+      updateSummaryContainer(hourlyData, dailyData);
+
+      // 5) Calculate best times
+      let bestTime = null;
+      if (tideData.length && hourlyData.length) {
+        bestTime = getBestLowTideTime(tideData, hourlyData);
+      }
+      const bestSunsetTime = dailyData 
+        ? getBestSunsetLowTideTime(tideData, dailyData.sunset)
+        : null;
+
+      // 6) Update textual recommendations
+      const lowTideEl = document.getElementById("low-tide-recommendation");
+      if (!station) {
+        // If user only gave lat/lon => no tide data
+        lowTideEl.textContent = "No tide data (no station ID provided). Weather only.";
+      } else if (!bestTime) {
+        lowTideEl.textContent = "No suitable low-tide time found or no weather data available.";
+      } else {
+        const tStr = bestTime.timeObj.toLocaleString([], {
+          month: "2-digit",
+          day: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        });
+        lowTideEl.textContent =
+          `Best time to walk: ${tStr} (Tide: ${bestTime.tideHeight} m, ` + 
+          `Temp: ${bestTime.tempF} °F)`;
+      }
+
+      const sunsetEl = document.getElementById("sunset-tide-recommendation");
+      if (!station) {
+        // no station => no tide data
+        sunsetEl.textContent = "No tide data for sunset (no station ID).";
+      } else if (bestSunsetTime) {
+        const sStr = bestSunsetTime.timeObj.toLocaleString([], {
+          month: "2-digit",
+          day: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        });
+        sunsetEl.textContent =
+          `Best sunset walk near: ${sStr} (Low Tide: ${bestSunsetTime.height.toFixed(2)} m)`;
+      } else {
+        sunsetEl.textContent = "No suitable low tide near sunset found.";
+      }
+
+      // 7) Prepare data for chart
+      // We'll plot tide points if station is given,
+      // and overlay weather lines if lat/lon is known.
+      const labelFormatOptions = {
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      };
+
+      const labels = tideData.map((d) => 
+        new Date(d.time).toLocaleString([], labelFormatOptions)
+      );
+      const tideHeights = tideData.map((d) => d.height);
+      const tideColors = tideData.map((d) => (d.type === "high" ? "blue" : "gray"));
+
+      // For each tide timestamp, find closest weather (if any)
+      function findClosestWeather(tideTimeStr) {
+        const t = new Date(tideTimeStr).getTime();
+        let closestW = null;
+        let minDiff = Infinity;
+        hourlyData.forEach((w) => {
+          const wTime = new Date(w.time).getTime();
+          const diff = Math.abs(wTime - t);
+          if (diff < minDiff) {
+            minDiff = diff;
+            closestW = w;
+          }
+        });
+        return closestW;
+      }
+
+      const tempsF = [];
+      const windSpeeds = [];
+      const precipProbs = [];
+
+      tideData.forEach((t) => {
+        const w = findClosestWeather(t.time);
+        if (w) {
+          tempsF.push(w.tempF);
+          windSpeeds.push(w.windSpeed);
+          precipProbs.push(w.precipProb);
+        } else {
+          tempsF.push(null);
+          windSpeeds.push(null);
+          precipProbs.push(null);
+        }
+      });
+
+      // 8) Destroy old chart
+      if (chartInstance) chartInstance.destroy();
+
+      // 9) Create new chart
+      const ctx = document.getElementById("tideWeatherChart").getContext("2d");
+      chartInstance = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels,
+          datasets: [
+            {
+              type: "bar",
+              label: "Tide Height (m)",
+              data: tideHeights,
+              backgroundColor: tideColors,
+              borderColor: "black",
+              borderWidth: 1,
+              yAxisID: "y",
+            },
+            {
+              type: "line",
+              label: "Temperature (°F)",
+              data: tempsF,
+              borderColor: "red",
+              backgroundColor: "red",
+              borderWidth: 2,
+              tension: 0.4,
+              yAxisID: "y1",
+            },
+            {
+              type: "line",
+              label: "Wind Speed (mph)",
+              data: windSpeeds,
+              borderColor: "green",
+              backgroundColor: "green",
+              borderWidth: 2,
+              tension: 0.4,
+              yAxisID: "y1",
+            },
+            {
+              type: "line",
+              label: "Precip. Prob. (%)",
+              data: precipProbs,
+              borderColor: "purple",
+              backgroundColor: "purple",
+              borderWidth: 2,
+              tension: 0.4,
+              yAxisID: "y1",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: { position: "top" },
+            tooltip: {
+              mode: "index",
+              intersect: false,
+              callbacks: {
+                label: function (context) {
+                  const label = context.dataset.label;
+                  const val = context.raw;
+                  if (label === "Tide Height (m)") {
+                    return `Tide: ${val.toFixed(2)} m`;
+                  } else if (label === "Temperature (°F)") {
+                    return `Temp: ${val != null ? val.toFixed(1) : "N/A"} °F`;
+                  } else if (label === "Wind Speed (mph)") {
+                    return `Wind: ${val != null ? val.toFixed(1) : "N/A"} mph`;
+                  } else if (label === "Precip. Prob. (%)") {
+                    return `Precip: ${val != null ? val.toFixed(0) : "N/A"}%`;
+                  }
+                  return `${label}: ${val}`;
+                },
+              },
+            },
+          },
+          scales: {
+            x: {
+              title: { display: true, text: "Date/Time" },
+            },
+            y: {
+              title: { display: true, text: "Tide Height (m)" },
+              beginAtZero: true,
+            },
+            y1: {
+              position: "right",
+              title: { display: true, text: "Weather Metrics" },
+              grid: { drawOnChartArea: false },
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    }
+
+   // Grab references to the dropdown and the text input
+const stationSelect = document.getElementById("station-select");
+const locationInput = document.getElementById("location-input");
+const updateBtn = document.getElementById("update-btn");
+
+function handleInputChange() {
+  const manualInput = locationInput.value.trim();
+  let finalInput = "";
+
+  if (manualInput) {
+    // If there is manual input, reset the dropdown and use manual input
+    stationSelect.value = "";  // Reset the dropdown
+    finalInput = manualInput;
+  } else if (stationSelect.value) {
+    // If no manual input but dropdown has a value, use the dropdown value
+    finalInput = stationSelect.value;
+  } else {
+    alert("Please select a station or enter lat|lon / station ID.");
+    return;
+  }
+
+  updateChart(finalInput);  // Update the chart with the final input
+}
+
+window.onload = () => {
+  // Set default value for the station dropdown
+  stationSelect.value = "9435380";  // Pre-select South Beach, OR in the dropdown
+
+  // Simulate a button click to update the chart
+  updateBtn.click();
+};
+
+// Add event listeners for automatic and manual inputs
+stationSelect.addEventListener("change", handleInputChange);  // Auto-update on dropdown change
+updateBtn.addEventListener("click", handleInputChange);  // Manual update on button click
+      
+      // Attempt to auto-play background video
+      const videoElement = document.getElementById("animation-video");
+      if (videoElement.paused) {
+        videoElement.play().catch(() => {
+          console.warn("Autoplay blocked or error playing video");
+        });
+      }
+      videoElement.blur();
+  </script>
+	
+	<script src="./nav_script.js"></script>
+	
+	<footer class="footer">
+        <p>
+					<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="./README.md"  class="styled-link">ReadMe</a></p>
+    </footer>
+
+</body>
+</html>
