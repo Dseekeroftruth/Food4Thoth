@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+		 
+    <title>Terminal Game in HTML</title>
+		<link rel="preload" href="./sounds/8-bit-heaven-26287.mp3" as="audio">
+<link rel="preload" href="./sounds/sfx_jump_07-80241.mp3" as="audio">
+<link rel="preload" href="./sounds/game-over-38511.mp3" as="audio">
+
+<link rel="prefetch" href="./README.md">
+<link rel="prefetch" href="../OldSchoolGameMobile/index.html">
+<link rel="prefetch" href="../OldSchoolGameDesktop/index.html">
+<link rel="prefetch" href="../NewSchoolGameKid/index.html">
+
+<link rel="stylesheet" href="./styles.css">
+
+<!-- Preload Google Font -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8TnDuT89MKv9Q4U5XmU0gYcs.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    
+    <!-- Standard Google Font Import -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="startScreen">
+            <h1><strong>Welcome to the Terminal Game</strong></h1>
+            <p>Move using the Arrow keys, W/A/S/D keys, or touch/click the screen.</p>
+            <p>Avoid the <span style="color: red;">red squares</span> of doom and collect the <span style="color: green;">green squares</span> of treasure.</p>
+            <p>Collect power-ups for special abilities!</p>
+            <p>Power-ups:</p>
+            <ul>
+                <li><span style="color: orange;">Orange squares</span>: Speed Boost</li>
+                <li><span style="color: blue;">Blue squares</span>: Invincibility</li>
+                <li><span style="color: purple;">Purple squares</span>: Score Multiplier</li>
+            </ul>
+            <p>Every 10 points advances you to a new level with new challenges.</p>
+            <button id="startButton">Start Game</button>
+						<p><a href="../OldSchoolGameDesktop/index.html">Desktop Version</a></p>
+							<p><a href="../NewSchoolGameWizard/index.html">Wizard Version</a></p>
+						<p><a href="../NewSchoolGameKid/index.html">Kid Version</a></p>
+						
+						<footer class="footer">
+        <p>
+					<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="./README.md"  class="styled-link">ReadMe</a></p>
+    </footer>
+        </div>
+        <canvas id="gameCanvas"></canvas>
+    </div>
+    <button id="tryAgain">Try Again</button>
+		
+		<div id="landscapeOverlay" style="display: none;">
+    <div style="text-align: center; font-family: Futura, sans-serif; margin-top: 30%; font-size: 4rem; color: white;">
+        <strong>Please rotate your device to portrait mode.</strong>
+    </div>
+</div>
+    <!-- Audio elements for background music and sound effects -->
+    <audio id="backgroundMusic" loop>
+        <source src="./sounds/8-bit-heaven-26287.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="gemSound">
+        <source src="./sounds/sfx_jump_07-80241.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="gameOverSound">
+        <source src="./sounds/game-over-38511.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+		
+    <script src="./script.js"></script>
+		
+</body>
+</html>
