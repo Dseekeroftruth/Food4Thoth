@@ -1,0 +1,51 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.preload-images {
+    display: none;
+}
+
+body.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+.sprite-animation {
+    width: 100vw;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+		animation: spriteAnimation 10s ease-in-out infinite;
+		
+}
+
+
+
+@keyframes spriteAnimation {
+    0% { background-image: url('images/Untitled.PNG'); }
+    4.17% { background-image: url('images/Untitled2.PNG'); }
+    8.34% { background-image: url('images/Untitled3.PNG'); }
+    12.51% { background-image: url('images/Untitled4.PNG'); }
+    16.68% { background-image: url('images/Untitled5.PNG'); }
+    20.85% { background-image: url('images/Untitled6.PNG'); }
+    25.02% { background-image: url('images/Untitled7.PNG'); }
+    29.19% { background-image: url('images/Untitled8.PNG'); }
+    33.36% { background-image: url('images/Untitled9.PNG'); }
+    37.53% { background-image: url('images/Untitled10.PNG'); }
+    41.7% { background-image: url('images/Untitled11.PNG'); }
+    45.87% { background-image: url('images/Untitled12.PNG'); }
+    50.04% { background-image: url('images/Untitled13.PNG'); }
+    54.21% { background-image: url('images/Untitled14.PNG'); }
+    58.38% { background-image: url('images/Untitled15.PNG'); }
+    62.55% { background-image: url('images/Untitled16.PNG'); }
+    66.72% { background-image: url('images/Untitled17.PNG'); }
+    70.89% { background-image: url('images/Untitled18.PNG'); }
+    77.92% { background-image: url('images/Untitled24.PNG'); }
+}

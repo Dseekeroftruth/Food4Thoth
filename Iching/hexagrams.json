@@ -1,0 +1,1348 @@
+{
+  "hexagrams": [
+    {
+      "number": 1,
+      "name": "Qian",
+      "description": "The Creative. Heaven above, Heaven below. Symbolizes strength, creativity, and dynamic action.",
+      "lines": {
+        "1": "The first line: Hidden dragon. Do not act.",
+        "2": "The second line: The dragon appears in the field. It furthers one to see the great man.",
+        "3": "The third line: All day long the superior man is creatively active.",
+        "4": "The fourth line: Wavering flight over the depths.",
+        "5": "The fifth line: Flying dragon in the sky.",
+        "6": "The sixth line: Arrogant dragon will have cause to repent."
+      },
+      "changingLines": {
+        "1": "If the first line changes: The hidden dragon. Do not act.",
+        "2": "If the second line changes: The dragon appears in the field.",
+        "3": "If the third line changes: All day long the superior man.",
+        "4": "If the fourth line changes: Wavering flight.",
+        "5": "If the fifth line changes: Flying dragon in the sky.",
+        "6": "If the sixth line changes: Arrogant dragon."
+      }
+    },
+    {
+      "number": 2,
+      "name": "Kun",
+      "description": "The Receptive. Earth above, Earth below. Represents receptiveness, yielding, and nurturing.",
+      "lines": {
+        "1": "The first line: When there is hoarfrost underfoot, solid ice is not far off.",
+        "2": "The second line: Straight, square, great. Without purpose, yet nothing remains unfurthered.",
+        "3": "The third line: Hidden lines. One acts with confidence.",
+        "4": "The fourth line: The tied-up sack. No blame.",
+        "5": "The fifth line: A yellow coat. Supreme good fortune.",
+        "6": "The sixth line: Dragons fight in the meadow. Their blood is black and yellow."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Solid ice is not far off.",
+        "2": "If the second line changes: Straight, square, great.",
+        "3": "If the third line changes: One acts with confidence.",
+        "4": "If the fourth line changes: No blame.",
+        "5": "If the fifth line changes: Supreme good fortune.",
+        "6": "If the sixth line changes: Dragons fight in the meadow."
+      }
+    },
+    {
+      "number": 3,
+      "name": "Zhun",
+      "description": "Difficulty at the Beginning. Water above, Thunder below. Symbolizes growth, initial difficulties, and perseverance.",
+      "lines": {
+        "1": "The first line: Hesitation and hindrance.",
+        "2": "The second line: Difficulties. Hold back and wait.",
+        "3": "The third line: A day of seeking the path.",
+        "4": "The fourth line: Perseverance brings success.",
+        "5": "The fifth line: Deliverance.",
+        "6": "The sixth line: Troubles vanish."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Hesitation leads to progress.",
+        "2": "If the second line changes: Enduring difficulties.",
+        "3": "If the third line changes: Seek allies for support.",
+        "4": "If the fourth line changes: Stay steadfast.",
+        "5": "If the fifth line changes: Deliverance from difficulty.",
+        "6": "If the sixth line changes: Overcoming obstacles."
+      }
+    },
+    {
+      "number": 4,
+      "name": "Meng",
+      "description": "Youthful Folly. Mountain above, Water below. Symbolizes inexperience, learning, and growth.",
+      "lines": {
+        "1": "The first line: Seeking guidance.",
+        "2": "The second line: Seek advice but maintain independence.",
+        "3": "The third line: Avoid overconfidence.",
+        "4": "The fourth line: Learning brings progress.",
+        "5": "The fifth line: Teach others to be self-reliant.",
+        "6": "The sixth line: Maturity brings wisdom."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Wisdom comes with patience.",
+        "2": "If the second line changes: Balance advice and action.",
+        "3": "If the third line changes: Avoid rash decisions.",
+        "4": "If the fourth line changes: Progress through learning.",
+        "5": "If the fifth line changes: Nurture growth in others.",
+        "6": "If the sixth line changes: Wisdom achieved."
+      }
+    },
+    {
+      "number": 5,
+      "name": "Xu",
+      "description": "Waiting. Water above, Heaven below. Symbolizes patience, preparation, and trust in the natural flow.",
+      "lines": {
+        "1": "The first line: Waiting in the meadow.",
+        "2": "The second line: Waiting on the sand.",
+        "3": "The third line: Waiting at the mud.",
+        "4": "The fourth line: Waiting in the blood.",
+        "5": "The fifth line: Waiting with trust and calm.",
+        "6": "The sixth line: Hesitation gives way to clarity."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Patience in quiet places.",
+        "2": "If the second line changes: Be firm and steady.",
+        "3": "If the third line changes: Clear away confusion.",
+        "4": "If the fourth line changes: Confidence amid adversity.",
+        "5": "If the fifth line changes: Peaceful waiting.",
+        "6": "If the sixth line changes: Clarity achieved."
+      }
+    },
+    {
+      "number": 6,
+      "name": "Song",
+      "description": "Conflict. Heaven above, Water below. Symbolizes disputes, challenges, and resolution through proper conduct.",
+      "lines": {
+        "1": "The first line: Avoidance of conflict is wise.",
+        "2": "The second line: Stepping forward boldly.",
+        "3": "The third line: Caution in difficult situations.",
+        "4": "The fourth line: Seeking resolution.",
+        "5": "The fifth line: Finding balance amidst conflict.",
+        "6": "The sixth line: Compromise leads to harmony."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Avoid unnecessary conflict.",
+        "2": "If the second line changes: Bold action leads to clarity.",
+        "3": "If the third line changes: Caution is rewarded.",
+        "4": "If the fourth line changes: Seek peaceful resolution.",
+        "5": "If the fifth line changes: Balance resolves conflict.",
+        "6": "If the sixth line changes: Harmony through compromise."
+      }
+    },
+    {
+      "number": 7,
+      "name": "Shi",
+      "description": "The Army. Earth above, Water below. Symbolizes discipline, leadership, and strategic action.",
+      "lines": {
+        "1": "The first line: Gather the troops.",
+        "2": "The second line: Command with care.",
+        "3": "The third line: Order and discipline.",
+        "4": "The fourth line: Strategic withdrawal.",
+        "5": "The fifth line: Clear goals ensure victory.",
+        "6": "The sixth line: Success through unity."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Strength in unity.",
+        "2": "If the second line changes: Lead with wisdom.",
+        "3": "If the third line changes: Maintain order.",
+        "4": "If the fourth line changes: Adapt to change.",
+        "5": "If the fifth line changes: Clarity of purpose.",
+        "6": "If the sixth line changes: Unity brings success."
+      }
+    },
+    {
+      "number": 8,
+      "name": "Bi",
+      "description": "Holding Together. Water above, Earth below. Symbolizes unity, loyalty, and the strength of alliances.",
+      "lines": {
+        "1": "The first line: Mutual attraction.",
+        "2": "The second line: Deep bonds bring strength.",
+        "3": "The third line: Establish trust in relationships.",
+        "4": "The fourth line: Firmness in unity.",
+        "5": "The fifth line: Leaders unify the group.",
+        "6": "The sixth line: Collective strength."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Attraction leads to union.",
+        "2": "If the second line changes: Bonds foster success.",
+        "3": "If the third line changes: Trust fortifies unity.",
+        "4": "If the fourth line changes: Strength through firmness.",
+        "5": "If the fifth line changes: Unity under strong leadership.",
+        "6": "If the sixth line changes: Strengthened collective effort."
+      }
+    },
+    {
+      "number": 9,
+      "name": "Xiao Chu",
+      "description": "The Taming Power of the Small. Wind above, Heaven below. Symbolizes restraint, subtle influence, and gentle power.",
+      "lines": {
+        "1": "The first line: Restraint in action.",
+        "2": "The second line: Subtlety prevails.",
+        "3": "The third line: Focus on the essentials.",
+        "4": "The fourth line: Maintain calm in adversity.",
+        "5": "The fifth line: Balance strength with caution.",
+        "6": "The sixth line: Success through restraint."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Hold back for now.",
+        "2": "If the second line changes: Subtle influence guides.",
+        "3": "If the third line changes: Focus sharpens results.",
+        "4": "If the fourth line changes: Calm amidst chaos.",
+        "5": "If the fifth line changes: Strength in caution.",
+        "6": "If the sixth line changes: Restraint leads to success."
+      }
+    },
+    {
+      "number": 10,
+      "name": "Lu",
+      "description": "Treading. Heaven above, Lake below. Symbolizes caution, careful advancement, and integrity.",
+      "lines": {
+        "1": "The first line: Stepping cautiously.",
+        "2": "The second line: Progress with balance.",
+        "3": "The third line: Do not provoke.",
+        "4": "The fourth line: Walking with grace.",
+        "5": "The fifth line: Inner strength guides.",
+        "6": "The sixth line: Bold steps lead to success."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Caution is wisdom.",
+        "2": "If the second line changes: Balance in all things.",
+        "3": "If the third line changes: Avoid unnecessary conflict.",
+        "4": "If the fourth line changes: Graceful movement.",
+        "5": "If the fifth line changes: Strength in reserve.",
+        "6": "If the sixth line changes: Boldness achieves goals."
+      }
+    },
+    {
+      "number": 11,
+      "name": "Tai",
+      "description": "Peace. Heaven above, Earth below. Represents harmony, prosperity, and the union of opposites.",
+      "lines": {
+        "1": "The first line: Pulling up thatch grass with its roots. Bringing people together.",
+        "2": "The second line: Letting things take their natural course brings good fortune.",
+        "3": "The third line: There is no level ground. Peace is uncertain.",
+        "4": "The fourth line: Staying aligned with the natural order ensures progress.",
+        "5": "The fifth line: The sovereign gives peace to all under heaven.",
+        "6": "The sixth line: Overstepping boundaries leads to danger."
+      },
+      "changingLines": {
+        "1": "If the first line changes: The root of community lies in pulling together.",
+        "2": "If the second line changes: Letting nature take its course brings harmony.",
+        "3": "If the third line changes: Stay vigilant in peaceful times.",
+        "4": "If the fourth line changes: Align with natural order for progress.",
+        "5": "If the fifth line changes: The wise leader brings peace to all.",
+        "6": "If the sixth line changes: Beware of overstepping boundaries."
+      }
+    },
+    {
+      "number": 12,
+      "name": "Pi",
+      "description": "Stagnation. Heaven above, Earth below. Indicates an obstruction, a time of separation, or lack of communication.",
+      "lines": {
+        "1": "The first line: Pulling the grass to uproot the others. Good beginnings.",
+        "2": "The second line: Perseverance in adversity brings small gains.",
+        "3": "The third line: They bear shame. Avoid conflict.",
+        "4": "The fourth line: Finding small joys amidst difficulty.",
+        "5": "The fifth line: Great fortune in enduring difficulties.",
+        "6": "The sixth line: The stagnation ends. New opportunities arise."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Pulling the roots of stagnation clears the way.",
+        "2": "If the second line changes: Small progress in adversity.",
+        "3": "If the third line changes: Avoid conflict during stagnant times.",
+        "4": "If the fourth line changes: Seek small joys amidst difficulties.",
+        "5": "If the fifth line changes: Great fortune comes through endurance.",
+        "6": "If the sixth line changes: End of stagnation, embrace new opportunities."
+      }
+    },
+    {
+      "number": 13,
+      "name": "Tong Ren",
+      "description": "Fellowship with Men. Heaven above, Fire below. Represents community, harmony, and collaboration towards a common goal.",
+      "lines": {
+        "1": "The first line: Fellowship outside the door. Avoid haste.",
+        "2": "The second line: Fellowship with kindred spirits.",
+        "3": "The third line: Fellowships on the wrong path can lead to discord.",
+        "4": "The fourth line: Great fellowship beyond personal interests.",
+        "5": "The fifth line: Fellowship that brings harmony to all.",
+        "6": "The sixth line: Fellowship with honesty and openness."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Avoid haste in forming connections.",
+        "2": "If the second line changes: True fellowship aligns with kindred spirits.",
+        "3": "If the third line changes: Avoid fellowships on the wrong path.",
+        "4": "If the fourth line changes: Seek fellowship beyond personal interests.",
+        "5": "If the fifth line changes: Harmony comes from inclusive fellowship.",
+        "6": "If the sixth line changes: Fellowship thrives on honesty and openness."
+      }
+    },
+    {
+      "number": 14,
+      "name": "Da You",
+      "description": "Possession in Great Measure. Fire above, Heaven below. Symbolizes abundance, generosity, and the responsible use of wealth.",
+      "lines": {
+        "1": "The first line: No competition, only mutual benefit.",
+        "2": "The second line: Cultivating inner riches.",
+        "3": "The third line: Guarding one’s possessions carefully.",
+        "4": "The fourth line: Sharing abundance freely with others.",
+        "5": "The fifth line: Greatness is maintained through humility.",
+        "6": "The sixth line: Generosity creates lasting abundance."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Benefit comes from collaboration, not competition.",
+        "2": "If the second line changes: Inner riches outweigh material wealth.",
+        "3": "If the third line changes: Guard possessions, but do not hoard.",
+        "4": "If the fourth line changes: Freely sharing brings joy.",
+        "5": "If the fifth line changes: Greatness requires humility.",
+        "6": "If the sixth line changes: Lasting abundance stems from generosity."
+      }
+    },
+    {
+      "number": 15,
+      "name": "Qian",
+      "description": "Modesty. Earth above, Mountain below. Represents humility, self-restraint, and the ability to adapt to different circumstances.",
+      "lines": {
+        "1": "The first line: Humility and effort bring good fortune.",
+        "2": "The second line: Modesty when given responsibility.",
+        "3": "The third line: Holding firm to modest principles.",
+        "4": "The fourth line: Modesty leads to perseverance.",
+        "5": "The fifth line: Wisdom lies in humility.",
+        "6": "The sixth line: Modesty in greatness leads to success."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Effort combined with humility brings fortune.",
+        "2": "If the second line changes: Take responsibility with a modest heart.",
+        "3": "If the third line changes: Adhere to modest principles.",
+        "4": "If the fourth line changes: Modesty paves the way for perseverance.",
+        "5": "If the fifth line changes: Wisdom is found in humility.",
+        "6": "If the sixth line changes: Success grows from modesty in greatness."
+      }
+    },
+    {
+      "number": 16,
+      "name": "Yu",
+      "description": "Enthusiasm. Thunder above, Earth below. Represents motivation, joy, and the energy to move forward with plans.",
+      "lines": {
+        "1": "The first line: Enthusiasm in a safe environment.",
+        "2": "The second line: Gather allies to support your enthusiasm.",
+        "3": "The third line: Too much enthusiasm can lead to recklessness.",
+        "4": "The fourth line: Balance enthusiasm with caution.",
+        "5": "The fifth line: The source of enthusiasm comes from within.",
+        "6": "The sixth line: True enthusiasm aligns with the greater good."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Let enthusiasm grow in safety.",
+        "2": "If the second line changes: Support enthusiasm with like-minded people.",
+        "3": "If the third line changes: Avoid recklessness through self-control.",
+        "4": "If the fourth line changes: Caution tempers enthusiasm.",
+        "5": "If the fifth line changes: Inner strength fuels enthusiasm.",
+        "6": "If the sixth line changes: Enthusiasm must align with the greater good."
+      }
+    },
+    {
+      "number": 17,
+      "name": "Sui",
+      "description": "Following. Lake above, Thunder below. Symbolizes adaptability, following the natural order, and harmony through flexibility.",
+      "lines": {
+        "1": "The first line: Choosing the right path to follow.",
+        "2": "The second line: Follow with loyalty and dedication.",
+        "3": "The third line: Changes require caution and adaptability.",
+        "4": "The fourth line: Following brings insight.",
+        "5": "The fifth line: Following leads to leadership.",
+        "6": "The sixth line: Following with understanding brings peace."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Choose the path wisely.",
+        "2": "If the second line changes: Loyalty fosters success.",
+        "3": "If the third line changes: Adaptability is key in changing situations.",
+        "4": "If the fourth line changes: Insight comes from following truthfully.",
+        "5": "If the fifth line changes: Through following, one becomes a leader.",
+        "6": "If the sixth line changes: Understanding leads to peaceful following."
+      }
+    },
+    {
+      "number": 18,
+      "name": "Gu",
+      "description": "Work on What Has Been Spoiled. Mountain above, Wind below. Represents repairing past mistakes, rejuvenation, and rectifying errors.",
+      "lines": {
+        "1": "The first line: Clearing away the remnants of decay.",
+        "2": "The second line: Correcting family errors.",
+        "3": "The third line: Working to eliminate corruption.",
+        "4": "The fourth line: Begin a new project after removing obstacles.",
+        "5": "The fifth line: Bravery in correcting past wrongs.",
+        "6": "The sixth line: Reflect on the work done to improve further."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Remove what no longer serves.",
+        "2": "If the second line changes: Correct mistakes to restore harmony.",
+        "3": "If the third line changes: Fight corruption with diligence.",
+        "4": "If the fourth line changes: Begin anew after clearing obstacles.",
+        "5": "If the fifth line changes: Bravery brings change.",
+        "6": "If the sixth line changes: Reflect for continued improvement."
+      }
+    },
+    {
+      "number": 19,
+      "name": "Lin",
+      "description": "Approach. Earth above, Lake below. Symbolizes progress, growth, and benevolent leadership.",
+      "lines": {
+        "1": "The first line: Approach with respect and humility.",
+        "2": "The second line: Approach brings good fortune.",
+        "3": "The third line: Approach requires caution.",
+        "4": "The fourth line: Confidence in the approach.",
+        "5": "The fifth line: Inspiring others through approach.",
+        "6": "The sixth line: Approach completed successfully."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Approach humbly.",
+        "2": "If the second line changes: Good fortune in approach.",
+        "3": "If the third line changes: Caution leads to a successful approach.",
+        "4": "If the fourth line changes: Confidence strengthens approach.",
+        "5": "If the fifth line changes: Inspire others through approach.",
+        "6": "If the sixth line changes: Completion brings peace."
+      }
+    },
+    {
+      "number": 20,
+      "name": "Guan",
+      "description": "Contemplation. Wind above, Earth below. Represents reflection, insight, and the power of observation.",
+      "lines": {
+        "1": "The first line: Observing details reveals greater truths.",
+        "2": "The second line: Clarity comes through focused contemplation.",
+        "3": "The third line: Observation fosters understanding.",
+        "4": "The fourth line: Observe the world with an open mind.",
+        "5": "The fifth line: Insight comes from deep reflection.",
+        "6": "The sixth line: True understanding transcends the self."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Details reveal the greater picture.",
+        "2": "If the second line changes: Focus brings clarity.",
+        "3": "If the third line changes: Understanding grows from observation.",
+        "4": "If the fourth line changes: Open-mindedness enriches observation.",
+        "5": "If the fifth line changes: Deep reflection leads to insight.",
+        "6": "If the sixth line changes: Transcendence through understanding."
+      }
+    },
+    {
+      "number": 21,
+      "name": "Shi He",
+      "description": "Biting Through. Fire above, Thunder below. Symbolizes justice, resolution, and the need for decisive action.",
+      "lines": {
+        "1": "The first line: Be careful not to overreact.",
+        "2": "The second line: Moderate action leads to resolution.",
+        "3": "The third line: Clear away obstacles with care.",
+        "4": "The fourth line: Approach conflicts with discernment.",
+        "5": "The fifth line: Justice requires both firmness and fairness.",
+        "6": "The sixth line: Be aware of the consequences of action."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Avoid overreaction.",
+        "2": "If the second line changes: Moderate actions bring results.",
+        "3": "If the third line changes: Careful actions clear obstacles.",
+        "4": "If the fourth line changes: Use discernment in conflicts.",
+        "5": "If the fifth line changes: Justice requires balance.",
+        "6": "If the sixth line changes: Consider the consequences."
+			}
+    },
+    {
+      "number": 22,
+      "name": "Bi",
+      "description": "Grace. Mountain above, Fire below. Symbolizes beauty, refinement, and the importance of inner worth over external appearance.",
+      "lines": {
+        "1": "The first line: Simple grace. No embellishments are necessary.",
+        "2": "The second line: Graceful and modest, not seeking attention.",
+        "3": "The third line: Striving for grace without vanity.",
+        "4": "The fourth line: Grace in movement, showing inner balance.",
+        "5": "The fifth line: Grace in simplicity. True beauty lies within.",
+        "6": "The sixth line: Grace adorned. A warning against excessive focus on appearance."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Simplicity is the essence of true grace.",
+        "2": "If the second line changes: Modesty enhances inner beauty.",
+        "3": "If the third line changes: Vanity leads away from grace.",
+        "4": "If the fourth line changes: Balance and grace come from within.",
+        "5": "If the fifth line changes: Inner beauty surpasses outer adornment.",
+        "6": "If the sixth line changes: Excessive ornamentation hides true value."
+      }
+    },
+    {
+      "number": 23,
+      "name": "Bo",
+      "description": "Splitting Apart. Mountain above, Earth below. Represents decline, disintegration, and the need to let go of what is no longer beneficial.",
+      "lines": {
+        "1": "The first line: The bed is split at the legs. Difficulties lie ahead.",
+        "2": "The second line: The bed is split at the frame. Unseen forces at work.",
+        "3": "The third line: The bed is split, and ruin approaches.",
+        "4": "The fourth line: The bed is split at the skin. Superficial damages.",
+        "5": "The fifth line: A shoal of fish. Beware of betrayal.",
+        "6": "The sixth line: The house collapses. Nothing remains."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Avoid obstacles and prepare for difficulty.",
+        "2": "If the second line changes: Beware of unseen forces that cause decay.",
+        "3": "If the third line changes: Ruin is imminent, act with caution.",
+        "4": "If the fourth line changes: Superficial damage can still be healed.",
+        "5": "If the fifth line changes: Be wary of hidden dangers.",
+        "6": "If the sixth line changes: Total collapse leads to renewal."
+      }
+    },
+    {
+      "number": 24,
+      "name": "Fu",
+      "description": "Return. Earth above, Thunder below. Symbolizes renewal, cycles, and the return to one's true path.",
+      "lines": {
+        "1": "The first line: The return comes swiftly. Good fortune.",
+        "2": "The second line: Peacefully returning to the path.",
+        "3": "The third line: Hesitation in return brings some misfortune.",
+        "4": "The fourth line: Returning brings peace and clarity.",
+        "5": "The fifth line: Returning to one’s true path brings great fortune.",
+        "6": "The sixth line: Delaying the return leads to regret."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Swift return brings positive change.",
+        "2": "If the second line changes: Tranquility in return ensures success.",
+        "3": "If the third line changes: Hesitation creates obstacles.",
+        "4": "If the fourth line changes: Peace follows the path of return.",
+        "5": "If the fifth line changes: True return aligns with great fortune.",
+        "6": "If the sixth line changes: Delay leads to missed opportunities."
+      }
+    },
+    {
+      "number": 25,
+      "name": "Wu Wang",
+      "description": "Innocence. Heaven above, Thunder below. Represents naturalness, sincerity, and being true to one's nature.",
+      "lines": {
+        "1": "The first line: Acting in innocence, one remains unharmed.",
+        "2": "The second line: Staying true to one's nature leads to peace.",
+        "3": "The third line: Misfortune comes from straying from innocence.",
+        "4": "The fourth line: Return to innocence after mistakes.",
+        "5": "The fifth line: Innocence brings success.",
+        "6": "The sixth line: Losing innocence leads to obstacles."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Purity in actions prevents harm.",
+        "2": "If the second line changes: Peace lies in being true to oneself.",
+        "3": "If the third line changes: Misfortune follows loss of innocence.",
+        "4": "If the fourth line changes: Mistakes can be rectified through sincerity.",
+        "5": "If the fifth line changes: Innocence ensures success.",
+        "6": "If the sixth line changes: Obstacles arise from losing purity."
+      }
+    },
+    {
+      "number": 26,
+      "name": "Da Chu",
+      "description": "The Taming Power of the Great. Mountain above, Heaven below. Symbolizes restraint, self-control, and the power that comes from mastering oneself.",
+      "lines": {
+        "1": "The first line: Restraint in small matters brings good fortune.",
+        "2": "The second line: Balance strength with caution.",
+        "3": "The third line: Subtle control is required.",
+        "4": "The fourth line: Use power wisely and justly.",
+        "5": "The fifth line: Inner strength ensures success.",
+        "6": "The sixth line: Great power comes from self-mastery."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Restraint in minor actions brings fortune.",
+        "2": "If the second line changes: Strength requires balance with caution.",
+        "3": "If the third line changes: Subtlety in control leads to harmony.",
+        "4": "If the fourth line changes: Power must be wielded justly.",
+        "5": "If the fifth line changes: Success comes from inner strength.",
+        "6": "If the sixth line changes: Mastery of self reveals great power."
+      }
+    },
+    {
+      "number": 27,
+      "name": "Yi",
+      "description": "Nourishment. Mountain above, Thunder below. Represents nourishment, both physical and spiritual, and the importance of what we feed our minds and bodies.",
+      "lines": {
+        "1": "The first line: Be mindful of your diet.",
+        "2": "The second line: Proper nourishment brings harmony.",
+        "3": "The third line: Overindulgence leads to misfortune.",
+        "4": "The fourth line: Choose nourishment wisely.",
+        "5": "The fifth line: Seek nourishment that enriches the soul.",
+        "6": "The sixth line: Excessive focus on nourishment leads to neglect."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Mindfulness in nourishment brings balance.",
+        "2": "If the second line changes: Harmony follows proper care.",
+        "3": "If the third line changes: Moderation is key to avoiding excess.",
+        "4": "If the fourth line changes: Wise choices create strength.",
+        "5": "If the fifth line changes: Seek that which feeds the spirit.",
+        "6": "If the sixth line changes: Avoid excessive focus on one aspect."
+      }
+    },
+    {
+      "number": 28,
+      "name": "Da Guo",
+      "description": "Preponderance of the Great. Lake above, Wind below. Symbolizes an overwhelming situation, the need for decisive action, and the potential for transformation.",
+      "lines": {
+        "1": "The first line: Strength in stillness.",
+        "2": "The second line: Avoid excess; remain balanced.",
+        "3": "The third line: Seek guidance amidst challenges.",
+        "4": "The fourth line: Hold firm against pressure.",
+        "5": "The fifth line: Overcoming obstacles with grace.",
+        "6": "The sixth line: Excessive pressure leads to collapse."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Stillness brings strength.",
+        "2": "If the second line changes: Balance prevents overwhelm.",
+        "3": "If the third line changes: Guidance is key in tough times.",
+        "4": "If the fourth line changes: Strength comes from inner resolve.",
+        "5": "If the fifth line changes: Gracefully face and overcome obstacles.",
+        "6": "If the sixth line changes: Collapse can lead to renewal."
+      }
+    },
+    {
+      "number": 29,
+      "name": "Kan",
+      "description": "The Abysmal (Water). Water above, Water below. Symbolizes danger, challenges, and the power of inner strength to navigate life's trials.",
+      "lines": {
+        "1": "The first line: Constant peril, yet the heart remains strong.",
+        "2": "The second line: Danger faced with determination.",
+        "3": "The third line: Tread carefully amidst difficulties.",
+        "4": "The fourth line: Trusting instincts leads to safety.",
+        "5": "The fifth line: Steady perseverance brings success.",
+        "6": "The sixth line: Struggles eventually lead to clarity."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Strengthen the heart in adversity.",
+        "2": "If the second line changes: Determination overcomes peril.",
+        "3": "If the third line changes: Caution paves the way to safety.",
+        "4": "If the fourth line changes: Instincts are the best guide.",
+        "5": "If the fifth line changes: Steadiness ensures success.",
+        "6": "If the sixth line changes: Clarity emerges after struggle."
+      }
+    },
+    {
+      "number": 30,
+      "name": "Li",
+      "description": "The Clinging, Fire. Fire above, Fire below. Symbolizes clarity, awareness, and the importance of holding onto truth and principles.",
+      "lines": {
+        "1": "The first line: Holding on to clarity despite challenges.",
+        "2": "The second line: Finding light in darkness.",
+        "3": "The third line: Flickering light, yet still a beacon.",
+        "4": "The fourth line: Brightness rises with patience.",
+        "5": "The fifth line: True light shines from within.",
+        "6": "The sixth line: Illumination leads to renewal."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Clarity overcomes obstacles.",
+        "2": "If the second line changes: Light shines brightest in darkness.",
+        "3": "If the third line changes: Flickering lights still guide.",
+        "4": "If the fourth line changes: Patience fuels brightness.",
+        "5": "If the fifth line changes: Inner light brings true insight.",
+        "6": "If the sixth line changes: Renewal follows enlightenment."
+      }
+    },
+    {
+      "number": 31,
+      "name": "Xian",
+      "description": "Influence (Wooing). Lake above, Mountain below. Symbolizes attraction, influence, and the subtle power of persuasion and inspiration.",
+      "lines": {
+        "1": "The first line: Mutual attraction begins the journey.",
+        "2": "The second line: Gentle influence brings joy.",
+        "3": "The third line: Avoid forcing influence.",
+        "4": "The fourth line: Embrace influence with an open heart.",
+        "5": "The fifth line: Inspiring others leads to harmony.",
+        "6": "The sixth line: Lasting influence grows from sincerity."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Attraction lays the foundation.",
+        "2": "If the second line changes: Joy through gentle influence.",
+        "3": "If the third line changes: Avoid forcing your will.",
+        "4": "If the fourth line changes: Openness enriches connections.",
+        "5": "If the fifth line changes: Inspire others to achieve harmony.",
+        "6": "If the sixth line changes: Sincerity creates lasting bonds."
+      }
+    },
+    {
+      "number": 32,
+      "name": "Heng",
+      "description": "Duration. Thunder above, Wind below. Represents endurance, commitment, and the ongoing cycles of life.",
+      "lines": {
+        "1": "The first line: Perseverance in small matters.",
+        "2": "The second line: Steadiness leads to harmony.",
+        "3": "The third line: Avoid hasty decisions.",
+        "4": "The fourth line: Inner strength ensures lasting success.",
+        "5": "The fifth line: Patience leads to growth.",
+        "6": "The sixth line: Constant change brings renewal."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Steady progress begins small.",
+        "2": "If the second line changes: Harmony follows steadiness.",
+        "3": "If the third line changes: Haste disrupts the journey.",
+        "4": "If the fourth line changes: Strength sustains success.",
+        "5": "If the fifth line changes: Growth arises from patience.",
+        "6": "If the sixth line changes: Change renews the cycle."
+				}
+			},
+    {
+      "number": 33,
+      "name": "Dun",
+      "description": "Retreat. Heaven above, Mountain below. Symbolizes the wisdom of strategic withdrawal, the necessity of timing, and the power of introspection.",
+      "lines": {
+        "1": "The first line: Withdraw without haste. Caution and reflection ensure safety.",
+        "2": "The second line: A retreat to a safe distance. Find a place of quiet and wait.",
+        "3": "The third line: Unstable retreat brings misfortune. Be wary of hesitation.",
+        "4": "The fourth line: Voluntary retreat brings good fortune. Understanding the time to act.",
+        "5": "The fifth line: Noble retreat without regret. Trust in your inner strength.",
+        "6": "The sixth line: Forced retreat. Knowing when to let go prevents loss."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Withdrawal at the right time brings safety.",
+        "2": "If the second line changes: Quietness allows for careful planning.",
+        "3": "If the third line changes: Hesitation in retreat leads to difficulty.",
+        "4": "If the fourth line changes: Voluntary retreat strengthens the soul.",
+        "5": "If the fifth line changes: Trusting in wisdom brings clarity.",
+        "6": "If the sixth line changes: Forced retreat leads to eventual peace."
+      }
+    },
+    {
+      "number": 34,
+      "name": "Da Zhuang",
+      "description": "The Power of the Great. Thunder above, Heaven below. Represents strength, assertiveness, and the responsibility that comes with power.",
+      "lines": {
+        "1": "The first line: Power in stillness. Wait for the right moment.",
+        "2": "The second line: The power of quiet determination brings good fortune.",
+        "3": "The third line: Excessive force leads to disaster. Exercise caution.",
+        "4": "The fourth line: Power used with wisdom brings success.",
+        "5": "The fifth line: Power guided by virtue ensures progress.",
+        "6": "The sixth line: Power that becomes overbearing brings misfortune."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Stillness is the foundation of true strength.",
+        "2": "If the second line changes: Quiet determination wins the day.",
+        "3": "If the third line changes: Caution tempers excessive force.",
+        "4": "If the fourth line changes: Wisdom guides power to success.",
+        "5": "If the fifth line changes: Virtue ensures that power is used wisely.",
+        "6": "If the sixth line changes: Overbearing power leads to downfall."
+      }
+    },
+    {
+      "number": 35,
+      "name": "Jin",
+      "description": "Progress. Fire above, Earth below. Symbolizes growth, advancement, and the importance of clarity in guiding progress.",
+      "lines": {
+        "1": "The first line: Progress at dawn brings good fortune.",
+        "2": "The second line: Progress like the sun rising. Steady and constant.",
+        "3": "The third line: Advancing with caution avoids pitfalls.",
+        "4": "The fourth line: Progress in times of difficulty requires patience.",
+        "5": "The fifth line: Progress that enlightens others leads to harmony.",
+        "6": "The sixth line: Progress peaks and then transforms into something new."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Early progress brings promising outcomes.",
+        "2": "If the second line changes: Steady progress aligns with nature's rhythm.",
+        "3": "If the third line changes: Caution maintains the integrity of progress.",
+        "4": "If the fourth line changes: Patience is key during slow advancement.",
+        "5": "If the fifth line changes: Enlightenment guides others toward harmony.",
+        "6": "If the sixth line changes: Progress transforms into renewal."
+      }
+    },
+    {
+      "number": 36,
+      "name": "Ming Yi",
+      "description": "Darkening of the Light. Earth above, Fire below. Represents adversity, the concealment of one’s light, and the need for inner strength.",
+      "lines": {
+        "1": "The first line: Conceal your light to avoid danger.",
+        "2": "The second line: In darkness, find strength within.",
+        "3": "The third line: Darkened light brings hardship. Endure with resilience.",
+        "4": "The fourth line: Hide your brightness to persevere.",
+        "5": "The fifth line: Light hidden, yet shining internally.",
+        "6": "The sixth line: Darkness dissipates; the light shines anew."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Concealment ensures safety in troubled times.",
+        "2": "If the second line changes: Inner strength guides through darkness.",
+        "3": "If the third line changes: Resilience is key in facing hardship.",
+        "4": "If the fourth line changes: Perseverance comes from hiding one’s light.",
+        "5": "If the fifth line changes: Internal brightness leads the way.",
+        "6": "If the sixth line changes: Renewal follows the passing of darkness."
+      }
+    },
+    {
+      "number": 37,
+      "name": "Jia Ren",
+      "description": "The Family. Wind above, Fire below. Symbolizes harmony, order, and the importance of relationships in building a strong foundation.",
+      "lines": {
+        "1": "The first line: Cultivate harmony in the home.",
+        "2": "The second line: Nurture relationships with love and respect.",
+        "3": "The third line: Family bonds require patience and effort.",
+        "4": "The fourth line: Lead by example within the family.",
+        "5": "The fifth line: Responsibility to family brings stability.",
+        "6": "The sixth line: True harmony flows from mutual understanding."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Harmony in the home brings peace.",
+        "2": "If the second line changes: Respect fosters strong bonds.",
+        "3": "If the third line changes: Patience strengthens family ties.",
+        "4": "If the fourth line changes: Lead with integrity in familial roles.",
+        "5": "If the fifth line changes: Responsibility ensures familial stability.",
+        "6": "If the sixth line changes: Understanding creates lasting harmony."
+      }
+    },
+    {
+      "number": 38,
+      "name": "Kui",
+      "description": "Opposition. Fire above, Lake below. Symbolizes conflict, differences, and the potential for understanding through adversity.",
+      "lines": {
+        "1": "The first line: Avoid immediate confrontation. Seek common ground.",
+        "2": "The second line: Conflict tempered with patience leads to resolution.",
+        "3": "The third line: Clashing viewpoints create tension. Find the balance.",
+        "4": "The fourth line: Opposition reveals truth. Stay firm in your principles.",
+        "5": "The fifth line: Harmony emerges from understanding differences.",
+        "6": "The sixth line: Opposition fades as unity is sought."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Seek harmony over confrontation.",
+        "2": "If the second line changes: Patience in conflict yields peace.",
+        "3": "If the third line changes: Balance is found in compromise.",
+        "4": "If the fourth line changes: Firm principles reveal truth.",
+        "5": "If the fifth line changes: Understanding bridges opposition.",
+        "6": "If the sixth line changes: Unity dissolves differences."
+      }
+    },
+    {
+      "number": 39,
+      "name": "Jian",
+      "description": "Obstruction. Water above, Mountain below. Symbolizes obstacles, challenges, and the necessity of strategic retreat to overcome difficulties.",
+      "lines": {
+        "1": "The first line: Halt at the beginning of trouble.",
+        "2": "The second line: Seek guidance to navigate obstacles.",
+        "3": "The third line: Missteps lead to deeper difficulties.",
+        "4": "The fourth line: Consider retreat to find a better path.",
+        "5": "The fifth line: Overcome challenges through perseverance.",
+        "6": "The sixth line: Transforming obstacles into new opportunities."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Address trouble before it grows.",
+        "2": "If the second line changes: Seek wisdom to overcome difficulties.",
+        "3": "If the third line changes: Learn from missteps to avoid future pitfalls.",
+        "4": "If the fourth line changes: Retreat offers new perspectives.",
+        "5": "If the fifth line changes: Perseverance overcomes all challenges.",
+        "6": "If the sixth line changes: Obstacles lead to new opportunities."
+      }
+    },
+    {
+      "number": 40,
+      "name": "Jie",
+      "description": "Deliverance. Thunder above, Water below. Represents the release from tension, liberation, and the relief that follows overcoming a difficult situation.",
+      "lines": {
+        "1": "The first line: Release comes with action. Move forward boldly.",
+        "2": "The second line: Inner clarity brings freedom.",
+        "3": "The third line: Deliverance requires patience and effort.",
+        "4": "The fourth line: Act wisely to secure liberation.",
+        "5": "The fifth line: Relief through harmonious action.",
+        "6": "The sixth line: True freedom comes from self-reflection."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Bold action leads to deliverance.",
+        "2": "If the second line changes: Clarity brings inner freedom.",
+        "3": "If the third line changes: Patience ensures lasting deliverance.",
+        "4": "If the fourth line changes: Wisdom secures liberation.",
+        "5": "If the fifth line changes: Harmony paves the way to relief.",
+        "6": "If the sixth line changes: Self-reflection leads to true freedom."
+      }
+    },
+    {
+      "number": 41,
+      "name": "Sun",
+      "description": "Decrease. Mountain above, Lake below. Symbolizes reduction, frugality, and the wisdom of simplifying life to gain clarity and strength.",
+      "lines": {
+        "1": "The first line: Reduce excess to gain strength.",
+        "2": "The second line: Voluntary decrease brings good fortune.",
+        "3": "The third line: Balance between gain and loss is key.",
+        "4": "The fourth line: Simple living nurtures the soul.",
+        "5": "The fifth line: True wealth comes from letting go.",
+        "6": "The sixth line: Decrease leads to natural abundance."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Strength grows through reduction.",
+        "2": "If the second line changes: Fortune follows simplicity.",
+        "3": "If the third line changes: Seek balance in all actions.",
+        "4": "If the fourth line changes: Nurture the soul through simplicity.",
+        "5": "If the fifth line changes: Letting go reveals true wealth.",
+        "6": "If the sixth line changes: Natural abundance follows decrease."
+      }
+    },
+    {
+      "number": 42,
+      "name": "Yi",
+      "description": "Increase. Wind above, Thunder below. Represents growth, abundance, and the expansion that follows when one gives freely.",
+      "lines": {
+        "1": "The first line: Early actions bring growth.",
+        "2": "The second line: Generosity leads to prosperity.",
+        "3": "The third line: Avoid greed; share what you have.",
+        "4": "The fourth line: Wise decisions enhance abundance.",
+        "5": "The fifth line: Sharing with the right intent enriches all.",
+        "6": "The sixth line: Overabundance leads to imbalance."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Growth follows swift action.",
+        "2": "If the second line changes: Prosperity flows from generosity.",
+        "3": "If the third line changes: Avoid greed; sharing brings balance.",
+        "4": "If the fourth line changes: Wisdom enhances abundance.",
+        "5": "If the fifth line changes: Right intent multiplies blessings.",
+        "6": "If the sixth line changes: Balance is key in abundance."
+      }
+    },
+    {
+      "number": 43,
+      "name": "Guai",
+      "description": "Breakthrough. Lake above, Heaven below. Symbolizes the power to break through obstacles, assert truth, and act decisively to create change.",
+      "lines": {
+        "1": "The first line: Stand firm against resistance.",
+        "2": "The second line: Breakthrough requires inner strength.",
+        "3": "The third line: Overcoming doubt brings clarity.",
+        "4": "The fourth line: Courage leads to decisive action.",
+        "5": "The fifth line: Truth prevails through persistence.",
+        "6": "The sixth line: Breakthrough culminates in renewal."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Firmness in the face of challenges.",
+        "2": "If the second line changes: Inner strength fuels the breakthrough.",
+        "3": "If the third line changes: Clarity follows overcoming doubt.",
+        "4": "If the fourth line changes: Decisive courage paves the way.",
+        "5": "If the fifth line changes: Persistence solidifies truth.",
+        "6": "If the sixth line changes: Renewal follows the breakthrough."
+			}
+    },
+    {
+      "number": 44,
+      "name": "Gou",
+      "description": "Coming to Meet. Heaven above, Wind below. Symbolizes unexpected encounters, sudden influences, and the need for awareness when new energies enter one's life.",
+      "lines": {
+        "1": "The first line: Keep a firm hold on your principles when faced with sudden influences.",
+        "2": "The second line: Beware of being swayed by powerful new influences.",
+        "3": "The third line: Strong vigilance is required to avoid being misled.",
+        "4": "The fourth line: The influence grows stronger; act with caution.",
+        "5": "The fifth line: Be careful not to underestimate the power of subtle influences.",
+        "6": "The sixth line: Sudden meetings can disrupt peace; stay centered."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Maintain your integrity amidst unexpected influences.",
+        "2": "If the second line changes: Awareness guards against being swayed.",
+        "3": "If the third line changes: Vigilance protects from misleading forces.",
+        "4": "If the fourth line changes: Caution prevents being overwhelmed by new forces.",
+        "5": "If the fifth line changes: Subtlety in influence requires deep understanding.",
+        "6": "If the sixth line changes: Center yourself amidst sudden disruptions."
+      }
+    },
+    {
+      "number": 45,
+      "name": "Cui",
+      "description": "Gathering Together. Lake above, Earth below. Symbolizes unity, communal effort, and the power of coming together for a common purpose.",
+      "lines": {
+        "1": "The first line: Gather friends and allies for support.",
+        "2": "The second line: Let sincerity be the foundation of unity.",
+        "3": "The third line: Gather others with an open heart to build strong bonds.",
+        "4": "The fourth line: Lead the gathering with integrity and wisdom.",
+        "5": "The fifth line: True leadership unites the group for greater purpose.",
+        "6": "The sixth line: In moments of gathering, stay mindful of the greater vision."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Build a supportive community around you.",
+        "2": "If the second line changes: Sincerity forms the roots of unity.",
+        "3": "If the third line changes: Open-heartedness fosters strong connections.",
+        "4": "If the fourth line changes: Lead with integrity to inspire others.",
+        "5": "If the fifth line changes: Unity is achieved through wise leadership.",
+        "6": "If the sixth line changes: Maintain focus on the collective vision."
+      }
+    },
+    {
+      "number": 46,
+      "name": "Sheng",
+      "description": "Pushing Upward. Earth above, Wind below. Symbolizes growth, steady progress, and the perseverance needed to climb to greater heights.",
+      "lines": {
+        "1": "The first line: Begin your ascent with determination and patience.",
+        "2": "The second line: Progress through harmonious effort.",
+        "3": "The third line: Persevere in the face of obstacles; the summit is near.",
+        "4": "The fourth line: Advance with humility and clarity.",
+        "5": "The fifth line: Steady progress brings confidence and success.",
+        "6": "The sixth line: Reaching the summit requires inner strength and resolve."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Determination sets the foundation for growth.",
+        "2": "If the second line changes: Harmonious efforts foster progress.",
+        "3": "If the third line changes: Persevere; success lies just ahead.",
+        "4": "If the fourth line changes: Humility guides the path upward.",
+        "5": "If the fifth line changes: Confidence arises from steady progress.",
+        "6": "If the sixth line changes: Inner strength leads to the summit."
+      }
+    },
+    {
+      "number": 47,
+      "name": "Kun",
+      "description": "Oppression (Exhaustion). Lake above, Water below. Symbolizes difficulty, restraint, and the need to find inner strength when facing challenging circumstances.",
+      "lines": {
+        "1": "The first line: Exhaustion is near; conserve your energy wisely.",
+        "2": "The second line: Stay resilient amidst oppression, and relief will come.",
+        "3": "The third line: Endure difficulties with a steadfast heart.",
+        "4": "The fourth line: Seek support and encouragement during trying times.",
+        "5": "The fifth line: Clarity of purpose dispels the weight of oppression.",
+        "6": "The sixth line: When burdened, find strength through stillness and reflection."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Wise conservation of energy ensures survival.",
+        "2": "If the second line changes: Resilience leads to eventual relief.",
+        "3": "If the third line changes: Endurance is the key to overcoming difficulty.",
+        "4": "If the fourth line changes: Support alleviates the burden of challenges.",
+        "5": "If the fifth line changes: Clarity dispels the shadows of oppression.",
+        "6": "If the sixth line changes: Stillness brings inner strength."
+      }
+    },
+    {
+      "number": 48,
+      "name": "Jing",
+      "description": "The Well. Water above, Wind below. Symbolizes nourishment, renewal, and the eternal source of wisdom and sustenance.",
+      "lines": {
+        "1": "The first line: The well is muddy; seek clarity and purification.",
+        "2": "The second line: The well is being cleared; effort brings renewal.",
+        "3": "The third line: The well is neglected, yet its water remains pure.",
+        "4": "The fourth line: Drawing water with care brings life to all.",
+        "5": "The fifth line: The water in the well is plentiful and reaches all.",
+        "6": "The sixth line: The well is restored; its pure water brings health."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Seek clarity to purify the well of your mind.",
+        "2": "If the second line changes: Renewal comes through dedicated effort.",
+        "3": "If the third line changes: Even when neglected, purity remains.",
+        "4": "If the fourth line changes: Careful actions bring benefits to many.",
+        "5": "If the fifth line changes: Abundance flows to those who draw from the source.",
+        "6": "If the sixth line changes: Restoration leads to holistic well-being."
+      }
+    },
+    {
+      "number": 49,
+      "name": "Ge",
+      "description": "Revolution (Molting). Lake above, Fire below. Symbolizes radical change, transformation, and the shedding of the old to welcome the new.",
+      "lines": {
+        "1": "The first line: Plan changes carefully; timing is key.",
+        "2": "The second line: Trust in the process of transformation.",
+        "3": "The third line: Bold actions bring about necessary change.",
+        "4": "The fourth line: Prepare for change with caution and foresight.",
+        "5": "The fifth line: Changes enacted with wisdom lead to harmony.",
+        "6": "The sixth line: Complete the transformation and embrace renewal."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Careful planning ensures successful change.",
+        "2": "If the second line changes: Trust in the natural process of transformation.",
+        "3": "If the third line changes: Boldness is required for necessary change.",
+        "4": "If the fourth line changes: Caution and foresight pave the way for success.",
+        "5": "If the fifth line changes: Wisdom guides change to harmony.",
+        "6": "If the sixth line changes: Embrace renewal after the transformation."
+      }
+    },
+    {
+      "number": 50,
+      "name": "Ding",
+      "description": "The Cauldron. Fire above, Wind below. Symbolizes nourishment, transformation, and the importance of what one nurtures in both the physical and spiritual realms.",
+      "lines": {
+        "1": "The first line: The cauldron’s legs are unsteady; seek stability.",
+        "2": "The second line: The cauldron is filled; nourish yourself and others.",
+        "3": "The third line: The cauldron’s handle breaks; address the issue.",
+        "4": "The fourth line: Use the cauldron to bring blessings to others.",
+        "5": "The fifth line: The cauldron holds a feast; share your abundance.",
+        "6": "The sixth line: The cauldron is purified, and its contents bring health."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Find stability in all that you nurture.",
+        "2": "If the second line changes: True nourishment feeds both body and spirit.",
+        "3": "If the third line changes: Address obstacles to continue nurturing growth.",
+        "4": "If the fourth line changes: Sharing blessings multiplies joy.",
+        "5": "If the fifth line changes: Abundance is meant to be shared.",
+        "6": "If the sixth line changes: Purification leads to holistic health."
+      }
+    },
+    {
+      "number": 51,
+      "name": "Zhen",
+      "description": "The Arousing (Shock, Thunder). Thunder above, Thunder below. Symbolizes sudden changes, shocks, and the inner strength needed to respond effectively.",
+      "lines": {
+        "1": "The first line: Shock comes, but the heart remains undisturbed.",
+        "2": "The second line: Embrace the shock; it brings clarity.",
+        "3": "The third line: Do not let fear cloud your vision.",
+        "4": "The fourth line: Remain steady amidst turbulence.",
+        "5": "The fifth line: Shock stirs growth and awareness.",
+        "6": "The sixth line: Shock passes, bringing peace and understanding."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Maintain inner calm despite external shocks.",
+        "2": "If the second line changes: Clarity emerges from embracing change.",
+        "3": "If the third line changes: Fear clouds the path forward.",
+        "4": "If the fourth line changes: Steadiness calms the storm.",
+        "5": "If the fifth line changes: Growth arises from life's jolts.",
+        "6": "If the sixth line changes: Peace follows the passing of shock."
+      }
+    },
+    {
+      "number": 52,
+      "name": "Gen",
+      "description": "Keeping Still, Mountain. Mountain above, Mountain below. Symbolizes meditation, stillness, and the power of tranquility to achieve clarity.",
+      "lines": {
+        "1": "The first line: Stillness in action; begin with small steps.",
+        "2": "The second line: Quiet the mind to find inner peace.",
+        "3": "The third line: Restlessness hinders tranquility.",
+        "4": "The fourth line: Deep stillness reveals hidden truths.",
+        "5": "The fifth line: Quiet your heart to understand the world.",
+        "6": "The sixth line: Attain complete stillness; clarity is achieved."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Small steps lead to greater stillness.",
+        "2": "If the second line changes: Inner peace brings clarity.",
+        "3": "If the third line changes: Tranquility is blocked by restlessness.",
+        "4": "If the fourth line changes: Hidden truths emerge in stillness.",
+        "5": "If the fifth line changes: Quiet understanding opens new perspectives.",
+        "6": "If the sixth line changes: Complete stillness unveils wisdom."
+      }
+    },
+    {
+      "number": 53,
+      "name": "Jian",
+      "description": "Development (Gradual Progress). Wind above, Mountain below. Symbolizes steady growth, patience, and the power of gradual development.",
+      "lines": {
+        "1": "The first line: Beginning progress requires patience and effort.",
+        "2": "The second line: Steady growth follows consistent work.",
+        "3": "The third line: Adapt to changing conditions for growth.",
+        "4": "The fourth line: Gradual progress leads to lasting achievements.",
+        "5": "The fifth line: Progress through nurturing and guidance.",
+        "6": "The sixth line: Gradual progress culminates in success."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Patience lays the foundation for growth.",
+        "2": "If the second line changes: Consistent effort brings steady progress.",
+        "3": "If the third line changes: Adaptation fuels development.",
+        "4": "If the fourth line changes: Lasting achievements come with time.",
+        "5": "If the fifth line changes: Nurturing ensures continued progress.",
+        "6": "If the sixth line changes: Success crowns gradual progress."
+      }
+    },
+    {
+      "number": 54,
+      "name": "Gui Mei",
+      "description": "The Marrying Maiden. Thunder above, Lake below. Symbolizes relationships, adaptability, and the importance of understanding one’s role within changing circumstances.",
+      "lines": {
+        "1": "The first line: Accept your role with grace and dignity.",
+        "2": "The second line: Adapt to changes with an open heart.",
+        "3": "The third line: In relationships, balance is key to harmony.",
+        "4": "The fourth line: Embrace change while remaining true to yourself.",
+        "5": "The fifth line: Navigate challenges with wisdom and care.",
+        "6": "The sixth line: Complete acceptance brings inner peace."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Grace leads to harmonious relationships.",
+        "2": "If the second line changes: Openness eases transitions.",
+        "3": "If the third line changes: Balance creates harmony in all connections.",
+        "4": "If the fourth line changes: Stay true amidst change.",
+        "5": "If the fifth line changes: Wisdom guides through challenges.",
+        "6": "If the sixth line changes: Acceptance brings lasting peace."
+			}
+    },
+    {
+      "number": 55,
+      "name": "Feng",
+      "description": "Abundance. Thunder above, Fire below. Symbolizes prosperity, great activity, and the fullness of life. It reflects a time of energetic abundance but also warns against excess.",
+      "lines": {
+        "1": "The first line: Meet the challenges of abundance with calmness. Being overwhelmed can lead to chaos.",
+        "2": "The second line: When abundance comes, share it generously with others to maintain harmony.",
+        "3": "The third line: Even in abundance, stay mindful of inner values to prevent corruption.",
+        "4": "The fourth line: Guard against excessive pride. True abundance comes from humility.",
+        "5": "The fifth line: Balance is key in times of abundance. Use resources wisely to support all.",
+        "6": "The sixth line: Understand that abundance is temporary; be ready for transitions."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Calm management ensures abundance leads to positive outcomes.",
+        "2": "If the second line changes: Generosity maintains the harmony of abundance.",
+        "3": "If the third line changes: Inner values preserve the integrity of abundance.",
+        "4": "If the fourth line changes: Humility fortifies true abundance.",
+        "5": "If the fifth line changes: Wisdom guides the proper use of abundant resources.",
+        "6": "If the sixth line changes: Transition from abundance with grace and foresight."
+      }
+    },
+    {
+      "number": 56,
+      "name": "Lü",
+      "description": "The Wanderer. Fire above, Mountain below. Represents a journey, the traveler’s mindset, and the need for adaptability in unfamiliar situations.",
+      "lines": {
+        "1": "The first line: As a wanderer, approach new situations with humility and openness.",
+        "2": "The second line: Establishing a base while traveling brings temporary stability.",
+        "3": "The third line: Unwise actions as a wanderer can lead to setbacks.",
+        "4": "The fourth line: Careful conduct on the journey ensures respect and safety.",
+        "5": "The fifth line: The wise traveler navigates obstacles with poise and discernment.",
+        "6": "The sixth line: Returning home marks the end of the journey. Learn from the experiences."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Humility opens doors in new places.",
+        "2": "If the second line changes: Temporary stability guides the journey.",
+        "3": "If the third line changes: Caution prevents unnecessary setbacks.",
+        "4": "If the fourth line changes: Respectful conduct earns goodwill.",
+        "5": "If the fifth line changes: Discernment navigates obstacles successfully.",
+        "6": "If the sixth line changes: Returning home brings reflection and growth."
+      }
+    },
+    {
+      "number": 57,
+      "name": "Xun",
+      "description": "The Gentle (Penetrating, Wind). Wind above, Wind below. Symbolizes the power of gradual influence, adaptability, and the strength found in gentleness and persistence.",
+      "lines": {
+        "1": "The first line: Small influences gradually penetrate deeper matters.",
+        "2": "The second line: Gentle action leads to subtle yet effective changes.",
+        "3": "The third line: Strength in flexibility; avoid forceful measures.",
+        "4": "The fourth line: The power of silent influence shapes outcomes.",
+        "5": "The fifth line: Influence guided by inner clarity promotes harmony.",
+        "6": "The sixth line: Overreaching with gentleness can lead to loss of direction."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Small influences gradually achieve great change.",
+        "2": "If the second line changes: Subtle changes lead to significant effects.",
+        "3": "If the third line changes: Flexibility overcomes rigidity.",
+        "4": "If the fourth line changes: Silent influence carries deep power.",
+        "5": "If the fifth line changes: Clarity guides gentle influence to harmony.",
+        "6": "If the sixth line changes: Overreaching disrupts balance."
+      }
+    },
+    {
+      "number": 58,
+      "name": "Dui",
+      "description": "The Joyous (Lake). Lake above, Lake below. Symbolizes joy, openness, and the power of positive communication. It reflects the benefits of expressing joy while warning against overindulgence.",
+      "lines": {
+        "1": "The first line: True joy comes from inner peace, not external circumstances.",
+        "2": "The second line: Express joy in moderation to avoid excess.",
+        "3": "The third line: Excessive joy can lead to careless actions.",
+        "4": "The fourth line: Share joy with others, fostering a community of happiness.",
+        "5": "The fifth line: Joy rooted in sincerity leads to lasting contentment.",
+        "6": "The sixth line: Overindulgence in joy leads to eventual dissatisfaction."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Inner peace is the source of true joy.",
+        "2": "If the second line changes: Moderation maintains harmony.",
+        "3": "If the third line changes: Carelessness disrupts joy.",
+        "4": "If the fourth line changes: Shared joy creates lasting bonds.",
+        "5": "If the fifth line changes: Sincerity deepens contentment.",
+        "6": "If the sixth line changes: Overindulgence brings diminishing returns."
+      }
+    },
+    {
+      "number": 59,
+      "name": "Huan",
+      "description": "Dispersion (Dissolution). Wind above, Water below. Symbolizes the breaking up of obstacles, dispersing misunderstandings, and the dissolution of inner barriers.",
+      "lines": {
+        "1": "The first line: Disperse confusion by acting with clarity.",
+        "2": "The second line: Gather resources to navigate through periods of dissolution.",
+        "3": "The third line: Prolonged inaction amidst dispersion leads to loss.",
+        "4": "The fourth line: Strong actions dispel lingering doubts and obstacles.",
+        "5": "The fifth line: Collective effort successfully disperses obstacles.",
+        "6": "The sixth line: Total dissolution brings new possibilities and freedom."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Clarity dispels confusion.",
+        "2": "If the second line changes: Use resources wisely in turbulent times.",
+        "3": "If the third line changes: Act decisively to prevent loss.",
+        "4": "If the fourth line changes: Bold action clears the path.",
+        "5": "If the fifth line changes: Unity breaks down barriers.",
+        "6": "If the sixth line changes: Embrace new possibilities after dissolution."
+      }
+    },
+    {
+      "number": 60,
+      "name": "Jie",
+      "description": "Limitation. Water above, Lake below. Symbolizes the importance of setting boundaries, the necessity of moderation, and the wisdom in knowing one's limits.",
+      "lines": {
+        "1": "The first line: Accept limitations as they bring clarity to your path.",
+        "2": "The second line: Limitations provide structure, but avoid becoming rigid.",
+        "3": "The third line: Excessive constraints stifle growth and creativity.",
+        "4": "The fourth line: Moderate limitations lead to gradual progress.",
+        "5": "The fifth line: Clear boundaries create harmony and focus.",
+        "6": "The sixth line: Recognize when limitations are no longer needed; adapt."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Clarity comes from knowing your limits.",
+        "2": "If the second line changes: Balance structure with flexibility.",
+        "3": "If the third line changes: Over-constraint hampers success.",
+        "4": "If the fourth line changes: Moderation paves the way for growth.",
+        "5": "If the fifth line changes: Boundaries foster harmony.",
+        "6": "If the sixth line changes: Adapt as limits evolve."
+      }
+    },
+    {
+      "number": 61,
+      "name": "Zhong Fu",
+      "description": "Inner Truth. Wind above, Lake below. Symbolizes sincerity, the power of genuine communication, and the strength that comes from being true to oneself.",
+      "lines": {
+        "1": "The first line: Truth within oneself brings clarity and direction.",
+        "2": "The second line: Genuine intentions foster trust in others.",
+        "3": "The third line: Doubt and insincerity create obstacles.",
+        "4": "The fourth line: Truthful actions inspire and lead others.",
+        "5": "The fifth line: Trust is built on open communication and sincerity.",
+        "6": "The sixth line: Complete truth brings harmony and understanding."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Clarity arises from inner honesty.",
+        "2": "If the second line changes: Trust grows from genuine intentions.",
+        "3": "If the third line changes: Overcome obstacles through sincerity.",
+        "4": "If the fourth line changes: Inspire others with truthful actions.",
+        "5": "If the fifth line changes: Communication deepens trust.",
+        "6": "If the sixth line changes: Harmony follows complete truth."
+      }
+    },
+    {
+      "number": 62,
+      "name": "Xiao Guo",
+      "description": "Preponderance of the Small. Thunder above, Mountain below. Symbolizes the importance of focusing on details, the power of careful actions, and recognizing the limits of influence.",
+      "lines": {
+        "1": "The first line: Small efforts lay the foundation for future success.",
+        "2": "The second line: Attention to detail prevents small mistakes from growing.",
+        "3": "The third line: Overemphasis on minor matters can lead to discord.",
+        "4": "The fourth line: Cautious actions avert potential pitfalls.",
+        "5": "The fifth line: Balanced effort ensures progress without overextension.",
+        "6": "The sixth line: Small influences cannot change the course of large events."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Small efforts accumulate into larger success.",
+        "2": "If the second line changes: Mind the details to avoid errors.",
+        "3": "If the third line changes: Focus should not be lost in minutiae.",
+        "4": "If the fourth line changes: Caution safeguards against pitfalls.",
+        "5": "If the fifth line changes: Balance effort to avoid overextension.",
+        "6": "If the sixth line changes: Recognize the limits of influence."
+      }
+    },
+    {
+      "number": 63,
+      "name": "Ji Ji",
+      "description": "After Completion. Water above, Fire below. Symbolizes a time of transition, the necessity of maintaining order, and the vigilance needed to preserve success.",
+      "lines": {
+        "1": "The first line: The beginning is complete, but stay cautious to avoid mistakes.",
+        "2": "The second line: The journey continues; maintain harmony and direction.",
+        "3": "The third line: Slight disruptions may arise; address them promptly.",
+        "4": "The fourth line: Balance brings steady progress even after completion.",
+        "5": "The fifth line: The work is nearly finished; persevere to the end.",
+        "6": "The sixth line: Completion transitions into a new beginning; remain vigilant."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Caution preserves the success achieved.",
+        "2": "If the second line changes: Maintain harmony to continue progress.",
+        "3": "If the third line changes: Address disruptions to sustain order.",
+        "4": "If the fourth line changes: Balance sustains progress.",
+        "5": "If the fifth line changes: Perseverance ensures the final success.",
+        "6": "If the sixth line changes: Vigilance prepares for new beginnings."
+      }
+    },
+    {
+      "number": 64,
+      "name": "Wei Ji",
+      "description": "Before Completion. Fire above, Water below. Symbolizes the uncertainty before success, the importance of cautious preparation, and the need for vigilance before a goal is achieved.",
+      "lines": {
+        "1": "The first line: Initial difficulty requires careful preparation.",
+        "2": "The second line: Proceed step-by-step with attention to details.",
+        "3": "The third line: Uncertainty calls for patience and clear planning.",
+        "4": "The fourth line: Nearing completion, act with wisdom and caution.",
+        "5": "The fifth line: Success is within reach; maintain focus and effort.",
+        "6": "The sixth line: Completion is achieved; be mindful of new cycles beginning."
+      },
+      "changingLines": {
+        "1": "If the first line changes: Preparation overcomes initial obstacles.",
+        "2": "If the second line changes: Detail-oriented steps ensure success.",
+        "3": "If the third line changes: Patience guides through uncertainty.",
+        "4": "If the fourth line changes: Wisdom solidifies nearing completion.",
+        "5": "If the fifth line changes: Focus sustains the final effort.",
+        "6": "If the sixth line changes: Completion heralds new beginnings."
+      }
+    }
+  ]
+}

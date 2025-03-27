@@ -1,0 +1,536 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 20px;
+    padding: 0;
+		padding-bottom: 70px;
+}
+
+/* Hide element when using .hidden class */
+.hidden {
+    display: none;
+}
+
+/* Dark Mode Styles */
+.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Apply dark mode styles to specific containers */
+.dark-mode .saved-readings-container,
+.dark-mode #manualInputContainer,
+.dark-mode #ichingExplanation {
+    background-color: #444;
+    color: #fff;
+    border-color: #666;
+}
+
+/* Button Styles */
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Dark Mode Button Styles */
+.dark-mode button {
+    background-color: #555;
+    color: #fff;
+}
+
+.dark-mode button:hover {
+    background-color: #777;
+}
+
+/* Container for Saved Readings */
+.saved-readings-container {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Hidden Element */
+.hidden {
+    display: none;
+}
+
+/* Manual Input Styles */
+#manualInputContainer {
+    margin: 20px 0;
+}
+
+/* About I Ching Section */
+#ichingExplanation {
+    margin-top: 30px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Dark Mode Styles for the About I Ching Section */
+.dark-mode #ichingExplanation {
+    background-color: #444;
+    border-color: #666;
+}
+
+/* Yarrow Stick Animation Styles */
+#yarrowAnimationContainer {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    margin: 0 auto;
+    background-color: #1a1a1a; /* Dark background */
+    border: 2px solid #444;
+    border-radius: 10px;
+}
+
+.dark-mode #yarrowAnimationContainer {
+    background-color: #444;
+    border-color: #666;
+}
+
+#yarrowCanvas {
+    width: 100%;
+    height: 100%;
+}
+
+#lines {
+    display: flex;
+    flex-direction: column-reverse; /* Flips the stacking order */
+    align-items: center; /* Centers images horizontally */
+    justify-content: center; /* Centers content vertically */
+    width: 50vw;
+    margin: 0 auto; /* Centers #lines itself horizontally */
+}
+
+#lines img {
+    display: block; /* Forces each image to take up full width within flex column */
+    width: 100%; /* Make images take the full width of #lines */
+    height: auto;
+}
+
+/* Basic styling for hexagram results */
+.hexagram-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+    background-color: #fff; /* Light mode background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* Dark mode styling for hexagram card */
+.dark-mode .hexagram-card {
+    background-color: #444; /* Dark mode background */
+    border-color: #666;
+}
+
+/* Header styling */
+.hexagram-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 8px;
+    color: #333; /* Light mode color */
+    transition: color 0.3s;
+}
+
+.dark-mode .hexagram-card h3 {
+    color: #fff; /* Dark mode color */
+}
+
+/* Sub-header styling */
+.hexagram-card h4 {
+    font-size: 1.2em;
+    margin-top: 12px;
+    color: #555; /* Light mode color */
+    transition: color 0.3s;
+}
+
+.dark-mode .hexagram-card h4 {
+    color: #ddd; /* Dark mode color */
+}
+
+/* Paragraph styling */
+.hexagram-card p {
+    font-size: 1em;
+    color: #666; /* Light mode color */
+    line-height: 1.5;
+    transition: color 0.3s;
+}
+
+.dark-mode .hexagram-card p {
+    color: #ccc; /* Dark mode color */
+}
+
+/* List styling for changing lines */
+.hexagram-card ul {
+    list-style-type: disc;
+    margin: 8px 0 0 20px;
+    padding: 0;
+}
+
+.hexagram-card ul li {
+    margin-bottom: 6px;
+    color: #444; /* Light mode color */
+    font-size: 0.95em;
+    transition: color 0.3s;
+}
+
+.dark-mode .hexagram-card ul li {
+    color: #bbb; /* Dark mode color */
+}
+
+
+
+/* Footer Styling */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 1rem;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode .footer {
+    background-color: #444;
+    color: #ddd;
+}
+
+/* Header Styling */
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: top;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+		
+}
+
+
+.header h1 {
+    font-size: 1.5rem;
+		width: auto;
+		
+	}
+
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0; /* Remove any padding to avoid indentation */
+		padding-left: 10px;
+}
+
+.nav-links li {
+    margin: 0; /* Ensure no margin on list items */
+    padding: 0;
+		
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0 5px; /* Horizontal padding only for spacing within the link */
+    margin: 0; /* Ensure no margin on links */
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    display: inline-block;
+		
+}
+
+/* Hover Effect for Navigation Links */
+.nav-links a:hover {
+    background-color: #555;
+}
+
+/* Dark Mode Styles for Navigation Links */
+.dark-mode .nav-links a {
+    color: #ddd;
+}
+
+/* Dark Mode Styles for Header */
+.dark-mode .header {
+    background-color: #444;
+}
+
+/* Footer Styling */
+.footer {
+    position: bottom;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+		left: 0;
+    font-size: 1rem;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode .footer {
+    background-color: #444;
+    color: #ddd;
+}
+
+/* Scroll Buttons Container */
+.scroll-buttons {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.scroll-buttons button {
+    all: unset;
+    width: 1rem !important;
+    height: auto;
+    font-size: .7rem;
+    background: #e0e0e0;
+    color: #333;
+    padding: 0;
+    padding-top: 3px;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    box-shadow: 2px 2px 2px #bebebe, -2px -2px 5px #ffffff;
+    transition: box-shadow 0.3s ease, background-color 0.3s, transform 0.2s;
+}
+
+/* Hover effect for buttons */
+.scroll-buttons button:hover {
+    background-color: #ccc;
+    box-shadow: inset 2px 2px 5px #bebebe, inset -2px -2px 5px #ffffff;
+    transform: scale(1.05);
+}
+
+/* Dark Mode for Scroll Buttons */
+.dark-mode .scroll-buttons button {
+    background: #555; /* Darker background for dark mode */
+    color: #ddd; /* Lighter text color for dark mode */
+    box-shadow: 2px 2px 5px #333, -2px -2px 5px #555;
+}
+
+.dark-mode .scroll-buttons button:hover {
+    background-color: #666;
+    box-shadow: inset 2px 2px 5px #333, inset -2px -2px 5px #555;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+/* Toggle Button Styling */
+.toggle-button {
+    position: sticky;
+    top: 0;
+    margin-left: 0;
+		width: 100%;
+    padding: 5px 10px;
+    background: grey;
+    color: white;
+    border: none;
+    
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+    z-index: 1000;
+		border-bottom-left-radius: 20px;
+		border-bottom-right-radius: 20px;
+}
+
+.toggle-button:hover {
+    background-color: #555;
+}
+
+/* Dark Mode Toggle Button */
+.dark-mode .toggle-button {
+    background: #444;
+    color: #ddd;
+    box-shadow: 4px 4px 8px #222, -4px -4px 8px #555;
+}
+
+.dark-mode .toggle-button:hover {
+    background-color: #666;
+}
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: sticky;
+    top: 30px;
+    right: 5px;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+    max-height: 50vh;
+    overflow-y: auto;
+		text-align: center;
+}
+
+/* Dark Mode for Neumorphic Navigation Container */
+.dark-mode .navigation {
+    background-color: #444;
+    box-shadow: 4px 4px 8px #222, -4px -4px 8px #555;
+}
+
+/* Neumorphic Tab Styling */
+.neumorphic-tab {
+    display: inline-block;
+    margin: 2px 2px;
+    padding: 3px 3px;
+    border-radius: 25px;
+    background: #e0e0e0;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-size: clamp(12px, 1.2vw, 22px);
+}
+
+/* Dark Mode Neumorphic Tab */
+.dark-mode .neumorphic-tab {
+    background: #555;
+    color: #ddd;
+    box-shadow: 8px 8px 16px #222, -8px -8px 16px #333;
+}
+
+.neumorphic-tab:hover {
+    box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+}
+
+/* Dark Mode Hover for Neumorphic Tab */
+.dark-mode .neumorphic-tab:hover {
+    box-shadow: inset 8px 8px 16px #222, inset -8px -8px 16px #333;
+}
+
+/* Active State for Neumorphic Tab */
+.neumorphic-tab.active {
+    background: #d1d1d1;
+}
+
+/* Dark Mode Active State for Neumorphic Tab */
+.dark-mode .neumorphic-tab.active {
+    background: #666;
+}
+
+#manualInputContainer {
+	  justify-content: center;
+    align-items: center;
+		display: flex;
+		text-align: center;
+}
+
+#manualInput {
+	justify-content: center;
+    align-items: center;
+		display: flex;
+		left: 50%;
+		text-align: center;
+}
+
+/* Set scroll offset for the #tossMethod element */
+#tossMethod {
+    scroll-margin-top: 100px; /* Adjust this value to control the offset */
+}
+
+#savedReadingsContainer {
+	scroll-margin-top: 100px; /* Adjust this value to control the offset */
+}
+
+.footer a {
+    color: #ff6600;
+    text-decoration: none;
+}
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: black;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+
+/* Page Title Styling */
+.page-title {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  margin-top: 20px;
+  color: var(--text-color); /* Dynamic color based on mode */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: color 0.3s ease-in-out;
+}
+
+.page-title br {
+  display: block;
+  margin-bottom: 10px;
+}
+
