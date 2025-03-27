@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Skating bunny</title>
+  <!-- Normalize CSS -->
+<link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css" onerror="this.onerror=null;this.href='./libs/normalize.min.css';">
+
+ <!-- Local Normalize CSS -->
+  <link rel="stylesheet" href="./styles.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<canvas class="webgl"></canvas>
+
+<div id="instructions"> - Press to jump - </div>
+
+<div id="credits">
+  <p><a href="../index.html" target="blank">FOOD4THOTH</a> | <a href="../Inprogression/index.html" target="blank">INPROGRESSION</a> | <a href="http://www.artabillies.com" target="blank">ARTABILLIES</a></p>
+</div>
+
+<!-- Hidden audio element -->
+<audio id="background-music" loop>
+  <source src="./07+Track+07.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+
+
+<script type="x-shader/x-vertex" id="reflectorVertexShader">
+  uniform mat4 textureMatrix;
+  varying vec4 vUvReflection;
+  varying vec2 vUv; 
+
+  #include <common>
+  #include <shadowmap_pars_vertex>
+  #include <logdepthbuf_pars_vertex>
+
+void main() {
+	#include <beginnormal_vertex>
+	#include <defaultnormal_vertex>
+	#include <begin_vertex>
+
+	vUvReflection = textureMatrix * vec4( position, 1.0 );
+	vUv = uv;
+
+	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+	#include <logdepthbuf_vertex>
+	#include <worldpos_vertex>
+	#include <shadowmap_vertex>
+    
+}
+</script> 
+  
+<script type="x-shader/x-fragment" id="reflectorFragmentShader">
+  uniform vec3 color;
+	uniform sampler2D tDiffuse;
+  uniform sampler2D tScratches;
+  varying vec4 vUvReflection;
+	varying vec2 vUv;
+  
+  #include <common>
+  #include <packing>
+  #include <lights_pars_begin>
+  #include <shadowmap_pars_fragment>
+  #include <shadowmask_pars_fragment>
+	#include <logdepthbuf_pars_fragment>
+  
+  vec4 blur9(sampler2D image, vec4 uv, vec2 resolution, vec2 direction) {
+        vec4 color = vec4(0.0);
+        vec2 off1 = vec2(1.3846153846) * direction;
+        vec2 off2 = vec2(3.2307692308) * direction;
+        color += texture2DProj(image, uv) * 0.2270270270;
+        color += texture2DProj(image, uv + vec4(off1 / resolution, off1 / resolution)) * 0.3162162162;
+        color += texture2DProj(image, uv - vec4(off1 / resolution, off1 / resolution)) * 0.3162162162;
+        color += texture2DProj(image, uv + vec4(off2 / resolution, off2 / resolution)) * 0.0702702703;
+        color += texture2DProj(image, uv - vec4(off2 / resolution, off2 / resolution)) * 0.0702702703;
+        return color;
+  }
+	
+  float blendOverlay( float base, float blend ) {
+			return( base < 0.5 ? ( 2.0 * base * blend ) : ( 1.0 - 2.0 * ( 1.0 - base ) * ( 1.0 - blend ) ) );
+	}
+
+	vec3 blendOverlay( vec3 base, vec3 blend ) {
+		return vec3( blendOverlay( base.r, blend.r ), blendOverlay( base.g, blend.g ), blendOverlay( base.b, blend.b ) );
+	}
+
+	void main() {
+			#include <logdepthbuf_fragment>
+        
+        
+			vec4 displacement = vec4( sin(vUvReflection.y * 3.) * .05, sin(vUvReflection.x * 3.) * .05, 0.0, 0.0);
+      vec2 resolution = vec2(30., 30.);
+      vec4 base = blur9( tDiffuse, vUvReflection + displacement, resolution, vec2(1., 0.) ) * .25;
+      base += blur9( tDiffuse, vUvReflection + displacement, resolution, vec2(-1., 0.) ) * .25;
+      base += blur9( tDiffuse, vUvReflection + displacement, resolution, vec2(0, 1.) ) * .25;
+      base += blur9( tDiffuse, vUvReflection + displacement, resolution, vec2(0, -1.) ) * .25;
+    
+      vec4 scratchesCol = texture2D( tScratches, vUv);
+    
+			vec3 col = mix(color, base.rgb, .5);
+      col.rgb += scratchesCol.r * .02;
+	    col.gb -= scratchesCol.g * .01;
+      col.gb -= (1.0 - getShadowMask() ) * .015;
+    
+      gl_FragColor = vec4(col, 1.0);
+			#include <tonemapping_fragment>
+			#include <colorspace_fragment>
+		}
+</script>  
+<script type="x-shader/x-vertex" id="simulationVertexShader">
+  precision highp float;
+
+  uniform float time;
+  varying vec2 vUv;
+
+  void main() {
+    vUv = uv;
+    vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
+    gl_Position = projectionMatrix * modelViewPosition; 
+  }
+</script>
+
+<script type="x-shader/x-fragment" id="simulationFragmentShader">
+  // fragment shader
+  precision highp float;
+
+  uniform sampler2D inputTexture;
+  uniform vec2 blade1PosOld;
+  uniform vec2 blade1PosNew;
+  uniform float strength;
+  uniform float time;
+  varying vec2 vUv;
+
+  float lineSegment(vec2 p, vec2 a, vec2 b, float thickness) {
+      vec2 pa = p - a;
+      vec2 ba = b - a;
+      float h = clamp( dot(pa,ba)/dot(ba,ba), 0.0, 1.0 );
+      float idk = length(pa - ba*h);
+      return smoothstep(thickness, .2 * thickness, idk);
+  }
+
+  void main(void) {
+    vec4 prevTexture = texture2D(inputTexture, vUv);
+    vec3 col = prevTexture.rgb * .999;
+    if (strength>0.){
+        float space = .001;
+        float crease = .001;
+        float thickness = .001 + strength * .001;
+        float leftRed = lineSegment(vUv + space, blade1PosOld, blade1PosNew, thickness);
+        float leftGreen = lineSegment(vUv + space + crease, blade1PosOld, blade1PosNew, thickness);
+        float rightRed = lineSegment(vUv - space - crease, blade1PosOld, blade1PosNew, thickness);
+        float rightGreen = lineSegment(vUv - space, blade1PosOld, blade1PosNew, thickness);
+        col.r += ( leftRed + rightRed ) * strength * 3.0;
+        col.g += ( leftGreen + rightGreen) * strength * 3.0;
+        col.r = clamp(col.r, .0, 1.0);
+        col.g = clamp(col.g, .0, 1.0);
+    }
+    gl_FragColor = vec4(col, 1.0);
+}
+</script>
+
+<script type="x-shader/x-fragment" id="outlineFragmentShader">
+  uniform vec3 color;
+  void main(void) {
+      gl_FragColor = vec4( color, 1.0);
+  }
+</script>
+
+<script type="x-shader/x-vertex" id="outlineVertexShader">
+  uniform float size;
+  uniform float time;
+
+  void main() {
+    vec3 transformed = position + normal * size * (1.0 + abs( sin ( position.y * time * .02 ) * 2.0 ));
+    vec4 modelViewPosition = modelViewMatrix * vec4(transformed, 1.0);
+    gl_Position = projectionMatrix * modelViewPosition; 
+  }
+</script>
+<script type="module">
+async function loadModules() {
+  let onlineLoaded = false;
+
+  try {
+    // Attempt to load online modules
+    window.THREE = await import("https://esm.sh/three@0.156.1");
+    window.OrbitControls = (await import("https://esm.sh/three@0.156.1/addons/controls/OrbitControls.js")).OrbitControls;
+    window.GLTFLoader = (await import("https://esm.sh/three@0.156.1/examples/jsm/loaders/GLTFLoader.js")).GLTFLoader;
+    window.Reflector = (await import("https://esm.sh/three@0.156.1/examples/jsm/objects/Reflector.js")).Reflector;
+    window.gsap = (await import("https://esm.sh/gsap")).default;
+    
+    onlineLoaded = true;
+    console.log('Loaded online modules.');
+  } catch (e) {
+    console.warn("Failed to load online modules, switching to local copies.", e);
+  
+	}
+	
+	
+
+  if (!onlineLoaded) {
+    try {
+      // Load local modules if online loading fails
+      window.THREE = await import("./libs/three.module.js");
+      window.OrbitControls = (await import("./libs/OrbitControls.js")).OrbitControls;
+      window.GLTFLoader = (await import("./libs/GLTFLoader.js")).GLTFLoader;
+      window.Reflector = (await import("./libs/Reflector.js")).Reflector;
+      window.gsap = (await import("./libs/gsap.min.js")).gsap;
+      
+      console.log('Loaded local modules.');
+    } catch (err) {
+      console.error("Failed to load local modules as well. Please check file paths.", err);
+      return;
+    }
+  }
+
+  // Import and initialize the main application
+  try {
+    const { App } = await import('./script.js');
+    new App();
+  } catch (appError) {
+    console.error("Failed to load the application script:", appError);
+  }
+}
+
+// Load the modules when the document is ready
+document.addEventListener("DOMContentLoaded", loadModules);
+</script>
+
+
+
+	
+<script>
+  const canvas = document.querySelector('.webgl');
+  const audio = document.getElementById('background-music');
+
+  let audioPlayed = false;
+
+  canvas.addEventListener('click', () => {
+    if (!audioPlayed) {
+      audio.play();
+      audioPlayed = true; // Ensure the audio only starts once on the first interaction
+    }
+  });
+</script>
+
+</body>
+</html>
