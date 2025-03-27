@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Community Gardens Map - Eugene</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		
+		<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" onerror="this.onerror=null;this.href='./libs/leaflet.css';">
+
+<!-- MarkerCluster CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" onerror="this.onerror=null;this.href='./libs/MarkerCluster.css';">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" onerror="this.onerror=null;this.href='./libs/MarkerCluster.Default.css';">
+
+    <link rel="stylesheet" href="./styles.css">
+		
+		<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+  if (typeof L === 'undefined') {
+    document.write('<script src="./libs/leaflet.js"><\/script>');
+  }
+</script>
+
+<!-- MarkerCluster JS -->
+<script src="https://unpkg.com/leaflet.markercluster@1.4.0/dist/leaflet.markercluster.js"></script>
+<script>
+  window.L && L.markerClusterGroup || document.write('<script src="./libs/MarkerCluster.js"><\/script>');
+</script>
+</head>
+<body>
+	
+	<button id="toggle-nav" class="toggle-button">☰ Nav</button>
+<div id="navigation" class="navigation hidden">
+	
+	<a href="../index.html" class="neumorphic-tab">Home</a>
+	
+	<a href="../Donations/index.html" class="neumorphic-tab">Donations Page</a>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-black-business">Black Business Eugene</a>
+  <div id="submenu-black-business" class="submenu hidden">
+    <a href="../BlackBuisnessEugene/index.html" class="neumorphic-tab">Black Business Directory</a>
+    <a href="../BlackBuisnessEugene/blackbusinessformpage.html" class="neumorphic-tab">Black Business Form</a>
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-community-garden">Community Gardens</a>
+<div id="submenu-community-garden" class="submenu hidden">
+  <a href="../CommunityGardensLists/index.html" class="neumorphic-tab">Full List of All Gardens</a>
+	<a href="../CommunityGardenLand/index.html" class="neumorphic-tab">Mobile Landing</a>
+  <a href="../CommunityGardenLand/indexDesktop.html" class="neumorphic-tab">Desktop Landing</a>
+  <a href="../CommunityGardensMaps/indexEugeneMap.html" class="neumorphic-tab">Eugene Garden Map</a>
+	 <a href="../CommunityGardensMaps/indexPortlandMap.html" class="neumorphic-tab">Portland Garden Map</a>
+  <a href="../CommunityGardensInfo/index.html" class="neumorphic-tab">Community Garden Info</a>
+  <a href="../CommunityGardensLists/indexEugene.html" class="neumorphic-tab">Eugene Garden List</a>
+  <a href="../CommunityGardensLists/indexPortland.html" class="neumorphic-tab">Portland Garden List</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-visualizers">Sound & Voice Visualizers</a>
+<div id="submenu-visualizers" class="submenu hidden">
+  <a href="../SoundActivatedVisualizor/index.html" class="neumorphic-tab">Voice Activated Visualizer</a>
+  <a href="../SoundVisualizerWmedia/index.html" class="neumorphic-tab">Sound Visualizer w/Media Loader</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-arp">ARP Synths</a>
+<div id="submenu-arp" class="submenu hidden">
+  <a href="../ArpAppNoVisualHighFi/index.html" class="neumorphic-tab">ARP App: No Visual (High-Fi)</a>
+  <a href="../ArpAppNoVisualLoFi/index.html" class="neumorphic-tab">ARP App: No Visual (Lo-Fi)</a>
+  <a href="../ArpAppWithVisual/index.html" class="neumorphic-tab">ARP App: With Visual</a>
+	
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-loopstation">Loop Stations</a>
+<div id="submenu-loopstation" class="submenu hidden">
+  <!-- Animated Music Loopers -->
+  <a href="../Bboy/index.html" class="neumorphic-tab">NoWhere Man Looper</a>
+
+  <a href="../BJungle/index.html" class="neumorphic-tab">BJungle Looper</a>
+
+  <!-- Loop Stations -->
+  <a href="../LoopStation/index.html" class="neumorphic-tab">Loop Station</a>
+
+  <!-- Advanced Loop Stations with Effects -->
+  <a href="../LoopStationHiFi/index.html" class="neumorphic-tab">Loop Station HiFi (Advanced Effects)</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-music">Music Vue Library</a>
+<div id="submenu-music" class="submenu hidden">
+  <!-- Main Music Library -->
+  <a href="../MusicLibrary/index.html" class="neumorphic-tab">Music Library Lite</a>
+
+  <!-- Music Library with Visualizer -->
+  <a href="../MusicLibraryVis/index.html" class="neumorphic-tab">Music Library (Visualizer)</a>
+</div>
+
+<!-- Music Collection Section -->
+<a href="#" class="neumorphic-tab" data-expand="submenu-music_collection">Music Collections</a>
+<div id="submenu-music_collection" class="submenu hidden">
+	<a href="../DeJahn/index.html" class="neumorphic-tab">DeJahn</a>
+	<a href="../SeekerStar/index.html" class="neumorphic-tab">Seeker & the Star</a>
+	<a href="../GroundCherry/index.html" class="neumorphic-tab">Ground Cherry</a>
+	<a href="../PeruvianMelt/index.html" class="neumorphic-tab">Peruvian Melt</a>
+		<a href="../comingSoon.html" class="neumorphic-tab">Abyss of Bliss</a>
+		
+<a href="https://www.artabillies.com/inprogression" class="neumorphic-tab">INPROGRESSION Artabillies</a>
+
+<a href="https://youtube.com/playlist?list=PLsiMr0_hgaOmqlIGzjHZBzi94yaRgQ38L&si=DMZc6ng8GWx8uMbU" class="neumorphic-tab">INPROGRESSION DVD</a>
+	</div>
+	
+	  <a href="../ChooseYourOwnAdventure/prologue.html" class="neumorphic-tab">Choose Your Own Adventure</a>
+
+ <a href="#" class="neumorphic-tab" data-expand="submenu-games">Games</a>
+<div id="submenu-games" class="submenu hidden">
+  <a href="../NewSchoolGameKid/index.html" class="neumorphic-tab">New School Game: Kid Sprite</a>
+  <a href="../NewSchoolGameWizard/index.html" class="neumorphic-tab">New School Game: Wizard Sprite</a>
+  <a href="../OldSchoolGameDesktop/index.html" class="neumorphic-tab">Old School Game: Desktop</a>
+  <a href="../OldSchoolGameMobile/index.html" class="neumorphic-tab">Old School Game: Mobile</a>
+  <a href="../TerminalGameTransition/index.html" class="neumorphic-tab">Terminal Transition Game</a>
+	<a href="../bergs-of-life/index.html" class="neumorphic-tab">Bergs of Life</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">SideScroll Game</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-claw-machine">Claw Machine</a>
+<div id="submenu-claw-machine" class="submenu hidden">
+  <a href="../claw-machine/index.html" class="neumorphic-tab">Claw Machine OG</a>
+  <a href="../claw-machineGame/index.html" class="neumorphic-tab">Claw Machine Enhanced</a>
+</div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-glo-calculato">Glo-Calculato</a>
+  <div id="submenu-glo-calculato" class="submenu hidden">
+    <a href="../GloCalculatoLanding/index.html" class="neumorphic-tab">Glo-Calculato Landing</a>
+    <a href="../GloCalculato/index.html" class="neumorphic-tab">Full-Sized Glo-Calculato</a>
+    <a href="../GloCalculatoLanding/GLO-CALCULATO/Glo-Calculato.zip" class="neumorphic-tab">Download Glo-Calculato</a>
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-tarot">Tarot</a>
+<div id="submenu-tarot" class="submenu hidden">
+  <!-- Main Tarot Landing and Learning -->
+  <a href="../TarotLanding/index.html" class="neumorphic-tab">Tarot Orientation Landing</a>
+  <a href="../TarotLanding/HowTo.html" class="neumorphic-tab">How To: Tarot – FOOD4THOTH</a>
+	<a href="../TarotFlipCardGallery/index.html" class="neumorphic-tab">Quick Reference Flip Gallery</a>
+
+  <!-- General Tarot Decks and Readings -->
+  <a href="../TarotTogetherNoAge/index.html" class="neumorphic-tab">Tarot Card Gallery (3 Decks)</a>
+  <a href="../TarotTogetherNoAge4Decks/index.html" class="neumorphic-tab">Tarot Card Gallery (4 Decks)</a>
+  <a href="../CelticCrossTarot/index.html" class="neumorphic-tab">Celtic Cross Reading</a>
+	<a href="../ThreeCardTarot/index.html" class="neumorphic-tab">Three-Card Tarot w/ Gallery</a>
+  <a href="../ThreeCardTarotByItself/index.html" class="neumorphic-tab">Three-Card Tarot Reading</a>
+
+  <!-- Cyberpunk and Thematic Tarot Decks -->
+  <a href="../TarotSacredGeometry/index.html" class="neumorphic-tab">Sacred Geometry Tarot</a>
+  <a href="../TarotCyberPunkDark/index.html" class="neumorphic-tab">CyberPunk Dark Tarot</a>
+  <a href="../TarotCyberPunkMelo/index.html" class="neumorphic-tab">CyberPunk Melo Tarot</a>
+  <a href="../TarotOG/index.html" class="neumorphic-tab">OG Tarot w/Voice Commands</a>
+	
+	<!-- Experimental and Custom Decks -->
+  <a href="../EgyptianTarot/index.html" class="neumorphic-tab">Custom Egyptian Major Arcana (1–22)</a>
+  <a href="../EgyptianTarotFull/index.html" class="neumorphic-tab">Custom Sacred Geometry (1–78)</a>
+  <a href="../TarotJungian/index.html" class="neumorphic-tab">Jungian Thoth Tarot Spread</a>
+  <a href="../TarotTextList/index.html" class="neumorphic-tab">Cyberpunk Tarot Text Library</a>
+	
+	<a href="../DrawTarot/index.html" class="neumorphic-tab">All Spreads</a>
+
+  <!-- Majix Tarot Galleries (Individual Arcana) -->
+  <a href="../MajixLanding/index.html" class="neumorphic-tab">Majix Galleries Landing</a>
+  <a href="../MajixTarotMajor/index.html" class="neumorphic-tab">Majix Major Arcana</a>
+  <a href="../MajixTarotWands/index.html" class="neumorphic-tab">Majix Wands</a>
+  <a href="../MajixTarotCups/index.html" class="neumorphic-tab">Majix Cups</a>
+  <a href="../MajixTarotSwords/index.html" class="neumorphic-tab">Majix Swords</a>
+  <a href="../MajixTarotPentacles/index.html" class="neumorphic-tab">Majix Pentacles</a>
+  <a href="../MajixTarotAll/index.html" class="neumorphic-tab">Majix All Cards</a>
+  
+  <a href="../TarotGalleries/index.html" class="neumorphic-tab">Explore All Galleries</a>
+
+  <a href="../TarotCrystalQueens/indexAge.html" class="neumorphic-tab">18+ Crystal Queens Tarot</a>
+  <a href="../TarotCyberPunkX/indexAge.html" class="neumorphic-tab">18+ CyberPunk X Tarot</a>
+  <a href="../TarotAgeVerify/index.html" class="neumorphic-tab">FOOD4THOTH 18+ Tarot Gallery</a>
+	
+	<a href="../TarotAllResources/index.html" class="neumorphic-tab">All Resources</a>
+
+  <!-- Additional Resources -->
+  <a href="../comingSoon.html" class="neumorphic-tab">More Tarot</a>
+  <a href="../parental-controls.html" class="neumorphic-tab">Parental Controls</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-iching">I Ching</a>
+<div id="submenu-iching" class="submenu hidden">
+  <a href="../Iching/index.html" class="neumorphic-tab">I Ching Simple</a>
+	<a href="../IchingFractal/index.html" class="neumorphic-tab">I Ching Fractal</a>
+	<a href="../IchingPhoto/index.html" class="neumorphic-tab">I Ching Fractal/Photo</a>
+  <a href="../Iching/ichingAnimeLoop.html" class="neumorphic-tab">I Ching Anime Loop</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-hakim-bey">Hakim Bey</a>
+  <div id="submenu-hakim-bey" class="submenu hidden">
+    <a href="../HakimBey/index.html" class="neumorphic-tab">Hakim Bey Anarchy Page</a>
+    <a href="../HakimBey/joinTheMovement.html" class="neumorphic-tab">Anarchy Collective Contact</a>
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-hashisheen">Hashisheen Album Reviews</a>
+  <div id="submenu-hashisheen" class="submenu hidden">
+		 <a href="../EndOfLawHASHISHEEN/AllHashineenReviews.html" class="neumorphic-tab">Landing Page</a>
+    <a href="../EndOfLawHASHISHEEN/FullAlbumReview.html" class="neumorphic-tab">Full Album Review</a>
+     <a href="../EndOfLawHASHISHEEN/index1.html" class="neumorphic-tab">Hashisheen Album Review (Track 1)</a>
+    <a href="../EndOfLawHASHISHEEN/index2.html" class="neumorphic-tab">Hashisheen Album Review (Track 2)</a>
+    <a href="../EndOfLawHASHISHEEN/index3.html" class="neumorphic-tab">Hashisheen Album Review (Track 3)</a>
+    <a href="../EndOfLawHASHISHEEN/index4.html" class="neumorphic-tab">Hashisheen Album Review (Track 4)</a>
+    <a href="../EndOfLawHASHISHEEN/index5.html" class="neumorphic-tab">Hashisheen Album Review (Track 5)</a>
+    <a href="../EndOfLawHASHISHEEN/index6.html" class="neumorphic-tab">Hashisheen Album Review (Track 6)</a>
+    <a href="../EndOfLawHASHISHEEN/index7.html" class="neumorphic-tab">Hashisheen  Album Review (Track 7)</a>
+    <a href="../EndOfLawHASHISHEEN/index8.html" class="neumorphic-tab">Hashisheen Album Review (Track 8)</a>
+    <a href="../EndOfLawHASHISHEEN/index9.html" class="neumorphic-tab">Hashisheen Album Review (Track 9)</a>
+    <a href="../EndOfLawHASHISHEEN/index10.html" class="neumorphic-tab">Hashisheen Album Review (Track 10)</a>
+    <a href="../EndOfLawHASHISHEEN/index11.html" class="neumorphic-tab">Hashisheen Album Review (Track 11)</a>
+    <a href="../EndOfLawHASHISHEEN/index12.html" class="neumorphic-tab">Hashisheen Album Review (Track 12)</a>
+    <a href="../EndOfLawHASHISHEEN/index13.html" class="neumorphic-tab">Hashisheen Album Review (Track 13)</a>
+    <a href="../EndOfLawHASHISHEEN/index14.html" class="neumorphic-tab">Hashisheen Album Review (Track 14)</a>
+    <a href="../EndOfLawHASHISHEEN/index15.html" class="neumorphic-tab">Hashisheen Album Review (Track 15)</a>
+    <a href="../EndOfLawHASHISHEEN/index16.html" class="neumorphic-tab">Hashisheen Album Review (Track 16)</a>
+    <a href="../EndOfLawHASHISHEEN/index17.html" class="neumorphic-tab">Hashisheen Album Review (Track 17)</a>
+    <a href="../EndOfLawHASHISHEEN/index18.html" class="neumorphic-tab">Hashisheen Album Review (Track 18)</a>
+    <a href="../EndOfLawHASHISHEEN/index19.html" class="neumorphic-tab">Hashisheen Album Review (Track 19)</a>
+    <a href="../EndOfLawHASHISHEEN/index20.html" class="neumorphic-tab">Hashisheen Album Review (Track 20)</a>
+    <a href="../EndOfLawHASHISHEEN/index21.html" class="neumorphic-tab">Hashisheen Album Review (Track 21)</a>
+    <a href="../EndOfLawHASHISHEEN/index22.html" class="neumorphic-tab">Hashisheen Album Review (Track 22)</a>
+		<a href="../comingSoon.html" class="neumorphic-tab">More Reviews</a>
+  </div>
+	
+	<a href="../DrawingFractals/index.html" class="neumorphic-tab">Draw w/Fractals</a>
+	
+	<a href="../RainbowGathering/index.html" class="neumorphic-tab">Rainbow Recordings</a>
+	
+	<a href="#" class="neumorphic-tab" data-expand="submenu-rainbows">Rainbow Reveals & Generators</a>
+<div id="submenu-rainbows" class="submenu hidden">
+  <!-- Rainbow Reveals -->
+  <a href="../Rainbows4Thoth/Reveal1.html" class="neumorphic-tab">Rainbow Reveal 1</a>
+  <a href="../Rainbows4Thoth/Reveal2.html" class="neumorphic-tab">Rainbow Reveal 2</a>
+	<a href="../Rainbows4Thoth/ListReveal.html" class="neumorphic-tab">Rainbow Reveal List</a>
+
+  <!-- Rainbow Generators -->
+  <a href="../RainbowFracGenerator/index.html" class="neumorphic-tab">Fractal Generator</a>
+  
+  <a href="../RainbowGenerator/index.html" class="neumorphic-tab">Rainbow Shape Generator</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-mescalito">Mescalito Reveals</a>
+<div id="submenu-mescalito" class="submenu hidden">
+  <!-- Rainbow Reveals -->
+  <a href="../Mescalito/Reveal1.html" class="neumorphic-tab">Mescalito Reveal 1</a>
+  <a href="../Mescalito/Reveal2.html" class="neumorphic-tab">Mescalito Reveal 2</a>
+	<a href="../Mescalito/ListReveal.html" class="neumorphic-tab">Mescalito Reveal List</a>
+</div>
+	
+	<a href="#" class="neumorphic-tab" data-expand="submenu-akashic">Akashic Records</a>
+<div id="submenu-akashic" class="submenu hidden">
+  <a href="../css-only-3d-image-carousel/index.html" class="neumorphic-tab">Main Landing</a>
+  <a href="../AkashicAsclepiusDeep/index.html" class="neumorphic-tab">Akashic Asclepius Deep</a>
+  <a href="../AkashicAsclepiusLite/index.html" class="neumorphic-tab">Akashic Asclepius Lite</a>
+  <a href="../AkashicEmeraldAsAbove/index.html" class="neumorphic-tab">Akashic Emerald As Above</a>
+  <a href="../AkashicEmeraldDeep/index.html" class="neumorphic-tab">Akashic Emerald Deep</a>
+  <a href="../AkashicEmeraldLite/index.html" class="neumorphic-tab">Akashic Emerald Lite</a>
+  <a href="../AkashicHermiticum/index.html" class="neumorphic-tab">Akashic Hermiticum</a>
+  <a href="../AkashicHymnLite/index.html" class="neumorphic-tab">Akashic Hymn Lite</a>
+  <a href="../AkashicNag/index.html" class="neumorphic-tab">Akashic Nag</a>
+  <a href="../AkashicNag13Codex/index.html" class="neumorphic-tab">Akashic Nag 13 Codex</a>
+  <a href="../AkashicNagTreaties/index.html" class="neumorphic-tab">Akashic Nag Treaties</a>
+  <a href="../AkashicThothDeep/index.html" class="neumorphic-tab">Akashic Thoth Deep</a>
+  <a href="../AkashicThothLite/index.html" class="neumorphic-tab">Akashic Thoth Lite</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">More Records</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-anarchy">Anarchy Comics & Info</a>
+<div id="submenu-anarchy" class="submenu hidden">
+  <a href="../AnarchyComicBreakFree/index.html" class="neumorphic-tab">Anarchy Comic: Break Free</a>
+  <a href="../AnarchyComicCocoon/index.html" class="neumorphic-tab">Anarchy Comic: Cocoon</a>
+  <a href="../AnarchyDepth/index.html" class="neumorphic-tab">Anarchy Depth</a>
+  <a href="../AnarchyIsAlwaysMobile/index.html" class="neumorphic-tab">Anarchy Is Always Mobile</a>
+  <a href="../AnarchyPoetics/index.html" class="neumorphic-tab">Anarchy Poetics</a>
+  <a href="../AnarchyTAZ/index.html" class="neumorphic-tab">Anarchy TAZ</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-eyespy">Eye Spy</a>
+<div id="submenu-eyespy" class="submenu hidden">
+  <a href="../EyeSPY1/index.html" class="neumorphic-tab">Eye Spy Game 20 (1st Edition)</a>
+	<a href="../EyeSPY2/index.html" class="neumorphic-tab">Eye Spy Game 46 (2nd Edition)</a>
+	<a href="../EyeSPY3/index.html" class="neumorphic-tab">Eye Spy Game 66 (3rd Edition)</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-tide-walk">Tide Walk</a>
+<div id="submenu-tide-walk" class="submenu hidden">
+	<a href="../TideApp/index.html" class="neumorphic-tab">Tide Walk USA</a>
+  <a href="../TideApp/indexOregon.html" class="neumorphic-tab">Tide Walk Oregon</a>
+  <a href="../TideApp/indexBoston.html" class="neumorphic-tab">Tide Walk Boston</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-trent">Trent</a>
+<div id="submenu-trent" class="submenu hidden">
+  <a href="../TrentOfTheDay/index.html" class="neumorphic-tab">Trent of the Day</a>
+  <a href="../TrentStorybook1stMobile/index.html" class="neumorphic-tab">Trent Storybook</a>
+  <a href="../TrentStorybook1stMobile/contact.html" class="neumorphic-tab">Contact</a>
+  <a href="../TrentStorybook1stMobile/about.html" class="neumorphic-tab">About</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">Space StoryBook</a>
+</div>
+
+<!-- Prayer Section -->
+<a href="#" class="neumorphic-tab" data-expand="submenu-prayer">Prayer For Love</a>
+<div id="submenu-prayer" class="submenu hidden">
+	<a href="../PrayerForLove/index.html" class="neumorphic-tab">Prayer For Love</a>
+	<a href="../PrayerThanks/index.html" class="neumorphic-tab">Thanks & Graditude</a>
+	<a href="../PrayerChildrensStill/index.html" class="neumorphic-tab">Prayer Childrens Still image</a>
+	<a href="../PrayerChildrensFade/index.html" class="neumorphic-tab">Prayer Childrens Fade</a>
+		<a href="../PrayerChildrensFlip/index.html" class="neumorphic-tab">Prayer Childrens Flip</a>
+	</div>
+	
+<a href="../Haudenosaunee/index.html" class="neumorphic-tab">Haudenosaunee Thanksgiving</a>
+
+<a href="../Inprogression/index.html" class="neumorphic-tab">INPROGRESSION</a>
+
+<a href="../MindMelt/index.html" class="neumorphic-tab">MindMelt</a>
+
+<a href="../behind-the-fold/index.html" class="neumorphic-tab">Behind the Fold</a>
+
+<a href="../skating-bunny/index.html" class="neumorphic-tab">Rabbit Hole</a>
+
+<!-- Socials Section -->
+<a href="#" class="neumorphic-tab" data-expand="submenu-socials">Socials</a>
+<div id="submenu-socials" class="submenu hidden">
+
+    <!-- FOOD4THOTH Links -->
+    <a href="https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho" class="neumorphic-tab" target="_blank">FOOD4THOTH Instagram</a>
+    <a href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi" class="neumorphic-tab" target="_blank">FOOD4THOTH Facebook</a>
+
+    <!-- INPROGRESSION Links -->
+    <a href="https://www.facebook.com/share/19M7DM1SrT/?mibextid=wwXIfr" class="neumorphic-tab" target="_blank">INPROGRESSION Facebook</a>
+
+    <!-- ARTABILLIES Links -->
+    <a href="https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ==" class="neumorphic-tab" target="_blank">ARTABILLIES Instagram</a>
+    <a href="https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi" class="neumorphic-tab" target="_blank">ARTABILLIES Facebook</a>
+    <a href="https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP" class="neumorphic-tab" target="_blank">ARTABILLIES Facebook Group</a>
+    <a href="https://www.artabillies.com/contact-us" class="neumorphic-tab" target="_blank">Contact Artabillies</a>
+    <a href="https://www.artabillies.com/artist-info" class="neumorphic-tab" target="_blank">Artabillies Artists</a>
+		
+<a href="https://www.facebook.com/share/1A3Puz9LiE/?mibextid=wwXIfr" class="neumorphic-tab">Peruvian Melt Facebook</a>
+<a href="https://www.facebook.com/share/1ASf9gTHNd/?mibextid=wwXIfr" class="neumorphic-tab">Seeker and the Star Facebook</a>
+<a href="https://www.facebook.com/share/15JCrs2ByF/?mibextid=wwXIfr" class="neumorphic-tab">INPROGRESSION Facebook</a>
+<a href="https://www.facebook.com/share/14u1KuMKxKC/?mibextid=wwXIfr" class="neumorphic-tab">Abyss of Bliss Facebook</a>
+<a href="https://www.facebook.com/share/1A92psCHBz/?mibextid=wwXIfr" class="neumorphic-tab">DeJahn's Facebook</a>
+
+<a href="https://www.instagram.com/trent_son_of_reznor?igsh=MTNpam0zZDY3dGludg==" class="neumorphic-tab">Trent's Instagram</a>
+</div>
+
+<!-- Music Collection Section -->
+<a href="#" class="neumorphic-tab" data-expand="submenu-youtube">YouTube</a>
+<div id="submenu-youtube" class="submenu hidden">
+	
+	
+<a href="https://youtube.com/playlist?list=PL2P9hSa1PuEh6kMDZk3VMK7qPYKxECmEX&si=RyjXAR8fyDIKDXjq" class="neumorphic-tab">Artabillies Videos</a>
+<a href="https://youtube.com/playlist?list=PL2P9hSa1PuEhO0ax57jPofQtKw4q-Ac66&si=SUZaW6uJkIpXOa2a" class="neumorphic-tab">Artabillies Music</a>
+
+<a href="https://youtube.com/playlist?list=PLe089QV1U3-LFF_RgkdEC1OobqUnw8G3P&si=efVtCycW88FjotuS" class="neumorphic-tab">Peruvian Melt Playlist</a>
+<a href="https://youtube.com/playlist?list=PLsiMr0_hgaOmqlIGzjHZBzi94yaRgQ38L&si=DMZc6ng8GWx8uMbU" class="neumorphic-tab">INPROGRESSION DVD</a>
+<a href="https://youtube.com/playlist?list=PLe089QV1U3-LJfWXtDubFrSggdQrSAtQr&si=HHvg-AxCR9B5K0P1" class="neumorphic-tab">Ground Cherry</a>
+<a href="https://youtube.com/playlist?list=PLHLqP3bn74o1JZi7PwVssJZmJ6-3eZ-UQ&si=Nm_FdCnyWb1EcZOn" class="neumorphic-tab">DeJahn's Playlist</a>
+<a href="https://youtube.com/@dejahnlamar3569?si=_lah2UhBbNcV8Y8_" class="neumorphic-tab">DeJahn's YouTube</a>
+<a href="https://youtube.com/@artabillies8291?si=3aRiP1B0ltfkvCPO" class="neumorphic-tab">Artabillies YouTube</a>
+	</div>
+	
+	
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-rstory">Rstory</a>
+<div id="submenu-rstory" class="submenu hidden">
+	<!-- Rstory Links -->
+	<a href="https://rstory.io/Dobbs_GATE.html" class="neumorphic-tab">Do You Do Dobbs Gallery</a>
+	<a href="../RstoryArtabillies/index.html" class="neumorphic-tab">Rstory Artabillies & Food4Thoth</a>
+	<!-- Articles & Additional Resources -->
+    <a href="https://hive.blog/crypto/@rstory/artabillies-receives-1m-rstory-gratitude-tokens" class="neumorphic-tab" target="_blank">ARTABILLIES Article</a>
+    <a href="https://rstory.io" class="neumorphic-tab" target="_blank"> Rstory Official Website</a>
+    <a href="https://t.me/+m-WEaUc7Ud8yY2Qx" class="neumorphic-tab" target="_blank">RSTORY Telegram Community</a>
+    <a href="https://github.com/ma-da/rstory" class="neumorphic-tab" target="_blank"> RSTORY GitHub</a>
+</div>
+
+<a href="https://github.com/Dseekeroftruth" class="neumorphic-tab">GitHub</a>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-summary">Summary</a>
+<div id="submenu-summary" class="submenu hidden">
+	<a href="../CollectiveSummary/index.html" class="neumorphic-tab">Collective Summary 1.0</a>
+	<a href="../CollectiveSummary/index2.html" class="neumorphic-tab">Collective Summary 2.0</a>
+</div>
+	<a href="../Artabillies/index.html" class="neumorphic-tab">Artabillies Info</a>
+  <a href="https://www.artabillies.com/" class="neumorphic-tab">Artabillies.com</a>
+	<a href="../portfolio.html" class="neumorphic-tab">Portfolio</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">Desktop Landing</a>
+	<a href="../contact.html" class="neumorphic-tab">Contact</a>
+  <a href="mailto:food4thoth@proton.me" class="neumorphic-tab">Email: food4thoth@proton.me</a>
+	<a href="../README.md" class="neumorphic-tab">F4T ReadMe</a>
+</div>
+
+
+  <!-- Navigation, etc. -->
+
+  <!-- The map container -->
+  <div id="map"></div>
+  
+  <!-- Footer with search bar -->
+  <footer id="footer">
+    <h2>Eugene Community Gardens</h2>
+    <input type="text" id="search-bar" placeholder="Search for a garden"/>
+    <ul id="places-list"></ul>
+  </footer>
+
+  <!-- 1. Load the data file specifically for Eugene -->
+  <script src="./scriptEugene.js"></script>
+
+  <!-- 2. Load your Leaflet setup code (like you had) -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+<!-- 3) Your main script that uses the data + sets up the map -->
+  <script>
+    // Create the map
+    const map = L.map('map').setView([44.0321, -123.0868], 10); // Eugene area
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const markers = L.markerClusterGroup();
+    const placesList = [];
+
+    // If your .js file has eugeneGardenLocations, let's alias it to gardenLocations 
+    // so we can use the snippet exactly as posted:
+    const gardenLocations = eugeneGardenLocations;
+
+    // Now replicate the snippet that has phone, rating, reviews, etc.
+    gardenLocations.forEach(location => {
+      if (location.coords) {
+        // Build the HTML for reviews
+        const reviewsHtml = location.reviews
+          ? location.reviews.map(review => `
+              <strong>${review.author}</strong> - ${review.rating} ★ - ${review.date}<br>
+              ${review.content}<br><br>
+            `).join('')
+          : '<em>No reviews available</em>';
+
+        // Optional phone link
+        const phoneHtml = location.phone
+          ? `<a href="tel:${location.phone.replace(/[^0-9]/g, '')}">📞 ${location.phone}</a><br>`
+          : '';
+
+        // Construct the Leaflet marker + popup
+        const marker = L.marker(location.coords).bindPopup(`
+          <strong>${location.name}</strong><br>
+          <em>${location.address ?? ''}</em><br>
+          ${phoneHtml}
+          ${location.website ? `<a href="${location.website}" target="_blank">🌐 Website</a><br>` : ''}
+          ${location.googleMapsUrl ? `<a href="${location.googleMapsUrl}" target="_blank">Open in Google Maps</a><br>` : ''}
+          ${location.appleMapsUrl ? `<a href="${location.appleMapsUrl}" target="_blank">Open in Apple Maps</a><br>` : ''}
+          <strong>Rating:</strong> ${location.rating ?? ''} ★ (${location.reviewCount ?? 0} reviews)<br><br>
+          <strong>Description:</strong> ${location.description ?? ''}<br><br>
+          <strong>Reviews:</strong><br>${reviewsHtml}
+        `);
+
+        markers.addLayer(marker);
+
+        // Create a list item in the footer
+        const listItem = document.createElement('li');
+        listItem.textContent = location.name;
+
+        listItem.addEventListener('click', () => {
+  markers.zoomToShowLayer(marker, () => {
+    map.setView(location.coords, 17, { animate: true });
+    marker.openPopup();
+  });
+});
+
+map.invalidateSize();
+
+        document.getElementById('places-list').appendChild(listItem);
+
+        // For searching
+        placesList.push({
+          name: location.name.toLowerCase(),
+          listItem,
+          marker
+        });
+      }
+    });
+
+    // Add the cluster group to map
+    map.addLayer(markers);
+
+    // Search functionality
+    document.getElementById('search-bar').addEventListener('input', function() {
+      const query = this.value.trim().toLowerCase();
+      const listContainer = document.getElementById('places-list');
+
+      // Clear old results
+      listContainer.innerHTML = '';
+
+      // Filter + re-append
+      placesList
+        .filter(place => place.name.includes(query))
+        .forEach(place => {
+          listContainer.appendChild(place.listItem);
+        });
+    });
+  </script>
+
+  
+
+  
+
+		
+		<footer id="footer">
+    <h2>Resources and Information</h2>
+    <p>
+        Community gardens offer numerous benefits, from reducing urban heat to fostering social cohesion.
+        For more information, check out these resources:
+        <a href="https://accessiblegardens.org/the-american-community-gardening-association-building-community-through-gardening/" target="_blank">The American Community Gardening Association</a> |
+        <a href="https://worldmetrics.org/community-garden-statistics/" target="_blank">World Metrics on Community Gardens</a>
+    </p>
+    <!-- Content Sections -->
+    <div class="content-section">
+        <h2>Summary</h2>
+        <ul>
+            <li>Over 1 million community garden plots exist in the United States alone.</li>
+            <li>Community gardens in the U.S. grew by 44% between 2007 and 2019.</li>
+            <li>Community gardens help reduce urban heat islands by 2 to 9°F.</li>
+            <li>In Australia, community gardens are estimated to produce over 100,000 tons of fresh produce annually.</li>
+            <li>Community gardens can produce a yield of up to $500 worth of fruits and vegetables per year per plot.</li>
+            <li>Community gardens in low-income areas have been shown to increase food security by 66%.</li>
+            <li>Over 18,000 community gardens exist in New York City alone.</li>
+            <li>Community gardening has been linked to a 47% decrease in crime rates in some urban areas.</li>
+            <li>Community gardens provide an estimated 750,000 pounds of food to local communities annually in Canada.</li>
+            <li>Community gardens in the UK save local councils an estimated £500,000 per year in waste management costs.</li>
+            <li>Community gardens have been shown to increase property values by up to 20% in surrounding neighborhoods.</li>
+            <li>Participation in community gardens has been linked to a 36% decrease in depression symptoms.</li>
+            <li>Community gardens can reduce household food budgets by up to $600 per year.</li>
+            <li>Over 30% of community gardeners donate excess produce to local food banks and pantries.</li>
+            <li>The number of community garden plots in the UK has doubled in the last decade.</li>
+        </ul>
+        <p>Step into the vibrant world of community gardening, where dirt-stained hands sow the seeds of change and harvests of hope bloom. With over 1 million plots across the United States alone and a 44% growth in the past decade, these green oases are not just about plants – they're about transformation. From reducing urban heat islands to boosting property values by 20%, community gardens are sowing the seeds of change, one tomato at a time. Join us on a journey through the statistics that prove community gardens are more than just patches of land – they're pillars of resilience and connection in our concrete jungles.</p>
+
+        <h2>Community Garden Benefits for Participants</h2>
+        <ul>
+            <li>Participation in community gardens has been linked to a 36% decrease in depression symptoms.</li>
+            <li>Over 30% of community gardeners donate excess produce to local food banks and pantries.</li>
+            <li>Community gardening has been shown to reduce stress levels by 60%.</li>
+            <li>Community gardens provide access to fresh, healthy food for over 2 million Americans.</li>
+            <li>Participation in community gardening has been linked to a 40% decrease in social isolation.</li>
+            <li>Residents living near community gardens are 3 times more likely to consume recommended daily servings of fruits and vegetables.</li>
+            <li>Community gardening has been linked to a 30% decrease in type 2 diabetes rates in some communities.</li>
+            <li>Over 40% of community garden participants report an improvement in overall physical health.</li>
+            <li>Community gardeners are 3 times more likely to engage in physical activity than non-gardeners.</li>
+            <li>Community gardeners have a 30% lower risk of coronary heart disease.</li>
+            <li>Over 60% of community gardens in Asia are used for medicinal plant cultivation.</li>
+            <li>Community gardens provide mental health benefits to 85% of participants.</li>
+            <li>Community garden participants report a 50% increase in feelings of community belonging.</li>
+            <li>Over 80% of community gardeners engage in social interactions while gardening.</li>
+            <li>Participants in community gardens have a 25% lower risk of developing obesity.</li>
+            <li>Over 50% of community gardeners report an improvement in overall well-being.</li>
+            <li>Participants in communal gardening activities have a 40% lower risk of social isolation.</li>
+            <li>Participation in community gardening activities increases volunteerism by 50%.</li>
+            <li>Over 60% of community gardeners report enhanced feelings of empowerment and self-worth.</li>
+        </ul>
+        <p>Community gardens are more than just patches of green; they're potent medicine for the body, mind, and community spirit. With statistics showing decreases in depression, stress, and rates of chronic illnesses like diabetes and heart disease, it's clear that these gardens cultivate more than just plants. Not only do they provide access to fresh produce and encourage physical activity, but they also foster social connections, volunteerism, and a sense of empowerment. So, next time you're debating whether to dig in the dirt, remember that community gardens offer a whole lot more than just a bountiful harvest—they offer a recipe for a healthier, happier society.</p>
+
+        <h2>Community Garden Impact on Urban Environment</h2>
+        <ul>
+            <li>Over 1 million community garden plots exist in the United States alone.</li>
+            <li>Community gardens in the U.S. grew by 44% between 2007 and 2019.</li>
+            <li>Community gardens help reduce urban heat islands by 2 to 9°F.</li>
+            <li>Over 18,000 community gardens exist in New York City alone.</li>
+            <li>Community gardening has been linked to a 47% decrease in crime rates in some urban areas.</li>
+            <li>The number of community garden plots in the UK has doubled in the last decade.</li>
+            <li>Community gardens can mitigate stormwater runoff by up to 90% in urban areas.</li>
+            <li>Community gardens in South Africa have been shown to improve food access for over 1.5 million people.</li>
+            <li>Community gardens reduce asthma rates in urban areas by up to 35%.</li>
+            <li>Community gardens can sequester over 500 pounds of carbon dioxide per plot annually.</li>
+            <li>Community gardens in urban areas provide vital green spaces in over 60% of cases.</li>
+            <li>Community gardens can reduce neighborhood crime rates by up to 10%.</li>
+            <li>The number of community gardens in the EU has increased by 37% in the last decade.</li>
+            <li>Community gardens support biodiversity and wildlife habitats in over 50% of cases.</li>
+            <li>Community gardens recycle organic waste and promote composting in 80% of cases.</li>
+            <li>Community gardens have led to a 40% reduction in neighborhood blight in some areas.</li>
+            <li>Community gardens increase green space coverage by 30% in urban areas.</li>
+            <li>Community gardens reduce air pollution levels by up to 15% in surrounding areas.</li>
+            <li>Community gardens promote water conservation practices in 75% of cases.</li>
+            <li>Community gardens support pollinator populations by providing flowering plants in 65% of cases.</li>
+        </ul>
+        <p>With over 1 million community garden plots sprouting across the U.S., it seems that the green thumb revolution is in full bloom. From combating urban heat islands to curbing crime rates, these communal plots are the unsung heroes of the concrete jungle. As New York City boasts over 18,000 oases of green, it's clear that community gardens are not just a trend but a movement with roots firmly planted in positive change. So, next time you're tending to your plot, remember you're not just growing veggies—you're cultivating a healthier, safer, and greener world, one harvest at a time.</p>
+
+        <h2>Community Garden Influence on Community Cohesion</h2>
+        <ul>
+            <li>Community gardens promote social cohesion and community building in 90% of cases.</li>
+            <li>Community gardens promote cultural exchange and diversity in 70% of cases.</li>
+            <li>Community gardens promote intergenerational connections in 80% of cases.</li>
+            <li>Community gardens have been shown to reduce levels of aggression and violence in neighborhoods by 30%.</li>
+        </ul>
+        <p>These statistics paint a colorful picture of community gardens as the ultimate multitaskers, donning capes of social cohesion, diversity ambassadors, and connectors of generations. With a sprinkle of their magic soil, they reduce aggression and violence in neighborhoods by 30%, reminding us that sometimes the humble seed can wield the mightiest influence. In a world where walls seem to be growing taller, these green spaces serve as bridges between people, cultures, and generations, proving that sometimes the best solutions are rooted in the simplest of beginnings.</p>
+
+        <h2>Educational and Social Benefits of Community Gardens</h2>
+        <ul>
+            <li>Community gardens provide educational programs for youth in over 80% of cases.</li>
+            <li>Community gardens in schools improve academic performance in 60% of cases.</li>
+            <li>Over 70% of community gardens host educational workshops and events.</li>
+        </ul>
+        <p>Community gardens seem to be the green superheroes of educational empowerment, swooping in to save the day with their bountiful knowledge and holistic benefits. With their capes of kale and spades of success, these gardens not only provide a hands-on education for our budding scholars but also cultivate a fertile ground for academic growth. It's no wonder that these verdant havens of learning are sprouting up everywhere, planting the seeds of knowledge and nurturing the minds of our future generations. With over 70% of gardens doubling as educational hubs for workshops and events, it's safe to say that these green spaces are not just growing vegetables—they're sowing the seeds of a brighter tomorrow.</p>
+
+        <h2>Financial Savings and Economic Impacts of Community Gardens</h2>
+        <ul>
+            <li>In Australia, community gardens are estimated to produce over 100,000 tons of fresh produce annually.</li>
+            <li>Community gardens can produce a yield of up to $500 worth of fruits and vegetables per year per plot.</li>
+            <li>Community gardens in low-income areas have been shown to increase food security by 66%.</li>
+            <li>Community gardens provide an estimated 750,000 pounds of food to local communities annually in Canada.</li>
+            <li>Community gardens in the UK save local councils an estimated £500,000 per year in waste management costs.</li>
+            <li>Community gardens have been shown to increase property values by up to 20% in surrounding neighborhoods.</li>
+            <li>Community gardens can reduce household food budgets by up to $600 per year.</li>
+            <li>Over 70% of community gardens in the U.S. provide employment opportunities for locals.</li>
+            <li>Community gardens have been shown to reduce food desert areas by 25%.</li>
+            <li>Participation in community gardens has been linked to a 25% decrease in healthcare costs.</li>
+            <li>Community gardens can increase property values within a 1-mile radius by up to 9%.</li>
+            <li>Community gardeners save an average of $200 per year on grocery bills.</li>
+            <li>Community gardens provide green job opportunities for 30% of participants.</li>
+            <li>Community gardens contribute to a 20% reduction in food waste in certain areas.</li>
+        </ul>
+        <p>Community gardens are not just about pretty flowers and Instagram-worthy vegetable patches; they are powerhouses of sustainability and community empowerment. From Australia to Canada, the UK to the U.S., these green oases are proving their worth in more ways than one. Not only are they churning out an impressive 100,000 tons of fresh produce Down Under and saving local councils a pretty penny in waste management costs in the UK, but they are also fostering food security, boosting property values, and even decreasing healthcare costs. So next time you pass by a community garden, remember: it's not just a plot of land, it's a catalyst for change and a testament to the power of green thumbs and community spirit.</p>
+    </div>
+		
+		<br /><br /><br />
+		
+		<footer class="footer">
+        <p>
+					<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="./README.md"  class="styled-link">ReadMe</a></p>
+    </footer>
+</footer>
+
+
+		
+		<script src="nav_script.js"></script>
+
+</body>
+</html>
