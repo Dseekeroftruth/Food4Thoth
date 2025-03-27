@@ -1,0 +1,939 @@
+/* Base Styles */
+@property --a {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+/* Prevent scrolling on the background when popup is open */
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* Ensure iframe inside popup allows scrolling */
+.popup-content iframe {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
+}
+
+/* Keep background fixed and centered */
+body {
+    background-image: 
+        url("images/17background.PNG"), 
+        linear-gradient(to bottom, #2e3b4e, #16222a);
+    background-size: cover;
+    background-position: center; /* Proper centering */
+    background-attachment: fixed; /* Fix background */
+    height: 100%;
+		width: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow-y: auto;
+}
+
+.calculator, .calculator button {
+    will-change: transform;
+}
+
+/* Add an overlay to the background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    z-index: -1; /* Keeps it behind all content */
+    backdrop-filter: blur(3px); /* Optional: adds a subtle blur */
+}
+
+/* Main content container */
+.intro-section, .features-section, .philosophy-section, .audience-section, .why-visit-section {
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    max-width: 1200px;
+    width: 90%;
+    color: #fff; /* White text for high contrast */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+		justify-content: center;
+		text-align: center;
+		
+}
+
+/* Headings */
+h1, h2, h3 {
+    color: #ffffff;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Shadow for emphasis */
+    font-weight: bold;
+    text-align: center; /* Center align for better focus */
+}
+
+/* Paragraph text */
+p, li {
+    color: #f0f0f0;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Adds a subtle glow */
+}
+
+/* Links */
+a {
+    color: #00ff99;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8); /* Enhances readability */
+}
+
+a:hover {
+    color: #ff0095;
+    text-decoration: underline;
+}
+
+/* Ensure the image fits perfectly inside the output */
+#outputImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: scale; /* Ensures the image scales correctly */
+    opacity: 1;
+    transition: opacity 1s ease-in-out; /* Smooth fade-out effect */
+		border-radius: 10px;
+}
+
+/* Hide the image with a smooth fade-out */
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Ensure the output container is positioned correctly */
+.output {
+    position: relative; /* Necessary for absolute positioning of the image */
+    overflow: hidden; /* Prevent overflow */
+}
+
+/* Calculator container with scrollable behavior */
+.calculator-container2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+		right: 50%;
+    height: 200%; /* Ensure it takes full height */
+    width: 100%;
+    
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Calculator styling */
+.calculator2 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .75rem;
+    background-color: #1e1e1e;
+    padding: .5rem;
+    border-radius: 12px;
+    background: conic-gradient(from var(--a, 0deg), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    border: solid 6px transparent;
+    background-clip: border-box;
+    animation: rotateGlow 4s linear infinite;
+    filter: url(#glow-1);
+    max-width: 1200px;
+    width: 70%;
+    height: 100%;
+    padding: 10px;
+		margin: 0: auto;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.calculator2 button {
+    width: 100%;
+    height: fit-content;
+    aspect-ratio: 1; /* Ensure square buttons */
+    font-size: calc(1rem + 0.5vw); /* Responsive font size */
+    color: white;
+    position: relative;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 1;
+    
+    background: conic-gradient(from var(--a, 0deg), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    animation: rotateGlow 4s linear infinite;
+    filter: url(#glow-1);
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.5); /* Fallback */
+    max-height: fit-content;
+		padding: 10px;
+}
+
+.calculator2 button::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    background-color: #2c2c2c;
+    border-radius: 8px;
+    z-index: -1;
+}
+
+/* Calculator output area */
+.calculator2 .output {
+    grid-column: span 4; /* Full width across all columns */
+    min-height: 75px;
+    background-color: #2c2c2c;
+    color: white;
+    font-size: calc(2rem + 1vw);
+    padding: 10px;
+    text-align: right;
+    border-radius: 10px;
+    overflow-y: auto;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+}
+
+.calculator2 button:active {
+    transform: scale(0.95);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.button2:focus {
+    outline: 2px solid #00ff99;
+    outline-offset: 2px;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: background-color 0.2s, outline 0.2s;
+}
+
+
+/* Calculator container with scrollable behavior */
+.calculator-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: 100%;
+		top: 50%;
+	  right: 50%;
+    overflow-y: auto; /* Allow scrolling when needed */
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+/* Calculator styling */
+.calculator {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .75rem;
+    background-color: #1e1e1e;
+    padding: 1rem;
+    border-radius: 12px;
+    background: conic-gradient(from var(--a, 0deg), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    border: solid 6px transparent;
+    background-clip: border-box;
+    animation: rotateGlow 4s linear infinite;
+    filter: url(#glow-1);
+    max-width: 1200px;
+    width: 55%;
+    max-height: fit-content;
+    margin: 0 auto; /* Center horizontally */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.calculator button {
+    width: 100%;
+    height: 400px;
+    aspect-ratio: 1; /* Ensure square buttons */
+    font-size: calc(.6rem + .05vw); /* Responsive font size */
+    color: white;
+    position: relative;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 1;
+    overflow: hidden;
+    background: conic-gradient(from var(--a, 0deg), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    animation: rotateGlow 4s linear infinite;
+    filter: url(#glow-1);
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.5); /* Fallback */
+    max-height: fit-content;
+		padding: 10px;
+}
+
+.calculator button::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    background-color: #2c2c2c;
+    border-radius: 8px;
+    z-index: -1;
+}
+
+/* Calculator output area */
+.calculator .output {
+    grid-column: span 4; /* Full width across all columns */
+    min-height: 75px;
+    background-color: #2c2c2c;
+    color: white;
+    font-size: calc(2rem + 1vw);
+    padding: 10px;
+    text-align: right;
+    border-radius: 10px;
+    overflow-y: auto;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+}
+
+.calculator button:active {
+    transform: scale(0.95);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.button:focus {
+    outline: 2px solid #00ff99;
+    outline-offset: 2px;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: background-color 0.2s, outline 0.2s;
+}
+
+.footer {
+		font-size: .5rem;
+		font color: #000;
+		background-color: pink;
+		display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    width: 100%; /* Full width of the viewport */
+    padding: 3px;
+    box-sizing: border-box;
+    margin: 0 auto; /* Ensure centered horizontally */
+}
+
+/* Default link color */
+a {
+    color: #ff00ff; /* Example: Magenta */
+    text-decoration: none; /* Remove underline (optional) */
+		
+}
+
+/* Change color on hover */
+a:hover {
+    color: #00ff99; /* Example: Light Green */
+    text-decoration: underline; /* Optional effect */
+}
+
+/* Change color for visited links */
+a:visited {
+    color: #800080; /* Example: Dark Purple */
+}
+
+/* Change color for active (clicked) links */
+a:active {
+    color: #ff4545; /* Example: Red */
+}
+
+/* Hidden element styling */
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+/* Toggle Button Styling */
+.toggle-button {
+    position: sticky;
+    top: 0px;
+    left: 10px;
+    padding: 5px 10px;
+    background: conic-gradient(from var(--a, 0deg), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    color: black;
+    border: solid 4px transparent;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+    animation: rotateGlow 4s linear infinite;
+    filter: url(#glow-1);
+    z-index: 1000;
+    transition: background-color 0.3s;
+}
+
+.toggle-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Dark Mode Toggle Button */
+.dark-mode .toggle-button {
+    background: conic-gradient(from var(--a, 0deg), #222, #333, #444, #555, #222);
+    color: #ddd;
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+}
+
+.dark-mode .toggle-button:hover {
+    background-color: #666;
+}
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: sticky;
+    top: 30px;
+    right: 5px;
+    background-color: #1e1e1e;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    max-height: 50vh;
+    overflow-y: auto;
+    text-align: center;
+    filter: url(#glow-1);
+    animation: rotateGlow 4s linear infinite;
+		z-index: 1000;
+}
+
+
+
+/* Dark Mode for Neumorphic Navigation Container */
+.dark-mode .navigation {
+    background: conic-gradient(from var(--a, 0deg), #444, #333, #222, #111, #444);
+    box-shadow: 0 0 20px rgba(0, 255, 153, 0.5);
+}
+
+/* Neumorphic Tab Styling */
+.neumorphic-tab {
+    display: inline-block;
+    margin: 2px 2px;
+    padding: 3px 3px;
+    border-radius: 25px;
+    background: conic-gradient(from var(--a, 0deg), #e0e0e0, #bebebe, #ffffff, #d1d1d1, #e0e0e0);
+    color: #333;
+    font-weight: bold;
+    font-size: clamp(12px, 1.2vw, 22px);
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+    animation: rotateGlow 4s linear infinite;
+    transition: box-shadow 0.3s;
+}
+
+.dark-mode .neumorphic-tab {
+    background: conic-gradient(from var(--a, 0deg), #555, #444, #333, #222, #555);
+    color: #ddd;
+}
+
+.neumorphic-tab:hover {
+    box-shadow: inset 8px 8px 16px rgba(255, 255, 255, 0.5), inset -8px -8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .neumorphic-tab:hover {
+    box-shadow: inset 8px 8px 16px rgba(0, 255, 153, 0.3), inset -8px -8px 16px rgba(0, 0, 0, 0.7);
+}
+
+/* Active State for Neumorphic Tab */
+.neumorphic-tab.active {
+    background: #d1d1d1;
+}
+
+.dark-mode .neumorphic-tab.active {
+    background: #666;
+}
+
+.neumorphic-button {
+	left: 28%;
+    position: relative;
+    background-color: #2c2c2c; /* Solid grey/black button background */
+    border-radius: 10px;
+    box-shadow: 1px 1px 4px #1a1a1a, -1px -1px 4px #404040;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+		width: 45%; /* Ensure buttons share space evenly */
+    color: #000000;
+    font-size: 1.3em;
+		font-weight: 900; /* Bold font */
+		 /* Outline for text */
+    -webkit-text-stroke: .3px white; /* Text stroke for WebKit browsers */
+    cursor: pointer;
+		font-family: 'Poppins', sans-serif; /* Custom font from Google Fonts */
+		text-shadow: 
+        2px 2px 0px #ff0000, /* Red shadow */
+        -2px -2px 0px #00ff00, /* Green shadow */
+        2px -2px 0px #0000ff, /* Blue shadow */
+        -2px 2px 0px #ff00ff; /* Magenta shadow */ 
+    transition: box-shadow 0.1s ease;
+    width: 45%; /* Ensure buttons share space evenly */
+    z-index: 1; /* Ensure button content is above the border effect */
+    overflow: hidden; /* Hide the glowing border overflow */
+}
+
+/* Glowing rainbow edge */
+.neumorphic-button::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+    z-index: -1;
+    border-radius: 12px; /* Slightly larger than the button's border-radius */
+    padding: 2px; /* Creates space between the rainbow border and the button */
+    background-size: 300%;
+    animation: glowing 4s linear infinite;
+}
+
+/* Animation for the glowing rainbow border */
+@keyframes glowing {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.neumorphic-button:active {
+    box-shadow: inset 8px 8px 16px #1a1a1a, inset -8px -8px 16px #404040;
+}
+
+/* Toggle Button Styling */
+.downloadButton {
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    padding: 5px 10px;
+    background: conic-gradient(from var(--a, 0deg), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    color: black;
+    border: solid 4px transparent;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: .5rem;
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+    animation: rotateGlow 4s linear infinite;
+    filter: url(#glow-1);
+    z-index: 1000;
+    transition: background-color 0.3s;
+
+/* Stroke style */
+    -webkit-text-stroke: .7px black; /* Creates the outline stroke */
+    color: purple; /* Hide original color to show only stroke */
+    text-shadow: 
+        0 0 7px white,  /* Optional shadow for extra emphasis */
+        0 0 5px white; /* Adjust for a stronger shadow effect */
+}
+
+.toggle-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes rotateGlow {
+    to {
+        --a: 360deg;
+    }
+}
+
+/* Cyberpunk Modal Popup */
+.popup {
+    display: none; /* Hidden initially */
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    width: 90%;  /* Reduce width slightly */
+    height: 90%; /* Reduce height slightly */
+    max-width: 95vw;  /* Ensures it's never too wide */
+    max-height: 95vh; /* Ensures it's never too tall */
+    background: rgba(0, 0, 0, 0.9); /* Darker for a more cyber look */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden; /* Ensures it's not interactable */
+    opacity: 0; /* Smooth fade-in effect */
+    transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+    transform: translate(-50%, -50%); /* Center the popup */
+    border-radius: 10px; /* Optional: Soft rounded corners */
+    padding: 15px; /* Add slight padding inside */
+}
+.popup.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Popup Content */
+.popup-content {
+    background: linear-gradient(135deg, #330033, #660066, #ff00cc); /* Neon gradient */
+    color: #fff;
+    font-family: "Orbitron", Arial, sans-serif; 
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 0 15px #ff00cc, 0 0 25px #ff66ff, 0 0 40px #00ccff; /* Neon glow effect */
+    border: 2px solid #ff00cc;
+		
+    
+}
+
+/* Popup Title (Card Name) */
+.popup h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #ff9900, #ff00cc, #00ccff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: animateGradient 3s ease-in-out infinite alternate;
+}
+
+/* Card Description */
+.popup p {
+    font-size: 1rem;
+    font-weight: 400;
+    text-shadow: 0 0 5px #ff66ff;
+    padding: 10px;
+}
+
+/* Popup Image */
+.popup img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid #ff00cc;
+    box-shadow: 0 0 10px #ff00cc, 0 0 20px #ff66ff;
+}
+
+/* Close Button */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #ff00cc;
+    text-shadow: 0 0 5px #ff00cc, 0 0 10px #ff66ff;
+    transition: transform 0.2s ease-in-out;
+}
+
+.close:hover {
+    transform: scale(1.2);
+    text-shadow: 0 0 7px #ff00cc, 0 0 15px #ff66ff;
+}
+
+/* Close Button */
+.close1 {
+    position: absolute;
+		
+		border-radius: 5px;
+    top: 0;
+    right: 2px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #ff00cc;
+    text-shadow: 0 0 5px #ff00cc, 0 0 10px #ff66ff;
+    transition: transform 0.2s ease-in-out;
+}
+
+.close1:hover {
+    transform: scale(1.2);
+    text-shadow: 0 0 7px #ff00cc, 0 0 15px #ff66ff;
+}
+
+/* Close Button */
+.close2 {
+    position: absolute;
+		
+		border-radius: 5px;
+    top: 0;
+    right: 2px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #ff00cc;
+    text-shadow: 0 0 5px #ff00cc, 0 0 10px #ff66ff;
+    transition: transform 0.2s ease-in-out;
+}
+
+.close2:hover {
+    transform: scale(1.2);
+    text-shadow: 0 0 7px #ff00cc, 0 0 15px #ff66ff;
+}
+
+/* Gradient Animation */
+@keyframes animateGradient {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+.popup-link {
+    display: inline-block;
+    font-family: "Orbitron", Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #00ccff;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 15px;
+    margin-top: 15px;
+    border: 2px solid #00ccff;
+    border-radius: 5px;
+    text-shadow: 0 0 5px #00ccff, 0 0 10px #66ffff;
+    box-shadow: 0 0 5px #00ccff, 0 0 15px #66ffff;
+    transition: all 0.3s ease-in-out;
+}
+
+.popup-link:hover {
+    color: #fff;
+    background: #00ccff;
+    text-shadow: 0 0 10px #ffffff, 0 0 20px #66ffff;
+    box-shadow: 0 0 10px #00ccff, 0 0 25px #66ffff;
+}
+
+.iframe-container1 {
+    display: flex;
+    justify-content: center;  /* Centers horizontally */
+    align-items: center;      /* Centers vertically */
+    height: 100vh;            /* Full viewport height */
+    width: 100%;              /* Full width */
+    position: relative;       /* Ensures positioning inside the container */
+}
+
+.logo-animation1 {
+    border: none;
+    width: 80vw;
+    max-width: 450px;
+    height: 100vh;
+    position: relative;
+}
+
+.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+/* Section Styles */
+    .section {
+			color: #c6ffdd;
+      margin-bottom: 60px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.8),
+                  -5px -5px 15px rgba(255, 255, 255, 0.2);
+    }
+    .section h2 {
+      font-size: 32px;
+      color: #ffb7b2;
+      margin-bottom: 10px;
+    }
+    .section p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+		
+		/* Centering Inside Sections */
+.section {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Center All Section Headers */
+.section h2,
+.section h3 {
+  text-align: center;
+}
+
+/* Center All Paragraphs */
+.section p {
+  text-align: center;
+}
+
+/* Food4Thoth Theme */
+.f4t-theme {
+  background: linear-gradient(135deg, #121212, #1a1a2e, #2c3e50);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 4px 4px 20px rgba(18, 115, 105, 0.5);
+  color: #ffffff;
+  text-align: center;
+}
+
+.f4t-theme h2 {
+  color: #c6ffdd;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.f4t-theme h3 {
+  color: #ffb7b2;
+  margin-top: 20px;
+}
+
+.f4t-theme ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.f4t-theme ul li {
+  margin: 10px 0;
+}
+
+/* Food4Thoth CTA Button */
+.cta-button-f4t {
+  display: inline-block;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #5e239d, #008080);
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+.cta-button-f4t:hover {
+  background: linear-gradient(135deg, #8c2ec0, #00a3a3);
+  transform: scale(1.05);
+}
+
+/* Donation Buttons */
+.cta-button-donate {
+  display: inline-block;
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #d4af37, #724f28);
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 6px;
+  box-shadow: 3px 3px 8px rgba(212, 175, 55, 0.5);
+  transition: background 0.3s ease-in-out, transform 0.2s;
+	margin-bottom: 20px;
+}
+
+.cta-button-donate:hover {
+  background: linear-gradient(135deg, #e8c75d, #5a3e1b);
+  transform: scale(1.05);
+}
+
+/* Social Links Container */
+.social-links {
+  text-align: center; /* Centers the links */
+  margin-top: 15px;
+}
+
+/* Food4Thoth Social Media Buttons */
+.social-button {
+  display: inline-block;
+  text-decoration: none;
+  color: #bb86fc;
+  font-size: 18px;
+  padding: 10px 14px; 
+  border: 1px solid #bb86fc;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+  min-width: 160px; 
+  text-align: center;
+  margin: 5px 8px;
+}
+
+/* Hover Effect */
+.social-button:hover {
+  background: #bb86fc;
+  color: #1a1a2e;
+  transform: scale(1.05);
+}
+	
+/* Ensure text wraps properly on mobile */
+.wrap {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  font-family: monospace;
+  color: #c6ffdd;
+  padding: 5px;
+	max-width: 80vw;
+}
+
+/* Scrollable long addresses for better mobile UX */
+.scrollable {
+  overflow-x: auto;
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 75vw;
+  padding: 5px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+}
+
+/* Improved crypto list for better spacing */
+.crypto-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.crypto-list li {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+	
+}
+
+/* Responsive Design Tweaks */
+@media (max-width: 768px) {
+  /* Ensure crypto section fits within the screen */
+  .crypto-list li {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  /* Reduce font sizes for better mobile readability */
+  .section h3 {
+    font-size: 20px;
+  }
+
+  .section p {
+    font-size: 16px;
+  }
+}
+
+
+
+
