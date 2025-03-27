@@ -1,0 +1,163 @@
+body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background: #222;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    h1 {
+      margin-top: 1rem;
+    }
+    #app {
+      width: 90%;
+      max-width: 600px;
+      margin: 1rem auto;
+      display: flex;
+      flex-direction: column;
+      background: #333;
+      border-radius: 6px;
+      padding: 1rem;
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      margin: 0.5rem 0;
+      flex-wrap: wrap;
+    }
+    .label {
+      min-width: 100px;
+      text-align: right;
+      margin-right: 0.5rem;
+    }
+    input, select, button {
+      margin: 0.2rem;
+      background: #555;
+      color: #eee;
+      border: none;
+      border-radius: 3px;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #777;
+    }
+    #chord-input {
+      width: 150px;
+    }
+		
+		/* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: 4px;
+    left: 4px;
+    padding: 5px 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+}
+
+.toggle-button:hover {
+    background-color: black;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+		pointer-events: none; /* This prevents any clicks on it */
+		display: none;
+}
+
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 60px; /* Adjust to stay below the toggle button */
+    left: 10px;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		height: 50%;
+		overflow-y: auto; /* Enable vertical scrolling */
+		
+		
+}
+				
+        .neumorphic-tab {
+					
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: clamp(16px, 1.2vw, 22px);
+						text-align: center;
+        }
+        .neumorphic-tab:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab.active {
+            background: #d1d1d1;
+        }
+				
+				.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+.footer {
+    text-align: center;
+    position: fixed;
+    bottom: 0px;
+    background-color: black;
+    color: #e0e0e0;
+    width: 100%;
+    font-size: 8px;
+    padding: 5px -2px;  /* Reduce top and bottom padding */
+    margin-top: 0;   /* Ensure no extra space above */
+    line-height: .5;  /* Reduce spacing between text lines */
+}
+.footer a {
+    color: #ff6600;
+    text-decoration: none;
+}
+.footer a:hover {
+    text-decoration: underline;
+}
