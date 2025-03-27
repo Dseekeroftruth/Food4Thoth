@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quantum Walking Animation</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .sprite-animation {
+      width: 100vw;
+      height: 100vh;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      transition: background-image 0.2s ease-in-out;
+    }
+
+    .preload-images {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sprite-animation" id="sprite"></div>
+
+  <!-- Preload images -->
+  <div class="preload-images">
+    <img src="images/Untitled.png" />
+    <img src="images/Untitled2.png" />
+    <img src="images/Untitled3.png" />
+    <img src="images/Untitled4.png" />
+    <img src="images/Untitled5.png" />
+    <img src="images/Untitled6.png" />
+    <img src="images/Untitled7.png" />
+    <img src="images/Untitled8.png" />
+    <img src="images/Untitled9.png" />
+  </div>
+
+  <script>
+    const images = [
+      "images/Untitled.png",
+      "images/Untitled2.png",
+      "images/Untitled3.png",
+      "images/Untitled4.png",
+      "images/Untitled5.png",
+      "images/Untitled6.png",
+      "images/Untitled7.png",
+      "images/Untitled8.png",
+      "images/Untitled9.png"
+    ];
+
+    let currentIndex = 0;
+    const sprite = document.getElementById("sprite");
+
+    function loopAnimation() {
+      sprite.style.backgroundImage = `url(${images[currentIndex]})`;
+      currentIndex = (currentIndex + 1) % images.length;
+    }
+
+    // Start looping every 200ms (adjust for frame speed)
+    setInterval(loopAnimation, 200);
+
+    // Dark mode support (optional)
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+    if (savedDarkMode) {
+      document.body.classList.add("dark-mode");
+    }
+
+    window.addEventListener("message", (event) => {
+      if (event.data.darkMode !== undefined) {
+        document.body.classList.toggle("dark-mode", event.data.darkMode);
+      }
+    });
+  </script>
+
+</body>
+</html>

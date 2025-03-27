@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Walking Animation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sprite-animation"></div>
+
+    <!-- Preload images (hidden from view) -->
+    <div class="preload-images">
+        <img src="images/Untitled.png" alt="Preload">
+        <img src="images/Untitled2.png" alt="Preload">
+        <img src="images/Untitled3.png" alt="Preload">
+        <img src="images/Untitled4.png" alt="Preload">
+        <img src="images/Untitled5.png" alt="Preload">
+        <img src="images/Untitled6.png" alt="Preload">
+        <img src="images/Untitled7.png" alt="Preload">
+        <img src="images/Untitled8.png" alt="Preload">
+        <img src="images/Untitled9.png" alt="Preload">
+				  <img src="images/BG2.webp" alt="Preload">
+        <img src="images/BG4.webp" alt="Preload">
+        <img src="images/BG9.webp" alt="Preload">
+				<img src="images/BG10.webp" alt="Preload">
+    </div>
+		<script>
+			
+		
+    window.addEventListener("message", (event) => {
+        if (event.data.triggerAnimation) {
+            startAnimation();
+        }
+    });
+
+    function startAnimation() {
+        const sprite = document.querySelector('.sprite-animation');
+        sprite.classList.add('animate');
+			}
+</script>
+
+    <script>
+        // Array of background images
+        const backgroundImages = [
+            
+            "url('images/BG2.webp')",
+            
+            "url('images/BG4.webp')",
+            
+            "url('images/BG9.webp')",
+            "url('images/BG10.webp')"
+        ];
+
+        let bgIndex = 0;
+
+        function changeBackground() {
+            document.body.style.backgroundImage = backgroundImages[bgIndex];
+            bgIndex = (bgIndex + 1) % backgroundImages.length; // Loop back when reaching end
+        }
+
+        // Detect animation end to change background
+        document.addEventListener("DOMContentLoaded", function () {
+            const sprite = document.querySelector('.sprite-animation');
+
+            sprite.addEventListener("animationiteration", () => {
+                changeBackground(); // Change background every full loop
+            });
+
+            // Set initial background image
+            document.body.style.backgroundImage = backgroundImages[0];
+        });
+    </script>
+</body>
+</html>
+
+
+    
