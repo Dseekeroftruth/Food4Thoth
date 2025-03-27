@@ -1,1 +1,1811 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arpeggiator Synth Sequencer HIFI</title>
+<script src="https://cdn.jsdelivr.net/npm/tone@latest/build/Tone.min.js"></script>
+<script>
+  if (typeof window.Tone === 'undefined') {
+    document.write('<script src="./Tone.min.js"><\/script>');
+  }
+</script>
+ <!-- Set initial viewport settings -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+	
+	<!-- Preload CSS -->
+   <link rel="preload" href="./styles.css" as="style">
+		
+	 <link rel="stylesheet" href="./styles.css">
+ 
+  <style>
+    /* General Styling */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: #222;
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: hidden; /* Disable horizontal scrolling */
+    height: 100%; /* Ensure full height */
+    width: 100%; /* Ensure full width */
+    touch-action: manipulation;
+}
+
+input[type="number"], 
+input[type="text"], 
+select {
+  font-size: 16px; /* Minimum font size to prevent zoom on focus */
+}
+
+h1 { margin-top: 1rem; }
+
+    #app {
+      width: 90%;
+      max-width: 600px;
+      margin: 1rem auto;
+      display: flex;
+      flex-direction: column;
+      background: transparent;
+      border-radius: 6px;
+      padding: 1rem;
+			z-index: 999;
+			padding-left: 4.3rem;
+			touch-action: manipulation;
+    }
+		
+		#toggle-arp-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px; /* Adjust width as needed */
+  height: 100%; /* Full height of the viewport */
+  background-color: #444; /* Dark background for visibility */
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  text-align: center;
+  writing-mode: vertical-rl; /* Makes text vertical if desired */
+  text-orientation: upright;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
+	touch-action: manipulation;
+}
+
+#toggle-arp-btn:hover {
+  background-color: #666; /* Slightly lighter color on hover */
+}
+
+#start-audio-btn {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 60px; /* Adjust width as needed */
+  height: 100%; /* Full height of the viewport */
+  background-color: #444; /* Dark background for visibility */
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.5rem; /* Adjust font size for better readability */
+  text-align: center;
+  writing-mode: vertical-rl; /* Rotates text vertically */
+  text-orientation: upright;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
+  z-index: 1000; /* Ensure it appears on top of other elements */
+	touch-action: manipulation;
+}
+
+#start-audio-btn:hover {
+  background-color: #666; /* Slightly lighter color on hover */
+}
+
+#toggle-arp-btn, 
+#start-audio-btn {
+  -webkit-writing-mode: vertical-rl;
+  writing-mode: vertical-rl;
+  -webkit-text-orientation: upright;
+  text-orientation: upright;
+}
+
+#toggle-arp-btn, 
+#start-audio-btn {
+  
+  word-break: break-word;
+}
+
+#toggle-arp-btn span, 
+#start-audio-btn span {
+  display: inline-block;
+  transform: rotate(90deg);
+}
+
+#warning {
+	width: 50%;
+	font-size: 16px;
+	text-align: center;
+}
+	
+/* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: 4px;
+    left: 4px;
+    padding: 5px 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+}
+
+.toggle-button:hover {
+    background-color: black;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+		pointer-events: none; /* This prevents any clicks on it */
+		display: none;
+}
+
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 40px; /* Adjust to stay below the toggle button */
+    left: 10px;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		height: 50%;
+		overflow-y: auto; /* Enable vertical scrolling */
+		
+		
+}
+				
+        .neumorphic-tab {
+					
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: clamp(16px, 1.2vw, 22px);
+						text-align: center;
+        }
+        .neumorphic-tab:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab.active {
+            background: #d1d1d1;
+        }
+	
+
+  </style>
+</head>
+<body>
+  <button id="toggle-nav" class="toggle-button">☰ Nav</button>
+  <div id="navigation" class="navigation hidden">
+    
+    <a href="../index.html" class="neumorphic-tab">Home</a>
+    
+    <a href="../Donations/index.html" class="neumorphic-tab">Donations Page</a>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-black-business">Black Business Eugene</a>
+    <div id="submenu-black-business" class="submenu hidden">
+      <a href="../BlackBuisnessEugene/index.html" class="neumorphic-tab">Black Business Directory</a>
+      <a href="../BlackBuisnessEugene/blackbusinessformpage.html" class="neumorphic-tab">Black Business Form</a>
+    </div>
+  
+    <a href="#" class="neumorphic-tab" data-expand="submenu-community-garden">Community Gardens</a>
+  <div id="submenu-community-garden" class="submenu hidden">
+    <a href="../CommunityGardensLists/index.html" class="neumorphic-tab">Full List of All Gardens</a>
+    <a href="../CommunityGardenLand/index.html" class="neumorphic-tab">Mobile Landing</a>
+    <a href="../CommunityGardenLand/indexDesktop.html" class="neumorphic-tab">Desktop Landing</a>
+    <a href="../CommunityGardensMaps/indexEugeneMap.html" class="neumorphic-tab">Eugene Garden Map</a>
+     <a href="../CommunityGardensMaps/indexPortlandMap.html" class="neumorphic-tab">Portland Garden Map</a>
+    <a href="../CommunityGardensInfo/index.html" class="neumorphic-tab">Community Garden Info</a>
+    <a href="../CommunityGardensLists/indexEugene.html" class="neumorphic-tab">Eugene Garden List</a>
+    <a href="../CommunityGardensLists/indexPortland.html" class="neumorphic-tab">Portland Garden List</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-visualizers">Sound & Voice Visualizers</a>
+  <div id="submenu-visualizers" class="submenu hidden">
+    <a href="../SoundActivatedVisualizor/index.html" class="neumorphic-tab">Voice Activated Visualizer</a>
+    <a href="../SoundVisualizerWmedia/index.html" class="neumorphic-tab">Sound Visualizer w/Media Loader</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-arp">ARP Synths</a>
+  <div id="submenu-arp" class="submenu hidden">
+    <a href="../ArpAppNoVisualHighFi/index.html" class="neumorphic-tab">ARP App: No Visual (High-Fi)</a>
+    <a href="../ArpAppNoVisualLoFi/index.html" class="neumorphic-tab">ARP App: No Visual (Lo-Fi)</a>
+    <a href="../ArpAppWithVisual/index.html" class="neumorphic-tab">ARP App: With Visual</a>
+    
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-loopstation">Loop Stations</a>
+  <div id="submenu-loopstation" class="submenu hidden">
+    <!-- Animated Music Loopers -->
+    <a href="../Bboy/index.html" class="neumorphic-tab">NoWhere Man Looper</a>
+  
+    <a href="../BJungle/index.html" class="neumorphic-tab">BJungle Looper</a>
+  
+    <!-- Loop Stations -->
+    <a href="../LoopStation/index.html" class="neumorphic-tab">Loop Station</a>
+  
+    <!-- Advanced Loop Stations with Effects -->
+    <a href="../LoopStationHiFi/index.html" class="neumorphic-tab">Loop Station HiFi (Advanced Effects)</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-music">Music Vue Library</a>
+  <div id="submenu-music" class="submenu hidden">
+    <!-- Main Music Library -->
+    <a href="../MusicLibrary/index.html" class="neumorphic-tab">Music Library Lite</a>
+  
+    <!-- Music Library with Visualizer -->
+    <a href="../MusicLibraryVis/index.html" class="neumorphic-tab">Music Library (Visualizer)</a>
+  </div>
+  
+  <!-- Music Collection Section -->
+  <a href="#" class="neumorphic-tab" data-expand="submenu-music_collection">Music Collections</a>
+  <div id="submenu-music_collection" class="submenu hidden">
+    <a href="../DeJahn/index.html" class="neumorphic-tab">DeJahn</a>
+    <a href="../SeekerStar/index.html" class="neumorphic-tab">Seeker & the Star</a>
+    <a href="../GroundCherry/index.html" class="neumorphic-tab">Ground Cherry</a>
+    <a href="../PeruvianMelt/index.html" class="neumorphic-tab">Peruvian Melt</a>
+      <a href="../comingSoon.html" class="neumorphic-tab">Abyss of Bliss</a>
+      
+  <a href="https://www.artabillies.com/inprogression" class="neumorphic-tab">INPROGRESSION Artabillies</a>
+  
+  <a href="https://youtube.com/playlist?list=PLsiMr0_hgaOmqlIGzjHZBzi94yaRgQ38L&si=DMZc6ng8GWx8uMbU" class="neumorphic-tab">INPROGRESSION DVD</a>
+    </div>
+    
+      <a href="../ChooseYourOwnAdventure/prologue.html" class="neumorphic-tab">Choose Your Own Adventure</a>
+  
+   <a href="#" class="neumorphic-tab" data-expand="submenu-games">Games</a>
+  <div id="submenu-games" class="submenu hidden">
+    <a href="../NewSchoolGameKid/index.html" class="neumorphic-tab">New School Game: Kid Sprite</a>
+    <a href="../NewSchoolGameWizard/index.html" class="neumorphic-tab">New School Game: Wizard Sprite</a>
+    <a href="../OldSchoolGameDesktop/index.html" class="neumorphic-tab">Old School Game: Desktop</a>
+    <a href="../OldSchoolGameMobile/index.html" class="neumorphic-tab">Old School Game: Mobile</a>
+    <a href="../TerminalGameTransition/index.html" class="neumorphic-tab">Terminal Transition Game</a>
+    <a href="../bergs-of-life/index.html" class="neumorphic-tab">Bergs of Life</a>
+    <a href="../comingSoon.html" class="neumorphic-tab">SideScroll Game</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-claw-machine">Claw Machine</a>
+  <div id="submenu-claw-machine" class="submenu hidden">
+    <a href="../claw-machine/index.html" class="neumorphic-tab">Claw Machine OG</a>
+    <a href="../claw-machineGame/index.html" class="neumorphic-tab">Claw Machine Enhanced</a>
+  </div>
+  
+    <a href="#" class="neumorphic-tab" data-expand="submenu-glo-calculato">Glo-Calculato</a>
+    <div id="submenu-glo-calculato" class="submenu hidden">
+      <a href="../GloCalculatoLanding/index.html" class="neumorphic-tab">Glo-Calculato Landing</a>
+      <a href="../GloCalculato/index.html" class="neumorphic-tab">Full-Sized Glo-Calculato</a>
+      <a href="../GloCalculatoLanding/GLO-CALCULATO/Glo-Calculato.zip" class="neumorphic-tab">Download Glo-Calculato</a>
+    </div>
+  
+    <a href="#" class="neumorphic-tab" data-expand="submenu-tarot">Tarot</a>
+  <div id="submenu-tarot" class="submenu hidden">
+    <!-- Main Tarot Landing and Learning -->
+    <a href="../TarotLanding/index.html" class="neumorphic-tab">Tarot Orientation Landing</a>
+    <a href="../TarotLanding/HowTo.html" class="neumorphic-tab">How To: Tarot – FOOD4THOTH</a>
+    <a href="../TarotFlipCardGallery/index.html" class="neumorphic-tab">Quick Reference Flip Gallery</a>
+  
+    <!-- General Tarot Decks and Readings -->
+    <a href="../TarotTogetherNoAge/index.html" class="neumorphic-tab">Tarot Card Gallery (3 Decks)</a>
+    <a href="../TarotTogetherNoAge4Decks/index.html" class="neumorphic-tab">Tarot Card Gallery (4 Decks)</a>
+    <a href="../CelticCrossTarot/index.html" class="neumorphic-tab">Celtic Cross Reading</a>
+    <a href="../ThreeCardTarot/index.html" class="neumorphic-tab">Three-Card Tarot w/ Gallery</a>
+    <a href="../ThreeCardTarotByItself/index.html" class="neumorphic-tab">Three-Card Tarot Reading</a>
+  
+    <!-- Cyberpunk and Thematic Tarot Decks -->
+    <a href="../TarotSacredGeometry/index.html" class="neumorphic-tab">Sacred Geometry Tarot</a>
+    <a href="../TarotCyberPunkDark/index.html" class="neumorphic-tab">CyberPunk Dark Tarot</a>
+    <a href="../TarotCyberPunkMelo/index.html" class="neumorphic-tab">CyberPunk Melo Tarot</a>
+    <a href="../TarotOG/index.html" class="neumorphic-tab">OG Tarot w/Voice Commands</a>
+    
+    <!-- Experimental and Custom Decks -->
+    <a href="../EgyptianTarot/index.html" class="neumorphic-tab">Custom Egyptian Major Arcana (1–22)</a>
+    <a href="../EgyptianTarotFull/index.html" class="neumorphic-tab">Custom Sacred Geometry (1–78)</a>
+    <a href="../TarotJungian/index.html" class="neumorphic-tab">Jungian Thoth Tarot Spread</a>
+    <a href="../TarotTextList/index.html" class="neumorphic-tab">Cyberpunk Tarot Text Library</a>
+    
+    <a href="../DrawTarot/index.html" class="neumorphic-tab">All Spreads</a>
+  
+    <!-- Majix Tarot Galleries (Individual Arcana) -->
+    <a href="../MajixLanding/index.html" class="neumorphic-tab">Majix Galleries Landing</a>
+    <a href="../MajixTarotMajor/index.html" class="neumorphic-tab">Majix Major Arcana</a>
+    <a href="../MajixTarotWands/index.html" class="neumorphic-tab">Majix Wands</a>
+    <a href="../MajixTarotCups/index.html" class="neumorphic-tab">Majix Cups</a>
+    <a href="../MajixTarotSwords/index.html" class="neumorphic-tab">Majix Swords</a>
+    <a href="../MajixTarotPentacles/index.html" class="neumorphic-tab">Majix Pentacles</a>
+    <a href="../MajixTarotAll/index.html" class="neumorphic-tab">Majix All Cards</a>
+    
+    <a href="../TarotGalleries/index.html" class="neumorphic-tab">Explore All Galleries</a>
+  
+    <a href="../TarotCrystalQueens/indexAge.html" class="neumorphic-tab">18+ Crystal Queens Tarot</a>
+    <a href="../TarotCyberPunkX/indexAge.html" class="neumorphic-tab">18+ CyberPunk X Tarot</a>
+    <a href="../TarotAgeVerify/index.html" class="neumorphic-tab">FOOD4THOTH 18+ Tarot Gallery</a>
+    
+    <a href="../TarotAllResources/index.html" class="neumorphic-tab">All Resources</a>
+  
+    <!-- Additional Resources -->
+    <a href="../comingSoon.html" class="neumorphic-tab">More Tarot</a>
+    <a href="../parental-controls.html" class="neumorphic-tab">Parental Controls</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-iching">I Ching</a>
+  <div id="submenu-iching" class="submenu hidden">
+    <a href="../Iching/index.html" class="neumorphic-tab">I Ching Simple</a>
+    <a href="../IchingFractal/index.html" class="neumorphic-tab">I Ching Fractal</a>
+    <a href="../IchingPhoto/index.html" class="neumorphic-tab">I Ching Fractal/Photo</a>
+    <a href="../Iching/ichingAnimeLoop.html" class="neumorphic-tab">I Ching Anime Loop</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-hakim-bey">Hakim Bey</a>
+    <div id="submenu-hakim-bey" class="submenu hidden">
+      <a href="../HakimBey/index.html" class="neumorphic-tab">Hakim Bey Anarchy Page</a>
+      <a href="../HakimBey/joinTheMovement.html" class="neumorphic-tab">Anarchy Collective Contact</a>
+    </div>
+  
+    <a href="#" class="neumorphic-tab" data-expand="submenu-hashisheen">Hashisheen Album Reviews</a>
+    <div id="submenu-hashisheen" class="submenu hidden">
+       <a href="../EndOfLawHASHISHEEN/AllHashineenReviews.html" class="neumorphic-tab">Landing Page</a>
+      <a href="../EndOfLawHASHISHEEN/FullAlbumReview.html" class="neumorphic-tab">Full Album Review</a>
+       <a href="../EndOfLawHASHISHEEN/index1.html" class="neumorphic-tab">Hashisheen Album Review (Track 1)</a>
+      <a href="../EndOfLawHASHISHEEN/index2.html" class="neumorphic-tab">Hashisheen Album Review (Track 2)</a>
+      <a href="../EndOfLawHASHISHEEN/index3.html" class="neumorphic-tab">Hashisheen Album Review (Track 3)</a>
+      <a href="../EndOfLawHASHISHEEN/index4.html" class="neumorphic-tab">Hashisheen Album Review (Track 4)</a>
+      <a href="../EndOfLawHASHISHEEN/index5.html" class="neumorphic-tab">Hashisheen Album Review (Track 5)</a>
+      <a href="../EndOfLawHASHISHEEN/index6.html" class="neumorphic-tab">Hashisheen Album Review (Track 6)</a>
+      <a href="../EndOfLawHASHISHEEN/index7.html" class="neumorphic-tab">Hashisheen  Album Review (Track 7)</a>
+      <a href="../EndOfLawHASHISHEEN/index8.html" class="neumorphic-tab">Hashisheen Album Review (Track 8)</a>
+      <a href="../EndOfLawHASHISHEEN/index9.html" class="neumorphic-tab">Hashisheen Album Review (Track 9)</a>
+      <a href="../EndOfLawHASHISHEEN/index10.html" class="neumorphic-tab">Hashisheen Album Review (Track 10)</a>
+      <a href="../EndOfLawHASHISHEEN/index11.html" class="neumorphic-tab">Hashisheen Album Review (Track 11)</a>
+      <a href="../EndOfLawHASHISHEEN/index12.html" class="neumorphic-tab">Hashisheen Album Review (Track 12)</a>
+      <a href="../EndOfLawHASHISHEEN/index13.html" class="neumorphic-tab">Hashisheen Album Review (Track 13)</a>
+      <a href="../EndOfLawHASHISHEEN/index14.html" class="neumorphic-tab">Hashisheen Album Review (Track 14)</a>
+      <a href="../EndOfLawHASHISHEEN/index15.html" class="neumorphic-tab">Hashisheen Album Review (Track 15)</a>
+      <a href="../EndOfLawHASHISHEEN/index16.html" class="neumorphic-tab">Hashisheen Album Review (Track 16)</a>
+      <a href="../EndOfLawHASHISHEEN/index17.html" class="neumorphic-tab">Hashisheen Album Review (Track 17)</a>
+      <a href="../EndOfLawHASHISHEEN/index18.html" class="neumorphic-tab">Hashisheen Album Review (Track 18)</a>
+      <a href="../EndOfLawHASHISHEEN/index19.html" class="neumorphic-tab">Hashisheen Album Review (Track 19)</a>
+      <a href="../EndOfLawHASHISHEEN/index20.html" class="neumorphic-tab">Hashisheen Album Review (Track 20)</a>
+      <a href="../EndOfLawHASHISHEEN/index21.html" class="neumorphic-tab">Hashisheen Album Review (Track 21)</a>
+      <a href="../EndOfLawHASHISHEEN/index22.html" class="neumorphic-tab">Hashisheen Album Review (Track 22)</a>
+      <a href="../comingSoon.html" class="neumorphic-tab">More Reviews</a>
+    </div>
+    
+    <a href="../DrawingFractals/index.html" class="neumorphic-tab">Draw w/Fractals</a>
+    
+    <a href="../RainbowGathering/index.html" class="neumorphic-tab">Rainbow Recordings</a>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-rainbows">Rainbow Reveals & Generators</a>
+  <div id="submenu-rainbows" class="submenu hidden">
+    <!-- Rainbow Reveals -->
+    <a href="../Rainbows4Thoth/Reveal1.html" class="neumorphic-tab">Rainbow Reveal 1</a>
+    <a href="../Rainbows4Thoth/Reveal2.html" class="neumorphic-tab">Rainbow Reveal 2</a>
+    <a href="../Rainbows4Thoth/ListReveal.html" class="neumorphic-tab">Rainbow Reveal List</a>
+  
+    <!-- Rainbow Generators -->
+    <a href="../RainbowFracGenerator/index.html" class="neumorphic-tab">Fractal Generator</a>
+    
+    <a href="../RainbowGenerator/index.html" class="neumorphic-tab">Rainbow Shape Generator</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-mescalito">Mescalito Reveals</a>
+  <div id="submenu-mescalito" class="submenu hidden">
+    <!-- Rainbow Reveals -->
+    <a href="../Mescalito/Reveal1.html" class="neumorphic-tab">Mescalito Reveal 1</a>
+    <a href="../Mescalito/Reveal2.html" class="neumorphic-tab">Mescalito Reveal 2</a>
+    <a href="../Mescalito/ListReveal.html" class="neumorphic-tab">Mescalito Reveal List</a>
+  </div>
+    
+    <a href="#" class="neumorphic-tab" data-expand="submenu-akashic">Akashic Records</a>
+  <div id="submenu-akashic" class="submenu hidden">
+    <a href="../css-only-3d-image-carousel/index.html" class="neumorphic-tab">Main Landing</a>
+    <a href="../AkashicAsclepiusDeep/index.html" class="neumorphic-tab">Akashic Asclepius Deep</a>
+    <a href="../AkashicAsclepiusLite/index.html" class="neumorphic-tab">Akashic Asclepius Lite</a>
+    <a href="../AkashicEmeraldAsAbove/index.html" class="neumorphic-tab">Akashic Emerald As Above</a>
+    <a href="../AkashicEmeraldDeep/index.html" class="neumorphic-tab">Akashic Emerald Deep</a>
+    <a href="../AkashicEmeraldLite/index.html" class="neumorphic-tab">Akashic Emerald Lite</a>
+    <a href="../AkashicHermiticum/index.html" class="neumorphic-tab">Akashic Hermiticum</a>
+    <a href="../AkashicHymnLite/index.html" class="neumorphic-tab">Akashic Hymn Lite</a>
+    <a href="../AkashicNag/index.html" class="neumorphic-tab">Akashic Nag</a>
+    <a href="../AkashicNag13Codex/index.html" class="neumorphic-tab">Akashic Nag 13 Codex</a>
+    <a href="../AkashicNagTreaties/index.html" class="neumorphic-tab">Akashic Nag Treaties</a>
+    <a href="../AkashicThothDeep/index.html" class="neumorphic-tab">Akashic Thoth Deep</a>
+    <a href="../AkashicThothLite/index.html" class="neumorphic-tab">Akashic Thoth Lite</a>
+    <a href="../comingSoon.html" class="neumorphic-tab">More Records</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-anarchy">Anarchy Comics & Info</a>
+  <div id="submenu-anarchy" class="submenu hidden">
+    <a href="../AnarchyComicBreakFree/index.html" class="neumorphic-tab">Anarchy Comic: Break Free</a>
+    <a href="../AnarchyComicCocoon/index.html" class="neumorphic-tab">Anarchy Comic: Cocoon</a>
+    <a href="../AnarchyDepth/index.html" class="neumorphic-tab">Anarchy Depth</a>
+    <a href="../AnarchyIsAlwaysMobile/index.html" class="neumorphic-tab">Anarchy Is Always Mobile</a>
+    <a href="../AnarchyPoetics/index.html" class="neumorphic-tab">Anarchy Poetics</a>
+    <a href="../AnarchyTAZ/index.html" class="neumorphic-tab">Anarchy TAZ</a>
+    <a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-eyespy">Eye Spy</a>
+  <div id="submenu-eyespy" class="submenu hidden">
+    <a href="../EyeSPY1/index.html" class="neumorphic-tab">Eye Spy Game 20 (1st Edition)</a>
+    <a href="../EyeSPY2/index.html" class="neumorphic-tab">Eye Spy Game 46 (2nd Edition)</a>
+    <a href="../EyeSPY3/index.html" class="neumorphic-tab">Eye Spy Game 66 (3rd Edition)</a>
+    <a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-tide-walk">Tide Walk</a>
+  <div id="submenu-tide-walk" class="submenu hidden">
+    <a href="../TideApp/index.html" class="neumorphic-tab">Tide Walk USA</a>
+    <a href="../TideApp/indexOregon.html" class="neumorphic-tab">Tide Walk Oregon</a>
+    <a href="../TideApp/indexBoston.html" class="neumorphic-tab">Tide Walk Boston</a>
+  </div>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-trent">Trent</a>
+  <div id="submenu-trent" class="submenu hidden">
+    <a href="../TrentOfTheDay/index.html" class="neumorphic-tab">Trent of the Day</a>
+    <a href="../TrentStorybook1stMobile/index.html" class="neumorphic-tab">Trent Storybook</a>
+    <a href="../TrentStorybook1stMobile/contact.html" class="neumorphic-tab">Contact</a>
+    <a href="../TrentStorybook1stMobile/about.html" class="neumorphic-tab">About</a>
+    <a href="../comingSoon.html" class="neumorphic-tab">Space StoryBook</a>
+  </div>
+  
+  <!-- Prayer Section -->
+  <a href="#" class="neumorphic-tab" data-expand="submenu-prayer">Prayer For Love</a>
+  <div id="submenu-prayer" class="submenu hidden">
+    <a href="../PrayerForLove/index.html" class="neumorphic-tab">Prayer For Love</a>
+    <a href="../PrayerThanks/index.html" class="neumorphic-tab">Thanks & Graditude</a>
+    <a href="../PrayerChildrensStill/index.html" class="neumorphic-tab">Prayer Childrens Still image</a>
+    <a href="../PrayerChildrensFade/index.html" class="neumorphic-tab">Prayer Childrens Fade</a>
+      <a href="../PrayerChildrensFlip/index.html" class="neumorphic-tab">Prayer Childrens Flip</a>
+    </div>
+    
+  <a href="../Haudenosaunee/index.html" class="neumorphic-tab">Haudenosaunee Thanksgiving</a>
+  
+  <a href="../Inprogression/index.html" class="neumorphic-tab">INPROGRESSION</a>
+  
+  <a href="../MindMelt/index.html" class="neumorphic-tab">MindMelt</a>
+  
+  <a href="../behind-the-fold/index.html" class="neumorphic-tab">Behind the Fold</a>
+  
+  <a href="../skating-bunny/index.html" class="neumorphic-tab">Rabbit Hole</a>
+  
+  <!-- Socials Section -->
+  <a href="#" class="neumorphic-tab" data-expand="submenu-socials">Socials</a>
+  <div id="submenu-socials" class="submenu hidden">
+  
+      <!-- FOOD4THOTH Links -->
+      <a href="https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho" class="neumorphic-tab" target="_blank">FOOD4THOTH Instagram</a>
+      <a href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi" class="neumorphic-tab" target="_blank">FOOD4THOTH Facebook</a>
+  
+      <!-- INPROGRESSION Links -->
+      <a href="https://www.facebook.com/share/19M7DM1SrT/?mibextid=wwXIfr" class="neumorphic-tab" target="_blank">INPROGRESSION Facebook</a>
+  
+      <!-- ARTABILLIES Links -->
+      <a href="https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ==" class="neumorphic-tab" target="_blank">ARTABILLIES Instagram</a>
+      <a href="https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi" class="neumorphic-tab" target="_blank">ARTABILLIES Facebook</a>
+      <a href="https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP" class="neumorphic-tab" target="_blank">ARTABILLIES Facebook Group</a>
+      <a href="https://www.artabillies.com/contact-us" class="neumorphic-tab" target="_blank">Contact Artabillies</a>
+      <a href="https://www.artabillies.com/artist-info" class="neumorphic-tab" target="_blank">Artabillies Artists</a>
+      
+  <a href="https://www.facebook.com/share/1A3Puz9LiE/?mibextid=wwXIfr" class="neumorphic-tab">Peruvian Melt Facebook</a>
+  <a href="https://www.facebook.com/share/1ASf9gTHNd/?mibextid=wwXIfr" class="neumorphic-tab">Seeker and the Star Facebook</a>
+  <a href="https://www.facebook.com/share/15JCrs2ByF/?mibextid=wwXIfr" class="neumorphic-tab">INPROGRESSION Facebook</a>
+  <a href="https://www.facebook.com/share/14u1KuMKxKC/?mibextid=wwXIfr" class="neumorphic-tab">Abyss of Bliss Facebook</a>
+  <a href="https://www.facebook.com/share/1A92psCHBz/?mibextid=wwXIfr" class="neumorphic-tab">DeJahn's Facebook</a>
+  
+  <a href="https://www.instagram.com/trent_son_of_reznor?igsh=MTNpam0zZDY3dGludg==" class="neumorphic-tab">Trent's Instagram</a>
+  </div>
+  
+  <!-- Music Collection Section -->
+  <a href="#" class="neumorphic-tab" data-expand="submenu-youtube">YouTube</a>
+  <div id="submenu-youtube" class="submenu hidden">
+    
+    
+  <a href="https://youtube.com/playlist?list=PL2P9hSa1PuEh6kMDZk3VMK7qPYKxECmEX&si=RyjXAR8fyDIKDXjq" class="neumorphic-tab">Artabillies Videos</a>
+  <a href="https://youtube.com/playlist?list=PL2P9hSa1PuEhO0ax57jPofQtKw4q-Ac66&si=SUZaW6uJkIpXOa2a" class="neumorphic-tab">Artabillies Music</a>
+  
+  <a href="https://youtube.com/playlist?list=PLe089QV1U3-LFF_RgkdEC1OobqUnw8G3P&si=efVtCycW88FjotuS" class="neumorphic-tab">Peruvian Melt Playlist</a>
+  <a href="https://youtube.com/playlist?list=PLsiMr0_hgaOmqlIGzjHZBzi94yaRgQ38L&si=DMZc6ng8GWx8uMbU" class="neumorphic-tab">INPROGRESSION DVD</a>
+  <a href="https://youtube.com/playlist?list=PLe089QV1U3-LJfWXtDubFrSggdQrSAtQr&si=HHvg-AxCR9B5K0P1" class="neumorphic-tab">Ground Cherry</a>
+  <a href="https://youtube.com/playlist?list=PLHLqP3bn74o1JZi7PwVssJZmJ6-3eZ-UQ&si=Nm_FdCnyWb1EcZOn" class="neumorphic-tab">DeJahn's Playlist</a>
+  <a href="https://youtube.com/@dejahnlamar3569?si=_lah2UhBbNcV8Y8_" class="neumorphic-tab">DeJahn's YouTube</a>
+  <a href="https://youtube.com/@artabillies8291?si=3aRiP1B0ltfkvCPO" class="neumorphic-tab">Artabillies YouTube</a>
+    </div>
+    
+    
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-rstory">Rstory</a>
+  <div id="submenu-rstory" class="submenu hidden">
+    <!-- Rstory Links -->
+    <a href="https://rstory.io/Dobbs_GATE.html" class="neumorphic-tab">Do You Do Dobbs Gallery</a>
+    <a href="../RstoryArtabillies/index.html" class="neumorphic-tab">Rstory Artabillies & Food4Thoth</a>
+    <!-- Articles & Additional Resources -->
+      <a href="https://hive.blog/crypto/@rstory/artabillies-receives-1m-rstory-gratitude-tokens" class="neumorphic-tab" target="_blank">ARTABILLIES Article</a>
+      <a href="https://rstory.io" class="neumorphic-tab" target="_blank"> Rstory Official Website</a>
+      <a href="https://t.me/+m-WEaUc7Ud8yY2Qx" class="neumorphic-tab" target="_blank">RSTORY Telegram Community</a>
+      <a href="https://github.com/ma-da/rstory" class="neumorphic-tab" target="_blank"> RSTORY GitHub</a>
+  </div>
+  
+  <a href="https://github.com/Dseekeroftruth" class="neumorphic-tab">GitHub</a>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-summary">Summary</a>
+  <div id="submenu-summary" class="submenu hidden">
+    <a href="../CollectiveSummary/index.html" class="neumorphic-tab">Collective Summary 1.0</a>
+    <a href="../CollectiveSummary/index2.html" class="neumorphic-tab">Collective Summary 2.0</a>
+  </div>
+    <a href="../Artabillies/index.html" class="neumorphic-tab">Artabillies Info</a>
+    <a href="https://www.artabillies.com/" class="neumorphic-tab">Artabillies.com</a>
+    <a href="../portfolio.html" class="neumorphic-tab">Portfolio</a>
+    <a href="../comingSoon.html" class="neumorphic-tab">Desktop Landing</a>
+    <a href="../contact.html" class="neumorphic-tab">Contact</a>
+    <a href="mailto:food4thoth@proton.me" class="neumorphic-tab">Email: food4thoth@proton.me</a>
+    <a href="../README.md" class="neumorphic-tab">F4T ReadMe</a>
+  </div>
+	
+  <h1>👁️Arp Synth Seq👁️</h1>
+  <button id="start-audio-btn">🪬🪬Start Audio🪬🪬</button>
+	
+	
+	
+<div id="warning" style="display: none; color: red; font-weight: bold; margin-top: 0;"></div>
+
+  <div id="app">
+    <!-- BPM Control -->
+    <div class="row">
+      <div class="label">BPM:</div>
+      <input type="number" id="bpm-input" value="120" min="30" max="300" style="width:80px" />
+      <button onclick="updateBPM()">Set BPM</button>
+    </div>
+
+    <!-- Chord Input + Presets -->
+    <div class="row">
+      <div class="label">Chord:</div>
+      <input
+        id="chord-input"
+        type="text"
+        value="C4 E4 G4 B4"
+        title="Type notes separated by spaces, e.g. 'C4 E4 G4 B4'"
+      />
+      <button onclick="updateChord()">Set Chord</button>
+    </div>
+
+    <div class="row">
+      <div class="label">Chord Preset:</div>
+      <select id="chord-select" onchange="handleChordPresetChange()">
+        <option value="">-- Custom / Manual --</option>
+        <!-- C chords -->
+        <option value="C4 E4 G4">C major</option>
+        <option value="C4 Eb4 G4">C minor</option>
+        <option value="C4 E4 G4 B4">Cmaj7</option>
+        <option value="C4 Eb4 G4 Bb4">Cm7</option>
+        <option value="C4 E4 G4 A4">C6</option>
+        <option value="C4 Eb4 G4 A4">Cm6</option>
+        <option value="C4 E4 G4 Bb4">C7</option>
+        <option value="C4 Eb4 Gb4 Bb4">Cdim7</option>
+        <option value="C4 E4 G#4">Caug</option>
+        <option value="C4 D4 G4">Csus2</option>
+        <option value="C4 F4 G4">Csus4</option>
+
+        <!-- D chords -->
+        <option value="D4 F#4 A4">D major</option>
+        <option value="D4 F4 A4">D minor</option>
+        <option value="D4 F#4 A4 C#5">Dmaj7</option>
+        <option value="D4 F4 A4 C5">Dm7</option>
+        <option value="D4 F#4 A4 C5">D7</option>
+        <option value="D4 F4 A4 Cb5">Ddim7</option>
+        <option value="D4 F#4 A#4">Daug</option>
+        <option value="D4 E4 A4">Dsus2</option>
+        <option value="D4 G4 A4">Dsus4</option>
+        
+        <!-- E chords -->
+        <option value="E4 G#4 B4">E major</option>
+        <option value="E4 G4 B4">E minor</option>
+        <option value="E4 G#4 B4 D#5">Emaj7</option>
+        <option value="E4 G4 B4 D5">Em7</option>
+        <option value="E4 G#4 B4 D5">E7</option>
+        <option value="E4 G4 Bb4 D5">Edim7</option>
+        <option value="E4 G#4 C4">Eaug (E G# C)</option>
+        <option value="E4 F#4 B4">Esus2</option>
+        <option value="E4 A4 B4">Esus4</option>
+
+        <!-- F chords -->
+        <option value="F4 A4 C5">F major</option>
+        <option value="F4 Ab4 C5">F minor</option>
+        <option value="F4 A4 C5 E5">Fmaj7</option>
+        <option value="F4 Ab4 C5 Eb5">Fm7</option>
+        <option value="F4 A4 C5 Eb5">F7</option>
+        <option value="F4 Ab4 Cb5 Eb5">Fdim7</option>
+        <option value="F4 A4 C#5">Faug (F A C#)</option>
+        <option value="F4 G4 C5">Fsus2</option>
+        <option value="F4 Bb4 C5">Fsus4</option>
+
+        <!-- G chords -->
+        <option value="G4 B4 D5">G major</option>
+        <option value="G4 Bb4 D5">G minor</option>
+        <option value="G4 B4 D5 F#5">Gmaj7</option>
+        <option value="G4 Bb4 D5 F5">Gm7</option>
+        <option value="G4 B4 D5 F5">G7</option>
+        <option value="G4 Bb4 Db5 F5">Gdim7</option>
+        <option value="G4 B4 D#5">Gaug (G B D#)</option>
+        <option value="G4 A4 D5">Gsus2</option>
+        <option value="G4 C5 D5">Gsus4</option>
+
+        <!-- A chords -->
+        <option value="A4 C#5 E5">A major</option>
+        <option value="A4 C5 E5">A minor</option>
+        <option value="A4 C#5 E5 G#5">Amaj7</option>
+        <option value="A4 C5 E5 G5">Am7</option>
+        <option value="A4 C#5 E5 G5">A7</option>
+        <option value="A4 C5 Eb5 G5">Adim7</option>
+        <option value="A4 C#5 F5">Aaug (A C# F)</option>
+        <option value="A4 B4 E5">Asus2</option>
+        <option value="A4 D5 E5">Asus4</option>
+
+        <!-- B chords -->
+        <option value="B4 D#5 F#5">B major</option>
+        <option value="B4 D5 F#5">B minor</option>
+        <option value="B4 D#5 F#5 A#5">Bmaj7</option>
+        <option value="B4 D5 F#5 A5">Bm7</option>
+        <option value="B4 D#5 F#5 A5">B7</option>
+        <option value="B4 D5 F5 A5">Bdim7</option>
+        <option value="B4 D#5 G5">Baug (B D# G)</option>
+        <option value="B4 C#5 F#5">Bsus2</option>
+        <option value="B4 E5 F#5">Bsus4</option>
+        <option value="random">Random Chord</option>
+      </select>
+    </div>
+
+    <!-- Pattern Type -->
+    <div class="row">
+      <div class="label">Pattern Type:</div>
+      <select id="pattern-type">
+        <option value="up">up</option>
+        <option value="down">down</option>
+        <option value="upDown">upDown</option>
+        <option value="alternateUp">alternateUp</option>
+        <option value="alternateDown">alternateDown</option>
+        <option value="random">random</option>
+        <option value="downUp">downUp</option>
+        <option value="randomOnce">randomOnce</option>
+        <option value="randomWalk">randomWalk</option>
+      </select>
+      <button onclick="updatePatternType()">Set Type</button>
+    </div>
+
+    <!-- Step Duration (speed) -->
+    <div class="row">
+      <div class="label">Step Speed:</div>
+      <select id="step-interval">
+        <option value="1n">Whole (1n)</option>
+        <option value="2n">Half (2n)</option>
+        <option value="2t">Half Triplet (2t)</option>
+        <option value="4n">Quarter (4n)</option>
+        <option value="4t">Quarter Triplet (4t)</option>
+        <option value="4d">Dotted Quarter (4d)</option>
+        <option value="8n" selected>Eighth (8n)</option>
+        <option value="8t">Eighth Triplet (8t)</option>
+        <option value="8d">Dotted Eighth (8d)</option>
+        <option value="16n">16th (16n)</option>
+        <option value="16t">16th Triplet (16t)</option>
+        <option value="16d">Dotted 16th (16d)</option>
+        <option value="32n">32nd (32n)</option>
+        <option value="64n">64th (64n)</option>
+        <option value="1m">1 measure</option>
+        <option value="2m">2 measures</option>
+      </select>
+      <button onclick="updatePatternInterval()">Set Interval</button>
+    </div>
+		
+		<!-- Synth Type -->
+    <div class="row">
+      <div class="label">Synth Type:</div>
+      <select id="synth-type" onchange="updateSynthType()">
+        <option value="Synth">Tone.Synth (basic)</option>
+        <option value="AMSynth">Tone.AMSynth</option>
+        <option value="FMSynth">Tone.FMSynth</option>
+        <option value="DuoSynth">Tone.DuoSynth</option>
+        <option value="MonoSynth">Tone.MonoSynth</option>
+        <option value="MembraneSynth">Tone.MembraneSynth</option>
+        <option value="MetalSynth">Tone.MetalSynth</option>
+      </select>
+    </div>
+
+    <!-- Oscillator Type -->
+    <div class="row">
+      <div class="label">Osc Type:</div>
+      <select id="osc-type" onchange="updateOscType()">
+        <option value="sine">sine</option>
+        <option value="square">square</option>
+        <option value="triangle">triangle</option>
+        <option value="sawtooth">sawtooth</option>
+        <option value="fatsine">fatsine</option>
+        <option value="fatsquare">fatsquare</option>
+        <option value="fattriangle">fattriangle</option>
+        <option value="fatsawtooth">fatsawtooth</option>
+        <option value="pulse">pulse</option>
+        <option value="pwm">pwm</option>
+      </select>
+    </div>
+
+    <!-- Reverb -->
+    <div class="row">
+      <div class="label">Reverb (Wet):</div>
+      <input
+        type="range"
+        id="reverb-range"
+        min="0"
+        max="1"
+        step="0.01"
+        value="0.2"
+        oninput="setReverbWet(this.value)"
+      />
+    </div>
+
+    <!-- Delay -->
+    <div class="row">
+      <div class="label">Delay On/Off:</div>
+      <input type="checkbox" id="delay-bypass" checked onchange="toggleDelay(this.checked)" />
+    </div>
+		
+    <div class="row">
+      <div class="label">Delay Time (s):</div>
+      <input
+        type="range"
+        id="delay-time"
+        min="0"
+        max="60"
+        step="0.1"
+        value="0.3"
+        oninput="setDelayTime(this.value)"
+      />
+      <span id="delay-time-label">0.3s</span>
+    </div>
+    <div class="row">
+      <div class="label">Feedback:</div>
+      <input
+        type="range"
+        id="delay-feedback"
+        min="0"
+        max="1"
+        step="0.01"
+        value="0.5"
+        oninput="setDelayFeedback(this.value)"
+      />
+      <span id="delay-feedback-label">0.5</span>
+    </div>
+    <div class="row">
+      <div class="label">Delay Wet:</div>
+      <input
+        type="range"
+        id="delay-wet"
+        min="0"
+        max="1"
+        step="0.01"
+        value="0.5"
+        oninput="setDelayWet(this.value)"
+      />
+      <span id="delay-wet-label">0.5</span>
+    </div>
+    <div class="row">
+      <div class="label">Delay Volume (dB):</div>
+      <input
+        type="range"
+        id="delay-volume"
+        min="-60"
+        max="0"
+        step="1"
+        value="-10"
+        oninput="setDelayVolume(this.value)"
+      />
+      <span id="delay-volume-label">-10 dB</span>
+			<div class="row">
+  <button onclick="resetDelay()">Reset Delay</button>
+</div>
+    </div>
+
+    <!-- NEW: Distortion -->
+    <div class="row">
+      <div class="label">Distortion On/Off:</div>
+      <input type="checkbox" id="dist-bypass" checked onchange="toggleDistortion(this.checked)" />
+    </div>
+    <div class="row">
+      <div class="label">Distortion Amount:</div>
+      <input
+        type="range"
+        id="dist-value"
+        min="0"
+        max="1"
+        step="0.01"
+        value="0.3"
+        oninput="setDistAmount(this.value)"
+      />
+      <span id="dist-value-label">0.3</span>
+    </div>
+    <div class="row">
+      <div class="label">Dist Wet:</div>
+      <input
+        type="range"
+        id="dist-wet"
+        min="0"
+        max="1"
+        step="0.01"
+        value="0.5"
+        oninput="setDistWet(this.value)"
+      />
+      <span id="dist-wet-label">0.5</span>
+    </div>
+
+    <!-- NEW: Chorus -->
+    <div class="row">
+      <div class="label">Chorus On/Off:</div>
+      <input type="checkbox" id="chorus-bypass" checked onchange="toggleChorus(this.checked)" />
+    </div>
+    <div class="row">
+      <div class="label">Chorus Frequency (Hz):</div>
+      <input
+        type="range"
+        id="chorus-frequency"
+        min="0.1"
+        max="5"
+        step="0.1"
+        value="1.5"
+        oninput="setChorusFreq(this.value)"
+      />
+      <span id="chorus-frequency-label">1.5 Hz</span>
+    </div>
+    <div class="row">
+      <div class="label">Chorus Depth:</div>
+      <input
+        type="range"
+        id="chorus-depth"
+        min="0"
+        max="1"
+        step="0.01"
+        value="0.7"
+        oninput="setChorusDepth(this.value)"
+      />
+      <span id="chorus-depth-label">0.7</span>
+    </div>
+    <div class="row">
+      <div class="label">Chorus Wet:</div>
+      <input
+        type="range"
+        id="chorus-wet"
+        min="0"
+        max="1"
+        step="0.01"
+        value="0.5"
+        oninput="setChorusWet(this.value)"
+      />
+      <span id="chorus-wet-label">0.5</span>
+    </div>
+
+    <!-- NEW: Phaser -->
+    <div class="row">
+      <div class="label">Phaser On/Off:</div>
+      <input type="checkbox" id="phaser-bypass" checked onchange="togglePhaser(this.checked)" />
+    </div>
+    <div class="row">
+      <div class="label">Phaser Frequency (Hz):</div>
+      <input
+        type="range"
+        id="phaser-frequency"
+        min="0.1"
+        max="10"
+        step="0.1"
+        value="2"
+        oninput="setPhaserFreq(this.value)"
+      />
+      <span id="phaser-frequency-label">2 Hz</span>
+    </div>
+    <div class="row">
+      <div class="label">Phaser Octaves:</div>
+      <input
+        type="range"
+        id="phaser-octaves"
+        min="1"
+        max="6"
+        step="1"
+        value="3"
+        oninput="setPhaserOctaves(this.value)"
+      />
+      <span id="phaser-octaves-label">3</span>
+    </div>
+    <div class="row">
+      <div class="label">Phaser Wet:</div>
+      <input
+        type="range"
+        id="phaser-wet"
+        min="0"
+        max="1"
+        step="0.01"
+        value="0.5"
+        oninput="setPhaserWet(this.value)"
+      />
+      <span id="phaser-wet-label">0.5</span>
+    </div>
+		
+		<!-- AutoWah -->
+    <div class="row">
+      <div class="label">AutoWah On/Off:</div>
+      <input type="checkbox" id="aw-bypass" checked onchange="toggleAutoWah(this.checked)" />
+    </div>
+    <div class="row">
+      <div class="label">AutoWah BaseFreq:</div>
+      <input
+        type="range"
+        id="aw-basefreq"
+        min="20"
+        max="2000"
+        step="1"
+        value="200"
+        oninput="setAWBaseFreq(this.value)"
+      />
+      <span id="aw-basefreq-label">200 Hz</span>
+    </div>
+    <div class="row">
+      <div class="label">AutoWah Octaves:</div>
+      <input
+        type="range"
+        id="aw-octaves"
+        min="1"
+        max="6"
+        step="1"
+        value="4"
+        oninput="setAWOctaves(this.value)"
+      />
+      <span id="aw-octaves-label">4</span>
+    </div>
+    <div class="row">
+      <div class="label">AutoWah Wet:</div>
+      <input
+        type="range"
+        id="aw-wet"
+        min="0"
+        max="1"
+        step="0.01"
+        value="0.5"
+        oninput="setAWWet(this.value)"
+      />
+      <span id="aw-wet-label">0.5</span>
+    </div>
+		
+		<!-- Vibrato -->
+    <div class="row">
+      <div class="label">Vibrato On/Off:</div>
+      <input type="checkbox" id="vibrato-bypass" checked onchange="toggleVibrato(this.checked)" />
+    </div>
+    <div class="row">
+      <div class="label">Vibrato Frequency (Hz):</div>
+      <input
+        type="range"
+        id="vibrato-frequency"
+        min="0.1"
+        max="20"
+        step="0.1"
+        value="5"
+        oninput="setVibratoFreq(this.value)"
+      />
+      <span id="vibrato-frequency-label">5 Hz</span>
+    </div>
+    <div class="row">
+      <div class="label">Vibrato Depth:</div>
+      <input
+        type="range"
+        id="vibrato-depth"
+        min="0"
+        max="1"
+        step="0.01"
+        value="0.1"
+        oninput="setVibratoDepth(this.value)"
+      />
+      <span id="vibrato-depth-label">0.1</span>
+    </div>
+    <div class="row">
+      <div class="label">Vibrato Wet:</div>
+      <input
+        type="range"
+        id="vibrato-wet"
+        min="0"
+        max="1"
+        step="0.01"
+        value="0.5"
+        oninput="setVibratoWet(this.value)"
+      />
+      <span id="vibrato-wet-label">0.5</span>
+    </div>
+		
+		<!-- AutoFilter -->
+    <div class="row">
+      <div class="label">AutoFilter On/Off:</div>
+      <input type="checkbox" id="af-bypass" checked onchange="toggleAutoFilter(this.checked)" />
+    </div>
+    <div class="row">
+      <div class="label">AutoFilter Freq (Hz):</div>
+      <input
+        type="range"
+        id="af-frequency"
+        min="0.1"
+        max="10"
+        step="0.1"
+        value="1"
+        oninput="setAFreq(this.value)"
+      />
+      <span id="af-frequency-label">1 Hz</span>
+    </div>
+    <div class="row">
+      <div class="label">AutoFilter Depth:</div>
+      <input
+        type="range"
+        id="af-depth"
+        min="0"
+        max="1"
+        step="0.01"
+        value="1"
+        oninput="setADepth(this.value)"
+      />
+      <span id="af-depth-label">1</span>
+    </div>
+    <div class="row">
+      <div class="label">AutoFilter Wet:</div>
+      <input
+        type="range"
+        id="af-wet"
+        min="0"
+        max="1"
+        step="0.01"
+        value="0.5"
+        oninput="setAWet(this.value)"
+      />
+      <span id="af-wet-label">0.5</span>
+    </div>
+		
+		<!-- NEW: BitCrusher -->
+<div class="row">
+  <div class="label">BitCrusher On/Off:</div>
+  <input type="checkbox" id="bitcrusher-bypass" checked onchange="toggleBitCrusher(this.checked)" />
+</div>
+<div class="row">
+  <div class="label">Bit Depth (Bits):</div>
+  <input
+    type="range"
+    id="bitcrusher-bits"
+    min="1"
+    max="8"
+    step="1"
+    value="4"
+    oninput="setBitCrusherBits(this.value)"
+  />
+  <span id="bitcrusher-bits-label">4 bits</span>
+</div>
+<div class="row">
+  <div class="label">BitCrusher Wet:</div>
+  <input
+    type="range"
+    id="bitcrusher-wet"
+    min="0"
+    max="1"
+    step="0.01"
+    value="0.5"
+    oninput="setBitCrusherWet(this.value)"
+  />
+  <span id="bitcrusher-wet-label">0.5</span>
+</div>
+		
+		<!-- Octave Shift -->
+    <div class="row">
+      <div class="label">Octave Shift:</div>
+      <select id="octave-shift">
+        <option value="-24">-2</option>
+        <option value="-12">-1</option>
+        <option value="0" selected>0</option>
+        <option value="12">+1</option>
+        <option value="24">+2</option>
+      </select>
+      <button onclick="applyOctaveShift()">Apply Shift</button>
+    </div>
+		
+		<!-- Warp Type -->
+    <div class="row">
+      <div class="label">Warp Type:</div>
+      <select id="warp-type">
+        <option value="random">Random</option>
+        <option value="wild">Wild</option>
+        <option value="subtle">Subtle</option>
+      </select>
+      <button onclick="warpSynth()">Warp Synth</button>
+    </div>
+
+    <!-- Toggle Playback & Warp -->
+<button id="toggle-arp-btn" onclick="toggleArp()">✨ ✨Toggle Arp✨ ✨</button>
+
+<footer class="footer">
+        <p>
+					<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="./README.md"  class="styled-link">ReadMe</a></p>
+    </footer>
+      
+    </div>
+  </div>
+
+  <script> 
+    let synth;
+    let chordNotes;
+    let pattern;
+
+    const masterGain = new Tone.Volume(0).toDestination();
+    const reverb = new Tone.Reverb({ decay: 2, wet: 0.2 });
+
+    // Delay (60s max)
+    let delayEffect = new Tone.FeedbackDelay({
+     delayTime: 0.3,
+     feedback: 0.5,
+     maxDelay: 60
+  });
+    delayEffect.wet.value = 0.5;
+    const delayVolume = new Tone.Volume(-10);
+
+    // NEW Distortion
+    const distortion = new Tone.Distortion({
+      distortion: 0.3,
+      oversample: "4x" // or "2x", "none"
+    });
+    distortion.wet.value = 0.5;
+
+    // NEW Chorus
+    const chorus = new Tone.Chorus({
+      frequency: 1.5,
+      depth: 0.7,
+      wet: 0.5
+    }).start();
+
+    // NEW Phaser
+    const phaser = new Tone.Phaser({
+      frequency: 2,
+      octaves: 3,
+      wet: 0.5
+    });
+		
+		const autoWah = new Tone.AutoWah({
+  baseFrequency: 300, // a bit higher base freq
+  octaves: 3,
+  sensitivity: -55,   // more negative => triggers more easily
+  wet: 0.8
+});
+
+// Example: Vibrato object (no .start() call)
+    const vibrato = new Tone.Vibrato({
+      frequency: 5,
+      depth: 0.1,
+      wet: 0.5
+    });
+	
+	// AutoFilter
+    const autoFilter = new Tone.AutoFilter({ frequency: 1, type: "sine", depth: 1, wet: 0.5 }).start();
+	
+	const bitCrusher = new Tone.BitCrusher({
+  bits: 2,    // 1–8 typically
+  wet: 0.5
+});
+	
+// Create an Analyzer node
+const analyzer = new Tone.Analyser("waveform", 256);
+
+    document.addEventListener('DOMContentLoaded', () => {
+  const startAudioBtn = document.getElementById("start-audio-btn");
+  let isAudioPlaying = false; // Track the audio state
+
+  startAudioBtn.addEventListener("click", async () => {
+    if (!isAudioPlaying) {
+      // Start the audio context
+      if (Tone.context.state !== "running") {
+        await Tone.start();
+        console.log("Audio context started.");
+      }
+
+      // Start the Tone.js transport for the arp sounds
+      Tone.Transport.start();
+
+      // Update button state
+      startAudioBtn.textContent = "⚡️⚡️Stop⚡️⚡️";
+      isAudioPlaying = true;
+    } else {
+      // Stop the Tone.js transport
+      Tone.Transport.stop(); // Stop the arpeggiator sounds
+
+      // Update button state
+      startAudioBtn.textContent = "💥💥Start💥💥";
+      isAudioPlaying = false;
+    }
+  });
+});
+		
+
+		
+    /*********************************************************
+     * 2. CREATE SYNTH
+     *********************************************************/
+    function createSynth(type) {
+      if (synth) synth.dispose();
+
+      let newSynth;
+      switch(type) {
+        case "AMSynth":
+          newSynth = new Tone.PolySynth(Tone.AMSynth);
+          break;
+        case "FMSynth":
+          newSynth = new Tone.PolySynth(Tone.FMSynth);
+          break;
+        case "DuoSynth":
+  newSynth = new Tone.DuoSynth({
+    voice0: { oscillator: { type: "triangle" } },
+    voice1: { oscillator: { type: "sawtooth" } },
+    harmonicity: 1.5, // Adjust the balance between voices
+    vibratoRate: 5, // Vibrato speed
+    vibratoAmount: 0.2, // Vibrato intensity
+  });
+  break;
+        case "MonoSynth":
+          newSynth = new Tone.PolySynth(Tone.MonoSynth);
+          break;
+        case "MembraneSynth":
+          newSynth = new Tone.PolySynth(Tone.MembraneSynth);
+          break;
+        case "MetalSynth":
+  newSynth = new Tone.MetalSynth({
+    harmonicity: 12, // Adjust this for timbre changes
+    modulationIndex: 32, // More or less metallic
+    resonance: 4000, // Frequency of the resonance
+    octaves: 1.5, // Detune effect
+  });
+  break;
+        default:
+          // default
+          newSynth = new Tone.PolySynth(Tone.Synth, {
+            oscillator: { type: "sine" }, maxPolyphony: 1024,
+            envelope: { attack: 0.01, decay: 0.1, sustain: 0.5, release: 1 }
+          });
+      }
+
+      // CHAIN: synth -> distortion -> chorus -> phaser -> delay -> delayVolume -> reverb -> masterGain
+      newSynth.chain(distortion, chorus, phaser, autoWah, vibrato, autoFilter, bitCrusher, delayEffect, delayVolume, reverb, masterGain, analyzer);
+      return newSynth;
+    }
+
+    /*********************************************************
+     * 3. INITIALIZE
+     *********************************************************/
+    chordNotes = ["C4", "E4", "G4", "B4"];
+    synth = createSynth("Synth");
+
+    pattern = new Tone.Pattern((time, note) => {
+      synth.triggerAttackRelease(note, "8n", time);
+    }, chordNotes, "up");
+
+    pattern.interval = "8n";
+    pattern.loop = true;
+    pattern.start(0);
+
+    Tone.Transport.start();
+
+    /*********************************************************
+     * 4. UI / FUNCTIONS
+     *********************************************************/
+    // BPM
+    function updateBPM() {
+      const bpm = parseInt(document.getElementById("bpm-input").value, 10) || 120;
+      Tone.Transport.bpm.rampTo(bpm, 0.5);
+    }
+		
+		function showWarning(message) {
+  const warningElement = document.getElementById("warning");
+  warningElement.textContent = message;
+  warningElement.style.display = "block";
+
+  setTimeout(() => {
+    warningElement.style.display = "none"; // Hide after 3 seconds
+  }, 3000);
+}
+
+    function updateChord() {
+  const validRoots = ["A", "B", "C", "D", "E", "F", "G"]; // Allowed note roots
+  const validModifiers = ["#", "b"]; // Sharps and flats
+  const text = document.getElementById("chord-input").value.trim();
+  const inputNotes = text.split(/\s+/);
+  const sanitizedNotes = [];
+  const warnings = [];
+
+  inputNotes.forEach(note => {
+    // Extract the root (first character) and the rest of the note
+    const root = note.charAt(0).toUpperCase();
+    const remainder = note.slice(1);
+
+    // Check if the root is valid and handle modifiers
+    if (validRoots.includes(root)) {
+      const modifier = remainder.charAt(0); // Check for # or b
+      const octaveMatch = remainder.match(/\d+$/); // Extract octave (if any)
+      const octave = octaveMatch ? octaveMatch[0] : "4"; // Default octave is 4
+
+      if (modifier && validModifiers.includes(modifier)) {
+        // Valid sharp/flat note
+        sanitizedNotes.push(`${root}${modifier}${octave}`);
+      } else if (!modifier || /\d/.test(modifier)) {
+        // Valid natural note or just an octave
+        sanitizedNotes.push(`${root}${octave}`);
+      } else {
+        // Invalid modifier
+        warnings.push(note);
+      }
+    } else {
+      // Invalid root
+      warnings.push(note);
+    }
+  });
+
+  // Handle warnings
+  if (warnings.length > 0) {
+    showWarning(`Warning: Invalid notes detected - ${warnings.join(", ")}. They were ignored.`);
+  }
+
+  // Only update if there are valid sanitized notes
+  if (sanitizedNotes.length > 0) {
+    if (JSON.stringify(sanitizedNotes) !== JSON.stringify(chordNotes)) {
+      chordNotes = sanitizedNotes;
+      pattern.values = chordNotes;
+      console.log("Updated Chord Notes:", chordNotes);
+    } else {
+      console.log("Chord input is the same as the previous chord. No updates made.");
+    }
+  } else {
+    console.log("No valid notes provided. Retaining previous chord notes:", chordNotes);
+  }
+}
+
+    function handleChordPresetChange() {
+      const val = document.getElementById("chord-select").value;
+      if (val === "random") {
+        chordNotes = generateRandomChord();
+        document.getElementById("chord-input").value = chordNotes.join(" ");
+        pattern.values = chordNotes;
+      } else if (val) {
+        chordNotes = val.split(/\s+/);
+        document.getElementById("chord-input").value = chordNotes.join(" ");
+        pattern.values = chordNotes;
+      }
+    }
+
+    function generateRandomChord() {
+      const roots = ["C","C#","D","D#","E","F",
+                     "F#","G","G#","A","A#","B"];
+      const root = roots[Math.floor(Math.random() * roots.length)];
+      const octave = 3 + Math.floor(Math.random() * 3);
+      const isMinor = Math.random() < 0.5;
+      const hasSeventh = Math.random() < 0.5;
+
+      let intervals;
+      if (!isMinor) {
+        intervals = [0,4,7];
+        if (hasSeventh) intervals.push(Math.random() < 0.5 ? 11 : 10);
+      } else {
+        intervals = [0,3,7];
+        if (hasSeventh) intervals.push(10);
+      }
+
+      return intervals.map(i => {
+        const idx = roots.indexOf(root) + i;
+        const noteName = roots[idx % 12];
+        const extraOctaves = Math.floor(idx / 12);
+        return noteName + (octave + extraOctaves);
+      });
+    }
+
+    // Pattern
+    function updatePatternType() {
+      const val = document.getElementById("pattern-type").value;
+      pattern.pattern = val;
+    }
+
+    function updatePatternInterval() {
+      const val = document.getElementById("step-interval").value;
+      pattern.interval = val;
+    }
+
+    // Reverb
+    function setReverbWet(value) {
+      reverb.wet.value = parseFloat(value);
+    }
+
+    // Delay
+    function toggleDelay(isChecked) {
+      if (isChecked) {
+        delayEffect.wet.value = parseFloat(document.getElementById("delay-wet").value);
+      } else {
+        delayEffect.wet.value = 0;
+      }
+    }
+    function setDelayTime(val) {
+      delayEffect.delayTime.value = parseFloat(val);
+      document.getElementById("delay-time-label").textContent = val + "s";
+    }
+    function setDelayFeedback(val) {
+      delayEffect.feedback.value = parseFloat(val);
+      document.getElementById("delay-feedback-label").textContent = val;
+    }
+    function setDelayWet(val) {
+      const isOn = document.getElementById("delay-bypass").checked;
+      delayEffect.wet.value = isOn ? parseFloat(val) : 0;
+      document.getElementById("delay-wet-label").textContent = val;
+    }
+    function setDelayVolume(val) {
+      delayVolume.volume.value = parseFloat(val);
+      document.getElementById("delay-volume-label").textContent = val + " dB";
+    }
+		
+		function resetDelay() {
+  // Default values for the delay
+  const defaultDelayTime = 0.3;
+  const defaultFeedback = 0.5;
+  const defaultWet = 0.5;
+  const defaultVolume = -10;
+
+  // Dispose of the current delay effect to clear the buffer
+  delayEffect.dispose();
+
+  // Recreate the delay effect with default values
+  delayEffect = new Tone.FeedbackDelay({
+    delayTime: defaultDelayTime,
+    feedback: defaultFeedback,
+    maxDelay: 60
+  });
+  delayEffect.wet.value = defaultWet;
+
+  // Reset the delay volume
+  delayVolume.volume.value = defaultVolume;
+
+  // Rebuild the signal chain
+  synth.chain(
+    distortion,
+    chorus,
+    phaser,
+    autoWah,
+    vibrato,
+    autoFilter,
+    bitCrusher,
+    delayEffect,
+    delayVolume,
+    reverb,
+    masterGain
+  );
+
+  // Update UI elements
+  document.getElementById("delay-time").value = defaultDelayTime;
+  document.getElementById("delay-time-label").textContent = `${defaultDelayTime}s`;
+  document.getElementById("delay-feedback").value = defaultFeedback;
+  document.getElementById("delay-feedback-label").textContent = defaultFeedback;
+  document.getElementById("delay-wet").value = defaultWet;
+  document.getElementById("delay-wet-label").textContent = defaultWet;
+  document.getElementById("delay-volume").value = defaultVolume;
+  document.getElementById("delay-volume-label").textContent = `${defaultVolume} dB`;
+
+  console.log("Delay has been reset. Buffer cleared, and default settings restored.");
+}
+
+    // Distortion
+    function toggleDistortion(isChecked) {
+      // If bypassed, set wet=0; otherwise restore
+      if (isChecked) {
+        distortion.wet.value = parseFloat(document.getElementById("dist-wet").value);
+      } else {
+        distortion.wet.value = 0;
+      }
+    }
+    function setDistAmount(val) {
+      distortion.distortion = parseFloat(val);
+      document.getElementById("dist-value-label").textContent = val;
+    }
+    function setDistWet(val) {
+      const isOn = document.getElementById("dist-bypass").checked;
+      distortion.wet.value = isOn ? parseFloat(val) : 0;
+      document.getElementById("dist-wet-label").textContent = val;
+    }
+
+    // Chorus
+    function toggleChorus(isChecked) {
+      if (isChecked) {
+        chorus.wet.value = parseFloat(document.getElementById("chorus-wet").value);
+      } else {
+        chorus.wet.value = 0;
+      }
+    }
+    function setChorusFreq(val) {
+      chorus.frequency.value = parseFloat(val);
+      document.getElementById("chorus-frequency-label").textContent = val + " Hz";
+    }
+    function setChorusDepth(val) {
+      chorus.depth = parseFloat(val);
+      document.getElementById("chorus-depth-label").textContent = val;
+    }
+    function setChorusWet(val) {
+      const isOn = document.getElementById("chorus-bypass").checked;
+      chorus.wet.value = isOn ? parseFloat(val) : 0;
+      document.getElementById("chorus-wet-label").textContent = val;
+    }
+
+    // Phaser
+    function togglePhaser(isChecked) {
+      if (isChecked) {
+        phaser.wet.value = parseFloat(document.getElementById("phaser-wet").value);
+      } else {
+        phaser.wet.value = 0;
+      }
+    }
+    function setPhaserFreq(val) {
+      phaser.frequency.value = parseFloat(val);
+      document.getElementById("phaser-frequency-label").textContent = val + " Hz";
+    }
+    function setPhaserOctaves(val) {
+      phaser.octaves = parseInt(val, 10);
+      document.getElementById("phaser-octaves-label").textContent = val;
+    }
+    function setPhaserWet(val) {
+      const isOn = document.getElementById("phaser-bypass").checked;
+      phaser.wet.value = isOn ? parseFloat(val) : 0;
+      document.getElementById("phaser-wet-label").textContent = val;
+    }
+		
+		function toggleAutoWah(isOn) {
+  autoWah.wet.rampTo(isOn ? parseFloat(document.getElementById("aw-wet").value) : 0, 0.05);
+}
+    function setAWBaseFreq(val) {
+      autoWah.baseFrequency = parseFloat(val);
+      document.getElementById("aw-basefreq-label").textContent = val + " Hz";
+    }
+    function setAWOctaves(val) {
+      autoWah.octaves = parseInt(val, 10);
+      document.getElementById("aw-octaves-label").textContent = val;
+    }
+    function setAWWet(val) {
+      const isOn = document.getElementById("aw-bypass").checked;
+      autoWah.wet.rampTo(isOn ? parseFloat(val) : 0, 0.05);
+      document.getElementById("aw-wet-label").textContent = val;
+    }
+		
+		// VIBRATO
+    function toggleVibrato(isChecked) {
+      const val = parseFloat(document.getElementById("vibrato-wet").value);
+      vibrato.wet.rampTo(isChecked ? val : 0, 0.05);
+    }
+    function setVibratoFreq(val) {
+      vibrato.frequency.rampTo(parseFloat(val), 0.05);
+      document.getElementById("vibrato-frequency-label").textContent = val + " Hz";
+    }
+    function setVibratoDepth(val) {
+      vibrato.depth = parseFloat(val);
+      document.getElementById("vibrato-depth-label").textContent = val;
+    }
+    function setVibratoWet(val) {
+      const isOn = document.getElementById("vibrato-bypass").checked;
+      vibrato.wet.rampTo(isOn ? parseFloat(val) : 0, 0.05);
+      document.getElementById("vibrato-wet-label").textContent = val;
+    }
+		
+		// AUTOFILTER
+    function toggleAutoFilter(isChecked) {
+      const val = parseFloat(document.getElementById("af-wet").value);
+      autoFilter.wet.rampTo(isChecked ? val : 0, 0.05);
+    }
+    function setAFreq(val) {
+      autoFilter.frequency.rampTo(parseFloat(val), 0.05);
+      document.getElementById("af-frequency-label").textContent = val + " Hz";
+    }
+    function setADepth(val) {
+      autoFilter.depth = parseFloat(val);
+      document.getElementById("af-depth-label").textContent = val;
+    }
+    function setAWet(val) {
+      const isOn = document.getElementById("af-bypass").checked;
+      autoFilter.wet.rampTo(isOn ? parseFloat(val) : 0, 0.05);
+      document.getElementById("af-wet-label").textContent = val;
+    }
+		
+		// BitCrusher toggle and controls
+function toggleBitCrusher(isChecked) {
+  if (isChecked) {
+    bitCrusher.wet.value = parseFloat(document.getElementById("bitcrusher-wet").value);
+  } else {
+    bitCrusher.wet.value = 0;
+  }
+}
+
+function setBitCrusherBits(val) {
+  bitCrusher.bits = parseInt(val, 10); // BitCrusher bits are integers
+  document.getElementById("bitcrusher-bits-label").textContent = val + " bits";
+}
+
+function setBitCrusherWet(val) {
+  const isOn = document.getElementById("bitcrusher-bypass").checked;
+  bitCrusher.wet.value = isOn ? parseFloat(val) : 0;
+  document.getElementById("bitcrusher-wet-label").textContent = val;
+}
+		
+		function warpSynth() {
+      const warpTypeSelect = document.getElementById("warp-type");
+      const warpType = warpTypeSelect.value;
+      switch(warpType) {
+        case "random":
+          randomWarp(); break;
+        case "wild":
+          wildWarp(); break;
+        case "subtle":
+          subtleWarp(); break;
+        default:
+          randomWarp(); break;
+      }
+    }
+
+    function randomWarp() {
+      const oscillatorTypes = ["sine", "triangle", "square", "sawtooth"];
+      const randomOsc = oscillatorTypes[Math.floor(Math.random() * oscillatorTypes.length)];
+      synth.set({
+        oscillator: { type: randomOsc },
+        detune: (Math.random() - 0.5) * 400,
+      });
+      console.log("Random warp applied");
+    }
+
+    function wildWarp() {
+      const oscillatorTypes = ["sine", "triangle", "square", "sawtooth"];
+      const randomOsc = oscillatorTypes[Math.floor(Math.random() * oscillatorTypes.length)];
+      synth.set({
+        oscillator: { type: randomOsc },
+        detune: (Math.random() - 0.5) * 1200,
+      });
+      console.log("Wild warp applied");
+    }
+
+    function subtleWarp() {
+      const oscillatorTypes = ["sine", "triangle", "square", "sawtooth"];
+      const randomOsc = oscillatorTypes[Math.floor(Math.random() * oscillatorTypes.length)];
+      synth.set({
+        oscillator: { type: randomOsc },
+        detune: (Math.random() - 0.5) * 50,
+      });
+      console.log("Subtle warp applied");
+    }
+
+    // Synth / Osc
+    function updateSynthType() {
+      const val = document.getElementById("synth-type").value;
+      synth = createSynth(val);
+    }
+    function showWarning(message) {
+  const warningElement = document.getElementById("warning");
+  warningElement.textContent = message;
+  warningElement.style.display = "block";
+
+  // Hide the warning after 3 seconds
+  setTimeout(() => {
+    warningElement.style.display = "none";
+  }, 3000);
+}
+
+function updateOscType() {
+  const oscType = document.getElementById("osc-type").value;
+
+  if (synth instanceof Tone.DuoSynth) {
+    // DuoSynth has two separate voices
+    synth.voice0.oscillator.type = oscType;
+    synth.voice1.oscillator.type = oscType;
+    console.log(`Updated oscillator type to ${oscType} for DuoSynth.`);
+  } else if (synth instanceof Tone.MetalSynth) {
+    // MetalSynth does not use a standard oscillator
+    const warningMessage = "Oscillator type cannot be changed for MetalSynth. This setting will not affect the current synth.";
+    console.warn(warningMessage);
+    showWarning(warningMessage);
+  } else if (synth instanceof Tone.PolySynth) {
+    // PolySynth updates all voices
+    synth.set({
+      oscillator: {
+        type: oscType,
+      },
+    });
+    console.log(`Updated oscillator type to ${oscType} for PolySynth.`);
+  } else if (synth.oscillator) {
+    // For MonoSynth or similar synths
+    synth.oscillator.type = oscType;
+    console.log(`Updated oscillator type to ${oscType} for MonoSynth or similar.`);
+  } else {
+    const warningMessage = "Unsupported synth type for oscillator update.";
+    console.warn(warningMessage);
+    showWarning(warningMessage);
+  }
+}
+
+    // Warp
+    function warpSynth() {
+      const warpTypeSelect = document.getElementById("warp-type");
+      const warpType = warpTypeSelect.value;
+      switch(warpType) {
+        case "random": randomWarp(); break;
+        case "wild": wildWarp(); break;
+        case "subtle": subtleWarp(); break;
+        default: randomWarp(); break;
+      }
+    }
+    function randomWarp() {
+      const oscillatorTypes = ["sine", "triangle", "square", "sawtooth"];
+      const randomOsc = oscillatorTypes[Math.floor(Math.random() * oscillatorTypes.length)];
+      synth.set({
+        oscillator: { type: randomOsc },
+        detune: (Math.random() - 0.5) * 400
+      });
+    }
+    function wildWarp() {
+      const oscillatorTypes = ["sine", "triangle", "square", "sawtooth"];
+      const randomOsc = oscillatorTypes[Math.floor(Math.random() * oscillatorTypes.length)];
+      synth.set({
+        oscillator: { type: randomOsc },
+        detune: (Math.random() - 0.5) * 1200
+      });
+    }
+    function subtleWarp() {
+      const oscillatorTypes = ["sine", "triangle", "square", "sawtooth"];
+      const randomOsc = oscillatorTypes[Math.floor(Math.random() * oscillatorTypes.length)];
+      synth.set({
+        oscillator: { type: randomOsc },
+        detune: (Math.random() - 0.5) * 50
+      });
+    }
+
+    // Toggle Arp
+    function toggleArp() {
+      pattern.mute = !pattern.mute;
+    }
+
+    // Octave Shift
+    function applyOctaveShift() {
+      const shiftValue = parseInt(document.getElementById("octave-shift").value, 10);
+      chordNotes = chordNotes.map(note => Tone.Frequency(note).transpose(shiftValue).toNote());
+      pattern.values = chordNotes;
+    }
+    
+</script>
+
+<script src="./nav_script.js"></script>
+
+<script src="./iframe_script.js"></script>
+
+
+	
+</body>
+</html>
