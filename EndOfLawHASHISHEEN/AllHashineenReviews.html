@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Hashisheen Reviews</title>
+    <!-- Preload the images -->
+    
+    <link rel="stylesheet" href="./styles.css">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+						
+        }
+				
+				
+				/* Footer */
+/* Ensure the footer spans the full width and stays at the bottom */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-size: 3rem;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+.styled-link {
+    color: #ff6600;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 3rem;
+    transition: color 0.3s, background-color 0.3s;
+}
+.styled-link:hover {
+    color: #ffffff;
+    background-color: #575757;
+    padding: 2px 5px; /* Optional hover effect */
+    border-radius: 4px; /* Optional for rounded corners */
+}
+
+
+
+
+.logo-animation-container svg {
+    width: 200%; /* Make it responsive */
+    height: 100%;
+		
+		margin-left: 0;
+		
+
+}
+
+
+
+
+       .path {
+    fill: none;
+    stroke: #00FF00;
+    stroke-width: 10;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: draw 3s ease-in-out infinite alternate, fadeEffect 20.5s ease-in-out infinite;
+}
+
+/* Animation for the stroke drawing effect */
+@keyframes draw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Animation for fading out and back in */
+@keyframes fadeEffect {
+    0%, 90% {
+        opacity: 1; /* Fully visible */
+    }
+    95% {
+        opacity: 0; /* Fade out quickly */
+    }
+    100% {
+        opacity: 1; /* Fade back in quickly */
+    }
+}
+        
+
+ 
+
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Position behind other elements */
+    
+}
+
+.background-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+
+
+
+
+
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 20px;
+            margin: auto;
+            max-width: auto;
+						padding-top: 13rem;
+						
+						
+        }
+
+        .glow-container {
+            position: relative;
+            cursor: pointer;
+						
+						
+        }
+        /* Glowing animated background */
+.glow-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-conic-gradient(from var(--a, 0deg), var(--l, #FFD7007f 0%, #FFAA007f 50%, #FFCC337f 100%));
+    z-index: -1;
+    filter: var(--f, url(#glow-1));
+    animation: a 2s linear infinite;
+		border-radius: 15px;
+}
+        
+.image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    display: block;
+    transition: transform 0.3s;
+}
+
+.glow-container:hover .image-container img {
+    transform: scale(1.1); /* Zoom effect on hover */
+        }
+				
+				
+/* Initially hide the track info */
+.track-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+    color: #fff;
+    padding: 15px;
+    font-size: 2rem;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Show track info on hover */
+.glow-container:hover .track-info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Make the track info appear on touch (use JS for active states) */
+.glow-container.active .track-info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Remove link underlines */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 2.5rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+
+
+
+</style>
+
+
+</head>
+<body>
+	<!-- Background container -->
+<div class="background-container">
+    <video id="background-video" autoplay muted loop playsinline>
+        <source src="images/Untitled.mov" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+	
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="FullAlbumReview.html">Full Album</a></li>
+            <li><a href="../HakimBey/index.html">Hakim Bey</a></li>
+            <li><a href="../index.html">Food4Thoth</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+            <li><a href="../comingSoon.html">Others</a></li>
+            <li><a href="./README.md">More Info</a></li>
+						
+						
+        </ul>
+				
+    </nav>
+
+	<button id="toggle-nav" class="toggle-button">☰ Nav</button>
+<div id="navigation" class="navigation hidden">
+	
+	<a href="../index.html" class="neumorphic-tab">Home</a>
+	
+	<a href="../Donations/index.html" class="neumorphic-tab">Donations Page</a>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-black-business">Black Business Eugene</a>
+  <div id="submenu-black-business" class="submenu hidden">
+    <a href="../BlackBuisnessEugene/index.html" class="neumorphic-tab">Black Business Directory</a>
+    <a href="../BlackBuisnessEugene/blackbusinessformpage.html" class="neumorphic-tab">Black Business Form</a>
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-community-garden">Community Gardens</a>
+<div id="submenu-community-garden" class="submenu hidden">
+  <a href="../CommunityGardensLists/index.html" class="neumorphic-tab">Full List of All Gardens</a>
+	<a href="../CommunityGardenLand/index.html" class="neumorphic-tab">Mobile Landing</a>
+  <a href="../CommunityGardenLand/indexDesktop.html" class="neumorphic-tab">Desktop Landing</a>
+  <a href="../CommunityGardensMaps/indexEugeneMap.html" class="neumorphic-tab">Eugene Garden Map</a>
+	 <a href="../CommunityGardensMaps/indexPortlandMap.html" class="neumorphic-tab">Portland Garden Map</a>
+  <a href="../CommunityGardensInfo/index.html" class="neumorphic-tab">Community Garden Info</a>
+  <a href="../CommunityGardensLists/indexEugene.html" class="neumorphic-tab">Eugene Garden List</a>
+  <a href="../CommunityGardensLists/indexPortland.html" class="neumorphic-tab">Portland Garden List</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-visualizers">Sound & Voice Visualizers</a>
+<div id="submenu-visualizers" class="submenu hidden">
+  <a href="../SoundActivatedVisualizor/index.html" class="neumorphic-tab">Voice Activated Visualizer</a>
+  <a href="../SoundVisualizerWmedia/index.html" class="neumorphic-tab">Sound Visualizer w/Media Loader</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-arp">ARP Synths</a>
+<div id="submenu-arp" class="submenu hidden">
+  <a href="../ArpAppNoVisualHighFi/index.html" class="neumorphic-tab">ARP App: No Visual (High-Fi)</a>
+  <a href="../ArpAppNoVisualLoFi/index.html" class="neumorphic-tab">ARP App: No Visual (Lo-Fi)</a>
+  <a href="../ArpAppWithVisual/index.html" class="neumorphic-tab">ARP App: With Visual</a>
+	
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-loopstation">Loop Stations</a>
+<div id="submenu-loopstation" class="submenu hidden">
+  <!-- Animated Music Loopers -->
+  <a href="../Bboy/index.html" class="neumorphic-tab">NoWhere Man Looper</a>
+
+  <a href="../BJungle/index.html" class="neumorphic-tab">BJungle Looper</a>
+
+  <!-- Loop Stations -->
+  <a href="../LoopStation/index.html" class="neumorphic-tab">Loop Station</a>
+
+  <!-- Advanced Loop Stations with Effects -->
+  <a href="../LoopStationHiFi/index.html" class="neumorphic-tab">Loop Station HiFi (Advanced Effects)</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-music">Music Vue Library</a>
+<div id="submenu-music" class="submenu hidden">
+  <!-- Main Music Library -->
+  <a href="../MusicLibrary/index.html" class="neumorphic-tab">Music Library Lite</a>
+
+  <!-- Music Library with Visualizer -->
+  <a href="../MusicLibraryVis/index.html" class="neumorphic-tab">Music Library (Visualizer)</a>
+</div>
+
+<!-- Music Collection Section -->
+<a href="#" class="neumorphic-tab" data-expand="submenu-music_collection">Music Collections</a>
+<div id="submenu-music_collection" class="submenu hidden">
+	<a href="../DeJahn/index.html" class="neumorphic-tab">DeJahn</a>
+	<a href="../SeekerStar/index.html" class="neumorphic-tab">Seeker & the Star</a>
+	<a href="../GroundCherry/index.html" class="neumorphic-tab">Ground Cherry</a>
+	<a href="../PeruvianMelt/index.html" class="neumorphic-tab">Peruvian Melt</a>
+		<a href="../comingSoon.html" class="neumorphic-tab">Abyss of Bliss</a>
+		
+<a href="https://www.artabillies.com/inprogression" class="neumorphic-tab">INPROGRESSION Artabillies</a>
+
+<a href="https://youtube.com/playlist?list=PLsiMr0_hgaOmqlIGzjHZBzi94yaRgQ38L&si=DMZc6ng8GWx8uMbU" class="neumorphic-tab">INPROGRESSION DVD</a>
+	</div>
+	
+	  <a href="../ChooseYourOwnAdventure/prologue.html" class="neumorphic-tab">Choose Your Own Adventure</a>
+
+ <a href="#" class="neumorphic-tab" data-expand="submenu-games">Games</a>
+<div id="submenu-games" class="submenu hidden">
+  <a href="../NewSchoolGameKid/index.html" class="neumorphic-tab">New School Game: Kid Sprite</a>
+  <a href="../NewSchoolGameWizard/index.html" class="neumorphic-tab">New School Game: Wizard Sprite</a>
+  <a href="../OldSchoolGameDesktop/index.html" class="neumorphic-tab">Old School Game: Desktop</a>
+  <a href="../OldSchoolGameMobile/index.html" class="neumorphic-tab">Old School Game: Mobile</a>
+  <a href="../TerminalGameTransition/index.html" class="neumorphic-tab">Terminal Transition Game</a>
+	<a href="../bergs-of-life/index.html" class="neumorphic-tab">Bergs of Life</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">SideScroll Game</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-claw-machine">Claw Machine</a>
+<div id="submenu-claw-machine" class="submenu hidden">
+  <a href="../claw-machine/index.html" class="neumorphic-tab">Claw Machine OG</a>
+  <a href="../claw-machineGame/index.html" class="neumorphic-tab">Claw Machine Enhanced</a>
+</div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-glo-calculato">Glo-Calculato</a>
+  <div id="submenu-glo-calculato" class="submenu hidden">
+    <a href="../GloCalculatoLanding/index.html" class="neumorphic-tab">Glo-Calculato Landing</a>
+    <a href="../GloCalculato/index.html" class="neumorphic-tab">Full-Sized Glo-Calculato</a>
+    <a href="../GloCalculatoLanding/GLO-CALCULATO/Glo-Calculato.zip" class="neumorphic-tab">Download Glo-Calculato</a>
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-tarot">Tarot</a>
+<div id="submenu-tarot" class="submenu hidden">
+  <!-- Main Tarot Landing and Learning -->
+  <a href="../TarotLanding/index.html" class="neumorphic-tab">Tarot Orientation Landing</a>
+  <a href="../TarotLanding/HowTo.html" class="neumorphic-tab">How To: Tarot – FOOD4THOTH</a>
+	<a href="../TarotFlipCardGallery/index.html" class="neumorphic-tab">Quick Reference Flip Gallery</a>
+
+  <!-- General Tarot Decks and Readings -->
+  <a href="../TarotTogetherNoAge/index.html" class="neumorphic-tab">Tarot Card Gallery (3 Decks)</a>
+  <a href="../TarotTogetherNoAge4Decks/index.html" class="neumorphic-tab">Tarot Card Gallery (4 Decks)</a>
+  <a href="../CelticCrossTarot/index.html" class="neumorphic-tab">Celtic Cross Reading</a>
+	<a href="../ThreeCardTarot/index.html" class="neumorphic-tab">Three-Card Tarot w/ Gallery</a>
+  <a href="../ThreeCardTarotByItself/index.html" class="neumorphic-tab">Three-Card Tarot Reading</a>
+
+  <!-- Cyberpunk and Thematic Tarot Decks -->
+  <a href="../TarotSacredGeometry/index.html" class="neumorphic-tab">Sacred Geometry Tarot</a>
+  <a href="../TarotCyberPunkDark/index.html" class="neumorphic-tab">CyberPunk Dark Tarot</a>
+  <a href="../TarotCyberPunkMelo/index.html" class="neumorphic-tab">CyberPunk Melo Tarot</a>
+  <a href="../TarotOG/index.html" class="neumorphic-tab">OG Tarot w/Voice Commands</a>
+	
+	<!-- Experimental and Custom Decks -->
+  <a href="../EgyptianTarot/index.html" class="neumorphic-tab">Custom Egyptian Major Arcana (1–22)</a>
+  <a href="../EgyptianTarotFull/index.html" class="neumorphic-tab">Custom Sacred Geometry (1–78)</a>
+  <a href="../TarotJungian/index.html" class="neumorphic-tab">Jungian Thoth Tarot Spread</a>
+  <a href="../TarotTextList/index.html" class="neumorphic-tab">Cyberpunk Tarot Text Library</a>
+	
+	<a href="../DrawTarot/index.html" class="neumorphic-tab">All Spreads</a>
+
+  <!-- Majix Tarot Galleries (Individual Arcana) -->
+  <a href="../MajixLanding/index.html" class="neumorphic-tab">Majix Galleries Landing</a>
+  <a href="../MajixTarotMajor/index.html" class="neumorphic-tab">Majix Major Arcana</a>
+  <a href="../MajixTarotWands/index.html" class="neumorphic-tab">Majix Wands</a>
+  <a href="../MajixTarotCups/index.html" class="neumorphic-tab">Majix Cups</a>
+  <a href="../MajixTarotSwords/index.html" class="neumorphic-tab">Majix Swords</a>
+  <a href="../MajixTarotPentacles/index.html" class="neumorphic-tab">Majix Pentacles</a>
+  <a href="../MajixTarotAll/index.html" class="neumorphic-tab">Majix All Cards</a>
+  
+  <a href="../TarotGalleries/index.html" class="neumorphic-tab">Explore All Galleries</a>
+
+  <a href="../TarotCrystalQueens/indexAge.html" class="neumorphic-tab">18+ Crystal Queens Tarot</a>
+  <a href="../TarotCyberPunkX/indexAge.html" class="neumorphic-tab">18+ CyberPunk X Tarot</a>
+  <a href="../TarotAgeVerify/index.html" class="neumorphic-tab">FOOD4THOTH 18+ Tarot Gallery</a>
+	
+	<a href="../TarotAllResources/index.html" class="neumorphic-tab">All Resources</a>
+
+  <!-- Additional Resources -->
+  <a href="../comingSoon.html" class="neumorphic-tab">More Tarot</a>
+  <a href="../parental-controls.html" class="neumorphic-tab">Parental Controls</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-iching">I Ching</a>
+<div id="submenu-iching" class="submenu hidden">
+  <a href="../Iching/index.html" class="neumorphic-tab">I Ching Simple</a>
+	<a href="../IchingFractal/index.html" class="neumorphic-tab">I Ching Fractal</a>
+	<a href="../IchingPhoto/index.html" class="neumorphic-tab">I Ching Fractal/Photo</a>
+  <a href="../Iching/ichingAnimeLoop.html" class="neumorphic-tab">I Ching Anime Loop</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-hakim-bey">Hakim Bey</a>
+  <div id="submenu-hakim-bey" class="submenu hidden">
+    <a href="../HakimBey/index.html" class="neumorphic-tab">Hakim Bey Anarchy Page</a>
+    <a href="../HakimBey/joinTheMovement.html" class="neumorphic-tab">Anarchy Collective Contact</a>
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-hashisheen">Hashisheen Album Reviews</a>
+  <div id="submenu-hashisheen" class="submenu hidden">
+		 <a href="../EndOfLawHASHISHEEN/AllHashineenReviews.html" class="neumorphic-tab">Landing Page</a>
+    <a href="../EndOfLawHASHISHEEN/FullAlbumReview.html" class="neumorphic-tab">Full Album Review</a>
+     <a href="../EndOfLawHASHISHEEN/index1.html" class="neumorphic-tab">Hashisheen Album Review (Track 1)</a>
+    <a href="../EndOfLawHASHISHEEN/index2.html" class="neumorphic-tab">Hashisheen Album Review (Track 2)</a>
+    <a href="../EndOfLawHASHISHEEN/index3.html" class="neumorphic-tab">Hashisheen Album Review (Track 3)</a>
+    <a href="../EndOfLawHASHISHEEN/index4.html" class="neumorphic-tab">Hashisheen Album Review (Track 4)</a>
+    <a href="../EndOfLawHASHISHEEN/index5.html" class="neumorphic-tab">Hashisheen Album Review (Track 5)</a>
+    <a href="../EndOfLawHASHISHEEN/index6.html" class="neumorphic-tab">Hashisheen Album Review (Track 6)</a>
+    <a href="../EndOfLawHASHISHEEN/index7.html" class="neumorphic-tab">Hashisheen  Album Review (Track 7)</a>
+    <a href="../EndOfLawHASHISHEEN/index8.html" class="neumorphic-tab">Hashisheen Album Review (Track 8)</a>
+    <a href="../EndOfLawHASHISHEEN/index9.html" class="neumorphic-tab">Hashisheen Album Review (Track 9)</a>
+    <a href="../EndOfLawHASHISHEEN/index10.html" class="neumorphic-tab">Hashisheen Album Review (Track 10)</a>
+    <a href="../EndOfLawHASHISHEEN/index11.html" class="neumorphic-tab">Hashisheen Album Review (Track 11)</a>
+    <a href="../EndOfLawHASHISHEEN/index12.html" class="neumorphic-tab">Hashisheen Album Review (Track 12)</a>
+    <a href="../EndOfLawHASHISHEEN/index13.html" class="neumorphic-tab">Hashisheen Album Review (Track 13)</a>
+    <a href="../EndOfLawHASHISHEEN/index14.html" class="neumorphic-tab">Hashisheen Album Review (Track 14)</a>
+    <a href="../EndOfLawHASHISHEEN/index15.html" class="neumorphic-tab">Hashisheen Album Review (Track 15)</a>
+    <a href="../EndOfLawHASHISHEEN/index16.html" class="neumorphic-tab">Hashisheen Album Review (Track 16)</a>
+    <a href="../EndOfLawHASHISHEEN/index17.html" class="neumorphic-tab">Hashisheen Album Review (Track 17)</a>
+    <a href="../EndOfLawHASHISHEEN/index18.html" class="neumorphic-tab">Hashisheen Album Review (Track 18)</a>
+    <a href="../EndOfLawHASHISHEEN/index19.html" class="neumorphic-tab">Hashisheen Album Review (Track 19)</a>
+    <a href="../EndOfLawHASHISHEEN/index20.html" class="neumorphic-tab">Hashisheen Album Review (Track 20)</a>
+    <a href="../EndOfLawHASHISHEEN/index21.html" class="neumorphic-tab">Hashisheen Album Review (Track 21)</a>
+    <a href="../EndOfLawHASHISHEEN/index22.html" class="neumorphic-tab">Hashisheen Album Review (Track 22)</a>
+		<a href="../comingSoon.html" class="neumorphic-tab">More Reviews</a>
+  </div>
+	
+	<a href="../DrawingFractals/index.html" class="neumorphic-tab">Draw w/Fractals</a>
+	
+	<a href="../RainbowGathering/index.html" class="neumorphic-tab">Rainbow Recordings</a>
+	
+	<a href="#" class="neumorphic-tab" data-expand="submenu-rainbows">Rainbow Reveals & Generators</a>
+<div id="submenu-rainbows" class="submenu hidden">
+  <!-- Rainbow Reveals -->
+  <a href="../Rainbows4Thoth/Reveal1.html" class="neumorphic-tab">Rainbow Reveal 1</a>
+  <a href="../Rainbows4Thoth/Reveal2.html" class="neumorphic-tab">Rainbow Reveal 2</a>
+	<a href="../Rainbows4Thoth/ListReveal.html" class="neumorphic-tab">Rainbow Reveal List</a>
+
+  <!-- Rainbow Generators -->
+  <a href="../RainbowFracGenerator/index.html" class="neumorphic-tab">Fractal Generator</a>
+  
+  <a href="../RainbowGenerator/index.html" class="neumorphic-tab">Rainbow Shape Generator</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-mescalito">Mescalito Reveals</a>
+<div id="submenu-mescalito" class="submenu hidden">
+  <!-- Rainbow Reveals -->
+  <a href="../Mescalito/Reveal1.html" class="neumorphic-tab">Mescalito Reveal 1</a>
+  <a href="../Mescalito/Reveal2.html" class="neumorphic-tab">Mescalito Reveal 2</a>
+	<a href="../Mescalito/ListReveal.html" class="neumorphic-tab">Mescalito Reveal List</a>
+</div>
+	
+	<a href="#" class="neumorphic-tab" data-expand="submenu-akashic">Akashic Records</a>
+<div id="submenu-akashic" class="submenu hidden">
+  <a href="../css-only-3d-image-carousel/index.html" class="neumorphic-tab">Main Landing</a>
+  <a href="../AkashicAsclepiusDeep/index.html" class="neumorphic-tab">Akashic Asclepius Deep</a>
+  <a href="../AkashicAsclepiusLite/index.html" class="neumorphic-tab">Akashic Asclepius Lite</a>
+  <a href="../AkashicEmeraldAsAbove/index.html" class="neumorphic-tab">Akashic Emerald As Above</a>
+  <a href="../AkashicEmeraldDeep/index.html" class="neumorphic-tab">Akashic Emerald Deep</a>
+  <a href="../AkashicEmeraldLite/index.html" class="neumorphic-tab">Akashic Emerald Lite</a>
+  <a href="../AkashicHermiticum/index.html" class="neumorphic-tab">Akashic Hermiticum</a>
+  <a href="../AkashicHymnLite/index.html" class="neumorphic-tab">Akashic Hymn Lite</a>
+  <a href="../AkashicNag/index.html" class="neumorphic-tab">Akashic Nag</a>
+  <a href="../AkashicNag13Codex/index.html" class="neumorphic-tab">Akashic Nag 13 Codex</a>
+  <a href="../AkashicNagTreaties/index.html" class="neumorphic-tab">Akashic Nag Treaties</a>
+  <a href="../AkashicThothDeep/index.html" class="neumorphic-tab">Akashic Thoth Deep</a>
+  <a href="../AkashicThothLite/index.html" class="neumorphic-tab">Akashic Thoth Lite</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">More Records</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-anarchy">Anarchy Comics & Info</a>
+<div id="submenu-anarchy" class="submenu hidden">
+  <a href="../AnarchyComicBreakFree/index.html" class="neumorphic-tab">Anarchy Comic: Break Free</a>
+  <a href="../AnarchyComicCocoon/index.html" class="neumorphic-tab">Anarchy Comic: Cocoon</a>
+  <a href="../AnarchyDepth/index.html" class="neumorphic-tab">Anarchy Depth</a>
+  <a href="../AnarchyIsAlwaysMobile/index.html" class="neumorphic-tab">Anarchy Is Always Mobile</a>
+  <a href="../AnarchyPoetics/index.html" class="neumorphic-tab">Anarchy Poetics</a>
+  <a href="../AnarchyTAZ/index.html" class="neumorphic-tab">Anarchy TAZ</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-eyespy">Eye Spy</a>
+<div id="submenu-eyespy" class="submenu hidden">
+  <a href="../EyeSPY1/index.html" class="neumorphic-tab">Eye Spy Game 20 (1st Edition)</a>
+	<a href="../EyeSPY2/index.html" class="neumorphic-tab">Eye Spy Game 46 (2nd Edition)</a>
+	<a href="../EyeSPY3/index.html" class="neumorphic-tab">Eye Spy Game 66 (3rd Edition)</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-tide-walk">Tide Walk</a>
+<div id="submenu-tide-walk" class="submenu hidden">
+	<a href="../TideApp/index.html" class="neumorphic-tab">Tide Walk USA</a>
+  <a href="../TideApp/indexOregon.html" class="neumorphic-tab">Tide Walk Oregon</a>
+  <a href="../TideApp/indexBoston.html" class="neumorphic-tab">Tide Walk Boston</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-trent">Trent</a>
+<div id="submenu-trent" class="submenu hidden">
+  <a href="../TrentOfTheDay/index.html" class="neumorphic-tab">Trent of the Day</a>
+  <a href="../TrentStorybook1stMobile/index.html" class="neumorphic-tab">Trent Storybook</a>
+  <a href="../TrentStorybook1stMobile/contact.html" class="neumorphic-tab">Contact</a>
+  <a href="../TrentStorybook1stMobile/about.html" class="neumorphic-tab">About</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">Space StoryBook</a>
+</div>
+
+<!-- Prayer Section -->
+<a href="#" class="neumorphic-tab" data-expand="submenu-prayer">Prayer For Love</a>
+<div id="submenu-prayer" class="submenu hidden">
+	<a href="../PrayerForLove/index.html" class="neumorphic-tab">Prayer For Love</a>
+	<a href="../PrayerThanks/index.html" class="neumorphic-tab">Thanks & Graditude</a>
+	<a href="../PrayerChildrensStill/index.html" class="neumorphic-tab">Prayer Childrens Still image</a>
+	<a href="../PrayerChildrensFade/index.html" class="neumorphic-tab">Prayer Childrens Fade</a>
+		<a href="../PrayerChildrensFlip/index.html" class="neumorphic-tab">Prayer Childrens Flip</a>
+	</div>
+	
+<a href="../Haudenosaunee/index.html" class="neumorphic-tab">Haudenosaunee Thanksgiving</a>
+
+<a href="../Inprogression/index.html" class="neumorphic-tab">INPROGRESSION</a>
+
+<a href="../MindMelt/index.html" class="neumorphic-tab">MindMelt</a>
+
+<a href="../behind-the-fold/index.html" class="neumorphic-tab">Behind the Fold</a>
+
+<a href="../skating-bunny/index.html" class="neumorphic-tab">Rabbit Hole</a>
+
+<!-- Socials Section -->
+<a href="#" class="neumorphic-tab" data-expand="submenu-socials">Socials</a>
+<div id="submenu-socials" class="submenu hidden">
+
+    <!-- FOOD4THOTH Links -->
+    <a href="https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho" class="neumorphic-tab" target="_blank">FOOD4THOTH Instagram</a>
+    <a href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi" class="neumorphic-tab" target="_blank">FOOD4THOTH Facebook</a>
+
+    <!-- INPROGRESSION Links -->
+    <a href="https://www.facebook.com/share/19M7DM1SrT/?mibextid=wwXIfr" class="neumorphic-tab" target="_blank">INPROGRESSION Facebook</a>
+
+    <!-- ARTABILLIES Links -->
+    <a href="https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ==" class="neumorphic-tab" target="_blank">ARTABILLIES Instagram</a>
+    <a href="https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi" class="neumorphic-tab" target="_blank">ARTABILLIES Facebook</a>
+    <a href="https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP" class="neumorphic-tab" target="_blank">ARTABILLIES Facebook Group</a>
+    <a href="https://www.artabillies.com/contact-us" class="neumorphic-tab" target="_blank">Contact Artabillies</a>
+    <a href="https://www.artabillies.com/artist-info" class="neumorphic-tab" target="_blank">Artabillies Artists</a>
+		
+<a href="https://www.facebook.com/share/1A3Puz9LiE/?mibextid=wwXIfr" class="neumorphic-tab">Peruvian Melt Facebook</a>
+<a href="https://www.facebook.com/share/1ASf9gTHNd/?mibextid=wwXIfr" class="neumorphic-tab">Seeker and the Star Facebook</a>
+<a href="https://www.facebook.com/share/15JCrs2ByF/?mibextid=wwXIfr" class="neumorphic-tab">INPROGRESSION Facebook</a>
+<a href="https://www.facebook.com/share/14u1KuMKxKC/?mibextid=wwXIfr" class="neumorphic-tab">Abyss of Bliss Facebook</a>
+<a href="https://www.facebook.com/share/1A92psCHBz/?mibextid=wwXIfr" class="neumorphic-tab">DeJahn's Facebook</a>
+
+<a href="https://www.instagram.com/trent_son_of_reznor?igsh=MTNpam0zZDY3dGludg==" class="neumorphic-tab">Trent's Instagram</a>
+</div>
+
+<!-- Music Collection Section -->
+<a href="#" class="neumorphic-tab" data-expand="submenu-youtube">YouTube</a>
+<div id="submenu-youtube" class="submenu hidden">
+	
+	
+<a href="https://youtube.com/playlist?list=PL2P9hSa1PuEh6kMDZk3VMK7qPYKxECmEX&si=RyjXAR8fyDIKDXjq" class="neumorphic-tab">Artabillies Videos</a>
+<a href="https://youtube.com/playlist?list=PL2P9hSa1PuEhO0ax57jPofQtKw4q-Ac66&si=SUZaW6uJkIpXOa2a" class="neumorphic-tab">Artabillies Music</a>
+
+<a href="https://youtube.com/playlist?list=PLe089QV1U3-LFF_RgkdEC1OobqUnw8G3P&si=efVtCycW88FjotuS" class="neumorphic-tab">Peruvian Melt Playlist</a>
+<a href="https://youtube.com/playlist?list=PLsiMr0_hgaOmqlIGzjHZBzi94yaRgQ38L&si=DMZc6ng8GWx8uMbU" class="neumorphic-tab">INPROGRESSION DVD</a>
+<a href="https://youtube.com/playlist?list=PLe089QV1U3-LJfWXtDubFrSggdQrSAtQr&si=HHvg-AxCR9B5K0P1" class="neumorphic-tab">Ground Cherry</a>
+<a href="https://youtube.com/playlist?list=PLHLqP3bn74o1JZi7PwVssJZmJ6-3eZ-UQ&si=Nm_FdCnyWb1EcZOn" class="neumorphic-tab">DeJahn's Playlist</a>
+<a href="https://youtube.com/@dejahnlamar3569?si=_lah2UhBbNcV8Y8_" class="neumorphic-tab">DeJahn's YouTube</a>
+<a href="https://youtube.com/@artabillies8291?si=3aRiP1B0ltfkvCPO" class="neumorphic-tab">Artabillies YouTube</a>
+	</div>
+	
+	
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-rstory">Rstory</a>
+<div id="submenu-rstory" class="submenu hidden">
+	<!-- Rstory Links -->
+	<a href="https://rstory.io/Dobbs_GATE.html" class="neumorphic-tab">Do You Do Dobbs Gallery</a>
+	<a href="../RstoryArtabillies/index.html" class="neumorphic-tab">Rstory Artabillies & Food4Thoth</a>
+	<!-- Articles & Additional Resources -->
+    <a href="https://hive.blog/crypto/@rstory/artabillies-receives-1m-rstory-gratitude-tokens" class="neumorphic-tab" target="_blank">ARTABILLIES Article</a>
+    <a href="https://rstory.io" class="neumorphic-tab" target="_blank"> Rstory Official Website</a>
+    <a href="https://t.me/+m-WEaUc7Ud8yY2Qx" class="neumorphic-tab" target="_blank">RSTORY Telegram Community</a>
+    <a href="https://github.com/ma-da/rstory" class="neumorphic-tab" target="_blank"> RSTORY GitHub</a>
+</div>
+
+<a href="https://github.com/Dseekeroftruth" class="neumorphic-tab">GitHub</a>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-summary">Summary</a>
+<div id="submenu-summary" class="submenu hidden">
+	<a href="../CollectiveSummary/index.html" class="neumorphic-tab">Collective Summary 1.0</a>
+	<a href="../CollectiveSummary/index2.html" class="neumorphic-tab">Collective Summary 2.0</a>
+</div>
+	<a href="../Artabillies/index.html" class="neumorphic-tab">Artabillies Info</a>
+  <a href="https://www.artabillies.com/" class="neumorphic-tab">Artabillies.com</a>
+	<a href="../portfolio.html" class="neumorphic-tab">Portfolio</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">Desktop Landing</a>
+	<a href="../contact.html" class="neumorphic-tab">Contact</a>
+  <a href="mailto:food4thoth@proton.me" class="neumorphic-tab">Email: food4thoth@proton.me</a>
+	<a href="../README.md" class="neumorphic-tab">F4T ReadMe</a>
+</div>
+
+
+    <!-- Glow effect grid -->
+<div class="grid-container">
+    <!-- Track 1 -->
+    <div class="glow-container" data-bg="bg-1">
+        <a href="index1.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack1.WEBP" alt="Track 1">
+            </div>
+						
+            <div class="track-info">
+                <strong>1. First Reading</strong><br>
+                &bull; <strong>Vocals</strong>: Sussan Deyhim<br>
+                &bull; <strong>Duration</strong>: 0:29<br><br>
+                &bull; <strong>Overview</strong>: A brief prologue setting the contemplative tone of the album. Sussan Deyhim's ethereal voice invites listeners into a mystical journey.
+								
+            </div>
+        </a>
+				
+    </div>
+
+    <!-- Track 2 -->
+    <div class="glow-container" data-bg="bg-2">
+        <a href="index2.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack2.WEBP" alt="Track 2">
+            </div>
+            <div class="track-info">
+                <strong>2. The Old Man of the Mountain</strong><br>
+                &bull; <strong>Vocals</strong>: Genesis P-Orridge and Percy Howard<br>
+                &bull; <strong>Duration</strong>: 3:12<br><br>
+                &bull; <strong>Overview</strong>: Delves into the enigmatic figure of Hasan-i Sabbah, exploring his role as a spiritual leader and strategist who founded the Hashisheens.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 3 -->
+    <div class="glow-container" data-bg="bg-3">
+        <a href="index3.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack3.WEBP" alt="Track 3">
+            </div>
+            <div class="track-info">
+                <strong>3. The Western Lands</strong><br>
+                &bull; <strong>Featuring</strong>: Techno Animal<br>
+                &bull; <strong>Vocals</strong>: Iggy Pop and William S. Burroughs<br>
+                &bull; <strong>Duration</strong>: 6:12<br><br>
+                &bull; <strong>Overview</strong>: A profound meditation on death, immortality, and the human desire to transcend physical existence, combining raw narration and distinctive voices.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 4 -->
+    <div class="glow-container" data-bg="bg-4">
+        <a href="index4.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack4.WEBP" alt="Track 4">
+            </div>
+            <div class="track-info">
+                <strong>4. The Spilled Cup</strong><br>
+                &bull; <strong>Vocals</strong>: Sussan Deyhim<br>
+                &bull; <strong>Duration</strong>: 1:47<br><br>
+                &bull; <strong>Overview</strong>: Explores themes of loss and the ephemeral nature of life, symbolized by the "spilled cup."
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 5 -->
+    <div class="glow-container" data-bg="bg-5">
+        <a href="index5.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack5.WEBP" alt="Track 5">
+            </div>
+            <div class="track-info">
+                <strong>5. Marco Polo's Talk</strong><br>
+                &bull; <strong>Featuring</strong>: Nicky Skopelitis<br>
+                &bull; <strong>Vocals</strong>: Hakim Bey<br>
+                &bull; <strong>Duration</strong>: 1:43<br><br>
+                &bull; <strong>Overview</strong>: Narrates Marco Polo's legendary encounters with the Hashisheens, blending historical accounts with mythical elements.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 6 -->
+    <div class="glow-container" data-bg="bg-6">
+        <a href="index6.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack6.WEBP" alt="Track 6">
+            </div>
+            <div class="track-info">
+                <strong>6. Pilgrimage to Cairo</strong><br>
+                &bull; <strong>Vocals</strong>: Hakim Bey<br>
+                &bull; <strong>Duration</strong>: 1:50<br><br>
+                &bull; <strong>Overview</strong>: Reflects on the spiritual journey as a metaphor for inner exploration, emphasizing that enlightenment is found within.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 7 -->
+    <div class="glow-container" data-bg="bg-7">
+        <a href="index7.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack7.WEBP" alt="Track 7">
+            </div>
+            <div class="track-info">
+                <strong>7. Freya Stark at Alamut</strong><br>
+                &bull; <strong>Featuring</strong>: Anton Fier<br>
+                &bull; <strong>Vocals</strong>: Nicole Blackman<br>
+                &bull; <strong>Duration</strong>: 0:20<br><br>
+                &bull; <strong>Overview</strong>: Touches on themes of exploration and the allure of forbidden knowledge through the experiences of British explorer Freya Stark.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 8 -->
+    <div class="glow-container" data-bg="bg-8">
+        <a href="index8.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack8.WEBP" alt="Track 8">
+            </div>
+            <div class="track-info">
+                <strong>8. Castles</strong><br>
+                &bull; <strong>Featuring</strong>: Anton Fier<br>
+                &bull; <strong>Vocals</strong>: Percy Howard<br>
+                &bull; <strong>Duration</strong>: 0:57<br><br>
+                &bull; <strong>Overview</strong>: Uses the metaphor of fortresses to delve into themes of protection and isolation.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 9 -->
+    <div class="glow-container" data-bg="bg-9">
+        <a href="index9.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack9.WEBP" alt="Track 9">
+            </div>
+            <div class="track-info">
+                <strong>9. Hashish Poem</strong><br>
+                &bull; <strong>Vocals</strong>: Nicole Blackman<br>
+                &bull; <strong>Duration</strong>: 2:52<br><br>
+                &bull; <strong>Overview</strong>: Explores the use of hashish as a means of accessing altered states of consciousness and the search for higher understanding.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 10 -->
+    <div class="glow-container" data-bg="bg-10">
+        <a href="index10.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack10.WEBP" alt="Track 10">
+            </div>
+            <div class="track-info">
+                <strong>10. Sinan's Post</strong><br>
+                &bull; <strong>Vocals</strong>: Ira Cohen<br>
+                &bull; <strong>Duration</strong>: 1:56<br><br>
+                &bull; <strong>Overview</strong>: Focuses on Rashid ad-Din Sinan, exploring his strategic brilliance and the mystique that surrounded him.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 11 -->
+    <div class="glow-container" data-bg="bg-11">
+        <a href="index11.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack11.WEBP" alt="Track 11">
+            </div>
+            <div class="track-info">
+                <strong>11. Assassinations</strong><br>
+                &bull; <strong>Featuring</strong>: Anton Fier<br>
+                &bull; <strong>Vocals</strong>: Nicole Blackman<br>
+                &bull; <strong>Duration</strong>: 0:33<br><br>
+                &bull; <strong>Overview</strong>: Confronts the ethical complexities surrounding the act of assassination.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 12 -->
+    <div class="glow-container" data-bg="bg-12">
+        <a href="index12.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack12.WEBP" alt="Track 12">
+            </div>
+            <div class="track-info">
+                <strong>12. The Mongols Destroy Alamut</strong><br>
+                &bull; <strong>Featuring</strong>: Paul Schütze<br>
+                &bull; <strong>Vocals</strong>: Percy Howard<br>
+                &bull; <strong>Duration</strong>: 1:14<br><br>
+                &bull; <strong>Overview</strong>: Recounts the fall of Alamut at the hands of the Mongols, evoking a sense of loss and impermanence.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 13 -->
+    <div class="glow-container" data-bg="bg-13">
+        <a href="index13.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack13.WEBP" alt="Track 13">
+            </div>
+            <div class="track-info">
+                <strong>13. The Divine Self</strong><br>
+                &bull; <strong>Produced by</strong>: Jah Wobble<br>
+                &bull; <strong>Duration</strong>: 5:09<br><br>
+                &bull; <strong>Overview</strong>: An introspective exploration of the self as an embodiment of the divine, fusing world music elements with philosophical musings.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 14 -->
+    <div class="glow-container" data-bg="bg-14">
+        <a href="index14.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack14.WEBP" alt="Track 14">
+            </div>
+            <div class="track-info">
+                <strong>14. Morning High</strong><br>
+                &bull; <strong>Featuring</strong>: Nicky Skopelitis<br>
+                &bull; <strong>Vocals</strong>: Lizzy Mercier Descloux and Patti Smith<br>
+                &bull; <strong>Duration</strong>: 3:03<br><br>
+                &bull; <strong>Overview</strong>: A poetic meditation on transformation and renewal, capturing the essence of dawn as a symbol of hope.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 15 -->
+    <div class="glow-container" data-bg="bg-15">
+        <a href="index15.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack15.WEBP" alt="Track 15">
+            </div>
+            <div class="track-info">
+                <strong>15. A Quick Trip to Alamut</strong><br>
+                &bull; <strong>Featuring</strong>: Paul Schütze<br>
+                &bull; <strong>Vocals</strong>: Iggy Pop<br>
+                &bull; <strong>Duration</strong>: 3:41<br><br>
+                &bull; <strong>Overview</strong>: Narrates a tale centered around Hasan-i Sabbah's rise to power, reflecting on themes of deception and transformation.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 16 -->
+    <div class="glow-container" data-bg="bg-16">
+        <a href="index16.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack16.WEBP" alt="Track 16">
+            </div>
+            <div class="track-info">
+                <strong>16. Slogans</strong><br>
+                &bull; <strong>Featuring</strong>: Helios Creed<br>
+                &bull; <strong>Vocals</strong>: Genesis P-Orridge<br>
+                &bull; <strong>Duration</strong>: 0:47<br><br>
+                &bull; <strong>Overview</strong>: Examines the power of language and propaganda, emphasizing the dangers of absolute beliefs.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 17 -->
+    <div class="glow-container" data-bg="bg-17">
+        <a href="index17.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack17.WEBP" alt="Track 17">
+            </div>
+            <div class="track-info">
+                <strong>17. Book of the Highest Initiation</strong><br>
+                &bull; <strong>Featuring</strong>: Helios Creed<br>
+                &bull; <strong>Vocals</strong>: Genesis P-Orridge<br>
+                &bull; <strong>Duration</strong>: 2:41<br><br>
+                &bull; <strong>Overview</strong>: Delves into esoteric teachings and the liberation from conventional religious practices.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 18 -->
+    <div class="glow-container" data-bg="bg-18">
+        <a href="index18.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack18.WEBP" alt="Track 18">
+            </div>
+            <div class="track-info">
+                <strong>18. The Lord of the Resurrection</strong><br>
+                &bull; <strong>Vocals</strong>: Umar Bin Hassan<br>
+                &bull; <strong>Duration</strong>: 0:52<br><br>
+                &bull; <strong>Overview</strong>: Reinterprets the concept of paradise, critiquing materialistic views of spiritual fulfillment.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 19 -->
+    <div class="glow-container" data-bg="bg-19">
+        <a href="index19.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack19.WEBP" alt="Track 19">
+            </div>
+            <div class="track-info">
+                <strong>19. Assassinations 2</strong><br>
+                &bull; <strong>Featuring</strong>: Anton Fier<br>
+                &bull; <strong>Vocals</strong>: Nicole Blackman<br>
+                &bull; <strong>Duration</strong>: 0:52<br><br>
+                &bull; <strong>Overview</strong>: Explores the psyche of those who commit acts of political violence, delving into moral ambiguities.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 20 -->
+    <div class="glow-container" data-bg="bg-20">
+        <a href="index20.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack20.WEBP" alt="Track 20">
+            </div>
+            <div class="track-info">
+                <strong>20. Tale of the Caliph Hakem</strong><br>
+                &bull; <strong>Produced by</strong>: Eyeless In Gaza<br>
+                &bull; <strong>Vocals</strong>: Anne Clark and Genesis P-Orridge<br>
+                &bull; <strong>Duration</strong>: 5:00<br><br>
+                &bull; <strong>Overview</strong>: Recounts the story of Caliph al-Hakim bi-Amr Allah, exploring themes of power, madness, and divinity.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 21 -->
+    <div class="glow-container" data-bg="bg-21">
+        <a href="index21.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack21.WEBP" alt="Track 21">
+            </div>
+            <div class="track-info">
+                <strong>21. The Assassins</strong><br>
+                &bull; <strong>Vocals</strong>: Hakim Bey<br>
+                &bull; <strong>Duration</strong>: 2:05<br><br>
+                &bull; <strong>Overview</strong>: Provides a poetic exploration of the Hashisheens' legacy, touching on rebellion and autonomy.
+            </div>
+        </a>
+    </div>
+
+    <!-- Track 22 -->
+    <div class="glow-container" data-bg="bg-22">
+        <a href="index22.html">
+            <div class="glow-effect"></div>
+            <div class="image-container">
+                <img src="images/HasheshinTrack22.WEBP" alt="Track 22">
+            </div>
+            <div class="track-info">
+                <strong>22. Last Reading</strong><br>
+                &bull; <strong>Vocals</strong>: Sussan Deyhim<br>
+                &bull; <strong>Duration</strong>: 0:37<br><br>
+                &bull; <strong>Overview</strong>: A reflective epilogue emphasizing personal transformation and the immediacy of enlightenment.
+            </div>
+        </a>
+    </div>
+
+    <!-- Full Album Review -->
+<div class="glow-container" data-bg="bg-23">
+    <a href="full-album-review.html">
+        <div class="glow-effect"></div>
+        <div class="image-container">
+            <img src="images/FullAlbumReview.png" alt="Full Album Review">
+        </div>
+        <div class="track-info">
+					<strong>FULL ALBUM REVIEW</strong><br>
+            <strong>Hashisheen: The End of Law</strong><br>
+            &bull; <strong>Release Year</strong>: 1999<br>
+            &bull; <strong>Producer</strong>: Bill Laswell<br>
+            &bull; <strong>Genre</strong>: Experimental, Ambient, World Music<br><br>
+            &bull; <strong>Overview</strong>: An immersive journey through mysticism, history, and avant-garde artistry, explores themes of rebellion, enlightenment, and the quest for meaning.<br>
+        </div>
+    </a>
+		
+		
+</div>
+
+			
+			<div class="animation-container logo-animation-container">
+    <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+        <!-- Adjusted A symbol with extended lines -->
+        <path class="path" d="M30,170 L100,35 L170,170 M20,110 L180,110"></path> <!-- Extended A with top, arms, and legs beyond the circle -->
+
+        <!-- Circle inside with A lines extending beyond it -->
+        <circle cx="100" cy="100" r="60" class="path"></circle>
+    </svg>
+</div>
+
+        </svg>
+    </div>
+		
+</div>
+
+    <!-- SVG Filters for the glow effect -->
+    <svg width="0" height="0" aria-hidden="true">
+        <filter id="glow-1" x="-25%" y="-25%" width="150%" height="150%">
+            <feComponentTransfer in="SourceGraphic" result="grad">
+                <feFuncA type="table" tableValues="0 2 0"></feFuncA>
+            </feComponentTransfer>
+            <feMorphology operator="dilate" radius="3"></feMorphology>
+            <feGaussianBlur stdDeviation="6" result="glow"></feGaussianBlur>
+            <feTurbulence type="fractalNoise" baseFrequency="7.13"></feTurbulence>
+            <feDisplacementMap in="glow" scale="12" yChannelSelector="R"></feDisplacementMap>
+            <feComponentTransfer>
+                <feFuncA type="linear" slope=".8"></feFuncA>
+            </feComponentTransfer>
+            <feBlend in="grad" result="out"></feBlend>
+            <feComponentTransfer in="SourceGraphic">
+                <feFuncA type="table" tableValues="0 0 1"></feFuncA>
+            </feComponentTransfer>
+            <feBlend in2="out"></feBlend>
+        </filter>
+				
+					
+    </svg>
+		
+		
+		
+		<script>
+			
+			
+document.querySelectorAll('.glow-container').forEach(container => {
+    container.addEventListener('click', function (e) {
+        // If the track-info is already visible, proceed to the link
+        if (this.classList.contains('active')) {
+            const link = this.querySelector('a');
+            if (link) {
+                window.location = link.getAttribute('href');
+            }
+        } else {
+            // Otherwise, show the info and prevent the link from opening
+            e.preventDefault();
+            // Remove active class from all other containers
+            document.querySelectorAll('.glow-container').forEach(c => c.classList.remove('active'));
+            // Add active class to this container
+            this.classList.add('active');
+        }
+    });
+
+    // Hide the track info when touched outside
+    document.addEventListener('click', function (e) {
+        if (!container.contains(e.target)) {
+            container.classList.remove('active');
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const video = document.getElementById('background-video');
+    const fadeInDuration = 5000; // 5 seconds
+    let audioLevel = 0.0;
+
+    // Start audio fade-in after the initial load
+    video.muted = true; // Start muted
+    video.addEventListener('play', () => {
+        setTimeout(() => {
+            const fadeInterval = setInterval(() => {
+                if (audioLevel >= 1.0) {
+                    clearInterval(fadeInterval); // Stop increasing the volume
+                } else {
+                    audioLevel += 0.01; // Increase volume gradually
+                    video.volume = Math.min(audioLevel, 1.0); // Cap volume at 1.0
+                }
+            }, fadeInDuration / 100); // Divide fade duration into steps
+        }, 5000); // Start fade-in after 5 seconds
+    });
+});
+</script>
+
+<script src="nav_script2.js"></script>
+
+	
+<footer>
+		<a href="./README.md"  class="styled-link">ReadMe</a>
+		
+			
+      © 2025 Food4Thoth  <a href="../contact.html"  class="styled-link">Contact</a>
+			 
+    </p>
+</footer>
+
+</body>
+
+
+</html>

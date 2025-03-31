@@ -1,0 +1,602 @@
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+IS&display=swap");
+
+@property --a {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 1vw; /* Base font size relative to viewport width */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+/* Background container */
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.background-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Class to highlight text with black background and rounded corners */
+.text-highlight {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 0.5em;
+    padding: 1em;
+    display: inline-block;
+    justify-content: center;
+    font-size: 2.2rem;
+}
+
+/* Class to highlight text with black background and rounded corners */
+.text-highlight1 {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 0.5em;
+    padding: .5em;
+    display: inline-block;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+/* Container for music options */
+.music-options {
+    margin-top: 8rem;
+    text-align: center;
+    padding: 2em;
+    font-size: 2rem;
+
+}
+
+/* Glow effect container */
+.glow-container {
+    position: relative;
+    width: 50vw;
+    height: 50vw;
+    max-width: 320px;
+    max-height: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1em auto;
+}
+
+/* Initial state: Glow hidden */
+.glow-container.hide-glow {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* When the image loads, glow effect becomes visible */
+.glow-container.show-glow {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Image container */
+.image-container {
+    width: 48vw;
+    height: 48vw;
+    max-width: 300px;
+    max-height: 300px;
+    overflow: hidden;
+    margin: 1em auto;
+    z-index: 2;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Glowing animated background */
+.glow-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-conic-gradient(from var(--a, 0deg), var(--l, #FFD7007f 0%, #FFAA007f 50%, #FFCC337f 100%));
+    z-index: 1;
+    filter: var(--f, url(#glow-1));
+    animation: a 2s linear infinite;
+}
+
+@keyframes a {
+    to {
+        --a: 1turn;
+    }
+}
+
+/* Navigation Bar Styling */
+.navbar {
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 0.5em 0;
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+}
+
+.nav-links {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links li {
+    margin: 0 0.5em;
+		padding-top: 6rem;
+		padding-bottom: 1rem;
+}
+
+.nav-links li a {
+	
+    color: white;
+    text-decoration: none;
+    font-size: 2rem; /* Scales with viewport */
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 0.3em;
+    transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+    color: #FFD700;
+}
+
+/* Ensure the container has overflow control */
+.review-container {
+    width: 90%;
+    max-height: 30vh; /* Adjust to ensure content exceeds this height */
+    overflow-y: auto;
+    background-color: #fff;
+    padding: 2em;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+    margin-top: 1em;
+    position: relative;
+    color: black;
+    box-sizing: border-box;
+		border-radius: 10px;
+}
+
+/* Paragraph inside the review container */
+.review-container p {
+    line-height: 1.6;
+    margin: 0;
+    padding-bottom: 1em; /* Ensure padding for content overflow */
+}
+
+/* Custom scrollbar for WebKit browsers (Chrome, Edge, etc.) */
+.review-container::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.review-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 1em;
+}
+
+.review-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 1em;
+}
+
+.review-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* For Firefox */
+.review-container {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+}
+
+/* Collective class for design */
+.section-style {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 0.5em;
+    padding: 2em;
+    margin: 2em 0;
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(0.5em);
+    display: block;
+}
+
+/* Section links styling */
+.section-link {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s, background-color 0.3s;
+    font-size: 2.2rem;
+}
+
+/* Hover effect for section links */
+.section-link:hover {
+    color: #FFD700;
+    background-color: rgba(255, 215, 0, 0.2);
+    border-radius: 0.5em;
+}
+
+/* Center the scroll speed control and volume control */
+.scroll-controls, .volume-control {
+    text-align: center;
+    margin: 1em 0;
+    font-size: 2rem;
+}
+
+.scroll-controls input[type="range"] {
+    width: 100%;
+    font-size: 2rem;
+    margin: 5px;
+}
+
+.volume-control input[type="range"] {
+    width: 100%;
+    font-size: 2rem;
+    margin: 5px;
+}
+
+button {
+    margin: 0.5em;
+    padding: 1em 2em;
+    font-size: 2.2rem;
+    cursor: pointer;
+}
+
+/* Hover effect for buttons */
+button:hover {
+    background-color: #FFD700;
+    color: #333;
+}
+
+/* Styling for the Expand Button */
+.expand-btn {
+    background-color: #333;
+    color: white;
+    padding: 1em 2em;
+    border: none;
+    cursor: pointer;
+    margin-top: 2em;
+    font-size: 2.2rem;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.expand-btn:hover {
+    background-color: #FFD700;
+}
+
+/* Styling for the Review List */
+.review-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 1em;
+    
+}
+
+.review-list li {
+    margin-bottom: 1em;
+}
+
+.review-list li a {
+    text-decoration: none;
+    font-size: 1.8rem;
+    color: white;
+}
+
+.review-list li a:hover {
+    color: #FFD700;
+    text-decoration: underline;
+}
+
+/* Optional: Hide the list initially */
+.review-list {
+    display: none;
+}
+
+/* Class to add contrast and improve readability behind the expanded review section */
+.review-list {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 0.5em;
+    padding: 2em;
+    margin: 2em 0;
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(0.5em);
+    display: block;
+}
+
+/* Center the toggle button */
+#toggle-reviews {
+    display: block;
+    margin: 2em auto;
+    padding: 1em 2em;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;
+    font-size: 3rem;
+}
+
+#toggle-reviews:hover {
+    background-color: #FFD700;
+    color: #333;
+}
+
+.custom-label {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 0.5em;
+    padding: 0.5em;
+    display: inline-block;
+    justify-content: center;
+    font-size: 1rem;
+    color: white; /* Optional: Set text color */
+    margin: 0.5em 0; /* Optional: Add some margin for spacing */
+    text-align: center;
+    font-family: Arial, sans-serif; /* Optional: Customize the font */
+}
+
+.custom-label {
+	font-size: 1.7rem;
+}
+
+.tts-controls1 {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 0.5em;
+    padding: 0.25em;
+    display: inline-block;
+    justify-content: center;
+    font-size: 2.2rem;
+    color: white; /* Optional: Set text color */
+    margin: 0.5em 0; /* Optional: Add some margin for spacing */
+    text-align: center;
+    font-family: Arial, sans-serif; /* Optional: Customize the font */
+    border-radius: 0.5em;
+}
+
+.icon {
+    font-size: 2.5rem; /* Adjust the size of the arrow */
+    line-height: 1;  /* Ensure vertical alignment */
+}
+
+.voiceSelect {
+    font-size: 2.2rem;
+}
+
+@media (max-width: 480px) {
+
+    .nav-links li a {
+        font-size: 2.3rem;
+    }
+
+    .glow-container {
+        width: 46vw;
+        height: 46vw;
+        max-width: 470px;
+        max-height: 470px;
+    }
+
+    .image-container {
+        width: 44vw;
+        height: 44vw;
+        max-width: 450px;
+        max-height: 450px;
+    }
+		
+		.review-container {
+        width: 80%;
+        max-height: 35vh;
+        font-size: 2.5rem;
+    }
+}
+	
+
+/* MEDIA QUERIES FOR RESPONSIVENESS */
+
+/* For screens larger than 768px (Tablets and Desktops) */
+@media (min-width: 768px) {
+    html {
+        font-size: 1.2rem 0.6vw; /* Adjust base font size */
+    }
+
+    .nav-links li a {
+        font-size: 2em;
+    }
+
+    .glow-container {
+        width: 46vw;
+        height: 46vw;
+        max-width: 470px;
+        max-height: 470px;
+    }
+
+    .image-container {
+        width: 44vw;
+        height: 44vw;
+        max-width: 450px;
+        max-height: 450px;
+    }
+
+    .review-container {
+        width: 80%;
+        max-height: 35vh;
+        font-size: 1.5rem;
+    }
+}
+
+/* For screens larger than 1024px (Larger Desktops) */
+@media (min-width: 1024px) {
+    html {
+        font-size: 1.5rem 0.6vw; /* Adjust base font size */
+    }
+
+    .nav-links li a {
+        font-size: 2em;
+    }
+
+    .glow-container {
+        width: 52vw;
+        height: 52vw;
+        max-width: 620px;
+        max-height: 620px;
+    }
+
+    .image-container {
+        width: 50vw;
+        height: 50vw;
+        max-width: 600px;
+        max-height: 600px;
+    }
+
+    .review-container {
+        width: 80%;
+        max-height: 40vh;
+        font-size: 2em;
+    }
+
+    .youtube {
+        height: 100vh;
+    }
+
+    .bandcamp {
+        height: 100vh;
+        width: 80%; height: 500px;
+    }
+   
+}
+
+/* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: -2px;
+    left: -4;
+		width: 99%;
+    padding: 2px 1px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 2.2rem;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+}
+
+.toggle-button:hover {
+    background-color: black
+		text-color: yellow;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+		pointer-events: none; /* This prevents any clicks on it */
+		display: none;
+}
+
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 11rem; /* Adjust to stay below the toggle button */
+    left: 25vw;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		height: 50%;
+		overflow-y: auto; /* Enable vertical scrolling */
+		
+		
+}
+				
+        .neumorphic-tab {
+					
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: clamp(16px, 1.2vw, 22px);
+						text-align: center;
+        }
+        .neumorphic-tab:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab.active {
+            background: #d1d1d1;
+        }
+				
+				.music-options {
+					padding-top: 50px;
+				}
+				
+	
+
+.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 2.5rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
