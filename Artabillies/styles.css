@@ -1,0 +1,360 @@
+html{
+		color: black;
+	}
+    /* Basic page styling */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      line-height: 1.5;
+			box-sizing: border-box;
+    }
+		
+		
+
+    header, main, footer {
+  max-width: 1200px; 
+  width: 100%;       /* Ensure it shrinks if iframe is narrower */
+  margin: 0 auto; 
+  padding: 20px;
+}
+
+    header {
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    section {
+      background: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    section h2 {
+      margin-top: 0;
+      color: #333;
+    }
+		
+		h5 {
+  margin-top: 0px; /* or a smaller negative margin */
+			text-align: center;
+			font-size: 4rem;
+			margin-bottom: 2px;
+		}
+
+    /* Iframe container styling */
+    .iframe-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .iframe-container iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+			
+    }
+
+    /* Image gallery styling */
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .gallery img {
+      max-width: 300px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+    }
+
+    /* Links styling */
+    ul.links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      margin-top: 20px;
+    }
+
+    ul.links li {
+      margin-bottom: 10px;
+    }
+
+    ul.links li a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    ul.links li a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+			bottom: 0px;
+    }
+
+    /* Some minor styling for large text blocks */
+    p {
+      margin-bottom: 1em;
+    }
+		
+		/* Footer */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #bb86fc;
+    }
+    .footer a {
+      color: #bb86fc;
+      text-decoration: none;
+    }
+		
+		.preview {
+            margin: 20px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow-y: auto;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+        .links {
+            list-style: none;
+            padding: 0;
+        }
+        .links li {
+            margin: 5px 0;
+        }
+        .links a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+				
+				/* Scroll Buttons Container */
+.scroll-buttons {
+    position: fixed;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+		z-index: 9999;
+}
+
+.scroll-buttons button {
+    all: unset;
+    width: 1rem 
+    height: auto;
+    font-size: 1rem;
+    background: #e0e0e0;
+    color: #333;
+    padding: 0;
+    padding-top: 13px;
+		padding-bottom: 10px;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    box-shadow: 2px 2px 2px black, -2px -2px 5px black;
+    transition: box-shadow 0.3s ease, background-color 0.3s, transform 0.2s;
+		z-index: 1000;
+}
+
+/* Hover effect for buttons */
+.scroll-buttons button:hover {
+    background-color: #ccc;
+    box-shadow: inset 2px 2px 5px #bebebe, inset -2px -2px 5px #ffffff;
+    transform: scale(1.05);
+}
+
+.preview {
+  width: 100%;
+  max-width: 900px; /* Ensures desktop size remains optimal */
+  margin: auto;
+  text-align: center;
+}
+
+.preview video {
+  width: 100%;
+  height: auto;
+  max-width: 900px; /* Adjust as needed for desktop scaling */
+  display: block;
+  border-radius: 10px; /* Optional: Rounded corners */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Optional shadow */
+}
+
+/* Ensure smooth scaling on smaller devices */
+@media screen and (max-width: 768px) {
+  .preview video {
+    max-width: 100%;
+  }
+}
+
+button {
+    background-color: #ff5733;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #ff2a00;
+}
+
+/* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+}
+
+.toggle-button:hover {
+    background-color: black;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow-y: auto;
+    transition: all 0.5s ease;
+		pointer-events: none; /* This prevents any clicks on it */
+		display: none;
+}
+
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 60px; /* Adjust to stay below the toggle button */
+    left: 10px;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		height: 50%;
+		overflow-y: auto; /* Enable vertical scrolling */
+		
+		
+}
+				
+        .neumorphic-tab {
+					
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: clamp(16px, 1.2vw, 22px);
+						text-align: center;
+        }
+        .neumorphic-tab:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab.active {
+            background: #d1d1d1;
+        }
+				
+				.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 1rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+body.iframe-mode h5 {
+  font-size: 1.5rem;
+}
+
+body.iframe-mode .logo {
+  margin-bottom: -350px;
+}
+body.iframe-mode .toggle-button {
+  font-size: 1rem;
+}
+
+.image-link-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.image-link-container a {
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  max-width: 100%;
+}
+
+.image-link-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+}
