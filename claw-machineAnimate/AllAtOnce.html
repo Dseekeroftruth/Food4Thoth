@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dancing Toys Disco</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Basic page reset and dark background for disco */
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      overflow: hidden;
+    }
+    /* Container for dancing toys */
+    .dancing-toys {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+    }
+    /* Each toy is a square element with a pseudo-element for its image */
+    .toy {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin: 10px;
+      /* “dance” keyframe: bounce and rotate */
+      animation: dance 2s ease-in-out infinite,
+                 disco 4s linear infinite;
+    }
+    /* Keyframes for bouncing and slight rotation */
+    @keyframes dance {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(10deg);
+      }
+    }
+    /* Keyframes for rainbow disco effect via hue rotation */
+    @keyframes disco {
+      0% { filter: hue-rotate(0deg); }
+      50% { filter: hue-rotate(180deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+    /* The pseudo-element shows the toy image.
+       Adjust background-image per toy type via classes.
+    */
+    .toy::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: background-image 0.3s ease;
+    }
+    /* Example definitions – adjust the paths as needed */
+    .toy.bear::after {
+      background-image: url('./images/IMG_1220.png');
+    }
+    .toy.bear.grabbed::after {
+      background-image: url('./images/IMG_1221.png');
+    }
+    .toy.bunny::after {
+      background-image: url('./images/IMG_1223.png');
+    }
+    .toy.bunny.grabbed::after {
+      background-image: url('./images/IMG_1224.png');
+    }
+    .toy.golem::after {
+      background-image: url('./images/IMG_1226.png');
+    }
+    .toy.golem.grabbed::after {
+      background-image: url('./images/IMG_1227.png');
+    }
+    .toy.cucumber::after {
+      background-image: url('./images/IMG_1229.png');
+    }
+    .toy.cucumber.grabbed::after {
+      background-image: url('./images/IMG_1230.png');
+    }
+    .toy.penguin::after {
+      background-image: url('./images/IMG_1232.png');
+    }
+    .toy.penguin.grabbed::after {
+      background-image: url('./images/IMG_1233.png');
+    }
+    .toy.robot::after {
+      background-image: url('./images/IMG_1235.png');
+    }
+    .toy.robot.grabbed::after {
+      background-image: url('./images/IMG_1236.png');
+    }
+    /* Confetti styling */
+    .confetto {
+      position: fixed;
+      top: 0;
+      width: 8px;
+      height: 8px;
+      background: hsl( calc(360 * var(--rand)), 100%, 50% );
+      border-radius: 50%;
+      pointer-events: none;
+      animation: confettiSpin 1s linear infinite;
+    }
+    @keyframes confettiSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="dancing-toys" id="dancing-toys">
+    <!-- Toy elements will be injected here -->
+  </div>
+  <script>
+    // Array of toy types corresponding to your CSS classes
+    const toyTypes = ["bear", "bunny", "golem", "cucumber", "penguin", "robot"];
+    const container = document.getElementById("dancing-toys");
+    
+    // Create 12 toy elements (cycling through the available types)
+    for (let i = 0; i < 12; i++) {
+      const toy = document.createElement("div");
+      toy.className = "toy " + toyTypes[i % toyTypes.length];
+      container.appendChild(toy);
+    }
+    
+    // Cycle the extra state (toggle "grabbed") on each toy every 1 second
+    function cycleToyStates() {
+      const toys = document.querySelectorAll(".dancing-toys .toy");
+      toys.forEach((toyEl, i) => {
+        let state = 0;
+        const states = ["", "grabbed"];
+        setInterval(() => {
+          toyEl.classList.remove("grabbed");
+          if (states[state] !== "") {
+            toyEl.classList.add(states[state]);
+          }
+          state = (state + 1) % states.length;
+        }, 1000);
+      });
+    }
+    cycleToyStates();
+    
+    // Confetti generator function
+    function launchConfetti() {
+      for (let i = 0; i < 60; i++) {
+        setTimeout(() => {
+          const confetto = document.createElement("div");
+          confetto.className = "confetto";
+          confetto.style.left = (Math.random() * 100) + "%";
+          // Set a random value for --rand
+          confetto.style.setProperty("--rand", Math.random());
+          document.body.appendChild(confetto);
+          confetto.animate([
+            { transform: "translateY(0) rotate(0deg)", opacity: 1 },
+            { transform: "translateY(100vh) rotate(720deg)", opacity: 0 }
+          ], { duration: 3000 + Math.random() * 2000, easing: "ease-out" });
+          setTimeout(() => confetto.remove(), 5000);
+        }, i * 100);
+      }
+    }
+    
+    // Optionally, launch confetti once after a delay (or in response to an event)
+    setTimeout(launchConfetti, 2000);
+  </script>
+</body>
+</html>
