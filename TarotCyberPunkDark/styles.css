@@ -1,0 +1,382 @@
+
+		/* 
+  ============= 
+    Base Styles 
+  =============
+*/
+@property --a {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* Reset margins and ensure full height */
+body, html {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  height: 100%;      /* Ensure the body fills the page */
+  overflow-x: hidden;/* Disable horizontal scroll */
+  overflow-y: auto;  /* Enable vertical scrolling */
+}
+
+/* WebGL canvas background */
+#glcanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+  z-index: -1; /* Behind content */
+}
+
+/* 
+  ========================================== 
+    Container & Layout for Tarot Card UI
+  ==========================================
+*/
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 95%;
+  max-width: 1200px;   /* Wider on desktop */
+  margin: 0 auto;
+  min-height: 100vh;
+  z-index: 1; 
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.image-container {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 15px;
+  box-shadow: 10px 10px 20px #1c1c1c, -10px -10px 20px #3c3c3c;
+}
+
+/* 
+  ========================== 
+    Neumorphic Button Styles
+  ==========================
+*/
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  flex-wrap: wrap;  /* Let buttons wrap on smaller screens */
+  gap: 10px;        /* Spacing between buttons */
+}
+
+.neumorphic-button {
+  background-color: #2c2c2c;
+  border-radius: 10px;
+  box-shadow: 4px 5px 6px #000000, 4px 4px 6px #ff0000;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border: none;
+  color: #ccc;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  flex: 1 1 45%;     /* Let each button take ~45% width on small screens */
+  font-weight: 700; 
+  font-family: 'Poppins', sans-serif;
+  -webkit-text-stroke: 0.5px blue; 
+}
+
+.neumorphic-button:active {
+  box-shadow: inset 8px 8px 16px #1a1a1a, inset -8px -8px 16px #404040;
+}
+
+/* 
+  ================= 
+    Hidden Elements
+  =================
+*/
+.hidden {
+  display: none;
+}
+
+/* 
+  ============================ 
+    Description Container Box
+  ============================
+*/
+.description-container {
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #333;
+  padding: 15px;
+  border-radius: 10px;
+  color: #ccc;
+  width: 100%;
+  position: relative;
+  box-shadow: 4px 5px 6px #000000, 4px 4px 6px #ff0000;
+  font-weight: 700; 
+  font-family: 'Poppins', sans-serif;
+  -webkit-text-stroke: 0.3px blue; 
+}
+
+.description-container button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+/*
+  =============
+    Error Log
+  =============
+*/
+.error-log {
+  margin-top: 20px;
+  background-color: #f44336;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  display: none;
+}
+
+/* Hide card name by default */
+h3 {
+  display: none;
+}
+
+/* 
+  ================= 
+    Toggle Button
+  =================
+*/
+.toggle-button {
+  justify-content: center;
+  position: sticky;
+  top: 1px;
+  left: 10px;
+  background-color: #2c2c2c;
+  border-radius: 10px;
+  box-shadow: 4px 5px 6px #000000, 4px 4px 6px #ff0000;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border: none;
+  color: #ccc;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  width: 200px; 
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  -webkit-text-stroke: 0.5px blue;
+}
+
+.toggle-button:hover {
+  box-shadow: inset 8px 8px 16px #1a1a1a, inset -8px -8px 16px #404040;
+}
+
+/* 
+  ================= 
+    Dark Mode 
+  =================
+*/
+.dark-mode .toggle-button {
+  background: conic-gradient(from var(--a, 0deg), #222, #333, #444, #555, #222);
+  color: #ddd;
+  box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+}
+
+.dark-mode .toggle-button:hover {
+  background-color: #666;
+}
+
+/* Neumorphic Navigation Container */
+.navigation {
+  position: sticky;
+  top: 30px;
+  right: 5px;
+  background-color: #1e1e1e;
+  padding: 5px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  max-height: 50vh;
+  overflow-y: auto;
+  text-align: center;
+  filter: url(#glow-1);
+  animation: rotateGlow 4s linear infinite;
+}
+
+.dark-mode .navigation {
+  background: conic-gradient(from var(--a, 0deg), #444, #333, #222, #111, #444);
+  box-shadow: 0 0 20px rgba(0, 255, 153, 0.5);
+}
+
+/* Neumorphic Tab Styling */
+.neumorphic-tab {
+  display: inline-block;
+  margin: 2px;
+  padding: 3px;
+  border-radius: 25px;
+  background: conic-gradient(from var(--a, 0deg), #e0e0e0, #bebebe, #ffffff, #d1d1d1, #e0e0e0);
+  color: #333;
+  font-weight: bold;
+  font-size: clamp(12px, 1.2vw, 22px);
+  box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+  animation: rotateGlow 4s linear infinite;
+  transition: box-shadow 0.3s;
+}
+
+.dark-mode .neumorphic-tab {
+  background: conic-gradient(from var(--a, 0deg), #555, #444, #333, #222, #555);
+  color: #ddd;
+}
+
+.neumorphic-tab:hover {
+  box-shadow: inset 8px 8px 16px rgba(255, 255, 255, 0.5), 
+              inset -8px -8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .neumorphic-tab:hover {
+  box-shadow: inset 8px 8px 16px rgba(0, 255, 153, 0.3), 
+              inset -8px -8px 16px rgba(0, 0, 0, 0.7);
+}
+
+.neumorphic-tab.active {
+  background: #d1d1d1;
+}
+
+.dark-mode .neumorphic-tab.active {
+  background: #666;
+}
+
+/* 
+  =========================== 
+    Glow Rotation Animation
+  ===========================
+*/
+@keyframes rotateGlow {
+  to {
+    --a: 360deg;
+  }
+}
+
+
+/* 
+  ==========================
+    MEDIA QUERIES
+  ==========================
+*/
+
+/* 
+  Tablet: 
+  At ~768px and up, switch to a side-by-side layout if desired 
+*/
+@media screen and (min-width: 768px) {
+
+  /* Example: put image on the left, description on the right */
+  .container {
+    
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image-container {
+    width: 45%;
+    margin-bottom: 0; /* remove bottom margin in row layout */
+  }
+  
+  .description-container {
+    width: 45%;
+    max-height: 400px; /* more vertical space on tablet */
+  }
+
+  /* Adjust .button-container or sizes if needed */
+  .button-container {
+    width: 45%;
+    align-self: center; /* keep the buttons aligned in the center row */
+    margin-top: 20px;
+  }
+  
+  .neumorphic-button,
+  .toggle-button {
+    font-size: 1.1rem; 
+    -webkit-text-stroke: 0.5px blue; 
+    /* Possibly narrower text stroke if it appears too thick on larger screens */
+  }
+}
+
+/* 
+  Desktop: 
+  At ~1024px and above, further increase widths or spacing
+*/
+@media screen and (min-width: 1024px) {
+
+  .container {
+    max-width: 1200px; /* same as earlier or can be bigger */
+  }
+
+  /* Potentially enlarge the image or keep it balanced */
+  .image-container {
+    width: 40%;
+  }
+
+  .description-container {
+    width: 50%;
+    max-height: 500px;
+  }
+
+  /* Buttons can have slightly larger font-size on desktop */
+  .neumorphic-button,
+  .toggle-button {
+    font-size: 1.2rem; 
+  }
+}
+
+/* Orientation-based media queries */
+@media (orientation: portrait) {
+  #glcanvas {
+    max-height: 100%;
+  }
+}
+
+@media (orientation: landscape) {
+  #glcanvas {
+    max-height: 100%;
+  }
+}
+
+.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: purple;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
