@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOOD4THOTH CRYSTAL QUEENS TAROT 18+</title>
+    <style>
+		/* Base Styles */
+@property --a {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+		
+        /* Neumorphic button styles */
+        body {
+            background-color: #2c2c2c;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+						
+    overflow-x: hidden; /* Disable horizontal scroll */
+    overflow-y: auto; /* Enable vertical scrolling */
+        }
+				
+				#age-verification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+		z-index: 1000;
+}
+
+.modal {
+    text-align: center;
+    background: #222;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 90%;
+		z-index: 1000;
+}
+
+.modal h1 {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+}
+
+.modal p {
+    font-size: 0.9em;
+    line-height: 1.5;
+    margin-bottom: 1.5em;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+		left:  0;
+		width: auto;
+}
+
+.enter-button {
+    background-color: #ff9900;
+    color: #fff;
+}
+
+.exit-button {
+    background-color: #555;
+    color: #fff;
+}
+
+.footer-text {
+    margin-top: 1em;
+    font-size: 0.8em;
+    color: #bbb;
+}
+
+.footer-text a {
+    color: #ff9900;
+    text-decoration: none;
+}
+				
+				#neuro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+       .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 95%;
+  max-width: 1200px;   /* Wider on desktop */
+  margin: 0 auto;
+  min-height: 100vh;
+  z-index: 1; 
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.image-container {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 15px;
+  box-shadow: 10px 10px 20px #1c1c1c, -10px -10px 20px #3c3c3c;
+}
+
+       .button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  flex-wrap: wrap;  /* Let buttons wrap on smaller screens */
+  gap: 10px;        /* Spacing between buttons */
+}
+
+.description-container button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+	.neumorphic-button {
+  background-color: #2c2c2c;
+  border-radius: 10px;
+  box-shadow: 4px 5px 6px #000000, 4px 4px 6px #ff0000;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border: none;
+  color: #ccc;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  flex: 1 1 45%;     /* Let each button take ~45% width on small screens */
+  font-weight: 700; 
+  font-family: 'Poppins', sans-serif;
+
+}
+
+.neumorphic-button:active {
+  box-shadow: inset 8px 8px 16px #1a1a1a, inset -8px -8px 16px #404040;
+}
+
+
+        .hidden {
+            display: none;
+        }
+
+        .description-container {
+            max-height: 200px;
+            overflow-y: scroll;
+            background-color: #333;
+            padding: 15px;
+            border-radius: 10px;
+            color: #ccc;
+            width: 90%;
+            position: relative;
+						
+						box-shadow: inset 8px 8px 16px #1a1a1a, inset -8px -8px 16px #404040;
+        }
+
+
+        .error-log {
+            margin-top: 20px;
+            background-color: #f44336;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        h3 {
+            display: none; /* Hide card name */
+        }
+				
+				/* Hidden element styling */
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+.toggle-button {
+    justify-content: center;
+    position: sticky;
+    top: 1px;
+    left: 10px;
+    background-color: #2c2c2c;
+    border-radius: 10px;
+    box-shadow: 8px 8px 16px #1a1a1a, -8px -8px 16px #404040;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    color: #ccc;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+    width: 200px; /* Fixed width */
+}
+
+.toggle-button:hover {
+    box-shadow: inset 8px 8px 16px #1a1a1a, inset -8px -8px 16px #404040;
+}
+.navigation {
+  position: sticky;
+  top: 30px;
+  right: 5px;
+  background-color: #1e1e1e;
+  padding: 5px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  max-height: 50vh;
+  overflow-y: auto;
+  text-align: center;
+  filter: url(#glow-1);
+  animation: rotateGlow 4s linear infinite;
+}
+
+/* Neumorphic Tab Styling */
+.neumorphic-tab {
+    display: inline-block;
+    margin: 2px 2px;
+    padding: 3px 3px;
+    border-radius: 25px;
+    background: conic-gradient(from var(--a, 0deg), #e0e0e0, #bebebe, #ffffff, #d1d1d1, #e0e0e0);
+    color: #333;
+    font-weight: bold;
+    font-size: clamp(12px, 1.2vw, 22px);
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+    animation: rotateGlow 4s linear infinite;
+    transition: box-shadow 0.3s;
+		width: 100%;
+}
+
+.neumorphic-tab:hover {
+    box-shadow: inset 8px 8px 16px rgba(255, 255, 255, 0.5), inset -8px -8px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* Active State for Neumorphic Tab */
+.neumorphic-tab.active {
+    background: #d1d1d1;
+}
+
+@keyframes rotateGlow {
+    to {
+        --a: 360deg;
+    }
+}
+
+/* 
+  ==========================
+    MEDIA QUERIES
+  ==========================
+*/
+
+/* 
+  Tablet: 
+  At ~768px and up, switch to a side-by-side layout if desired 
+*/
+@media screen and (min-width: 768px) {
+
+  /* Example: put image on the left, description on the right */
+  .container {
+    width: 100%;
+	height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image-container {
+    width: 100%;
+    margin-bottom: 0; /* remove bottom margin in row layout */
+  }
+  
+  .description-container {
+    width: 45%;
+    max-height: 400px; /* more vertical space on tablet */
+  }
+
+  /* Adjust .button-container or sizes if needed */
+  .button-container {
+    width: 25vw;
+    align-self: center; /* keep the buttons aligned in the center row */
+    margin-top: 20px;
+  }
+  
+  .neumorphic-button,
+  .toggle-button {
+    font-size: 1.1rem; 
+    
+  }
+}
+
+/* 
+  Desktop: 
+  At ~1024px and above, further increase widths or spacing
+*/
+@media screen and (min-width: 1024px) {
+
+  .container {
+    max-width: 1200px; /* same as earlier or can be bigger */
+  }
+
+  /* Potentially enlarge the image or keep it balanced */
+  .image-container {
+    width: 40%;
+  }
+
+  .description-container {
+    width: 50%;
+    max-height: 500px;
+  }
+
+  /* Buttons can have slightly larger font-size on desktop */
+  .neumorphic-button,
+  .toggle-button {
+    font-size: 1.2rem; 
+  }
+}
+
+.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: teal;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+		width: 90%;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+    </style>
+</head>
+<body>
+	
+	<div id="age-verification">
+        <div class="modal">
+            <h1>This is an adult website</h1>
+            <p>
+                This website contains age-restricted materials including nudity and explicit depictions of sexual activity. 
+                By entering, you affirm that you are at least 18 years of age or the age of majority in the jurisdiction you 
+                are accessing the website from and you consent to viewing sexually explicit content.
+            </p>
+            <button id="enter" class="enter-button">I am 18 or older - Enter</button>
+            <button id="exit" class="exit-button">I am under 18 - Exit</button>
+            <p class="footer-text">
+                Our <a href="../parental-controls.html">parental controls page</a> explains how you can easily block access to this site.
+            </p>
+        </div>
+    </div>
+	
+<canvas id="neuro"></canvas>
+<div class="container">
+    <div class="image-container">
+        <img id="image" src="./images/Place_Holder2.PNG" alt="Tarot Card">
+    </div>
+		
+		<div id="description" class="description-container hidden">
+        <button id="closeDescription"></button>
+    </div>
+
+    <div class="button-container">
+        <button id="randomize" class="neumorphic-button">Randomize</button>
+        <button id="descriptionBtn" class="neumorphic-button hidden">Show Description</button>
+    </div>
+
+ <button id="toggle-nav" class="toggle-button">☰ Nav</button>
+<div id="navigation" class="navigation hidden">
+	
+	<a href="../indexStill.html" class="neumorphic-tab">Food4Thoth Main</a>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-black-business">Black Business Eugene</a>
+  <div id="submenu-black-business" class="submenu hidden">
+    <a href="../BlackBuisnessEugene/index.html" class="neumorphic-tab">Black Business Directory</a>
+    <a href="../BlackBuisnessEugene/blackbusinessformpage.html" class="neumorphic-tab">Black Business Form</a>
+		<a href="../BlackBuisnessEugene/README.md" class="neumorphic-tab">ReadMe</a>
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-community-garden">Community Gardens</a>
+<div id="submenu-community-garden" class="submenu hidden">
+  <a href="../CommunityGardens/ALLLISTCommunitygardenall2.html" class="neumorphic-tab">Full List of All Gardens</a>
+	<a href="../CommunityGardens/indexMobileLanding.html" class="neumorphic-tab">Mobile Landing</a>
+  <a href="../CommunityGardens/COMMUNITYGARDENANIMATIONdesktop.html" class="neumorphic-tab">Desktop Landing</a>
+  <a href="../CommunityGardens/EugeneCommunitygardenall3.html" class="neumorphic-tab">Eugene Community Garden Map</a>
+	 <a href="../CommunityGardens/PortlandCommunitygardenall3.html" class="neumorphic-tab">Portland Community Garden Map</a>
+  <a href="../CommunityGardens/INFOCommunitygardenall2.html" class="neumorphic-tab">Community Garden Info</a>
+  <a href="../CommunityGardens/ListCommunityGardenEugene.html" class="neumorphic-tab">Eugene Garden List</a>
+  <a href="../CommunityGardens/ListCommunitygardenPortland.html" class="neumorphic-tab">Portland Garden List</a>
+	<a href="../CommunityGardens/README.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-visualizers">Sound & Voice Visualizers</a>
+<div id="submenu-visualizers" class="submenu hidden">
+  <a href="../SoundActivatedVisualizor/index2.html" class="neumorphic-tab">Voice Activated Visualizer</a>
+  <a href="../SoundActivatedVisualizor/index6.html" class="neumorphic-tab">Sound Visualizer w/Media Loader</a>
+  <a href="../SoundActivatedVisualizor/README.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-arp">ARP Synths</a>
+<div id="submenu-arp" class="submenu hidden">
+  <a href="../ArpAppNoVisualHighFi/index.html" class="neumorphic-tab">ARP App: No Visual (High-Fi)</a>
+  <a href="../ArpAppNoVisualLoFi/index.html" class="neumorphic-tab">ARP App: No Visual (Lo-Fi)</a>
+  <a href="../ArpAppWithVisual/index.html" class="neumorphic-tab">ARP App: With Visual</a>
+	<a href="../ArpAppNoVisualHighFi/readme.md" class="neumorphic-tab">ReadMe</a>
+	<a href="../ArpAppWithVisual/readme.md" class="neumorphic-tab">w/Visualizer ReadMe</a>
+</div>
+
+ <a href="#" class="neumorphic-tab" data-expand="submenu-games">Games</a>
+<div id="submenu-games" class="submenu hidden">
+  <a href="../NewSchoolGameKid/index2.html" class="neumorphic-tab">New School Game: Kid Sprite</a>
+  <a href="../NewSchoolGameWizard/index4.html" class="neumorphic-tab">New School Game: Wizard Sprite</a>
+  <a href="../OldSchoolGameDesktop/index2.html" class="neumorphic-tab">Old School Game: Desktop</a>
+  <a href="../OldSchoolGameMobile/index2.html" class="neumorphic-tab">Old School Game: Mobile</a>
+  <a href="../TerminalGameTransition/index.html" class="neumorphic-tab">Terminal Transition Game</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">SideScroll Game</a>
+  <a href="../OldSchoolGameMobile/README.md" class="neumorphic-tab">Game ReadMe</a>
+</div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-glo-calculato">Glo-Calculato</a>
+  <div id="submenu-glo-calculato" class="submenu hidden">
+    <a href="../Glo-Calculato1/RainbowGlowCalculato.html" class="neumorphic-tab">Glo-Calculato Landing</a>
+    <a href="../Glo-Calculato1/SMARTglowCalc.html" class="neumorphic-tab">Full-Sized Glo-Calculato</a>
+    <a href="../Glo-Calculato/GLO-CALCULATO/Glo-Calculato.zip" class="neumorphic-tab">Download Glo-Calculato</a>
+		<a href="../Glo-Calculato1/README.md" class="neumorphic-tab">ReadMe</a>
+    <a href="../Glo-Calculato1/SMARTglowCalcDonations.html" class="neumorphic-tab">Donations Page</a>
+		<a href="../Glo-Calculato1/READMEDonations.md" class="neumorphic-tab">Donations ReadMe</a>
+		
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-hakim-bey">Hakim Bey</a>
+  <div id="submenu-hakim-bey" class="submenu hidden">
+    <a href="../HakimBey/hakimbey9.html" class="neumorphic-tab">Hakim Bey Anarchy Page</a>
+    <a href="../HakimBey/joinTheMovement.html" class="neumorphic-tab">Anarchy Collective Contact</a>
+		<a href="../HakimBey/README.md" class="neumorphic-tab">ReadMe</a>
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-tarot">Tarot</a>
+<div id="submenu-tarot" class="submenu hidden">
+  <a href="../TarotTogetherNoAge/index.html" class="neumorphic-tab">Tarot Main Landing (No Age Restriction)</a>
+  <a href="../TarotSacredGeometry/index.html" class="neumorphic-tab">Sacred Geometry Tarot</a>
+  <a href="../TarotCyberPunkDark/index.html" class="neumorphic-tab">CyberPunk Dark Tarot</a>
+  <a href="../TarotCyberPunkMelo/index.html" class="neumorphic-tab">CyberPunk Melo Tarot</a>
+	<a href="../TarotOG/musicscrolltarotvoice5.html" class="neumorphic-tab">OG Tarot w/Voice Commands</a>
+	<a href="../TarotTextList/CyberTarotText.html" class="neumorphic-tab">Description List</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">More Tarot</a>
+	 <a href="../TarotAgeVerify/index.html" class="neumorphic-tab">18+ Content Landing</a>
+  <a href="../TarotCrystalQueens/indexAge.html" class="neumorphic-tab">18+ Crystal Queens Tarot</a>
+  <a href="../TarotCyberPunkX/indexAge.html" class="neumorphic-tab">18+ CyberPunk X Tarot</a>
+	<a href="../parental-controls.html" class="neumorphic-tab">Parental Controls</a>
+	<a href="../READMEParental.md" class="neumorphic-tab">Parental ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-iching">I Ching</a>
+<div id="submenu-iching" class="submenu hidden">
+  <a href="../Iching/index.html" class="neumorphic-tab">I Ching Main Page</a>
+  <a href="../Iching/ichingAnimeLoop.html" class="neumorphic-tab">I Ching Anime Loop</a>
+  <a href="../Iching/README.md" class="neumorphic-tab">I Ching ReadMe</a>
+</div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-hashisheen">Hashisheen Album Reviews</a>
+  <div id="submenu-hashisheen" class="submenu hidden">
+		 <a href="../EndOfLawHASHISHEEN/AllHashineenReviews.html" class="neumorphic-tab">Landing Page</a>
+    <a href="../EndOfLawHASHISHEEN/FullAlbumReview.html" class="neumorphic-tab">Full Album Review</a>
+     <a href="../EndOfLawHASHISHEEN/index1.html" class="neumorphic-tab">Hashisheen Album Review (Track 1)</a>
+    <a href="../EndOfLawHASHISHEEN/index2.html" class="neumorphic-tab">Hashisheen Album Review (Track 2)</a>
+    <a href="../EndOfLawHASHISHEEN/index3.html" class="neumorphic-tab">Hashisheen Album Review (Track 3)</a>
+    <a href="../EndOfLawHASHISHEEN/index4.html" class="neumorphic-tab">Hashisheen Album Review (Track 4)</a>
+    <a href="../EndOfLawHASHISHEEN/index5.html" class="neumorphic-tab">Hashisheen Album Review (Track 5)</a>
+    <a href="../EndOfLawHASHISHEEN/index6.html" class="neumorphic-tab">Hashisheen Album Review (Track 6)</a>
+    <a href="../EndOfLawHASHISHEEN/index7.html" class="neumorphic-tab">Hashisheen  Album Review (Track 7)</a>
+    <a href="../EndOfLawHASHISHEEN/index8.html" class="neumorphic-tab">Hashisheen Album Review (Track 8)</a>
+    <a href="../EndOfLawHASHISHEEN/index9.html" class="neumorphic-tab">Hashisheen Album Review (Track 9)</a>
+    <a href="../EndOfLawHASHISHEEN/index10.html" class="neumorphic-tab">Hashisheen Album Review (Track 10)</a>
+    <a href="../EndOfLawHASHISHEEN/index11.html" class="neumorphic-tab">Hashisheen Album Review (Track 11)</a>
+    <a href="../EndOfLawHASHISHEEN/index12.html" class="neumorphic-tab">Hashisheen Album Review (Track 12)</a>
+    <a href="../EndOfLawHASHISHEEN/index13.html" class="neumorphic-tab">Hashisheen Album Review (Track 13)</a>
+    <a href="../EndOfLawHASHISHEEN/index14.html" class="neumorphic-tab">Hashisheen Album Review (Track 14)</a>
+    <a href="../EndOfLawHASHISHEEN/index15.html" class="neumorphic-tab">Hashisheen Album Review (Track 15)</a>
+    <a href="../EndOfLawHASHISHEEN/index16.html" class="neumorphic-tab">Hashisheen Album Review (Track 16)</a>
+    <a href="../EndOfLawHASHISHEEN/index17.html" class="neumorphic-tab">Hashisheen Album Review (Track 17)</a>
+    <a href="../EndOfLawHASHISHEEN/index18.html" class="neumorphic-tab">Hashisheen Album Review (Track 18)</a>
+    <a href="../EndOfLawHASHISHEEN/index19.html" class="neumorphic-tab">Hashisheen Album Review (Track 19)</a>
+    <a href="../EndOfLawHASHISHEEN/index20.html" class="neumorphic-tab">Hashisheen Album Review (Track 20)</a>
+    <a href="../EndOfLawHASHISHEEN/index21.html" class="neumorphic-tab">Hashisheen Album Review (Track 21)</a>
+    <a href="../EndOfLawHASHISHEEN/index22.html" class="neumorphic-tab">Hashisheen Album Review (Track 22)</a>
+		<a href="../comingSoon.html" class="neumorphic-tab">More Reviews</a>
+		<a href="../EndOfLawHASHISHEEN/README.md" class="neumorphic-tab">ReadMe</a>
+  </div>
+	
+	<a href="#" class="neumorphic-tab" data-expand="submenu-akashic">Akashic Records</a>
+<div id="submenu-akashic" class="submenu hidden">
+  <a href="../css-only-3d-image-carousel/index.html" class="neumorphic-tab">Main Landing</a>
+  <a href="../AkashicAsclepiusDeep/index.html" class="neumorphic-tab">Akashic Asclepius Deep</a>
+  <a href="../AkashicAsclepiusLite/index.html" class="neumorphic-tab">Akashic Asclepius Lite</a>
+  <a href="../AkashicEmeraldAsAbove/index.html" class="neumorphic-tab">Akashic Emerald As Above</a>
+  <a href="../AkashicEmeraldDeep/index.html" class="neumorphic-tab">Akashic Emerald Deep</a>
+  <a href="../AkashicEmeraldLite/index.html" class="neumorphic-tab">Akashic Emerald Lite</a>
+  <a href="../AkashicHermiticum/index.html" class="neumorphic-tab">Akashic Hermiticum</a>
+  <a href="../AkashicHymnLite/index.html" class="neumorphic-tab">Akashic Hymn Lite</a>
+  <a href="../AkashicNag/index.html" class="neumorphic-tab">Akashic Nag</a>
+  <a href="../AkashicNag13Codex/index.html" class="neumorphic-tab">Akashic Nag 13 Codex</a>
+  <a href="../AkashicNagTreaties/index.html" class="neumorphic-tab">Akashic Nag Treaties</a>
+  <a href="../AkashicThothDeep/index.html" class="neumorphic-tab">Akashic Thoth Deep</a>
+  <a href="../AkashicThothLite/index.html" class="neumorphic-tab">Akashic Thoth Lite</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+	<a href="../AkashicAsclepiusDeep/README.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-anarchy">Anarchy Comics & Info</a>
+<div id="submenu-anarchy" class="submenu hidden">
+  <a href="../AnarchyComicBreakFree/index.html" class="neumorphic-tab">Anarchy Comic: Break Free</a>
+  <a href="../AnarchyComicCocoon/index.html" class="neumorphic-tab">Anarchy Comic: Cocoon</a>
+  <a href="../AnarchyDepth/index.html" class="neumorphic-tab">Anarchy Depth</a>
+  <a href="../AnarchyIsAlwaysMobile/index.html" class="neumorphic-tab">Anarchy Is Always Mobile</a>
+  <a href="../AnarchyPoetics/index.html" class="neumorphic-tab">Anarchy Poetics</a>
+  <a href="../AnarchyTAZ/index.html" class="neumorphic-tab">Anarchy TAZ</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+	<a href="../AnarchyComicBreakFree/readme.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-eyespy">Eye Spy</a>
+<div id="submenu-eyespy" class="submenu hidden">
+  <a href="../EyeSPY1/index.html" class="neumorphic-tab">Eye Spy Game (1st Edition)</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+  <a href="../EyeSPY1/readme.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-tide-walk">Tide Walk</a>
+<div id="submenu-tide-walk" class="submenu hidden">
+  <a href="../TideApp/indexOregon.html" class="neumorphic-tab">Tide Walk Oregon</a>
+  <a href="../TideApp/indexBoston.html" class="neumorphic-tab">Tide Walk Boston</a>
+  <a href="../TideApp/readme.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-trent">Trent</a>
+<div id="submenu-trent" class="submenu hidden">
+  <a href="../TrentOfTheDay/index.html" class="neumorphic-tab">Trent of the Day</a>
+  <a href="../TrentStorybook1stMobile/index.html" class="neumorphic-tab">Trent Storybook</a>
+  <a href="../TrentStorybook1stMobile/contact.html" class="neumorphic-tab">Contact</a>
+  <a href="../TrentStorybook1stMobile/about.html" class="neumorphic-tab">About</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">Space StoryBook</a>
+  <a href="../TrentOfTheDay/README.md" class="neumorphic-tab">Trent of the Day ReadMe</a>
+  <a href="../TrentStorybook1stMobile/readme.md" class="neumorphic-tab">Trent Storybook ReadMe</a>
+</div>
+
+  <a href="../ChooseYourOwnAdventure/prologue.html" class="neumorphic-tab">Choose Your Own Adventure</a>
+	<a href="../RstoryArtabillies/index.html" class="neumorphic-tab">Rstory</a>
+	<a href="../CollectiveSummary/index.html" class="neumorphic-tab">Collective Summary</a>
+  <a href="http://www.food4thoth.com" class="neumorphic-tab">Food4Thoth</a>
+  <a href="http://www.artabillies.com" class="neumorphic-tab">Artabillies</a>
+	<a href="../contact.html" class="neumorphic-tab">Food4Thoth Page Contact</a>
+  <a href="mailto:food4thoth@proton.me" class="neumorphic-tab">Email: food4thoth@proton.me</a>
+	<a href="../portfolio.html" class="neumorphic-tab">Portfolio Page</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">MindMelt</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">Food4Thoth Desktop Landing</a>
+	<a href="../README.md" class="neumorphic-tab">Food4Thoth ReadMe</a>
+</div>
+
+
+    <!-- Error Log Section -->
+    <div id="errorLog" class="error-log">
+        <h4>Error Logs:</h4>
+        <ul id="errorLogList"></ul>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Age Verification Logic
+    document.getElementById("enter").addEventListener("click", function () {
+        document.getElementById("age-verification").style.display = "none";
+        
+    });
+
+    document.getElementById("exit").addEventListener("click", function () {
+        window.location.href = "https://www.google.com";
+    });
+}); // <-- Closing bracket added
+
+</script> <!-- Closing script tag added -->
+
+<script>
+	
+	
+  // Preload all tarot card images
+  function preloadImages(cards) {
+    const promises = cards.map(card => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = card.imagePath;
+        img.onload = resolve;   // Once loaded, we know the image is cached
+        img.onerror = reject;   // We can capture if an image fails
+      });
+    });
+    return Promise.all(promises);
+  }
+
+  // Then, inside your DOMContentLoaded or a <script> after tarotCards definition:
+  document.addEventListener("DOMContentLoaded", () => {
+    preloadImages(tarotCards)
+      .then(() => {
+        console.log("All images preloaded successfully!");
+        // Now you can safely start your randomizing logic.
+        startRandomizing();
+      })
+      .catch(error => {
+        console.error("Some images failed to preload:", error);
+        startRandomizing(); // or handle it gracefully
+      });
+  });
+</script>
+
+<script type="x-shader/x-fragment" id="vertShader">
+    precision mediump float;
+
+    varying vec2 vUv;
+    attribute vec2 a_position;
+
+    void main() {
+        vUv = .5 * (a_position + 1.);
+        gl_Position = vec4(a_position, 0.0, 1.0);
+    }
+</script>
+
+<script type="x-shader/x-fragment" id="fragShader">
+    precision mediump float;
+
+    varying vec2 vUv;
+    uniform float u_time;
+    uniform float u_ratio;
+    uniform vec2 u_pointer_position;
+    uniform float u_scroll_progress;
+
+    vec2 rotate(vec2 uv, float th) {
+        return mat2(cos(th), sin(th), -sin(th), cos(th)) * uv;
+    }
+
+    float neuro_shape(vec2 uv, float t, float p) {
+        vec2 sine_acc = vec2(0.);
+        vec2 res = vec2(0.);
+        float scale = 8.;
+
+        for (int j = 0; j < 15; j++) {
+            uv = rotate(uv, 1.);
+            sine_acc = rotate(sine_acc, 1.);
+            vec2 layer = uv * scale + float(j) + sine_acc - t;
+            sine_acc += sin(layer);
+            res += (.5 + .5 * cos(layer)) / scale;
+            scale *= (1.2 - .07 * p);
+        }
+        return res.x + res.y;
+    }
+
+    void main() {
+        vec2 uv = .5 * vUv;
+        uv.x *= u_ratio;
+
+        vec2 pointer = vUv - u_pointer_position;
+        pointer.x *= u_ratio;
+        float p = clamp(length(pointer), 0., 1.);
+        p = .5 * pow(1. - p, 2.);
+
+        float t = .001 * u_time;
+        vec3 color = vec3(0.);
+
+        float noise = neuro_shape(uv, t, p);
+
+        noise = 1.2 * pow(noise, 3.);
+        noise += pow(noise, 10.);
+        noise = max(.0, noise - .5);
+        noise *= (1. - length(vUv - .5));
+
+        color = normalize(vec3(.2, .5 + .4 * cos(3. * u_scroll_progress), .5 + .5 * sin(3. * u_scroll_progress)));
+
+        color = color * noise;
+
+        gl_FragColor = vec4(color, noise);
+    }
+</script>
+
+<script>
+    const canvas = document.getElementById('neuro');
+    const gl = canvas.getContext('webgl');
+
+    const vertexShaderSource = document.getElementById('vertShader').text;
+    const fragmentShaderSource = document.getElementById('fragShader').text;
+
+    function createShader(gl, type, source) {
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if (gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+            return shader;
+        }
+        console.error(gl.getShaderInfoLog(shader));
+        gl.deleteShader(shader);
+    }
+
+    function createProgram(gl, vertexShader, fragmentShader) {
+        const program = gl.createProgram();
+        gl.attachShader(program, vertexShader);
+        gl.attachShader(program, fragmentShader);
+        gl.linkProgram(program);
+        if (gl.getProgramParameter(program, gl.LINK_STATUS)) {
+            return program;
+        }
+        console.error(gl.getProgramInfoLog(program));
+        gl.deleteProgram(program);
+    }
+
+    function resizeCanvasToDisplaySize(canvas) {
+        const displayWidth  = canvas.clientWidth;
+        const displayHeight = canvas.clientHeight;
+
+        if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
+            canvas.width = displayWidth;
+            canvas.height = displayHeight;
+        }
+    }
+
+    const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+    const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+    const program = createProgram(gl, vertexShader, fragmentShader);
+
+    const positionLocation = gl.getAttribLocation(program, 'a_position');
+    const timeLocation = gl.getUniformLocation(program, 'u_time');
+    const ratioLocation = gl.getUniformLocation(program, 'u_ratio');
+    const pointerPositionLocation = gl.getUniformLocation(program, 'u_pointer_position');
+    const scrollProgressLocation = gl.getUniformLocation(program, 'u_scroll_progress');
+
+    const positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    const positions = new Float32Array([
+        -1, -1,
+         1, -1,
+        -1,  1,
+         1,  1,
+    ]);
+    gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+
+    function render(time) {
+        resizeCanvasToDisplaySize(canvas);
+        gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        gl.useProgram(program);
+
+        gl.enableVertexAttribArray(positionLocation);
+        gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+        gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+        gl.uniform1f(timeLocation, time);
+        gl.uniform1f(ratioLocation, canvas.clientWidth / canvas.clientHeight);
+        gl.uniform2f(pointerPositionLocation, 0.5, 0.5);
+        gl.uniform1f(scrollProgressLocation, 0);
+
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+        requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);
+		
+		
+
+    const tarotCards = [
+    { id: 1, name: "The Fool", description: "The Fool is a card of new beginnings, opportunities, and adventures.", imagePath: "./images/FOOL.PNG", fileName: "./full_descriptions/1_0TheFoolMajorArcana.txt" },
+    { id: 2, name: "The Magician", description: "The Magician represents power, skill, and creativity.", imagePath: "./images/MAGICIAN.PNG", fileName: "./full_descriptions/2_1TheMagicianMajorArcana.txt" },
+    { id: 3, name: "The High Priestess", description: "The High Priestess symbolizes intuition, mystery, and inner knowledge.", imagePath: "./images/HIGHPRIESTESS.PNG", fileName: "./full_descriptions/3_2TheHighPriestessMajorArcana.txt" },
+    { id: 4, name: "The Empress", description: "The Empress represents femininity, beauty, nature, and abundance.", imagePath: "./images/EMPRESS.PNG", fileName: "./full_descriptions/4_3TheEmpressMajorArcana.txt" },
+    { id: 5, name: "The Emperor", description: "The Emperor symbolizes authority, structure, and control.", imagePath: "./images/EMPEROR.PNG", fileName: "./full_descriptions/5_4TheEmperorMajorArcana.txt" },
+    { id: 6, name: "The Hierophant", description: "The Hierophant stands for tradition, conformity, and spiritual wisdom.", imagePath: "./images/HIEROPHANT.PNG", fileName: "./full_descriptions/6_5TheHierophantMajorArcana.txt" },
+    { id: 7, name: "The Lovers", description: "The Lovers card represents love, harmony, and relationships.", imagePath: "./images/LOVERS.PNG", fileName: "./full_descriptions/7_6TheLoversMajorArcana.txt" },
+    { id: 8, name: "The Chariot", description: "The Chariot symbolizes willpower, determination, and success through control.", imagePath: "./images/CHARIOT.PNG", fileName: "./full_descriptions/8_7TheChariotMajorArcana.txt" },
+    { id: 9, name: "Strength", description: "Strength represents courage, persuasion, and influence.", imagePath: "./images/STRENGTH.PNG", fileName: "./full_descriptions/9_8StrengthMajorArcana.txt" },
+    { id: 10, name: "The Hermit", description: "The Hermit symbolizes introspection, solitude, and inner guidance.", imagePath: "./images/HERMIT.PNG", fileName: "./full_descriptions/10_9TheHermitMajorArcana.txt" },
+    { id: 11, name: "Wheel of Fortune", description: "The Wheel of Fortune represents cycles, change, and destiny.", imagePath: "./images/WHEEL_OF_FORTUNE.PNG", fileName: "./full_descriptions/11_10TheWheelofFortuneMajorArcana.txt" },
+    { id: 12, name: "Justice", description: "Justice stands for fairness, truth, and the law.", imagePath: "./images/JUSTICE.PNG", fileName: "./full_descriptions/12_11JusticeMajorArcana.txt" },
+    { id: 13, name: "The Hanged Man", description: "The Hanged Man represents suspension, letting go, and new perspectives.", imagePath: "./images/HANGEDMAN.PNG", fileName: "./full_descriptions/13_12TheHangedManMajorArcana.txt" },
+    { id: 14, name: "Death", description: "Death symbolizes transformation, endings, and new beginnings.", imagePath: "./images/DEATH.PNG", fileName: "./full_descriptions/14_13DeathMajorArcana.txt" },
+    { id: 15, name: "Temperance", description: "Temperance stands for balance, moderation, and patience.", imagePath: "./images/TEMPERANCE.PNG", fileName: "./full_descriptions/15_14TemperanceMajorArcana.txt" },
+    { id: 16, name: "The Devil", description: "The Devil represents bondage, addiction, and materialism.", imagePath: "./images/DEVIL.PNG", fileName: "./full_descriptions/16_15TheDevilMajorArcana.txt" },
+    { id: 17, name: "The Tower", description: "The Tower symbolizes sudden upheaval, chaos, and revelation.", imagePath: "./images/TOWER.PNG", fileName: "./full_descriptions/17_16TheTowerMajorArcana.txt" },
+    { id: 18, name: "The Star", description: "The Star represents hope, inspiration, and serenity.", imagePath: "./images/STAR.PNG", fileName: "./full_descriptions/18_17TheStarMajorArcana.txt" },
+    { id: 19, name: "The Moon", description: "The Moon symbolizes illusion, fear, and the subconscious mind.", imagePath: "./images/MOON.PNG", fileName: "./full_descriptions/19_18TheMoonMajorArcana.txt" },
+    { id: 20, name: "The Sun", description: "The Sun stands for positivity, vitality, and success.", imagePath: "./images/SUN.PNG", fileName: "./full_descriptions/20_19TheSunMajorArcana.txt" },
+    { id: 21, name: "Judgement", description: "Judgement represents reflection, reckoning, and awakening.", imagePath: "./images/JUDGEMENT.PNG", fileName: "./full_descriptions/21_20JudgementMajorArcana.txt" },
+    { id: 22, name: "The World", description: "The World symbolizes completion, achievement, and wholeness.", imagePath: "./images/WORLD.PNG", fileName: "./full_descriptions/22_21TheWorldMajorArcana.txt" },
+
+    // Wands cards
+    { id: 23, name: "Ace of Wands", description: "The Ace of Wands represents inspiration, new opportunities, growth, and potential.", imagePath: "./images/ACEWANDS.PNG", fileName: "./full_descriptions/23_1AceofWandsMinorArcana.txt" },
+    { id: 24, name: "2 of Wands", description: "The 2 (Two) of Wands symbolizes future planning, progress, and discovery.", imagePath: "./images/2WANDS.PNG", fileName: "./full_descriptions/24_2ofWandsMinorArcana.txt" },
+    { id: 25, name: "3 of Wands", description: "The 3 (Three) of Wands represents expansion, foresight, and long-term plans.", imagePath: "./images/3WANDS.PNG", fileName: "./full_descriptions/25_3ofWandsMinorArcana.txt" },
+    { id: 26, name: "4 of Wands", description: "The 4 (Four) of Wands signifies celebration, harmony, and homecoming.", imagePath: "./images/4WANDS.PNG", fileName: "./full_descriptions/26_4ofWandsMinorArcana.txt" },
+    { id: 27, name: "5 of Wands", description: "The 5 (Five) of Wands represents conflict, competition, and tension.", imagePath: "./images/5WANDS.PNG", fileName: "./full_descriptions/27_5ofWandsMinorArcana.txt" },
+    { id: 28, name: "6 of Wands", description: "The 6 (Six) of Wands symbolizes victory, success, and public recognition.", imagePath: "./images/6WANDS.PNG", fileName: "./full_descriptions/28_6ofWandsMinorArcana.txt" },
+    { id: 29, name: "7 of Wands", description: "The 7 (Seven) of Wands represents challenge, competition, and perseverance.", imagePath: "./images/7WANDS.PNG", fileName: "./full_descriptions/29_7ofWandsMinorArcana.txt" },
+    { id: 30, name: "8 of Wands", description: "The 8 (Eight) of Wands signifies speed, action, and swift change.", imagePath: "./images/8WANDS.PNG", fileName: "./full_descriptions/30_8ofWandsMinorArcana.txt" },
+    { id: 31, name: "9 of Wands", description: "The 9 (Nine) of Wands represents resilience, courage, and persistence.", imagePath: "./images/9WANDS.PNG", fileName: "./full_descriptions/31_9ofWandsMinorArcana.txt" },
+    { id: 32, name: "10 of Wands", description: "The 10 (Ten) of Wands symbolizes burden, responsibility, and hard work.", imagePath: "./images/10WANDS.PNG", fileName: "./full_descriptions/32_10ofWandsMinorArcana.txt" },
+    { id: 33, name: "Page of Wands", description: "The Page of Wands represents enthusiasm, exploration, and free spirit.", imagePath: "./images/PAGEWANDS.PNG", fileName: "./full_descriptions/33_11PageofWandsMinorArcana.txt" },
+    { id: 34, name: "Knight of Wands", description: "The Knight of Wands symbolizes action, adventure, and impulsiveness.", imagePath: "./images/KNIGHTWANDS.PNG", fileName: "./full_descriptions/34_12KnightofWandsMinorArcana.txt" },
+    { id: 35, name: "Queen of Wands", description: "The Queen of Wands represents confidence, determination, and charisma.", imagePath: "./images/QUEENWANDS.PNG", fileName: "./full_descriptions/35_13QueenofWandsMinorArcana.txt" },
+    { id: 36, name: "King of Wands", description: "The King of Wands symbolizes leadership, vision, and entrepreneurship.", imagePath: "./images/KINGWANDS.PNG", fileName: "./full_descriptions/36_14KingofWandsMinorArcana.txt" },
+
+    // Cups cards
+    { id: 37, name: "Ace of Cups", description: "The Ace of Cups represents new beginnings in love, compassion, and emotional fulfillment.", imagePath: "./images/ACECUPS.PNG", fileName: "./full_descriptions/37_1AceofCupsMinorArcana.txt" },
+    { id: 38, name: "2 of Cups", description: "The 2 (Two) of Cups symbolizes partnership, unity, and mutual attraction.", imagePath: "./images/2CUPS.PNG", fileName: "./full_descriptions/38_2ofCupsMinorArcana.txt" },
+    { id: 39, name: "3 of Cups", description: "The 3 (Three) of Cups represents celebration, friendship, and social gatherings.", imagePath: "./images/3CUPS.PNG", fileName: "./full_descriptions/39_3ofCupsMinorArcana.txt" },
+    { id: 40, name: "4 of Cups", description: "The 4 (Four) of Cups signifies contemplation, reevaluation, and apathy.", imagePath: "./images/4CUPS.PNG", fileName: "./full_descriptions/40_4ofCupsMinorArcana.txt" },
+    { id: 41, name: "5 of Cups", description: "The 5 (Five) of Cups represents loss, regret, and focusing on the negative.", imagePath: "./images/5CUPS.PNG", fileName: "./full_descriptions/41_5ofCupsMinorArcana.txt" },
+    { id: 42, name: "6 of Cups", description: "The 6 (Six) of Cups symbolizes nostalgia, childhood memories, and innocence.", imagePath: "./images/6CUPS.PNG", fileName: "./full_descriptions/42_6ofCupsMinorArcana.txt" },
+    { id: 43, name: "7 of Cups", description: "The 7 (Seven) of Cups represents choices, illusions, and wishful thinking.", imagePath: "./images/7CUPS.PNG", fileName: "./full_descriptions/43_7ofCupsMinorArcana.txt" },
+    { id: 44, name: "8 of Cups", description: "The 8 (Eight) of Cups signifies walking away, abandonment, and seeking deeper meaning.", imagePath: "./images/8CUPS.PNG", fileName: "./full_descriptions/44_8ofCupsMinorArcana.txt" },
+    { id: 45, name: "9 of Cups", description: "The 9 (Nine) of Cups symbolizes contentment, satisfaction, and emotional fulfillment.", imagePath: "./images/9CUPS.PNG", fileName: "./full_descriptions/45_9ofCupsMinorArcana.txt" },
+    { id: 46, name: "10 of Cups", description: "The 10 (Ten) of Cups represents happiness, family harmony, and lasting love.", imagePath: "./images/10CUPS.PNG", fileName: "./full_descriptions/46_10ofCupsMinorArcana.txt" },
+    { id: 47, name: "Page of Cups", description: "The Page of Cups symbolizes creativity, new emotions, and intuitive insights.", imagePath: "./images/PAGECUPS.PNG", fileName: "./full_descriptions/47_11PageofCupsMinorArcana.txt" },
+    { id: 48, name: "Knight of Cups", description: "The Knight of Cups represents romance, charm, and pursuing the heart's desires.", imagePath: "./images/KNIGHTCUPS.PNG", fileName: "./full_descriptions/48_12KnightofCupsMinorArcana.txt" },
+    { id: 49, name: "Queen of Cups", description: "The Queen of Cups symbolizes compassion, emotional security, and intuitive wisdom.", imagePath: "./images/QUEENCUPS.PNG", fileName: "./full_descriptions/49_13QueenofCupsMinorArcana.txt" },
+    { id: 50, name: "King of Cups", description: "The King of Cups represents emotional balance, leadership, and control over one's feelings.", imagePath: "./images/KINGCUPS.PNG", fileName: "./full_descriptions/50_14KingofCupsMinorArcana.txt" },
+
+    // Swords cards
+    { id: 51, name: "Ace of Swords", description: "The Ace of Swords represents clarity, truth, and a breakthrough.", imagePath: "./images/ACESWORDS.PNG", fileName: "./full_descriptions/51_1AceofSwordsMinorArcana.txt" },
+    { id: 52, name: "2 of Swords", description: "The 2 (Two) of Swords symbolizes difficult decisions, stalemate, and balance.", imagePath: "./images/2SWORDS.PNG", fileName: "./full_descriptions/52_2ofSwordsMinorArcana.txt" },
+    { id: 53, name: "3 of Swords", description: "The 3 (Three) of Swords represents heartbreak, sorrow, and emotional pain.", imagePath: "./images/3SWORDS.PNG", fileName: "./full_descriptions/53_3ofSwordsMinorArcana.txt" },
+    { id: 54, name: "4 of Swords", description: "The 4 (Four) of Swords signifies rest, recuperation, and contemplation.", imagePath: "./images/4SWORDS.PNG", fileName: "./full_descriptions/54_4ofSwordsMinorArcana.txt" },
+    { id: 55, name: "5 of Swords", description: "The 5 (Five) of Swords represents conflict, defeat, and tension.", imagePath: "./images/5SWORDS.PNG", fileName: "./full_descriptions/55_5ofSwordsMinorArcana.txt" },
+    { id: 56, name: "6 of Swords", description: "The 6 (Six) of Swords symbolizes transition, change, and moving on.", imagePath: "./images/6SWORDS.PNG", fileName: "./full_descriptions/56_6ofSwordsMinorArcana.txt" },
+    { id: 57, name: "7 of Swords", description: "The 7 (Seven) of Swords represents deception, trickery, and strategy.", imagePath: "./images/7SWORDS.PNG", fileName: "./full_descriptions/57_7ofSwordsMinorArcana.txt" },
+    { id: 58, name: "8 of Swords", description: "The 8 (Eight) of Swords signifies restriction, fear, and feeling trapped.", imagePath: "./images/8SWORDS.PNG", fileName: "./full_descriptions/58_8ofSwordsMinorArcana.txt" },
+    { id: 59, name: "9 of Swords", description: "The 9 (Nine) of Swords represents anxiety, worry, and nightmares.", imagePath: "./images/9SWORDS.PNG", fileName: "./full_descriptions/59_9ofSwordsMinorArcana.txt" },
+    { id: 60, name: "10 of Swords", description: "The 10 (Ten) of Swords symbolizes betrayal, defeat, and painful endings.", imagePath: "./images/10SWORDS.PNG", fileName: "./full_descriptions/60_10ofSwordsMinorArcana.txt" },
+    { id: 61, name: "Page of Swords", description: "The Page of Swords represents curiosity, communication, and vigilance.", imagePath: "./images/PAGESWORDS.PNG", fileName: "./full_descriptions/61_11PageofSwordsMinorArcana.txt" },
+    { id: 62, name: "Knight of Swords", description: "The Knight of Swords symbolizes action, ambition, and impulsiveness.", imagePath: "./images/KNIGHTSWORDS.PNG", fileName: "./full_descriptions/62_12KnightofSwordsMinorArcana.txt" },
+    { id: 63, name: "Queen of Swords", description: "The Queen of Swords represents independence, perceptiveness, and clear thinking.", imagePath: "./images/QUEENSWORDS.PNG", fileName: "./full_descriptions/63_13QueenofSwordsMinorArcana.txt" },
+    { id: 64, name: "King of Swords", description: "The King of Swords symbolizes intellect, authority, and truth.", imagePath: "./images/KINGSWORDS.PNG", fileName: "./full_descriptions/64_14KingofSwordsMinorArcana.txt" },
+
+    // Pentacles cards
+    { id: 65, name: "Ace of Pentacles", description: "The Ace of Pentacles represents new financial or career opportunities, prosperity, and manifestation.", imagePath: "./images/ACEPENTACLES.PNG", fileName: "./full_descriptions/65_1AceofPentaclesMinorArcana.txt" },
+    { id: 66, name: "2 of Pentacles", description: "The 2 (Two) of Pentacles symbolizes balance, adaptability, and time management.", imagePath: "./images/2PENTACLES.PNG", fileName: "./full_descriptions/66_2ofPentaclesMinorArcana.txt" },
+    { id: 67, name: "3 of Pentacles", description: "The 3 (Three) of Pentacles represents teamwork, collaboration, and building something together.", imagePath: "./images/3PENTACLES.PNG", fileName: "./full_descriptions/67_3ofPentaclesMinorArcana.txt" },
+    { id: 68, name: "4 of Pentacles", description: "The 4 (Four) of Pentacles signifies control, stability, and material security.", imagePath: "./images/4PENTACLES.PNG", fileName: "./full_descriptions/68_4ofPentaclesMinorArcana.txt" },
+    { id: 69, name: "5 of Pentacles", description: "The 5 (Five) of Pentacles represents financial loss, poverty, and feeling isolated.", imagePath: "./images/5PENTACLES.PNG", fileName: "./full_descriptions/69_5ofPentaclesMinorArcana.txt" },
+    { id: 70, name: "6 of Pentacles", description: "The 6 (Six) of Pentacles symbolizes generosity, sharing wealth, and helping others.", imagePath: "./images/6PENTACLES.PNG", fileName: "./full_descriptions/70_6ofPentaclesMinorArcana.txt" },
+    { id: 71, name: "7 of Pentacles", description: "The 7 (Seven) of Pentacles represents long-term investment, patience, and reward for hard work.", imagePath: "./images/7PENTACLES.PNG", fileName: "./full_descriptions/71_7ofPentaclesMinorArcana.txt" },
+    { id: 72, name: "8 of Pentacles", description: "The 8 (Eight) of Pentacles signifies diligence, skill development, and craftsmanship.", imagePath: "./images/8PENTACLES.PNG", fileName: "./full_descriptions/72_8ofPentaclesMinorArcana.txt" },
+    { id: 73, name: "9 of Pentacles", description: "The 9 (Nine) of Pentacles represents luxury, self-sufficiency, and financial independence.", imagePath: "./images/9PENTACLES.PNG", fileName: "./full_descriptions/73_9ofPentaclesMinorArcana.txt" },
+    { id: 74, name: "10 of Pentacles", description: "The 10 (Ten) of Pentacles symbolizes wealth, legacy, and family traditions.", imagePath: "./images/10PENTACLES.PNG", fileName: "./full_descriptions/74_10ofPentaclesMinorArcana.txt" },
+    { id: 75, name: "Page of Pentacles", description: "The Page of Pentacles represents ambition, diligence, and a new opportunity in the material world.", imagePath: "./images/PAGEPENTACLES.PNG", fileName: "./full_descriptions/75_11PageofPentaclesMinorArcana.txt" },
+    { id: 76, name: "Knight of Pentacles", description: "The Knight of Pentacles symbolizes hard work, responsibility, and perseverance.", imagePath: "./images/KNIGHTPENTACLES.PNG", fileName: "./full_descriptions/76_12KnightofPentaclesMinorArcana.txt" },
+    { id: 77, name: "Queen of Pentacles", description: "The Queen of Pentacles represents nurturing, practicality, and financial security.", imagePath: "./images/QUEENPENTACLES.PNG", fileName: "./full_descriptions/77_13QueenofPentaclesMinorArcana.txt" },
+    { id: 78, name: "King of Pentacles", description: "The King of Pentacles symbolizes wealth, leadership, and mastery over the material realm.", imagePath: "./images/KINGPENTACLES.PNG", fileName: "./full_descriptions/78_14KingofPentaclesMinorArcana.txt" }
+];
+
+    let randomInterval;
+    let currentCardIndex = 0;
+    let descriptionStep = 0;
+    let speechSynthesisInstance = window.speechSynthesis;
+    let isRandomizing = false; // New flag to track randomization state
+    const errorLogElement = document.getElementById('errorLog');
+    const errorLogListElement = document.getElementById('errorLogList');
+
+    const imageElement = document.getElementById('image');
+    const randomizeButton = document.getElementById('randomize');
+    const descriptionButton = document.getElementById('descriptionBtn');
+    const descriptionDiv = document.getElementById('description');
+    const closeDescriptionButton = document.getElementById('closeDescription');
+		
+		
+
+    function startRandomizing() {
+        if (isRandomizing) return; // Prevent re-randomizing while already randomizing
+        isRandomizing = true; // Set the flag to true
+        descriptionStep = 0;
+        hideDescriptions();
+        randomInterval = setInterval(() => {
+            currentCardIndex = Math.floor(Math.random() * tarotCards.length);
+            const selectedCard = tarotCards[currentCardIndex];
+            loadImage(selectedCard);
+        }, 100); // Change image every 100ms (adjust as needed)
+    }
+
+    function stopRandomizing() {
+        clearInterval(randomInterval);
+        isRandomizing = false; // Set the flag to false
+        descriptionButton.classList.remove('hidden');
+    }
+		
+		
+
+    function hideDescriptions() {
+        descriptionDiv.classList.add('hidden');
+        descriptionButton.textContent = " Description";
+    }
+
+    function fetchFullDescription(card) {
+        fetch(card.fileName)
+            .then(response => response.text())
+            .then(data => {
+                descriptionDiv.textContent = data;
+                descriptionDiv.classList.remove('hidden');
+            })
+            .catch(error => console.error('Error loading description:', error));
+    }
+
+    function loadImage(card) {
+        // Attempt to load the image and catch errors
+        imageElement.onerror = () => {
+            logError(`Image not found: ${card.imagePath}`);
+        };
+        imageElement.src = card.imagePath;
+    }
+
+    function logError(errorMessage) {
+    const li = document.createElement('li');
+    li.textContent = errorMessage;
+    errorLogListElement.appendChild(li); // <-- correct reference
+    errorLogElement.style.display = 'block'; 
+    console.error(errorMessage); 
+}
+
+    function toggleDescription() {
+        const selectedCard = tarotCards[currentCardIndex];
+        if (descriptionStep === 0) {
+            // Show short description
+            descriptionDiv.textContent = selectedCard.description;
+            descriptionDiv.classList.remove('hidden');
+            descriptionButton.textContent = "Full Description";
+        } else if (descriptionStep === 1) {
+            // Fetch and show full description
+            fetchFullDescription(selectedCard);
+            descriptionButton.textContent = "Play Audio";
+        } else if (descriptionStep === 2) {
+            // Use Speech Synthesis to read the full description aloud
+            const textToRead = descriptionDiv.textContent;
+            const utterance = new SpeechSynthesisUtterance(textToRead);
+						
+						// Ensure Bluetooth or headphones audio output
+            utterance.onstart = () => {
+                console.log("Audio will play through connected device (Bluetooth/headphones).");
+            };
+            speechSynthesisInstance.speak(utterance);
+
+            descriptionButton.textContent = "Stop Audio";
+            // Handle the end of speech to reset the button
+            utterance.onend = () => {
+                descriptionButton.textContent = "Play Audio";
+            };
+        } else if (descriptionStep === 3) {
+            // Stop the audio
+            speechSynthesisInstance.cancel(); // Stop the speech
+            descriptionButton.textContent = "Close";
+        }
+        descriptionStep = (descriptionStep + 1) % 4;
+    }
+
+    // Event Listeners
+    imageElement.addEventListener('click', stopRandomizing);
+    window.addEventListener('keydown', (event) => {
+        if (event.code === 'Space') {
+            stopRandomizing();
+        }
+    });
+
+    descriptionButton.addEventListener('click', toggleDescription);
+
+    closeDescriptionButton.addEventListener('click', () => {
+        descriptionDiv.classList.add('hidden');
+    });
+
+    // Re-randomize after stopping
+    randomizeButton.addEventListener('click', () => {
+        if (!isRandomizing) {
+            startRandomizing();
+            descriptionButton.classList.add('hidden');
+        }
+    });
+
+    // Start randomization immediately
+    startRandomizing();
+
+</script>
+
+<script src="./nav_script.js"></script>
+
+</body>
+</html>
