@@ -69,15 +69,16 @@ body {
         }
 				
 				/* Toggle Button Styling */
+/* Toggle Button Styling */
 .toggle-button {
     position: fixed;
-    top: 10px;
-    right: 5px;
+    top: 40px;
+    left: -16px;
     padding: 5px 10px;
     background: black;
     color: white;
     border: none;
-    
+    width: 100vw;
     cursor: pointer;
     font-size: 12px;
     box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
