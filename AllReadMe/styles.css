@@ -1,0 +1,291 @@
+/* =========================================
+       1. BODY & BACKGROUND: Warped Checkerboard
+       ========================================= */
+    html, body {
+      margin: 0; padding: 0;
+      height: 100%; width: 100%;
+      overflow: hidden; /* We'll manage internal scrolls with containers */
+      font-family: sans-serif;
+      color: #fff;
+			
+      /* Warped checkerboard illusion: conic-gradient repeated */
+      background: conic-gradient(
+        from 45deg,
+        black 25%, white 25%, white 50%,
+        black 50%, black 75%, white 75%, white 100%
+      ) 50% / 50px 50px repeat;
+    }
+
+    /* Optional: Slight animation on the background to emphasize warp */
+    body {
+      animation: warp 12s linear infinite;
+    }
+    @keyframes warp {
+      0% { background-position: 0 0; }
+      100% { background-position: 100px 0; }
+    }
+
+    /* =========================================
+       2. MAIN LAYOUT (split left & right)
+       ========================================= */
+    .container {
+      display: flex;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden; /* Each column can handle its own scroll */
+			padding-bottom: 32rem;
+    }
+    .left-panel {
+      width: 30%;
+      min-width: 280px;
+      max-width: 400px;
+      background: rgba(0, 0, 0, 0.8);
+      overflow-y: auto;
+      padding: 1rem;
+		/* Add extra bottom space to keep content visible above the fixed footer */
+  padding-bottom: 32rem;
+    }
+    .right-panel {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      overflow: hidden;
+			padding-bottom: 32rem;
+    }
+		/* Reduce padding in landscape mode */
+@media (orientation: landscape) {
+  .container,
+  .left-panel,
+  .right-panel {
+    padding-bottom: 9rem; /* Smaller padding in landscape mode */
+  }
+}
+		
+
+    /* =========================================
+       3. LEFT PANEL: List of items
+       ========================================= */
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      
+    }
+    .item {
+      background: #222;
+      border: 2px solid #444;
+      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .item:hover {
+      background: #555;
+      transform: scale(1.01);
+    }
+    .item-title {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 0.2rem;
+    }
+    .item-desc {
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    /* =========================================
+       4. RIGHT PANEL: Two iframes
+       ========================================= */
+    .iframe-container {
+      display: flex;
+      flex: 1;
+      gap: 0.5rem;
+    }
+    iframe {
+      flex: 1;
+      border: 3px solid #888;
+      border-radius: 6px;
+      background: #000;
+      overflow: auto; /* Let the iframe scroll internally if needed */
+    }
+
+    /* Just a header row for clarity */
+    .iframe-headers {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .iframe-header {
+      flex: 1;
+      text-align: center;
+      background: #333;
+      border: 2px solid #666;
+      border-radius: 4px;
+      padding: 0.4rem;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    /* Optional: Hide scrollbars in iframes (Chrome-only) */
+    iframe::-webkit-scrollbar {
+      width: 8px;
+    }
+    iframe::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+    iframe::-webkit-scrollbar-track {
+      background: #222;
+    }
+		
+		/* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: 5px;
+    left: 30%;
+    padding: 5px 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+}
+
+.toggle-button:hover {
+    background-color: black;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+		pointer-events: none; /* This prevents any clicks on it */
+		display: none;
+}
+
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 40px; /* Adjust to stay below the toggle button */
+    left: 35%;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		height: 50%;
+		overflow-y: auto; /* Enable vertical scrolling */
+		
+		
+}
+				
+        .neumorphic-tab {
+					
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: 1rem;
+						text-align: center;
+        }
+        .neumorphic-tab:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab.active {
+            background: #d1d1d1;
+        }
+				
+					.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+.footer {
+    text-align: center;
+    position: fixed;
+    bottom: -1px;
+    background-color: black;
+    color: #e0e0e0;
+    width: 100%;
+    font-size: .8rem;
+    padding: 2px 0;  /* Reduce top and bottom padding */
+    margin-top: 0;   /* Ensure no extra space above */
+    line-height: .5;  /* Reduce spacing between text lines */
+		left: 0;
+}
+.footer a {
+    color: #ff6600;
+    text-decoration: none;
+}
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.item-links {
+    margin-top: 5px;
+    display: flex;
+    gap: 10px;
+}
+
+.readme-link, .site-link {
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+		border: 1px solid #999;
+}
+
+.readme-link {
+    background: grey; /* Blue for ReadMe */
+    color: white;
+}
+
+.site-link {
+    background: black; /* Green for Website */
+    color: white;
+}
+
+.readme-link:hover, .site-link:hover {
+    opacity: 0.8;
+}
