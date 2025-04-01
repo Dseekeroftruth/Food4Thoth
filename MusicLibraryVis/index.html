@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FOOD4THOTH VISUAL MUSIC LIBARY</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	
+
+
+<style>
+
+/* BASIC PAGE + BACKGROUND */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: #222;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    h1 {
+      margin-top: 1.5rem;
+    }
+
+    /***************************************************
+     * VISUALIZER STYLES
+     ***************************************************/
+    #visualization, #visualization1, #visualization2 {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      z-index: -1;
+      background: transparent;
+      top: 0;
+      left: 0;
+    }
+
+    .toggle-button {
+      position: fixed;
+      top: 4px;
+      left: 4px;
+      padding: 5px 10px;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 8px;
+      box-shadow: 4px 4px 8px #bebebe, -4px -8px 8px #ffffff;
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+    .toggle-button:hover {
+      background-color: #333;
+    }
+
+    .toggle-button1 {
+      position: fixed;
+      top: 5px;
+      right: 10px;
+      padding: 5px 10px;
+      background: grey;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 8px;
+      box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+    .toggle-button1:hover {
+      background-color: #666;
+    }
+		
+		.toggle-button2 {
+      position: fixed;
+      top: 5px;
+      
+      padding: 5px 10px;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 8px;
+      box-shadow: 4px 4px 8px #bebebe, -4px -8px 8px #ffffff;
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+    .toggle-button2:hover {
+      background-color: #333;
+    }
+
+    .hidden {
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+      transition: all 0.5s ease;
+      pointer-events: none;
+      display: none;
+    }
+
+    .navigation {
+      position: fixed;
+      top: 40px;
+      left: 10px;
+      background-color: #e0e0e0;
+      padding: 5px;
+      border-radius: 15px;
+      box-shadow: 4px 4px 8px #bebebe, -4px -8px 8px #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      z-index: 1000;
+      height: 50%;
+      overflow-y: auto;
+    }
+    .neumorphic-tab {
+      display: inline-block;
+      margin: 2px 2px;
+      padding: 3px 3px;
+      border-radius: 25px;
+      background: #e0e0e0;
+      box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      font-size: clamp(16px, 1.2vw, 22px);
+      text-align: center;
+    }
+    .neumorphic-tab:hover {
+      box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+    }
+
+    /***************************************************
+     * CONTROLS FOR VISUALIZERS
+     ***************************************************/
+    .controls {
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 10px;
+    }
+    label {
+      margin-right: 5px;
+    }
+    input[type="range"] {
+      vertical-align: middle;
+    }
+
+    /***************************************************
+     * MUSIC LIBRARY STYLES
+     ***************************************************/
+    .music-container {
+      max-width: 80%;
+      width: 800px;
+      margin: 100px auto 40px auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      z-index: 10;
+    }
+    .music-container h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .music-container select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    .music-container ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .music-container li {
+      background: #fff;
+      color: #333;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 5px;
+      position: relative;
+      transition: background 0.5s ease, border-left 0.3s ease;
+    }
+    .music-container li h3 {
+      margin: 0;
+      cursor: pointer;
+    }
+    .music-container li audio {
+      width: 100%;
+      margin-top: 10px;
+    }
+    .playing {
+      border-left: 5px solid green;
+    
+    }
+    .active {
+      background: linear-gradient(
+        135deg,
+        rgba(255, 105, 180, 0.4),
+        rgba(255, 165, 0, 0.35),
+        rgba(0, 191, 255, 0.35),
+        rgba(144, 238, 144, 0.35)
+      );
+			
+    }
+		
+		.music-hidden {
+  display: none !important;
+}
+
+.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+.footer {
+    text-align: center;
+    position: fixed;
+    bottom: -5px;
+    background-color: black;
+    color: #e0e0e0;
+    width: 100%;
+    font-size: 8px;
+    padding: 2px 0;  /* Reduce top and bottom padding */
+    margin-top: 0;   /* Ensure no extra space above */
+    line-height: .5;  /* Reduce spacing between text lines */
+}
+.footer a {
+    color: #ff6600;
+    text-decoration: none;
+}
+.footer a:hover {
+    text-decoration: underline;
+}
+
+</style>
+</head>
+
+<body>
+  <!-- BUTTON to Toggle Nav -->
+  <button id="toggle-nav" class="toggle-button">☰ Nav</button>
+  <!-- The navigation panel -->
+  <div id="navigation" class="navigation hidden">
+   <a href="../indexStill.html" class="neumorphic-tab">Food4Thoth Main</a>
+  
+  <a href="#" class="neumorphic-tab" data-expand="submenu-black-business">Black Business Eugene</a>
+  <div id="submenu-black-business" class="submenu hidden">
+    <a href="../BlackBuisnessEugene/index.html" class="neumorphic-tab">Black Business Directory</a>
+    <a href="../BlackBuisnessEugene/blackbusinessformpage.html" class="neumorphic-tab">Black Business Form</a>
+		<a href="../BlackBuisnessEugene/README.md" class="neumorphic-tab">ReadMe</a>
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-community-garden">Community Gardens</a>
+<div id="submenu-community-garden" class="submenu hidden">
+  <a href="../CommunityGardens/ALLLISTCommunitygardenall2.html" class="neumorphic-tab">Full List of All Gardens</a>
+	<a href="../CommunityGardens/indexMobileLanding.html" class="neumorphic-tab">Mobile Landing</a>
+  <a href="../CommunityGardens/COMMUNITYGARDENANIMATIONdesktop.html" class="neumorphic-tab">Desktop Landing</a>
+  <a href="../CommunityGardens/EugeneCommunitygardenall3.html" class="neumorphic-tab">Eugene Community Garden Map</a>
+	 <a href="../CommunityGardens/PortlandCommunitygardenall3.html" class="neumorphic-tab">Portland Community Garden Map</a>
+  <a href="../CommunityGardens/INFOCommunitygardenall2.html" class="neumorphic-tab">Community Garden Info</a>
+  <a href="../CommunityGardens/ListCommunityGardenEugene.html" class="neumorphic-tab">Eugene Garden List</a>
+  <a href="../CommunityGardens/ListCommunitygardenPortland.html" class="neumorphic-tab">Portland Garden List</a>
+	<a href="../CommunityGardens/README.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-visualizers">Sound & Voice Visualizers</a>
+<div id="submenu-visualizers" class="submenu hidden">
+  <a href="../SoundActivatedVisualizor/index2.html" class="neumorphic-tab">Voice Activated Visualizer</a>
+  <a href="../SoundActivatedVisualizor/index6.html" class="neumorphic-tab">Sound Visualizer w/Media Loader</a>
+  <a href="../SoundActivatedVisualizor/README.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-arp">ARP Synths</a>
+<div id="submenu-arp" class="submenu hidden">
+  <a href="../ArpAppNoVisualHighFi/index.html" class="neumorphic-tab">ARP App: No Visual (High-Fi)</a>
+  <a href="../ArpAppNoVisualLoFi/index.html" class="neumorphic-tab">ARP App: No Visual (Lo-Fi)</a>
+  <a href="../ArpAppWithVisual/index.html" class="neumorphic-tab">ARP App: With Visual</a>
+	<a href="../ArpAppNoVisualHighFi/readme.md" class="neumorphic-tab">ReadMe</a>
+	<a href="../ArpAppWithVisual/readme.md" class="neumorphic-tab">w/Visualizer ReadMe</a>
+</div>
+
+ <a href="#" class="neumorphic-tab" data-expand="submenu-games">Games</a>
+<div id="submenu-games" class="submenu hidden">
+  <a href="../NewSchoolGameKid/index2.html" class="neumorphic-tab">New School Game: Kid Sprite</a>
+  <a href="../NewSchoolGameWizard/index4.html" class="neumorphic-tab">New School Game: Wizard Sprite</a>
+  <a href="../OldSchoolGameDesktop/index2.html" class="neumorphic-tab">Old School Game: Desktop</a>
+  <a href="../OldSchoolGameMobile/index2.html" class="neumorphic-tab">Old School Game: Mobile</a>
+  <a href="../TerminalGameTransition/index.html" class="neumorphic-tab">Terminal Transition Game</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">SideScroll Game</a>
+  <a href="../OldSchoolGameMobile/README.md" class="neumorphic-tab">Game ReadMe</a>
+</div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-glo-calculato">Glo-Calculato</a>
+  <div id="submenu-glo-calculato" class="submenu hidden">
+    <a href="../Glo-Calculato1/RainbowGlowCalculato.html" class="neumorphic-tab">Glo-Calculato Landing</a>
+    <a href="../Glo-Calculato1/SMARTglowCalc.html" class="neumorphic-tab">Full-Sized Glo-Calculato</a>
+    <a href="../Glo-Calculato/GLO-CALCULATO/Glo-Calculato.zip" class="neumorphic-tab">Download Glo-Calculato</a>
+		<a href="../Glo-Calculato1/README.md" class="neumorphic-tab">ReadMe</a>
+    <a href="../Glo-Calculato1/SMARTglowCalcDonations.html" class="neumorphic-tab">Donations Page</a>
+		<a href="../Glo-Calculato1/READMEDonations.md" class="neumorphic-tab">Donations ReadMe</a>
+		
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-hakim-bey">Hakim Bey</a>
+  <div id="submenu-hakim-bey" class="submenu hidden">
+    <a href="../HakimBey/hakimbey9.html" class="neumorphic-tab">Hakim Bey Anarchy Page</a>
+    <a href="../HakimBey/joinTheMovement.html" class="neumorphic-tab">Anarchy Collective Contact</a>
+		<a href="../HakimBey/README.md" class="neumorphic-tab">ReadMe</a>
+  </div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-tarot">Tarot</a>
+<div id="submenu-tarot" class="submenu hidden">
+  <a href="../TarotTogetherNoAge/index.html" class="neumorphic-tab">Tarot Main Landing (No Age Restriction)</a>
+  <a href="../TarotSacredGeometry/index.html" class="neumorphic-tab">Sacred Geometry Tarot</a>
+  <a href="../TarotCyberPunkDark/index.html" class="neumorphic-tab">CyberPunk Dark Tarot</a>
+  <a href="../TarotCyberPunkMelo/index.html" class="neumorphic-tab">CyberPunk Melo Tarot</a>
+	<a href="../TarotOG/musicscrolltarotvoice5.html" class="neumorphic-tab">OG Tarot w/Voice Commands</a>
+	<a href="../TarotTextList/CyberTarotText.html" class="neumorphic-tab">Description List</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">More Tarot</a>
+	 <a href="../TarotAgeVerify/index.html" class="neumorphic-tab">18+ Content Landing</a>
+  <a href="../TarotCrystalQueens/indexAge.html" class="neumorphic-tab">18+ Crystal Queens Tarot</a>
+  <a href="../TarotCyberPunkX/indexAge.html" class="neumorphic-tab">18+ CyberPunk X Tarot</a>
+	<a href="../parental-controls.html" class="neumorphic-tab">Parental Controls</a>
+	<a href="../READMEParental.md" class="neumorphic-tab">Parental ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-iching">I Ching</a>
+<div id="submenu-iching" class="submenu hidden">
+  <a href="../Iching/index.html" class="neumorphic-tab">I Ching Main Page</a>
+  <a href="../Iching/ichingAnimeLoop.html" class="neumorphic-tab">I Ching Anime Loop</a>
+  <a href="../Iching/README.md" class="neumorphic-tab">I Ching ReadMe</a>
+</div>
+
+  <a href="#" class="neumorphic-tab" data-expand="submenu-hashisheen">Hashisheen Album Reviews</a>
+  <div id="submenu-hashisheen" class="submenu hidden">
+		 <a href="../EndOfLawHASHISHEEN/AllHashineenReviews.html" class="neumorphic-tab">Landing Page</a>
+    <a href="../EndOfLawHASHISHEEN/FullAlbumReview.html" class="neumorphic-tab">Full Album Review</a>
+     <a href="../EndOfLawHASHISHEEN/index1.html" class="neumorphic-tab">Hashisheen Album Review (Track 1)</a>
+    <a href="../EndOfLawHASHISHEEN/index2.html" class="neumorphic-tab">Hashisheen Album Review (Track 2)</a>
+    <a href="../EndOfLawHASHISHEEN/index3.html" class="neumorphic-tab">Hashisheen Album Review (Track 3)</a>
+    <a href="../EndOfLawHASHISHEEN/index4.html" class="neumorphic-tab">Hashisheen Album Review (Track 4)</a>
+    <a href="../EndOfLawHASHISHEEN/index5.html" class="neumorphic-tab">Hashisheen Album Review (Track 5)</a>
+    <a href="../EndOfLawHASHISHEEN/index6.html" class="neumorphic-tab">Hashisheen Album Review (Track 6)</a>
+    <a href="../EndOfLawHASHISHEEN/index7.html" class="neumorphic-tab">Hashisheen  Album Review (Track 7)</a>
+    <a href="../EndOfLawHASHISHEEN/index8.html" class="neumorphic-tab">Hashisheen Album Review (Track 8)</a>
+    <a href="../EndOfLawHASHISHEEN/index9.html" class="neumorphic-tab">Hashisheen Album Review (Track 9)</a>
+    <a href="../EndOfLawHASHISHEEN/index10.html" class="neumorphic-tab">Hashisheen Album Review (Track 10)</a>
+    <a href="../EndOfLawHASHISHEEN/index11.html" class="neumorphic-tab">Hashisheen Album Review (Track 11)</a>
+    <a href="../EndOfLawHASHISHEEN/index12.html" class="neumorphic-tab">Hashisheen Album Review (Track 12)</a>
+    <a href="../EndOfLawHASHISHEEN/index13.html" class="neumorphic-tab">Hashisheen Album Review (Track 13)</a>
+    <a href="../EndOfLawHASHISHEEN/index14.html" class="neumorphic-tab">Hashisheen Album Review (Track 14)</a>
+    <a href="../EndOfLawHASHISHEEN/index15.html" class="neumorphic-tab">Hashisheen Album Review (Track 15)</a>
+    <a href="../EndOfLawHASHISHEEN/index16.html" class="neumorphic-tab">Hashisheen Album Review (Track 16)</a>
+    <a href="../EndOfLawHASHISHEEN/index17.html" class="neumorphic-tab">Hashisheen Album Review (Track 17)</a>
+    <a href="../EndOfLawHASHISHEEN/index18.html" class="neumorphic-tab">Hashisheen Album Review (Track 18)</a>
+    <a href="../EndOfLawHASHISHEEN/index19.html" class="neumorphic-tab">Hashisheen Album Review (Track 19)</a>
+    <a href="../EndOfLawHASHISHEEN/index20.html" class="neumorphic-tab">Hashisheen Album Review (Track 20)</a>
+    <a href="../EndOfLawHASHISHEEN/index21.html" class="neumorphic-tab">Hashisheen Album Review (Track 21)</a>
+    <a href="../EndOfLawHASHISHEEN/index22.html" class="neumorphic-tab">Hashisheen Album Review (Track 22)</a>
+		<a href="../comingSoon.html" class="neumorphic-tab">More Reviews</a>
+		<a href="../EndOfLawHASHISHEEN/README.md" class="neumorphic-tab">ReadMe</a>
+  </div>
+	
+	<a href="#" class="neumorphic-tab" data-expand="submenu-akashic">Akashic Records</a>
+<div id="submenu-akashic" class="submenu hidden">
+  <a href="../css-only-3d-image-carousel/index.html" class="neumorphic-tab">Main Landing</a>
+  <a href="../AkashicAsclepiusDeep/index.html" class="neumorphic-tab">Akashic Asclepius Deep</a>
+  <a href="../AkashicAsclepiusLite/index.html" class="neumorphic-tab">Akashic Asclepius Lite</a>
+  <a href="../AkashicEmeraldAsAbove/index.html" class="neumorphic-tab">Akashic Emerald As Above</a>
+  <a href="../AkashicEmeraldDeep/index.html" class="neumorphic-tab">Akashic Emerald Deep</a>
+  <a href="../AkashicEmeraldLite/index.html" class="neumorphic-tab">Akashic Emerald Lite</a>
+  <a href="../AkashicHermiticum/index.html" class="neumorphic-tab">Akashic Hermiticum</a>
+  <a href="../AkashicHymnLite/index.html" class="neumorphic-tab">Akashic Hymn Lite</a>
+  <a href="../AkashicNag/index.html" class="neumorphic-tab">Akashic Nag</a>
+  <a href="../AkashicNag13Codex/index.html" class="neumorphic-tab">Akashic Nag 13 Codex</a>
+  <a href="../AkashicNagTreaties/index.html" class="neumorphic-tab">Akashic Nag Treaties</a>
+  <a href="../AkashicThothDeep/index.html" class="neumorphic-tab">Akashic Thoth Deep</a>
+  <a href="../AkashicThothLite/index.html" class="neumorphic-tab">Akashic Thoth Lite</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+	<a href="../AkashicAsclepiusDeep/README.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-anarchy">Anarchy Comics & Info</a>
+<div id="submenu-anarchy" class="submenu hidden">
+  <a href="../AnarchyComicBreakFree/index.html" class="neumorphic-tab">Anarchy Comic: Break Free</a>
+  <a href="../AnarchyComicCocoon/index.html" class="neumorphic-tab">Anarchy Comic: Cocoon</a>
+  <a href="../AnarchyDepth/index.html" class="neumorphic-tab">Anarchy Depth</a>
+  <a href="../AnarchyIsAlwaysMobile/index.html" class="neumorphic-tab">Anarchy Is Always Mobile</a>
+  <a href="../AnarchyPoetics/index.html" class="neumorphic-tab">Anarchy Poetics</a>
+  <a href="../AnarchyTAZ/index.html" class="neumorphic-tab">Anarchy TAZ</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+	<a href="../AnarchyComicBreakFree/readme.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-eyespy">Eye Spy</a>
+<div id="submenu-eyespy" class="submenu hidden">
+  <a href="../EyeSPY1/index.html" class="neumorphic-tab">Eye Spy Game (1st Edition)</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
+  <a href="../EyeSPY1/readme.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-tide-walk">Tide Walk</a>
+<div id="submenu-tide-walk" class="submenu hidden">
+  <a href="../TideApp/indexOregon.html" class="neumorphic-tab">Tide Walk Oregon</a>
+  <a href="../TideApp/indexBoston.html" class="neumorphic-tab">Tide Walk Boston</a>
+  <a href="../TideApp/readme.md" class="neumorphic-tab">ReadMe</a>
+</div>
+
+<a href="#" class="neumorphic-tab" data-expand="submenu-trent">Trent</a>
+<div id="submenu-trent" class="submenu hidden">
+  <a href="../TrentOfTheDay/index.html" class="neumorphic-tab">Trent of the Day</a>
+  <a href="../TrentStorybook1stMobile/index.html" class="neumorphic-tab">Trent Storybook</a>
+  <a href="../TrentStorybook1stMobile/contact.html" class="neumorphic-tab">Contact</a>
+  <a href="../TrentStorybook1stMobile/about.html" class="neumorphic-tab">About</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">Space StoryBook</a>
+  <a href="../TrentOfTheDay/README.md" class="neumorphic-tab">Trent of the Day ReadMe</a>
+  <a href="../TrentStorybook1stMobile/readme.md" class="neumorphic-tab">Trent Storybook ReadMe</a>
+</div>
+
+  <a href="../ChooseYourOwnAdventure/prologue.html" class="neumorphic-tab">Choose Your Own Adventure</a>
+	<a href="../RstoryArtabillies/index.html" class="neumorphic-tab">Rstory</a>
+	<a href="../CollectiveSummary/index.html" class="neumorphic-tab">Collective Summary</a>
+  <a href="http://www.food4thoth.com" class="neumorphic-tab">Food4Thoth</a>
+  <a href="http://www.artabillies.com" class="neumorphic-tab">Artabillies</a>
+	<a href="../contact.html" class="neumorphic-tab">Food4Thoth Page Contact</a>
+  <a href="mailto:food4thoth@proton.me" class="neumorphic-tab">Email: food4thoth@proton.me</a>
+	<a href="../portfolio.html" class="neumorphic-tab">Portfolio Page</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">MindMelt</a>
+	<a href="../comingSoon.html" class="neumorphic-tab">Food4Thoth Desktop Landing</a>
+	<a href="../README.md" class="neumorphic-tab">Food4Thoth ReadMe</a>
+</div>
+
+  <!-- TITLE for the Visualizer (can be toggled via JS) -->
+  <h1 id="h1" class="hidden">SOUND Activated Visualizer</h1>
+
+  <!-- BUTTON to Toggle the Controls panels -->
+  <button id="toggle-Controls1" class="toggle-button1">☰ Controls</button>
+
+  <!-- Controls for Visualization #0 (Fractal) -->
+  <div id="controls" class="controls hidden">
+    <div>
+      <label for="spin-speed">Spin Speed:</label>
+      <input
+        type="range"
+        id="spin-speed"
+        min="0.00"
+        max="10"
+        step="0.05"
+        value="1"
+        oninput="updateSpinSpeed(this.value)"
+      />
+      <span id="spin-speed-label">1</span>
+    </div>
+    <div>
+      <label for="spiral-spread-slider">Spiral Spread:</label>
+      <input
+        type="range"
+        id="spiral-spread-slider"
+        min="1"
+        max="12"
+        step="1"
+        value="4"
+        oninput="updateSpiralSpread(this.value)"
+      />
+      <span id="spiral-spread-label">4</span>
+    </div>
+    <div>
+      <label for="shape-size-factor">Shape Size (Fractal):</label>
+      <input
+        type="range"
+        id="shape-size-factor"
+        min="0.1"
+        max="5"
+        step="0.1"
+        value="1"
+        oninput="updateShapeSizeFactor(this.value)"
+      />
+      <span id="shape-size-factor-label">1</span>
+    </div>
+    <button id="toggle-visualization-btn">Hide Visualization</button>
+  </div>
+
+  <!-- Controls for Visualization #1 -->
+  <div id="controls1" class="controls hidden">
+    <div>
+      <label for="spin-speed1">Spin Speed:</label>
+      <input
+        type="range"
+        id="spin-speed1"
+        min="0.00"
+        max="10"
+        step="0.05"
+        value="1"
+        oninput="updateSpinSpeed1(this.value)"
+      />
+      <span id="spin-speed-label1">1</span>
+    </div>
+    <div>
+      <label for="spiral-spread-slider1">Spiral Spread:</label>
+      <input
+        type="range"
+        id="spiral-spread-slider1"
+        min="1"
+        max="12"
+        step="1"
+        value="4"
+        oninput="updateSpiralSpread1(this.value)"
+      />
+      <span id="spiral-spread-label1">4</span>
+    </div>
+    <div>
+      <label for="shape-size-factor1">Shape Size (Vis 1):</label>
+      <input
+        type="range"
+        id="shape-size-factor1"
+        min="0.1"
+        max="5"
+        step="0.1"
+        value="1"
+        oninput="updateShapeSizeFactor1(this.value)"
+      />
+      <span id="shape-size-factor-label1">1</span>
+    </div>
+    <button id="toggle-visualization-btn1">Hide Visualization</button>
+  </div>
+
+  <!-- Controls for Visualization #2 -->
+  <div id="controls2" class="controls hidden">
+    <div>
+      <label for="spin-speed2">Spin Speed:</label>
+      <input
+        type="range"
+        id="spin-speed2"
+        min="0.00"
+        max="10"
+        step="0.05"
+        value="1"
+        oninput="updateSpinSpeed2(this.value)"
+      />
+      <span id="spin-speed-label2">1</span>
+    </div>
+    <div>
+      <label for="spiral-spread-slider2">Spiral Spread:</label>
+      <input
+        type="range"
+        id="spiral-spread-slider2"
+        min="1"
+        max="12"
+        step="1"
+        value="4"
+        oninput="updateSpiralSpread2(this.value)"
+      />
+      <span id="spiral-spread-label2">4</span>
+    </div>
+    <div>
+      <label for="shape-size-factor2">Shape Size (Vis 2):</label>
+      <input
+        type="range"
+        id="shape-size-factor2"
+        min="0.1"
+        max="5"
+        step="0.1"
+        value="1"
+        oninput="updateShapeSizeFactor2(this.value)"
+      />
+      <span id="shape-size-factor-label2">1</span>
+    </div>
+    <button id="toggle-visualization-btn2">Hide Visualization</button>
+  </div>
+	
+	<!-- BUTTON to Toggle Music Library -->
+<button id="toggle-music" class="toggle-button2">Hide Library</button>
+
+  <!-- MUSIC LIBRARY (Vue) -->
+  <div class="music-container" id="media-list">
+    <h1>{{ title }}</h1>
+    <select v-on:change="filterList">
+      <option value="">Filter by album...</option>
+      <option v-for="item in uniqueAlbumsList" :key="item">{{ item }}</option>
+    </select>
+    <ul>
+      <li
+        v-for="media in filteredMediaList"
+        :key="media.title"
+        :class="{
+          playing: currentlyPlaying === media,
+          active: currentlyPlaying === media
+        }"
+      >
+        <h3 @click="toggleDetails(media)">{{ media.title }}</h3>
+        <div v-show="media.showDetails">
+          <p><strong>Artist:</strong> {{ media.artist }}</p>
+          <p><strong>Genre:</strong> {{ media.genre }}</p>
+          <p><strong>Released:</strong> {{ media.released }}</p>
+          <p><strong>Album:</strong> {{ media.album }}</p>
+          <audio
+            :src="media.url"
+            controls
+            @play="playAudio(media, $event)"
+          ></audio>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- THE VISUALIZER CANVASES -->
+  <canvas id="visualization"></canvas>
+  <canvas id="visualization1"></canvas>
+  <canvas id="visualization2"></canvas>
+
+	<!-- Vue.js CDN with local fallback -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+<script>
+  if (typeof window.Vue === 'undefined') {
+    document.write('<script src="./vue.min.js"><\/script>');
+  }
+</script>
+
+<script src="./script.js"></script>
+	
+	<footer class="footer">
+        <p>
+					<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="./README.md"  class="styled-link">ReadMe</a></p>
+    </footer>
+	
+</body>
+</html>

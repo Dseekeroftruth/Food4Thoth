@@ -1,0 +1,248 @@
+/* BASIC PAGE + BACKGROUND */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: #222;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    h1 {
+      margin-top: 1.5rem;
+    }
+
+    /***************************************************
+     * VISUALIZER STYLES
+     ***************************************************/
+    #visualization, #visualization1, #visualization2 {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      z-index: -1;
+      background: transparent;
+      top: 0;
+      left: 0;
+    }
+
+    .toggle-button {
+      position: fixed;
+      top: 4px;
+      left: 4px;
+      padding: 5px 10px;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 8px;
+      box-shadow: 4px 4px 8px #bebebe, -4px -8px 8px #ffffff;
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+    .toggle-button:hover {
+      background-color: #333;
+    }
+
+    .toggle-button1 {
+      position: fixed;
+      top: 5px;
+      right: 10px;
+      padding: 5px 10px;
+      background: grey;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 8px;
+      box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+    .toggle-button1:hover {
+      background-color: #666;
+    }
+		
+		.toggle-button2 {
+      position: fixed;
+      top: 5px;
+      
+      padding: 5px 10px;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 8px;
+      box-shadow: 4px 4px 8px #bebebe, -4px -8px 8px #ffffff;
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+    .toggle-button2:hover {
+      background-color: #333;
+    }
+
+    .hidden {
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+      transition: all 0.5s ease;
+      pointer-events: none;
+      display: none;
+    }
+
+    .navigation {
+      position: fixed;
+      top: 40px;
+      left: 10px;
+      background-color: #e0e0e0;
+      padding: 5px;
+      border-radius: 15px;
+      box-shadow: 4px 4px 8px #bebebe, -4px -8px 8px #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      z-index: 1000;
+      height: 50%;
+      overflow-y: auto;
+    }
+    .neumorphic-tab {
+      display: inline-block;
+      margin: 2px 2px;
+      padding: 3px 3px;
+      border-radius: 25px;
+      background: #e0e0e0;
+      box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      font-size: clamp(16px, 1.2vw, 22px);
+      text-align: center;
+    }
+    .neumorphic-tab:hover {
+      box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+    }
+
+    /***************************************************
+     * CONTROLS FOR VISUALIZERS
+     ***************************************************/
+    .controls {
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 10px;
+    }
+    label {
+      margin-right: 5px;
+    }
+    input[type="range"] {
+      vertical-align: middle;
+    }
+
+    /***************************************************
+     * MUSIC LIBRARY STYLES
+     ***************************************************/
+    .music-container {
+      max-width: 80%;
+      width: 800px;
+      margin: 100px auto 40px auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      z-index: 10;
+    }
+    .music-container h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .music-container select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    .music-container ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .music-container li {
+      background: #fff;
+      color: #333;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 5px;
+      position: relative;
+      transition: background 0.5s ease, border-left 0.3s ease;
+    }
+    .music-container li h3 {
+      margin: 0;
+      cursor: pointer;
+    }
+    .music-container li audio {
+      width: 100%;
+      margin-top: 10px;
+    }
+    .playing {
+      border-left: 5px solid green;
+    
+    }
+    .active {
+      background: linear-gradient(
+        135deg,
+        rgba(255, 105, 180, 0.4),
+        rgba(255, 165, 0, 0.35),
+        rgba(0, 191, 255, 0.35),
+        rgba(144, 238, 144, 0.35)
+      );
+			
+    }
+		
+		.music-hidden {
+  display: none !important;
+}
+
+.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+.footer {
+    text-align: center;
+    position: fixed;
+    bottom: -5px;
+    background-color: black;
+    color: #e0e0e0;
+    width: 100%;
+    font-size: 8px;
+    padding: 2px 0;  /* Reduce top and bottom padding */
+    margin-top: 0;   /* Ensure no extra space above */
+    line-height: .5;  /* Reduce spacing between text lines */
+}
+.footer a {
+    color: #ff6600;
+    text-decoration: none;
+}
+.footer a:hover {
+    text-decoration: underline;
+}
