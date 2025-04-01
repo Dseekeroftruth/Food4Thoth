@@ -6,15 +6,21 @@ Prayer for Love is an interactive, web-based comic designed to guide the reader 
 
 ---
 
-# 🖥️ File Structure
+# 🔮 Rooted in The Four Agreements
 
-Root      
-│── images/                  # Contains all the comic panels in WebP and PNG formats      
-│── index.html                # Main webpage displaying the comic      
-│── styles.css                # Styling for the webpage, panels, and animations      
-│── script.js                 # JavaScript for image preloading and interactions      
-│── nav_script.js             # Navigation functionality for UI interaction      
-│── README.md                 # Documentation for the project
+This comic draws inspiration from the closing prayer in The Four Agreements by Don Miguel Ruiz, a modern Toltec wisdom text. The final passage of that book offers a profound invocation—a prayer of self-love and spiritual liberation. The webcomic brings this prayer to life through illustrated panels and poetic narration, honoring its message of love, unity, and awareness.
+
+By translating the closing prayer into a visual and digital format, Prayer for Love invites viewers to embody the core teachings of the Toltec path:
+- Be impeccable with your word.
+- Don’t take anything personally.
+- Don’t make assumptions.
+- Always do your best.
+
+The comic continues where the book ends, offering a contemplative and ceremonial experience as a visual prayer.
+
+---
+
+# 🖥️ File Structure
 
 /Root      
 │── PrayerForLove/      
