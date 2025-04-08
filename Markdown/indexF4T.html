@@ -1,0 +1,55 @@
+<!-- index.html or readme-viewer.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>README Viewer</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+			background: black;
+			color: white;
+			font-size: 2.5rem;
+    }
+    pre {
+      color: white;
+      padding: 1rem;
+      overflow-x: auto;
+			font-size: 2.5rem;
+    }
+    code {
+      color: white;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+			font-size: 2.5rem;
+    }
+		
+		.nav-button {
+			font-size: 1.7rem;
+		}
+  </style>
+</head>
+<body>
+  <div id="readme">Loading README...</div>
+
+  <!-- Load marked.js (Markdown parser) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const readmeURL = 'https://raw.githubusercontent.com/dseekeroftruth/Food4Thoth/main/README.md';
+		
+
+    fetch(readmeURL)
+      .then(response => response.text())
+      .then(md => {
+        document.getElementById('readme').innerHTML = marked.parse(md);
+      })
+      .catch(error => {
+        document.getElementById('readme').innerHTML = '⚠️ Error loading README';
+        console.error(error);
+      });
+  </script>
+</body>
+</html>
