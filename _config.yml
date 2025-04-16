@@ -1,0 +1,15 @@
+title: Food4Thoth
+description: Mystical digital garden of creativity and community
+url: "https://www.food4thoth.com"
+author: DeJahn
+social:
+  name: Food4Thoth
+  links:
+    - https://www.instagram.com/emerald_path_food4th0th
+    - https://www.facebook.com/Food4Thothdotcom/
+    - https://github.com/dseekeroftruth
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
