@@ -12,17 +12,24 @@ permalink: /feed.xml
     <link>{{ site.url }}</link>
     <language>en-us</language>
     <description>{{ site.description | xml_escape }}</description>
+
     <itunes:author>{{ site.author }}</itunes:author>
     <itunes:explicit>false</itunes:explicit>
     <itunes:image href="{{ site.url }}/images/og-preview.jpg" />
     <itunes:category text="Society &amp; Culture" />
+    <itunes:summary>{{ site.description | xml_escape }}</itunes:summary>
+    <itunes:subtitle>A podcast exploring mysticism, art, and psychedelic tech</itunes:subtitle>
+    <itunes:keywords>psychedelic, mysticism, art, cyberpunk, culture, spirituality</itunes:keywords>
+
     <itunes:owner>
       <itunes:name>{{ site.author }}</itunes:name>
       <itunes:email>dseekeroftruth@gmail.com</itunes:email>
     </itunes:owner>
+
     <atom:link href="{{ site.url }}/feed.xml" rel="self" type="application/rss+xml" />
 
-    {% for post in site.posts %}
+    {% assign podcast_posts = site.posts | where_exp: "post", "post.audio_url" %}
+    {% for post in podcast_posts %}
     <item>
       <title>{{ post.title | xml_escape }}</title>
       <description>{{ post.excerpt | strip_html | xml_escape }}</description>
@@ -30,14 +37,13 @@ permalink: /feed.xml
       <guid isPermaLink="false">{{ post.url | absolute_url }}</guid>
       <link>{{ post.url | absolute_url }}</link>
 
-      {% if post.audio_url %}
       <enclosure 
         url="{{ post.audio_url }}" 
         type="audio/mpeg" 
         length="{{ post.audio_length | default: 1000000 }}" />
+
       <itunes:duration>{{ post.duration | default: "0:00" }}</itunes:duration>
       <itunes:subtitle>{{ post.subtitle | default: post.title | xml_escape }}</itunes:subtitle>
-      {% endif %}
     </item>
     {% endfor %}
   </channel>
