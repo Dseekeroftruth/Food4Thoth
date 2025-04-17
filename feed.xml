@@ -13,8 +13,13 @@ permalink: /feed.xml
     <language>en-us</language>
     <description>{{ site.description | xml_escape }}</description>
     <itunes:author>{{ site.author }}</itunes:author>
-    <itunes:explicit>no</itunes:explicit>
+    <itunes:explicit>false</itunes:explicit>
     <itunes:image href="{{ site.url }}/images/og-preview.jpg" />
+    <itunes:category text="Society & Culture"/>
+    <itunes:owner>
+      <itunes:name>{{ site.author }}</itunes:name>
+      <itunes:email>dseekeroftruth@gmail.com</itunes:email>
+    </itunes:owner>
     <atom:link href="{{ site.url }}/feed.xml" rel="self" type="application/rss+xml" />
 
     {% for post in site.posts %}
@@ -26,8 +31,11 @@ permalink: /feed.xml
       <link>{{ post.url | absolute_url }}</link>
 
       {% if post.audio_url %}
-      <enclosure url="{{ post.audio_url }}" type="audio/mpeg" />
-      <itunes:duration>{{ post.duration }}</itunes:duration>
+      <enclosure 
+        url="{{ post.audio_url }}" 
+        type="audio/mpeg" 
+        length="{{ post.audio_length | default: 1000000 }}" />
+      <itunes:duration>{{ post.duration | default: "0:00" }}</itunes:duration>
       <itunes:subtitle>{{ post.subtitle | default: post.title | xml_escape }}</itunes:subtitle>
       {% endif %}
     </item>
