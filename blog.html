@@ -1,0 +1,79 @@
+---
+layout: default
+title: "Food4Thoth Blog"
+permalink: /blog/
+description: "Explore transmissions from the edge — podcasts and essays blending mysticism, tech, and visionary storytelling."
+image: /images/og-preview.jpg
+
+# Open Graph (Facebook/LinkedIn)
+og_title: "Food4Thoth Blog"
+og_description: "Mystic-hacker transmissions: Podcasts, essays, and esoteric experiments."
+og_image: /images/og-preview.jpg
+
+# Twitter
+twitter_card: summary_large_image
+twitter_title: "Food4Thoth Blog"
+twitter_description: "Mystical tech meets storytelling. A blog from the future's edge."
+twitter_image: /images/og-preview.jpg
+---
+
+<!-- Blog Intro Section -->
+<section id="appIntroduction" style="background: rgba(0,0,0,0.85); color: white; max-width: 90%; margin: 40px auto; padding: 30px; border-radius: 15px; box-shadow: 0 0 30px rgba(255, 0, 255, 0.7); border: 3px solid transparent; text-align: center;">
+  <h1 style="font-size: 2.5rem; font-weight: bold; text-transform: uppercase; text-shadow: 0 0 15px #ff00ff, 0 0 30px #00eaff; margin-bottom: 20px;">Food4Thoth Blog</h1>
+  <p style="font-size: 1.2rem; line-height: 1.6; text-shadow: 0 0 10px rgba(255, 0, 255, 0.6);">A portal of transmissions from the edge — podcasts, essays, and esoteric experiments designed to awaken the inner tech of the mystic-hacker.</p>
+</section>
+
+<!-- Tab Navigation -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; justify-content: center; text-align: center; margin: 20px 0;">
+  <a href="#podcasts" style="display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #ff00ff, #001eff); color: white; font-weight: bold; text-decoration: none; border-radius: 8px; box-shadow: 3px 3px 12px rgba(255, 0, 255, 0.5); font-size: 1.3rem;">Podcasts</a>
+  <a href="#articles" style="display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #3b8d99, #6b5b95); color: white; font-weight: bold; text-decoration: none; border-radius: 8px; box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); font-size: 1.3rem;">Articles</a>
+</div>
+
+<!-- Podcasts Section -->
+<section id="podcasts" style="background: rgba(15, 15, 30, 0.9); padding: 20px; border-radius: 12px; box-shadow: 0 0 16px rgba(0, 255, 255, 0.3); color: #ffffff; margin: 30px;">
+  <h2 style="font-size: 2rem; text-transform: uppercase; text-shadow: 0 0 10px #ff00ff; border-bottom: 2px solid rgba(255, 0, 255, 0.7); padding-bottom: 5px; display: inline-block;">Podcast Episodes</h2>
+  <div>
+    {% assign podcasts = site.posts | where_exp: "p", "p.audio_url" %}
+    {% for post in podcasts %}
+    <div style="background: #222; border: 2px solid #444; border-radius: 6px; padding: 1rem; margin-bottom: 20px;">
+      <div style="font-size: 1.3rem; font-weight: bold; margin-bottom: 0.5rem;">{{ post.title }}</div>
+      <div style="font-size: 0.9rem; opacity: 0.7;">{{ post.date | date: "%B %d, %Y" }}</div>
+      <p style="margin: 10px 0;">{{ post.excerpt | strip_html | truncate: 160 }}</p>
+      {% if post.audio_url %}
+      <audio controls style="width: 100%; margin: 10px 0;">
+        <source src="{{ post.audio_url }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      {% endif %}
+      <a href="{{ post.url }}" style="display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #3399ff, #6600cc); color: white; font-weight: bold; text-decoration: none; border-radius: 8px; box-shadow: 3px 3px 12px rgba(51, 153, 255, 0.5); font-size: 1rem;">Read More</a>
+    </div>
+    {% endfor %}
+    {% if podcasts == empty %}
+    <p style="font-size: 1.1rem;">No podcast episodes available yet.</p>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Articles Section -->
+<section id="articles" style="background: rgba(20, 20, 20, 0.9); padding: 20px; border-radius: 12px; box-shadow: 4px 4px 20px rgba(46, 204, 113, 0.5); color: #ffffff; margin: 30px;">
+  <h2 style="font-size: 2rem; text-transform: uppercase; text-shadow: 0 0 10px #00eaff; border-bottom: 2px solid rgba(0, 255, 255, 0.6); padding-bottom: 5px; display: inline-block;">Articles & Writings</h2>
+  <div>
+    {% assign articles = site.posts | reject: "audio_url", nil %}
+    {% for post in articles %}
+    <div style="background: #222; border: 2px solid #444; border-radius: 6px; padding: 1rem; margin-bottom: 20px;">
+      <div style="font-size: 1.3rem; font-weight: bold; margin-bottom: 0.5rem;">{{ post.title }}</div>
+      <div style="font-size: 0.9rem; opacity: 0.7;">{{ post.date | date: "%B %d, %Y" }}</div>
+      <p style="margin: 10px 0;">{{ post.excerpt | strip_html | truncate: 160 }}</p>
+      <a href="{{ post.url }}" style="display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #3b8d99, #6b5b95); color: white; font-weight: bold; text-decoration: none; border-radius: 8px; box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); font-size: 1rem;">Read More</a>
+    </div>
+    {% endfor %}
+    {% if articles == empty %}
+    <p style="font-size: 1.1rem;">No written posts available yet.</p>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Footer -->
+<footer style="text-align: center; background-color: black; color: white; padding: 15px; font-size: .8rem; box-shadow: 0 0 15px #ff00ff;">
+  <p>Part of the <a href="/" style="color: #ff00ff; text-decoration: none;">FOOD4THOTH</a> Network</p>
+</footer>
