@@ -15,7 +15,7 @@ permalink: /feed.xml
     <itunes:author>{{ site.author }}</itunes:author>
     <itunes:explicit>false</itunes:explicit>
     <itunes:image href="{{ site.url }}/images/og-preview.jpg" />
-    <itunes:category text="Society & Culture"/>
+    <itunes:category text="Society &amp; Culture" />
     <itunes:owner>
       <itunes:name>{{ site.author }}</itunes:name>
       <itunes:email>dseekeroftruth@gmail.com</itunes:email>
