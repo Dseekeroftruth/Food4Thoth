@@ -1,6 +1,6 @@
 ---
 title: "Turquoise Bunny Transmission"
-date: 2025-04-21
+date: 2025-04-17
 layout: post
 excerpt: "A sonic portal opens as the turquoise bunny leads the mystic glide..."
 audio_url: "https://www.food4thoth.com/skating-bunny/07+Track+07.mp3"
