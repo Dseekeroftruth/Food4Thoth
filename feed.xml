@@ -1,0 +1,36 @@
+---
+layout: nil
+permalink: /feed.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+     xmlns:atom="http://www.w3.org/2005/Atom">
+
+  <channel>
+    <title>{{ site.title | xml_escape }}</title>
+    <link>{{ site.url }}</link>
+    <language>en-us</language>
+    <description>{{ site.description | xml_escape }}</description>
+    <itunes:author>{{ site.author }}</itunes:author>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="{{ site.url }}/images/og-preview.jpg" />
+    <atom:link href="{{ site.url }}/feed.xml" rel="self" type="application/rss+xml" />
+
+    {% for post in site.posts %}
+    <item>
+      <title>{{ post.title | xml_escape }}</title>
+      <description>{{ post.excerpt | strip_html | xml_escape }}</description>
+      <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
+      <guid isPermaLink="false">{{ post.url | absolute_url }}</guid>
+      <link>{{ post.url | absolute_url }}</link>
+
+      {% if post.audio_url %}
+      <enclosure url="{{ post.audio_url }}" type="audio/mpeg" />
+      <itunes:duration>{{ post.duration }}</itunes:duration>
+      <itunes:subtitle>{{ post.subtitle | default: post.title | xml_escape }}</itunes:subtitle>
+      {% endif %}
+    </item>
+    {% endfor %}
+  </channel>
+</rss>
