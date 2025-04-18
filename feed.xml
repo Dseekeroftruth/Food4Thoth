@@ -16,7 +16,6 @@ permalink: /feed.xml
     <itunes:author>{{ site.author }}</itunes:author>
     <itunes:explicit>false</itunes:explicit>
     <itunes:image href="{{ site.url }}/images/og-preview.jpg" />
-    <itunes:category text="Society &amp; Culture" />
     <itunes:summary>{{ site.description | xml_escape }}</itunes:summary>
     <itunes:subtitle>A podcast exploring mysticism, art, and psychedelic tech</itunes:subtitle>
     <itunes:keywords>psychedelic, mysticism, art, cyberpunk, culture, spirituality</itunes:keywords>
