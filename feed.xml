@@ -21,6 +21,22 @@ permalink: /feed.xml
     <itunes:subtitle>A podcast exploring mysticism, art, and psychedelic tech</itunes:subtitle>
     <itunes:keywords>psychedelic, mysticism, art, cyberpunk, culture, spirituality</itunes:keywords>
 
+    <itunes:category text="Society & Culture">
+      <itunes:category text="Philosophy"/>
+    </itunes:category>
+
+    <itunes:category text="Arts">
+      <itunes:category text="Visual Arts"/>
+    </itunes:category>
+
+    <itunes:category text="Music" />
+
+    <itunes:category text="Religion & Spirituality">
+      <itunes:category text="Spirituality"/>
+    </itunes:category>
+
+    <itunes:category text="Technology" />
+
     <itunes:owner>
       <itunes:name>{{ site.author }}</itunes:name>
       <itunes:email>dseekeroftruth@gmail.com</itunes:email>
