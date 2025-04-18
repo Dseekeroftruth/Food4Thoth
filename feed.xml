@@ -21,7 +21,7 @@ permalink: /feed.xml
     <itunes:subtitle>A podcast exploring mysticism, art, and psychedelic tech</itunes:subtitle>
     <itunes:keywords>psychedelic, mysticism, art, cyberpunk, culture, spirituality</itunes:keywords>
 
-    <itunes:category text="Society & Culture">
+    <itunes:category text="Society &amp; Culture">
       <itunes:category text="Philosophy"/>
     </itunes:category>
 
@@ -31,7 +31,7 @@ permalink: /feed.xml
 
     <itunes:category text="Music" />
 
-    <itunes:category text="Religion & Spirituality">
+    <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Spirituality"/>
     </itunes:category>
 
