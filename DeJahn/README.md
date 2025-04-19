@@ -23,6 +23,15 @@ twitter_image: /images/og-preview.jpg
 
 ---
 
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a { color: #00ffff; }
+  h1, h2, h3, h4, h5, h6 { color: #ff66cc; }
+</style>
+
 # Overview
 
 DeJahns Music Collection is an experimental, immersive multimedia experience blending sonic innovation with glitch aesthetics, parallax illusions, and a sprawling digital gallery of sound art. This page is a portal into the kaleidoscopic mind of DeJahn—a musical explorer pushing boundaries through raw emotion, surreal soundscapes, and boundary-breaking improvisation.
