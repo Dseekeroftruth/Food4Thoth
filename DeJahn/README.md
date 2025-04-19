@@ -23,14 +23,6 @@ twitter_image: /images/og-preview.jpg
 
 ---
 
-# DeJahns Music Collection
-
-A Psychedelic Sonic Journey | Part of the FOOD4THOTH Network
-
-← Return to FOOD4THOTH
-
----
-
 # Overview
 
 DeJahns Music Collection is an experimental, immersive multimedia experience blending sonic innovation with glitch aesthetics, parallax illusions, and a sprawling digital gallery of sound art. This page is a portal into the kaleidoscopic mind of DeJahn—a musical explorer pushing boundaries through raw emotion, surreal soundscapes, and boundary-breaking improvisation.
