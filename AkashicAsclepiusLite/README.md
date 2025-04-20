@@ -1,3 +1,36 @@
+---
+layout: default
+title: "Akashic Asclepius Lite README"
+description: "Interactive Hermetic and Gnostic experience — part of the Akashic Records Collection under FOOD4THOTH."
+permalink: /AkashicAsclepiusLite/readme/
+image: /images/og-preview.jpg
+
+og_title: "Akashic Asclepius Lite"
+og_description: "Explore esoteric wisdom through interactive visuals and mystical storytelling — Akashic Asclepius Lite."
+og_image: /images/og-preview.jpg
+
+twitter_card: summary_large_image
+twitter_title: "Akashic Asclepius Lite"
+twitter_description: "Hermetic scrolls and cinematic storytelling from the FOOD4THOTH Archive."
+twitter_image: /images/og-preview.jpg
+---
+
+# Akashic Asclepius Lite  
+*A Hermetic Portal into Healing, Mysticism, and the Inner Cosmos | Part of the FOOD4THOTH Network*
+
+[← Return to FOOD4THOTH](../index.html)
+
+---
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a { color: #00ffff; }
+  h1, h2, h3, h4, h5, h6 { color: #ff66cc; }
+</style>
+
 <div style="text-align: center; margin-bottom: 20px;">
     <button class="nav-button" onclick="location.href='../css-only-3d-image-carousel/index.html'">Main Landing</button>
     <button class="nav-button" onclick="location.href='../AkashicAsclepiusDeep/index.html'">Akashic Asclepius Deep</button>
