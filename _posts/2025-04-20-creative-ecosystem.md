@@ -7,6 +7,7 @@ categories: [ecosystem, philosophy, featured]
 tags: [Food4Thoth, Artabillies, Dseekeroftruth, creativity, mysticism, code]
 excerpt: "A digital garden, a psychedelic art collective, and a GitHub-powered mystical toolbox—discover how DeJahn Bell’s unified creative ecosystem empowers imagination, art, and community."
 audio_url:
+duration: "0:00"
 image: /images/og-preview.jpg
 published: true
 canonical_url: https://www.food4thoth.com/blog/creative-ecosystem
