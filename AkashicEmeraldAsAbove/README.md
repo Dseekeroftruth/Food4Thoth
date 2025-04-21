@@ -6,7 +6,7 @@ permalink: /AkashicEmeraldAsAbove/readme/
 image: /images/og-preview.jpg
 
 og_title: "Akashic Emerald As Above"
-og_description: "Explore esoteric wisdom through interactive visuals and mystical storytelling — Akashic Asclepius Deep."
+og_description: "Explore esoteric wisdom through interactive visuals and mystical storytelling — Akashic Emerald As Above."
 og_image: /images/og-preview.jpg
 
 twitter_card: summary_large_image
