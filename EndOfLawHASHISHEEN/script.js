@@ -1,6 +1,3 @@
-
-
-
 // JavaScript to preload images
 function preloadImages(urls) {
     urls.forEach((url) => {
@@ -312,3 +309,10 @@ window.addEventListener('resize', function() {
         window.scrollBy(0, additionalScroll);
     }
 });
+
+window.onload = () => {
+  populateVoiceList();
+  if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = populateVoiceList;
+  }
+};
