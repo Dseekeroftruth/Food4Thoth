@@ -32,19 +32,19 @@ twitter_image: /images/og-preview.jpg
 </style>
 
 <div style="text-align: center; margin-bottom: 20px;">
-    <button class="nav-button" onclick="location.href='.../css-only-3d-image-carousel/index.html'">Main Landing</button>
-    <button class="nav-button" onclick="location.href='.../AkashicAsclepiusDeep/index.html'">Akashic Asclepius Deep</button>
-    <button class="nav-button" onclick="location.href='.../AkashicAsclepiusLite/index.html'">Akashic Asclepius Lite</button>
-    <button class="nav-button" onclick="location.href='.../AkashicEmeraldAsAbove/index.html'">Akashic Emerald As Above</button>
-    <button class="nav-button" onclick="location.href='.../AkashicEmeraldDeep/index.html'">Akashic Emerald Deep</button>
-    <button class="nav-button" onclick="location.href='.../AkashicEmeraldLite/index.html'">Akashic Emerald Lite</button>
-    <button class="nav-button" onclick="location.href='.../AkashicHermiticum/index.html'">Akashic Hermiticum</button>
-    <button class="nav-button" onclick="location.href='.../AkashicHymnLite/index.html'">Akashic Hymn Lite</button>
-    <button class="nav-button" onclick="location.href='.../AkashicNag/index.html'">Akashic Nag</button>
-    <button class="nav-button" onclick="location.href='.../AkashicNag13Codex/index.html'">Akashic Nag 13 Codex</button>
-    <button class="nav-button" onclick="location.href='.../AkashicNagTreaties/index.html'">Akashic Nag Treaties</button>
-    <button class="nav-button" onclick="location.href='.../AkashicThothDeep/index.html'">Akashic Thoth Deep</button>
-    <button class="nav-button" onclick="location.href='.../AkashicThothLite/index.html'">Akashic Thoth Lite</button>
+    <button class="nav-button" onclick="location.href='www.food4thoth.com/css-only-3d-image-carousel/index.html'">Main Landing</button>
+    <button class="nav-button" onclick="location.href='www.food4thoth.com/AkashicAsclepiusDeep/index.html'">Akashic Asclepius Deep</button>
+    <button class="nav-button" onclick="location.href='www.food4thoth.com/AkashicAsclepiusLite/index.html'">Akashic Asclepius Lite</button>
+    <button class="nav-button" onclick="location.href='www.food4thoth.com/AkashicEmeraldAsAbove/index.html'">Akashic Emerald As Above</button>
+    <button class="nav-button" onclick="location.href='www.food4thoth.com/AkashicEmeraldDeep/index.html'">Akashic Emerald Deep</button>
+    <button class="nav-button" onclick="location.href='www.food4thoth.com/AkashicEmeraldLite/index.html'">Akashic Emerald Lite</button>
+    <button class="nav-button" onclick="location.href='www.food4thoth.com/AkashicHermiticum/index.html'">Akashic Hermiticum</button>
+    <button class="nav-button" onclick="location.href='www.food4thoth.com/AkashicHymnLite/index.html'">Akashic Hymn Lite</button>
+    <button class="nav-button" onclick="location.href='www.food4thoth.com/AkashicNag/index.html'">Akashic Nag</button>
+    <button class="nav-button" onclick="location.href='www.food4thoth.com/AkashicNag13Codex/index.html'">Akashic Nag 13 Codex</button>
+    <button class="nav-button" onclick="location.href='www.food4thoth.com/AkashicNagTreaties/index.html'">Akashic Nag Treaties</button>
+    <button class="nav-button" onclick="location.href='www.food4thoth.com/AkashicThothDeep/index.html'">Akashic Thoth Deep</button>
+    <button class="nav-button" onclick="location.href='www.food4thoth.com/AkashicThothLite/index.html'">Akashic Thoth Lite</button>
 </div>
 
 # 🪬 Akashic Records Collection: Exploring Hermetics & Gnosticism
