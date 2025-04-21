@@ -29,6 +29,9 @@ permalink: /feed.xml
       <itunes:email>dseekeroftruth@gmail.com</itunes:email>
     </itunes:owner>
 
+    <podcast:locked>yes</podcast:locked>
+    <podcast:guid isPermaLink="false">{{ site.url }}</podcast:guid>
+
     <atom:link href="{{ site.url }}/feed.xml" rel="self" type="application/rss+xml" />
 
     {% assign podcast_posts = site.posts | where_exp: "post", "post.audio_url" %}
