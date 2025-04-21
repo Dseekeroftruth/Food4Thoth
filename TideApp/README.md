@@ -1,17 +1,41 @@
+---
+layout: default
+title: "Tide and Weather Visualization README"
+description: "Plan your perfect beach day with interactive tide charts, weather forecasting, and mystical storytelling."
+permalink: /TideApp/readme/
+image: /images/og-preview.jpg
+
+og_title: "Tide Walk USA"
+og_description: "Interactive tide and weather visualization for coastal walks and ocean-side magic."
+og_image: /images/og-preview.jpg
+
+twitter_card: summary_large_image
+twitter_title: "Tide Walk USA"
+twitter_description: "Your coastal companion: tides, weather, and walkable waves."
+twitter_image: /images/og-preview.jpg
+---
+
+# Tide Walk USA  
+*An Interactive Portal for Coastal Insight, Tidal Awareness, and Elemental Harmony | Part of the FOOD4THOTH Network*
+
+[← Return to FOOD4THOTH](../index.html)
+
+---
+
 <div style="text-align: center; margin-bottom: 20px;">
-    <button class="nav-button" onclick="location.href='https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho'">FOOD4THOTH Instagram</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi'">FOOD4THOTH Facebook</button>
-    <button class="nav-button" onclick="location.href='../Artabillies/index.html'">Learn About ARTABILLIES</button>
-    <button class="nav-button" onclick="location.href='http://www.artabillies.com'">ARTABILLIES Website</button>
-    <button class="nav-button" onclick="location.href='https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ=='">ARTABILLIES Instagram</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi'">ARTABILLIES Facebook</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP'">ARTABILLIES Facebook Group</button>
-    <button class="nav-button" onclick="location.href='../RstoryArtabillies/index.html'">Rstory, FOOD4THOTH & ARTABILLIES</button>
-    <button class="nav-button" onclick="location.href='../Donations/index.html'">Donations Page</button>
-    <button class="nav-button" onclick="location.href='../index.html'">FOOD4THOTH HOME</button>
-		<button class="nav-button" onclick="location.href='./indexOregon.html'">Tide Walk Oregon</button>
-    <button class="nav-button" onclick="location.href='./indexBoston.html'">Tide Walk Boston</button>
-    <button class="nav-button" onclick="location.href='./index.html'">Tide Walk USA</button>
+  <a class="nav-button" href="https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho">FOOD4THOTH Instagram</a>
+  <a class="nav-button" href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi">FOOD4THOTH Facebook</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Artabillies/index.html">Learn About ARTABILLIES</a>
+  <a class="nav-button" href="http://www.artabillies.com">ARTABILLIES Website</a>
+  <a class="nav-button" href="https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ==">ARTABILLIES Instagram</a>
+  <a class="nav-button" href="https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi">ARTABILLIES Facebook</a>
+  <a class="nav-button" href="https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP">ARTABILLIES Facebook Group</a>
+  <a class="nav-button" href="https://www.food4thoth.com/RstoryArtabillies/index.html">Rstory, FOOD4THOTH & ARTABILLIES</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Donations/index.html">Donations Page</a>
+  <a class="nav-button" href="https://www.food4thoth.com/index.html">FOOD4THOTH HOME</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TideApp/indexOregon.html">Tide Walk Oregon</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TideApp/indexBoston.html">Tide Walk Boston</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TideApp/index.html">Tide Walk USA</a>
 </div>
 
 # 🌊 Tide and Weather Visualization
