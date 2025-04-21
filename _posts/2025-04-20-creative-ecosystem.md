@@ -16,7 +16,8 @@ Welcome to the crossroads of imagination and intention—where art breathes, cod
 
 ⸻
 
-1. Food4Thoth – A Digital Sanctuary
+1. [Food4Thoth](https://www.food4thoth.com)
+ – A Digital Sanctuary
 
 This site you’re exploring is more than a homepage—it’s a mystic-tech playground.
 Food4Thoth blends divination, music, philosophy, and interactive design into a single platform.
@@ -25,33 +26,44 @@ From voice-activated tarot spreads to generative fractals, ASCII art stick fight
 Mission:
 “Fuse the mystical and digital to inspire growth, play, and collective consciousness.”
 
-Browse Food4Thoth →
+[Explore Food4Thoth](https://www.food4thoth.com)
 
 ⸻
 
-2. Artabillies – A Psychedelic Art Collective
+2. [Artabillies](https://www.artabillies.com)
+ – A Psychedelic Art Collective
 
 Born from a blend of punk, folk, and cosmic color palettes, Artabillies is a grassroots collective and storefront founded by DeJahn & Laura.
 It uplifts bold and often underrepresented artists through a shared platform of prints, pins, paintings, and music.
+
+- [View the Prints](https://www.artabillies.com/prints/)
+- [Shop Hat Pins](https://www.artabillies.com/hat-pins/)
+- [Browse Paintings](https://www.artabillies.com/paintings/)
+- [Grab Stickers](https://www.artabillies.com/stickers/)
+- [Listen to Music](https://www.artabillies.com/music/)
 
 Motto:
 “Don’t feed the artists—buy their art so they can feed themselves.”
 
 This is more than an art shop—it’s a movement rooted in inclusion, sustainability, and soul.
 
-Visit Artabillies →
+[Visit Artabillies](https://www.artabillies.com)
 
 ⸻
 
-3. Dseekeroftruth GitHub – The Code Behind the Magic
+3. [Dseekeroftruth GitHub-](https://github.com/dseekeroftruth)
+ – The Code Behind the Magic
 
 Behind every tarot flip, fractal flash, and looping beat is code—and DeJahn builds it all from scratch.
 
-On GitHub, you’ll find:
-	•	The full Food4Thoth source (HTML/JS/CSS)
-	•	Animated ASCII art & creative coding experiments
-	•	Rstory token-gated templates for decentralized art access
-	•	A blend of retro aesthetics + future-forward tech
+Explore the tools behind the magic:
+
+- [View the Food4Thoth Source Code](https://github.com/dseekeroftruth/Food4Thoth)
+- [Check out the Artabillies Jug ASCII Animation](https://github.com/dseekeroftruth/Artabillies-Jug)
+- [Artabillies Dobbs Product Template](https://github.com/dseekeroftruth/rstory/tree/main/templates/Artabillies_Dobbs_Product_Final)
+- [Artabillies Dobbs Gate Template](https://github.com/dseekeroftruth/rstory/tree/main/templates/Artabillies_Dobbs_Gate_Final)
+- [Visit the GitHub Profile](https://github.com/dseekeroftruth)
+
 
 This is where ritual meets repository—code becomes a creative medium.
 
@@ -62,9 +74,10 @@ Synergy & Philosophy
 These aren’t separate projects—they are a single, unified ecosystem:
 
 Art + Code + Community = Creative Liberation
-	•	Food4Thoth is the hub
-	•	Artabillies is the heartbeat
-	•	GitHub is the engine
+- [Food4Thoth is the hub](https://www.food4thoth.com)
+- [Artabillies is the heartbeat](https://www.artabillies.com)
+- [GitHub is the engine](https://github.com/dseekeroftruth)
+
 
 Together, they invite us to imagine a world where:
 	•	Knowledge is playful
@@ -78,4 +91,6 @@ Together, they invite us to imagine a world where:
 
 If you’ve ever felt like the digital world could be more magical—or that art could do more than just hang on walls—this ecosystem was built for you.
 
-Enter the garden. Explore. Create. Contribute.
+[Enter the garden](https://www.food4thoth.com). [Explore. Create. Contribute.](https://www.food4thoth.com)
+
+---
