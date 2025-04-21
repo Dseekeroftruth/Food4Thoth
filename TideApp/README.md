@@ -38,6 +38,33 @@ twitter_image: /images/og-preview.jpg
   <a class="nav-button" href="https://www.food4thoth.com/TideApp/index.html">Tide Walk USA</a>
 </div>
 
+<style>
+body {
+    background-color: black;
+    color: white;
+  }
+  a { color: #00ffff; }
+  h1, h2, h3, h4, h5, h6 { color: #ff66cc; }
+
+  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ff00ff, #001eff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(255, 0, 255, 0.5);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffff, #6600cc);
+    box-shadow: 0 0 10px #00ffff;
+  }
+</style>
+
 # 🌊 Tide and Weather Visualization
 
 The **Tide and Weather Visualization** tool combines tidal predictions with weather forecasts to provide an intuitive and interactive way to plan beach walks, tide viewing, and other coastal activities. Using real-time data from NOAA and Open-Meteo, this application offers detailed visual insights into tidal heights and temperatures, ensuring a seamless coastal experience.
