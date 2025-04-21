@@ -1,13 +1,38 @@
 title: Food4Thoth
 description: Mystical digital garden of creativity and community
 url: "https://www.food4thoth.com"
+baseurl: ""
 author: DeJahn
+email: food4thoth@proton.me
+lang: en
+timezone: America/Los_Angeles
+
+logo: /images/og-preview.jpg
+
 social:
   name: Food4Thoth
   links:
     - https://www.instagram.com/emerald_path_food4th0th
     - https://www.facebook.com/Food4Thothdotcom/
     - https://github.com/dseekeroftruth
+
+feed:
+  path: feed.xml
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      image: /images/og-preview.jpg
+      og_image: /images/og-preview.jpg
+      og_title: "Food4Thoth – A Portal to Creativity and Exploration"
+      og_description: "A mystical digital garden for creativity, mysticism, interactive tools, and community empowerment."
+      twitter_card: summary_large_image
+      twitter_title: "Food4Thoth"
+      twitter_description: "Explore creativity, mysticism, and community tools in the Food4Thoth experience."
+      twitter_image: /images/og-preview.jpg
+      canonical_url: https://www.food4thoth.com/
 
 plugins:
   - jekyll-sitemap
