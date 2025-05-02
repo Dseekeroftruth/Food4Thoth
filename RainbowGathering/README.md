@@ -1,4 +1,77 @@
-# 🌈 Rainbow Gatherings Archive
+---
+layout: default
+title: "Rainbow Gatherings Archive"
+description: "An evolving sound and cultural archive preserving the spirit of Rainbow Gatherings from 1981 to today — hosted on FOOD4THOTH."
+permalink: /RainbowGathering/readme/
+image: /images/og-preview.jpg
+
+og_title: "Rainbow Gatherings Archive"
+og_description: "Decades of sound recordings and cultural storytelling from Rainbow Gatherings — curated by FOOD4THOTH."
+og_image: /images/og-preview.jpg
+
+twitter_card: summary_large_image
+twitter_title: "Rainbow Gatherings Archive"
+twitter_description: "Listen to rare Rainbow Gathering field recordings and explore the history through a digital esoteric archive."
+twitter_image: /images/og-preview.jpg
+---
+
+
+
+<div style="text-align: center; margin-top: 30px; margin-bottom: 40px;">
+  <a class="nav-button" href="https://www.food4thoth.com/">FOOD4THOTH Website</a>
+  <a class="nav-button" href="https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho">FOOD4THOTH Instagram</a>
+  <a class="nav-button" href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi">FOOD4THOTH Facebook</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Artabillies/index.html">ARTABILLIES Info</a>
+  <a class="nav-button" href="http://www.artabillies.com">ARTABILLIES Website</a>
+  <a class="nav-button" href="https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ==">ARTABILLIES Instagram</a>
+  <a class="nav-button" href="https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi">ARTABILLIES Facebook</a>
+  <a class="nav-button" href="https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP">ARTABILLIES Facebook Group</a>
+  <a class="nav-button" href="https://www.food4thoth.com/RstoryArtabillies/index.html">Rstory</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Donations/index.html">Donations Page</a>
+</div>
+
+# 🌈 Rainbow Gatherings Archive  
+*A digital soundscape and storytelling library celebrating peace, creativity, and community — curated under the FOOD4THOTH umbrella*
+
+[← Return to FOOD4THOTH](../index.html)
+
+---
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a {
+    color: #00ffff;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffd700;
+  }
+  .wrap {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+
+  .nav-button {
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 6px;
+    background: linear-gradient(135deg, red, orange, yellow, green, blue, indigo, violet);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, violet, indigo, blue, green, yellow, orange, red);
+    box-shadow: 0 0 15px #00ffff;
+  }
+</style>
 
 ## Overview
 
@@ -48,10 +121,6 @@ Each page provides track-by-track analysis, key insights, and historical reflect
 ## 📂 Neumorphic Sidebar Navigation
 - Toggleable menu for quick access to different archive sections.
 - Expandable submenus for organizing related resources.
-
-## 📜 ReadMe & Resource Links
-- README files for individual sections are available in ../README.md links throughout the navigation.
-- Each gathering has its own page with direct links to original recordings.
 
 ---
 
