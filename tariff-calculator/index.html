@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trump 2025 Tariff Impact Calculator</title>
+	
+	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
+
+  <!-- SEO Meta Tags -->
+  <meta name="title" content="Trump 2025 Tariff Impact Calculator">
+  <meta name="description" content="Interactive tool to estimate price impacts from Trump’s 2025 tariff regime. Understand how new tariffs affect imports from China, Mexico, EU, and more.">
+  <meta name="keywords" content="Trump tariffs, 2025 tariffs, tariff calculator, trade impact, USMCA, China trade, consumer costs, import taxes">
+  <meta name="author" content="Food4Thoth">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.food4thoth.com/tariff-calculator/index.html">
+  <meta property="og:title" content="Trump 2025 Tariff Impact Calculator">
+  <meta property="og:description" content="Estimate how tariffs affect your costs. Choose a product, origin country, and get your personalized impact.">
+  <meta property="og:image" content="https://www.food4thoth.com/images/og-preview.jpg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Trump 2025 Tariff Impact Calculator">
+  <meta name="twitter:description" content="Calculate how Trump’s 2025 tariffs raise prices on imports. Powered by FOOD4THOTH.">
+  <meta name="twitter:image" content="https://www.food4thoth.com/images/og-preview.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://www.food4thoth.com/images/favicon.png" type="image/x-icon">
+	
+	<meta name="theme-color" content="#f8f9fa">
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+    .section {
+      margin-bottom: 2rem;
+    }
+    h1, h2 {
+      font-weight: 600;
+    }
+    .result-box {
+      background: #fff;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+    }
+		
+		.result-box {
+  transition: background-color 0.3s ease;
+}
+.result-box:not(.d-none) {
+  background-color: #e6ffe6;
+}
+		
+		/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: auto;
+    
+		font-size: 1rem;
+}
+
+.styled-link {
+    color: #ff6600;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: color 0.3s, background-color 0.3s;
+}
+.styled-link:hover {
+    color: #ffffff;
+    background-color: #575757;
+    padding: 2px 5px; /* Optional hover effect */
+    border-radius: 4px; /* Optional for rounded corners */
+}
+			.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+/* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: 10px;
+    right: 5px;
+    padding: 5px 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+}
+
+.toggle-button:hover {
+    background-color: black;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+		pointer-events: none; /* This prevents any clicks on it */
+		display: none;
+}
+
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 70px; /* Adjust to stay below the toggle button */
+    right: 10px;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		height: 50%;
+		overflow-y: auto; /* Enable vertical scrolling */
+		
+		
+}
+				
+        .neumorphic-tab {
+					
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: clamp(16px, 1.2vw, 22px);
+						text-align: center;
+        }
+        .neumorphic-tab:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab.active {
+            background: #d1d1d1;
+        }
+				fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+header[role="banner"] {
+    background-color: #111;
+    color: #fff;
+    margin: 0;
+    padding: 1rem 0;
+    border-bottom: 2px solid #ff6600;
+  }
+
+  #site-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.75rem;
+  }
+
+  .header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+
+  </style>
+</head>
+
+<body>
+	
+<header role="banner" aria-label="Site Header" class="bg-dark text-light py-4">
+  <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
+    <!-- Logo and Title -->
+    <div class="d-flex align-items-center mb-3 mb-md-0">
+      <img src="../images/favicon.png" alt="Food4Thoth Logo" width="50" height="50" class="me-3" />
+      <h1 class="h4 m-0" id="site-title">Food4Thoth</h1>
+    </div>
+
+    <!-- Tagline (Screen Reader + Visual) -->
+    <p class="lead m-0 visually-hidden" id="site-tagline">Mystical tools, creative code, and conscious tech</p>
+    <p class="d-none d-md-block m-0 fst-italic text-muted">Mystical tools, creative code, and conscious tech</p>
+  </div>
+</header>
+
+  <!-- Navigation -->
+<nav id="nav-container" role="navigation" aria-label="Main site navigation"></nav>
+
+<main class="gallery-container" role="main">
+  <div class="container">
+    <h1 id="main-heading" tabindex="-1">Trump 2025 Tariff Impact Calculator</h1>
+
+    <!-- Tariff Form Section -->
+<section class="section" aria-labelledby="form-heading">
+  <h3 id="form-heading" class="mb-4">Estimate Your Cost</h3>
+
+  <form id="tariffForm"
+        class="row g-3"
+        role="form"
+        aria-labelledby="form-heading"
+        aria-describedby="form-description form-help">
+    
+    <span id="form-description" class="visually-hidden">
+      Select product category, country of origin, and enter price to estimate your tariff impact.
+    </span>
+    <span id="form-help" class="visually-hidden">
+      This calculator reflects estimated U.S. import costs under Trump’s 2025 trade policy.
+    </span>
+
+<fieldset aria-labelledby="form-heading">
+  <legend class="visually-hidden">Tariff Estimation Form</legend>
+
+      <div class="col-md-4 mb-3">
+        <label for="productCategory" class="form-label">Product Category</label>
+        <select class="form-select" id="productCategory" required aria-label="Select a product category" aria-required="true">
+          <option value="" selected disabled>Choose category</option>
+          <option value="electronics">Electronics</option>
+          <option value="apparel">Apparel</option>
+          <option value="food">Food & Agriculture</option>
+          <option value="automobiles">Automobiles</option>
+          <option value="furniture">Furniture</option>
+          <option value="plastics">Plastics</option>
+          <option value="pharma">Pharmaceuticals</option>
+          <option value="steel">Steel & Aluminum</option>
+          <option value="toys">Toys</option>
+          <option value="semiconductors">Semiconductors</option>
+        </select>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label for="origin" class="form-label">Country of Origin</label>
+        <select class="form-select" id="origin" required aria-label="Select country of origin" aria-required="true">
+          <option value="" selected disabled>Select country</option>
+          <option value="china">China</option>
+          <option value="vietnam">Vietnam</option>
+          <option value="mexico">Mexico</option>
+          <option value="canada">Canada</option>
+          <option value="eu">European Union</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label for="price" class="form-label">Product Price ($)</label>
+        <input type="number" min="0" step="0.01" class="form-control" id="price"
+               required aria-label="Enter product price in dollars" aria-required="true" />
+      </div>
+
+      <div class="col-12 mt-3">
+        <button type="submit" class="btn btn-primary me-2" aria-label="Calculate tariff cost">Calculate</button>
+        <button type="reset" class="btn btn-secondary" aria-label="Reset form">Reset</button>
+      </div>
+    </fieldset>
+  </form>
+
+      <div id="result" class="result-box d-none"
+           role="region"
+           aria-live="polite"
+           aria-atomic="true"
+           aria-label="Tariff Calculation Result"
+           tabindex="-1">
+      </div>
+			<div role="region" aria-labelledby="download-heading" class="mt-3">
+  <h4 id="download-heading" class="visually-hidden">Download Result</h4>
+  <button id="downloadResult" class="btn btn-outline-secondary d-none" aria-label="Download tariff calculation result as text file">Download Result</button>
+</div>
+    </section>
+
+    <section class="section" aria-labelledby="overview-heading">
+  <h2 id="overview-heading">Overview of Trump’s 2025 Tariff Regime</h2>
+  <p id="overview-desc">Summary of tariff policy changes during Trump’s second term, including sector and country impacts, consumer effects, and global retaliation.</p>
+	
+	 <hr />
+
+  <article aria-labelledby="us-tariffs">
+    <h3 id="us-tariffs">🇺🇸 U.S. Tariffs Implemented Under Trump (2025)</h3>
+    <ul>
+      <li><strong>10% Baseline Tariff:</strong> Applied to nearly all imports starting April 5, 2025.</li>
+      <li><strong>“Reciprocal” Tariffs:</strong> Announced April 2, targeting 57 countries (11%–50%). Suspended for 90 days (except China).</li>
+    </ul>
+  </article>
+
+  <article aria-labelledby="country-specific">
+    <h4 id="country-specific">Country-Specific Tariffs</h4>
+    <ul>
+      <li><strong>China:</strong> Up to 145% on imports</li>
+      <li><strong>Canada & Mexico:</strong> 25%, with USMCA exemptions</li>
+      <li><strong>EU:</strong> 20% levy on imports</li>
+    </ul>
+  </article>
+
+  <article aria-labelledby="sector-specific">
+    <h4 id="sector-specific">Sector-Specific Tariffs</h4>
+    <ul>
+      <li><strong>Steel & Aluminum:</strong> 25%</li>
+      <li><strong>Automobiles & Parts:</strong> 25%</li>
+      <li><strong>Other Products:</strong> Threatened or implemented on semiconductors, pharmaceuticals, etc.</li>
+    </ul>
+  </article>
+	
+	 <hr />
+
+  <article aria-labelledby="retaliation">
+    <h3 id="retaliation">🌍 Retaliatory Tariffs Imposed on the U.S.</h3>
+    <ul>
+      <li><strong>China:</strong> 125% on U.S. goods, rare earth export restrictions</li>
+      <li><strong>EU:</strong> Tariffs on $22B in goods (soybeans, motorcycles, beauty products)</li>
+      <li><strong>Canada:</strong> $29.8B in tariffs, including 25% on autos</li>
+      <li><strong>Mexico:</strong> Broad retaliatory tariffs (details unspecified)</li>
+    </ul>
+  </article>
+	
+	 <hr />
+
+  <article aria-labelledby="consumer-impact">
+    <h3 id="consumer-impact">💵 Impact on U.S. Consumer Prices</h3>
+    <ul>
+      <li><strong>Average household increase:</strong> ~$5,000 annually</li>
+      <li><strong>Plastic goods:</strong> ~+22%</li>
+      <li><strong>Apparel:</strong> +40–60%</li>
+      <li><strong>Almonds:</strong> Prices dropped domestically due to loss of Chinese exports</li>
+    </ul>
+  </article>
+	
+	 <hr />
+
+  <article aria-labelledby="economic-impact">
+    <h3 id="economic-impact">📉 Broader Economic Effects</h3>
+    <ul>
+      <li><strong>GDP Impact:</strong> -6% projected</li>
+      <li><strong>Wages:</strong> Estimated 5% reduction</li>
+      <li><strong>Lifetime Household Loss:</strong> ~$22,000 (middle-income)</li>
+      <li><strong>Import Decline:</strong> ~$740B in 2025</li>
+    </ul>
+    <p><em>These extensive tariffs and resulting trade tensions have led to significant economic shifts, affecting prices, global trade, and consumer well-being.</em></p>
+  </article>
+</section>
+			
+		 <hr />	
+
+    <section class="section mt-4" aria-labelledby="sources-heading">
+  <h2 id="sources-heading">Data Sources & References</h2>
+  <p id="sources-description" class="visually-hidden">List of official references and economic data used to compile this calculator.</p>
+  <ul aria-labelledby="sources-heading" aria-describedby="sources-description">
+    <li><a href="https://www.whitehouse.gov/briefing-room/statements-releases/" target="_blank" rel="noopener">White House – Statements & Releases</a></li>
+    <li><a href="https://ustr.gov/" target="_blank" rel="noopener">USTR – Trade & Tariff Actions</a></li>
+    <li><a href="https://www.reuters.com/business/" target="_blank" rel="noopener">Reuters – Trade News</a></li>
+    <li><a href="https://www.bloomberg.com/economics" target="_blank" rel="noopener">Bloomberg Economics</a></li>
+    <li><a href="https://www.kiplinger.com/" target="_blank" rel="noopener">Kiplinger – Tariff Reports</a></li>
+    <li><a href="https://www.brookings.edu/topic/trade/" target="_blank" rel="noopener">Brookings Institution – Trade Policy</a></li>
+    <li><a href="https://nrf.com/research" target="_blank" rel="noopener">National Retail Federation – Tariff Analysis</a></li>
+    <li><a href="https://www.consumerreports.org/" target="_blank" rel="noopener">Consumer Reports – Impact on Goods</a></li>
+    <li><a href="https://www.wto.org/" target="_blank" rel="noopener">WTO – Trade Regulations</a></li>
+    <li><a href="https://ec.europa.eu/" target="_blank" rel="noopener">European Commission – Retaliation Lists</a></li>
+  </ul>
+</section>
+
+ <hr />
+			
+			<!-- Feedback Section -->
+    <section class="mt-4" aria-labelledby="feedback-heading">
+      <h2 id="feedback-heading">Feedback</h2>
+      <fieldset aria-describedby="feedback-instructions">
+        <legend class="visually-hidden">Feedback on Calculator Helpfulness</legend>
+        <p id="feedback-instructions">Was this tool helpful?</p>
+        <div class="btn-group" role="group" aria-label="Yes or No feedback options">
+          <button id="feedback-yes" class="btn btn-outline-success" aria-label="Yes, this calculator was helpful">Yes</button>
+          <button id="feedback-no" class="btn btn-outline-danger" aria-label="No, this calculator was not helpful">No</button>
+        </div>
+        <p id="feedback-response"
+           class="mt-2"
+           role="status"
+           aria-live="polite"
+           aria-atomic="true"
+           style="min-height:1em;"></p>
+      </fieldset>
+    </section>
+
+		<!-- Hidden Feedback Form -->
+    <form id="formspree-feedback" action="https://formspree.io/f/xdknravw" method="POST" style="display:none;">
+      <input type="hidden" name="result-summary" id="result-summary-field" />
+      <input type="hidden" name="feedback-response" id="feedback-field" />
+      <input type="hidden" name="metadata" id="metadata-field" />
+    </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer role="contentinfo" aria-label="Site Footer">
+    <a href="/tariff-calculator/readme/" class="styled-link">ReadMe</a>
+    © 2025 Food4Thoth  
+    <a href="/contact.html" class="styled-link">Contact</a>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../nav-fetch.js" defer></script>
+  <script src="../nav_script2.js" defer></script>
+  <script src="./tariffData.js"></script>
+	
+	<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Feedback submission function
+  function submitFeedback(responseText) {
+    const resultBox = document.getElementById("result");
+    const summaryField = document.getElementById("result-summary-field");
+    const feedbackField = document.getElementById("feedback-field");
+    const metadataField = document.getElementById("metadata-field");
+
+    const resultText = resultBox.innerText.trim();
+    const dateTime = new Date().toLocaleString(); // Local date and time
+    const pageURL = window.location.href; // Current page URL
+
+    summaryField.value = resultText;
+    feedbackField.value = responseText;
+    metadataField.value = `Feedback: ${responseText}\nPage: ${pageURL}\nTime: ${dateTime}`;
+
+    document.getElementById("formspree-feedback").submit();
+  }
+
+  // Handle Yes feedback
+  document.getElementById('feedback-yes').addEventListener('click', () => {
+    document.getElementById('feedback-response').textContent = "Thank you for your feedback!";
+    submitFeedback("Yes");
+  });
+
+  // Handle No feedback
+  document.getElementById('feedback-no').addEventListener('click', () => {
+    document.getElementById('feedback-response').textContent = "We're sorry — we'll work to improve it.";
+    submitFeedback("No");
+  });
+});
+document.querySelector('form').addEventListener('reset', () => {
+  document.getElementById('result').classList.add('d-none');
+  document.getElementById('downloadResult').classList.add('d-none');
+});
+</script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Trump 2025 Tariff Impact Calculator",
+    "url": "https://www.food4thoth.com/tariff-calculator/index.html",
+    "description": "Interactive tool to estimate price impacts from Trump’s 2025 tariff regime.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "author": {
+      "@type": "Organization",
+      "name": "Food4Thoth"
+    }
+  }
+  </script>
+
+</body>
+</html>
