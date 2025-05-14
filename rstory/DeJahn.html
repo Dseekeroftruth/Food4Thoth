@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DeJahn | RSTORY Creator</title>
+	 <script src="https://rstory.mypinata.cloud/ipfs/QmRRRaytjur3gspxa9mUxaxLQhW6A19qRvp4TFweJfACkn"></script>
+    <script src="https://rstory.mypinata.cloud/ipfs/QmPrgG4X6sX3CHLLgrcQU8H8VTqh5mWqWfP6KLtfSfYKxc"></script>
+    <script src="https://unpkg.com/anchor-link@3"></script>
+    <script src="https://unpkg.com/anchor-link-browser-transport@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.6.8/dist/ethers.umd.min.js"></script>	
+<script src="https://unpkg.com/@solana/web3.js@1.73.3/lib/index.iife.min.js"></script>
   <style>
     body {
       background: #0a0a0a;
@@ -53,6 +59,13 @@
     a:hover {
       text-decoration: underline;
     }
+		
+		  .project img {
+      width: 100%;
+      border-radius: 12px;
+      margin: 1rem 0;
+      box-shadow: 0 0 10px rgba(0,255,255,0.4);
+    }
 
     .section {
       padding: 2rem;
@@ -95,9 +108,355 @@
   height: auto;      /* Maintains aspect ratio */
   border: 3px solid #0ff;
 }
+
+button {
+            display: inline-block;
+            padding: 12px 10px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+				
+				 .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+				
+				.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+ 
+  flex-wrap: wrap;
+}
+
+        #button-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }		
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+				
+				   .token-info {
+						 padding: 2rem;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #007bff;
+        }
+        .token-info img {
+            float: right;
+            margin-left: 20px;
+            width: 100px;
+        }
+        .token-info h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        .token-info p {
+            font-size: 1em;
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+				
+				a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: white;
+            background-color: #007bff; 
+        }
+				
+				   .modal {
+          position: fixed;
+          top: 0; left: 0;
+          width: 100vw; height: 100vh;
+          background: rgba(0,0,0,0.8);
+          display: none;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+          overflow: auto;
+	font-color: black;			
+        }
+
+        .modal-content {
+          background: WhiteSmoke;
+          padding: 20px;		  
+          border: 12px solid LightGray;
+          border-radius: 16px;
+          color: black;
+          text-align: left;
+		  max-width: 50%;		  
+          overflow-y: auto; /* Scroll content if too tall */
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+					font-color: black;
+					
+        }
+		
+        .modal p {
+          background-color: WhiteSmoke;
+          font-size: 16;
+          letter-spacing: 1px;		  
+          font-family: Economica;		
+        }
+		
+        .modal li {
+          background-color: WhiteSmoke;
+          font-size: 16;
+          letter-spacing: 1px;		  
+          font-family: Economica;		
+        }
+
+        .modal h2 {
+          background-color: WhiteSmoke;
+          font-size: 24;
+          letter-spacing: 1px;		  
+		  font-family: "Pathway Gothic One", sans-serif;		
+        }		
+				
+				  .mdb {
+          display: flex;
+          flex-direction: row;		  
+          flex-wrap: wrap;
+          align-items: flex-start;
+          width: 100%;
+          box-sizing: border-box;
+          gap: 20px;		  
+        }
+		
+        .image-col {
+          flex: 0 0 25%;
+          max-width: 25%;
+          background: transparent;		  
+        }
+
+        .image-col img {
+          max-width: 100%;
+          height: auto;
+          display: block;
+          border: 2px solid LightGray;
+          border-radius: 16px;
+          background: transparent;		  
+        }
+
+        .text-col {
+          flex: 0 0 70%;
+          max-width: 70%;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;		  
+        }
+
+        .text-col p {
+          background: rgba(255,255,255,0.5);				
+          font-size: 20px;
+          letter-spacing: 1px;		  
+          font-family: Economica;
+          margin-top: 0;		  
+        }		
+
+        #moondong .modal-content {
+          max-height: 80vh;
+          overflow-y: auto;
+        }
+		
+        #rnetwork .modal-content {
+          max-height: 80vh;
+          overflow-y: auto;
+        }		
+
+        #about .modal-content {
+          max-height: 80vh;
+          overflow-y: auto;
+        }		
+
+        .modal-content h2 {
+          margin-top: 0;
+        }	
+
+        .close {
+          cursor: pointer;
+          color: red;
+          font-weight: bold;
+          margin-top: 10px;
+        }		
+				.modal-content {
+            max-width: 80%;
+            max-height: 80%;			
+          }		
+					
+					video {
+          max-width: 100%;
+          height: auto;			
+        }
+				
+				.sticky-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: #000;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  overflow-x: hidden;
+	font-size: .9em;
+}
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.scroll-row {
+  display: flex;
+  gap: .5rem;
+  white-space: wrap;
+	width: 100%;
+  animation: scroll-left 20s linear infinite;
+}
+
+.scroll-row a {
+  flex-shrink: 0;
+  padding: 0.75rem 1rem;
+  border-radius: 5px;
+  background-color: #111;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.scroll-row:hover {
+  animation-play-state: paused;
+}
+
+body {
+  padding-top: 180px; /* adjust based on your banner height */
+}
+
+	.preview {
+  width: 100%;
+  max-width: 900px; /* Ensures desktop size remains optimal */
+  margin: auto;
+  text-align: center;
+}
+
+iframe {
+      width: 100%;
+      height: 315px;
+      margin-top: 15px;
+      border-radius: 10px;
+    }
+					
   </style>
 </head>
 <body>
+	
+	<div class="sticky-banner">
+		  <div class="scroll-row">
+  <a href="https://eos.alcor.exchange/trade/rstory-rstorytokens_eos-eosio.token" target="_blank" class="btn black">Buy with EOS on Alcor</a>
+  <a href="https://app.uniswap.org/explore/pools/ethereum/0x6C47D607e359FAe26d1E1d97d9c609f9c384e4AA" target="_blank" class="btn black">Buy with ETH on Uniswap</a>
+  <a href="https://claim.dropchain.network/buy/144dacac-2a26-420e-af55-03d3b1189069" target="_blank" class="btn black">Buy with USD on Dropchain</a>
+</div>
+ <div class="grid">
+	
+  <!-- Row 0: Modals -->
+<div class="button-row">
+  <button class="btn black" onclick="openModal('about')">Start Here</button>
+  <button class="btn black" onclick="openModal('bio')">How It Works</button>
+  <button class="btn black" onclick="openModal('rnetwork')">Network</button>
+</div>
+
+<!-- Row 1: Modals -->
+<div class="button-row">
+  <button class="btn black" onclick="openModal('eos-modal')">EOS INFO</button>
+  <button class="btn black" onclick="openModal('eth-modal')">ETH INFO</button>
+  <button class="btn black" onclick="openModal('dropchain-modal')">DROPCHAIN INFO</button>
+</div>
+
+				    <div id="button-row">
+							<a href="https://wallet.dropchain.network/login/S1CWVuM9Ob8l4ZKsIGfMCOgT" target="_blank"
+   style="display: inline-block;
+            padding: 12px 24px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;"
+   onmouseover="this.style.backgroundColor='#0056b3';"
+   onmouseout="this.style.backgroundColor='#007bff';">Dropchain
+</a>
+  <button id="read-btn">Anchor</button>
+  <button id="read-metamask">Metamask</button>
+	
+  <button id="phantom-check">Phantom</button>
+ 
+</div>
+ <button id="phantom-retry" style="display: none;">Retry Phantom</button>
+
+</div>
+<!-- Mobile-Only Modal (Hidden by Default) -->
+<div id="mobile-only" class="modal" style="display: none;">
+  <div class="modal-content" style="max-width: 400px; margin: auto; padding: 1.5rem; background: black; color: white; border-radius: 8px; position: relative;">
+    
+    <button onclick="closeModal('mobile-only')" style="position: absolute; top: 10px; right: 10px; background: none; color: white; border: none; font-size: 1.5rem;">×</button>
+
+ 
+      Open in MetaMask Mobile:<br/>
+      <button onclick="copyToClipboard('https://www.food4thoth.com/rstory/DeJahn')">
+        Copy URL to Paste into MetaMask Browser
+      </button>
+   
+
+    <button onclick="detectAndOpenMetaMask()">Mobile MetaMask</button>
+  </div>
+</div>
+
+</div>
+	
+
+
 
   <header>
     <h1>DeJahn (a.k.a. @dseekeroftruth)</h1>
@@ -113,41 +472,732 @@
 	
 	<img class="creator-avatar" src="./assets/img/dseeker-avatar.jpeg" alt="DeJahn / dseekeroftruth">
 
-  <section class="section">
-    <h2>About DeJahn</h2>
+   <section class="section">
+    <h2>DeJahn: Mystic Technologist, Creative Architect, and Cultural Alchemist</h2>
     <p>
-      DeJahn has been cultivating an interdisciplinary creative hub — where digital code meets intuitive mysticism. With deep roots in collaborative storytelling and a bold artistic voice, he channels collective expression through works like <a href="https://www.food4thoth.com/" target="_blank">Food4Thoth</a>, a psychedelic archive and interactive playground of esoteric tools, visual art, and spiritual inquiry.
+      I'm DeJahn, a multidisciplinary artist, psychedelic systems thinker, the creative force behind <a href="https://www.food4thoth.com/" target="_blank">Food4Thoth.com</a> and co-creator of <a href="https://www.Artabillies.com/" target="_blank">Artabillies.com</a> — platforms evolving to amplify imagination, decentralize power, and catalyze artistic liberation.
     </p>
     <p>
-      Through <a href="https://www.artabillies.com/" target="_blank">Artabillies</a>, DeJahn uplifts independent artists with a mission to fuse traditional and digital mediums. In 2024, Artabillies received 1 million RSTORY gratitude tokens — highlighting its impact on the creative economy.
+      My work flows between worlds — from hand-cut collage and UV-reactive mixed media to immersive web comics, fractal tarot tools, music collections, and AI-enhanced experimental design. At the heart of everything I create is a mission to re-enchant the world through art, mysticism, and mutual aid.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>Artabillies: Art for the People, by the People</h2>
+    <p>
+      Founded in 2016, Artabillies is a grassroots art collective and gallery built in collaboration with my wife Laura Bella. What began as a DIY vending project evolved into a national platform featuring vibrant, eclectic works from artists I deeply respect — people like Izwel, Chuck Hues, Rob Munger, DoodleTek, Mary Thompson, Northern Groove, and many more.
+    </p>
+    <p>
+      Artabillies showcases:
+      <ul>
+        <li>Psychedelic and outsider art</li>
+        <li>Wearable creations, prints, glasswork, and illustrations</li>
+        <li>A reverence for both tradition and experimentation</li>
+        <li>Eco-conscious shipping, accessible pricing, and direct artist support</li>
+      </ul>
+    </p>
+    <p>“Don’t feed the artist — buy their art and they’ll feed themselves.”</p>
+		
+		<div class="preview">
+								<!-- Clickable h3 that links to the website -->
+               
+                <iframe src="https://www.artabillies.com" loading="lazy"></iframe>
+            </div>
+		
+  </section>
+
+  <section class="section">
+    <h2>Food4Thoth: Esoteric Tools & Digital Imagination Engines</h2>
+    <p>
+      Food4Thoth is a multi-dimensional digital sanctuary — a living archive of:
+      <ul>
+        <li>Mystical web-based tools (Tarot, I Ching, Mescalito generators)</li>
+        <li>Voice-reactive visualizers and interactive music libraries</li>
+        <li>Zine-style comics that remix sacred teachings with poetic rebellion</li>
+        <li>Collaborative digital experiments rooted in liberation philosophy</li>
+      </ul>
+    </p>
+    <p>
+      Here, art is ritual, code is spellcraft, and the web is a wormhole to radical imagination.
+    </p>
+		
+		<div class="preview">
+								<!-- Clickable h3 that links to the website -->
+               
+                <iframe src="https://www.Food4Thoth.com" loading="lazy"></iframe>
+            </div>
+  </section>
+
+<section class="section">
+  <h2>INPROGRESSION & Sonic Artistry</h2>
+  <p>
+    As a drummer and founding member of <strong>INPROGRESSION</strong>, I explore the edges of sound with a band blending:
+    <ul>
+      <li>Blues, punk, funk, and experimental rock</li>
+      <li>Psychedelic instrumentation</li>
+      <li>Live performance with immersive visuals and symbolic narrative</li>
+    </ul>
+  </p>
+
+  <p>
+    Our track <strong>“Down the Rabbit Hole”</strong> is both a journey and a statement — weaving distorted time signatures with poetic storytelling and hypnotic groove.
+  </p>
+	
+		<div class="preview">
+								<!-- Clickable h3 that links to the website -->
+               
+                <iframe src="https://www.food4thoth.com/Inprogression/index.html" loading="lazy"></iframe>
+            </div>
+
+  <h3>Explore INPROGRESSION</h3>
+  <ul>
+    <li><a href="https://www.artabillies.com/inprogression" target="_blank">INPROGRESSION Portal – Artabillies</a></li>
+    <li><a href="https://www.food4thoth.com/Inprogression/index.html" target="_blank">INPROGRESSION – Food4Thoth</a></li>
+    <li><a href="https://www.food4thoth.com/MusicLibrary/index.html" target="_blank">Music Library Interface</a></li>
+    <li><a href="https://www.food4thoth.com/MusicLibraryVis/index.html" target="_blank">Visualizer-Enhanced Music Library</a></li>
+    <li><a href="https://www.food4thoth.com/behind-the-fold/index.html" target="_blank">“Behind the Fold” – Portal</a></li>
+    <li><a href="https://www.food4thoth.com/skating-bunny/index.html" target="_blank">Skating Bunny Page – INPROGRESSION Mascot</a></li>
+  </ul>
+
+  <h3>Watch the INPROGRESSION DVD</h3>
+  <p>
+    <a href="https://youtube.com/playlist?list=PLsiMr0_hgaOmqlIGzjHZBzi94yaRgQ38L&si=91N_7THX4RdR5Pfc" target="_blank">
+      Full DVD Playlist on YouTube
+    </a>
+  </p>
+
+  <h3>Albums</h3>
+  <ul>
+    <li><a href="https://www.artabillies.com/time-energy" target="_blank">Time Energy</a></li>
+    <li><a href="https://www.artabillies.com/down-the-rabbit-hole" target="_blank">Down the Rabbit Hole</a></li>
+    <li><a href="https://www.artabillies.com/burned" target="_blank">Burned</a></li>
+  </ul>
+</section>
+
+  <section class="section">
+    <h2>RSTORY & TUDE: The Gratitude Economy of Art</h2>
+    <p>
+      I’m proud to be a key contributor to the RSTORY movement — a decentralized, tokenized ecosystem that uses blockchain to uplift artists through:
+      <ul>
+        <li>Gratitude-based currency (TUDE tokens)</li>
+        <li>Token-gated digital galleries (e.g., Do You Do Dobbs?)</li>
+        <li>Direct patronage and transparency</li>
+        <li>Global community building</li>
+      </ul>
     </p>
   </section>
 
   <section class="section">
     <h2>Featured Work</h2>
-
     <div class="project">
-			<img src="./assets/images/ArtabilliesRstory.jpeg" alt="Artabillies Rstory" style="max-width: 100%; border-radius: 12px; margin: 1rem 0; box-shadow: 0 0 10px rgba(0,255,255,0.4);">
+      <img src="./assets/images/ArtabilliesRstory.jpeg" alt="Artabillies Rstory">
       <h3>RSTORY + Artabillies Showcase</h3>
-      <p>
-        A beautifully woven portal explaining the origins and vision of RSTORY, seen through the lens of Artabillies. Dive into the mythos, mechanics, and mission behind the token and community.
-      </p>
+      <p>A beautifully woven portal explaining the origins and vision of RSTORY, seen through the lens of Artabillies.</p>
       <p><a href="https://www.food4thoth.com/RstoryArtabillies/index.html" target="_blank">Visit the RSTORY Artabillies Portal</a></p>
     </div>
-
     <div class="project">
-			<img src="./assets/images/Dobbs.webp" alt="Dobbs Rstory" style="max-width: 100%; border-radius: 12px; margin: 1rem 0; box-shadow: 0 0 10px rgba(0,255,255,0.4);">
+      <img src="./assets/images/Dobbs.webp" alt="Dobbs Rstory">
       <h3>The Dobbs Gate</h3>
-      <p>
-        A digital gallery installation using both RSTORY and TUDE tokens. This gateway celebrates sacred absurdity, decentralized identity, and glitchy resistance through interactive art.
-      </p>
+      <p>A digital gallery installation using both RSTORY and TUDE tokens — celebrating sacred absurdity and glitchy resistance.</p>
       <p><a href="https://rstory.io/Dobbs_GATE.html" target="_blank">Enter the Dobbs Gate</a></p>
     </div>
+		<!-- Image Gallery -->
+        <div class="gallery">
+            <img src="https://rstory.mypinata.cloud/ipfs/QmbM9mAPGW2oUTmFER17vByToSuoPS3bDdp6WbWPTh9BAF/Do_You_Do_Dobbs1.jpeg" alt="Product Image 1" />
+            <img src="https://rstory.mypinata.cloud/ipfs/QmbM9mAPGW2oUTmFER17vByToSuoPS3bDdp6WbWPTh9BAF/Do_You_Do_Dobbs2.jpeg" alt="Product Image 2" />
+            <img src="https://rstory.mypinata.cloud/ipfs/QmbM9mAPGW2oUTmFER17vByToSuoPS3bDdp6WbWPTh9BAF/Do_You_Do_Dobbs3.jpeg" alt="Product Image 3" />
+            <img src="https://rstory.mypinata.cloud/ipfs/QmbM9mAPGW2oUTmFER17vByToSuoPS3bDdp6WbWPTh9BAF/Do_You_Do_Dobbs4.jpeg" alt="Product Image 4" />
+            <img src="https://rstory.mypinata.cloud/ipfs/QmbM9mAPGW2oUTmFER17vByToSuoPS3bDdp6WbWPTh9BAF/Do_You_Do_Dobbs5.jpeg" alt="Product Image 5" />
+            <img src="https://rstory.mypinata.cloud/ipfs/QmbM9mAPGW2oUTmFER17vByToSuoPS3bDdp6WbWPTh9BAF/Do_You_Do_Dobbs6.jpeg" alt="Product Image 6" />
+        </div>
+        <h2><strong>High-Resolution Product Images</strong></h2>
+        <ul id="gallery-list">
+            <li><a href="#" data-encoded-hash="516d61527156486243424a5162597a7a5870327664573150644e396250756939734d6f33756d4d73366f7655544d"><strong>SEE FULL GALLERY HERE AFTER CONNECTING YOUR WALLET</strong></a></li>
+			<li><a href="http://www.artabillies.com/dejahn"><strong>VIEW AND PURCHASE DEJAHN'S PHYSICAL ART HERE AND GAIN RSTORY TOKENS</strong></a></li>
+        </ul>
+				
+					
   </section>
+
+  <section class="section">
+    <h2>Philosophy & Vision</h2>
+    <p>
+      I create to heal, awaken, and empower — weaving together mysticism, technology, and grassroots community care. My work is guided by a belief in:
+      <ul>
+        <li>Radical accessibility: Tools, art, and platforms for everyone</li>
+        <li>Decentralized expression: Art free from corporate control</li>
+        <li>Joyful rebellion: Liberation through beauty and play</li>
+        <li>Ecological & ancestral wisdom: Honoring what came before to shape what’s next</li>
+      </ul>
+    </p>
+    <p>Art is medicine. Code is spellwork. Community is sanctuary.</p>
+    <p>Let’s build the future together, one glitch-ritual, rainbow-spell, and gratitude-powered spark at a time.</p>
+  </section>
+	
+
+	
+<script>
+function detectAndOpenMetaMask() {
+  const url = "https://metamask.app.link/dapp/www.food4thoth.com/rstory/DeJahn.html";
+
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const isAndroid = /Android/i.test(navigator.userAgent);
+
+  if (isAndroid) {
+    window.location.href = url;
+  } else if (isIOS) {
+    alert(
+      "iOS users: Apple restricts automatic app opening.\n\nPlease open the MetaMask app, tap the browser tab, and visit:\n\nhttps://www.food4thoth.com/rstory/DeJahn.html"
+    );
+    // Optional: open link anyway
+    window.location.href = url;
+  } else {
+    window.open(url, "_blank");
+  }
+}
+</script>
+
+
+
+<!-- Modals -->
+<div class="modal" id="eos-modal">
+  <div class="modal-content">
+    <h2>EOS TOKEN INFO</h2>
+    <p><strong>Symbol:</strong> RSTORY<br>
+	<strong>Quantity:</strong> 10b<br>
+	<strong>Creation account:</strong> rstorytokens<br>
+	<strong>View on Eosflare:</strong> <a href="https://eosflare.io/account/rstorytokens" target="_blank">Here</a></p>
+    <div class="close" onclick="closeModal('eos-modal')">close</div>
+  </div>
+</div>
+
+<div class="modal" id="eth-modal">
+  <div class="modal-content">
+    <h2>TUDE ERC20 TOKEN INFO</h2>
+    <p><strong>Symbol:</strong> TUDE<br>
+	<strong>Quantity:</strong> 100m<br>
+	<strong>Contract address:</strong> 0xa9deffb371dd9c7fd2cfc6676cdb3bc394b45a42<br>
+	<strong>View on Etherscan:</strong> <a href="https://etherscan.io/token/0xa9deffb371dd9c7fd2cfc6676cdb3bc394b45a42" target="_blank">Here</a> </p>
+    <div class="close" onclick="closeModal('eth-modal')">close</div>
+  </div>
+</div>
+
+<div class="modal" id="dropchain-modal">
+  <div class="modal-content">
+    <h2>Dropchain Membership Token Info</h2>
+    <p><strong>Name:</strong> Rstory Original<br>
+	<strong>Quantity:</strong> 1.25k<br>
+	<strong>Description:</strong> This limited edition membership token operates on the DropChain blockchain and can be purchased using dollars with just a couple of clicks, no crypto knowledge necessary. You can buy a token for $3.99 </strong> <a href="https://claim.dropchain.network/buy/144dacac-2a26-420e-af55-03d3b1189069" target="_blank">here</a>.</p>
+	<p>Please note that until DropChain integration is complete, connecting your wallet won't work. If you have a token and would like to read Mark Bailey's novels, contact him <a href="https://t.me/fixingbrokenrobotscontact" target="_blank">on Telegram</a> and he'll send them to you.</p>
+    <div class="close" onclick="closeModal('dropchain-modal')">close</div>
+  </div>
+</div>
+
+<div class="modal" id="smallgods">
+  <div class="modal-content">
+    <img src="bookthumbs/smallgodsthumb.jpg" alt="Planes crashing" class="inline-img">
+    <h2>Small Gods of Time Travel</h2>	
+	<p>A man travels back in time to the day before 9/11. Once there, he meets up with his younger self. Together, using information and technology from the future, they try to improve society. Their most ambitious goal is changing the outcome of the US 2016 Democratic Primary. Along the way, powerful future technology falls into the wrong hands, with unexpected results.</p>
+    <span class="close" onclick="closeModal('smallgods')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="incident">
+  <div class="modal-content">
+    <img src="bookthumbs/321thumb.jpg" alt="National tragedy" class="inline-img">
+    <h2>The 321 Incident</h2>	
+	<p>A national tragedy claims as many lives as 9/11 did. From there, the story follows a handful of characters as they try to navigate the post-tragedy landscape. Although they face steep challenges, synchronicities and the magic of human connections help them find their way. Politics, media, harm reduction, and non-ordinary states of consciousness are some of the themes that the work explores.</p>
+    <span class="close" onclick="closeModal('incident')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="paradise">
+  <div class="modal-content">
+    <img src="bookthumbs/paradisethumb.jpg" alt="Gateway to another world" class="inline-img">
+    <h2>The Paradise Anomaly</h2>	
+	<p>It begins in Brooklyn. The Fairie Queen sends a pair of hipsters on a grand quest that ends in another world. In this other world, the guardian of the passage to Earth faces hard choices after learning troubling information about his predecessor. Then a billionaire's pet project upends this world's traditional society. The pitfalls of hidden politics are uncovered through dark humor and casual intrigue.</p>
+    <span class="close" onclick="closeModal('paradise')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="embassy">
+  <div class="modal-content">
+    <img src="bookthumbs/onemanthumb.jpg" alt="An ET's adventure" class="inline-img">
+    <h2>One Man Embassy</h2>	
+	<p>Forced to flee his home planet Jhanya during a violent revolution, Hequa steals a spaceship and makes his way to Earth. Here, on an unfamiliar world with alien customs, he tries to make a life for himself. Aided by technology from Jhanya and hindered by the absence of identity documents, Hequa finds work as a panhandler, a stage magician, and a manufacturer of rare items. Eventually, he opens Jhanya Embassy, where he shares the wonders of his home planet with the people of Earth.</p>
+    <span class="close" onclick="closeModal('embassy')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="saucer">
+  <div class="modal-content">
+    <img src="bookthumbs/saucerthumb.jpg" alt="An assassin from another planet" class="inline-img">
+    <h2>Flying Saucer Shenanigans</h2>	
+	<p>On the planet Jhanya, the destruction of a space station is blamed on a revolutionary named Hequa. When Hequa flees Jhanya for Earth, Lika the assassin is sent after him. On Earth, Lika pursues her target while learning to navigate the new planet's strange customs. She eventually makes some friends, finds a job washing dishes, and comes to realize that she may have been lied to by her government.</p>
+    <span class="close" onclick="closeModal('saucer')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="rainbow">
+  <div class="modal-content">
+    <img src="bookthumbs/rainbowlullabythumb.jpg" alt="A magical creature called a lagu" class="inline-img">
+    <h2>Rainbow Lullaby</h2>	
+	<p>A Lagu is an ancient and magical medium-sized mammal. When one of these strange creatures is accidentally seen by a human boy named Luke, everything changes. Traha is a sentient tree from a planet 23 light years away. When her one-way journey to Earth is completed with the help of a sorcerer named Taavi, everything changes. The blue man is many things. A safe driver. An inspiration. A lover of root beer floats. When the blue man surprises a woman named Nneka at a shopping mall, everything changes. These intertwined tales unfold in circumstances where magical creatures, telepathy, a revolutionary new currency, and a mysteriously powerful dance come together in unlikely ways. Through it all, the everyday world is transformed into someplace unfamiliar, and the reader is left questioning everything but the value of friendship.</p>
+    <span class="close" onclick="closeModal('rainbow')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="ostermann">
+  <div class="modal-content">
+    <img src="bookthumbs/ostermannthumb.png" alt="An abstract pattern" class="inline-img">
+    <h2>The Ostermann Method</h2>	
+	<p>A former spy tells the story of his clandestine career. A network of sorcerers attempt to influence the stock market using hypnosis. An act of terrorism provokes unsettling questions. And the murder of a bartender in Chicago threatens to transform a secret war into something entirely unexpected.</p>
+    <span class="close" onclick="closeModal('ostermann')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="dragon">
+  <div class="modal-content">
+    <img src="bookthumbs/dragonthumb.png" alt="A blue dragon" class="inline-img">
+    <h2>Blue Dragon Mississippi</h2>	
+	<p>Pikwik the blue dragon has lived in the Mississippi River for thousands of years. Like all blue dragons, Pikwik's life is enriched by her psychic communications with the people in her territory. When Pikwik realizes that fascists are beginning to take over, she chooses a young woman named Matilda to champion an anti-fascist resistance movement. With Pikwik's help, Matilda finds support for this movement in an ex-magician, an alien from another planet, and various other unusual characters. They might not have much in common, but they all agree that fascism sucks. And sometimes that's enough.</p>
+    <span class="close" onclick="closeModal('dragon')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="psychic">
+  <div class="modal-content">
+    <img src="bookthumbs/psychicthumb.jpg" alt="A pill that makes you psychic" class="inline-img">
+    <h2>Psychic Avalanche</h2>	
+	<p>An English wizard and an extraterrestrial combine magic with science to create a new drug that makes people telepathic. This has immediate consequences for a crypto enthusiast and his friends. It also reshapes society in unexpected ways. Fifty years in the future, an adventurous young woman embarks on a quest to uncover the secrets of the mysterious wizard who started it all.</p>
+    <span class="close" onclick="closeModal('psychic')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="bio">
+  <div class="modal-content">	
+	<p><span style="font-weight: 800; color: #d1492c">Distribution:</span> Rstory tokens are given away to people who contribute to the project. They are also used for virtual philanthropy, given to people and organizations working in service to the public good. Beyond this, the Rstory token is sold on the open market, where it may be purchased by anyone.</p>
+    <p><span style="font-weight: 800; color: #d1492c">Process:</span> Adding value to the network qualifies you to receive Rstory tokens. Just add your own book or video or song or other media product to the pool of awesome content available exclusively to Rstory token holders and we'll send you a quantity of tokens proportional to your contribution. Here's the basic process:
+	<ol><li>Media or webpage is uploaded to IPFS</li><li>The address of the file is encrypted</li><li>The file location is revealed only to people who possess Rstory</li><li>The first ones to share their work in this way will be showcased here on rstory.io, though anyone is welcome to make their own site or app that integrates the token</li><li>As more people contribute to the content pool, everyone's work is shared with a wider and wider audience</li></ol>
+	</p>
+	<p><span style="font-weight: 800; color: #d1492c">Connect:</span> If you want to get involved or just want to learn more, the easiest way to connect is <a href="https://t.me/+m-WEaUc7Ud8yY2Qx">on Telegram</a></p>
+    <span class="close" onclick="closeModal('bio')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="about">
+  <div class="modal-content">
+    <video controls>
+    <source src="https://rstory.mypinata.cloud/ipfs/bafybeidameazr2c7bstmtglcf3bjtnnfndnzsojvin3vgqok6bn54wapfi" type="video/mp4">Your browser does not support the video tag.
+    </video>  
+	<p>Rstory is a crypto token with zero decimals that operates on multiple blockchains. Rstory tokens are called tudes. Each one represents an indivisible unit of gratitude. Possession of a tude on any chain grants the bearer the right to access electronic copies of Mark Bailey's science fiction novels.</p>
+	<p>There are 9 awesome novels available on this page. To read them, just connect your Anchor wallet, MetaMask wallet (browser extension only, mobile app support coming soon), or DropChain account. If there's at least one Rstory token in your wallet, the book links will become active.</p>
+    <span class="close" onclick="closeModal('about')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="rnetwork">
+  <div class="modal-content">
+    <video controls autoplay muted loop>
+    <source src="https://rstory.mypinata.cloud/ipfs/bafybeihlz5eveqekip2ybgfl6lvypnhoa46npwwk4bpa7vs4u2gq5yiqim">Your browser does not support the video tag.
+    </video>  
+    <p>As creative people begin building on Rstory, this is where their projects and communities will be showcased.</p>
+    <p>So far, DeJahn of <a href="https://www.artabillies.com/" target="_blank">Artabillies</a> has put together the network's first <a href="https://rstory.io/Dobbs_GATE.html" target="_blank">Rstory gallery</a>. Check it out! Get inspired!</p>	
+    <span class="close" onclick="closeModal('rnetwork')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="moondong">
+  <div class="modal-content">  
+    <video controls>
+    <source src="https://rstory.mypinata.cloud/ipfs/bafybeidhtyenq3izbywmapvx6kyuem4jp23zvtao6to7yyqdhwogg2bbvu" type="video/mp4">Your browser does not support the video tag.
+    </video>
+    <p>Rstory doesn't have a Solana token yet so the memecoin Moondong serves as Rstory's Solana counterpart. Possession of 100k or more Moondong tokens is honored the same as possession of an Rstory token on any other chain. See the funny rap video about it above.</p>	
+    <p><strong>Sol Contract address:</strong> DthcPtviaaVasr6GTjRLoRcJSysSqGsZR61LArghpump</p>
+	<p><strong>Linktree:</strong> <a href="https://linktr.ee/moondong" target="_blank">Moondong</a> </p>
+	<p>To verify that you have at least 100k Moondong and access Mark Bailey's scifi <a href="#" id="phantom-check">connect Phantom here</a> (Browser extension only. Mobile support coming soon).</p>
+    <span class="close" onclick="closeModal('moondong')">close</span>
+  </div>
+</div>
+	
+	<!-- Tokenized Access Information Section -->
+<div class="token-info">
+  <a href="https://rstory.io">
+    <img src="https://rstory.io/logo180.png" alt="Rstory logo" />
+  </a>
+  <h1><strong>Tokenized Access to Digital Goods</strong></h1>
+  <p>
+    <strong>RSTORY</strong> is a multi-chain crypto token with zero decimals. Each token, known as a <strong>tude</strong>, represents an indivisible unit of gratitude.
+    RSTORY powers access to exclusive digital goods, gated content, and community-driven art ecosystems.
+  </p>
+
+  <p>
+    <strong>Supported Chains:</strong>
+  </p>
+
+  <ul style="line-height: 1.6; padding-left: 1.2rem;">
+    <li>
+      <strong>Ethereum</strong>: The RSTORY token symbol is <strong>TUDE</strong>.
+      It is an ERC-20 token available on the Ethereum network.<br/>
+      View on Etherscan:
+      <a href="https://etherscan.io/token/0xa9deffb371dd9c7fd2cfc6676cdb3bc394b45a42" target="_blank">
+        TUDE Contract – 0xa9deffb371dd9c7fd2cfc6676cdb3bc394b45a42
+      </a>
+    </li>
+		
+		<br/>
+
+    <li>
+      <strong>EOS</strong>: The symbol is <strong>RSTORY</strong>, issued by the account <code>rstorytokens</code>.<br/>
+      View on
+      <a href="https://eos.alcor.exchange/trade/rstory-rstorytokens_eos-eosio.token" target="_blank">
+				Alcor
+      </a>
+			<br/>
+			View on 
+			<a href="https://eosflare.io/account/rstorytokens" target="_blank">
+        eosflair.io
+      </a>
+			<br/>
+			View on 
+			<a href="https://unicove.com/vaulta?auth=artabilly.gm@active&chain=aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906" target="_blank">
+        Unicove
+      </a>
+    </li>
+
+		<br/>
+   
+<li>
+  <strong>Solana</strong>: The <strong>RSTORY</strong> token also exists on the Solana blockchain.<br/>
+  Mint Address:
+  <code>RstyC4aoSD1JKPGTxnjB3PkWdRzV3yoePH1XiPMxBfz</code><br/>
+  Easily accessed and stored using the
+<a href="https://phantom.com/ul/v1/connect?app_url" target="_blank">
+    <strong>Phantom Wallet</strong>
+  </a>
+	.<br/>
+  
+  View live market info on
+  <a href="https://www.geckoterminal.com/solana/pools/HvAbcRysAgYaiFfESyL8ZKt5t4Yk7YX9pZCiehp7d9Ad" target="_blank">
+    GeckoTerminal – RSTORY Solana Pool
+  </a>.<br/>
+  <a href="#" onclick="document.getElementById('phantom-check').click(); return false;">
+    Comming Soon (connect your Phantom Wallet)
+  </a>
+</li>
+  </ul>
+
+  <p>
+    For more details, download the revised
+    <a href="https://rstory.io/rstory-whitepaper.pdf" target="_blank">RSTORY Whitepaper</a>,
+    or follow the <a href="https://hive.blog/@rstory" target="_blank">official Hive blog</a> for announcements.
+  </p>
+
+  <p>
+    Join the movement and explore gratitude-powered experiences at
+    <a href="https://rstory.io" target="_blank">rstory.io</a> or connect on
+    <a href="https://t.me/+m-WEaUc7Ud8yY2Qx" target="_blank">Telegram</a>.
+  </p>
+</div>
 
   <div class="footer">
     © 2025 RSTORY | Creator page for DeJahn
-  </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+	// Modal functions
+function openModal(id) {
+  const modal = document.getElementById(id);
+  if (modal) modal.style.display = "flex";
+}
+
+function closeModal(id) {
+  const modal = document.getElementById(id);
+  if (modal) modal.style.display = "none";
+}
+
+// Event listeners for modals and bullet clicks
+document.addEventListener("DOMContentLoaded", () => {
+  const links = document.querySelectorAll('a[data-modal]');
+  links.forEach(link => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault(); // Prevent default anchor jump
+      const modalId = link.getAttribute("data-modal");
+      openModal(modalId);
+    });
+  });
+
+  // Close modal by clicking outside content
+  document.querySelectorAll(".modal").forEach(modal => {
+    modal.addEventListener("click", function (e) {
+      const content = modal.querySelector(".modal-content");
+      if (!content.contains(e.target)) {
+        modal.style.display = "none";
+      }
+    });
+  });
+
+  // Bullet click handler to open modals
+  const bullets = document.querySelectorAll(".bullet");
+  bullets.forEach(bullet => {
+    const modalId = bullet.dataset.modal;
+    bullet.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent propagation
+      openModal(modalId);
+    });
+  });
+});
+	
+	function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    alert("URL copied! Open MetaMask app > Browser tab > Paste to access.");
+  });
+}
+	
+function custom_decode(encoded_str) {
+  return decodeURIComponent(encoded_str.match(/.{1,2}/g).map(v => '%' + ('0' + v).slice(-2)).join(''));
+}
+
+function reveal() {
+  const links = document.querySelectorAll('#gallery-list a');
+  const base_url = "https://rstory.mypinata.cloud/ipfs/";
+  links.forEach(link => {
+    const encoded_hash = link.getAttribute("data-encoded-hash");
+    if (encoded_hash) {
+      const decoded_hash = custom_decode(encoded_hash);
+      link.href = base_url + decoded_hash;
+    }
+  });
+}
+
+function updateLoadingDiv(message) {
+  const div = document.getElementById("loading");
+  if (div) div.innerText = message;
+}
+
+function openInMetaMask() {
+  const siteURL = "https://www.food4thoth.com"; // your full HTTPS URL
+  const link = `https://metamask.app.link/dapp/${siteURL.replace(/^https?:\/\//, '')}`;
+  window.location.href = link;
+}
+
+async function suggestTudeToken() {
+  const wasAdded = await window.ethereum.request({
+    method: 'wallet_watchAsset',
+    params: {
+      type: 'ERC20',
+      options: {
+        address: '0xa9deffb371dd9c7fd2cfc6676cdb3bc394b45a42',
+        symbol: 'TUDE',
+        decimals: 0,
+        image: 'https://rstory.io/logo180.png'
+      },
+    },
+  });
+
+  if (wasAdded) {
+    console.log('TUDE token added to MetaMask');
+  } else {
+    console.log('TUDE token not added');
+  }
+}
+
+// ----------------- EOS / Anchor -----------------
+const dapp = "rstory";
+let login_use = "";
+let wallet_userAccount = "none";
+let wallet_session = null;
+
+const eos = new waxjs.WaxJS({ rpcEndpoint: 'https://eos.greymass.com' });
+const transport = new AnchorLinkBrowserTransport();
+const anchorLink = new AnchorLink({
+  transport,
+  chains: [{
+    chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
+    nodeUrl: 'https://eos.greymass.com',
+  }]
+});
+
+function loginEos(anchor) {
+  login_use = anchor;
+  if (anchor) {
+    anchorLink.login(dapp).then(result => {
+      wallet_session = result.session;
+      wallet_userAccount = wallet_session.auth.actor;
+      checkToken();
+    });
+  } else {
+    eos.login().then(userAccount => {
+      wallet_userAccount = userAccount;
+      checkToken();
+    }).catch(e => {
+      updateLoadingDiv(e.message || "Login failed");
+    });
+  }
+}
+
+function checkToken() {
+  const jsonData = JSON.stringify({
+    json: true,
+    code: "rstorytokens",
+    scope: wallet_userAccount,
+    table: "accounts",
+    limit: 10
+  });
+
+  fetch("https://eos.eosphere.io/v1/chain/get_table_rows", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: jsonData
+  })
+    .then(res => res.json())
+    .then(data => {
+      const found = data.rows.some(row => row.balance);
+      if (found) {
+        reveal();
+        updateLoadingDiv("You have RSTORY on EOS. Access granted.");
+      } else {
+        updateLoadingDiv("You must possess RSTORY to access the material.");
+      }
+    }).catch(console.error);
+}
+
+// ----------------- Ethereum / MetaMask -----------------
+async function connectMetaMask() {
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (typeof window.ethereum !== 'undefined') {
+    try {
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      if (accounts.length) {
+        checkMetaMaskToken(accounts[0]);
+      }
+
+    } catch (error) {
+      if (error.code === 4001) {
+        console.log('User rejected MetaMask connection.');
+      } else {
+        console.error(error);
+      }
+    }
+  } else {
+    if (isMobile) {
+      openModal('mobile-only');
+    } else {
+      alert('MetaMask not found. Please install MetaMask.');
+    }
+  }
+}
+
+async function checkMetaMaskToken(account) {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const contract = new ethers.Contract(
+    '0xa9deffb371dd9c7fd2cfc6676cdb3bc394b45a42',
+    [{
+      constant: true,
+      inputs: [{ name: "_owner", type: "address" }],
+      name: "balanceOf",
+      outputs: [{ name: "balance", type: "uint256" }],
+      type: "function"
+    }],
+    provider
+  );
+
+  try {
+    const balance = await contract.balanceOf(account);
+    if (balance.gt(0)) {
+      reveal();
+      updateLoadingDiv(`You have ${balance.toString()} TUDEs. Access granted.`);
+    } else {
+      updateLoadingDiv('You must possess TUDE to access the material.');
+    }
+  } catch (err) {
+    console.error(err);
+    updateLoadingDiv("MetaMask token check failed.");
+  }
+}
+
+// ----------------- Solana / Phantom -----------------
+async function getAssociatedTokenAddress(mint, owner) {
+  return (
+    await solanaWeb3.PublicKey.findProgramAddress(
+      [
+        owner.toBuffer(),
+        new solanaWeb3.PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA").toBuffer(),
+        mint.toBuffer()
+      ],
+      new solanaWeb3.PublicKey("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL")
+    )
+  )[0];
+}
+
+async function runPhantomBalanceCheck(publicKey) {
+  try {
+    const connection = new solanaWeb3.Connection("https://api.mainnet-beta.solana.com", "confirmed");
+    const mint = new solanaWeb3.PublicKey("RstyC4aoSD1JKPGTxnjB3PkWdRzV3yoePH1XiPMxBfz");
+    const ata = await getAssociatedTokenAddress(mint, publicKey);
+    const result = await connection.getTokenAccountBalance(ata);
+    const balance = result.value.uiAmount;
+
+    if (balance >= 1) {
+      reveal();
+      updateLoadingDiv(`You hold ${balance} RSTORY tokens on Solana. Access granted.`);
+    } else {
+      updateLoadingDiv(`You hold only ${balance} RSTORY tokens. 1 required.`);
+    }
+  } catch (err) {
+    console.error("Phantom check error:", err);
+    updateLoadingDiv("Could not verify RSTORY token on Solana.");
+  }
+}
+
+async function connectPhantomAndCheckRstory() {
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const provider = window.solana;
+
+  if (!provider || !provider.isPhantom) {
+    if (isMobile) {
+      alert("Opening Phantom. After connecting, return and tap 'Retry Phantom'.");
+      const appUrl = encodeURIComponent(window.location.href);
+      const deepLink = `https://phantom.app/ul/v1/connect?app_url=${appUrl}&redirect_url=${appUrl}`;
+      window.location.href = deepLink;
+    } else {
+      alert("Phantom Wallet not found.");
+    }
+    return;
+  }
+
+  try {
+    const resp = await provider.connect({ onlyIfTrusted: false });
+    if (resp.publicKey) runPhantomBalanceCheck(resp.publicKey);
+  } catch (err) {
+    console.error("Phantom connect error:", err);
+  }
+}
+
+
+
+// ----------------- Event Bindings -----------------
+document.addEventListener("DOMContentLoaded", () => {
+  const anchorBtn = document.getElementById('read-btn');
+  const metamaskBtn = document.getElementById('read-metamask');
+  const phantomBtn = document.getElementById('phantom-check');
+  const phantomRetry = document.getElementById('phantom-retry');
+
+  if (anchorBtn) anchorBtn.addEventListener('click', () => loginEos(true));
+  if (metamaskBtn) metamaskBtn.addEventListener('click', connectMetaMask);
+
+  if (phantomBtn) phantomBtn.addEventListener('click', () => {
+    connectPhantomAndCheckRstory();
+    if (phantomRetry) phantomRetry.style.display = 'inline-block';
+  });
+
+  if (phantomRetry) phantomRetry.addEventListener('click', () => {
+    connectPhantomAndCheckRstory();
+  });
+});
+</script>
 
 </body>
 </html>
