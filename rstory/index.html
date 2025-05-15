@@ -1,31 +1,467 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RSTORY | Home</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rstory</title>
+	
+	  <link rel="stylesheet" href="https://pyscript.net/releases/2024.5.2/core.css" />
+		<meta name="description" content="Rstory is a crypto token built on EOS, Ethereum, and DropChain.">
+   <meta name="author" content="Mark Bailey">
+	 <meta property="og:title" content="Rstory">
+   <meta property="og:type" content="website">
+   <meta property="og:description" content="Rstory cryptocurrency EOS, ETH, and DropChain.">
+   <meta property="og:image" content="https://rstory.io/logo180.png">
+	
+  <link rel="apple-touch-icon" sizes="180x180" href="https://rstory.io/logo180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://rstory.io/rstory-logo32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://rstory.io/logo16.png">
+	 <script src="https://rstory.mypinata.cloud/ipfs/QmRRRaytjur3gspxa9mUxaxLQhW6A19qRvp4TFweJfACkn"></script>
+    <script src="https://rstory.mypinata.cloud/ipfs/QmPrgG4X6sX3CHLLgrcQU8H8VTqh5mWqWfP6KLtfSfYKxc"></script>
+    <script src="https://unpkg.com/anchor-link@3"></script>
+    <script src="https://unpkg.com/anchor-link-browser-transport@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.6.8/dist/ethers.umd.min.js"></script>	
+<script src="https://unpkg.com/@solana/web3.js@1.73.3/lib/index.iife.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pathway+Gothic+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Economica:ital,wght@0,400;0,700;1,400;1,700&family=Pathway+Gothic+One&display=swap" rel="stylesheet">  
   <style>
-    body {
-      margin: 0;
-      background: #000;
-      font-family: 'Arial', sans-serif;
-      color: white;
-    }
+        body {		  
+          position: relative;
+          z-index: 1;
+        }
 
-    header {
-      background: linear-gradient(90deg, #0ff, #f0f, #0ff);
-      padding: 2rem;
-      text-align: center;
-    }
+        /* Full-screen background image behind body */
+        body::before {
+          content: "";
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background: url('https://rstory.io/dots6.png');
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: cover;
+          background-attachment: scroll;		  
+          z-index: -1;
+        }
+        
+        .maincontent {
+          margin-left: 20%;
+          margin-right: 20%;		
+        }		
+		
+        .grid {
+          display: grid;
+          grid-template-columns: repeat(3, 32%);
+          grid-gap: 12px;
+          margin-top: 12px;
+          margin-bottom: 12px;		  
+        }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.8rem;
-      background: linear-gradient(90deg, #fff, #0ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+        .btn {
+          background: rgba(255,255,255,0.5);
+          border: 12px solid cyan;
+          color: black;
+          padding: 16px;
+		  font-family: "Pathway Gothic One", sans-serif;
+          text-align: center;
+          font-weight: bold;
+          font-size: 24px;
+          cursor: pointer;
+          transition: all 0.1s ease;
+          text-transform: uppercase;
+          border-radius: 16px;		  
+        }
+
+        .btn:hover {
+          background: cyan;
+          color: black;
+          transform: scale(1.05);
+        }
+
+        .btn.red {
+          border-color: #d1492c;
+          color: black;
+        }
+
+        .btn.red:hover {
+          background: #d1492c;
+          color: black;
+        }
+		
+        .btn.yellow {
+          border-color: #ff4c00;
+          color: black;
+        }
+
+        .btn.yellow:hover {
+          background: #ff4c00;
+          color: black;
+        }
+
+        .btn.black {
+          border-color: LightGray;
+          color: #d1492c;
+        }
+
+        .btn.black:hover {
+          background: #d1492c;
+          color: cyan;
+        }
+		
+        video {
+          max-width: 100%;
+          height: auto;			
+        }
+		
+        .modal {
+          position: fixed;
+          top: 0; left: 0;
+          width: 100vw; height: 100vh;
+          background: rgba(0,0,0,0.8);
+          display: none;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+          overflow: auto;		  
+        }
+
+        .modal-content {
+          background: WhiteSmoke;
+          padding: 20px;		  
+          border: 12px solid LightGray;
+          border-radius: 16px;
+          color: #30303;
+          text-align: left;
+		  max-width: 50%;		  
+          overflow-y: auto; /* Scroll content if too tall */
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+        }
+		
+        .modal p {
+          background-color: WhiteSmoke;
+          font-size: 16;
+          letter-spacing: 1px;		  
+          font-family: Economica;		
+        }
+		
+        .modal li {
+          background-color: WhiteSmoke;
+          font-size: 16;
+          letter-spacing: 1px;		  
+          font-family: Economica;		
+        }
+
+        .modal h2 {
+          background-color: WhiteSmoke;
+          font-size: 24;
+          letter-spacing: 1px;		  
+		  font-family: "Pathway Gothic One", sans-serif;		
+        }		
+
+        .mdb {
+          display: flex;
+          flex-direction: row;		  
+          flex-wrap: wrap;
+          align-items: flex-start;
+          width: 100%;
+          box-sizing: border-box;
+          gap: 20px;		  
+        }
+		
+        .image-col {
+          flex: 0 0 25%;
+          max-width: 25%;
+          background: transparent;		  
+        }
+
+        .image-col img {
+          max-width: 100%;
+          height: auto;
+          display: block;
+          border: 2px solid LightGray;
+          border-radius: 16px;
+          background: transparent;		  
+        }
+
+        .text-col {
+          flex: 0 0 70%;
+          max-width: 70%;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;		  
+        }
+
+        .text-col p {
+          background: rgba(255,255,255,0.5);				
+          font-size: 20px;
+          letter-spacing: 1px;		  
+          font-family: Economica;
+          margin-top: 0;		  
+        }		
+
+        #moondong .modal-content {
+          max-height: 80vh;
+          overflow-y: auto;
+        }
+		
+        #rnetwork .modal-content {
+          max-height: 80vh;
+          overflow-y: auto;
+        }		
+
+        #about .modal-content {
+          max-height: 80vh;
+          overflow-y: auto;
+        }		
+
+        .modal-content h2 {
+          margin-top: 0;
+        }	
+
+        .close {
+          cursor: pointer;
+          color: red;
+          font-weight: bold;
+          margin-top: 10px;
+        }		
+		
+        p, li {
+            font-size: 18px;
+            font-family: 'Noto Serif', courier;
+            background-color: white;            
+        }
+
+        li {
+            padding: 10px;
+        }
+
+        a {
+            color: red;
+            text-decoration: none;			
+        }
+        
+        a:hover {
+            background-color: black;
+            color: white;
+        }
+        
+        h1 {
+            font-family: "Pathway Gothic One", sans-serif;
+            color: red;
+            font-size: 19vw;
+            word-wrap:break-word;			
+            margin: 0;            
+        }
+        
+        img {
+            max-width: 100%;			
+        }
+		
+        img.inline-img {
+            width: 25%;
+            float: left;
+            padding: 10px;			
+            margin-right: 10px;
+        }		
+
+        #book-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        #book-list li {		
+            position: relative;
+            padding-left: 3em;
+            border: 12px solid LightGray;
+            border-radius: 16px;			
+            margin-bottom: 0.5em;
+            align-items: start;
+            font-size: 34px;
+            font-family: Economica, courier;
+            background: rgba(255,255,255,0.6);			
+        }
+
+        /* The clickable bullet */
+        .bullet {
+            content: "";
+            position: absolute;
+            left: 0.5em;
+            top: 0.4em;
+            width: 1.4em;
+            height: 1.4em;			
+            border-radius: 50%;
+            background-color: black;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .bullet:hover {
+            transform: scale(1.2);
+        }
+
+        #book-list li:nth-child(4n+1) .bullet { background-color: #d1492c; }
+        #book-list li:nth-child(4n+2) .bullet { background-color: #ff4c00; }
+        #book-list li:nth-child(4n+3) .bullet { background-color: gray; }
+        #book-list li:nth-child(4n) .bullet { background-color: cyan; }        
+        
+        #footer, #loading {
+            color: cyan;
+            background-color: black;            
+            font-family: courier;
+            font-weight: bold;
+            text-align: center;
+            padding: 8px;            
+        }
+		
+        .header {
+          margin-left: 10%;
+          margin-right: 10%;		
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          font-family: Economica;		  
+          align-items: stretch;
+          padding-top: 20px;
+          margin-bottom: 0;
+          padding-bottom: 0;		  
+        }
+
+        .network-left {
+          position: relative;
+          width: 100%;
+          max-width: 700px;
+          flex: 1 1 300px;		  
+          margin-bottom: 0;
+          padding-bottom: 0;		  
+        }
+		
+        .node {
+          position: absolute;
+          transform: translate(-50%, -50%);
+          background: #000;
+          color: cyan;
+          border-radius: 16px;
+          padding: 6px 12px;
+          font-size: 18px;
+          white-space: nowrap;
+		  font-family: "Pathway Gothic One", sans-serif;
+          text-transform: uppercase;		  
+          border: 3px solid #d1492c;
+          transition: transform 0.2s ease, background 0.1s ease;
+          z-index: 1;		  
+        }
+
+        .node:hover {
+          transform: translate(-50%, -50%) scale(1.1);
+          background: black;
+          color: white;		  
+        }		
+
+        .center-logo {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 90px;
+          height: 90px;
+          border-radius: 50%;
+          background: url('https://rstory.io/logo180.png') no-repeat center center / contain; 
+          border: 4px solid #d1492c;
+          z-index: 3;		  
+        }
+		
+        #connection-canvas {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 0;
+          pointer-events: none;
+        }		
+
+        .network-right {
+          flex: 1 1 300px;
+          padding: 20px;
+          max-width: 600px;
+          min-height: 400px;		  
+        }
+
+        .headline {
+          font-size: 3.6em;
+          line-height: 1.3;
+          margin-bottom: 80px;
+          font-weight: 300;
+          margin-top: 60px;
+        }
+
+        @media (max-width: 980px) {
+          .header {
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .network-left {
+            margin-bottom: 0px;
+            margin-top: 40px;
+            transform: scale(0.9);
+            transform-origin: top left;			
+          }
+          .network-right {
+            margin-bottom: 90px;		  
+          }
+		  
+          .maincontent {
+            margin-left: 8%;
+            margin-right: 8%;		
+          }
+          .btn {
+            font-size: 18px;		  
+          }	  
+          .modal-content {
+            max-width: 80%;
+            max-height: 80%;			
+          }			
+          #book-list li {
+            font-size: 24px;		  
+          }
+          .mdb {
+            flex-direction: column;
+          }
+          .image-col {
+            flex: 1 1 100%;
+            width: 100%;
+            max-width: 100%;			
+          }
+          .text-col {
+            flex: 1 1 100%;
+            width: 100%;
+            max-width: 100%;			
+          }		  
+          .image-col img {
+            width: 100%;
+            height: auto;		  
+            border: none;
+          }		  
+        }		
+
+        /* Mobile view */
+        @media (max-width: 500px) {
+          .maincontent {
+            margin-left: 2%;
+            margin-right: 2%;
+        }       	
+  </style>
+
+   <style>
+    
 
     .hero-creators {
       padding: 4rem 2rem;
@@ -96,20 +532,285 @@
       border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
+			border: 4px solid lightgrey;
+			margin: 4px;
     }
+		
+		   .token-info {
+						 padding: 2rem;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #007bff;
+        }
+        .token-info img {
+            float: right;
+            margin-left: 20px;
+            width: 100px;
+        }
+        .token-info h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        .token-info p {
+            font-size: 1em;
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+				
+				a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: white;
+            background-color: #007bff; 
+        }
   </style>
 </head>
 
+
 <body>
 
-  <header>
-    <h1>RSTORY.IO</h1>
-    <p>A gratitude-powered network for visionary creators</p>
-  </header>
 
-  <!-- Meet the Creators Section -->
+
+  
+
+
+<header class="header">
+    <!-- Network Graph Side -->
+    <div class="network-left">
+      <canvas id="connection-canvas"></canvas>
+
+      <div class="center-logo" id="center-logo"></div>
+
+      <!-- Clickable nodes with data-angle in degrees -->
+      <a href="https://rstory.io/roadmap.html" target="_blank" class="node" data-angle="355" data-distance="190">publishers</a>
+      <a href="https://github.com/ma-da/rstory" target="_blank" class="node" data-angle="20" data-distance="190">developers</a>
+      <a href="https://youtu.be/HgHX2-LoX0Y?si=lV7rxjStJenOLaW6" target="_blank" class="node" data-angle="45" data-distance="180">journalists</a>
+      <a href="https://rstory.io/roadmap.html" target="_blank" class="node" data-angle="80" data-distance="170">liquidity<br> providers</a>
+      <a href="https://hive.blog/cryptocurrency/@rstory/philanthropist-leo-kuelbs-receives-1m-rstory-gratitude-tokens" target="_blank" class="node" data-angle="120" data-distance="150">philanthropists</a>
+      <a href="https://rstory.io/rstory-whitepaper.pdf" target="_blank" class="node" data-angle="150" data-distance="130">crypto<br> enthusiasts</a>
+      <a href="https://rstory.io/roadmap.html" target="_blank" class="node" data-angle="180" data-distance="140">content<br> creators</a>
+      <a href="https://hive.blog/cryptocurrency/@rstory/the-periphery-foundation-receives-1m-rstory-gratitude-tokens" target="_blank" class="node" data-angle="210" data-distance="150">storytellers</a>
+      <a href="https://youtu.be/HgHX2-LoX0Y?si=lV7rxjStJenOLaW6" target="_blank" class="node" data-angle="240" data-distance="160">activists</a>
+      <a href="https://rstory.io/roadmap.html" target="_blank" class="node" data-angle="270" data-distance="170">readers/<br>viewers</a>
+      <a href="https://rstory.io/roadmap.html" target="_blank" class="node" data-angle="300" data-distance="180">writers</a>
+      <a href="https://hive.blog/crypto/@rstory/artabillies-receives-1m-rstory-gratitude-tokens" target="_blank" class="node" data-angle="330" data-distance="190">community<br> leaders</a>
+    </div>
+
+    <!-- Header Text Side -->
+    <div class="network-right">
+      <div class="headline">
+        Join the <span style="font-weight: 900; color: #d1492c">Rstory</span> network<br> to build a more free<br> and fair future together
+      </div>
+    </div>
+  </header>
+<div class="maincontent"> 
+<div id="footer"></div>
+
+<div class="grid">
+  <!-- Row 0: Modals -->
+  <button class="btn black" onclick="openModal('about')">Start Here</button>
+  <button class="btn black" onclick="openModal('bio')">How It Works</button>
+  <button class="btn black" onclick="openModal('rnetwork')">Network</button>
+
+  <!-- Row 1: Modals -->
+  <button class="btn black" onclick="openModal('eos-modal')">EOS TOKEN INFO</button>
+  <button class="btn black" onclick="openModal('eth-modal')">ETH TOKEN INFO</button>
+  <button class="btn black" onclick="openModal('dropchain-modal')">DROPCHAIN TOKEN INFO</button>
+
+  <!-- Row 2: External Links -->
+  <a href="https://eos.alcor.exchange/trade/rstory-rstorytokens_eos-eosio.token" target="_blank" class="btn black">Buy with EOS on Alcor</a>
+  <a href="https://app.uniswap.org/explore/pools/ethereum/0x6C47D607e359FAe26d1E1d97d9c609f9c384e4AA" target="_blank" class="btn black">Buy with ETH on Uniswap</a>
+  <a href="https://claim.dropchain.network/buy/144dacac-2a26-420e-af55-03d3b1189069" target="_blank" class="btn black">Buy with USD on Dropchain</a>
+
+  <!-- Row 3: Connect -->
+  <button class="btn black" id="read-anchor">Connect Anchor</button>
+  <button class="btn black" id="read-metamask">Connect Metamask</button>
+  <a href="https://wallet.dropchain.network/login/S1CWVuM9Ob8l4ZKsIGfMCOgT" target="_blank" class="btn black">Connect Dropchain</a>
+  
+</div>
+
+<!-- Modals -->
+<div class="modal" id="eos-modal">
+  <div class="modal-content">
+    <h2>EOS TOKEN INFO</h2>
+    <p><strong>Symbol:</strong> RSTORY<br>
+	<strong>Quantity:</strong> 10b<br>
+	<strong>Creation account:</strong> rstorytokens<br>
+	<strong>View on Eosflare:</strong> <a href="https://eosflare.io/account/rstorytokens" target="_blank">Here</a></p>
+    <div class="close" onclick="closeModal('eos-modal')">close</div>
+  </div>
+</div>
+
+<div class="modal" id="eth-modal">
+  <div class="modal-content">
+    <h2>TUDE ERC20 TOKEN INFO</h2>
+    <p><strong>Symbol:</strong> TUDE<br>
+	<strong>Quantity:</strong> 100m<br>
+	<strong>Contract address:</strong> 0xa9deffb371dd9c7fd2cfc6676cdb3bc394b45a42<br>
+	<strong>View on Etherscan:</strong> <a href="https://etherscan.io/token/0xa9deffb371dd9c7fd2cfc6676cdb3bc394b45a42" target="_blank">Here</a> </p>
+    <div class="close" onclick="closeModal('eth-modal')">close</div>
+  </div>
+</div>
+
+<div class="modal" id="dropchain-modal">
+  <div class="modal-content">
+    <h2>Dropchain Membership Token Info</h2>
+    <p><strong>Name:</strong> Rstory Original<br>
+	<strong>Quantity:</strong> 1.25k<br>
+	<strong>Description:</strong> This limited edition membership token operates on the DropChain blockchain and can be purchased using dollars with just a couple of clicks, no crypto knowledge necessary. You can buy a token for $3.99 </strong> <a href="https://claim.dropchain.network/buy/144dacac-2a26-420e-af55-03d3b1189069" target="_blank">here</a>.</p>
+	<p>Please note that until DropChain integration is complete, connecting your wallet won't work. If you have a token and would like to read Mark Bailey's novels, contact him <a href="https://t.me/fixingbrokenrobotscontact" target="_blank">on Telegram</a> and he'll send them to you.</p>
+    <div class="close" onclick="closeModal('dropchain-modal')">close</div>
+  </div>
+</div>
+
+<div class="modal" id="smallgods">
+  <div class="modal-content">
+    <img src="https://rstory.io/bookthumbs/smallgodsthumb.jpg" alt="Planes crashing" class="inline-img">
+    <h2>Small Gods of Time Travel</h2>	
+	<p>A man travels back in time to the day before 9/11. Once there, he meets up with his younger self. Together, using information and technology from the future, they try to improve society. Their most ambitious goal is changing the outcome of the US 2016 Democratic Primary. Along the way, powerful future technology falls into the wrong hands, with unexpected results.</p>
+    <span class="close" onclick="closeModal('smallgods')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="incident">
+  <div class="modal-content">
+    <img src="https://rstory.io/bookthumbs/321thumb.jpg" alt="National tragedy" class="inline-img">
+    <h2>The 321 Incident</h2>	
+	<p>A national tragedy claims as many lives as 9/11 did. From there, the story follows a handful of characters as they try to navigate the post-tragedy landscape. Although they face steep challenges, synchronicities and the magic of human connections help them find their way. Politics, media, harm reduction, and non-ordinary states of consciousness are some of the themes that the work explores.</p>
+    <span class="close" onclick="closeModal('incident')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="paradise">
+  <div class="modal-content">
+    <img src="https://rstory.io/bookthumbs/paradisethumb.jpg" alt="Gateway to another world" class="inline-img">
+    <h2>The Paradise Anomaly</h2>	
+	<p>It begins in Brooklyn. The Fairie Queen sends a pair of hipsters on a grand quest that ends in another world. In this other world, the guardian of the passage to Earth faces hard choices after learning troubling information about his predecessor. Then a billionaire's pet project upends this world's traditional society. The pitfalls of hidden politics are uncovered through dark humor and casual intrigue.</p>
+    <span class="close" onclick="closeModal('paradise')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="embassy">
+  <div class="modal-content">
+    <img src="https://rstory.io/bookthumbs/onemanthumb.jpg" alt="An ET's adventure" class="inline-img">
+    <h2>One Man Embassy</h2>	
+	<p>Forced to flee his home planet Jhanya during a violent revolution, Hequa steals a spaceship and makes his way to Earth. Here, on an unfamiliar world with alien customs, he tries to make a life for himself. Aided by technology from Jhanya and hindered by the absence of identity documents, Hequa finds work as a panhandler, a stage magician, and a manufacturer of rare items. Eventually, he opens Jhanya Embassy, where he shares the wonders of his home planet with the people of Earth.</p>
+    <span class="close" onclick="closeModal('embassy')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="saucer">
+  <div class="modal-content">
+    <img src="https://rstory.io/bookthumbs/saucerthumb.jpg" alt="An assassin from another planet" class="inline-img">
+    <h2>Flying Saucer Shenanigans</h2>	
+	<p>On the planet Jhanya, the destruction of a space station is blamed on a revolutionary named Hequa. When Hequa flees Jhanya for Earth, Lika the assassin is sent after him. On Earth, Lika pursues her target while learning to navigate the new planet's strange customs. She eventually makes some friends, finds a job washing dishes, and comes to realize that she may have been lied to by her government.</p>
+    <span class="close" onclick="closeModal('saucer')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="rainbow">
+  <div class="modal-content">
+    <img src="https://rstory.io/bookthumbs/rainbowlullabythumb.jpg" alt="A magical creature called a lagu" class="inline-img">
+    <h2>Rainbow Lullaby</h2>	
+	<p>A Lagu is an ancient and magical medium-sized mammal. When one of these strange creatures is accidentally seen by a human boy named Luke, everything changes. Traha is a sentient tree from a planet 23 light years away. When her one-way journey to Earth is completed with the help of a sorcerer named Taavi, everything changes. The blue man is many things. A safe driver. An inspiration. A lover of root beer floats. When the blue man surprises a woman named Nneka at a shopping mall, everything changes. These intertwined tales unfold in circumstances where magical creatures, telepathy, a revolutionary new currency, and a mysteriously powerful dance come together in unlikely ways. Through it all, the everyday world is transformed into someplace unfamiliar, and the reader is left questioning everything but the value of friendship.</p>
+    <span class="close" onclick="closeModal('rainbow')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="ostermann">
+  <div class="modal-content">
+    <img src="https://rstory.io/bookthumbs/ostermannthumb.png" alt="An abstract pattern" class="inline-img">
+    <h2>The Ostermann Method</h2>	
+	<p>A former spy tells the story of his clandestine career. A network of sorcerers attempt to influence the stock market using hypnosis. An act of terrorism provokes unsettling questions. And the murder of a bartender in Chicago threatens to transform a secret war into something entirely unexpected.</p>
+    <span class="close" onclick="closeModal('ostermann')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="dragon">
+  <div class="modal-content">
+    <img src="https://rstory.io/bookthumbs/dragonthumb.png" alt="A blue dragon" class="inline-img">
+    <h2>Blue Dragon Mississippi</h2>	
+	<p>Pikwik the blue dragon has lived in the Mississippi River for thousands of years. Like all blue dragons, Pikwik's life is enriched by her psychic communications with the people in her territory. When Pikwik realizes that fascists are beginning to take over, she chooses a young woman named Matilda to champion an anti-fascist resistance movement. With Pikwik's help, Matilda finds support for this movement in an ex-magician, an alien from another planet, and various other unusual characters. They might not have much in common, but they all agree that fascism sucks. And sometimes that's enough.</p>
+    <span class="close" onclick="closeModal('dragon')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="psychic">
+  <div class="modal-content">
+    <img src="https://rstory.io/bookthumbs/psychicthumb.jpg" alt="A pill that makes you psychic" class="inline-img">
+    <h2>Psychic Avalanche</h2>	
+	<p>An English wizard and an extraterrestrial combine magic with science to create a new drug that makes people telepathic. This has immediate consequences for a crypto enthusiast and his friends. It also reshapes society in unexpected ways. Fifty years in the future, an adventurous young woman embarks on a quest to uncover the secrets of the mysterious wizard who started it all.</p>
+    <span class="close" onclick="closeModal('psychic')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="bio">
+  <div class="modal-content">	
+	<p><span style="font-weight: 800; color: #d1492c">Distribution:</span> Rstory tokens are given away to people who contribute to the project. They are also used for virtual philanthropy, given to people and organizations working in service to the public good. Beyond this, the Rstory token is sold on the open market, where it may be purchased by anyone.</p>
+    <p><span style="font-weight: 800; color: #d1492c">Process:</span> Adding value to the network qualifies you to receive Rstory tokens. Just add your own book or video or song or other media product to the pool of awesome content available exclusively to Rstory token holders and we'll send you a quantity of tokens proportional to your contribution. Here's the basic process:
+	<ol><li>Media or webpage is uploaded to IPFS</li><li>The address of the file is encrypted</li><li>The file location is revealed only to people who possess Rstory</li><li>The first ones to share their work in this way will be showcased here on rstory.io, though anyone is welcome to make their own site or app that integrates the token</li><li>As more people contribute to the content pool, everyone's work is shared with a wider and wider audience</li></ol>
+	</p>
+	<p><span style="font-weight: 800; color: #d1492c">Connect:</span> If you want to get involved or just want to learn more, the easiest way to connect is <a href="https://t.me/+m-WEaUc7Ud8yY2Qx">on Telegram</a></p>
+    <span class="close" onclick="closeModal('bio')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="about">
+  <div class="modal-content">
+    <video controls>
+    <source src="https://rstory.mypinata.cloud/ipfs/bafybeidameazr2c7bstmtglcf3bjtnnfndnzsojvin3vgqok6bn54wapfi" type="video/mp4">Your browser does not support the video tag.
+    </video>  
+	<p>Rstory is a crypto token with zero decimals that operates on multiple blockchains. Rstory tokens are called tudes. Each one represents an indivisible unit of gratitude. Possession of a tude on any chain grants the bearer the right to access electronic copies of Mark Bailey's science fiction novels.</p>
+	<p>There are 9 awesome novels available on this page. To read them, just connect your Anchor wallet, MetaMask wallet (browser extension only, mobile app support coming soon), or DropChain account. If there's at least one Rstory token in your wallet, the book links will become active.</p>
+    <span class="close" onclick="closeModal('about')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="rnetwork">
+  <div class="modal-content">
+    <video controls autoplay muted loop>
+    <source src="https://rstory.mypinata.cloud/ipfs/bafybeihlz5eveqekip2ybgfl6lvypnhoa46npwwk4bpa7vs4u2gq5yiqim">Your browser does not support the video tag.
+    </video>  
+    <p>As creative people begin building on Rstory, this is where their projects and communities will be showcased.</p>
+    <p>So far, DeJahn of <a href="https://www.artabillies.com/" target="_blank">Artabillies</a> has put together the network's first <a href="https://rstory.io/Dobbs_GATE.html" target="_blank">Rstory gallery</a>. Check it out! Get inspired!</p>	
+    <span class="close" onclick="closeModal('rnetwork')">close</span>
+  </div>
+</div>
+
+<div class="modal" id="moondong">
+  <div class="modal-content">  
+    <video controls>
+    <source src="https://rstory.mypinata.cloud/ipfs/bafybeidhtyenq3izbywmapvx6kyuem4jp23zvtao6to7yyqdhwogg2bbvu" type="video/mp4">Your browser does not support the video tag.
+    </video>
+    <p>Rstory doesn't have a Solana token yet so the memecoin Moondong serves as Rstory's Solana counterpart. Possession of 100k or more Moondong tokens is honored the same as possession of an Rstory token on any other chain. See the funny rap video about it above.</p>	
+    <p><strong>Sol Contract address:</strong> DthcPtviaaVasr6GTjRLoRcJSysSqGsZR61LArghpump</p>
+	<p><strong>Linktree:</strong> <a href="https://linktr.ee/moondong" target="_blank">Moondong</a> </p>
+	<p>To verify that you have at least 100k Moondong and access Mark Bailey's scifi <a href="#" id="phantom-check">connect Phantom here</a> (Browser extension only. Mobile support coming soon).</p>
+    <span class="close" onclick="closeModal('moondong')">close</span>
+  </div>
+</div>
+<div class="mdb">
+  <div class="image-col">
+    <img src="https://rstory.io/profiletx.png" alt="Mark Bailey">
+  </div>
+  <div class="text-col">
+	<p>Hi I'm Mark Bailey. My digital media products form the initial basis for the value of the Rstory token. But Rstory wasn't created just to distribute my science fiction. It was created to make it easy for anyone to publish their own digital media products in a decentralized and censorship-resistant way.</p>
+	<p>If you have great content you'd like to share exclusively with the Rstory network, I'll help you integrate Rstory into your site and freely give you a quantity of tokens that you can sell on the open market or give away to your audience. </p>
+	<p>The novels showcased here are short and funny, with dialog driving the plot forward. They explore emerging technologies, non-ordinary states of consciousness, and modern mythologies. In the process, these stories dig deep into some of society's most pressing problems and occasionally come up with unexpected insights regarding solutions.</p>
+	<p>If you have a token, I recommend starting with One Man Embassy. If you don't yet have a token, you can check out Small Gods of Time Travel for free or watch an <a href="https://youtu.be/Ywk5RrbTQuc" target="_blank">18 min interview</a> about my books.</p>
+    <p>Along with writing novels, I publish <a href="https://freemindgazette.substack.com/" target="_blank">Free Mind Gazette</a> on Substack and maintain a <a href="https://hive.blog/@mada" target="_blank">Hive blog</a>. I'm based in Minneapolis and have worked as a news editor for <a href="https://wanttoknow.info" target="_blank">WantToKnow.info</a> since 2014. </p>
+  </div>
+</div>	
+<div id="loading">welcome to the future</div>
+
+<!-- Meet the Creators Section -->
   <section id="meet-the-creators" class="hero-creators">
-    <h2 class="section-title">Meet the Creators</h2>
+    <h2 class="section-title">Key Contributors</h2>
     <p class="section-tagline">
       A community of dreamers, builders, artists, and storytellers — united by gratitude.
     </p>
@@ -144,23 +845,478 @@
     <a href="https://rstory.io/" class="view-button" style="background:#ffff00; color:#000;">RStory</a>
   </div>
 </div>
-      <div class="creator-card">
-        <img class="creator-avatar" src="./assets/img/CarlDayFlying.GIF" alt="DreamSeeker">
-        <h3 class="creator-name">@DreamSeeker</h3>
-        <p class="creator-quote">"Stories are seeds for future worlds."</p>
-        <a href="https://www.food4thoth.com/RstoryArtabillies/index.html" class="view-button">View Works</a>
-      </div>
 
-      <div class="creator-card">
-        <img class="creator-avatar" src="./assets/img/CarlNightFlying.GIF" alt="FractalMuse">
-        <h3 class="creator-name">@FractalMuse</h3>
-        <p class="creator-quote">"Color is my language, rhythm my guide."</p>
-        <a href="https://rstory.io/Dobbs_GATE.html" class="view-button">View Works</a>
-      </div>
+<div class="creator-card">
+  <img class="creator-avatar" src="./assets/img/Amber.jpeg" alt="Amber / EarthMuse">
+  <h3 class="creator-name">@EarthMuse</h3>
+  <p class="creator-quote">"Media can be medicine. Truth is the first act of healing."</p>
+
+  <a href="Amber.html" class="view-button">View Works</a>
+
+  <div style="margin-top: 1rem;">
+    <a href="https://amberyang.love" class="view-button" style="background:#ff00ff;">AmberYang.love</a>
+    <a href="https://www.wanttoknow.info" class="view-button" style="background:lime;">WantToKnow.info</a>
+    <a href="https://t.me/EarthMuse" class="view-button" style="background:#ffff00; color:#000;">Telegram</a>
+  </div>
+</div>
+
+<div class="creator-card">
+  <img class="creator-avatar" src="./assets/img/Henry.jpeg" alt="Henry / Community Voice">
+  <h3 class="creator-name">@Henry_9818</h3>
+  <p class="creator-quote">"The token is a tool — the mission is what makes it matter."</p>
+
+  <a href="Henry.html" class="view-button">View Works</a>
+
+  <div style="margin-top: 1rem;">
+    <a href="https://t.me/Henry_9818" class="view-button" style="background:lime;">Telegram</a>
+    <a href="https://rstory.io" class="view-button" style="background:#ff00ff;">RSTORY</a>
+  </div>
+</div>
+
+<div class="creator-card">
+  <img class="creator-avatar" src="./assets/img/Dylan.jpeg" alt="Dylan Daniel / EpicDylan">
+  <h3 class="creator-name">@epicdylan</h3>
+  <p class="creator-quote">"Cognition, code, and culture — exploring what’s next through mind and machine."</p>
+
+  <a href="Dylan.html" class="view-button">View Works</a>
+
+  <div style="margin-top: 1rem;">
+    <a href="https://epicdylan.com" class="view-button" style="background:#ff00ff;">epicdylan.com</a>
+    <a href="https://pagedao.org" class="view-button" style="background:lime;">PageDAO</a>
+    <a href="https://t.me/epicdylan" class="view-button" style="background:#ffff00; color:#000;">Telegram</a>
+  </div>
+</div>
 
       <!-- Add more cards as needed -->
     </div>
   </section>
+  
+        <ul id="book-list">
+		<li data-modal="smallgods"><span class="bullet" data-modal="smallgods"></span><strong>Small Gods of Time Travel</strong> is available as a <a href="https://rstory.mypinata.cloud/ipfs/QmVt9kp8CJKwUm2cvD1mhMVtswsdFh3iEH8AFGEUxnrMu1/" target="_blank">free web book</a> on IPFS. Each of this book's 40 chapters corresponds with a <a href="https://objkt.com/collections/KT1TJEWFRDcudZYwPVfm2j1HAANen3TL7fof" target="_blank">Tezos NFT available on Objkt</a>. Click dot for more.</li>		
+		<li data-modal="incident"><span class="bullet" data-modal="incident"></span><strong>The 321 Incident</strong> is available exclusively to Rstory holders. If you possess at least one Rstory token you may <a data-encoded-hash="YOUR ENCRYPTED HASH" target="_blank">read the book</a> or <a data-encoded-hash="YOUR ENCRYPTED HASH" target="_blank">listen to the audiobook</a>. Click dot for more.</li>
+        <li data-modal="paradise"><span class="bullet" data-modal="paradise"></span><strong>The Paradise Anomaly</strong> is available in <a href="https://www.blurb.com/b/10994168-the-paradise-anomaly" target="_blank">print via Blurb</a> and for <a href="https://www.amazon.com/dp/B09NLB95NZ" target="_blank">Kindle on Amazon</a>. If you possess at least one Rstory token you may <a data-encoded-hash="YOUR ENCRYPTED HASH" target="_blank">read the PDF here</a>. Click dot for more.</li>
+        <li data-modal="embassy"><span class="bullet" data-modal="embassy"></span><strong>One Man Embassy</strong> is available in <a href="https://blurb.com/b/9876573-one-man-embassy" target="_blank">print via Blurb</a> and for <a href="https://amazon.com/One-Man-Embassy-Mark-Bailey-ebook/dp/B0836SRC8K" target="_blank">Kindle on Amazon</a>. If you possess at least one Rstory token you may <a data-encoded-hash="YOUR ENCRYPTED HASH" target="_blank">read the PDF here</a>. Click dot for more.</li>
+        <li data-modal="saucer"><span class="bullet" data-modal="saucer"></span><strong>Flying Saucer Shenanigans</strong> is available in <a href="https://blurb.com/b/10002213-flying-saucer-shenanigans" target="_blank">print via Blurb</a> and for <a href="https://amazon.com/Flying-Saucer-Shenanigans-Mark-Bailey-ebook/dp/B0863FRJN2" target="_blank">Kindle on Amazon</a>. If you possess at least one Rstory token you may <a data-encoded-hash="YOUR ENCRYPTED HASH" target="_blank">read the PDF here</a>. Click dot for more.</li>
+        <li data-modal="rainbow"><span class="bullet" data-modal="rainbow"></span><strong>Rainbow Lullaby</strong> is available in <a href="https://blurb.com/b/9330918-rainbow-lullaby" target="_blank">print via Blurb</a> and for <a href="https://amazon.com/Rainbow-Lullaby-Mark-Bailey-ebook/dp/B07P4MYTGT" target="_blank">Kindle on Amazon</a>. If you possess at least one Rstory token you may <a data-encoded-hash="YOUR ENCRYPTED HASH" target="_blank">read the PDF here</a>. Click dot for more.</li>
+        <li data-modal="ostermann"><span class="bullet" data-modal="ostermann"></span><strong>The Ostermann Method</strong> is available in <a href="https://blurb.com/b/9660167-the-ostermann-method" target="_blank">print via Blurb</a> and for <a href="https://amazon.com/Ostermann-Method-Mark-Bailey-ebook/dp/B07Y6RDTJF" target="_blank">Kindle on Amazon</a>. If you possess at least one Rstory token you may <a data-encoded-hash="YOUR ENCRYPTED HASH" target="_blank">read the PDF here</a>. Click dot for more.</li>
+        <li data-modal="dragon"><span class="bullet" data-modal="dragon"></span><strong>Blue Dragon Mississippi</strong> is available in <a href="https://blurb.com/b/10192086-blue-dragon-mississippi" target="_blank">print via Blurb</a> and for <a href="https://amazon.com/Blue-Dragon-Mississippi-Mark-Bailey-ebook/dp/B08C54F99R" target="_blank">Kindle on Amazon</a>. If you possess at least one Rstory token you may <a data-encoded-hash="YOUR ENCRYPTED HASH" target="_blank">read the PDF here</a>. Click dot for more.</li>
+        <li data-modal="psychic"><span class="bullet" data-modal="psychic"></span><strong>Psychic Avalanche</strong> is available in <a href="https://www.blurb.com/b/10891426-psychic-avalanche" target="_blank">print via Blurb</a> and for <a href="https://www.amazon.com/dp/B09JS6CV9X" target="_blank">Kindle on Amazon</a>. If you possess at least one Rstory token you may <a data-encoded-hash="YOUR ENCRYPTED HASH" target="_blank">read the PDF here</a>. Click dot for more.</li>
+        </ul>
+</div>  
+  <div id="footer"><a href="https://hive.blog/@rstory" target="_blank">Hive</a> <a href="https://x.com/Rstory_Official" target="_blank">X</a> | <a href="https://t.me/+m-WEaUc7Ud8yY2Qx" target="_blank">Telegram</a> |  <a href="https://rstory.io/rstory-whitepaper.pdf" target="_blank">Whitepaper</a> | <a href="https://rstory.io/roadmap.html" target="_blank">Roadmap</a> | <a href="#" data-modal="moondong">Moondong</a></div>  
+
+	
+<script>
+function detectAndOpenMetaMask() {
+  const url = "https://metamask.app.link/dapp/www.food4thoth.com/rstory/DeJahn.html";
+
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const isAndroid = /Android/i.test(navigator.userAgent);
+
+  if (isAndroid) {
+    window.location.href = url;
+  } else if (isIOS) {
+    alert(
+      "iOS users: Apple restricts automatic app opening.\n\nPlease open the MetaMask app, tap the browser tab, and visit:\n\nhttps://www.food4thoth.com/rstory/DeJahn.html"
+    );
+    // Optional: open link anyway
+    window.location.href = url;
+  } else {
+    window.open(url, "_blank");
+  }
+}
+</script>
+
+<!-- JavaScript -->
+<script>
+	// Modal functions
+function openModal(id) {
+  const modal = document.getElementById(id);
+  if (modal) modal.style.display = "flex";
+}
+
+function closeModal(id) {
+  const modal = document.getElementById(id);
+  if (modal) modal.style.display = "none";
+}
+
+// Event listeners for modals and bullet clicks
+document.addEventListener("DOMContentLoaded", () => {
+  const links = document.querySelectorAll('a[data-modal]');
+  links.forEach(link => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault(); // Prevent default anchor jump
+      const modalId = link.getAttribute("data-modal");
+      openModal(modalId);
+    });
+  });
+
+  // Close modal by clicking outside content
+  document.querySelectorAll(".modal").forEach(modal => {
+    modal.addEventListener("click", function (e) {
+      const content = modal.querySelector(".modal-content");
+      if (!content.contains(e.target)) {
+        modal.style.display = "none";
+      }
+    });
+  });
+
+  // Bullet click handler to open modals
+  const bullets = document.querySelectorAll(".bullet");
+  bullets.forEach(bullet => {
+    const modalId = bullet.dataset.modal;
+    bullet.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent propagation
+      openModal(modalId);
+    });
+  });
+});
+	
+	function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    alert("URL copied! Open MetaMask app > Browser tab > Paste to access.");
+  });
+}
+	
+// Decoding functions and API key generation
+function decode(stuff, n) {
+  const s = stuff[n];
+  if (s.length === 0) return s;
+
+  let temp = '';
+  let i = 0;
+  while (s[i] !== ' ') {
+    temp += s[i];
+    i++;
+  }
+  i++;
+  return decode(stuff, parseInt(temp)) + s[i];
+}
+
+function getApiKey() {
+  const s = "YOUR ENCRYPTED KEY";
+  const stuff = [''];
+  let i = 0;
+
+  // Build dictionary from encoded string
+  while (i < s.length) {
+    let temp = '';
+    while (s[i] !== ' ') {
+      temp += s[i];
+      i++;
+    }
+    i++;
+    stuff.push(temp + ' ' + s[i]);
+    i++;
+  }
+
+  // Decode full string
+  let decoded = '';
+  for (let j = 1; j < stuff.length; j++) {
+    decoded += decode(stuff, j);
+  }
+  return decoded;
+}
+
+function custom_decode(encoded_str) {
+  return decodeURIComponent(encoded_str.match(/.{1,2}/g).map(function (v) {
+    return '%' + ('0' + v).slice(-2);
+  }).join(''));
+}
+
+function updateLoadingDiv(message) {
+  const loadingDiv = document.getElementById("loading");
+  if (loadingDiv) {
+    loadingDiv.textContent = message;
+  } else {
+    console.warn("No #loading div found on the page.");
+  }
+}
+
+function reveal() {
+  const links = document.querySelectorAll('#gallery-list a');
+  const base_url = "https://rstory.mypinata.cloud/ipfs/";
+  links.forEach(link => {
+    const encoded_hash = link.getAttribute("data-encoded-hash");
+    if (encoded_hash) {
+      const decoded_hash = custom_decode(encoded_hash);
+      link.href = base_url + decoded_hash;
+    }
+  });
+}
+
+function updateLoadingDiv(message) {
+  const div = document.getElementById("loading");
+  if (div) div.innerText = message;
+}
+
+function openInMetaMask() {
+  const siteURL = "https://www.food4thoth.com"; // your full HTTPS URL
+  const link = `https://metamask.app.link/dapp/${siteURL.replace(/^https?:\/\//, '')}`;
+  window.location.href = link;
+}
+
+async function suggestTudeToken() {
+  const wasAdded = await window.ethereum.request({
+    method: 'wallet_watchAsset',
+    params: {
+      type: 'ERC20',
+      options: {
+        address: '0xa9deffb371dd9c7fd2cfc6676cdb3bc394b45a42',
+        symbol: 'TUDE',
+        decimals: 0,
+        image: 'https://rstory.io/logo180.png'
+      },
+    },
+  });
+
+  if (wasAdded) {
+    console.log('TUDE token added to MetaMask');
+  } else {
+    console.log('TUDE token not added');
+  }
+}
+
+// ----------------- EOS / Anchor -----------------
+const dapp = "rstory";
+let login_use = "";
+let wallet_userAccount = "none";
+let wallet_session = null;
+
+const eos = new waxjs.WaxJS({ rpcEndpoint: 'https://eos.greymass.com' });
+const transport = new AnchorLinkBrowserTransport();
+const anchorLink = new AnchorLink({
+  transport,
+  chains: [{
+    chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
+    nodeUrl: 'https://eos.greymass.com',
+  }]
+});
+
+function loginEos(anchor) {
+  login_use = anchor;
+  if (anchor) {
+    anchorLink.login(dapp).then(result => {
+      wallet_session = result.session;
+      wallet_userAccount = wallet_session.auth.actor;
+      checkToken();
+    });
+  } else {
+    eos.login().then(userAccount => {
+      wallet_userAccount = userAccount;
+      checkToken();
+    }).catch(e => {
+      updateLoadingDiv(e.message || "Login failed");
+    });
+  }
+}
+
+function checkToken() {
+  const jsonData = JSON.stringify({
+    json: true,
+    code: "rstorytokens",
+    scope: wallet_userAccount,
+    table: "accounts",
+    limit: 10
+  });
+
+  fetch("https://eos.eosphere.io/v1/chain/get_table_rows", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: jsonData
+  })
+    .then(res => res.json())
+    .then(data => {
+      const found = data.rows.some(row => row.balance);
+      if (found) {
+        reveal();
+        updateLoadingDiv("You have RSTORY on EOS. Access granted.");
+      } else {
+        updateLoadingDiv("You must possess RSTORY to access the material.");
+      }
+    }).catch(console.error);
+}
+
+// ----------------- Ethereum / MetaMask -----------------
+async function connectMetaMask() {
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (typeof window.ethereum !== 'undefined') {
+    try {
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      if (accounts.length) {
+        checkMetaMaskToken(accounts[0]);
+      }
+
+    } catch (error) {
+      if (error.code === 4001) {
+        console.log('User rejected MetaMask connection.');
+      } else {
+        console.error(error);
+      }
+    }
+  } else {
+    if (isMobile) {
+      openModal('mobile-only');
+    } else {
+      alert('MetaMask not found. Please install MetaMask.');
+    }
+  }
+}
+
+async function checkMetaMaskToken(account) {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const contract = new ethers.Contract(
+    '0xa9deffb371dd9c7fd2cfc6676cdb3bc394b45a42',
+    [{
+      constant: true,
+      inputs: [{ name: "_owner", type: "address" }],
+      name: "balanceOf",
+      outputs: [{ name: "balance", type: "uint256" }],
+      type: "function"
+    }],
+    provider
+  );
+
+  try {
+    const balance = await contract.balanceOf(account);
+    if (balance.gt(0)) {
+      reveal();
+      updateLoadingDiv(`You have ${balance.toString()} TUDEs. Access granted.`);
+    } else {
+      updateLoadingDiv('You must possess TUDE to access the material.');
+    }
+  } catch (err) {
+    console.error(err);
+    updateLoadingDiv("MetaMask token check failed.");
+  }
+}
+
+// ----------------- Solana / Phantom -----------------
+async function getAssociatedTokenAddress(mint, owner) {
+  return (
+    await solanaWeb3.PublicKey.findProgramAddress(
+      [
+        owner.toBuffer(),
+        new solanaWeb3.PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA").toBuffer(),
+        mint.toBuffer()
+      ],
+      new solanaWeb3.PublicKey("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL")
+    )
+  )[0];
+}
+
+async function runPhantomBalanceCheck(publicKey) {
+  try {
+    const connection = new solanaWeb3.Connection("https://api.mainnet-beta.solana.com", "confirmed");
+    const mint = new solanaWeb3.PublicKey("RstyC4aoSD1JKPGTxnjB3PkWdRzV3yoePH1XiPMxBfz");
+    const ata = await getAssociatedTokenAddress(mint, publicKey);
+    const result = await connection.getTokenAccountBalance(ata);
+    const balance = result.value.uiAmount;
+
+    if (balance >= 1) {
+      reveal();
+      updateLoadingDiv(`You hold ${balance} RSTORY tokens on Solana. Access granted.`);
+    } else {
+      updateLoadingDiv(`You hold only ${balance} RSTORY tokens. 1 required.`);
+    }
+  } catch (err) {
+    console.error("Phantom check error:", err);
+    updateLoadingDiv("Could not verify RSTORY token on Solana.");
+  }
+}
+
+async function connectPhantomAndCheckRstory() {
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const provider = window.solana;
+
+  if (!provider || !provider.isPhantom) {
+    if (isMobile) {
+      alert("Opening Phantom. After connecting, return and tap 'Retry Phantom'.");
+      const appUrl = encodeURIComponent(window.location.href);
+      const deepLink = `https://phantom.app/ul/v1/connect?app_url=${appUrl}&redirect_url=${appUrl}`;
+      window.location.href = deepLink;
+    } else {
+      alert("Phantom Wallet not found.");
+    }
+    return;
+  }
+
+  try {
+    const resp = await provider.connect({ onlyIfTrusted: false });
+    if (resp.publicKey) runPhantomBalanceCheck(resp.publicKey);
+  } catch (err) {
+    console.error("Phantom connect error:", err);
+  }
+}
+
+
+
+// ----------------- Event Bindings -----------------
+document.addEventListener("DOMContentLoaded", () => {
+  const anchorBtn = document.getElementById('read-btn');
+  const metamaskBtn = document.getElementById('read-metamask');
+  const phantomBtn = document.getElementById('phantom-check');
+  const phantomRetry = document.getElementById('phantom-retry');
+
+  if (anchorBtn) anchorBtn.addEventListener('click', () => loginEos(true));
+  if (metamaskBtn) metamaskBtn.addEventListener('click', connectMetaMask);
+
+  if (phantomBtn) phantomBtn.addEventListener('click', () => {
+    connectPhantomAndCheckRstory();
+    if (phantomRetry) phantomRetry.style.display = 'inline-block';
+  });
+
+  if (phantomRetry) phantomRetry.addEventListener('click', () => {
+    connectPhantomAndCheckRstory();
+  });
+});
+
+function positionNodesAndDrawLines() {
+  const container = document.querySelector('.network-left');
+  const canvas = document.getElementById('connection-canvas');
+  const ctx = canvas.getContext('2d');
+  const nodes = container.querySelectorAll('.node');
+
+  // Get actual rendered size of the container
+  const rect = container.getBoundingClientRect();
+
+  // Set canvas drawing dimensions to match rendered size
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+
+  const cx = rect.width / 2;
+  const cy = rect.height / 2;
+
+  // Clear previous lines
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.strokeStyle = '#d1492c';
+  ctx.lineWidth = 3;
+
+  // Position nodes and draw lines
+  nodes.forEach(node => {
+    const angle = parseFloat(node.getAttribute('data-angle')) * (Math.PI / 180);
+    const distance = parseFloat(node.getAttribute('data-distance')) || rect.width / 2.5;
+
+    const x = cx + distance * Math.cos(angle);
+    const y = cy + distance * Math.sin(angle);
+
+    node.style.left = `${x}px`;
+    node.style.top = `${y}px`;
+
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+  });
+}
+
+window.addEventListener('load', positionNodesAndDrawLines);
+window.addEventListener('resize', () => {
+  clearTimeout(window._resizeTimer);
+  window._resizeTimer = setTimeout(positionNodesAndDrawLines, 100);
+});
+</script>
 
 </body>
 </html>
