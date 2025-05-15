@@ -1,17 +1,69 @@
+---
+layout: default
+title: "Akashic Records README"
+description: "Interactive Hermetic and Gnostic experience — part of the Akashic Records Collection under FOOD4THOTH."
+permalink: /css-only-3d-image-carousel/readme/
+image: /images/og-preview.jpg
+
+og_title: "Akashic Records"
+og_description: "Explore esoteric wisdom through interactive visuals and mystical storytelling — Akashic Records."
+og_image: /images/og-preview.jpg
+
+twitter_card: summary_large_image
+twitter_title: "Akashic Records"
+twitter_description: "Hermetic scrolls and cinematic storytelling from the FOOD4THOTH Archive."
+twitter_image: /images/og-preview.jpg
+---
+
+# Akashic Records  
+*A Hermetic Portal into Healing, Mysticism, and the Inner Cosmos | Part of the FOOD4THOTH Network*
+
+[← Return to FOOD4THOTH](../index.html)
+
+---
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a { color: #00ffff; }
+  h1, h2, h3, h4, h5, h6 { color: #ff66cc; }
+  
+    .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ff00ff, #001eff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(255, 0, 255, 0.5);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffff, #6600cc);
+    box-shadow: 0 0 10px #00ffff;
+  }
+
+</style>
+
 <div style="text-align: center; margin-bottom: 20px;">
-    <button class="nav-button" onclick="location.href='../css-only-3d-image-carousel/index.html'">Main Landing</button>
-    <button class="nav-button" onclick="location.href='../AkashicAsclepiusDeep/index.html'">Akashic Asclepius Deep</button>
-    <button class="nav-button" onclick="location.href='../AkashicAsclepiusLite/index.html'">Akashic Asclepius Lite</button>
-    <button class="nav-button" onclick="location.href='../AkashicEmeraldAsAbove/index.html'">Akashic Emerald As Above</button>
-    <button class="nav-button" onclick="location.href='../AkashicEmeraldDeep/index.html'">Akashic Emerald Deep</button>
-    <button class="nav-button" onclick="location.href='../AkashicEmeraldLite/index.html'">Akashic Emerald Lite</button>
-    <button class="nav-button" onclick="location.href='../AkashicHermiticum/index.html'">Akashic Hermiticum</button>
-    <button class="nav-button" onclick="location.href='../AkashicHymnLite/index.html'">Akashic Hymn Lite</button>
-    <button class="nav-button" onclick="location.href='../AkashicNag/index.html'">Akashic Nag</button>
-    <button class="nav-button" onclick="location.href='../AkashicNag13Codex/index.html'">Akashic Nag 13 Codex</button>
-    <button class="nav-button" onclick="location.href='../AkashicNagTreaties/index.html'">Akashic Nag Treaties</button>
-    <button class="nav-button" onclick="location.href='../AkashicThothDeep/index.html'">Akashic Thoth Deep</button>
-    <button class="nav-button" onclick="location.href='../AkashicThothLite/index.html'">Akashic Thoth Lite</button>
+  <a class="nav-button" href="https://www.food4thoth.com/css-only-3d-image-carousel/index.html">Main Landing</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AkashicAsclepiusDeep/index.html">Akashic Asclepius Deep</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AkashicAsclepiusLite/index.html">Akashic Asclepius Lite</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AkashicEmeraldAsAbove/index.html">Akashic Emerald As Above</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AkashicEmeraldDeep/index.html">Akashic Emerald Deep</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AkashicEmeraldLite/index.html">Akashic Emerald Lite</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AkashicHermiticum/index.html">Akashic Hermiticum</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AkashicHymnLite/index.html">Akashic Hymn Lite</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AkashicNag/index.html">Akashic Nag</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AkashicNag13Codex/index.html">Akashic Nag 13 Codex</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AkashicNagTreaties/index.html">Akashic Nag Treaties</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AkashicThothDeep/index.html">Akashic Thoth Deep</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AkashicThothLite/index.html">Akashic Thoth Lite</a>
 </div>
 
 # 🪬 Akashic Records Carousel
