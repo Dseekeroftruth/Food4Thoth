@@ -4,21 +4,24 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mark | RSTORY Creator</title>
-	<meta name="description" content="Rstory is a crypto token built on EOS, Ethereum, and DropChain.">
+  <title>Mark | RSTORY Founder</title>
+	  <meta name="description" content="Rstory is a token built on EOS, Ethereum, Solana and DropChain.">
   <meta name="author" content="DeJahn">
-	
   <link rel="apple-touch-icon" sizes="180x180" href="https://rstory.io/logo180.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="https://rstory.io/rstory-logo32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://rstory.io/logo32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://rstory.io/logo16.png">
-	  <link rel="stylesheet" href="https://pyscript.net/releases/2024.5.2/core.css" />
-	 <script src="https://rstory.mypinata.cloud/ipfs/QmRRRaytjur3gspxa9mUxaxLQhW6A19qRvp4TFweJfACkn"></script>
-    <script src="https://rstory.mypinata.cloud/ipfs/QmPrgG4X6sX3CHLLgrcQU8H8VTqh5mWqWfP6KLtfSfYKxc"></script>
-    <script src="https://unpkg.com/anchor-link@3"></script>
-    <script src="https://unpkg.com/anchor-link-browser-transport@3"></script>
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.6.8/dist/ethers.umd.min.js"></script>	
-<script src="https://unpkg.com/@solana/web3.js@1.73.3/lib/index.iife.min.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+  <script src="https://rstory.mypinata.cloud/ipfs/QmRRRaytjur3gspxa9mUxaxLQhW6A19qRvp4TFweJfACkn"></script>
+  <script src="https://rstory.mypinata.cloud/ipfs/QmPrgG4X6sX3CHLLgrcQU8H8VTqh5mWqWfP6KLtfSfYKxc"></script>
+  <script src="https://unpkg.com/anchor-link@3"></script>
+  <script src="https://unpkg.com/anchor-link-browser-transport@3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.6.8/dist/ethers.umd.min.js"></script>
+  <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <meta property="og:title" content="Rstory">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="Rstory cryptocurrency EOS, ETH, SOL, and DropChain.">
+  <meta property="og:image" content="https://rstory.io/blackbanner.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Pathway+Gothic+One&display=swap" rel="stylesheet">
@@ -27,6 +30,7 @@
         body {		  
           position: relative;
           z-index: 1;
+					
         }
 
         /* Full-screen background image behind body */
@@ -37,7 +41,7 @@
           left: 0;
           width: 100vw;
           height: 100vh;
-          background: url('dots6.png');
+          background: url('https://rstory.io/dots6.png');
           background-repeat: no-repeat;
           background-position: center center;
           background-size: cover;
@@ -113,7 +117,7 @@
 				
 				.btn3.black {
           border-color: LightGray;
-          color: cyan;
+          color: black;
 					font-size: 12px;
 					padding: 2px;
 					width: 100%;
@@ -136,7 +140,7 @@
           height: auto;			
         }
 		
-      		   .modal {
+        .modal {
           position: fixed;
           top: 0; left: 0;
           width: 100vw; height: 100vh;
@@ -145,9 +149,9 @@
           justify-content: center;
           align-items: center;
           z-index: 1000;
-          overflow: auto;
-	font-color: black;	
-	color: black;
+          overflow: auto;		  
+					font-color: black;
+					color: black;
         }
 
         .modal-content {
@@ -155,15 +159,13 @@
           padding: 20px;		  
           border: 12px solid LightGray;
           border-radius: 16px;
-          color: black;
+          font-color: black;
+					color: black;
           text-align: left;
 		  max-width: 50%;		  
           overflow-y: auto; /* Scroll content if too tall */
           word-wrap: break-word;
           overflow-wrap: break-word;
-					font-color: black;	
-	color: black;
-					
         }
 		
         .modal p {
@@ -261,12 +263,14 @@
         p, li {
             font-size: 18px;
             font-family: 'Noto Serif', courier;
-            background: black;
-					color: white;           
+            background: white;
+					color: black;   
+					border-radius: 8px;
         }
 
         li {
             padding: 10px;
+						border-radius: 8px;
         }
 
         a {
@@ -275,8 +279,8 @@
         }
         
         a:hover {
-            background-color: black;
-            color: white;
+            background-color: white;
+            color: black;
         }
         
         h1 {
@@ -324,7 +328,7 @@
             width: 1.4em;
             height: 1.4em;			
             border-radius: 50%;
-            background-color: black;
+            background-color: white;
             cursor: pointer;
             transition: transform 0.2s ease;
         }
@@ -347,8 +351,8 @@
             padding: 8px;            
         }
 		
-        .header {
-          margin-left: 10%;
+      .header {
+          margin-left: 0;
           margin-right: 10%;		
           display: flex;
           flex-wrap: wrap;
@@ -357,16 +361,18 @@
           align-items: stretch;
           padding-top: 20px;
           margin-bottom: 0;
-          padding-bottom: 0;		  
+          padding-bottom: 0;			
         }
 
+    
         .network-left {
           position: relative;
-          width: 100%;
-          max-width: 700px;
-          flex: 1 1 300px;		  
+          
+          flex: 1 1 600px;		  
           margin-bottom: 0;
-          padding-bottom: 0;		  
+          padding-bottom: 0;		
+				  width: 80vw;
+					height: auto;
         }
 		
         .node {
@@ -376,7 +382,7 @@
           color: cyan;
           border-radius: 16px;
           padding: 6px 12px;
-          font-size: 18px;
+          font-size: 14px;
           white-space: nowrap;
 		  font-family: "Pathway Gothic One", sans-serif;
           text-transform: uppercase;		  
@@ -488,86 +494,12 @@
   </style>
 
    <style>
-    
-
-    .hero-creators {
-      padding: 4rem 2rem;
-      background: #0a0a0a;
-      color: #fff;
-      text-align: center;
-    }
-
-    .section-title {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .section-tagline {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      color: #aaa;
-    }
-
-    .creator-carousel {
-      display: flex;
-      overflow-x: auto;
-      gap: 1.5rem;
-      padding: 1rem;
-      scroll-snap-type: x mandatory;
-    }
-
-    .creator-card {
-      flex: 0 0 280px;
-      background: #111;
-      border-radius: 16px;
-      padding: 1.5rem;
-      text-align: center;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
-      scroll-snap-align: center;
-      transition: transform 0.3s ease;
-    }
-
-    .creator-card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-    }
-
-    .creator-avatar {
-      border-radius: 50%;
-      width: 100px;
-      height: 100px;
-      margin-bottom: 1rem;
-      border: 3px solid #0ff;
-    }
-
-    .creator-name {
-      font-size: 1.25rem;
-      margin: 0.5rem 0;
-    }
-
-    .creator-quote {
-      font-style: italic;
-      color: #ccc;
-      margin-bottom: 1rem;
-    }
-
-    .view-button {
-      display: inline-block;
-      padding: 0.5rem 1.25rem;
-      background: #00ffff;
-      color: #111;
-      border-radius: 8px;
-			border: 4px solid lightgrey;
-      text-decoration: none;
-      font-weight: bold;
-			margin: 4px;
-    }
-		
 		   .token-info {
 						 padding: 2rem;
             margin-top: 50px;
             padding-top: 30px;
             border-top: 2px solid #007bff;
+						border-radius: 8px;
         }
         .token-info img {
             float: right;
@@ -578,66 +510,63 @@
             font-size: 2em;
             margin-bottom: 20px;
             color: #007bff;
+						border-radius: 8px;
         }
         .token-info p {
             font-size: 1em;
             margin-bottom: 20px;
             color: #555;
             line-height: 1.6;
+						border-radius: 8px;
         }
 				
 				a {
             color: #007bff;
             text-decoration: none;
             transition: color 0.3s ease;
+						
         }
         a:hover {
-            color: white;
+            color: black;
             background-color: #007bff; 
         }
   </style>
   <style>
-    body {
-      background: #0a0a0a;
-      color: #fff;
-      font-family: 'Helvetica Neue', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
+    
+	.creator-avatar2 {
+      display: block;
+  margin: 0 auto 1rem auto;
+  border-radius: 50%;
+  width: 80vw;       /* Scales with viewport width */
+  max-width: 300px;  /* Prevents it from getting too large */
+  height: auto;      /* Maintains aspect ratio */
+  border: 3px solid #0ff;
+}
 
     header {
       text-align: center;
       padding: 3rem 2rem;
-      background: linear-gradient(135deg, #111, #000);
+      background: transparent;
     }
 
     header h1 {
       font-size: 2.5rem;
-      color: #ff00ff;
+      color: black;
+			font-weight: bold;
+			background-color: white;
+			border-radius: 8px;
+			padding-bottom: 5px;
     }
 
     header p {
       font-size: 1.2rem;
-      color: #ccc;
+      color: black;
       max-width: 700px;
       margin: 1rem auto;
+			border-radius: 8px;
     }
 
-    .links {
-      margin-top: 1.5rem;
-    }
-
-    .links a {
-      display: inline-block;
-      margin: 0.25rem;
-      padding: 0.5rem 1rem;
-      background: #00ffff;
-      color: #111;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-			border: 4px solid lightgrey;
-    }
+  
 		
 		a {
       color: #00ff99;
@@ -662,11 +591,15 @@
 
     .section h2 {
       color: #ffcc00;
+			background-color: whitesmoke;
+			border-radius: 8px;
+			padding: .3rem;
     }
 
     .section p {
-      color: #bbb;
+      color: black;
       line-height: 1.6;
+			border-radius: 8px;
     }
 
     .project {
@@ -732,7 +665,8 @@ button {
   display: flex;
   justify-content: center;
   gap: 0.75rem;
- 
+
+	
   flex-wrap: wrap;
 }
 
@@ -740,6 +674,7 @@ button {
             display: flex;
             justify-content: center;
             gap: 10px;
+						
         }		
 
         .gallery img:hover {
@@ -789,8 +724,8 @@ button {
           align-items: center;
           z-index: 1000;
           overflow: auto;
-					color: black;
-	        font-color: black;			
+	font-color: black;
+	color: black;
         }
 
         .modal-content {
@@ -805,6 +740,7 @@ button {
           word-wrap: break-word;
           overflow-wrap: break-word;
 					font-color: black;
+					
         }
 		
         .modal p {
@@ -910,7 +846,7 @@ button {
   left: 0;
   right: 0;
   z-index: 999;
-  background: #000;
+  background: whitesmoke;
   padding: 1rem;
   box-shadow: 0 2px 6px rgba(0,0,0,0.5);
   overflow-x: hidden;
@@ -956,7 +892,7 @@ button {
 }
 
 body {
-  padding-top: 300px; /* adjust based on your banner height */
+  padding-top: 350px; /* adjust based on your banner height */
 }
 
 	.preview {
@@ -1019,19 +955,18 @@ html {
 }
 
 [id] {
-  scroll-margin-top: 340px;
+  scroll-margin-top: 370px;
+	text-decoration: none;
 }
-
+					
   </style>
 </head>
 <body>
 	
-
-	
 	<div class="sticky-banner">
-		  
-<button id="toggle-banner" class="btn3 black">Toggle</button>
+		  <button id="toggle-banner" class="btn3 black">Toggle</button>
 			<br />
+
   <div id="banner-content" class="collapsible-content">
 		  <div class="scroll-row">
   <a href="https://eos.alcor.exchange/trade/rstory-rstorytokens_eos-eosio.token" target="_blank" class="btn black">Buy with EOS on Alcor</a>
@@ -1042,21 +977,32 @@ html {
 	
   <!-- Row 0: Modals -->
 <div class="button-row">
-  <button class="btn1 black" onclick="openModal('about')">Start Here</button>
-  <button class="btn1 black" onclick="openModal('bio')">How It Works</button>
-  <button class="btn1 black" onclick="openModal('rnetwork')">Network</button>
+  <button class="btn1 black" onclick="openModal('about')" style="color:black">Start Here</button>
+  <button class="btn1 black" onclick="openModal('bio')" style="color:black">How It Works</button>
+  <button class="btn1 black" onclick="openModal('rnetwork')" style="color:black">Network</button>
 </div>
 
 <!-- Row 1: Modals -->
 <div class="button-row">
-  <button class="btn1 black" onclick="openModal('eos-modal')">EOS INFO</button>
-  <button class="btn1 black" onclick="openModal('eth-modal')">ETH INFO</button>
-  <button class="btn1 black" onclick="openModal('dropchain-modal')">DROPCHAIN INFO</button>
+  <button class="btn1 black" onclick="openModal('eos-modal')" style="color:black">EOS INFO</button>
+  <button class="btn1 black" onclick="openModal('eth-modal')" style="color:black">ETH INFO</button>
+  <button class="btn1 black" onclick="openModal('dropchain-modal')" style="color:black">DROPCHAIN INFO</button>
 </div>
 
 				    <div id="button-row" >
-							<a href="https://wallet.dropchain.network/login/S1CWVuM9Ob8l4ZKsIGfMCOgT" class="btn" target="_blank" style="font-size:1.5em;"
-   >Dropchain
+							<a href="https://wallet.dropchain.network/login/S1CWVuM9Ob8l4ZKsIGfMCOgT" class="btn1 black" target="_blank" style="background: rgba(255,255,255,0.5);
+          border: 4px solid cyan;
+          color: black;
+          padding: 12px;
+		  font-family: Pathway Gothic One, sans-serif;
+          text-align: center;
+          font-weight: bold;
+          font-size: 20px;
+          cursor: pointer;
+          transition: all 0.1s ease;
+          text-transform: uppercase;
+          border-radius: 16px;"
+   ><strong>Dropchain</strong>
 </a>
   <button id="read-btn">Anchor</button>
   <button id="read-metamask">Metamask</button>
@@ -1110,20 +1056,16 @@ html {
 document.getElementById("toggle-banner").addEventListener("click", function () {
   const banner = document.getElementById("banner-content");
   const body = document.body;
-  const html = document.documentElement;
 
   banner.classList.toggle("collapsed");
 
   if (banner.classList.contains("collapsed")) {
     body.style.paddingTop = "20px";  // Remove extra padding when collapsed
-    html.classList.remove("scroll-with-banner"); // Adjust scroll margin
   } else {
-    body.style.paddingTop = "300px";  // Restore banner height when expanded
-    html.classList.add("scroll-with-banner"); // Add scroll margin for smooth anchors
+    body.style.paddingTop = "360px";  // Restore banner height when expanded
   }
 });
 </script>
-
 
 	 <header>
     <h1>Mark Bailey (a.k.a. Mark Leather)</h1>
@@ -1132,15 +1074,15 @@ document.getElementById("toggle-banner").addEventListener("click", function () {
       Mark’s work explores emerging tech, myth, and consciousness — shared through a decentralized creative economy.
     </p>
     <div class="links">
-      <a href="https://github.com/ma-da/rstory">GitHub</a>
-      <a href="https://hive.blog/@rstory">Hive Blog</a>
-      <a href="https://objkt.com/collections/KT1TJEWFRDcudZYwPVfm2j1HAANen3TL7fof">Tezos NFTs</a>
+      <a href="https://github.com/ma-da/rstory" class="node1">GitHub</a>
+      <a href="https://hive.blog/@rstory" class="node1">Hive Blog</a>
+      <a href="https://objkt.com/collections/KT1TJEWFRDcudZYwPVfm2j1HAANen3TL7fof" class="node1">Tezos NFTs</a>
     </div>
   </header>
 	
 	<br />
 	
-	 <img class="creator-avatar" src="./assets/img/Mark.png" alt="Mark Bailey Avatar">
+	 <img class="creator-avatar2" src="./assets/img/Mark.png" alt="Mark Bailey Avatar">
 
   <section class="section">
     <h2>About</h2>
@@ -1155,17 +1097,17 @@ document.getElementById("toggle-banner").addEventListener("click", function () {
 
  <section class="section">
   <h2>List</h2>
-  <div class="links">
-    <a href="#brockton-exodus" class="button">The Brockton Exodus</a>
-    <a href="#small-gods" class="button">Small Gods of Time Travel</a>
-    <a href="#incident-321" class="button">The 321 Incident</a>
-    <a href="#paradise-anomaly" class="button">The Paradise Anomaly</a>
-    <a href="#one-man-embassy" class="button">One Man Embassy</a>
-    <a href="#flying-saucers" class="button">Flying Saucer Shenanigans</a>
-    <a href="#rainbow-lullaby" class="button">Rainbow Lullaby</a>
-    <a href="#ostermann-method" class="button">The Ostermann Method</a>
-    <a href="#blue-dragon" class="button">Blue Dragon Mississippi</a>
-    <a href="#psychic-avalanche" class="button">Psychic Avalanche</a>
+  <div class="List">
+    <a href="#brockton-exodus" class="btn black">The Brockton Exodus</a>
+    <a href="#small-gods" class="btn black">Small Gods of Time Travel</a>
+    <a href="#incident-321" class="btn black">The 321 Incident</a>
+    <a href="#paradise-anomaly" class="btn black">The Paradise Anomaly</a>
+    <a href="#one-man-embassy" class="btn black">One Man Embassy</a>
+    <a href="#flying-saucers" class="btn black">Flying Saucer Shenanigans</a>
+    <a href="#rainbow-lullaby" class="btn black">Rainbow Lullaby</a>
+    <a href="#ostermann-method" class="btn black">The Ostermann Method</a>
+    <a href="#blue-dragon" class="btn black">Blue Dragon Mississippi</a>
+    <a href="#psychic-avalanche" class="btn black">Psychic Avalanche</a>
   </div>
 </section>
 
@@ -1651,123 +1593,54 @@ function detectAndOpenMetaMask() {
     <a href="https://t.me/+m-WEaUc7Ud8yY2Qx" target="_blank">Telegram</a>.
   </p>
 	
-	<header class="header">
+  <header class="header">
     <!-- Network Graph Side -->
     <div class="network-left">
-      <canvas id="connection-canvas"></canvas>
 
-      <div class="center-logo" id="center-logo"></div>
+      <svg id="network-svg" width="100%" height="100%" style="position: absolute; top: 0; left: 0; z-index: 0;"></svg>
+
+      <div class="center-logo" id="center-logo" data-modal="logopop"></div>
 
       <!-- Clickable nodes with data-angle in degrees -->
-      <a href="https://rstory.io/roadmap.html" target="_blank" class="node" data-angle="355" data-distance="190">publishers</a>
-      <a href="https://github.com/ma-da/rstory" target="_blank" class="node" data-angle="20" data-distance="190">developers</a>
-      <a href="https://youtu.be/HgHX2-LoX0Y?si=lV7rxjStJenOLaW6" target="_blank" class="node" data-angle="45" data-distance="180">journalists</a>
-      <a href="https://rstory.io/roadmap.html" target="_blank" class="node" data-angle="80" data-distance="170">liquidity<br> providers</a>
+      <a href="https://rstory.io/roadmap.html" target="_blank" class="node" data-angle="355" data-distance="190">roadmap<br> scenarios</a>
+      <a href="https://github.com/ma-da/rstory" target="_blank" class="node" data-angle="20" data-distance="190">github</a>
+      <a href="https://youtu.be/HgHX2-LoX0Y?si=lV7rxjStJenOLaW6" target="_blank" class="node" data-angle="45" data-distance="180">event<br> video</a>
+      <a href="https://rstory.io/solanalaunch.html" target="_blank" class="node" data-angle="80" data-distance="170">solana<br> token<br> launch</a>
       <a href="https://hive.blog/cryptocurrency/@rstory/philanthropist-leo-kuelbs-receives-1m-rstory-gratitude-tokens" target="_blank" class="node" data-angle="120" data-distance="150">philanthropists</a>
-      <a href="https://rstory.io/rstory-whitepaper.pdf" target="_blank" class="node" data-angle="150" data-distance="130">crypto<br> enthusiasts</a>
-      <a href="https://rstory.io/roadmap.html" target="_blank" class="node" data-angle="180" data-distance="140">content<br> creators</a>
-      <a href="https://hive.blog/cryptocurrency/@rstory/the-periphery-foundation-receives-1m-rstory-gratitude-tokens" target="_blank" class="node" data-angle="210" data-distance="150">storytellers</a>
-      <a href="https://youtu.be/HgHX2-LoX0Y?si=lV7rxjStJenOLaW6" target="_blank" class="node" data-angle="240" data-distance="160">activists</a>
-      <a href="https://rstory.io/roadmap.html" target="_blank" class="node" data-angle="270" data-distance="170">readers/<br>viewers</a>
-      <a href="https://rstory.io/roadmap.html" target="_blank" class="node" data-angle="300" data-distance="180">writers</a>
+      <a href="https://rstory.io/rstory-whitepaper.pdf" target="_blank" class="node" data-angle="150" data-distance="130">whitepaper</a>
+      <a href="https://hive.blog/@rstory" target="_blank" class="node" data-angle="180" data-distance="140">hive<br> blog</a>
+      <a href="https://hive.blog/cryptocurrency/@rstory/the-periphery-foundation-receives-1m-rstory-gratitude-tokens" target="_blank" class="node" data-angle="210" data-distance="150">content creators</a>
+      <a href="https://t.me/rstorypublic" target="_blank" class="node" data-angle="240" data-distance="160">join on<br> telegram</a>
+      <a href="https://x.com/Rstory_Official" target="_blank" class="node" data-angle="270" data-distance="170">x</a>
+      <a href="https://linktr.ee/rstory_official" target="_blank" class="node" data-angle="300" data-distance="180">linktree</a>
       <a href="https://hive.blog/crypto/@rstory/artabillies-receives-1m-rstory-gratitude-tokens" target="_blank" class="node" data-angle="330" data-distance="190">community<br> leaders</a>
     </div>
-</div>
-
-
-<!-- Meet the Creators Section -->
-  <section id="meet-the-creators" class="hero-creators">
-    <h2 class="section-title">Key Contributors</h2>
-    <p class="section-tagline">
-      A community of dreamers, builders, artists, and storytellers — united by gratitude.
-    </p>
-		
-		
-
-    <div class="creator-carousel">
-			<div class="creator-card">
-  <img class="creator-avatar" src="./assets/img/dseeker-avatar.jpeg" alt="DeJahn / dseekeroftruth">
-  <h3 class="creator-name">@dseekeroftruth</h3>
-  <p class="creator-quote">"Art is the code of the soul — shared in gratitude, amplified through story."</p>
-  
-  <a href="DeJahn.html" class="view-button">View Works</a>
-  
-  <div style="margin-top: 1rem;">
-    <a href="https://www.artabillies.com/" class="view-button" style="background:#ff00ff;">Artabillies</a>
-    <a href="https://www.food4thoth.com/" class="view-button" style="background:lime;">Food4Thoth</a>
-    <a href="https://hive.blog/crypto/@rstory/artabillies-receives-1m-rstory-gratitude-tokens" class="view-button" style="background:#ffff00; color:#000;">Hive Article</a>
-  </div>
-</div>
-
-<div class="creator-card">
-  <img class="creator-avatar" src="./assets/img/Amber.jpeg" alt="Amber / EarthMuse">
-  <h3 class="creator-name">@EarthMuse</h3>
-  <p class="creator-quote">"Media can be medicine. Truth is the first act of healing."</p>
-
-  <a href="Amber.html" class="view-button">View Works</a>
-
-  <div style="margin-top: 1rem;">
-    <a href="https://amberyang.love" class="view-button" style="background:#ff00ff;">AmberYang.love</a>
-    <a href="https://www.wanttoknow.info" class="view-button" style="background:lime;">WantToKnow.info</a>
-    <a href="https://t.me/EarthMuse" class="view-button" style="background:#ffff00; color:#000;">Telegram</a>
-  </div>
-</div>
-
-<div class="creator-card">
-  <img class="creator-avatar" src="./assets/img/Henry.jpeg" alt="Henry / Community Voice">
-  <h3 class="creator-name">@Henry_9818</h3>
-  <p class="creator-quote">"The token is a tool — the mission is what makes it matter."</p>
-
-  <a href="Henry.html" class="view-button">View Works</a>
-
-  <div style="margin-top: 1rem;">
-    <a href="https://t.me/Henry_9818" class="view-button" style="background:lime;">Telegram</a>
-    <a href="https://rstory.io" class="view-button" style="background:#ff00ff;">RSTORY</a>
-  </div>
-</div>
-
-<div class="creator-card">
-  <img class="creator-avatar" src="./assets/img/Dylan.jpeg" alt="Dylan Daniel / EpicDylan">
-  <h3 class="creator-name">@epicdylan</h3>
-  <p class="creator-quote">"Cognition, code, and culture — exploring what’s next through mind and machine."</p>
-
-  <a href="Dylan.html" class="view-button">View Works</a>
-
-  <div style="margin-top: 1rem;">
-    <a href="https://epicdylan.com" class="view-button" style="background:#ff00ff;">epicdylan.com</a>
-    <a href="https://pagedao.org" class="view-button" style="background:lime;">PageDAO</a>
-    <a href="https://t.me/epicdylan" class="view-button" style="background:#ffff00; color:#000;">Telegram</a>
-  </div>
-</div>
-
-<div class="creator-card">
-  <img class="creator-avatar" src="./assets/img/Mark.png" alt="Mark Bailey Avatar">
-  <h3 class="creator-name">@rstory</h3>
-  <p class="creator-quote">"RSTORY is for everyone — a decentralized home for creative minds and free expression."</p>
-
-  <a href="Mark.html" class="view-button">View Works</a>
-
-  <div style="margin-top: 1rem;">
-    <a href="https://github.com/ma-da/rstory" class="view-button" style="background:lime;">GitHub</a>
-    <a href="https://hive.blog/@rstory" class="view-button" style="background:#ff00ff;">Hive Blog</a>
-    <a href="https://rstory.io/" class="view-button" style="background:#ffff00; color:#000;">RStory</a>
-  </div>
-</div>
-
-      <!-- Add more cards as needed -->
     </div>
-  </section>
+  </header>
+
+
+
+<!-- In your main index.html -->
+<div id="key-contributors-container"></div>
+
+<script>
+fetch('KeyContributors.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('key-contributors-container').innerHTML = html;
+  })
+  .catch(error => console.error('Error loading KeyContributors.html:', error));
+</script>
 
 
   <div class="footer">
-    © 2025 RSTORY | Creator page for Mark Bailey
+    © 2025 RSTORY | Creator page for Mark
 </div>
 
-  <div id="footer"><a href="https://hive.blog/@rstory" target="_blank">Hive</a> <a href="https://x.com/Rstory_Official" target="_blank">X</a> | <a href="https://t.me/+m-WEaUc7Ud8yY2Qx" target="_blank">Telegram</a> |  <a href="https://rstory.io/rstory-whitepaper.pdf" target="_blank">Whitepaper</a> | <a href="https://rstory.io/roadmap.html" target="_blank">Roadmap</a> | <a href="#" data-modal="moondong">Moondong</a></div> 
+  <div id="footer"><a href="https://hive.blog/@rstory" target="_blank">Hive</a> | <a href="https://x.com/Rstory_Official" target="_blank">X</a> | <a href="https://t.me/rstorypublic" target="_blank">Telegram</a> | <a href="https://github.com/ma-da/rstory" target="_blank">Github</a> | <a href="https://rstory.io/rstory-whitepaper.pdf" target="_blank">Whitepaper</a> | <a href="https://rstory.io/roadmap.html" target="_blank">Roadmap</a></div>  
 
-<!-- JavaScript -->
 <script>
-	// Modal functions
+// Modal functions
 function openModal(id) {
   const modal = document.getElementById(id);
   if (modal) modal.style.display = "flex";
@@ -1780,7 +1653,7 @@ function closeModal(id) {
 
 // Event listeners for modals and bullet clicks
 document.addEventListener("DOMContentLoaded", () => {
-  const links = document.querySelectorAll('a[data-modal]');
+  const links = document.querySelectorAll('[data-modal]');
   links.forEach(link => {
     link.addEventListener("click", function (e) {
       e.preventDefault(); // Prevent default anchor jump
@@ -1809,13 +1682,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-	
-	function copyToClipboard(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    alert("URL copied! Open MetaMask app > Browser tab > Paste to access.");
-  });
-}
-	
+
 // Decoding functions and API key generation
 function decode(stuff, n) {
   const s = stuff[n];
@@ -1832,7 +1699,7 @@ function decode(stuff, n) {
 }
 
 function getApiKey() {
-  const s = "YOUR ENCRYPTED KEY";
+  const s = "0 90 30 51 d0 b1 e0 -0 00 a0 81 -0 40 710 f7 a9 b0 67 71 30 20 12 b0 e21 b3 1";
   const stuff = [''];
   let i = 0;
 
@@ -1871,8 +1738,51 @@ function updateLoadingDiv(message) {
   }
 }
 
+// Dropchain integration
+(async function () {
+  const sessionToken = new URLSearchParams(window.location.search).get("st");
+  if (!sessionToken) {
+    updateLoadingDiv("connect your wallet above to explore the science fiction below");
+    return;
+  }
+
+  try {
+    const relayRes = await fetch("https://fixingbrokenrobots.pythonanywhere.com/relay", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ session_token: sessionToken })
+    });
+
+    const relayData = await relayRes.json();
+    console.log("relayRes.ok:", relayRes.ok);
+    console.log("relayData:", relayData);
+
+    // Corrected: look inside relayData.data.receiver1_assets
+    const assets = (relayData.data && relayData.data.receiver1_assets) || [];
+
+    if (assets.length === 0) {
+      updateLoadingDiv("No assets found.");
+      return;
+    }
+
+    const targetAsset = assets.find(asset => asset["asset-id"] === 23235);
+
+    if (targetAsset) {
+      updateLoadingDiv(`Membership tokens detected: ${targetAsset.amount}`);
+      if (typeof reveal === "function") reveal();
+    } else {
+      updateLoadingDiv("Asset 23235 not found.");
+    }
+  } catch (err) {
+    updateLoadingDiv("Service error: " + err.message);
+    console.error("Fetch error:", err);
+  }
+})();
+
+
+// Reveal function to activate links
 function reveal() {
-  const links = document.querySelectorAll('#gallery-list a');
+  const links = document.querySelectorAll('#book-list a');
   const base_url = "https://rstory.mypinata.cloud/ipfs/";
   links.forEach(link => {
     const encoded_hash = link.getAttribute("data-encoded-hash");
@@ -1883,45 +1793,16 @@ function reveal() {
   });
 }
 
-function updateLoadingDiv(message) {
-  const div = document.getElementById("loading");
-  if (div) div.innerText = message;
-}
-
-function openInMetaMask() {
-  const siteURL = "https://www.food4thoth.com"; // your full HTTPS URL
-  const link = `https://metamask.app.link/dapp/${siteURL.replace(/^https?:\/\//, '')}`;
-  window.location.href = link;
-}
-
-async function suggestTudeToken() {
-  const wasAdded = await window.ethereum.request({
-    method: 'wallet_watchAsset',
-    params: {
-      type: 'ERC20',
-      options: {
-        address: '0xa9deffb371dd9c7fd2cfc6676cdb3bc394b45a42',
-        symbol: 'TUDE',
-        decimals: 0,
-        image: 'https://rstory.io/logo180.png'
-      },
-    },
-  });
-
-  if (wasAdded) {
-    console.log('TUDE token added to MetaMask');
-  } else {
-    console.log('TUDE token not added');
-  }
-}
-
-// ----------------- EOS / Anchor -----------------
+// EOS & Anchor integration
 const dapp = "rstory";
 let login_use = "";
 let wallet_userAccount = "none";
 let wallet_session = null;
 
-const eos = new waxjs.WaxJS({ rpcEndpoint: 'https://eos.greymass.com' });
+const eos = new waxjs.WaxJS({
+  rpcEndpoint: 'https://eos.greymass.com'
+});
+
 const transport = new AnchorLinkBrowserTransport();
 const anchorLink = new AnchorLink({
   transport,
@@ -1934,103 +1815,159 @@ const anchorLink = new AnchorLink({
 function loginEos(anchor) {
   login_use = anchor;
   if (anchor) {
-    anchorLink.login(dapp).then(result => {
-      wallet_session = result.session;
-      wallet_userAccount = wallet_session.auth.actor;
-      checkToken();
-    });
+    login_anchor();
   } else {
-    eos.login().then(userAccount => {
-      wallet_userAccount = userAccount;
+    login_eosjs().then(function (retorno) {
+      wallet_userAccount = retorno;
       checkToken();
-    }).catch(e => {
-      updateLoadingDiv(e.message || "Login failed");
     });
   }
 }
 
-function checkToken() {
-  const jsonData = JSON.stringify({
-    json: true,
-    code: "rstorytokens",
-    scope: wallet_userAccount,
-    table: "accounts",
-    limit: 10
+function login_anchor() {
+  anchorLink.login(dapp).then((result) => {
+    wallet_session = result.session;
+    wallet_userAccount = wallet_session.auth.actor;
+    checkToken();
   });
-
-  fetch("https://eos.eosphere.io/v1/chain/get_table_rows", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: jsonData
-  })
-    .then(res => res.json())
-    .then(data => {
-      const found = data.rows.some(row => row.balance);
-      if (found) {
-        reveal();
-        updateLoadingDiv("You have RSTORY on EOS. Access granted.");
-      } else {
-        updateLoadingDiv("You must possess RSTORY to access the material.");
-      }
-    }).catch(console.error);
 }
 
-// ----------------- Ethereum / MetaMask -----------------
+async function login_eosjs() {
+  try {
+    let userAccount = await eos.login();
+    return userAccount;
+  } catch (e) {
+    document.getElementById("autologin").innerHTML = e.message;
+  }
+  return false;
+}
+
+function checkToken() {
+  const eosApiUrl = "https://eos.eosphere.io/";
+  const TokenContract = "rstorytokens";
+  const jsonData = JSON.stringify({ "json": true, "code": TokenContract, "scope": wallet_userAccount, "table": "accounts", "limit": 10 });
+
+  fetch(eosApiUrl + "v1/chain/get_table_rows", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: jsonData
+  })
+  .then(response => response.json())
+  .then(data => {
+    let TokenFound = false;
+    data.rows.forEach(value => {
+      if (value.balance) {
+        TokenFound = true;
+        reveal();
+        document.getElementById("loading").innerHTML = "You have " + value.balance;
+      }
+    });
+    if (!TokenFound) {
+      document.getElementById("loading").innerHTML = "You must possess RSTORY to access the material";
+    }
+  })
+  .catch(error => {
+    console.error(error);
+  });
+}
+
+// Improved MetaMask connection function
 async function connectMetaMask() {
-  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  console.log("connectMetaMask() called");
 
-  if (typeof window.ethereum !== 'undefined') {
-    try {
-      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-      if (accounts.length) {
-        checkMetaMaskToken(accounts[0]);
-      }
+  if (!window.ethereum || !window.ethereum.isMetaMask) {
+    alert('MetaMask is not installed or detected. Please use MetaMask, not Phantom.');
+    return;
+  }
 
-    } catch (error) {
-      if (error.code === 4001) {
-        console.log('User rejected MetaMask connection.');
-      } else {
-        console.error(error);
-      }
-    }
-  } else {
-    if (isMobile) {
-      openModal('mobile-only');
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+  try {
+    const existingAccounts = await provider.listAccounts();
+    if (existingAccounts.length > 0) {
+      console.log("Already connected MetaMask accounts:", existingAccounts);
+      handleAccountsChanged(existingAccounts);
     } else {
-      alert('MetaMask not found. Please install MetaMask.');
+      const accounts = await provider.send("eth_requestAccounts", []);
+      console.log("User authorized MetaMask. Accounts returned:", accounts);
+      handleAccountsChanged(accounts);
     }
+  } catch (error) {
+    if (error.code === 4001) {
+      console.log('User rejected MetaMask connection.');
+    } else {
+      console.error("MetaMask connection error:", error);
+    }
+  }
+}
+
+
+
+function handleAccountsChanged(accounts) {
+  if (accounts.length === 0) {
+    console.log('Please connect to MetaMask.');
+  } else {
+    const account = accounts[0];
+    checkMetaMaskToken(account);
   }
 }
 
 async function checkMetaMaskToken(account) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const contract = new ethers.Contract(
-    '0xa9deffb371dd9c7fd2cfc6676cdb3bc394b45a42',
-    [{
-      constant: true,
-      inputs: [{ name: "_owner", type: "address" }],
-      name: "balanceOf",
-      outputs: [{ name: "balance", type: "uint256" }],
-      type: "function"
-    }],
-    provider
-  );
-
-  try {
-    const balance = await contract.balanceOf(account);
-    if (balance.gt(0)) {
-      reveal();
-      updateLoadingDiv(`You have ${balance.toString()} TUDEs. Access granted.`);
-    } else {
-      updateLoadingDiv('You must possess TUDE to access the material.');
+  const contractAddress = '0xa9deffb371dd9c7fd2cfc6676cdb3bc394b45a42';
+  const abi = [
+    {
+      "constant": true,
+      "inputs": [{ "name": "_owner", "type": "address" }],
+      "name": "balanceOf",
+      "outputs": [{ "name": "balance", "type": "uint256" }],
+      "type": "function"
     }
-  } catch (err) {
-    console.error(err);
-    updateLoadingDiv("MetaMask token check failed.");
+  ];
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const contract = new ethers.Contract(contractAddress, abi, provider);
+  try {
+    const balanceBN = await contract.balanceOf(account);
+    // TUDE uses 0 decimals:
+    const balance = ethers.utils.formatUnits(balanceBN, 0);
+    console.log("Raw balance:", balanceBN.toString(), "Formatted balance:", balance);
+    
+    // Use a proper comparison: convert formatted balance to a number for comparison.
+    if (Number(balance) > 0) {
+      reveal();
+      document.getElementById('loading').innerHTML = `Nice! ${balance} TUDEs detected. All links activated.`;
+    } else {
+      document.getElementById('loading').innerHTML = 'You must possess TUDE to access the material';
+    }
+  } catch (error) {
+    console.error("Error checking token balance:", error);
   }
 }
 
-// ----------------- Solana / Phantom -----------------
+
+// Bind button events for EOS/Anchor & MetaMask on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+  const anchorBtn = document.getElementById('read-anchor');
+  const metamaskBtn = document.getElementById('read-metamask');
+  const phantomBtn = document.getElementById('read-phantom');
+
+  if (anchorBtn) {
+    anchorBtn.addEventListener('click', () => loginEos(true));
+  }
+
+  if (metamaskBtn) {
+    metamaskBtn.addEventListener('click', () => {
+      console.log("MetaMask button clicked");
+      connectMetaMask();
+    });
+  if (phantomBtn) phantomBtn.addEventListener('click', connectPhantomAndCheckRstory);	
+  }
+});
+
+// Phantom integration and Moondong balance check
+
+// Helper to compute the associated token address (ATA)
 async function getAssociatedTokenAddress(mint, owner) {
   return (
     await solanaWeb3.PublicKey.findProgramAddress(
@@ -2044,24 +1981,63 @@ async function getAssociatedTokenAddress(mint, owner) {
   )[0];
 }
 
-async function runPhantomBalanceCheck(publicKey) {
+
+
+async function connectPhantomAndCheckMoondong() {
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const provider = window.solana;
+
+  // If no provider is detected
+  if (!provider) {
+    if (isMobile) {
+      // Use deep linking for mobile devices
+      const appUrl = encodeURIComponent(window.location.href);
+      const deepLink = `https://phantom.app/ul/v1/connect?app_url=${appUrl}&redirect_url=${appUrl}`;
+      window.location.href = deepLink;
+      return;
+    } else {
+      alert("Phantom Wallet not found.");
+      return;
+    }
+  }
+
+  // Connect using the available provider (desktop or Phantom's in-app browser)
   try {
-    const connection = new solanaWeb3.Connection("https://api.mainnet-beta.solana.com", "confirmed");
-    const mint = new solanaWeb3.PublicKey("RstyC4aoSD1JKPGTxnjB3PkWdRzV3yoePH1XiPMxBfz");
+    const resp = await provider.connect();
+    const publicKey = resp.publicKey;
+    
+    // Establish a connection to the Solana network and query Moondong token balance
+    const connection = new solanaWeb3.Connection(
+      "YOUR FAVORITE API PROVIDER",
+      "confirmed"
+    );
+
+    const mint = new solanaWeb3.PublicKey("DthcPtviaaVasr6GTjRLoRcJSysSqGsZR61LArghpump");
     const ata = await getAssociatedTokenAddress(mint, publicKey);
     const result = await connection.getTokenAccountBalance(ata);
     const balance = result.value.uiAmount;
-
-    if (balance >= 1) {
-      reveal();
-      updateLoadingDiv(`You hold ${balance} RSTORY tokens on Solana. Access granted.`);
+    
+    console.log("Moondong balance:", balance);
+    
+    if (balance >= 100000) {
+      updateLoadingDiv(`You hold ${balance} Moondong tokens. Nice! Book links activated`);
+      if (typeof reveal === "function") reveal();
     } else {
-      updateLoadingDiv(`You hold only ${balance} RSTORY tokens. 1 required.`);
+      updateLoadingDiv(`You hold only ${balance} Moondong tokens. 100,000 required.`);
     }
+  
   } catch (err) {
-    console.error("Phantom check error:", err);
-    updateLoadingDiv("Could not verify RSTORY token on Solana.");
+    console.error("Phantom or Moondong balance error:", err);
+    updateLoadingDiv("Could not read Moondong balance.");
   }
+}
+
+function gateParams(hex) {
+  let str = '';
+  for (let i = 0; i < hex.length; i += 2) {
+    str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+  }
+  return str;
 }
 
 async function connectPhantomAndCheckRstory() {
@@ -2070,98 +2046,146 @@ async function connectPhantomAndCheckRstory() {
 
   if (!provider || !provider.isPhantom) {
     if (isMobile) {
-      // Deep link to Phantom app
       const appUrl = encodeURIComponent(window.location.href);
       const deepLink = `https://phantom.app/ul/v1/connect?app_url=${appUrl}&redirect_url=${appUrl}`;
       window.location.href = deepLink;
+      return;
     } else {
-      alert("Phantom Wallet not found. Please install Phantom or use a compatible browser.");
+      alert("Phantom Wallet not found. Please install Phantom.");
+      return;
     }
-    return;
   }
 
   try {
-    const resp = await provider.connect({ onlyIfTrusted: false });
-    if (resp.publicKey) {
-      runPhantomBalanceCheck(resp.publicKey);
-      const loadingDiv = document.getElementById("loading");
-      if (loadingDiv) {
-        setTimeout(() => loadingDiv.scrollIntoView({ behavior: "smooth", block: "start" }), 200);
-      }
+    const resp = await provider.connect();
+    const publicKey = resp.publicKey;
+
+    const logicGate = "35633830303766323934363736326238336235346532363565396235633435333832623531336664663933373531346637646563313833396239366665653137";
+    const rpcUrl = "YOUR FAVORITE ENDPOINT" + gateParams(logicGate);
+    const connection = new solanaWeb3.Connection(rpcUrl, "confirmed");
+
+    const mint = new solanaWeb3.PublicKey("RstyC4aoSD1JKPGTxnjB3PkWdRzV3yoePH1XiPMxBfz");
+    const ata = (
+      await solanaWeb3.PublicKey.findProgramAddress(
+        [
+          publicKey.toBuffer(),
+          new solanaWeb3.PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA").toBuffer(),
+          mint.toBuffer()
+        ],
+        new solanaWeb3.PublicKey("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL")
+      )
+    )[0];
+
+    const result = await connection.getTokenAccountBalance(ata);
+    const balance = result.value.uiAmount;
+
+    console.log("Rstory token balance:", balance);
+
+    if (balance >= 1) {
+      updateLoadingDiv(`You hold ${balance} Rstory tokens. Welcome! Book links activated.`);
+      if (typeof reveal === "function") reveal();
+    } else {
+      updateLoadingDiv(`You hold ${balance} Rstory tokens. At least 1 required to unlock books.`);
     }
+
   } catch (err) {
-    console.error("Phantom connect error:", err);
+    console.error("Phantom or Rstory balance error:", err);
+    updateLoadingDiv("Could not read Rstory token balance.");
   }
 }
 
-function detectAndOpenPhantom() {
-  connectPhantomAndCheckRstory();
-}
-
-
-
-
-// ----------------- Event Bindings -----------------
+// Bind the Phantom button click event
 document.addEventListener("DOMContentLoaded", () => {
-  const anchorBtn = document.getElementById('read-btn');
-  const metamaskBtn = document.getElementById('read-metamask');
-  const phantomBtn = document.getElementById('phantom-check');
+  const phantomLink = document.getElementById("phantom-check");
+  if (phantomLink) {
+    console.log("Phantom link found");
+    phantomLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      console.log("Phantom link clicked");
 
-if (anchorBtn) anchorBtn.addEventListener('click', () => loginEos(true));
-if (metamaskBtn) metamaskBtn.addEventListener('click', connectMetaMask);
+      // Close the Moondong modal if open
+      closeModal("moondong");
 
-if (phantomBtn) {
-  phantomBtn.addEventListener('click', () => {
-    connectPhantomAndCheckRstory();
-  });
-}
+      // Optionally, smoothly scroll to the loading div
+      const loadingDiv = document.getElementById("loading");
+      if (loadingDiv) {
+        setTimeout(() => {
+          loadingDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      }
+
+      // Connect Phantom and check the token balance
+      connectPhantomAndCheckMoondong();
+    });
+  } else {
+    console.warn("Phantom link not found");
+  }
 });
 
-function positionNodesAndDrawLines() {
-  const container = document.querySelector('.network-left');
-  const canvas = document.getElementById('connection-canvas');
-  const ctx = canvas.getContext('2d');
-  const nodes = container.querySelectorAll('.node');
+// Network graph
+let simulation; // Global simulation variable
 
-  // Get actual rendered size of the container
-  const rect = container.getBoundingClientRect();
+document.addEventListener("DOMContentLoaded", () => {
+  const container = d3.select(".network-left");
+  const svg = d3.select("#network-svg");
+  const width = container.node().offsetWidth;
+  const height = container.node().offsetHeight;
+  const centerX = width / 2;
+  const centerY = height / 2;
 
-  // Set canvas drawing dimensions to match rendered size
-  canvas.width = rect.width;
-  canvas.height = rect.height;
+  // Center the logo
+  const logo = document.getElementById("center-logo");
+  logo.style.left = `${centerX}px`;
+  logo.style.top = `${centerY}px`;
 
-  const cx = rect.width / 2;
-  const cy = rect.height / 2;
+  const nodes = Array.from(document.querySelectorAll(".node")).map((el, i) => ({
+    id: i,
+    el: el,
+    element: el
+  }));
 
-  // Clear previous lines
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeStyle = '#d1492c';
-  ctx.lineWidth = 3;
+  const links = nodes.map(d => ({
+    source: { x: centerX, y: centerY },
+    target: d
+  }));
 
-  // Position nodes and draw lines
-  nodes.forEach(node => {
-    const angle = parseFloat(node.getAttribute('data-angle')) * (Math.PI / 180);
-    const distance = parseFloat(node.getAttribute('data-distance')) || rect.width / 2.5;
+  const lineGroup = svg.append("g").attr("class", "lines");
+  const lines = lineGroup.selectAll("line")
+    .data(links)
+    .enter()
+    .append("line")
+    .attr("stroke", "#d1492c")
+    .attr("stroke-width", 2);
+  
+  const centerNode = { id: "center", fx: centerX, fy: centerY };
+  const allNodes = [...nodes, centerNode];  
 
-    const x = cx + distance * Math.cos(angle);
-    const y = cy + distance * Math.sin(angle);
+  simulation = d3.forceSimulation(allNodes)
+    .force("center", d3.forceCenter(centerX, centerY))
+    .force("charge", d3.forceManyBody().strength(-50))
+    .force("collision", d3.forceCollide().radius(d => d.id === "center" ? 65 : 65))
+    .force("radial", d3.forceRadial(100, centerX, centerY).strength(0.1))
+    .on("tick", ticked);
 
-    node.style.left = `${x}px`;
-    node.style.top = `${y}px`;
+  function ticked() {
+    nodes.forEach(d => {
+      d.x = Math.max(30, Math.min(width - 30, d.x));
+      d.y = Math.max(30, Math.min(height - 30, d.y));
+      d.el.style.left = `${d.x}px`;
+      d.el.style.top = `${d.y}px`;
+    });
 
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(x, y);
-    ctx.stroke();
-  });
-}
-
-window.addEventListener('load', positionNodesAndDrawLines);
-window.addEventListener('resize', () => {
-  clearTimeout(window._resizeTimer);
-  window._resizeTimer = setTimeout(positionNodesAndDrawLines, 100);
+    lines
+      .attr("x1", centerX)
+      .attr("y1", centerY)
+      .attr("x2", d => d.target.x)
+      .attr("y2", d => d.target.y);
+  }
 });
+
+// Removed setInterval and animation entirely
+
+
 </script>
-
 </body>
 </html>
