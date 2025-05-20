@@ -54,14 +54,14 @@ twitter_image: /images/Panel3.1.WEBP
 
 
 <div style="text-align: center; margin-bottom: 20px;">
-  <a class="nav-button" href="../HakimBey/index.html">Hakim Bey</a>
-  <a class="nav-button" href="../HakimBey/joinTheMovement.html">Join</a>
-  <a class="nav-button" href="../AnarchyTAZ/index.html">TAZ</a>
-  <a class="nav-button" href="../AnarchyDepth/index.html">Depth</a>
-  <a class="nav-button" href="../AnarchyPoetics/index.html">Poetics</a>
-  <a class="nav-button" href="../AnarchyComicCocoon/index.html">Cocoon</a>
-  <a class="nav-button" href="../AnarchyComicBreakFree/index.html">BreakFree</a>
-  <a class="nav-button" href="../index.html">Food4Thoth</a>
+  <a class="nav-button" href="https://www.food4thoth.com/HakimBey/index.html">Hakim Bey</a>
+  <a class="nav-button" href="https://www.food4thoth.com/HakimBey/joinTheMovement.html">Join</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AnarchyTAZ/index.html">TAZ</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AnarchyDepth/index.html">Depth</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AnarchyPoetics/index.html">Poetics</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AnarchyComicCocoon/index.html">Cocoon</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AnarchyComicBreakFree/index.html">BreakFree</a>
+  <a class="nav-button" href="https://www.food4thoth.com">Food4Thoth</a>
   <a class="nav-button" href="https://chatgpt.com/g/g-673580f0caf08190aef6fbd5a690f54a-radical-imagination">Radical Imagination</a>
 </div>
 
@@ -357,28 +357,28 @@ Designed, coded, and curated by DeJahn under Artabillies & FOOD4THOTH.
 © 2025 Food4Thoth. All rights reserved. Unauthorized redistribution, copying, or modification without explicit permission is prohibited.
 
 <div style="text-align: center; margin-bottom: 20px;">
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/AllHashineenReviews.html">Landing Page</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/FullAlbumReview.html">Full Album Review</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index1.html">Hashisheen Review (Track 1)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index2.html">Hashisheen Review (Track 2)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index3.html">Hashisheen Review (Track 3)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index4.html">Hashisheen Review (Track 4)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index5.html">Hashisheen Review (Track 5)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index6.html">Hashisheen Review (Track 6)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index7.html">Hashisheen Review (Track 7)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index8.html">Hashisheen Review (Track 8)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index9.html">Hashisheen Review (Track 9)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index10.html">Hashisheen Review (Track 10)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index11.html">Hashisheen Review (Track 11)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index12.html">Hashisheen Review (Track 12)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index13.html">Hashisheen Review (Track 13)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index14.html">Hashisheen Review (Track 14)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index15.html">Hashisheen Review (Track 15)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index16.html">Hashisheen Review (Track 16)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index17.html">Hashisheen Review (Track 17)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index18.html">Hashisheen Review (Track 18)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index19.html">Hashisheen Review (Track 19)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index20.html">Hashisheen Review (Track 20)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index21.html">Hashisheen Review (Track 21)</a>
-  <a class="nav-button" href="../EndOfLawHASHISHEEN/index22.html">Hashisheen Review (Track 22)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/AllHashineenReviews.html">Landing Page</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/FullAlbumReview.html">Full Album Review</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index1.html">Hashisheen Review (Track 1)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index2.html">Hashisheen Review (Track 2)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index3.html">Hashisheen Review (Track 3)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index4.html">Hashisheen Review (Track 4)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index5.html">Hashisheen Review (Track 5)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index6.html">Hashisheen Review (Track 6)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index7.html">Hashisheen Review (Track 7)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index8.html">Hashisheen Review (Track 8)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index9.html">Hashisheen Review (Track 9)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index10.html">Hashisheen Review (Track 10)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index11.html">Hashisheen Review (Track 11)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index12.html">Hashisheen Review (Track 12)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index13.html">Hashisheen Review (Track 13)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index14.html">Hashisheen Review (Track 14)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index15.html">Hashisheen Review (Track 15)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index16.html">Hashisheen Review (Track 16)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index17.html">Hashisheen Review (Track 17)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index18.html">Hashisheen Review (Track 18)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index19.html">Hashisheen Review (Track 19)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index20.html">Hashisheen Review (Track 20)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index21.html">Hashisheen Review (Track 21)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index22.html">Hashisheen Review (Track 22)</a>
 </div>
