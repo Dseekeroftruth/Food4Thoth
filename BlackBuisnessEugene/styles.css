@@ -29,7 +29,7 @@
       display: block;
   }
 	
-.navigation1 {
+.navigation {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
 		position: fixed;
@@ -43,7 +43,7 @@
 }
 
 /* Toggle Button Styling */
-.toggle-button1 {
+.toggle-button {
     position: fixed;
     top: 5px;
     right: 10px;
@@ -59,7 +59,7 @@
 		z-index: 1000;
 }
 
-.toggle-button1:hover {
+.toggle-button:hover {
     background-color: grey;
 }
 
@@ -78,7 +78,7 @@
 
 
 /* Neumorphic Navigation Container */
-.navigation1 {
+.navigation {
     position: fixed;
     top: 50px; /* Adjust to stay below the toggle button */
     right: 10px;
@@ -113,11 +113,12 @@
             background: #d1d1d1;
         }
 	
-	.navigation {
+	.navigation1 {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
 		position: fixed;
     top: 0;
+		left: 0;
     z-index: 1000; /* Ensure it's on top of other elements */
     background-color: #e0e0e0; /* Match your site's background */
     padding: 10px;
@@ -127,7 +128,7 @@
 }
 
 /* Toggle Button Styling */
-.toggle-button {
+.toggle-button1 {
     position: fixed;
     top: 5px;
     left: 10px;
@@ -143,7 +144,7 @@
 		z-index: 1000;
 }
 
-.toggle-button:hover {
+.toggle-button1:hover {
     background-color: grey;
 }
 
@@ -163,10 +164,11 @@
 
 
 /* Neumorphic Navigation Container */
-.navigation {
+.navigation1 {
     position: fixed;
     top: 50px; /* Adjust to stay below the toggle button */
     left: 5px;
+		
     background-color: #e0e0e0;
     padding: 5px;
     border-radius: 15px;

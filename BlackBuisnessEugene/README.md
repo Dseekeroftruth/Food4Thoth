@@ -1,3 +1,52 @@
+---
+layout: default
+title: "Eugene Black Business Directory README"
+description: "An interactive community tool highlighting Black-owned businesses in Eugene, Oregon — part of the FOOD4THOTH initiative."
+permalink: /BlackBuisnessEugene/readme/
+image: /images/og-preview.jpg
+
+og_title: "Eugene Black Business Directory"
+og_description: "Explore, support, and submit listings for Black-owned businesses in Eugene with this community-driven digital tool."
+og_image: /images/og-preview.jpg
+
+twitter_card: summary_large_image
+twitter_title: "Eugene Black Business Directory"
+twitter_description: "Interactive, searchable, and growing — a platform for uplifting Black entrepreneurship in Eugene."
+twitter_image: /images/og-preview.jpg
+---
+
+[← Return to FOOD4THOTH](../index.html)
+
+---
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a { color: #00ffff; }
+  h1, h2, h3, h4, h5, h6 { color: #ff66cc; }
+  
+    .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ff00ff, #001eff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(255, 0, 255, 0.5);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffff, #6600cc);
+    box-shadow: 0 0 10px #00ffff;
+  }
+
+</style>
+
 # Eugene Black Business Directory
 
 The **Eugene Black Business Directory** is an initiative to support and empower Black-owned businesses in Eugene, Oregon, by providing a dynamic, interactive platform for visibility and engagement. This project preserves critical datasets, enables seamless user interaction, and facilitates community-driven growth. It also includes a **Submit Your Business Info Page** to ensure businesses can easily add or update their listings.

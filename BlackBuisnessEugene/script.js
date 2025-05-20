@@ -1,63 +1,25 @@
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const toggleButton = document.getElementById('toggle-nav');
-    const navigation = document.getElementById('navigation');
+    const toggleButton = document.getElementById('toggle-nav1');
+    const navigation = document.getElementById('navigation1');
     const navLinks = document.querySelectorAll('.neumorphic-tab');
 
     // Toggle navigation visibility
     toggleButton.addEventListener('click', () => {
         const isHidden = navigation.classList.toggle('hidden');
-        toggleButton.textContent = isHidden ? '☰ Site Nav' : '✖ Close';
+        toggleButton.textContent = isHidden ? '☰ Page Nav' : '✖ Close';
     });
 
     // Close navigation when clicking a link and navigate to the section
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             navigation.classList.add('hidden');
-            toggleButton.textContent = '☰ Site Nav'; // Reset button text
+            toggleButton.textContent = '☰ Page Nav'; // Reset button text
         });
     });
 });
 
-
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleButton = document.getElementById('toggle-nav1');
-    const navigation = document.getElementById('navigation1');
-    const navLinks = document.querySelectorAll('.neumorphic-tab');
-
-    // Toggle main navigation visibility
-    toggleButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent the click from triggering the document click listener
-        const isHidden = navigation.classList.toggle('hidden');
-        toggleButton.textContent = isHidden ? '☰ Web Nav' : '✖ Close';
-    });
-
-    // Handle submenu expansion
-    navLinks.forEach(link => {
-        link.addEventListener('click', (event) => {
-            const submenuId = link.getAttribute('data-expand');
-            if (submenuId) {
-                event.preventDefault(); // Prevent link navigation
-                const submenu = document.getElementById(submenuId);
-                submenu.classList.toggle('hidden'); // Toggle submenu visibility
-            } else {
-                navigation.classList.add('hidden'); // Hide navigation if it's a regular link
-                toggleButton.textContent = '☰ Nav';
-            }
-        });
-    });
-
-    // Close navigation when clicking outside of it
-    document.addEventListener('click', (event) => {
-        if (!navigation.contains(event.target) && !toggleButton.contains(event.target)) {
-            if (!navigation.classList.contains('hidden')) {
-                navigation.classList.add('hidden');
-                toggleButton.textContent = '☰ Nav';
-            }
-        }
-    });
-});
 
 
 
