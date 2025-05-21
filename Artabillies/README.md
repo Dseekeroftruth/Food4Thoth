@@ -344,29 +344,28 @@ Designed, coded, and curated by DeJahn under Artabillies & FOOD4THOTH.
 © 2025 Food4Thoth. All rights reserved. Unauthorized redistribution, copying, or modification without explicit permission is prohibited.
 
 <div style="text-align: center; margin-bottom: 20px;">
-    <button class="nav-button" onclick="location.href='https://rstory.io/Dobbs_GATE.html'">Do You Do Dobbs Gallery</button>
-    <button class="nav-button" onclick="location.href='https://hive.blog/crypto/@rstory/artabillies-receives-1m-rstory-gratitude-tokens'">ARTABILLIES Article</button>
-    <button class="nav-button" onclick="location.href='https://rstory.io'">Rstory Official Website</button>
-    <button class="nav-button" onclick="location.href='https://www.anchor.link/'">Anchor Wallet</button>
-    <button class="nav-button" onclick="location.href='https://metamask.io/'">MetaMask Wallet</button>
-    <button class="nav-button" onclick="location.href='https://t.me/+m-WEaUc7Ud8yY2Qx'">RSTORY Telegram Community</button>
-    <button class="nav-button" onclick="location.href='https://github.com/ma-da/rstory'">RSTORY GitHub</button>
-    <button class="nav-button" onclick="location.href='../index.html'">FOOD4THOTH Website</button>
-    <button class="nav-button" onclick="location.href='https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho'">FOOD4THOTH Instagram</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi'">FOOD4THOTH Facebook</button>
-    <button class="nav-button" onclick="location.href='../Artabillies/index.html'">Learn About ARTABILLIES</button>
-    <button class="nav-button" onclick="location.href='https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ=='">ARTABILLIES Instagram</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi'">ARTABILLIES Facebook</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP'">ARTABILLIES Facebook Group</button>
-    <button class="nav-button" onclick="location.href='https://www.artabillies.com/contact-us'">Contact Artabillies</button>
-    <button class="nav-button" onclick="location.href='https://www.artabillies.com/artist-info'">Artists Info</button>
-    <button class="nav-button" onclick="location.href='../RstoryArtabillies/index.html'">Artabillies Rstory & TUDE</button>
-    <button class="nav-button" onclick="location.href='../Inprogression/index.html'">INPROGRESSION Info</button>
-    <button class="nav-button" onclick="location.href='../MusicLibrary/index.html'">INPROGRESSION Music Library</button>
-    <button class="nav-button" onclick="location.href='../MusicLibraryVis/index.html'">INPROGRESSION Library w/Visualiser</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/19M7DM1SrT/?mibextid=wwXIfr'">INPROGRESSION Facebook</button>
-		<button class="nav-button" onclick="location.href='https://www.artabillies.com/inprogression'">INPROGRESSION Artabillies</button>
+  <a class="nav-button" href="https://rstory.io/Dobbs_GATE.html">Do You Do Dobbs Gallery</a>
+  <a class="nav-button" href="https://hive.blog/crypto/@rstory/artabillies-receives-1m-rstory-gratitude-tokens">ARTABILLIES Article</a>
+  <a class="nav-button" href="https://rstory.io">Rstory Official Website</a>
+  <a class="nav-button" href="https://www.anchor.link/">Anchor Wallet</a>
+  <a class="nav-button" href="https://metamask.io/">MetaMask Wallet</a>
+  <a class="nav-button" href="https://t.me/+m-WEaUc7Ud8yY2Qx">RSTORY Telegram Community</a>
+  <a class="nav-button" href="https://github.com/ma-da/rstory">RSTORY GitHub</a>
+  <a class="nav-button" href="https://www.food4thoth.com/">FOOD4THOTH Website</a>
+  <a class="nav-button" href="https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho">FOOD4THOTH Instagram</a>
+  <a class="nav-button" href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi">FOOD4THOTH Facebook</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Artabillies/index.html">Learn About ARTABILLIES</a>
+  <a class="nav-button" href="https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ==">ARTABILLIES Instagram</a>
+  <a class="nav-button" href="https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi">ARTABILLIES Facebook</a>
+  <a class="nav-button" href="https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP">ARTABILLIES Facebook Group</a>
+  <a class="nav-button" href="https://www.artabillies.com/contact-us">Contact Artabillies</a>
+  <a class="nav-button" href="https://www.artabillies.com/artist-info">Artists Info</a>
+  <a class="nav-button" href="https://www.food4thoth.com/RstoryArtabillies/index.html">Artabillies Rstory & TUDE</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Inprogression/index.html">INPROGRESSION Info</a>
+  <a class="nav-button" href="https://www.food4thoth.com/MusicLibrary/index.html">INPROGRESSION Music Library</a>
+  <a class="nav-button" href="https://www.food4thoth.com/MusicLibraryVis/index.html">INPROGRESSION Library w/Visualiser</a>
+  <a class="nav-button" href="https://www.facebook.com/share/19M7DM1SrT/?mibextid=wwXIfr">INPROGRESSION Facebook</a>
+  <a class="nav-button" href="https://www.artabillies.com/inprogression">INPROGRESSION Artabillies</a>
 </div>
-
 
 ## 🎭 “Don’t feed the artist buy their art, and they will feed themselves.” 🎨
