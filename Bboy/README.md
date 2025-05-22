@@ -1,3 +1,20 @@
+---
+layout: default
+title: "Nowhere Man Mixer README"
+description: "Interactive audio-visual soundboard powered by Tone.js. Control reverb, distortion, and delay through draggable elements in a surreal synth playground."
+permalink: /Bboy/readme/
+image: https://www.food4thoth.com/Bboy/images/Bboy.jpeg
+
+og_title: "Nowhere Man Mixer | Food4Thoth"
+og_description: "An experimental mixer that lets you tweak sound effects by dragging a mustache, tongue, and glasses on a surreal b-boy character. Built with Tone.js."
+og_image: https://www.food4thoth.com/Bboy/images/Bboy.jpeg
+
+twitter_card: summary_large_image
+twitter_title: "Nowhere Man Mixer | Food4Thoth"
+twitter_description: "Real-time Tone.js sound manipulation using playful visuals. An art-meets-audio app by Food4Thoth and Artabillies."
+twitter_image: https://www.food4thoth.com/Bboy/images/Bboy.jpeg
+---
+
 <div style="text-align: center; margin-bottom: 20px;">
     <button class="nav-button" onclick="location.href='../index.html'">FOOD4THOTH Website</button>
     <button class="nav-button" onclick="location.href='https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho'">FOOD4THOTH Instagram</button>
