@@ -1,3 +1,20 @@
+---
+layout: default
+title: "Creature Art Mixer README"
+description: "Blend quirky creature visuals with real-time Tone.js audio loops and effects. An interactive art and sound experience from Food4Thoth & Artabillies."
+permalink: /BJungle/readme/
+image: https://www.food4thoth.com/BJungle/images/BJungle.jpeg
+
+og_title: "Creature Art Mixer | Food4Thoth"
+og_description: "Explore the Creature Art Mixer — trigger sound loops by interacting with a whimsical beast. Customize effects live with a psychedelic interface."
+og_image: https://www.food4thoth.com/BJungle/images/BJungle.jpeg
+
+twitter_card: summary_large_image
+twitter_title: "Creature Art Mixer | Food4Thoth"
+twitter_description: "Interactive creature-based synth and loop mixer built with Tone.js. Control sound through visuals. Powered by Food4Thoth and Artabillies."
+twitter_image: https://www.food4thoth.com/BJungle/images/BJungle.jpeg
+---
+
 <div style="text-align: center; margin-bottom: 20px;">
     <button class="nav-button" onclick="location.href='../index.html'">FOOD4THOTH Website</button>
     <button class="nav-button" onclick="location.href='https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho'">FOOD4THOTH Instagram</button>
