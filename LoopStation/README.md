@@ -1,26 +1,71 @@
+---
+layout: default
+title: "Loop Mixer README"
+description: "Cyberpunk-styled music app demo with modular audio loops and adjustable effects. Featuring Reverb, Delay, and Distortion in a vibrant neon interface powered by Tone.js."
+permalink: /LoopStation/readme/
+image: https://www.food4thoth.com/LoopStation/Loop.png
+
+og_title: "Loop Mixer | Food4Thoth"
+og_description: "A futuristic music app demo with real-time sound loops, neon visuals, and adjustable reverb, delay, and distortion. Explore modular sound mixing with Food4Thoth."
+og_image: https://www.food4thoth.com/LoopStation/Loop.png
+
+twitter_card: summary_large_image
+twitter_title: "Loop Mixer | Food4Thoth"
+twitter_description: "Cyberpunk music mixer with modular loops and real-time effects—explore sound in a futuristic playground powered by Food4Thoth."
+twitter_image: https://www.food4thoth.com/LoopStation/Loop.png
+---
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a { color: #00ffff; }
+  h1, h2, h3, h4, h5, h6 { color: #ff66cc; }
+	
+	  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ff00ff, #001eff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(255, 0, 255, 0.5);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffff, #6600cc);
+    box-shadow: 0 0 10px #00ffff;
+  }
+
+</style>
+
 <div style="text-align: center; margin-bottom: 20px;">
-    <button class="nav-button" onclick="location.href='../index.html'">FOOD4THOTH Website</button>
-    <button class="nav-button" onclick="location.href='https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho'">FOOD4THOTH Instagram</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi'">FOOD4THOTH Facebook</button>
-    <button class="nav-button" onclick="location.href='../Artabillies/index.html'">Learn About ARTABILLIES</button>
-    <button class="nav-button" onclick="location.href='https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ=='">ARTABILLIES Instagram</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi'">ARTABILLIES Facebook</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP'">ARTABILLIES Facebook Group</button>
-    <button class="nav-button" onclick="location.href='https://www.artabillies.com/contact-us'">Contact Artabillies</button>
-    <button class="nav-button" onclick="location.href='https://www.artabillies.com/artist-info'">Artists Info</button>
-    <button class="nav-button" onclick="location.href='../RstoryArtabillies/index.html'">Artabillies Rstory & TUDE</button>
-    <button class="nav-button" onclick="location.href='../Inprogression/index.html'">INPROGRESSION Info</button>
-    <button class="nav-button" onclick="location.href='../MusicLibrary/index.html'">INPROGRESSION Music Library</button>
-    <button class="nav-button" onclick="location.href='../MusicLibraryVis/index.html'">INPROGRESSION Library w/Visualiser</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/19M7DM1SrT/?mibextid=wwXIfr'">INPROGRESSION Facebook</button>
-		<button class="nav-button" onclick="location.href='https://www.artabillies.com/inprogression'">INPROGRESSION Artabillies</button>
-		<button class="nav-button" onclick="location.href='../ArpAppNoVisualHighFi/index.html'">Arp Synth NoVis HIFI</button>
-		<button class="nav-button" onclick="location.href='../ArpAppNoVisualLoFi/index.html'">Arp Synth NoVis LOFI</button>
-		<button class="nav-button" onclick="location.href='../ArpAppWithVisual/index.html'">Arp Synth Visualizer</button>
-		<button class="nav-button" onclick="location.href='../Bboy/index.html'">NoWhere Man Mixer</button>
-		<button class="nav-button" onclick="location.href='../BJungle/index.html'">Creature Art Mixer</button>
-		<button class="nav-button" onclick="location.href='../LoopStation/index.html'">Loop Mixer</button>
-		<button class="nav-button" onclick="location.href='../LoopStationHiFi/index.html'">Loop HIFI Mixer</button>
+  <a class="nav-button" href="https://www.food4thoth.com/index.html">FOOD4THOTH Website</a>
+  <a class="nav-button" href="https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho">FOOD4THOTH Instagram</a>
+  <a class="nav-button" href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi">FOOD4THOTH Facebook</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Artabillies/index.html">Learn About ARTABILLIES</a>
+  <a class="nav-button" href="https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ==">ARTABILLIES Instagram</a>
+  <a class="nav-button" href="https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi">ARTABILLIES Facebook</a>
+  <a class="nav-button" href="https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP">ARTABILLIES Facebook Group</a>
+  <a class="nav-button" href="https://www.artabillies.com/contact-us">Contact Artabillies</a>
+  <a class="nav-button" href="https://www.artabillies.com/artist-info">Artists Info</a>
+  <a class="nav-button" href="https://www.food4thoth.com/RstoryArtabillies/index.html">Artabillies Rstory & TUDE</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Inprogression/index.html">INPROGRESSION Info</a>
+  <a class="nav-button" href="https://www.food4thoth.com/MusicLibrary/index.html">INPROGRESSION Music Library</a>
+  <a class="nav-button" href="https://www.food4thoth.com/MusicLibraryVis/index.html">INPROGRESSION Library w/Visualiser</a>
+  <a class="nav-button" href="https://www.facebook.com/share/19M7DM1SrT/?mibextid=wwXIfr">INPROGRESSION Facebook</a>
+  <a class="nav-button" href="https://www.artabillies.com/inprogression">INPROGRESSION Artabillies</a>
+  <a class="nav-button" href="https://www.food4thoth.com/ArpAppNoVisualHighFi/index.html">Arp Synth NoVis HIFI</a>
+  <a class="nav-button" href="https://www.food4thoth.com/ArpAppNoVisualLoFi/index.html">Arp Synth NoVis LOFI</a>
+  <a class="nav-button" href="https://www.food4thoth.com/ArpAppWithVisual/index.html">Arp Synth Visualizer</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Bboy/index.html">NoWhere Man Mixer</a>
+  <a class="nav-button" href="https://www.food4thoth.com/BJungle/index.html">Creature Art Mixer</a>
+  <a class="nav-button" href="https://www.food4thoth.com/LoopStation/index.html">Loop Mixer</a>
+  <a class="nav-button" href="https://www.food4thoth.com/LoopStationHiFi/index.html">Loop HIFI Mixer</a>
 </div>
 
 # 🎵 Music App Demo
@@ -249,26 +294,26 @@ Designed, coded, and curated by DeJahn under Artabillies & FOOD4THOTH.
 © 2025 Food4Thoth. All rights reserved. Unauthorized redistribution, copying, or modification without explicit permission is prohibited.
 
 <div style="text-align: center; margin-bottom: 20px;">
-    <button class="nav-button" onclick="location.href='../index.html'">FOOD4THOTH Website</button>
-    <button class="nav-button" onclick="location.href='https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho'">FOOD4THOTH Instagram</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi'">FOOD4THOTH Facebook</button>
-    <button class="nav-button" onclick="location.href='../Artabillies/index.html'">Learn About ARTABILLIES</button>
-    <button class="nav-button" onclick="location.href='https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ=='">ARTABILLIES Instagram</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi'">ARTABILLIES Facebook</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP'">ARTABILLIES Facebook Group</button>
-    <button class="nav-button" onclick="location.href='https://www.artabillies.com/contact-us'">Contact Artabillies</button>
-    <button class="nav-button" onclick="location.href='https://www.artabillies.com/artist-info'">Artists Info</button>
-    <button class="nav-button" onclick="location.href='../RstoryArtabillies/index.html'">Artabillies Rstory & TUDE</button>
-    <button class="nav-button" onclick="location.href='../Inprogression/index.html'">INPROGRESSION Info</button>
-    <button class="nav-button" onclick="location.href='../MusicLibrary/index.html'">INPROGRESSION Music Library</button>
-    <button class="nav-button" onclick="location.href='../MusicLibraryVis/index.html'">INPROGRESSION Library w/Visualiser</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/19M7DM1SrT/?mibextid=wwXIfr'">INPROGRESSION Facebook</button>
-		<button class="nav-button" onclick="location.href='https://www.artabillies.com/inprogression'">INPROGRESSION Artabillies</button>
-		<button class="nav-button" onclick="location.href='../ArpAppNoVisualHighFi/index.html'">Arp Synth NoVis HIFI</button>
-		<button class="nav-button" onclick="location.href='../ArpAppNoVisualLoFi/index.html'">Arp Synth NoVis LOFI</button>
-		<button class="nav-button" onclick="location.href='../ArpAppWithVisual/index.html'">Arp Synth Visualizer</button>
-		<button class="nav-button" onclick="location.href='../Bboy/index.html'">NoWhere Man Mixer</button>
-		<button class="nav-button" onclick="location.href='../BJungle/index.html'">Creature Art Mixer</button>
-		<button class="nav-button" onclick="location.href='../LoopStation/index.html'">Loop Mixer</button>
-		<button class="nav-button" onclick="location.href='../LoopStationHiFi/index.html'">Loop HIFI Mixer</button>
+  <a class="nav-button" href="https://www.food4thoth.com/index.html">FOOD4THOTH Website</a>
+  <a class="nav-button" href="https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho">FOOD4THOTH Instagram</a>
+  <a class="nav-button" href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi">FOOD4THOTH Facebook</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Artabillies/index.html">Learn About ARTABILLIES</a>
+  <a class="nav-button" href="https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ==">ARTABILLIES Instagram</a>
+  <a class="nav-button" href="https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi">ARTABILLIES Facebook</a>
+  <a class="nav-button" href="https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP">ARTABILLIES Facebook Group</a>
+  <a class="nav-button" href="https://www.artabillies.com/contact-us">Contact Artabillies</a>
+  <a class="nav-button" href="https://www.artabillies.com/artist-info">Artists Info</a>
+  <a class="nav-button" href="https://www.food4thoth.com/RstoryArtabillies/index.html">Artabillies Rstory & TUDE</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Inprogression/index.html">INPROGRESSION Info</a>
+  <a class="nav-button" href="https://www.food4thoth.com/MusicLibrary/index.html">INPROGRESSION Music Library</a>
+  <a class="nav-button" href="https://www.food4thoth.com/MusicLibraryVis/index.html">INPROGRESSION Library w/Visualiser</a>
+  <a class="nav-button" href="https://www.facebook.com/share/19M7DM1SrT/?mibextid=wwXIfr">INPROGRESSION Facebook</a>
+  <a class="nav-button" href="https://www.artabillies.com/inprogression">INPROGRESSION Artabillies</a>
+  <a class="nav-button" href="https://www.food4thoth.com/ArpAppNoVisualHighFi/index.html">Arp Synth NoVis HIFI</a>
+  <a class="nav-button" href="https://www.food4thoth.com/ArpAppNoVisualLoFi/index.html">Arp Synth NoVis LOFI</a>
+  <a class="nav-button" href="https://www.food4thoth.com/ArpAppWithVisual/index.html">Arp Synth Visualizer</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Bboy/index.html">NoWhere Man Mixer</a>
+  <a class="nav-button" href="https://www.food4thoth.com/BJungle/index.html">Creature Art Mixer</a>
+  <a class="nav-button" href="https://www.food4thoth.com/LoopStation/index.html">Loop Mixer</a>
+  <a class="nav-button" href="https://www.food4thoth.com/LoopStationHiFi/index.html">Loop HIFI Mixer</a>
 </div>
