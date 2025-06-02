@@ -1,3 +1,48 @@
+---
+layout: default
+title: "Path of the Cosmic Serpent README"
+description: "An interactive choose-your-own-adventure experience built by FOOD4THOTH — featuring 120+ pages of branching mystic narratives, cosmic artwork, and user-driven discovery."
+permalink: /ChooseYourOwnAdventure/readme/
+image: ./images/compass.jpg
+
+og_title: "Path of the Cosmic Serpent"
+og_description: "Embark on a mystic narrative journey where every decision alters your path. Built by Food4Thoth and Artabillies."
+og_image: ./images/compass.jpg
+
+twitter_card: summary_large_image
+twitter_title: "Path of the Cosmic Serpent"
+twitter_description: "A visionary webcomic & interactive game through cosmic symbols and spiritual choices — part of the FOOD4THOTH universe."
+twitter_image: ./images/compass.jpg
+---
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a { color: #00ffff; }
+  h1, h2, h3, h4, h5, h6 { color: #ff66cc; }
+	
+	  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ff00ff, #001eff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(255, 0, 255, 0.5);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffff, #6600cc);
+    box-shadow: 0 0 10px #00ffff;
+  }
+
+</style>
+
 ## 🌌 Path of the Cosmic Serpent: A Choose-Your-Own-Adventure Journey
 
 **Path of the Cosmic Serpent** is a visually immersive and interactive choose-your-own-adventure game. Spanning approximately **120 interconnected pages** with **illustrative images**, it invites players to explore a mystical narrative filled with choice, discovery, and transformation. Chapters 1-3 are complete, while Chapter 4 is under development. The journey loops back to the beginning through an **epilogue page** for endless replayability.
