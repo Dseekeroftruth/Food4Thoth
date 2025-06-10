@@ -1,4 +1,61 @@
+---
+layout: default
+title: "Draw With Fractals README"
+description: "An interactive web tool to create real-time fractal-based digital art using symmetry, touch gestures, and algorithmic design — part of the FOOD4THOTH creative ecosystem."
+permalink: /DrawingFractals/readme/
+image: https://www.food4thoth.com/DrawingFractals/fractal-preview.jpg
+
+og_title: "Draw With Fractals"
+og_description: "A cyberpunk-inspired fractal art generator that merges mysticism, creativity, and real-time algorithmic design. Save, animate, and explore your own fractal patterns."
+og_image: https://www.food4thoth.com/DrawingFractals/fractal-preview.jpg
+
+twitter_card: summary_large_image
+twitter_title: "Draw With Fractals"
+twitter_description: "Generate psychedelic fractal art in real time with your mouse or touchscreen — create GIFs and explore digital creativity with Food4Thoth."
+twitter_image: https://www.food4thoth.com/DrawingFractals/fractal-preview.jpg
+---
+
 # 🌀 Draw With Fractals
+
+[← Return to FOOD4THOTH](../index.html)
+
+---
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a {
+    color: #00ffff;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffd700;
+  }
+  .wrap {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+
+  .nav-button {
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 6px;
+    background: linear-gradient(135deg, red, orange, yellow, green, blue, indigo, violet);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, violet, indigo, blue, green, yellow, orange, red);
+    box-shadow: 0 0 15px #00ffff;
+  }
+</style>
 
 ## 📌 Overview
 
