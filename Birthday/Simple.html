@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>What Day Were You Born?</title>
+<link rel="preload" href="./libs/suncalc.js" as="script">
+
+<script src="https://unpkg.com/suncalc@1.9.0/suncalc.js"></script>
+
+<script>
+  if (typeof SunCalc === 'undefined') {
+    console.warn('SunCalc online failed, loading local version immediately...');
+    var localScript = document.createElement('script');
+    localScript.src = './libs/suncalc.js';
+    document.head.appendChild(localScript);
+  }
+</script>
+<style>
+
+html{
+	background: navy;
+}
+/* General Layout */
+body {
+  background: linear-gradient(135deg, #0b0c10, #1f1b24);
+  font-family: 'Georgia', 'Times New Roman', serif;
+  text-align: center;
+  padding-top: 50px;
+  color: #ddd;
+  margin: 0;
+}
+
+/* Main Container */
+.container {
+  background: rgba(30, 30, 40, 0.9);
+  padding: 40px 30px;
+  border-radius: 16px;
+  display: inline-block;
+  box-shadow: 0 0 25px rgba(173, 216, 230, 0.3);
+  max-width: 800px;
+}
+
+/* Inputs */
+input[type="date"] {
+  padding: 12px;
+  font-size: 1.8rem;
+  margin-top: 15px;
+  background: #222;
+  color: #eee;
+  border: 2px solid #555;
+  border-radius: 8px;
+}
+
+/* Buttons */
+button {
+  padding: 14px 28px;
+  margin-top: 20px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  background: linear-gradient(135deg, #6a00f4, #bb00ff);
+  border: none;
+  color: white;
+  border-radius: 12px;
+  transition: background 0.4s, transform 0.3s;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #8a2be2, #da70d6);
+  transform: scale(1.05);
+}
+
+/* Base Button Style */
+button {
+  padding: 14px 28px;
+  margin-top: 20px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  border: none;
+  color: white;
+  border-radius: 12px;
+  transition: background 0.4s, transform 0.3s;
+}
+
+/* Unique Button Styles */
+#findDayButton {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+}
+#findDayButton:hover {
+  background: linear-gradient(135deg, #0072ff, #0056b3);
+  transform: scale(1.05);
+}
+
+#toggleInfo {
+  background: linear-gradient(135deg, #6a00f4, #bb00ff);
+}
+#toggleInfo:hover {
+  background: linear-gradient(135deg, #8a2be2, #da70d6);
+  transform: scale(1.05);
+}
+
+#saveReadingButton {
+  background: linear-gradient(135deg, #43cea2, #185a9d);
+}
+#saveReadingButton:hover {
+  background: linear-gradient(135deg, #185a9d, #43cea2);
+  transform: scale(1.05);
+}
+
+#copyShareLinkButton {
+  background: linear-gradient(135deg, #ff4b2b, #ff416c);
+}
+#copyShareLinkButton:hover {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  transform: scale(1.05);
+}
+
+#darkModeToggle {
+  background: linear-gradient(135deg, #4b6cb7, #182848);
+}
+#darkModeToggle:hover {
+  background: linear-gradient(135deg, #182848, #4b6cb7);
+  transform: scale(1.05);
+}
+
+/* DARK MODE BUTTON STYLES */
+body.dark-mode #findDayButton {
+  background: linear-gradient(135deg, #004e92, #000428);
+}
+body.dark-mode #findDayButton:hover {
+  background: linear-gradient(135deg, #000428, #004e92);
+  transform: scale(1.05);
+}
+
+body.dark-mode #toggleInfo {
+  background: linear-gradient(135deg, #5f00ba, #7a00c2);
+}
+body.dark-mode #toggleInfo:hover {
+  background: linear-gradient(135deg, #7a00c2, #5f00ba);
+  transform: scale(1.05);
+}
+
+body.dark-mode #saveReadingButton {
+  background: linear-gradient(135deg, #145374, #00334e);
+}
+body.dark-mode #saveReadingButton:hover {
+  background: linear-gradient(135deg, #00334e, #145374);
+  transform: scale(1.05);
+}
+
+body.dark-mode #copyShareLinkButton {
+  background: linear-gradient(135deg, #8b0000, #a40000);
+}
+body.dark-mode #copyShareLinkButton:hover {
+  background: linear-gradient(135deg, #a40000, #8b0000);
+  transform: scale(1.05);
+}
+
+body.dark-mode #darkModeToggle {
+  background: linear-gradient(135deg, #222, #111);
+}
+body.dark-mode #darkModeToggle:hover {
+  background: linear-gradient(135deg, #111, #000);
+  transform: scale(1.05);
+}
+
+/* Info Sections */
+.info {
+  margin-top: 30px;
+  font-size: 1.3rem;
+  line-height: 1.7;
+}
+
+/* Highlighted Result */
+#result {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* Combined Summary */
+#combined-summary {
+  text-align: left;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  line-height: 1.8;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  margin-top: 30px;
+}
+
+#combined-summary h2, #combined-summary h3 {
+  color: #00ffe0;
+  border-bottom: 2px solid #00ffe077;
+  padding-bottom: 6px;
+  margin-top: 25px;
+  font-family: 'Georgia', serif;
+}
+
+#combined-summary strong {
+  color: #f4eaff;
+}
+
+#combined-summary hr {
+  border: none;
+  border-top: 1px solid #555;
+  margin: 25px 0;
+}
+
+h3 {
+  font-size: 2.2rem;
+}
+
+/* Collapsible Elements */
+.collapsible-toggle {
+  background: linear-gradient(135deg, #6a00f4, #bb00ff);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.4s, transform 0.3s;
+}
+
+.collapsible-toggle:hover {
+  background: linear-gradient(135deg, #8a2be2, #da70d6);
+  transform: scale(1.05);
+}
+
+.collapsible-content {
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+/* Specialized Cards */
+.auto-suggestion-card, .astro-poem-card {
+  margin-top: 30px;
+  font-size: 1.4rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  padding: 25px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  transition: background 0.5s, color 0.5s;
+}
+
+/* Dark Mode Enhancements */
+body.dark-mode {
+  background: linear-gradient(135deg, #000000, #1a1a2e);
+  color: #ccc;
+}
+
+.container.dark-mode {
+  background: rgba(20, 20, 30, 0.9);
+  box-shadow: 0 0 25px rgba(255,255,255,0.1);
+}
+
+.container.dark-mode h1,
+.container.dark-mode h2,
+.container.dark-mode h3,
+.container.dark-mode strong {
+  color: #eee;
+}
+
+button.dark-mode {
+  background: linear-gradient(135deg, #555, #888);
+  color: #eee;
+}
+
+#combined-summary.dark-mode,
+#result.dark-mode,
+#zodiac.dark-mode,
+#chinese-zodiac.dark-mode,
+#extra-info.dark-mode,
+#moon-phase.dark-mode,
+#astro-poem-separate.dark-mode,
+#auto-suggestion-separate.dark-mode,
+#important-facts.dark-mode {
+  background: rgba(30, 30, 40, 0.9);
+  color: #ccc;
+  box-shadow: 0 0 20px rgba(255,255,255,0.05);
+}
+
+body.dark-mode .auto-suggestion-card,
+body.dark-mode .astro-poem-card {
+  background: rgba(30, 30, 40, 0.9);
+  color: #ccc;
+  box-shadow: 0 0 20px rgba(255,255,255,0.05);
+}
+
+/* Footer / Attribution */
+footer {
+  margin-top: 50px;
+  font-size: 1rem;
+  color: #777;
+}
+
+footer a {
+  color: #8be9fd;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+body.iframe-mode .toggle-button {
+			top: 10px;
+			
+		}
+		
+		body.iframe-mode .toggle-button {
+			font-size: 10px;
+		}
+		
+		body.iframe-mode .toggle-button {
+			margin-right: -10px;
+			
+		}
+		
+		.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 1.5rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+/* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 2rem;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+}
+
+.toggle-button:hover {
+    background-color: black;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+		pointer-events: none; /* This prevents any clicks on it */
+		display: none;
+}
+
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 100px; /* Adjust to stay below the toggle button */
+    left: 10px;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		height: 50%;
+		overflow-y: auto; /* Enable vertical scrolling */
+		
+		
+}
+				
+        .neumorphic-tab {
+					
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: clamp(16px, 1.2vw, 22px);
+						text-align: center;
+        }
+        .neumorphic-tab:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab.active {
+            background: #d1d1d1;
+        }
+				
+				#food4thoth-banner {
+  margin-bottom: 40px;
+  padding: 20px;
+  background: radial-gradient(ellipse at center, #0b0c10 0%, #1f1b24 100%);
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+  animation: pulseBackground 8s infinite alternate;
+}
+
+#food4thoth-banner h1 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(2rem, 6vw, 4rem);
+  color: #fff;
+  letter-spacing: 4px;
+  margin: 0;
+  text-shadow: 0 0 15px #8be9fd, 0 0 20px #8be9fd;
+}
+
+#food4thoth-banner .glow {
+  color: #00fff7;
+  text-shadow: 0 0 15px #00fff7, 0 0 30px #00fff7;
+}
+
+#food4thoth-banner .spark {
+  color: #ff00ff;
+  text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+}
+
+#food4thoth-banner .tagline {
+  font-family: 'Georgia', serif;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  color: #ccc;
+  margin-top: 10px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
+
+@keyframes pulseBackground {
+  0% {
+    background: radial-gradient(ellipse at center, #0b0c10 0%, #1f1b24 100%);
+  }
+  100% {
+    background: radial-gradient(ellipse at center, #12141a 0%, #272035 100%);
+  }
+}
+
+/* Normal Button Style */
+#toggleSummary{
+	background: linear-gradient(135deg, #ff7e5f, #2196F3);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  margin-top: 20px;
+  font-size: 1.4rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.4s, transform 0.3s;
+}
+#toggleFacts {
+  background: linear-gradient(135deg, #ff7e5f, #FF9800);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  margin-top: 20px;
+  font-size: 1.4rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.4s, transform 0.3s;
+}
+
+#toggleSummary:hover,
+#toggleFacts:hover {
+  background: linear-gradient(135deg, #feb47b, #ff7e5f);
+  transform: scale(1.05);
+}
+
+/* DARK MODE version */
+body.dark-mode #toggleSummary,
+body.dark-mode #toggleFacts {
+  background: linear-gradient(135deg, #3333cc, #6600cc);
+  color: #eee;
+}
+
+body.dark-mode #toggleSummary:hover,
+body.dark-mode #toggleFacts:hover {
+  background: linear-gradient(135deg, #6600cc, #3333cc);
+}
+
+
+</style>
+</head>
+<body>
+	
+	<!-- Placeholder for the nav -->
+  <div id="nav-container"></div>
+
+<!-- Food4Thoth Banner -->
+<div id="food4thoth-banner">
+  <h1><span class="glow">FOOD</span><span class="spark">4</span><span class="glow">THOTH</span></h1>
+  <p class="tagline">Mystical Journeys Through Space, Spirit, and Story</p>
+</div>
+
+	<button id="darkModeToggle" onclick="toggleDarkMode()" style="margin-top: 20px; font-size: 1.2rem; padding: 10px 20px; background-color: #333; color: white; border: none; border-radius: 8px; cursor: pointer;">
+  Toggle Dark Mode 🌙
+</button>
+
+<div id="popup-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000;">
+  <div id="popup-message" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; padding:30px 40px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.3); font-size:1.6rem; color:#333; text-align:center;">
+    Please enter a date!
+    <br><br>
+    <button onclick="closePopup()" style="margin-top:20px; padding:10px 20px; font-size:1.2rem; background:linear-gradient(135deg, #6a00f4, #bb00ff); border:none; color:white; border-radius:8px; cursor:pointer;">OK</button>
+  </div>
+</div>
+
+<script>
+function showPopup() {
+  document.getElementById('popup-overlay').style.display = 'block';
+}
+function closePopup() {
+  document.getElementById('popup-overlay').style.display = 'none';
+}
+</script>
+
+<div class="container">
+  <h1>Find Out What Day You Were Born!</h1>
+  <input type="date" id="birthdate">
+  <br>
+  <button id="findDayButton" onclick="findDay()">Find Day</button>
+	<div class="info" style="margin-bottom: 30px;">
+		<div class="collapsible-container">
+  <button id="toggleInfo" class="collapsible-toggle">Hide Introduction ▲</button>
+  <div id="infoContent" class="collapsible-content" style="max-height: 5000px; overflow: hidden; transition: max-height 0.5s ease;">
+ 
+  <h2>Unlock the Hidden Story of Your Birth!</h2>
+  <p>
+    The moment you enter this world, a unique cosmic blueprint is woven — blending time, nature, and spirit. 
+    This tool helps reveal layers of your personal energy map, offering insights from astrology, numerology, and ancient systems.
+  </p>
+  <p>
+    Here's what you’ll discover:
+  </p>
+<ul style="text-align: left; max-width: 600px; margin: 20px auto;">
+  <li><strong>Day of the Week:</strong> The planetary energy that colors your approach to life and action.</li>
+  <li><strong>Chinese Zodiac Animal, Element, and Yin/Yang:</strong> Your social instincts, inner energetic style, and flow of personal energy — seen through ancient wisdom. The Element shows your core nature (like Earth for stability, or Fire for passion), while the Yin or Yang quality reveals whether your life force is more inward/receptive (Yin) or outward/active (Yang).</li>
+	<li><strong>Zodiac Sign:</strong> Your main astrological sign, describing your core personality traits, emotional patterns, and soul expression.</li>
+	<li><strong>Element and Modality:</strong> How you ground yourself and navigate change in life.</li>
+	<li><strong>Planetary Ruler:</strong> The ruling planet of your Zodiac Sign, shaping your energy, behavior patterns, instincts, and deeper soul expression with its unique cosmic influence.</li>
+  <li><strong>Decan:</strong> A more detailed flavor of your Zodiac Sign — depending on which third of the sign you were born in, it highlights additional planetary influences and subtle shifts in your character.</li>
+  <li><strong>Day's Planetary Ruler (Chaldean System):</strong> The ancient ruler of the day you were born, adding a powerful background influence to your daily rhythms and instincts.</li>
+  <li><strong>Life Path Number:</strong> The deeper spiritual mission revealed through numerology.</li>
+	 <li><strong>Moon Phase:</strong> The emotional rhythm imprinted in your heart's journey.</li>
+  <li><strong>Historical Events and Famous Birthdays:</strong> Pulled directly from Wikipedia to connect your birthdate with real-world history, helping you reflect on your place in the wider story of humanity.</li>
+</ul>
+  <p>
+    Each piece adds another brushstroke to the masterpiece that is you.  
+    Some energies you may already feel strongly — others may feel like invitations to grow into new potentials.
+  </p>
+  <p style="font-style: italic;">
+    Take what resonates, reflect with curiosity, and use these insights as gentle guidance — not rigid definitions. 
+    You are the living artist of your own journey.
+  </p>
+	  </div>
+</div>
+</div>
+<div id="birthday-info" class="info"></div><!-- <<< new div -->
+<button id="saveReadingButton" onclick="saveReading()" style="margin-top: 30px; font-size: 1.2rem; padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 8px; cursor: pointer;">Download My Cosmic Profile</button>
+
+<script>
+function saveReading() {
+  const combinedSummary = document.getElementById('combined-summary')?.innerText || '';
+  const suggestions = document.getElementById('auto-suggestion-separate')?.innerText || '';
+  const astroPoem = document.getElementById('astro-poem-separate')?.innerText || '';
+
+  const fullText = `
+	
+🌟 YOUR COSMIC PROFILE
+
+${combinedSummary}
+
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+📝 COSMIC BIRTH POEM
+
+${astroPoem}
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+Reflect on your unique cosmic fingerprint — and keep creating your own story.
+`;
+
+  const blob = new Blob([fullText], { type: 'text/plain;charset=utf-8' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'My_Cosmic_Profile.txt';
+  link.click();
+}
+
+
+</script>
+
+<button id="copyShareLinkButton" onclick="copyShareLink()" style="margin-top: 20px; font-size: 1.2rem; padding: 10px 20px; background-color: #2196F3; color: white; border: none; border-radius: 8px; cursor: pointer;">Copy Share Link</button>
+
+<script>
+	window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('birthdate')) {
+    const birthdate = params.get('birthdate');
+    document.getElementById('birthdate').value = birthdate;
+    findDay(); // Automatically run the analysis
+  }
+});
+	
+function copyShareLink() {
+  const input = document.getElementById('birthdate').value;
+  if (!input) {
+    alert('Please enter a birthdate first!');
+    return;
+  }
+  const url = new URL(window.location.href);
+  url.searchParams.set('birthdate', input);
+  
+  navigator.clipboard.writeText(url.toString()).then(() => {
+    alert('Shareable link copied to clipboard!');
+  }).catch(err => {
+    alert('Failed to copy link: ' + err);
+  });
+}
+</script>
+  <div id="result" class="info"></div>
+	<div id="astro-poem-separate" class="info"></div>
+	<div id="auto-suggestion-separate" class="info"></div>
+  <div id="chinese-zodiac" class="info"></div>
+	<div id="zodiac" class="info"></div>
+  <div id="extra-info" class="info"></div>
+	<div id="moon-phase" class="info"></div>
+<div class="collapsible-container" style="margin-top: 30px;">
+  <button id="toggleSummary" class="collapsible-toggle">View or Download Your Complete Profile ▼</button>
+  <div id="summaryContent" class="collapsible-content" style="max-height: 0px; overflow: hidden;">
+    <div id="combined-summary" class="info"></div>
+  </div>
+  <div style="font-size: 1rem; color: #666; margin-top: 5px;">This is a preview of the total information. Expand to view your full Cosmic Profile or download it for study and comparison later.</div>
+</div>
+<div class="collapsible-container" style="margin-top: 30px;">
+  <button id="toggleFacts" class="collapsible-toggle">View Important Historical Facts ▼</button>
+  <div id="factsContent" class="collapsible-content" style="max-height: 0px; overflow: hidden;">
+    <div id="important-facts"></div>
+  </div>
+  <div style="font-size: 1rem; color: #666; margin-top: 5px;">
+    This section shows key events and famous birthdays from your birthdate sourced from Wikipedia. Expand to view.
+  </div>
+</div>
+<footer>
+  Created with sacred curiosity by <a href="https://www.food4thoth.com" target="_blank">Food4Thoth.com</a>
+</footer>
+</div>
+
+<script>
+async function getChineseNewYearDates(year) {
+  const solstice = new Date(year - 1, 11, 21); // Dec 21 previous year
+  const firstNewMoon = await findNextNewMoon(solstice);
+  const secondNewMoon = await findNextNewMoon(firstNewMoon, 1);
+  return secondNewMoon;
+}
+
+async function findNextNewMoon(startDate, skip = 0) {
+  const oneDay = 24 * 60 * 60 * 1000;
+  let date = new Date(startDate);
+  let count = 0;
+
+  while (true) {
+    const moon = SunCalc.getMoonIllumination(date);
+    if (moon.phase < 0.03 || moon.phase > 0.97) {
+      if (count === skip) {
+        return date;
+      }
+      count++;
+    }
+    date = new Date(date.getTime() + oneDay);
+  }
+}
+
+const elementDesc = {
+  Wood: {
+    description: "Creative, idealistic, and expansive, Wood energy symbolizes growth, vitality, and the courageous pursuit of visions beyond the present horizon.",
+    keywords: "Growth, vision, kindness, persistence, upward movement, resilience",
+    strengths: "Visionary thinking, innovation, empathy, generosity, ambition to expand and build new worlds",
+    challenges: "Stubbornness, impatience, over-expansion, entanglement in ungrounded dreams, resistance to limitations",
+    direction: "East — the place of the rising sun, symbolizing new beginnings and youthful vitality.",
+    color: "Green — the color of life, flourishing nature, hope, and renewal.",
+    season: "Spring — the season of awakening, birth, and the surging force of life.",
+    health: "Liver and gallbladder — associated with the smooth flow of energy, emotions, and decision-making."
+  },
+  Fire: {
+    description: "Passionate, dynamic, and adventurous, Fire represents illumination, courage, and the driving spirit that seeks connection, achievement, and transformation.",
+    keywords: "Excitement, leadership, courage, spontaneity, inspiration, radiance",
+    strengths: "Charisma, enthusiasm, bravery, boldness to lead and inspire others, natural magnetism",
+    challenges: "Impulsiveness, anger, burnout, emotional volatility, consuming passions that can scorch stability",
+    direction: "South — the direction of high noon, where the sun shines brightest, embodying full expression.",
+    color: "Red — the color of passion, life-force, strength, and emotional intensity.",
+    season: "Summer — the time of fullness, celebration, warmth, and outward expansion.",
+    health: "Heart and small intestine — guardians of emotional joy, clarity of purpose, and internal harmony."
+  },
+  Earth: {
+    description: "Stable, reliable, and patient, Earth energy provides grounding, nurturing, and a supportive foundation for all growth and transformation to occur.",
+    keywords: "Nurturing, support, practicality, wisdom, patience, cultivation",
+    strengths: "Steadiness, loyalty, reliability, the ability to harmonize environments and hold space for others",
+    challenges: "Worrying, stubbornness, resistance to change, tendency toward over-caretaking or inertia",
+    direction: "Center — the stabilizing axis around which all other directions and energies revolve.",
+    color: "Yellow or Brown — colors of nourishment, ripening harvests, security, and grounded being.",
+    season: "Late Summer — the season of ripening fruits, gathering, and nourishing fulfillment.",
+    health: "Stomach and spleen — key to digestion, assimilation, and the creation of physical and emotional nourishment."
+  },
+  Metal: {
+    description: "Strong, determined, and courageous, Metal embodies precision, honor, discernment, and the power to refine, protect, and transform internal and external realities.",
+    keywords: "Precision, honor, strength, independence, structure, resilience",
+    strengths: "Organization, courage, clear boundaries, ability to cut through illusion and maintain integrity",
+    challenges: "Rigidity, grief, judgmental attitude, overattachment to rules or ideals at the expense of flexibility",
+    direction: "West — the realm of sunset, endings, reflection, and harvesting the lessons of the day.",
+    color: "White or Silver — colors of purity, clarity, resilience, and sacred protection.",
+    season: "Autumn — the time of shedding, refinement, and honoring the essential over the superfluous.",
+    health: "Lungs and large intestine — associated with breath, grief processing, letting go, and purification."
+  },
+  Water: {
+    description: "Wise, intuitive, and flexible, Water flows effortlessly, adapting to all obstacles while holding profound wisdom, mystery, and the infinite potential of life itself.",
+    keywords: "Adaptability, wisdom, mystery, depth, flow, emotional intelligence",
+    strengths: "Resourcefulness, insight, emotional depth, intuitive awareness, and inner strength drawn from unseen reserves",
+    challenges: "Fearfulness, withdrawal, over-isolation, tendency to drift or lose clear structure in life",
+    direction: "North — the direction of night, mystery, depth, and regeneration through rest and renewal.",
+    color: "Black or Blue — colors of the deep ocean, the night sky, introspection, and endless potential.",
+    season: "Winter — the season of stillness, hibernation, and the incubation of future rebirth.",
+    health: "Kidneys and bladder — vital for vitality, resilience, the will to survive, and the management of primal energies."
+  }
+};
+
+function getChineseElement(year) {
+  const cyclePosition = (year - 4) % 10;
+  const elements = ["Wood", "Wood", "Fire", "Fire", "Earth", "Earth", "Metal", "Metal", "Water", "Water"];
+  const yinYang = ["Yang", "Yin", "Yang", "Yin", "Yang", "Yin", "Yang", "Yin", "Yang", "Yin"];
+
+  const element = elements[cyclePosition];
+  const yinYangType = yinYang[cyclePosition];
+
+  const elementProfile = elementDesc[element]; // <--- get full profile
+
+  const yinYangDesc = {
+  Yang: "Yang represents the active, outward-expanding, and assertive force of nature. It is bright, energetic, fast-moving, and action-oriented. Yang energy drives ambition, leadership, expression, and the manifestation of ideas into reality. It symbolizes the sun, daytime, heat, and strength — inspiring growth, movement, and creation.",
+  
+  Yin: "Yin represents the receptive, inward-gathering, and intuitive force of nature. It is soft, nurturing, contemplative, and deeply reflective. Yin energy governs emotions, healing, creativity, and the hidden realms of life. It symbolizes the moon, nighttime, coolness, and subtlety — nurturing rest, imagination, and deep inner wisdom."
+};
+
+  return {
+    element,        // like "Wood"
+    yinYang: yinYangType,  // like "Yang"
+    description: elementProfile.description, // grab just description for quick access
+    profile: elementProfile,  // full Wood/Fire/Earth/Metal/Water profile
+    yinYangDesc: yinYangDesc[yinYangType]
+  };
+}
+
+async function findDay() {
+  const input = document.getElementById('birthdate').value;
+  if (!input) {
+    showPopup(); // <<< replace old innerText with this
+    return;
+  }
+	
+  collapseInfoSection();
+ 
+
+  const parts = input.split('-');
+  const year = parseInt(parts[0], 10);
+  const month = parseInt(parts[1], 10) - 1; // JS months are 0-indexed
+  const day = parseInt(parts[2], 10);
+	
+	// ADD THIS:
+const inputDateFormatted = `${parts[1]}/${parts[2]}/${parts[0]}`; 
+document.getElementById('birthday-info').innerHTML = `
+  <strong>Your Entered Birthday:</strong> ${inputDateFormatted}
+`;
+
+  const birthDate = new Date(year, month, day);
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const dayName = days[birthDate.getDay()];
+
+  document.getElementById('result').innerText = `You were born on a ${dayName}!`;
+
+  // Zodiac
+  const zodiacInfo = getZodiac(month + 1, day);
+  document.getElementById('zodiac').innerHTML = `
+    Your Zodiac Sign is <strong> ${zodiacInfo.sign} ${zodiacInfo.symbol}</strong>.<br>${zodiacInfo.description}
+  `;
+
+  // Chinese Zodiac
+  const chineseNewYear = await getChineseNewYearDates(year);
+  let adjustedYear = year;
+  if (birthDate < chineseNewYear) {
+    adjustedYear -= 1;
+  }
+
+const chineseZodiacInfo = getChineseZodiacAnimal(adjustedYear);
+  const elementInfo = getChineseElement(adjustedYear);
+
+ 
+if (elementInfo) {
+  document.getElementById('chinese-zodiac').innerHTML = `
+    Your Chinese Zodiac Animal is <strong>${chineseZodiacInfo.animal}</strong> ${chineseZodiacInfo.symbol}.<br>
+    ${chineseZodiacInfo.description}<br><br>
+
+    Your Chinese Element is <strong>${elementInfo.element}</strong> 
+    (<strong>${elementInfo.yinYang}</strong> energy).<br>
+    <em>${elementInfo.description}</em><br><br>
+		
+		Nature of Energy: <strong>${elementInfo.yinYang}</strong> — ${elementInfo.yinYangDesc}<br><br>
+
+    <strong>Element Profile:</strong><br>
+    Keywords: ${elementInfo.profile.keywords}<br>
+    Strengths: ${elementInfo.profile.strengths}<br>
+    Challenges: ${elementInfo.profile.challenges}<br>
+    Direction: ${elementInfo.profile.direction}<br>
+    Color: ${elementInfo.profile.color}<br>
+    Season: ${elementInfo.profile.season}<br>
+    Health Associations: ${elementInfo.profile.health}
+
+    
+  `;
+} else {
+  document.getElementById('chinese-zodiac').innerHTML = `
+    Your Chinese Zodiac Animal is <strong>${chineseZodiacInfo.animal}</strong> ${chineseZodiacInfo.symbol}.<br>
+    ${chineseZodiacInfo.description}<br><br>
+    <strong>Chinese Element data is unavailable for ${adjustedYear}.</strong>
+  `;
+}
+
+  // Moon Phase
+const moonPhaseData = getMoonPhase(birthDate);
+const moonPhase = moonPhaseData.phaseName;
+const moonPhaseDegree = moonPhaseData.illuminationPercent;
+const moonPhaseDescription = getMoonPhaseDescription(moonPhase);
+
+document.getElementById('moon-phase').innerHTML = `
+  <strong>Moon Phase:</strong> ${moonPhase} ${getMoonEmoji(moonPhase)}<br>
+  <strong>Degree of Illumination:</strong> ${moonPhaseDegree}°<br>
+  <em>${moonPhaseDescription}</em>
+`;
+  
+// Extras
+  const element = zodiacInfo.element;
+  const modality = zodiacInfo.modality;
+  const ruler = zodiacInfo.ruler;
+  const decan = getDecan(month + 1, day);
+  const lifePath = getLifePathNumber(parts[0], parts[1], parts[2]);
+  const chaldeanRuler = getChaldeanRuler(dayName);
+
+  document.getElementById('extra-info').innerHTML = `
+  <strong>Element:</strong> ${element} — ${getElementDescription(element)}<br>
+  <strong>Modality:</strong> ${modality} — ${getModalityDescription(modality)}<br>
+  <strong>Planetary Ruler:</strong> ${ruler} — ${getPlanetaryRulerDescription(ruler)}<br>
+  <strong>Decan:</strong> ${decan} — ${getDecanDescription(decan)}<br>
+
+  <strong>Day's Planetary Ruler (Chaldean):</strong> ${chaldeanRuler} — ${getPlanetaryRulerDescription(chaldeanRuler)}<br>
+	  <strong>Life Path Number:</strong> ${lifePath} — ${getLifePathDescription(lifePath)}<br>
+`;
+
+
+fetchImportantFacts(month + 1, day, year);
+
+let combinedDescription = `
+  <h3>Summary of Your Birth Info:</h3>
+
+  <strong>Date Entered:</strong><br>
+  ${inputDateFormatted}<br><br>
+
+  <strong>Day of the Week:</strong><br>
+  You were born on a ${dayName}.<br><br>
+
+  <strong>Chinese Zodiac Animal:</strong><br>
+  ${chineseZodiacInfo.animal} ${chineseZodiacInfo.symbol}<br>
+  ${chineseZodiacInfo.description}<br><br>
+
+  <strong>Chinese Element:</strong><br>
+  ${elementInfo.element}<br>
+`;
+
+if (elementInfo) {
+  combinedDescription += `
+    ${elementInfo.description}<br><br>
+
+    <strong>${elementInfo.yinYang} Energy:</strong><br>
+    ${elementInfo.yinYangDesc}<br><br>
+
+    <u><strong>Element Profile:</strong></u><br>
+    Keywords: ${elementInfo.profile.keywords}<br>
+    Strengths: ${elementInfo.profile.strengths}<br>
+    Challenges: ${elementInfo.profile.challenges}<br>
+    Direction: ${elementInfo.profile.direction}<br>
+    Color: ${elementInfo.profile.color}<br>
+    Season: ${elementInfo.profile.season}<br>
+    Health Associations: ${elementInfo.profile.health}<br><br>
+  `;
+} else {
+  combinedDescription += `
+    <strong>No detailed Chinese Element data found for ${adjustedYear}.</strong><br><br>
+  `;
+}
+
+combinedDescription += `
+  <strong>Zodiac Sign:</strong><br>
+  ${zodiacInfo.sign} ${zodiacInfo.symbol}<br>
+  ${zodiacInfo.description}<br><br>
+
+  <strong>Element:</strong><br>
+  ${element}<br>
+  ${getElementDescription(element)}<br><br>
+
+  <strong>Modality:</strong><br>
+  ${modality}<br>
+  ${getModalityDescription(modality)}<br><br>
+
+  <strong>Planetary Ruler:</strong><br>
+  ${ruler}<br>
+  ${getPlanetaryRulerDescription(ruler)}<br><br>
+
+  <strong>Decan:</strong><br>
+  ${decan}<br>
+  ${getDecanDescription(decan)}<br><br>
+
+  <strong>Day's Planetary Ruler (Chaldean System):</strong><br>
+  ${chaldeanRuler}<br>
+  ${getPlanetaryRulerDescription(chaldeanRuler)}<br><br>
+
+  <strong>Life Path Number:</strong><br>
+  ${lifePath}<br>
+  ${getLifePathDescription(lifePath)}<br><br>
+
+  <strong>Moon Phase:</strong><br>
+  ${moonPhase} ${getMoonEmoji(moonPhase)}<br>
+  Degree of Illumination: ${moonPhaseDegree}°<br>
+  ${moonPhaseDescription}<br>
+`;
+
+combinedDescription += `
+  <div style="text-align: center; margin-top: 50px; font-size: 1.5rem;">
+    <em>Reflect on your unique cosmic fingerprint — and keep creating your own story.</em>
+  </div>
+`;
+
+combinedDescription += `
+	  <div id="astro-poem-in-summary" class="info"></div>
+`;
+
+combinedDescription += `
+		<div id="auto-suggestion-in-summary" class="info"></div>
+`;
+
+// Set it into the page
+document.getElementById('combined-summary').innerHTML = combinedDescription;
+
+// --- Mini AstroPoem ---
+// Build pieces
+const dayPlanetPoem = {
+  Sun: "child born of the Sun's radiant forge, a beacon of life and spirit",
+  Moon: "soul cradled by the Moon's timeless tides, nurtured in silence and dreams",
+  Mars: "warrior forged in Mars' fiery crucible, ever bold and unyielding",
+  Mercury: "messenger riding Mercury's clever winds, swift of thought and word",
+  Jupiter: "seeker blessed by Jupiter's boundless skies, ever reaching for wisdom",
+  Venus: "lover blooming in Venus' golden gardens, heart woven with beauty and grace",
+  Saturn: "pilgrim shaped by Saturn's ancient mountains, patient sculptor of destiny"
+};
+
+const elementPoem = {
+  Fire: "fierce with the sacred flames of passion and transformation",
+  Earth: "rooted deep in the enduring soil of ancient wisdom and strength",
+  Air: "dancing weightless on the unseen currents of thought and revelation",
+  Water: "flowing through endless rivers of feeling, mystery, and intuition"
+};
+
+const moonPhasePoem = {
+  "New Moon": "weaver of unseen beginnings and silent hopes",
+  "Waxing Crescent": "gardener nurturing dreams just beginning to bloom",
+  "First Quarter": "challenger who turns tension into courageous action",
+  "Waxing Gibbous": "refiner polishing visions into gleaming reality",
+  "Full Moon": "bearer of luminous revelations, heart wide as the night sky",
+  "Waning Gibbous": "guardian of harvested wisdom and graceful gratitude",
+  "Last Quarter": "rebel stirring the ashes to birth new possibilities",
+  "Waning Crescent": "keeper of ancient endings and sacred dreams reborn"
+};
+
+// Assemble Poem Text
+const planetLine = `You are a ${dayPlanetPoem[chaldeanRuler] || "child of the cosmos, shaped by starlight and time"}`;
+const sunSignLine = `Born under the sign of ${zodiacInfo.sign}, ${zodiacInfo.description.toLowerCase()}, a soul imbued with celestial purpose.`;
+const animalLine = `Carrying the spirit of the ${chineseZodiacInfo.animal}, ${chineseZodiacInfo.description.toLowerCase()}, dancing between earth and heavens.`;
+const elementLine = `${elementPoem[element] || ""}`;
+const moonLine = `and ${moonPhasePoem[moonPhase] || "a traveler drifting between the visible and the unseen realms"}.`;
+
+// Build Final Poem
+const astroPoem = `
+    <p><em>${planetLine},</em></p>
+    <p><em>${sunSignLine}</em></p>
+    <p><em>${animalLine}</em></p>
+    <p><em>${elementLine}</em></p>
+    <p><em>${moonLine}</em></p>
+  </div>
+`;
+
+// 2. Insert it into multiple places:
+document.getElementById('astro-poem-in-summary').innerHTML = astroPoem;
+document.getElementById('astro-poem-separate').innerHTML = astroPoem;
+
+const suggestionByPlanet = {
+  Sun: "You are a radiant being, destined to shine brightly — embrace leadership, creative self-expression, and the heroic journey of personal evolution. Your spirit fuels the world around you.",
+  Moon: "You are a vessel of deep emotional wisdom — nurture soulful connections, honor your instincts, and allow the tides of intuition to guide your sacred journey inward and outward.",
+  Mars: "You are a warrior of passion and purpose — summon your courage, act decisively, and blaze your path with fearless devotion to your dreams and the causes you hold dear.",
+  Mercury: "You are a messenger between worlds — master the art of communication, writing, learning, and bridging realms of knowledge, for your voice and intellect can transform and inspire.",
+  Jupiter: "You are a seeker of wisdom and a bearer of abundance — with optimism as your compass, embrace life's grand adventures through learning, travel, growth, and the fearless expansion of your horizons.",
+  Venus: "You are a weaver of beauty, love, and harmony — create, nurture, and connect from the heart, transforming the ordinary into the extraordinary through compassion, artistry, and sacred relationships.",
+  Saturn: "You are a master builder of legacies — through patience, discipline, and steadfast endurance, you carve paths through mountains and craft a foundation that will stand the test of time."
+};
+
+const suggestionByElement = {
+  Fire: "You are born of the sacred flame — remain bold, inspired, and action-driven, for your creative fire is a catalyst for transformation and growth, lighting the way for others.",
+  Earth: "You are rooted in ancient stone — your patience, practicality, and nurturing strength build lasting legacies. Trust slow and steady growth; you are the bedrock upon which dreams are built.",
+  Air: "You are the invisible breath of change — stay open, curious, and connected, for your ideas, words, and visions can stir revolutions of mind and heart across unseen landscapes.",
+  Water: "You are an endless river of emotion and wisdom — trust the depths of your heart, for through empathy, healing, and intuition, you carry the power to renew and transform worlds."
+};
+
+const suggestionByMoonPhase = {
+  "New Moon": "You carry the sacred spark of beginnings — dream wildly, plant new seeds of hope, and trust that unseen forces are conspiring to bring your visions into bloom.",
+  "Waxing Crescent": "You are a quiet builder of dreams — honor each small step forward, nurture fragile hopes with love, and trust that your consistent tending will yield luminous blooms.",
+  "First Quarter": "You are a warrior of momentum — face your doubts and obstacles with courage, for action taken in faith strengthens your spirit and quickens your sacred quest.",
+  "Waxing Gibbous": "You are the patient artisan — refine, polish, and shape your talents with care, knowing that each detail contributes to the masterpiece of your life unfolding.",
+  "Full Moon": "You are the soul illuminated — stand proudly in your fullness, celebrate your journey thus far, and allow your radiance to inspire and heal all who witness your light.",
+  "Waning Gibbous": "You are the teacher and storyteller — share your harvest of wisdom generously, for the truths you reveal uplift the hearts of others and weave new circles of light.",
+  "Last Quarter": "You are the sacred dismantler — bravely release what no longer serves you, trusting that by clearing the old, you make fertile space for the seeds of new dreams.",
+  "Waning Crescent": "You are the ancient dreamer — withdraw into sacred rest, reflect deeply, and listen to the quiet songs of your soul preparing for a rebirth more luminous than before."
+};
+
+const suggestionByLifePath = {
+  1: "You are a trailblazer and innovator — lead with fierce independence, break new ground, and light torches of possibility where others fear to tread.",
+  2: "You are a harmonizer and diplomat — forge sacred partnerships, bridge differences, and nurture peace through your deep empathy and unwavering gentleness.",
+  3: "You are a muse and a joyful creator — express beauty through words, art, laughter, and song, uplifting the world with your colorful spirit and boundless imagination.",
+  4: "You are a master of foundations — through discipline, perseverance, and trust in steady progress, you turn dreams into lasting realities that endure across generations.",
+  5: "You are the adventurer and the liberator — embrace movement, change, and the wild, unpredictable dance of life, for you are the free spirit who sparks revolutions of growth.",
+  6: "You are the guardian and the nurturer — devote yourself to healing, building communities, and surrounding others with compassion, beauty, and the balm of unconditional love.",
+  7: "You are the seeker and mystic — look beyond the surface of life into hidden truths, trust your inner knowing, and walk the sacred path of wisdom, intuition, and soul discovery.",
+  8: "You are the powerful architect — master the material world with integrity, ambition, and responsibility, wielding success as a tool for service and enlightened leadership.",
+  9: "You are the humanitarian and healer — embrace your sacred duty to serve the collective, offering compassion, forgiveness, and selfless love to uplift the whole of humanity.",
+  11: "You are the illuminated messenger — channel divine inspiration, awaken others with your visionary voice, and walk boldly as a torchbearer for collective awakening.",
+  22: "You are the master builder — manifest visionary dreams into structures that benefit humanity, balancing celestial imagination with earthly precision and strength.",
+  33: "You are the master teacher and healer — embody the purest vibration of love, lifting the hearts of all beings with your devotion, wisdom, and acts of sacred service."
+};
+
+const suggestionByZodiac = {
+  Aries: "Bold and brave, you blaze through life like a primal flame — a fearless pioneer carving new paths through the wilderness of existence. Your destiny is forged in action, courage, and relentless pursuit of your passions.",
+  Taurus: "Steadfast and sensuous, you root yourself in the fertile earth, crafting a life of enduring beauty, comfort, and meaningful achievement. Your spirit finds its song in the building of treasures both tangible and eternal.",
+  Gemini: "Endlessly curious and playfully mercurial, you weave invisible threads between minds and hearts. Your destiny dances across endless ideas, embracing transformation, discovery, and the joyful creation of connection.",
+  Cancer: "Tender as the moon's glow and fierce as the tides, you shelter dreams and nurture souls. Your sacred gift is to create sanctuaries of love, where intuition and compassion heal the wounded world.",
+  Leo: "Radiant sovereign of heart and spirit, you live to illuminate. Your roar awakens sleeping souls, and your creativity burns as a beacon of hope, inspiring others to discover the brilliance within themselves.",
+  Virgo: "With sacred precision and humble wisdom, you mend what is broken and refine what is raw. Your mission is to elevate, heal, and purify the world, one act of service, one careful detail at a time.",
+  Libra: "Graceful bearer of cosmic balance, you move through life like a dance of light and justice. Your soul is a bridge, restoring harmony in fractured spaces and weaving beauty into the fabric of existence.",
+  Scorpio: "A deep-sea voyager of the human spirit, you plunge fearlessly into the mysteries most fear to face. Through death, rebirth, and transformation, you become the living alchemist of the soul's evolution.",
+  Sagittarius: "With boundless spirit and a compass set for the infinite, you quest for truth, adventure, and meaning. Your laughter, wisdom, and fire light the path for all who seek horizons yet unseen.",
+  Capricorn: "Patient sculptor of destiny, you ascend life's mountains with quiet determination. Your legacy is crafted through mastery, resilience, and the steadfast realization of visions others only dare to dream.",
+  Aquarius: "Visionary architect of tomorrow, you tear down outdated systems to birth revolutionary dreams. With heart and mind ablaze, you reshape the future into a freer, fairer, more awakened world.",
+  Pisces: "Mystical dream-weaver of realms unseen, you dissolve the walls between worlds through compassion and imagination. Your soul is a river of empathy, flowing into the hearts of all who yearn for healing."
+};
+
+const suggestionByModality = {
+  Cardinal: "You are the primal spark — the fearless initiator who sets forces into motion. Trust your power to begin, to dare, and to lead others into uncharted territory where only dreamers once tread.",
+  Fixed: "You are the immovable pillar — the steady hand that carries dreams into tangible reality. Through unwavering devotion and loyalty to your purpose, you forge what time alone cannot diminish.",
+  Mutable: "You are the sacred shapeshifter — the bridge between endings and beginnings. Your gift is movement, your magic is flexibility, and your destiny is to guide others through the currents of transformation."
+};
+
+const suggestionByChineseAnimal = {
+  Rat: "Keen-witted and agile, you dance through life's complexities with brilliance and grace. Through cleverness and ingenuity, you find the hidden doorways others overlook, and transform adversity into triumph.",
+  Ox: "Steady as ancient stone, your spirit is built on patience, loyalty, and profound inner strength. You are the silent builder whose steadfast efforts create foundations strong enough to shelter generations.",
+  Tiger: "Roaring with primal might, you embody courage, rebellion, and wild beauty. You were born to challenge limitations, protect the vulnerable, and carve your path through the unknown with fearless dignity.",
+  Rabbit: "Soft of touch but strong of heart, you move through the world with diplomacy, kindness, and quiet grace. Your elegance and empathy soothe the wounded, and your artistry weaves delicate wonders.",
+  Dragon: "With a roar that shakes the heavens, you embody power, charisma, and divine fire. Your very presence sparks movements of destiny, lifting others with your strength and soaring spirit.",
+  Snake: "Silent guardian of ancient mysteries, you glide through life's labyrinths with wisdom and poise. Your intuition pierces illusions, and your charm masks a strength as deep and inexorable as time itself.",
+  Horse: "Born of wild wind and open sky, you are a spirit untamed. Freedom, exploration, and passionate drive fuel your every journey, and your restless heart races toward ever-expanding horizons.",
+  Goat: "Gentle artist of the soul, you heal the world through your tender compassion and creative spirit. Your quiet influence nourishes gardens of possibility, restoring beauty to the unseen corners of life.",
+  Monkey: "Bright-eyed trickster and wise inventor, your restless energy spins the world into laughter and innovation. Through wit, humor, and dazzling adaptability, you dance between obstacles and dreams.",
+  Rooster: "Vigilant herald of new dawns, your courage and meticulous vision shine brightly. Fearless in pursuit of excellence, you awaken others with your voice and illuminate paths with your precision.",
+  Dog: "Fierce protector and loyal companion, you are the heart's unwavering guardian. Justice, truth, and friendship are the pillars you defend, offering fierce love and noble courage to those you cherish.",
+  Pig: "Generous soul of golden abundance, you embrace life's pleasures with open arms. Through kindness, warmth, and an endless well of compassion, you cultivate gardens of joy and gratitude wherever you walk."
+};
+
+const suggestionByYinYang = {
+  Yin: "Your soul moves in sacred stillness — nurturing, intuitive, and profoundly creative. Like the moon shaping the tides, you draw unseen forces into harmony, weaving dreams, healing, and deep connection.",
+  Yang: "Your spirit burns in brilliant action — courageous, vibrant, and expansive. Like the sun commanding the day, you radiate vitality, ambition, and boldness, giving form to dreams through decisive force."
+};
+
+const suggestionByDecan = {
+  "First Decan (0°–10°)": "You embody the raw, original pulse of your sign — vibrant, pure, and unconstrained. Yours is the fiery breath of beginnings, igniting life with authentic passion and unfiltered essence.",
+  "Second Decan (10°–20°)": "You are a harmonious blending of your sign's spirit with hidden depths — rich with nuance, layered with complexity, and carrying a potent, multifaceted expression of destiny.",
+  "Third Decan (20°–30°)": "You hold the seasoned wisdom of your sign — a soul tempered by experience, flexible and profound. Through refinement and mastery, you embody the highest octave of your archetypal journey."
+};
+
+// Gather advice based on calculated values
+const planetAdvice = suggestionByPlanet[chaldeanRuler] || "";
+const elementAdvice = suggestionByElement[element] || "";
+const moonAdvice = suggestionByMoonPhase[moonPhase] || "";
+const lifePathAdvice = suggestionByLifePath[lifePath] || "";
+const zodiacAdvice = suggestionByZodiac[zodiacInfo.sign] || "";
+const modalityAdvice = suggestionByModality[modality] || "";
+const chineseAnimalAdvice = suggestionByChineseAnimal[chineseZodiacInfo.animal] || "";
+const yinYangAdvice = suggestionByYinYang[elementInfo.yinYang] || "";
+const decanAdvice = suggestionByDecan[decan] || "";
+
+const autoSuggestion = `
+    <h3>Life Suggestions Based on Your Cosmic Blueprint:</h3>
+    <p>${planetAdvice}</p>
+    <p>${elementAdvice}</p>
+    <p>${moonAdvice}</p>
+    <p>${lifePathAdvice}</p>
+    <p>${zodiacAdvice}</p>
+    <p>${modalityAdvice}</p>
+    <p>${chineseAnimalAdvice}</p>
+    <p>${yinYangAdvice}</p>
+    <p>${decanAdvice}</p>
+  </div>
+`;
+
+// Insert into both places
+document.getElementById('auto-suggestion-in-summary').innerHTML = autoSuggestion;
+document.getElementById('auto-suggestion-separate').innerHTML = autoSuggestion;
+}
+
+function getElementDescription(element) {
+  const descriptions = {
+    Fire: "🔥 — Passionate, energetic, action-oriented, and dynamic. Fire signs radiate vitality, leadership, creativity, and inspiration. They often act on instinct, blaze new trails, and are fueled by an intense inner drive for experience, recognition, and meaning. Fire embodies courage, enthusiasm, and the transformative force of life.",
+    Earth: "🌍 — Grounded, practical, stable, and loyal. Earth signs are the builders and preservers of the zodiac, deeply connected to the material world. They value security, patience, and tangible results, thriving through hard work, careful planning, and a deep-rooted sense of responsibility. Earth embodies endurance, pragmatism, and nurturing solidity.",
+    Air: "☁️ — Intellectual, social, communicative, and curious. Air signs are the thinkers and connectors, excelling at ideas, language, and relationships. They are driven by mental stimulation, dialogue, and the pursuit of knowledge, often offering perspective and objectivity. Air embodies freedom, innovation, and the invisible currents that bind society together.",
+    Water: "💧 — Emotional, intuitive, nurturing, and sensitive. Water signs are the feelers and healers, attuned to deep undercurrents of emotion, memory, and imagination. They move through life with empathy and instinct, often touching unseen worlds. Water embodies healing, transformation, and the profound mysteries of the soul."
+  };
+  return descriptions[element] || "No description available.";
+}
+
+function getModalityDescription(modality) {
+  const descriptions = {
+    Cardinal: "Leaders and initiators, they are the spark that begins each season and new venture. Cardinal signs are visionaries who take action and inspire movement, forging ahead with ambition and drive.",
+    Fixed: "Strong-willed, determined, and enduring, Fixed signs are the stabilizers who maintain progress and hold firm once a path is chosen. They bring depth, persistence, and reliability to any endeavor, anchoring ideas into lasting reality.",
+    Mutable: "Adaptable, versatile, and fluid, Mutable signs are the changemakers and shapeshifters. They prepare for transitions, bring closure to cycles, and effortlessly adjust to evolving circumstances with wisdom, grace, and ingenuity."
+  };
+  return descriptions[modality] || "No description available.";
+}
+
+function getPlanetaryRulerDescription(ruler) {
+  const rulerMain = ruler.split(' ')[0]; // In case of "Uranus (and Saturn)" we take Uranus
+  const descriptions = {
+    Sun: "Represents vitality, leadership, ego, self-expression, and the creative life force that illuminates one's path and fuels personal growth.",
+    Moon: "Symbolizes emotions, intuition, nurturing instincts, and the deep subconscious currents that influence our inner world and relationships.",
+    Mercury: "Rules communication, intellect, quick thinking, curiosity, and the ability to connect ideas and people across distances and realms.",
+    Venus: "Associated with love, beauty, harmony, attraction, and the appreciation of art, pleasure, relationships, and emotional bonding.",
+    Mars: "Drives action, courage, passion, assertiveness, and the pioneering spirit needed to overcome obstacles and pursue desires with intensity.",
+    Jupiter: "Governs luck, expansion, philosophy, optimism, higher learning, and the quest for wisdom, abundance, and new horizons.",
+    Saturn: "Represents discipline, responsibility, structure, perseverance, maturity, and the life lessons earned through time, endurance, and focus.",
+    Uranus: "Symbol of innovation, originality, rebellion, breakthroughs, and the electric forces of change that disrupt old patterns and awaken new possibilities.",
+    Neptune: "Connected with dreams, intuition, spirituality, compassion, illusions, and the dissolving of boundaries between the material and the mystical.",
+    Pluto: "Represents transformation, power, deep change, regeneration, hidden truths, and the alchemical process of death and rebirth on a soul level."
+  };
+  return descriptions[rulerMain] || "No description available.";
+}
+
+function getLifePathDescription(number) {
+  const descriptions = {
+    1: "Symbolizes leadership, independence, innovation, and the pioneering spirit. A path of forging new ways, embracing individuality, and inspiring others through strength and courage.",
+    2: "Represents cooperation, balance, diplomacy, and sensitivity. A journey of building harmonious relationships, fostering unity, and mastering the art of patience and emotional intelligence.",
+    3: "Embodies creativity, communication, joy, and artistic expression. A vibrant path of inspiring others through words, art, and the celebration of beauty, humor, and optimism.",
+    4: "Signifies practicality, hard work, foundation building, and dedication. A life grounded in stability, organization, and the patient crafting of long-lasting achievements through perseverance.",
+    5: "Denotes freedom, change, adventure, and exploration. A path of dynamic movement, embracing life's unpredictability, and constantly seeking new experiences and personal growth.",
+    6: "Symbolizes responsibility, nurturing, service to others, and compassion. A life mission rooted in healing, protecting, and creating supportive environments for family, community, and humanity.",
+    7: "Reflects analysis, spirituality, deep thinking, and introspection. A profound path of seeking hidden truths, inner wisdom, and the mysteries of existence through reflection and study.",
+    8: "Represents power, ambition, material mastery, and financial success. A journey of manifesting abundance, achieving high goals, and responsibly wielding influence to benefit oneself and others.",
+    9: "Embodies compassion, humanitarianism, universal love, and selfless service. A life devoted to healing, inspiring, and uplifting the collective consciousness through acts of kindness and sacrifice.",
+    11: "Master number of spiritual insight, illumination, and visionary leadership. A path of channeling higher wisdom, inspiring others, and bringing light to the world through intuitive gifts and charisma.",
+    22: "Master builder number symbolizing big goals, large-scale achievement, and global impact. A destiny of turning visionary ideas into concrete realities that uplift society and future generations.",
+    33: "Master teacher number representing unconditional love, selfless guidance, and spiritual nurturing. A sacred path of healing, teaching, and elevating others through boundless compassion and devotion."
+  };
+  return descriptions[number] || "No description available.";
+}
+
+function getDecanDescription(decan) {
+  const descriptions = {
+    "First Decan (0°–10°)": "Emphasizes the purest expression of the sign's essential traits, showcasing its raw, undiluted energy. Individuals born under the first decan often embody the fundamental nature, instincts, and core personality of the sign in its most vibrant and recognizable form.",
+    "Second Decan (10°–20°)": "Blends the sign’s characteristics with the subtle influence of a related planetary co-ruler, introducing layers of complexity, depth, and variation. Those born under the second decan often experience a fusion of qualities, resulting in unique blends of strength, personality nuances, and hidden potentials.",
+    "Third Decan (20°–30°)": "Adds wisdom, maturity, and refinement to the sign's core traits through the influence of another celestial body. Individuals from the third decan often display heightened versatility, nuanced understanding, and a more evolved or transcendent version of the original sign’s attributes."
+  };
+  return descriptions[decan] || "No description available.";
+}
+
+// --- Astrology Info
+function getZodiac(month, day) {
+  const signs = [
+    { sign: "Capricorn", symbol: "♑", start: "01-01", end: "01-19", description: "Ambitious, practical, disciplined, striving for mastery and long-term success.", element: "Earth", modality: "Cardinal", ruler: "Saturn" },
+    { sign: "Aquarius", symbol: "♒", start: "01-20", end: "02-18", description: "Innovative, independent, visionary, dedicated to humanitarian ideals and intellectual freedom.", element: "Air", modality: "Fixed", ruler: "Uranus" },
+    { sign: "Pisces", symbol: "♓", start: "02-19", end: "03-20", description: "Compassionate, imaginative, intuitive, deeply connected to dreams, emotions, and the collective unconscious.", element: "Water", modality: "Mutable", ruler: "Neptune" },
+    { sign: "Aries", symbol: "♈", start: "03-21", end: "04-19", description: "Energetic, courageous, pioneering, driven by instinct and a desire for new beginnings.", element: "Fire", modality: "Cardinal", ruler: "Mars" },
+    { sign: "Taurus", symbol: "♉", start: "04-20", end: "05-20", description: "Patient, reliable, sensual, valuing stability, beauty, and the pleasures of the physical world.", element: "Earth", modality: "Fixed", ruler: "Venus" },
+    { sign: "Gemini", symbol: "♊", start: "05-21", end: "06-20", description: "Adaptable, outgoing, witty, driven by curiosity, communication, and endless learning.", element: "Air", modality: "Mutable", ruler: "Mercury" },
+    { sign: "Cancer", symbol: "♋", start: "06-21", end: "07-22", description: "Emotional, nurturing, protective, ruled by the tides of feeling and deep connections to home and family.", element: "Water", modality: "Cardinal", ruler: "Moon" },
+    { sign: "Leo", symbol: "♌", start: "07-23", end: "08-22", description: "Confident, creative, charismatic, seeking to shine, inspire, and lead from the heart.", element: "Fire", modality: "Fixed", ruler: "Sun" },
+    { sign: "Virgo", symbol: "♍", start: "08-23", end: "09-22", description: "Analytical, practical, service-oriented, devoted to precision, improvement, and helping others.", element: "Earth", modality: "Mutable", ruler: "Mercury" },
+    { sign: "Libra", symbol: "♎", start: "09-23", end: "10-22", description: "Fair-minded, social, diplomatic, striving for balance, beauty, and harmonious relationships.", element: "Air", modality: "Cardinal", ruler: "Venus" },
+    { sign: "Scorpio", symbol: "♏", start: "10-23", end: "11-21", description: "Passionate, brave, intense, delving into emotional depths, transformation, and profound loyalty.", element: "Water", modality: "Fixed", ruler: "Pluto" },
+    { sign: "Sagittarius", symbol: "♐", start: "11-22", end: "12-21", description: "Adventurous, optimistic, philosophical, pursuing truth, wisdom, and the expansion of horizons.", element: "Fire", modality: "Mutable", ruler: "Jupiter" },
+    { sign: "Capricorn", symbol: "♑", start: "12-22", end: "12-31", description: "Ambitious, practical, disciplined, striving for enduring achievements and social responsibility.", element: "Earth", modality: "Cardinal", ruler: "Saturn" }
+  ];
+
+  const formatted = (m, d) => (m < 10 ? "0" : "") + m + "-" + (d < 10 ? "0" : "") + d;
+  const date = formatted(month, day);
+  for (let sign of signs) {
+    if (date >= sign.start && date <= sign.end) return sign;
+  }
+  return signs[0]; // fallback
+}
+
+function getChineseZodiacAnimal(adjustedYear) {
+  const animals = [
+    { animal: "Rat", symbol: "🐀", description: "Clever, quick-witted, and resourceful, Rats are known for their adaptability, strategic minds, and ability to thrive even in challenging environments." },
+    { animal: "Ox", symbol: "🐂", description: "Reliable, determined, and hardworking, Oxen embody strength, perseverance, and a steady approach to achieving their goals through patience and resilience." },
+    { animal: "Tiger", symbol: "🐅", description: "Brave, competitive, and confident, Tigers are natural leaders who inspire others with their courage, passion, and willingness to face challenges head-on." },
+    { animal: "Rabbit", symbol: "🐇", description: "Gentle, kind, and elegant, Rabbits are loved for their sensitivity, artistic nature, and ability to create harmony in both personal and social environments." },
+    { animal: "Dragon", symbol: "🐉", description: "Confident, charismatic, and ambitious, Dragons radiate powerful energy, often seen as natural visionaries destined for greatness and dynamic transformation." },
+    { animal: "Snake", symbol: "🐍", description: "Wise, enigmatic, and intuitive, Snakes possess deep inner wisdom, a love of mystery, and a keen sense of perception that guides them through life's complexities." },
+    { animal: "Horse", symbol: "🐎", description: "Energetic, spirited, and independent, Horses symbolize freedom, enthusiasm, and an unrelenting drive to explore, achieve, and experience life fully." },
+    { animal: "Goat", symbol: "🐐", description: "Gentle, creative, and nurturing, Goats are artistic souls who seek peace, beauty, and emotional depth, often acting as quiet pillars of compassion and understanding." },
+    { animal: "Monkey", symbol: "🐒", description: "Witty, curious, and inventive, Monkeys are playful problem-solvers who use humor, intelligence, and adaptability to navigate life’s twists and turns with ease." },
+    { animal: "Rooster", symbol: "🐓", description: "Observant, hardworking, and courageous, Roosters are detail-oriented achievers, often admired for their honesty, precision, and fearless pursuit of excellence." },
+    { animal: "Dog", symbol: "🐕", description: "Loyal, honest, and protective, Dogs are the guardians of friendship and justice, offering unwavering support, empathy, and a deep commitment to those they love." },
+    { animal: "Pig", symbol: "🐖", description: "Generous, diligent, and warm-hearted, Pigs are symbols of abundance and sincerity, bringing kindness, tolerance, and a love of life's simple pleasures to all they encounter." }
+  ];
+
+  const index = (adjustedYear - 4) % 12;
+  return animals[index];
+}
+
+function getMoonPhase(date) {
+  const moonData = SunCalc.getMoonIllumination(date);
+  const illuminationPercent = (moonData.fraction * 100).toFixed(2); // Save as number without '%'
+  const phase = moonData.phase; // 0 = New Moon, 0.5 = Full Moon, etc.
+
+  let phaseName = "";
+
+  if (phase < 0.03 || phase > 0.97) phaseName = "New Moon";
+  else if (phase < 0.22) phaseName = "Waxing Crescent";
+  else if (phase < 0.28) phaseName = "First Quarter";
+  else if (phase < 0.47) phaseName = "Waxing Gibbous";
+  else if (phase < 0.53) phaseName = "Full Moon";
+  else if (phase < 0.72) phaseName = "Waning Gibbous";
+  else if (phase < 0.78) phaseName = "Last Quarter";
+  else phaseName = "Waning Crescent";
+
+  return { phaseName, illuminationPercent };
+}
+
+function getMoonEmoji(phaseName) {
+  const emojis = {
+    "New Moon": "🌑",
+    "Waxing Crescent": "🌒",
+    "First Quarter": "🌓",
+    "Waxing Gibbous": "🌔",
+    "Full Moon": "🌕",
+    "Waning Gibbous": "🌖",
+    "Last Quarter": "🌗",
+    "Waning Crescent": "🌘"
+  };
+  return emojis[phaseName] || "🌙";
+}
+
+function getMoonPhaseDescription(phase) {
+  const descriptions = {
+    "New Moon": "Born during a New Moon, you are a natural initiator, full of fresh energy, beginnings, and instinctive drive. Life often calls you to start new cycles.",
+    "Waxing Crescent": "Born under a Waxing Crescent Moon, you possess hope, determination, and a strong desire to grow. You're drawn to setting goals and making dreams real.",
+    "First Quarter": "Born during a First Quarter Moon, you are action-driven, courageous, and willing to take risks. You grow by overcoming challenges and moving decisively.",
+    "Waxing Gibbous": "Born under a Waxing Gibbous Moon, you are a natural improver — constantly refining yourself, your ideas, and your surroundings. You strive for near-perfection.",
+    "Full Moon": "Born during a Full Moon, your life is about balance, relationships, and illumination. You’re deeply emotional, charismatic, and often feel pulled between extremes.",
+    "Waning Gibbous": "Born under a Waning Gibbous Moon, you are reflective, wise, and naturally generous. Teaching, sharing, and helping others fulfill their potential is part of your soul's path.",
+    "Last Quarter": "Born during a Last Quarter Moon, you are a natural reformer. You question the old ways and often feel called to create change or prepare for a new chapter.",
+    "Waning Crescent": "Born under a Waning Crescent Moon, you have an old soul energy. You’re intuitive, spiritual, and drawn to healing, closure, and deep personal transformation."
+  };
+  return descriptions[phase] || "The Moon's phase adds a unique rhythm to your emotional life and personal journey.";
+}
+
+function getLifePathNumber(year, month, day) {
+  const fullNumber = year.toString() + month.toString().padStart(2, "0") + day.toString().padStart(2, "0");
+  let sum = fullNumber.split('').map(Number).reduce((a, b) => a + b, 0);
+
+  while (sum > 9 && sum !== 11 && sum !== 22 && sum !== 33) {
+    sum = sum.toString().split('').map(Number).reduce((a, b) => a + b, 0);
+  }
+
+  return sum;
+}
+function reduce(num) {
+  return num.toString().split('').map(Number).reduce((a, b) => a + b, 0);
+}
+function getDecan(month, day) {
+  if (day <= 10) return "First Decan (0°–10°)";
+  else if (day <= 20) return "Second Decan (10°–20°)";
+  else return "Third Decan (20°–30°)";
+}
+function getChaldeanRuler(dayName) {
+  const rulers = {
+    Sunday: "Sun",
+    Monday: "Moon",
+    Tuesday: "Mars",
+    Wednesday: "Mercury",
+    Thursday: "Jupiter",
+    Friday: "Venus",
+    Saturday: "Saturn"
+  };
+  return rulers[dayName] || "Unknown";
+}
+
+function fetchImportantFacts(month, day, year) {
+  const factsDiv = document.getElementById('important-facts');
+  factsDiv.innerHTML = `<em>Loading important events...</em>`;
+
+  const urlEvents = `https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/${month}/${day}`;
+  const urlBirths = `https://en.wikipedia.org/api/rest_v1/feed/onthisday/births/${month}/${day}`;
+
+  Promise.all([
+    fetch(urlEvents).then(response => response.json()),
+    fetch(urlBirths).then(response => response.json())
+  ])
+  .then(([eventsData, birthsData]) => {
+    let content = "<h3>Important Events on Your Birthday:</h3><ul>";
+
+    // Birthday day events
+    eventsData.events.slice(0,5).forEach(event => {
+      content += `<li><strong>${event.year}</strong>: ${event.text}</li>`;
+    });
+
+    content += "</ul><h3>Famous Birthdays on Your Birthday:</h3><ul>";
+
+    // Birthday day famous people
+    birthsData.births.slice(0,5).forEach(birth => {
+      content += `<li><strong>${birth.year}</strong>: ${birth.text}</li>`;
+    });
+
+    content += `</ul><h3>Important Events in Your Birth Year (${year}):</h3><ul>`;
+
+    // Instead of summary, we now **query the whole year manually**:
+    fetch(`https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/1/1`)
+      .then(res => res.json())
+      .then(januaryEvents => {
+        const eventsOfYear = januaryEvents.events.filter(e => e.year === year);
+        if (eventsOfYear.length === 0) {
+          content += `<li>No recorded events found for ${year}.</li>`;
+        } else {
+          eventsOfYear.forEach(event => {
+            content += `<li>${event.text}</li>`;
+          });
+        }
+        content += `</ul>`;
+
+        factsDiv.innerHTML = content;
+      })
+      .catch(err => {
+        console.error(err);
+        content += `<li>Failed to load events from ${year}.</li></ul>`;
+        factsDiv.innerHTML = content;
+      });
+  })
+  .catch(error => {
+    console.error(error);
+    factsDiv.innerHTML = "Failed to load historical facts.";
+  });
+}
+
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  document.querySelector('.container').classList.toggle('dark-mode');
+  
+  // Toggle all result blocks too
+  const blocks = [
+    'combined-summary', 'result', 'zodiac', 'chinese-zodiac',
+    'extra-info', 'moon-phase', 'astro-poem-separate', 'auto-suggestion-separate', 'important-facts'
+  ];
+  blocks.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.classList.toggle('dark-mode');
+    }
+  });
+
+  // Save choice
+  const isDark = document.body.classList.contains('dark-mode');
+  localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+}
+
+// Load saved dark mode preference
+window.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('darkMode') === 'enabled') {
+    toggleDarkMode(); // Enable it automatically
+  }
+});
+</script>
+
+<script>
+// Toggle collapsible container manually
+document.getElementById('toggleInfo').addEventListener('click', function() {
+  const content = document.getElementById('infoContent');
+  if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+    content.style.maxHeight = '0px';
+    this.innerText = 'Show Introduction ▼';
+  } else {
+    content.style.maxHeight = '5000px';
+    this.innerText = 'Hide Introduction ▲';
+  }
+});
+
+// Automatically close the collapsible when a birthday is analyzed
+function collapseInfoSection() {
+  const content = document.getElementById('infoContent');
+  const toggleButton = document.getElementById('toggleInfo');
+  content.style.maxHeight = '0px';
+  toggleButton.innerText = 'Show Introduction ▼';
+}
+</script>
+
+<script>
+document.getElementById('toggleSummary').addEventListener('click', function() {
+  const summaryContent = document.getElementById('summaryContent');
+  if (summaryContent.style.maxHeight && summaryContent.style.maxHeight !== '0px') {
+    summaryContent.style.maxHeight = '0px';
+    this.innerText = 'View or Download Your Complete Profile ▼';
+  } else {
+    summaryContent.style.maxHeight = summaryContent.scrollHeight + 'px';
+    this.innerText = 'Hide Complete Profile ▲';
+  }
+});
+</script>
+
+<script>
+document.getElementById('toggleFacts').addEventListener('click', function() {
+  const factsContent = document.getElementById('factsContent');
+  if (factsContent.style.maxHeight && factsContent.style.maxHeight !== '0px') {
+    factsContent.style.maxHeight = '0px';
+    this.innerText = 'View Important Historical Facts ▼';
+  } else {
+    factsContent.style.maxHeight = factsContent.scrollHeight + 'px';
+    this.innerText = 'Hide Important Historical Facts ▲';
+  }
+});
+</script>
+
+<script src="../nav-fetch.js"></script>
+<script src="../nav_script2.js"></script>
+
+</body>
+</html>
