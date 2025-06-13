@@ -1,0 +1,286 @@
+body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #000014, #020024, #090979, #00d4ff);
+      color: white;
+      text-align: center;
+    }
+    header {
+      margin-bottom: 2rem;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+  .api-section {
+  display: grid;
+  grid-template-columns: 1fr; /* Only one column */
+  gap: 2rem;
+  margin-top: 3rem;
+  padding: 2rem;
+  max-width: 600px; /* Optional: prevents cards from stretching too wide */
+  margin-left: auto;
+  margin-right: auto;
+}
+    .api-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      padding: 1rem;
+      transition: transform 0.3s ease;
+    }
+    .api-card:hover {
+      transform: scale(1.05);
+    }
+    .api-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .api-card h2 {
+      margin: 0.5rem 0;
+    }
+    .api-card p {
+      font-size: 1rem;
+    }
+    
+    a {
+      color: #00d4ff;
+      text-decoration: none;
+    }
+		
+		#auto-apod-image, #auto-apod-description {
+  transition: opacity 1s ease-in-out;
+}
+
+.hidden {
+    display: none;
+}
+
+/* General Navigation Styles */
+.navigation {
+	position: sticky;
+            top: 0;
+            z-index: 999;
+    display: flex;
+    flex-wrap: wrap; /* Allow tabs to wrap on smaller screens */
+    gap: 15px; /* Space between tabs */
+    padding: 20px;
+    background-color: #1a1a1a; /* Match the page background */
+    border-radius: 10px; /* Smooth corners */
+    box-shadow: inset 4px 4px 8px #0d0d0d, inset -4px -4px 8px #333333; /* Neumorphic effect */
+    transition: all 0.3s ease;
+    max-height: 300px; /* Set a maximum height for scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+		align-items: center;
+		justify-content: center;
+}
+
+/* Optional: Style the scrollbar for better appearance */
+.navigation::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.navigation::-webkit-scrollbar-thumb {
+    background: #333333; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+}
+
+.navigation::-webkit-scrollbar-thumb:hover {
+    background: #ff6600; /* Change color on hover */
+}
+
+.navigation::-webkit-scrollbar-track {
+    background: #1a1a1a; /* Track color */
+}
+
+.navigation.hidden {
+    display: none; /* Initially hidden */
+}
+
+/* Neumorphic Tabs */
+.neumorphic-tab {
+    text-decoration: none;
+    color: #e0e0e0;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 12px;
+    background-color: #262626; /* Slightly lighter than the page background */
+    box-shadow: 6px 6px 12px #0d0d0d, -6px -6px 12px #333333; /* Neumorphic effect */
+    transition: all 0.3s ease;
+    text-align: center;
+    width: calc(33.33% - 30px); /* Adjust to fit 3 tabs per row */
+    width: 100%; /* Limit the width */
+}
+
+/* Hover and Active States */
+.neumorphic-tab:hover {
+    color: #ffffff;
+    background-color: #ff6600; /* Highlight color */
+    box-shadow: 4px 4px 8px #cc5200, -4px -4px 8px #ff9900; /* Highlighted neumorphic effect */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.neumorphic-tab:active {
+    transform: translateY(1px); /* Press effect */
+    box-shadow: inset 4px 4px 8px #cc5200, inset -4px -4px 8px #ff9900;
+}
+
+/* Toggle Button */
+.toggle-button {
+	position: sticky;
+            top: 0;
+            z-index: 999;
+    padding: 10px 15px;
+    background-color: purple;
+    color: #e0e0e0;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+    cursor: pointer;
+    box-shadow: 4px 4px 8px #0d0d0d, -4px -4px 8px #333333;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+		width: 100%;
+		
+}
+
+.toggle-button:hover {
+    background-color: gold;
+    color: #ffffff;
+    box-shadow: 4px 4px 8px #cc5200, -4px -4px 8px #ff9900;
+}
+
+.toggle-button:active {
+    transform: translateY(1px);
+    box-shadow: inset 4px 4px 8px #cc5200, inset -4px -4px 8px #ff9900;
+}
+
+ /***********************************
+       FOOTER
+    ************************************/
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+    }
+    footer p {
+      margin-bottom: 20px;
+      letter-spacing: 0.05rem;
+			font-size: .8rem;
+    }
+    footer a {
+      color: #ff00ff;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+      color: #fff;
+    }
+				
+				/* Scroll Buttons Container */
+.scroll-buttons {
+    position: fixed;
+    right: 0;
+    top: 75%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+		z-index: 9999;
+}
+
+.scroll-buttons button {
+    all: unset;
+    width: 1rem 
+    height: auto;
+    font-size: .7rem;
+    background: #e0e0e0;
+    color: #333;
+    padding: 0;
+    padding-top: 13px;
+		padding-bottom: 10px;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    box-shadow: 2px 2px 2px black, -2px -2px 5px black;
+    transition: box-shadow 0.3s ease, background-color 0.3s, transform 0.2s;
+		z-index: 1000;
+}
+
+/* Hover effect for buttons */
+.scroll-buttons button:hover {
+    background-color: #ccc;
+    box-shadow: inset 2px 2px 5px #bebebe, inset -2px -2px 5px #ffffff;
+    transform: scale(1.05);
+}
+
+    /* Make sure this doesn't affect normal mobile screens */
+    body.iframe-mode .overlay {
+			
+        font-size: 10px;
+    }
+		
+		.links li a {
+    display: inline-block;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: purple;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+		width: 70vw;
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+body.iframe-mode code {
+    font-size: 10px;
+}
+
+body.iframe-mode pre {
+    font-size: 10px;
+}
+
+body.iframe-mode .nav-button {
+    font-size: 10px;
+		margin: 5px;
+}
+
+#nav-container{
+	position: sticky;
+            top: 0;
+            z-index: 999;
+}

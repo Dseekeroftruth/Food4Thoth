@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+
+  <title>Explore the Universe with NASA APIs (Live Data!)</title>
+
+  <!-- ✅ SEO Meta Description -->
+  <meta name="description" content="Discover the cosmos in real-time with live NASA data. From Mars weather and ISS tracking to stunning APOD images and Apollo audio, this interactive hub brings the universe to your fingertips." />
+
+  <!-- ✅ SEO Keywords -->
+  <meta name="keywords" content="NASA API, Astronomy Picture of the Day, Mars Rover, ISS location, Solar Flare, EPIC Earth, Apollo 11 Audio, NASA data, space sounds, NASA photos, real-time astronomy, Food4Thoth, API showcase, cosmic visuals, Earth from space" />
+
+  <!-- ✅ Canonical URL -->
+  <link rel="canonical" href="https://www.food4thoth.com/Space/index.html">
+
+  <!-- ✅ Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Explore the Universe with NASA APIs (Live Data!)">
+  <meta property="og:description" content="Real-time space data from NASA APIs – explore Mars, the Moon, the ISS, and more.">
+  <meta property="og:url" content="https://www.food4thoth.com/Space/index.html">
+  <meta property="og:image" content="https://www.food4thoth.com/space-og-thumb.jpg">
+
+  <!-- ✅ Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Explore the Universe with NASA APIs (Live Data!)">
+  <meta name="twitter:description" content="Real-time space data from NASA – stunning imagery, Mars weather, ISS position & more.">
+  <meta name="twitter:image" content="https://www.food4thoth.com/space-og-thumb.jpg">
+
+  <!-- ✅ Stylesheet -->
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="preload" as="style" href="./styles.css">
+  <link rel="prefetch" href="./styles.css">
+
+  <!-- ✅ Navigation Scripts (Local) -->
+  <link rel="prefetch" href="../nav-fetch.js" as="script">
+  <link rel="prefetch" href="../nav_script2.js" as="script">
+  <script src="../nav-fetch.js" defer></script>
+  <script src="../nav_script2.js" defer></script>
+	
+	<!-- Prefetch Navigation HTML -->
+<link rel="prefetch" href="../navigation.html" as="document">
+
+  <!-- ✅ Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+  <!-- ✅ Preconnect to NASA and Proxy Domains -->
+<link rel="preconnect" href="https://api.nasa.gov" crossorigin>
+<link rel="preconnect" href="https://epic.gsfc.nasa.gov" crossorigin>
+<link rel="preconnect" href="https://images-api.nasa.gov" crossorigin>
+<link rel="preconnect" href="https://images.nasa.gov" crossorigin>
+<link rel="preconnect" href="https://api.maas2.apollorion.com" crossorigin>
+<link rel="preconnect" href="https://corsproxy.io" crossorigin>
+<link rel="preconnect" href="http://api.open-notify.org">
+
+<!-- ✅ DNS Prefetch Fallbacks -->
+<link rel="dns-prefetch" href="https://api.nasa.gov">
+<link rel="dns-prefetch" href="https://epic.gsfc.nasa.gov">
+<link rel="dns-prefetch" href="https://images-api.nasa.gov">
+<link rel="dns-prefetch" href="https://images.nasa.gov">
+<link rel="dns-prefetch" href="https://api.maas2.apollorion.com">
+<link rel="dns-prefetch" href="https://corsproxy.io">
+<link rel="dns-prefetch" href="http://api.open-notify.org">
+
+<!-- ✅ Prefetch Key JSON and Image Assets -->
+<link rel="prefetch" href="https://api.nasa.gov/planetary/apod?api_key=6A1Cwt3rfH6I8a7HCJHp5oEZCNWnyPCffNPLw5HN" as="fetch" crossorigin>
+<link rel="prefetch" href="https://api.nasa.gov/EPIC/api/natural/images?api_key=6A1Cwt3rfH6I8a7HCJHp5oEZCNWnyPCffNPLw5HN" as="fetch" crossorigin>
+<link rel="prefetch" href="https://api.nasa.gov/EPIC/api/enhanced/images?api_key=6A1Cwt3rfH6I8a7HCJHp5oEZCNWnyPCffNPLw5HN" as="fetch" crossorigin>
+<link rel="prefetch" href="https://api.maas2.apollorion.com/" as="fetch" crossorigin>
+<link rel="prefetch" href="https://api.nasa.gov/techtransfer/patent/?engine&api_key=6A1Cwt3rfH6I8a7HCJHp5oEZCNWnyPCffNPLw5HN" as="fetch" crossorigin>
+<link rel="prefetch" href="https://api.nasa.gov/DONKI/FLR?startDate=2024-01-01&api_key=6A1Cwt3rfH6I8a7HCJHp5oEZCNWnyPCffNPLw5HN" as="fetch" crossorigin>
+<link rel="prefetch" href="https://api.nasa.gov/DONKI/CME?startDate=2024-01-01&endDate=2024-06-12&api_key=6A1Cwt3rfH6I8a7HCJHp5oEZCNWnyPCffNPLw5HN" as="fetch" crossorigin>
+<link rel="prefetch" href="https://api.nasa.gov/neo/rest/v1/feed/today?detailed=true&api_key=6A1Cwt3rfH6I8a7HCJHp5oEZCNWnyPCffNPLw5HN" as="fetch" crossorigin>
+<link rel="prefetch" href="https://images-api.nasa.gov/search?q=featured&media_type=image,video" as="fetch" crossorigin>
+<link rel="prefetch" href="https://images.nasa.gov/details-demo" as="document" crossorigin>
+<link rel="prefetch" href="http://api.open-notify.org/astros.json" as="fetch">
+<link rel="prefetch" href="http://api.open-notify.org/iss-now.json" as="fetch">
+<link rel="prefetch" href="https://corsproxy.io/?url=https%3A%2F%2Fwww.nasa.gov%2Frss%2Fdyn%2Fbreaking_news.rss" as="fetch" crossorigin>
+
+<!-- ✅ Preview Image Prefetch -->
+<link rel="prefetch" href="https://www.food4thoth.com/space-og-thumb.jpg" as="image">
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://www.food4thoth.com/images/favicon.png" type="image/png">
+
+</head>
+
+<body>
+	
+<!-- Placeholder for the nav -->
+<div id="nav-container"></div>
+	
+
+  <header>
+    <h1>NASA APIs Showcase (Live Data!)</h1>
+    <p>Explore breathtaking space imagery and real-time data powered by <a href="https://api.nasa.gov" target="_blank">api.nasa.gov</a>.</p>
+  </header>
+
+<section class="api-section">
+	
+<!-- Auto Slideshow Card -->
+<div id="auto-apod-card" style="background: #111; color: #fff; border-radius: 10px; padding: 20px; max-width: 500px; margin: 20px auto; text-align: center; box-shadow: 0 0 10px #00d4ff;">
+  <h2 style="margin-bottom: 10px;">Space Image Slideshow</h2>
+  <img id="auto-apod-image" src="" alt="NASA Random Image" style="width: 100%; border-radius: 8px; margin-bottom: 10px; transition: opacity 1s;">
+  <p id="auto-apod-description" style="font-size: 1rem; margin-top: 10px;">Loading space wonders...</p>
+</div>
+
+<!-- Button Randomizer Card -->
+<div id="random-apod-card" style="background: #111; color: #fff; border-radius: 10px; padding: 20px; max-width: 500px; margin: 20px auto; text-align: center; box-shadow: 0 0 10px #00d4ff;">
+  <h2 style="margin-bottom: 10px;">Random NASA Space Image</h2>
+  <img id="random-apod-image" src="" alt="NASA Space Image" style="width: 100%; border-radius: 8px; margin-bottom: 10px;">
+  <p id="random-apod-description" style="font-size: 1rem; margin-bottom: 20px;">Click to see a random space image!</p>
+  <button id="random-apod-button" style="background: #00d4ff; border: none; padding: 10px 20px; font-size: 1rem; color: #111; border-radius: 5px; cursor: pointer; transition: background 0.3s;">
+    Get Random Image
+  </button>
+</div>
+	
+<div class="api-card" id="nasa-featured-card">
+	<img id="nasa-featured-thumb" style="width: 100%; border-radius: 8px;">
+<p id="nasa-featured-title"></p>
+<a id="nasa-featured-link" target="_blank">View Full Media</a>
+</div>
+	
+	<!-- Enhanced EPIC Earth Image Card -->
+<div class="api-card" id="epic-enhanced-card">
+  <img id="epic-enhanced-image" src="" alt="Enhanced EPIC Earth Image">
+  <h2>EPIC Earth Image (Enhanced)</h2>
+  <p id="epic-enhanced-description">Loading enhanced Earth image...</p>
+</div>
+
+  <!-- APOD Card -->
+  <div class="api-card" id="apod-card">
+    <img id="apod-image" src="" alt="Astronomy Picture of the Day">
+    <h2>Astronomy Picture of the Day</h2>
+    <p id="apod-description">Loading today's APOD...</p>
+  </div>
+
+  <!-- Mars Rover Card -->
+  <div class="api-card" id="mars-card">
+    <img id="mars-image" src="" alt="Mars Rover">
+    <h2>Mars Rover Photos</h2>
+    <p id="mars-description">Loading a random Mars Rover photo...</p>
+  </div>
+
+  <!-- NASA Image Search Card -->
+  <div class="api-card" id="nasa-search-card">
+    <img id="nasa-search-image" src="" alt="NASA Search">
+    <h2>NASA Search Image</h2>
+    <p id="nasa-search-description">Loading a random NASA archive image...</p>
+  </div>
+	
+	<!-- Latest Earth Satellite Image Card -->
+<div class="api-card" id="earth-assets-card">
+  <img id="earth-assets-image" src="" alt="Earth Satellite Image">
+  <h2>Earth Satellite Image</h2>
+  <p id="earth-assets-description">Loading satellite image...</p>
+</div>
+
+<div>
+<h2>International Space Station (ISS) Current Astronaut List</h2>
+	<ul id="astronauts-list"></ul>
+</div>
+
+
+<!-- ISS Tracker Card -->
+<div class="api-card" id="iss-card">
+  <h2>International Space Station (ISS) Location</h2>
+  <p id="iss-description">Loading ISS location...</p>
+</div>
+
+<!-- Tech Innovation Card -->
+<div class="api-card" id="tech-card">
+  <h2>NASA Technology Innovation</h2>
+  <p id="tech-description">Loading...</p>
+</div>
+	
+	<!-- Closest Asteroid Card -->
+<div class="api-card" id="asteroid-card">
+  <h2>Closest Asteroid Today</h2>
+  <p id="asteroid-description">Loading asteroid approach data...</p>
+</div>
+
+<div>
+<h2>Solar Flare Alerts</h2>
+<ul id="solar-alert-list"></ul>
+</div>
+
+<!-- Solar Activity Card -->
+<div class="api-card" id="solar-card">
+  <h2>Recent Solar Activity</h2>
+  <p id="solar-description">Loading recent solar events...</p>
+</div>
+
+<!-- CME Card -->
+<div class="api-card" id="cme-card">
+  <h2>Latest Solar Eruption (CME)</h2>
+  <p id="cme-description">Loading latest CME...</p>
+</div>
+
+<!-- Mars Weather Card -->
+<div class="api-card" id="mars-weather-card">
+  <h2>Mars Weather Today</h2>
+  <p id="mars-weather-description">Loading Mars weather...</p>
+</div>
+
+<!-- NASA Video Card -->
+<div class="api-card" id="nasa-video-card">
+  <img id="nasa-video-thumb" src="" alt="NASA Video Thumbnail" />
+  <h2>NASA Video</h2>
+  <p id="nasa-video-description">Loading random NASA video...</p>
+  <p><a id="nasa-video-link" href="#" target="_blank">Watch Video</a></p>
+</div>
+
+<!-- EPIC Earth Image Card -->
+  <div class="api-card" id="epic-card">
+    <img id="epic-image" src="" alt="EPIC Earth Image">
+    <h2>EPIC Earth Image (DSCOVR)</h2>
+    <p id="epic-description">Loading latest Earth image from deep space...</p>
+  </div>
+	
+	<!-- Mars Perseverance Gallery Card -->
+<div class="api-card" id="mars-gallery-card">
+  <img id="mars-gallery-thumb" src="" alt="Mars Perseverance Image" />
+  <h2>Mars Perseverance Gallery</h2>
+  <p id="mars-gallery-description">Loading random Mars photo...</p>
+  <p><a id="mars-gallery-link" href="#" target="_blank">View Full Image</a></p>
+</div>
+
+<!-- NASA Sound Card -->
+<div class="api-card" id="nasa-sound-card">
+  <h2>NASA Sounds</h2>
+  <p id="nasa-sound-description">Loading random NASA sound...</p>
+  <p><a id="nasa-sound-link" href="#" target="_blank">Listen to Sound</a></p>
+</div>
+
+<!-- 🎧 NASA Sound Browser -->
+<div id="nasa-sound-browser" style="margin-top: 2em;">
+  <label for="nasa-sound-dropdown"><strong>Browse All NASA Sounds:</strong></label><br>
+  <select id="nasa-sound-dropdown" style="width: 100%; max-width: 600px; margin-top: 0.5em;">
+    <option value="">-- Select a sound to play --</option>
+  </select>
+  <br><br>
+  <audio id="nasa-audio-player" controls style="width: 100%; max-width: 600px;">
+    Your browser does not support the audio element.
+  </audio>
+</div>
+
+<!-- APOD Vault Card -->
+<div class="api-card" id="apod-vault-card">
+  <img id="apod-vault-image" src="" alt="Random APOD Image" />
+  <h2>Random APOD Vault</h2>
+  <p id="apod-vault-description">Loading random space photo...</p>
+</div>
+
+<!-- NASA Breaking News Card -->
+<div class="api-card" id="nasa-news-card">
+  <h2>NASA Breaking News</h2>
+  <ul id="nasa-news-list">
+    <li>Loading latest headlines...</li>
+  </ul>
+  <button id="reload-news-btn" style="margin-top:10px;">Reload News</button>
+  <p><a id="view-all-news-link" href="https://www.nasa.gov/news/releases/latest/index.html" target="_blank">View All News</a></p>
+</div>
+
+<!-- Apollo 11 Audio Highlights Card -->
+<div class="api-card" id="apollo11-audio-card">
+  <h2 style="margin-bottom: 10px;">Apollo 11 Audio Highlights</h2>
+  <button onclick="toggleApolloHighlights()" style="background: #00d4ff; color: black; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">
+    Toggle Apollo 11 Highlights
+  </button>
+
+  <div id="apollo11-highlights" style="display: none; margin-top: 20px; text-align: left;">
+    <!-- The audio and transcript list will be injected here by JavaScript -->
+  </div>
+
+  <p style="margin-top: 10px;"><a href="https://www.nasa.gov/history/apollo-11-audio-highlights/" target="_blank">View Full Apollo 11 Archive</a></p>
+</div>
+
+<img id="epic-timelapse-image" style="width: 100%; border-radius: 8px; margin-bottom: 10px;">
+<p id="epic-timelapse-description"></p>
+
+<div style="text-align: center;">
+  <h2>Mars Rover Animation</h2>
+  <img id="mars-animation" src="" style="max-width: 100%; border-radius: 12px; margin-bottom: 10px;">
+  <p id="mars-animation-description"></p>
+</div>
+
+</section>
+
+<br /><br />
+
+  <footer>
+		<p>
+					<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="/Space/readme/"  class="styled-link">ReadMe</a></p>
+		
+    Data and images courtesy of <a href="https://api.nasa.gov" target="_blank">NASA APIs</a>.
+		
+		
+  </footer>
+
+<script>
+const nasaApiKey = '6A1Cwt3rfH6I8a7HCJHp5oEZCNWnyPCffNPLw5HN';
+
+// Fetch Astronomy Picture of the Day (APOD)
+fetch(`https://api.nasa.gov/planetary/apod?api_key=${nasaApiKey}`)
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('apod-image').src = data.url;
+    document.getElementById('apod-description').textContent = data.title;
+  })
+  .catch(error => {
+    console.error('Error fetching APOD:', error);
+    document.getElementById('apod-description').textContent = 'Failed to load today\'s image.';
+  });
+
+// Fetch Mars Rover Random Photo
+function fetchRandomMarsPhoto() {
+  const randomSol = Math.floor(Math.random() * 1000);
+  fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?sol=${randomSol}&api_key=${nasaApiKey}`)
+    .then(response => response.json())
+    .then(data => {
+      const photos = data.photos;
+      if (photos.length > 0) {
+        const randomIndex = Math.floor(Math.random() * photos.length);
+        const randomPhoto = photos[randomIndex];
+        document.getElementById('mars-image').src = randomPhoto.img_src;
+        document.getElementById('mars-description').textContent = `Taken by ${randomPhoto.rover.name} rover (${randomPhoto.camera.full_name}) on sol ${randomPhoto.sol}`;
+      } else {
+        fetchRandomMarsPhoto();
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching Mars photo:', error);
+      document.getElementById('mars-description').textContent = 'Failed to load Mars photo.';
+    });
+}
+fetchRandomMarsPhoto();
+
+// Fetch EPIC Earth Image
+fetch(`https://api.nasa.gov/EPIC/api/natural/images?api_key=${nasaApiKey}`)
+  .then(response => response.json())
+  .then(data => {
+    if (data.length > 0) {
+      const latest = data[0];
+      const date = latest.date.split(' ')[0].replace(/-/g, '/');
+      const imageUrl = `https://epic.gsfc.nasa.gov/archive/natural/${date}/jpg/${latest.image}.jpg`;
+      document.getElementById('epic-image').src = imageUrl;
+      document.getElementById('epic-description').textContent = `Earth from DSCOVR on ${latest.date.split(' ')[0]}`;
+    } else {
+      document.getElementById('epic-description').textContent = 'No EPIC images found.';
+    }
+  })
+  .catch(error => {
+    console.error('Error fetching EPIC Earth image:', error);
+    document.getElementById('epic-description').textContent = 'Failed to load EPIC image.';
+  });
+
+// Fetch random NASA image from NASA Image API
+function fetchRandomNasaSearchImage() {
+  const keywords = ['nebula', 'jupiter', 'apollo', 'galaxy', 'mars', 'hubble',   'James Webb Space Telescope', 
+  'Chandra X-ray Observatory', 
+  'Orion spacecraft', 
+  'Space Launch System', 
+  'Landsat', 
+  'OSIRIS-REx', 
+  'Juno Jupiter', 
+  'Artemis Moon Mission', 
+  'Black Hole', 
+  'Solar Flare'];
+  const randomKeyword = keywords[Math.floor(Math.random() * keywords.length)];
+
+  fetch(`https://images-api.nasa.gov/search?q=${randomKeyword}&media_type=image`)
+    .then(response => response.json())
+    .then(data => {
+      const items = data.collection.items;
+      if (items.length > 0) {
+        const randomItem = items[Math.floor(Math.random() * items.length)];
+        const imageUrl = randomItem.links[0].href;
+        const title = randomItem.data[0].title;
+        document.getElementById('nasa-search-image').src = imageUrl;
+        document.getElementById('nasa-search-description').textContent = title;
+      } else {
+        document.getElementById('nasa-search-description').textContent = 'No search images found.';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching NASA Search image:', error);
+      document.getElementById('nasa-search-description').textContent = 'Failed to load NASA image.';
+    });
+}
+fetchRandomNasaSearchImage();
+
+// Fetch Closest Asteroid (NeoWs)
+fetch(`https://api.nasa.gov/neo/rest/v1/feed/today?detailed=true&api_key=${nasaApiKey}`)
+  .then(response => response.json())
+  .then(data => {
+    const neos = data.near_earth_objects[Object.keys(data.near_earth_objects)[0]];
+    if (neos.length > 0) {
+      const closest = neos[0];
+      const name = closest.name;
+      const distance = closest.close_approach_data[0].miss_distance.kilometers;
+      document.getElementById('asteroid-description').textContent = `Asteroid ${name} will pass within ${Math.round(distance)} km of Earth today.`;
+    } else {
+      document.getElementById('asteroid-description').textContent = 'No asteroid approaches today.';
+    }
+  })
+  .catch(error => {
+    console.error('Error fetching asteroid data:', error);
+    document.getElementById('asteroid-description').textContent = 'Failed to load asteroid data.';
+  });
+
+// Fetch Solar Activity (DONKI API)
+fetch(`https://api.nasa.gov/DONKI/FLR?startDate=2024-01-01&api_key=${nasaApiKey}`)
+  .then(response => response.json())
+  .then(data => {
+    if (data.length > 0) {
+      const latestFlare = data[data.length - 1];
+      document.getElementById('solar-description').textContent = `Solar flare observed at ${latestFlare.activeRegionNum} on ${latestFlare.beginTime.split('T')[0]}.`;
+    } else {
+      document.getElementById('solar-description').textContent = 'No recent solar activity reported.';
+    }
+  })
+  .catch(error => {
+    console.error('Error fetching solar activity:', error);
+    document.getElementById('solar-description').textContent = 'Failed to load solar activity.';
+  });
+
+// Fetch Mars Weather (InSight)
+fetch('https://api.maas2.apollorion.com/')
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('mars-weather-description').textContent = 
+      `Sol ${data.sol}: Temp High ${data.max_temp}°C, Temp Low ${data.min_temp}°C, Pressure ${data.pressure} Pa.`;
+  })
+  .catch(error => {
+    console.error('Error fetching Mars weather:', error);
+    document.getElementById('mars-weather-description').textContent = 'Failed to load Mars weather.';
+  });
+
+// Fetch Enhanced EPIC Earth Image
+fetch(`https://api.nasa.gov/EPIC/api/enhanced/images?api_key=${nasaApiKey}`)
+  .then(response => response.json())
+  .then(data => {
+    if (data.length > 0) {
+      const latest = data[0];
+      const date = latest.date.split(' ')[0].replace(/-/g, '/');
+      const imageUrl = `https://epic.gsfc.nasa.gov/archive/enhanced/${date}/jpg/${latest.image}.jpg`;
+      document.getElementById('epic-enhanced-image').src = imageUrl;
+      document.getElementById('epic-enhanced-description').textContent = `Enhanced Earth from DSCOVR on ${latest.date.split(' ')[0]}`;
+    } else {
+      document.getElementById('epic-enhanced-description').textContent = 'No enhanced EPIC images found.';
+    }
+  })
+  .catch(error => {
+    console.error('Error fetching enhanced EPIC Earth image:', error);
+    document.getElementById('epic-enhanced-description').textContent = 'Failed to load enhanced Earth image.';
+  });
+	
+	function fetchRandomNasaVideo() {
+  const keywords = ['hubble', 'mars', 'apollo', 'satellite', 'nebula', 'iss', 'James Webb Space Telescope', 
+  'Chandra X-ray Observatory', 
+  'Orion spacecraft', 
+  'Space Launch System', 
+  'Landsat', 
+  'OSIRIS-REx', 
+  'Juno Jupiter', 
+  'Artemis Moon Mission', 
+  'Black Hole', 
+  'Solar Flare'];
+  const randomKeyword = keywords[Math.floor(Math.random() * keywords.length)];
+
+  fetch(`https://images-api.nasa.gov/search?q=${randomKeyword}&media_type=video`)
+    .then(response => response.json())
+    .then(data => {
+      const items = data.collection.items;
+      if (items.length > 0) {
+        const randomItem = items[Math.floor(Math.random() * items.length)];
+        const previewThumb = randomItem.links[0].href; // Thumbnail image
+        const nasaId = randomItem.data[0].nasa_id;
+        const previewLink = `https://images.nasa.gov/details-${nasaId}`; // External NASA watch page
+        const title = randomItem.data[0].title;
+        document.getElementById('nasa-video-thumb').src = previewThumb;
+        document.getElementById('nasa-video-link').href = previewLink;
+        document.getElementById('nasa-video-description').textContent = title;
+      } else {
+        document.getElementById('nasa-video-description').textContent = 'No NASA videos found.';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching NASA video:', error);
+      document.getElementById('nasa-video-description').textContent = 'Failed to load NASA video.';
+    });
+}
+fetchRandomNasaVideo();
+
+function fetchCMEData(daysBack = 10) {
+  const today = new Date();
+  const pastDate = new Date();
+  pastDate.setDate(today.getDate() - daysBack);
+
+  const todayStr = today.toISOString().split('T')[0];
+  const pastStr = pastDate.toISOString().split('T')[0];
+
+  fetch(`https://api.nasa.gov/DONKI/CME?startDate=${pastStr}&endDate=${todayStr}&api_key=${nasaApiKey}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.length > 0) {
+        // Sort CMEs by startTime descending (newest first)
+        const sortedCMEs = data.sort((a, b) => new Date(b.startTime) - new Date(a.startTime));
+        const latestCME = sortedCMEs[0];
+
+        document.getElementById('cme-description').textContent = 
+  `CME on ${latestCME.startTime.split('T')[0]}${latestCME.sourceLocation ? ` from ${latestCME.sourceLocation}` : ''}.`;
+      } else if (daysBack < 60) {
+        // Try a longer window if no data and we haven't tried too much yet
+        console.log(`No CMEs found in ${daysBack} days, retrying with ${daysBack + 20} days...`);
+        fetchCMEData(daysBack + 20);
+      } else {
+        // After 60 days, give up
+        document.getElementById('cme-description').textContent = 'No CMEs found in the past 2 months.';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching CME data:', error);
+      document.getElementById('cme-description').textContent = 'Failed to load CME information.';
+    });
+}
+
+// Start by fetching CME from last 10 days
+fetchCMEData(10);
+
+// Fetch random NASA TechTransfer patent
+fetch(`https://api.nasa.gov/techtransfer/patent/?engine&api_key=${nasaApiKey}`)
+  .then(response => response.json())
+  .then(data => {
+    const patents = data.results;
+    if (patents.length > 0) {
+      const randomPatent = patents[Math.floor(Math.random() * patents.length)];
+      document.getElementById('tech-description').textContent = randomPatent[1]; // Title
+    }
+  })
+  .catch(error => {
+    console.error('Error fetching NASA tech innovation:', error);
+    document.getElementById('tech-description').textContent = 'Failed to load NASA innovation.';
+  });
+	
+	function getRandomDate(start, end) {
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}
+
+function fetchEarthSatelliteImageSmart() {
+  const lat = 1.5; // Near equator for better chances (Singapore area)
+  const lon = 103.8;
+
+  // Pick a random date between 2015-01-01 and today
+  const startDate = new Date('2015-01-01');
+  const today = new Date();
+  const randomDate = getRandomDate(startDate, today);
+  const randomDateStr = randomDate.toISOString().split('T')[0];
+
+  fetch(`https://api.nasa.gov/planetary/earth/assets?lon=${lon}&lat=${lat}&date=${randomDateStr}&dim=0.1&api_key=${nasaApiKey}`)
+    .then(response => response.json())
+    .then(data => {
+      console.log('Earth API response:', data);
+      if (data && data.url) {
+        document.getElementById('earth-assets-image').src = data.url;
+        document.getElementById('earth-assets-description').textContent =
+          `Earth satellite image taken on ${data.date.split('T')[0]}`;
+      } else {
+        document.getElementById('earth-assets-description').textContent = 'No Earth images found for that day.';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching Earth satellite image:', error);
+      document.getElementById('earth-assets-description').textContent = 'Failed to load Earth satellite image.';
+    });
+}
+
+fetchEarthSatelliteImageSmart();
+
+function fetchISSLocation() {
+  fetch('http://api.open-notify.org/iss-now.json')
+    .then(response => response.json())
+    .then(data => {
+      const latitude = data.iss_position.latitude;
+      const longitude = data.iss_position.longitude;
+      document.getElementById('iss-description').textContent = 
+        `Latitude: ${latitude}°, Longitude: ${longitude}°`;
+    })
+    .catch(error => {
+      console.error('Error fetching ISS location:', error);
+      document.getElementById('iss-description').textContent = 'Failed to load ISS location.';
+    });
+}
+
+// Update every 10 seconds
+fetchISSLocation();
+setInterval(fetchISSLocation, 10000);
+
+function fetchRandomMarsGalleryImage() {
+  const randomSol = Math.floor(Math.random() * 800); // Random Sol (0–800 days on Mars)
+
+  fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?sol=${randomSol}&api_key=${nasaApiKey}`)
+    .then(response => response.json())
+    .then(data => {
+      const photos = data.photos;
+      if (photos.length > 0) {
+        const randomPhoto = photos[Math.floor(Math.random() * photos.length)];
+        const photoUrl = randomPhoto.img_src;
+        const title = `${randomPhoto.camera.full_name} (Sol ${randomPhoto.sol})`;
+
+        document.getElementById('mars-gallery-thumb').src = photoUrl;
+        document.getElementById('mars-gallery-link').href = photoUrl;
+        document.getElementById('mars-gallery-description').textContent = title;
+      } else {
+        document.getElementById('mars-gallery-description').textContent = 'No Mars photo found.';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching Mars Perseverance image:', error);
+      document.getElementById('mars-gallery-description').textContent = 'Failed to load Mars image.';
+    });
+}
+fetchRandomMarsGalleryImage();
+
+const sounds = [
+// Discovery
+  { title: 'Discovery – APU shutdown', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/640148main_APU20Shutdown.mp3' },
+  { title: 'Discovery – Computers are in control', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/640149main_Computers20are20in20Control.mp3' },
+  { title: 'Discovery – Go at throttle up (1)', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/640150main_Go20at20Throttle20Up.mp3' },
+  { title: 'Discovery – Go at throttle up (2)', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/640151main_Go20at20Throttle20Up202.mp3' },
+  { title: 'Discovery – Go for deploy', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/640164main_Go20for20Deploy.mp3' },
+  { title: 'Discovery – Good Picture of Steve', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/639893main_Good_Picture_of_Steve.mp3' },
+  { title: 'Discovery – Houston Discovery', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/639898main_Houston_Discovery.mp3' },
+  { title: 'Discovery – Houston Discovery 2', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/639896main_Houston_Discovery_2.mp3' },
+  { title: 'Discovery – How do you read', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/639900main_How_do_you_Read.mp3' },
+  { title: 'Discovery – Lookin’ at it', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/640165main_Lookin20At20It.mp3' },
+  { title: 'Discovery – MECO', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/640166main_MECO.mp3' },
+  { title: 'Discovery – Nice to be in orbit', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/640167main_Nice20to20be20in20Orbit.mp3' },
+  { title: 'Discovery – On its way to orbit', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/640168main_On20its20way20to20Orbit.mp3' },
+  { title: 'Discovery – Press to ATO', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/640169main_Press20to20ATO.mp3' },
+  { title: 'Discovery – Roger roll', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/640170main_Roger20Roll.mp3' },
+  { title: 'Discovery – STS-26 Liftoff', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/640392main_STS-26_Liftoff.mp3' },
+  { title: 'Discovery – STS-41D Liftoff', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/640393main_STS-41D_Liftoff.mp3' },
+  { title: 'Discovery – STS-131: Sound of Launch', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/590189main_ringtone_131_launchNats.mp3' },
+  { title: 'Discovery – Vector transfer', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/640173main_Vector20Transfer.mp3' },
+
+// Shuttle and Station
+  { title: 'STS‑1: We’re Going to Dust it Off First', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/581097main_STS-1_Dust-it-Off.mp3' },
+  { title: 'STS‑7: That Was Definitely an E‑ticket!', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/582362main_Sally-Ride_e-ticket.mp3' },
+  { title: 'STS‑26: Liftoff', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/640392main_STS-26_Liftoff.mp3' },
+  { title: 'STS‑41D: Liftoff', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/640393main_STS-41D_Liftoff.mp3' },
+  { title: 'STS‑131: Sound of Launch', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/590189main_ringtone_131_launchNats.mp3' },
+  { title: 'STS‑132: Shuttle Gear Drop', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/590327main_ringtone_landingGearDrop.mp3' },
+  { title: 'STS‑135: Countdown to Launch', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/590318main_ringtone_135_launch.mp3' },
+  { title: 'STS‑135: Launch Commentary', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/577774main_STS-135Launchringtone-v2.mp3' },
+  { title: 'STS‑135: Landing Commander Comments', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/590196main_ringtone_135_landingCommanderComments.mp3' },
+  { title: 'STS‑135: Landing Comments', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/590316main_ringtone_135_landingNaviusComments.mp3' },
+
+// Apollo and Mercury
+  { title: 'Apollo 8: Merry Christmas', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/581549main_Apollo-8_Merry-Christmas.mp3' },
+  { title: 'Apollo 11: We Have a Lift‑Off', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/590320main_ringtone_apollo11_countdown.mp3' },
+  { title: 'Apollo 11: Eagle Has Landed', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/569462main_eagle_has_landed.mp3' },
+  { title: 'Apollo 11: Eagle Has Landed Extended', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/590333main_ringtone_eagleHasLanded_extended.mp3' },
+  { title: 'Apollo 11: That’s One Small Step for (a) Man', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/590331main_ringtone_smallStep.mp3' },
+  { title: 'Apollo 12: Cardiac Sim', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/584851main_Apollo-12_Cardiac-Sim.mp3' },
+  { title: 'Apollo 12: All Weather Testing', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/584852main_Apollo-12_All-Weather-Testing.mp3' },
+  { title: 'Apollo 13: Houston, We’ve Had a Problem', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/574928main_houston_problem.mp3' },
+  { title: 'JFK: Return Him Safely to Earth', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/591240main_JFKmoonspeech.mp3' },
+  { title: 'JFK: We Choose the Moon with Apollo 11 Launch', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/590325main_ringtone_kennedy_WeChoose.mp3' },
+  { title: 'JFK: We Choose the Moon', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/586447main_JFKwechoosemoonspeech.mp3' },
+  { title: 'Mercury 4: Clock Started', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/582369main_Mercury-4_Clock-Started.mp3' },
+  { title: 'Mercury 6: Zero G', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/582367main_Mercury-6_Zero-G.mp3' },
+  { title: 'Mercury 6: God Speed', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/582368main_Mercury-6_God-Speed.mp3' },
+  { title: 'Mercury 7: Liftoff', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/582371main_Aurora-7_Liftoff.mp3' },
+  { title: 'Mercury 7: Fireflies', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/582374main_Aurora-7_Fireflies.mp3' },
+  { title: 'Mercury 7: Guaymas Greeting', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/582382main_Aurora-7_Guyamas-Greeting.mp3' },
+  { title: 'Mercury 9: Astronaut Cooper Comments', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/582370main_mercury_Cooper_Orbit-Comments.mp3' },
+
+// Missions
+  { title: 'Atlas V: Launch', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/590329main_ringtone_SDO_launchNats.mp3' },
+  { title: 'Cassini: Enceladus Sound', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/584796main_enceladus.mp3' },
+  { title: 'Cassini: Saturn Radio Emissions #1', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/584791main_spookysaturn.mp3' },
+  { title: 'Cassini: Saturn Radio Emissions #2', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/584795main_saturn_radio_waves.mp3' },
+  { title: 'Juno: Morse code “HI” received from Earth', url: 'http://www.jpl.nasa.gov/multimedia/sounds/RingTone01_Longer.mp3' },
+  { title: 'Kepler: Star KIC12268220C Light Curve Waves to Sound', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/578358main_kepler_star_KIC12268220C.mp3' },
+  { title: 'Kepler: Star KIC7671081B Light Curve Waves to Sound', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/578359main_kepler_star_KIC7671081B.mp3' },
+  { title: 'LCROSS: Water on the Moon Song', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/583775main_lcross_marmie_water_moon.mp3' },
+  { title: 'SOFIA Takeoff Audio', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/sofia_takeoff_audio.mp3' },
+  { title: 'Stardust: Passing Comet Tempel 1', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/598980main_stardust_tempel1.mp3' },
+  { title: 'Voyager: Interstellar Plasma Sounds', url: 'https://www.nasa.gov/externalflash/interstellar.mp3' },
+  { title: 'Voyager: Lightning on Jupiter', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/603921main_voyager_jupiter_lightning.mp3' },
+
+// Beeps and Bytes
+  { title: 'Chorus Radio Waves within Earth’s Atmosphere', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/693857main_emfisis_chorus_1.mp3' },
+  { title: 'Quindar: Sound #1', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/578628main_hskquindar.mp3' },
+  { title: 'Quindar: Sound #2', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/578629main_hawquindar.mp3' },
+  { title: 'Sputnik: Beep', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/578626main_sputnik-beep.mp3' },
+
+  // Sounds of the Future
+  { title: 'SLS Test Fire', url: 'https://www.nasa.gov/wp-content/uploads/2015/01/663784main_SLS_Audio_D.mp3' }
+];
+
+function fetchNASASound() {
+  const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+  document.getElementById('nasa-sound-description').textContent = randomSound.title;
+  document.getElementById('nasa-sound-link').href = randomSound.url;
+}
+fetchNASASound();
+
+function fetchRandomAPODVault() {
+  const startYear = 1995;
+  const endYear = new Date().getFullYear();
+  
+  const randomYear = Math.floor(Math.random() * (endYear - startYear + 1)) + startYear;
+  const randomMonth = Math.floor(Math.random() * 12) + 1;
+  const randomDay = Math.floor(Math.random() * 28) + 1; // safer (28 days)
+
+  const dateStr = `${randomYear}-${String(randomMonth).padStart(2, '0')}-${String(randomDay).padStart(2, '0')}`;
+
+  fetch(`https://api.nasa.gov/planetary/apod?date=${dateStr}&api_key=${nasaApiKey}`)
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('apod-vault-image').src = data.url;
+      document.getElementById('apod-vault-description').textContent = data.title;
+    })
+    .catch(error => {
+      console.error('Error fetching random APOD vault image:', error);
+      document.getElementById('apod-vault-description').textContent = 'Failed to load random space image.';
+    });
+}
+fetchRandomAPODVault();
+
+function fetchNASABreakingNews() {
+  const proxy = 'https://corsproxy.io/?';
+  const nasaRSS = encodeURIComponent('https://www.nasa.gov/rss/dyn/breaking_news.rss');
+
+  fetch(`${proxy}${nasaRSS}`)
+    .then(response => response.text())
+    .then(str => {
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(str, "text/xml");
+      const items = xmlDoc.querySelectorAll('item');
+      
+      const newsList = document.getElementById('nasa-news-list');
+      newsList.innerHTML = '';
+
+      items.forEach((item, index) => {
+        if (index < 5) { // Only show 5 items
+          const title = item.querySelector('title').textContent;
+          const link = item.querySelector('link').textContent;
+
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = link;
+          a.target = '_blank';
+          a.textContent = title;
+
+          li.appendChild(a);
+          newsList.appendChild(li);
+        }
+      });
+
+    })
+    .catch(error => {
+      console.error('Error fetching NASA breaking news:', error);
+      document.getElementById('nasa-news-list').innerHTML = '<li>Failed to load news.</li>';
+    });
+}
+
+// Initial fetch
+fetchNASABreakingNews();
+
+// Reload button
+document.getElementById('reload-news-btn').addEventListener('click', () => {
+  document.getElementById('nasa-news-list').innerHTML = '<li>Reloading news...</li>';
+  fetchNASABreakingNews();
+});
+
+const apolloHighlights = [
+  { day: 1, audio: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-01-Highlights.mp3', transcript: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-01-Highlights.pdf' },
+  { day: 2, audio: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-02-Highlights.mp3', transcript: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-02-Highlights.pdf' },
+  { day: 3, audio: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-03-Highlights.mp3', transcript: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-03-Highlights.pdf' },
+  { day: 4, audio: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-04-Highlights.mp3', transcript: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-04-Highlights.pdf' },
+  { day: 5, audio: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-05-Highlights.mp3', transcript: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-05-Highlights.pdf' },
+  { day: 6, audio: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-06-Highlights.mp3', transcript: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-06-Highlights.pdf' },
+  { day: 7, audio: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-07-Highlights.mp3', transcript: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-07-Highlights.pdf' },
+  { day: 8, audio: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-08-Highlights.mp3', transcript: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-08-Highlights.pdf' },
+  { day: 9, audio: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-09-Highlights.mp3', transcript: 'https://www.nasa.gov/wp-content/uploads/2015/03/Apollo-11_Day-09-Highlights.pdf' }
+];
+
+function buildApolloHighlights() {
+  const container = document.getElementById('apollo11-highlights');
+  container.innerHTML = '';
+
+  // Insert the photo FIRST
+  const photo = document.createElement('img');
+  photo.src = 'https://www.nasa.gov/wp-content/uploads/2015/03/9352717772_b6d8bef311_z.jpg';
+  photo.alt = 'Apollo 11 Mission Control';
+  photo.style.width = '100%';
+	photo.style.height = '100%';
+  photo.style.borderRadius = '8px';
+  photo.style.marginBottom = '20px';
+  container.appendChild(photo);
+	
+	// Insert the photo FIRST
+  const photo2 = document.createElement('img');
+  photo2.src = 'https://www.nasa.gov/wp-content/uploads/2015/03/9352713724_c2edddf21e_z.jpg';
+  photo2.alt = 'Apollo 11 Mission Control2';
+  photo2.style.width = '100%';
+	photo2.style.height = '100%';
+  photo2.style.borderRadius = '8px';
+  photo2.style.marginBottom = '20px';
+  container.appendChild(photo2);
+
+  // Insert each day's audio + transcript
+  apolloHighlights.forEach(item => {
+    const div = document.createElement('div');
+    div.style.marginBottom = '20px';
+
+    div.innerHTML = `
+      <h3 style="margin-bottom: 5px;">Flight Day ${item.day}</h3>
+      <audio controls style="width: 100%; margin-bottom: 5px;">
+        <source src="${item.audio}" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <p><a href="${item.transcript}" target="_blank" style="color: #00d4ff;">View Transcript (PDF)</a></p>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+function toggleApolloHighlights() {
+  const section = document.getElementById('apollo11-highlights');
+  if (section.style.display === 'none' || section.style.display === '') {
+    buildApolloHighlights();
+    section.style.display = 'block';
+  } else {
+    section.style.display = 'none';
+  }
+}
+
+function fetchEpicTimelapse(attempt = 0) {
+  const today = new Date();
+  today.setDate(today.getDate() - attempt); // Try today, yesterday, day before, etc.
+
+  const dateStr = today.toISOString().split('T')[0];
+
+  fetch(`https://api.nasa.gov/EPIC/api/natural/date/${dateStr}?api_key=${nasaApiKey}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.length > 0) {
+        let index = 0;
+        function updateImage() {
+          const image = data[index];
+          const imageDate = image.date.split(' ')[0].replace(/-/g, '/');
+          const imageUrl = `https://epic.gsfc.nasa.gov/archive/natural/${imageDate}/jpg/${image.image}.jpg`;
+
+          document.getElementById('epic-timelapse-image').src = imageUrl;
+          document.getElementById('epic-timelapse-description').textContent = `Earth Timelapse from ${image.date.split(' ')[0]}`;
+
+          index = (index + 1) % data.length;
+        }
+        updateImage();
+        setInterval(updateImage, 3000); // Change every 3 seconds
+      } else {
+        if (attempt < 5) {
+          // Try yesterday, 2 days ago, etc. up to 5 attempts
+          fetchEpicTimelapse(attempt + 1);
+        } else {
+          document.getElementById('epic-timelapse-description').textContent = 'No recent EPIC images available.';
+        }
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching EPIC timelapse:', error);
+      document.getElementById('epic-timelapse-description').textContent = 'Failed to load EPIC timelapse.';
+    });
+}
+
+// Start trying from today
+fetchEpicTimelapse();
+
+function fetchNasaFeaturedMedia() {
+  fetch('https://images-api.nasa.gov/search?q=featured&media_type=image,video')
+    .then(response => response.json())
+    .then(data => {
+      const items = data.collection.items;
+      if (items.length > 0) {
+        const randomItem = items[Math.floor(Math.random() * items.length)];
+        const thumb = randomItem.links[0].href;
+        const title = randomItem.data[0].title;
+        const nasaId = randomItem.data[0].nasa_id;
+
+        document.getElementById('nasa-featured-thumb').src = thumb;
+        document.getElementById('nasa-featured-title').textContent = title;
+        document.getElementById('nasa-featured-link').href = `https://images.nasa.gov/details-${nasaId}`;
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching featured NASA media:', error);
+      document.getElementById('nasa-featured-title').textContent = 'Failed to load featured media.';
+    });
+}
+fetchNasaFeaturedMedia();
+
+function fetchSolarAlerts() {
+  fetch(`https://api.nasa.gov/DONKI/notifications?api_key=${nasaApiKey}`)
+    .then(response => response.json())
+    .then(data => {
+      const alertList = document.getElementById('solar-alert-list');
+      alertList.innerHTML = '';
+
+      data.slice(0, 5).forEach(alert => {
+        const li = document.createElement('li');
+        li.textContent = `${alert.messageType} issued on ${alert.messageIssueTime.split('T')[0]}`;
+        alertList.appendChild(li);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching solar alerts:', error);
+      document.getElementById('solar-alert-list').innerHTML = '<li>Failed to load solar alerts.</li>';
+    });
+}
+fetchSolarAlerts();
+
+function fetchAstronauts() {
+  fetch('http://api.open-notify.org/astros.json')
+    .then(response => response.json())
+    .then(data => {
+      const astroList = document.getElementById('astronauts-list');
+      astroList.innerHTML = '';
+
+      data.people.forEach(person => {
+        const li = document.createElement('li');
+        li.textContent = `${person.name} (${person.craft})`;
+        astroList.appendChild(li);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching astronauts:', error);
+      document.getElementById('astronauts-list').innerHTML = '<li>Failed to load astronaut list.</li>';
+    });
+}
+fetchAstronauts();
+
+function fetchMarsAnimationImages() {
+  const randomSol = Math.floor(Math.random() * 500); // Random Martian day
+
+  fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?sol=${randomSol}&api_key=${nasaApiKey}`)
+    .then(response => response.json())
+    .then(data => {
+      const photos = data.photos;
+
+      if (photos.length > 0) {
+        let index = 0;
+        const img = document.getElementById('mars-animation');
+        const description = document.getElementById('mars-animation-description');
+
+        function updateFrame() {
+          const photo = photos[index];
+          img.src = photo.img_src;
+          description.textContent = `Camera: ${photo.camera.full_name} | Sol: ${photo.sol}`;
+
+          index = (index + 1) % photos.length; // Loop back to start
+        }
+
+        updateFrame(); // Show first image
+        setInterval(updateFrame, 2000); // Every 2 seconds
+      } else {
+        document.getElementById('mars-animation-description').textContent = 'No Mars photos found for today.';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching Mars images:', error);
+      document.getElementById('mars-animation-description').textContent = 'Failed to load Mars animation.';
+    });
+}
+
+fetchMarsAnimationImages();
+
+// --------- AUTO SLIDESHOW 10 SECONDS FADE ------------
+
+function fetchRandomAutoAPOD() {
+  const startYear = 1995;
+  const endYear = new Date().getFullYear();
+
+  const randomYear = Math.floor(Math.random() * (endYear - startYear + 1)) + startYear;
+  const randomMonth = Math.floor(Math.random() * 12) + 1;
+  const randomDay = Math.floor(Math.random() * 28) + 1;
+
+  const randomDate = `${randomYear}-${String(randomMonth).padStart(2, '0')}-${String(randomDay).padStart(2, '0')}`;
+
+  const img = document.getElementById('auto-apod-image');
+  const desc = document.getElementById('auto-apod-description');
+
+  img.style.opacity = 0;
+  desc.style.opacity = 0;
+
+  fetch(`https://api.nasa.gov/planetary/apod?api_key=${nasaApiKey}&date=${randomDate}`)
+    .then(response => response.json())
+    .then(data => {
+      const preloadImg = new Image();
+      preloadImg.onload = () => {
+        img.src = data.url;
+        desc.textContent = data.title;
+        setTimeout(() => {
+          img.style.opacity = 1;
+          desc.style.opacity = 1;
+        }, 100);
+      };
+      preloadImg.onerror = () => {
+        console.error('Image failed to load.');
+        desc.textContent = 'Failed to load random image.';
+        img.style.opacity = 1;
+        desc.style.opacity = 1;
+      };
+      preloadImg.src = data.url;
+    })
+    .catch(error => {
+      console.error('Error fetching random APOD:', error);
+      desc.textContent = 'Failed to load random image.';
+      img.style.opacity = 1;
+      desc.style.opacity = 1;
+    });
+}
+
+fetchRandomAutoAPOD();
+setInterval(fetchRandomAutoAPOD, 10000);
+
+// --------- RANDOM BUTTON CLICK VERSION ------------
+
+function fetchRandomAPOD() {
+  const startYear = 1995;
+  const endYear = new Date().getFullYear();
+
+  const randomYear = Math.floor(Math.random() * (endYear - startYear + 1)) + startYear;
+  const randomMonth = Math.floor(Math.random() * 12) + 1;
+  const randomDay = Math.floor(Math.random() * 28) + 1;
+
+  const randomDate = `${randomYear}-${String(randomMonth).padStart(2, '0')}-${String(randomDay).padStart(2, '0')}`;
+
+  fetch(`https://api.nasa.gov/planetary/apod?api_key=${nasaApiKey}&date=${randomDate}`)
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('random-apod-image').src = data.url;
+      document.getElementById('random-apod-description').textContent = data.title;
+    })
+    .catch(error => {
+      console.error('Error fetching random APOD:', error);
+      document.getElementById('random-apod-description').textContent = 'Failed to load random image.';
+    });
+}
+
+// Attach button event
+document.getElementById('random-apod-button').addEventListener('click', fetchRandomAPOD);
+
+// Fetch first random image when loaded
+fetchRandomAPOD();
+</script>
+
+<script>
+function setupNASASoundDropdown() {
+  const dropdown = document.getElementById('nasa-sound-dropdown');
+  const player = document.getElementById('nasa-audio-player');
+
+  if (!dropdown || !player || !Array.isArray(sounds)) return;
+
+  // Populate dropdown
+  sounds.forEach((sound) => {
+    const option = document.createElement('option');
+    option.value = sound.url;
+    option.textContent = sound.title;
+    dropdown.appendChild(option);
+  });
+
+  // Play selected sound
+  dropdown.addEventListener('change', function () {
+    const selectedURL = this.value;
+    if (selectedURL) {
+      player.src = selectedURL;
+      player.play();
+    } else {
+      player.pause();
+      player.removeAttribute('src');
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  fetchNASASound();
+  setupNASASoundDropdown();
+});
+</script>
+
+</body>
+</html>
