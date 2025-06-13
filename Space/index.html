@@ -583,7 +583,7 @@ function fetchEarthSatelliteImageSmart() {
 fetchEarthSatelliteImageSmart();
 
 function fetchISSLocation() {
-  fetch('http://api.open-notify.org/iss-now.json')
+  fetch('https://corsproxy.io/?url=http://api.open-notify.org/iss-now.json')
     .then(response => response.json())
     .then(data => {
       const latitude = data.iss_position.latitude;
@@ -930,7 +930,7 @@ function fetchSolarAlerts() {
 fetchSolarAlerts();
 
 function fetchAstronauts() {
-  fetch('http://api.open-notify.org/astros.json')
+  fetch('https://corsproxy.io/?url=http://api.open-notify.org/astros.json')
     .then(response => response.json())
     .then(data => {
       const astroList = document.getElementById('astronauts-list');
