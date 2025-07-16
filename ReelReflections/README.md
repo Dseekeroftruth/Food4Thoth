@@ -14,6 +14,8 @@ twitter_card: summary_large_image
 twitter_title: "Reel Reflections – Favorite Movie Personality Analyzer"
 twitter_description: "A poetic, psychological deep-dive into your favorite film. Analyze its meaning and reveal your cinematic self."
 twitter_image: /ReelReflections/preview.png
+twitter_site: "@Food4Thoth"
+twitter_creator: "@Food4Thoth"
 ---
 
 <style>

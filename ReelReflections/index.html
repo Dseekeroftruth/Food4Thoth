@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reel Reflections – Discover What Your Favorite Movie Says About You</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Reel Reflections is a cinematic personality analyzer that reveals the deep psychological, symbolic, and generational meaning behind your favorite movie. Built by Food4Thoth." />
+  <meta name="keywords" content="Reel Reflections, movie personality, favorite movie meaning, symbolic movie interpretation, film psychology, movie birth year, Food4Thoth, DeJahn" />
+  <meta name="author" content="DeJahn and Food4Thoth">
+
+  <!-- Open Graph Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Reel Reflections – What Your Favorite Movie Reveals About You">
+  <meta property="og:description" content="Enter your favorite movie and discover your cinematic soul: personality, symbolism, generational roots, and custom recommendations.">
+  <meta property="og:url" content="https://www.food4thoth.com/ReelReflections/index.html">
+  <meta property="og:image" content="https://www.food4thoth.com/ReelReflections/images/preview.png">
+  <meta property="og:site_name" content="Food4Thoth">
+
+  <!-- Twitter Meta -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Reel Reflections – Favorite Movie Personality Analyzer">
+  <meta name="twitter:description" content="A poetic, psychological deep-dive into your favorite film. Analyze its meaning and reveal your cinematic self.">
+  <meta name="twitter:image" content="https://www.food4thoth.com/ReelReflections/preview.png">
+  <meta name="twitter:site" content="@Food4Thoth">
+  <meta name="twitter:creator" content="@Food4Thoth">
+
+  <!-- Favicon (optional) -->
+  <link rel="icon" href="/ReelReflections/favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="https://www.food4thoth.com/ReelReflections/index.html">
+
+  <!-- Prefetch Fonts or APIs (optional performance boost) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="prefetch" href="https://www.food4thoth.com/ReelReflections/images/preview.png" as="image">
+
+  
+  <style>
+    body { background: #111; color: #eee; font-family: sans-serif; padding: 2rem; }
+    input[type="text"] { padding: .5rem; width: 100%; margin-bottom: .5rem; background: #222; color: #fff; border: 1px solid #555; }
+    #suggestions { position: relative; z-index: 10; background: #1a1a1a; border: 1px solid #444; border-top: none; max-height: 200px; overflow-y: auto; }
+    .suggestion { padding: .5rem; cursor: pointer; }
+    .suggestion:hover { background: #333; }
+
+    .rolodex {
+      margin: 1rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    .rolodex a {
+      color: #ff66cc;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.3rem 0.6rem;
+      border: 1px solid #444;
+      border-radius: 6px;
+      background-color: #1a1a1a;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+
+    .rolodex a:hover { background: #333; text-decoration: none; }
+
+    h2.section-title { border-bottom: 1px solid #444; margin-top: 2rem; padding-top: 1rem; }
+
+    button {
+      display: block;
+      margin: 5px 0;
+      padding: 10px;
+      background: #222;
+      color: #fff;
+      border: 1px solid #555;
+      cursor: pointer;
+      width: auto;
+    }
+    button:hover { background: #333; }
+
+    .result {
+      margin-top: 2rem;
+      background: #1a1a1a;
+      padding: 1rem;
+      border-left: 3px solid #ff6699;
+    }
+
+    #tts-advanced { display: none; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+
+    /* Toggle Button Styling */
+.toggle-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    transition: background-color 0.3s;
+		z-index: 1000;
+		width: 90%;
+}
+
+.toggle-button:hover {
+    background-color: black;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+		pointer-events: none; /* This prevents any clicks on it */
+		display: none;
+}
+
+
+/* Neumorphic Navigation Container */
+.navigation {
+    position: fixed;
+    top: 40px; /* Adjust to stay below the toggle button */
+    left: 10px;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 1000;
+		height: 50%;
+		overflow-y: auto; /* Enable vertical scrolling */
+		
+		
+}
+				
+        .neumorphic-tab {
+					
+            display: inline-block;
+            margin: 2px 2px;
+            padding: 3px 3px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: clamp(16px, 1.2vw, 22px);
+						text-align: center;
+        }
+        .neumorphic-tab:hover {
+            box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff;
+        }
+        .neumorphic-tab.active {
+            background: #d1d1d1;
+        }
+				
+				.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: #f0f0f0;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+}
+
+.submenu.hidden {
+    display: none;
+}
+				
+				/* Scroll Buttons Container */
+.scroll-buttons {
+    position: fixed;
+    right: 0;
+    top: 75%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+		z-index: 9999;
+}
+
+.scroll-buttons button {
+    all: unset;
+    width: 1rem 
+    height: auto;
+    font-size: .7rem;
+    background: #e0e0e0;
+    color: #333;
+    padding: 0;
+    padding-top: 13px;
+		padding-bottom: 10px;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    box-shadow: 2px 2px 2px black, -2px -2px 5px black;
+    transition: box-shadow 0.3s ease, background-color 0.3s, transform 0.2s;
+		z-index: 1000;
+}
+
+/* Hover effect for buttons */
+.scroll-buttons button:hover {
+    background-color: #ccc;
+    box-shadow: inset 2px 2px 5px #bebebe, inset -2px -2px 5px #ffffff;
+    transform: scale(1.05);
+}
+
+/* Footer Styling */
+.footer {
+  margin-top: 3rem;
+  padding: 1rem;
+  background: #0f0f0f;
+  border-top: 1px solid #333;
+  color: #ccc;
+  text-align: center;
+  font-size: 0.9rem;
+  box-shadow: 0 -2px 8px rgba(255, 102, 153, 0.2);
+}
+
+.footer p {
+  margin: 0;
+}
+
+.footer a {
+  color: #ff66cc;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.footer a:hover {
+  color: #fff;
+  text-shadow: 0 0 5px #ff66cc, 0 0 10px #ff66cc;
+}
+  </style>
+</head>
+
+<body>
+	<!-- Placeholder for the nav -->
+  <div id="nav-container"></div>
+	
+		<div class="scroll-buttons">
+    <button onclick="scrollToTop()">&#9650;</button> <!-- Up Arrow -->
+    <button onclick="scrollToBottom()">&#9660;</button> <!-- Down Arrow -->
+</div>
+	
+  <h1>✨ Favorite Movie Personality Finder ✨</h1>
+  <input type="text" id="search" placeholder="Search for a movie title…" autocomplete="off">
+  <div id="suggestions"></div>
+  <div class="rolodex" id="rolodex"></div>
+  <div id="movieList"></div>
+  <div id="result" class="result"></div>
+	
+	<section id="movie-suggestion" style="margin-top: 3rem; background: #1a1a1a; padding: 1.5rem; border-left: 3px solid #ff6699;">
+  <h2 style="margin-top: 0;">🎥 Don't See Your Favorite Movie?</h2>
+  <p>Send us a suggestion and we'll consider adding it!</p>
+  <form action="https://formspree.io/f/xdknravw" method="POST">
+    <label for="movie-name" style="display: block; margin-bottom: 0.5rem;">Your Favorite Movie:</label>
+    <input type="text" name="movie" id="movie-name" required placeholder="Enter movie title…" 
+           style="width: 100%; padding: 0.5rem; background: #222; color: #fff; border: 1px solid #555; margin-bottom: 1rem;" />
+    <button type="submit" style="padding: 0.5rem 1rem; background: #ff66cc; color: #fff; border: none; cursor: pointer;">
+      ✉️ Send Suggestion
+    </button>
+  </form>
+</section>
+
+<section id="reel-reflections" style="margin-top: 3rem; padding: 1.5rem; background: #111; border-top: 2px solid #ff66cc;">
+  <h2 style="color: #ff66cc;">💬 Want a Custom Movie Insight?</h2>
+  <p style="margin-bottom: 1rem;">
+    If your favorite movie isn’t listed or you want a deeper dive into your cinematic soul — try the AI-powered <strong>Reel Reflections</strong> experience by <strong>DeJahn & Food4Thoth</strong>.
+  </p>
+
+  <a href="https://chatgpt.com/g/g-687720d5d6688191ae1c534bbeb5ed07-reel-reflections" target="_blank" rel="noopener noreferrer"
+     style="display: inline-block; padding: 0.75rem 1.25rem; background: #ff66cc; color: #fff; text-decoration: none; font-weight: bold; border-radius: 5px;">
+    🚀 Open Reel Reflections in ChatGPT
+  </a>
+
+  <p style="margin-top: 1rem; font-size: 0.95rem; color: #ccc;">
+    Perfect for ChatGPT Plus users, or anyone looking for personality analysis, symbolic interpretation, or generational profiling of films not yet in our database.
+  </p>
+</section>
+
+  <footer class="footer">
+    <p><a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="/MoviePersonality/readme/" class="styled-link">ReadMe</a></p>
+  </footer>
+
+  <script>
+    const searchInput = document.getElementById('search');
+    const suggestionsDiv = document.getElementById('suggestions');
+    const movieListDiv = document.getElementById('movieList');
+    const resultDiv = document.getElementById('result');
+    const rolodexDiv = document.getElementById('rolodex');
+    let allMovies = {};
+
+    fetch('movies.json')
+      .then(res => res.json())
+      .then(movies => {
+        allMovies = movies;
+        renderRolodex();
+        renderAllMovies(movies);
+      });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function scrollToBottom() {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function renderRolodex() {
+      const letters = '#ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+      letters.forEach(letter => {
+        const link = document.createElement('a');
+        link.href = `#section-${letter}`;
+        link.textContent = letter;
+        rolodexDiv.appendChild(link);
+      });
+    }
+
+    function renderAllMovies(movies) {
+  const grouped = {};
+
+  Object.entries(movies).forEach(([key, data]) => {
+    const title = data.title.trim();
+    const firstChar = title[0].toUpperCase();
+    const sectionKey = /^[A-Z]$/.test(firstChar) ? firstChar : '#';
+
+    if (!grouped[sectionKey]) grouped[sectionKey] = [];
+    grouped[sectionKey].push({ key, ...data });
+
+    // ✅ Optional: secondary sort for titles starting with “The”
+    if (/^the\s+/i.test(title)) {
+      const secondWord = title.split(/\s+/)[1];
+      const secondChar = secondWord?.[0]?.toUpperCase();
+      if (secondChar && /^[A-Z]$/.test(secondChar)) {
+        if (!grouped[secondChar]) grouped[secondChar] = [];
+        grouped[secondChar].push({ key, ...data });
+      }
+    }
+  });
+
+  Object.keys(grouped).sort().forEach(letter => {
+    const section = document.createElement('section');
+    section.id = `section-${letter}`;
+
+    const header = document.createElement('h2');
+    header.className = 'section-title';
+    header.textContent = letter;
+    section.appendChild(header);
+
+    grouped[letter].sort((a, b) => a.title.localeCompare(b.title)).forEach(movie => {
+      const btn = document.createElement('button');
+      btn.textContent = movie.title;
+      btn.onclick = () => showMovie(movie.key);
+      section.appendChild(btn);
+    });
+
+    movieListDiv.appendChild(section);
+  });
+}
+
+    function showMovie(key) {
+      const m = allMovies[key];
+      const analysisId = "analysis-text";
+			
+			const imdbSearchURL = `https://www.imdb.com/find?q=${encodeURIComponent(m.title)}&s=tt`;
+			const rtSearchURL = `https://www.rottentomatoes.com/search?search=${encodeURIComponent(m.title)}`;
+
+
+      resultDiv.innerHTML = `
+        <h2>${m.title} (${m.releaseYear})</h2>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+          <button onclick="copyText('${analysisId}')">📋 Copy</button>
+          <button onclick="startSpeech('${analysisId}')">▶️ Start</button>
+          <label for="voiceSelect" style="margin-left: 10px; align-self: center;">🎙️ Voice:</label>
+          <select id="voiceSelect" onchange="updateVoice()" style="max-width: 200px;"></select>
+        </div>
+
+        <div id="tts-advanced">
+          <button onclick="pauseSpeech()">⏸️ Pause</button>
+          <button onclick="resumeSpeech()">🔄 Resume</button>
+          <button onclick="stopSpeech()">⏹️ Stop</button>
+        </div>
+
+        <pre id="${analysisId}" style="white-space: pre-wrap; font-family: inherit;">${m.fullAnalysis}</pre>
+        <p><strong>Likely Born:</strong> ${m.birthRange}</p>
+        <blockquote><em>${m.quote}</em></blockquote>
+				
+				   <p style="margin-top: 1rem;">
+      🔍 <a href="${imdbSearchURL}" target="_blank" rel="noopener noreferrer" style="color: #ff66cc; text-decoration: underline;">
+        Search "${m.title}" on IMDb
+      </a>
+    </p>
+		
+		<p style="margin-top: 0.5rem;">
+      🍅 <a href="${rtSearchURL}" target="_blank" rel="noopener noreferrer" style="color: #ff66cc; text-decoration: underline;">
+        Search "${m.title}" on Rotten Tomatoes
+      </a>
+    </p>
+
+      `;
+
+      setTimeout(loadVoices, 100);
+      suggestionsDiv.innerHTML = '';
+      searchInput.value = '';
+
+      const yOffset = -30;
+      const y = resultDiv.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+
+    searchInput.addEventListener('input', () => {
+      const term = searchInput.value.trim().toLowerCase();
+      suggestionsDiv.innerHTML = '';
+      if (!term) return;
+
+      Object.entries(allMovies)
+        .filter(([_, data]) => data.title.toLowerCase().includes(term))
+        .slice(0, 10)
+        .forEach(([key, data]) => {
+          const div = document.createElement('div');
+          div.className = 'suggestion';
+          div.textContent = data.title;
+          div.onclick = () => showMovie(key);
+          suggestionsDiv.appendChild(div);
+        });
+    });
+
+    document.addEventListener('click', e => {
+      if (e.target !== searchInput && !suggestionsDiv.contains(e.target)) {
+        suggestionsDiv.innerHTML = '';
+      }
+    });
+
+    const synth = window.speechSynthesis;
+  let voices = [];
+  let utterance = null;
+  let selectedVoice = null;
+  let fullText = '';
+  let spokenOffset = 0;
+
+  function loadVoices() {
+    const voiceSelect = document.getElementById("voiceSelect");
+    if (!voiceSelect) return;
+
+    voices = synth.getVoices();
+    voiceSelect.innerHTML = '';
+
+    voices.forEach((voice, index) => {
+      const option = document.createElement("option");
+      option.value = index;
+      option.textContent = `${voice.name} (${voice.lang})`;
+      if (voice.default) option.textContent += " — DEFAULT";
+      voiceSelect.appendChild(option);
+    });
+
+    const samanthaIndex = voices.findIndex(v => v.name.includes("Samantha"));
+    voiceSelect.value = samanthaIndex !== -1 ? samanthaIndex : 0;
+    selectedVoice = voices[voiceSelect.value];
+  }
+
+  function updateVoice() {
+    const index = document.getElementById("voiceSelect").value;
+    selectedVoice = voices[index];
+
+    if (synth.speaking) {
+      // Restart speech with new voice from the current offset
+      const remaining = fullText.slice(spokenOffset);
+      stopSpeech();
+      startSpeechText(remaining, true);
+    }
+  }
+
+  function startSpeech(id) {
+    const text = document.getElementById(id).innerText;
+    fullText = text;
+    spokenOffset = 0;
+    startSpeechText(text);
+  }
+
+  function startSpeechText(text, isResume = false) {
+    stopSpeech();
+    utterance = new SpeechSynthesisUtterance(text);
+    utterance.voice = selectedVoice || voices[0];
+    utterance.rate = 1;
+    utterance.pitch = 1;
+
+    // Track progress using character boundaries
+    utterance.onboundary = (event) => {
+      if (event.name === 'word') {
+        spokenOffset += event.charLength || event.charLength === 0 ? event.charLength : 0;
+      }
+    };
+
+    // Show controls when playing
+    const advanced = document.getElementById("tts-advanced");
+    if (advanced) advanced.style.display = "flex";
+
+    synth.speak(utterance);
+  }
+
+  function pauseSpeech() {
+    if (synth.speaking && !synth.paused) synth.pause();
+  }
+
+  function resumeSpeech() {
+    if (synth.paused) synth.resume();
+  }
+
+  function stopSpeech() {
+    if (synth.speaking || synth.paused) {
+      synth.cancel();
+    }
+  }
+
+  function copyText(id) {
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      alert("Full analysis copied to clipboard!");
+    }).catch(err => {
+      alert("Failed to copy text: " + err);
+    });
+  }
+
+  // Ensure voices are loaded
+  window.addEventListener('load', () => {
+    if (synth.onvoiceschanged !== undefined) {
+      synth.onvoiceschanged = loadVoices;
+    }
+    setTimeout(loadVoices, 100);
+  });
+
+  </script>
+
+  <script src="../nav-fetch.js"></script>
+  <script src="../nav_script2.js"></script>
+</body>
+</html>
