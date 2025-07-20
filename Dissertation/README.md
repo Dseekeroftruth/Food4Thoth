@@ -4,7 +4,8 @@ subtitle: "A History of Supremacy and the Struggle Against It"
 author: DeJahn (Food4Thoth)
 created: 2025-07-18
 last_updated: 2025-07-18
-website: https://www.food4thoth.com/Dissertation/
+permalink: /Dissertation/readme/
+image: /images/og-preview.jpg
 tags: [dissertation, history, racism, white supremacy, resistance, U.S. history, abolition, COINTELPRO, civil rights, intersectionality]
 description: |
   A comprehensive dissertation tracing the unbroken thread of white supremacy, authoritarianism, and resistance in the United States from the betrayal of Reconstruction through the present, with a focus on systems of power, state violence, collective memory, and radical imagination.
