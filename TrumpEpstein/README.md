@@ -1,7 +1,7 @@
 ---
 title: "All the King’s Horses and All the King’s Men"
 subtitle: "The Trump-Epstein Axis, Elite Impunity, and the Unbroken Line of Obstruction (1990s–2025)"
-author: DeJahn (Food4Thoth)
+author: DeJahn
 created: 2025-07-18
 last_updated: 2025-07-18
 permalink: /TrumpEpstein/readme/
