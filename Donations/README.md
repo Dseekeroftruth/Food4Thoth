@@ -1,3 +1,65 @@
+---
+title: "Donations Page: Support the Food4Thoth Initiative"
+subtitle: "Contribute to Creativity, Community, and Mystical Innovation"
+author: "DeJahn (Food4Thoth)"
+created: 2025-08-11
+last_updated: 2025-08-11
+permalink: /Donations/readme/
+layout: default
+image: /images/og-preview.jpg
+tags:
+  - donations
+  - support
+  - cryptocurrency
+  - PayPal
+  - Venmo
+  - Food4Thoth
+  - Artabillies
+description: |
+  The Donations Page is your gateway to supporting Food4Thoth’s mission—bridging mysticism, art, technology, and community. 
+  Contribute via PayPal, Venmo, or a wide range of cryptocurrencies including Bitcoin, Ethereum, Solana, Cardano, and more. 
+  This page offers an accessible, secure, and visually engaging platform for empowering creative projects, activism, and esoteric exploration.
+canonical_url: "https://www.food4thoth.com/Donations/index.html"
+social:
+  image: "https://www.food4thoth.com/images/og-preview.jpg"
+  twitter_card: "summary_large_image"
+  twitter_site: "@Food4Thoth"
+  og_type: "website"
+  og_title: "Support Food4Thoth — Donations via PayPal, Venmo, and Cryptocurrency"
+  og_description: "Help sustain Food4Thoth's creative, mystical, and community-focused projects by donating securely via PayPal, Venmo, or cryptocurrencies."
+---
+
+<style>
+  body {
+    background: #111;
+    color: #fff;
+  }
+  a { color: #33e3ff; }
+  h1, h2, h3, h4, h5, h6 { color: #fffd87; }
+  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ee0979, #06c4ff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 2px 3px 12px rgba(255,0,150,0.35);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffea, #7c2ae8);
+    box-shadow: 0 0 10px #06c4ff;
+  }
+  .wrap {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+</style>
+
 # 🤝 Donations Page: Support the Food4Thoth Initiative
 
 The **Donations Page** is a thoughtfully designed platform that simplifies contributions while ensuring security, accessibility, and inclusivity. With multiple payment options, modern design elements, and interactive features, the page encourages and empowers supporters to contribute to the creative and impactful projects of Food4Thoth.
