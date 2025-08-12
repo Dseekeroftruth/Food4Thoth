@@ -1,4 +1,49 @@
 
+---
+title: "Egyptian Tarot — Major Arcana"
+subtitle: "Custom Egyptian Major Arcana (1–22) — FOOD4THOTH"
+author: DeJahn (Food4Thoth)
+created: 2025-08-12
+last_updated: 2025-08-12
+permalink: /EgyptianTarot/readme/
+image: /EgyptianTarot/images/og-preview.jpg
+tags: [tarot, egyptian tarot, major arcana, custom deck, esoteric, divination, FOOD4THOTH]
+description: |
+  Explore the Custom Egyptian Major Arcana Tarot Deck (1–22) — fully upgraded by De’Jahn and Food4Thoth. Includes interactive galleries, linked high-resolution cards, and navigation to all other Tarot and I Ching tools in the Food4Thoth hub.
+layout: default
+---
+
+<style>
+  body {
+    background: #111;
+    color: #fff;
+  }
+  a { color: #33e3ff; }
+  h1, h2, h3, h4, h5, h6 { color: #fffd87; }
+  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ee0979, #06c4ff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 2px 3px 12px rgba(255,0,150,0.35);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffea, #7c2ae8);
+    box-shadow: 0 0 10px #06c4ff;
+  }
+  .wrap {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+</style>
+
 <div style="text-align: center; margin-bottom: 20px;">
 	<button class="nav-button" onclick="location.href='../Iching/index.html'">I Ching</button>
     <button class="nav-button" onclick="location.href='../IchingFractal/index.html'">I Ching Fractal</button>
