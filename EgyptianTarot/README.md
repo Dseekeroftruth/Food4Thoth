@@ -1,4 +1,3 @@
-
 ---
 title: "Egyptian Tarot — Major Arcana"
 subtitle: "Custom Egyptian Major Arcana (1–22) — FOOD4THOTH"
