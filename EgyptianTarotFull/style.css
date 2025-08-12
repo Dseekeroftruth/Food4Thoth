@@ -152,3 +152,10 @@ p {
 .footer a:hover {
     text-decoration: underline;
 }
+
+.cardli .card-description {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  transition: font-size 0.2s ease;
+}

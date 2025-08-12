@@ -131,12 +131,35 @@ function drawCards(num) {
     drawn.push(selectedCard.id);
     
     // Append card image and description to the page
-    tiradaList.innerHTML += `
-      <li class="col-xs-4 cardli">
-        <img src="${selectedCard.imagePath}" class="img-responsive" alt="${selectedCard.name}">
-        <p><strong>${selectedCard.name}</strong></p>
-        <p>${selectedCard.description}</p>
-      </li>`;
+const cardHTML = `
+  <li class="col-xs-12 cardli">
+    <img src="${selectedCard.imagePath}" class="img-responsive" alt="${selectedCard.name}">
+    <p><strong>${selectedCard.name}</strong></p>
+    <p class="card-description">${selectedCard.description}</p>
+  </li>`;
+
+tiradaList.innerHTML += cardHTML;
+
+// Get the last added description
+const descriptions = document.querySelectorAll('.card-description');
+const lastDesc = descriptions[descriptions.length - 1];
+
+// Check if overflow happens and shrink text until it fits
+function adjustFontSize(el) {
+  let fontSize = parseFloat(window.getComputedStyle(el).fontSize);
+  while (el.scrollHeight > el.clientHeight && fontSize > 10) {
+    fontSize -= 1;
+    el.style.fontSize = fontSize + 'px';
+  }
+}
+
+// Give the paragraph a max height so overflow can be detected
+lastDesc.style.maxHeight = '100px';
+lastDesc.style.overflow = 'hidden';
+adjustFontSize(lastDesc);
+
+// Remove the selected card from available choices
+availableCards.splice(randomIndex, 1);
 
     // Remove the selected card from available choices
     availableCards.splice(randomIndex, 1);
