@@ -1,3 +1,77 @@
+---
+title: "🌱 Community Garden Pages"
+subtitle: "Discover, Support & Grow Community Gardens Nationwide"
+author: "DeJahn (FOOD4THOTH)"
+created: 2025-08-13
+last_updated: 2025-08-13
+permalink: /CommunityGardens/readme/
+image: /CommunityGardenLand/og-preview.jpg
+tags: [community gardens, sustainability, urban farming, permaculture, FOOD4THOTH, gardening, eco-friendly, local food, community building, activism]
+description: |
+  The Community Garden Pages on FOOD4THOTH provide a platform to discover, support, and create community gardens. 
+  Featuring interactive maps, searchable directories, educational resources, and open-source mapping tools, these 
+  pages inspire ecological awareness, sustainability, and collaboration. Users can explore gardens by location, 
+  submit new entries, and access guides for starting their own gardens.
+layout: default
+canonical_url: "https://www.food4thoth.com/CommunityGardenLand/index.html"
+social_image: "https://www.food4thoth.com/CommunityGardenLand/og-preview.jpg"
+favicon: "/images/favicon.png"
+open_graph:
+  title: "Community Garden Pages | FOOD4THOTH"
+  description: "Explore interactive maps, guides, and resources to find and create thriving community gardens across the U.S."
+  image: "https://www.food4thoth.com/CommunityGardenLand/og-preview.jpg"
+  url: "https://www.food4thoth.com/CommunityGardenLand/index.html"
+twitter:
+  card: "summary_large_image"
+  title: "Community Garden Pages | FOOD4THOTH"
+  description: "Discover community gardens, explore interactive maps, and learn how to start your own."
+  image: "https://www.food4thoth.com/CommunityGardenLand/og-preview.jpg"
+schema:
+  "@context": "https://schema.org"
+  "@type": "WebPage"
+  name: "Community Garden Pages"
+  description: "A FOOD4THOTH resource hub for finding, supporting, and creating community gardens nationwide."
+  url: "https://www.food4thoth.com/CommunityGardenLand/index.html"
+  publisher:
+    "@type": "Organization"
+    name: "FOOD4THOTH"
+    url: "https://www.food4thoth.com"
+    logo:
+      "@type": "ImageObject"
+      url: "https://www.food4thoth.com/images/favicon.png"
+---
+
+<style>
+  body {
+    background: #111;
+    color: #fff;
+  }
+  a { color: #33e3ff; }
+  h1, h2, h3, h4, h5, h6 { color: #fffd87; }
+  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ee0979, #06c4ff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 2px 3px 12px rgba(255,0,150,0.35);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffea, #7c2ae8);
+    box-shadow: 0 0 10px #06c4ff;
+  }
+  .wrap {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+</style>
+
 # 🌱 Community Garden Pages
 
 The **Community Garden Pages** aim to inspire, connect, and empower individuals and communities by providing a dynamic platform for discovering, supporting, and creating community gardens. These pages are designed to foster sustainability, collaboration, and ecological awareness while offering practical tools and resources for users.
