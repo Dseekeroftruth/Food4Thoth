@@ -39,7 +39,7 @@ padding-bottom: 80px;
 /* Neumorphic Navigation Container */
 .navigation {
     position: sticky;
-    top: 50px;
+    top: -5px;
     right: 5px;
     background-color: #e0e0e0;
     padding: 5px;
