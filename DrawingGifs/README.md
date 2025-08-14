@@ -126,26 +126,6 @@ This project aligns with the Food4Thoth initiative:
 
 ---
 
-# 🤝 Contributions
-
-We welcome contributions!  
-1. Fork the repository.  
-2. Create a feature branch:  
-   ```
-   git checkout -b feature-new-tool
-   ```  
-3. Commit changes:  
-   ```
-   git commit -m "Added a new animation feature"
-   ```  
-4. Push to your branch:  
-   ```
-   git push origin feature-new-tool
-   ```  
-5. Submit a pull request.
-
----
-
 # 🌍 Connect & Support
 
 If you enjoy this project, consider supporting Food4Thoth:
