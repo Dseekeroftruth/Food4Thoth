@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Primary Meta Tags -->
+  <title>Canvas Sprites Animator — Upload, Animate, and Export GIFs | FOOD4THOTH</title>
+  <meta name="title" content="Canvas Sprites Animator — Upload, Animate, and Export GIFs | FOOD4THOTH">
+  <meta name="description" content="Create custom animated GIFs with the Canvas Sprites Animator. Upload images, manipulate them with touch or mouse controls, apply effects, and export your creations. Part of the Food4Thoth digital art ecosystem.">
+  <meta name="keywords" content="canvas sprites, gif export, image animator, javascript drawing, sprite animation, touch gestures, pinch rotate, creative coding, generative art, Food4Thoth">
+  <meta name="author" content="DeJahn (Food4Thoth)">
+  <link rel="canonical" href="https://www.food4thoth.com/DrawingGifs/index.html">
+  <link rel="icon" type="image/png" href="https://www.food4thoth.com/images/favicon.png">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.food4thoth.com/DrawingGifs/index.html">
+  <meta property="og:title" content="Canvas Sprites Animator — Upload, Animate, and Export GIFs | FOOD4THOTH">
+  <meta property="og:description" content="Interactive web tool to upload, manipulate, and animate sprites. Draw with touch or mouse, customize effects, and export your artwork as animated GIFs.">
+  <meta property="og:image" content="https://www.food4thoth.com/DrawingGifs/og-preview.jpg">
+  <meta property="og:site_name" content="FOOD4THOTH">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://www.food4thoth.com/DrawingGifs/index.html">
+  <meta name="twitter:title" content="Canvas Sprites Animator — Upload, Animate, and Export GIFs | FOOD4THOTH">
+  <meta name="twitter:description" content="Draw, animate, and export GIFs with your own uploaded sprites. Cyberpunk-inspired creative coding from Food4Thoth.">
+  <meta name="twitter:image" content="https://www.food4thoth.com/DrawingGifs/og-preview.jpg">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Canvas Sprites Animator",
+    "url": "https://www.food4thoth.com/DrawingGifs/index.html",
+    "description": "Create interactive sprite-based art and export custom GIFs using mouse or touch gestures. Upload your own assets and manipulate them in real time.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Any",
+    "creator": {
+      "@type": "Organization",
+      "name": "FOOD4THOTH",
+      "url": "https://www.food4thoth.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.food4thoth.com/images/favicon.png"
+      }
+    },
+    "image": "https://www.food4thoth.com/DrawingGifs/og-preview.jpg",
+    "keywords": [
+      "canvas sprites",
+      "gif export",
+      "image animator",
+      "sprite animation",
+      "javascript drawing",
+      "creative coding",
+      "generative art",
+      "Food4Thoth"
+    ]
+  }
+  </script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="./styles.css">
+
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+			
+    }
+    .dark-mode {
+      background-color: #111;
+      color: #eee;
+    }
+    .controls {
+      margin-bottom: 10px;
+			
+    }
+    .canvas-container {
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      display: inline-block;
+      position: relative;
+    }
+    .canvas-container canvas {
+      background: transparent;
+      cursor: crosshair;
+    }
+    .gallery-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .gallery-grid .item {
+      border: 1px solid #ccc;
+      display: inline-block;
+      position: relative;
+			
+    }
+    .gallery-grid .item img {
+      display: block;
+      max-width: 150px;
+      height: auto;
+      cursor: pointer;
+    }
+    .gallery-grid .item.selected {
+      outline: 3px solid orange;
+    }
+    #fileInput {
+      display: none; /* hide raw file input; we'll label it with a button-like label */
+    }
+    .button-like {
+      background: linear-gradient(45deg, #ff0000, #ff7300, #ffea00, #00ff00, #00eaff, #2400ff, #ff00ff);
+    background-size: 400% 400%;
+    animation: rainbowBG 10s infinite linear;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    margin: 10px;
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px #ff00ff;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+			
+    }
+    .button-like:hover {
+      transform: scale(1.05);
+    box-shadow: 0 0 25px #ffffff;
+    }
+  </style>
+</head>
+<body>
+	<!-- Placeholder for the nav -->
+  <div id="nav-container"></div>
+
+  <button id="darkModeToggle" class="button-like">Toggle Dark Mode</button>
+
+  <h1>Canvas Sprites Animator</h1>
+	
+		<div id="appIntroduction" class="introduction">
+    <h2 class="page-title">FOOD4THOTH <br /><br />Drawing with Uploads</h2>
+    <p>
+        The <strong>Draw With Uploads</strong> page is an interactive web-based application allowing users to create 
+        digital animation artwork in real time. Users can upload sprites, illustrations, character assets, and designs and manipulate by clicking, dragging, using sliders and or using touch gestures. The app is part of <strong>Food4Thoth</strong>, a digital creative space merging art, 
+        technology, and mysticism.
+    </p>
+
+    <!-- Fractal I Ching Section -->
+    <hr />
+    <h2 style="margin-top: 60px;">🎨 Animation Statiin</h2>
+    <p>
+        This script manipulates images and uploads when you click or drag on the canvas or using sliders. The image 
+        is influenced by mouse coordinates, system time, and selected parameters, making each 
+        creation unique.
+    </p>
+    <ul>
+        <li>use FXs <strong> FX options here </strong>.</li>
+        <li>Each fx responds dynamically to <strong>mouse/touch movements</strong> and real-time system calculations.</li>
+    </ul>
+
+    <hr />
+    <h2>🔧 Customization Options</h2>
+    <ul>
+        <li><strong>Canvas Size Selection:</strong> Choose from multiple resolution options.</li>
+        <li><strong>Symmetry Control:</strong> Adjust kalideioscope symmetry levels for unique variations.</li>
+        <li><strong>Customize Elements:</strong>
+            <ul>
+                <li><strong>rotate</strong> </li>
+                <li><strong>size scaling</strong> </li>
+                <li><strong>fx</strong></li>
+                <li><strong>layering</strong> </li>
+            </ul>
+        </li>
+    </ul>
+
+    <hr />
+    <h2>🖱️ Interactive Drawing</h2>
+    <ul>
+        <li>🎨 <strong>Click & Drag:</strong> Draw with images directly on the canvas.</li>
+        <li>📱 <strong>Touch Controls:</strong> Mobile users can create animations with intuitive gestures.</li>
+    </ul>
+
+    <hr />
+    <h2>📷 Saving and Gallery Features</h2>
+    <ul>
+        <li>💾 <strong>Save images:</strong> Store generated images in your personal gallery.</li>
+        <li>🗑️ <strong>Clear Gallery:</strong> Option to remove saved images and start fresh.</li>
+    </ul>
+
+    <hr />
+    <h2>🎞️ GIF Creation</h2>
+    <ul>
+        <li>📹 Convert saved images into an <br /><br /><strong>animated GIF</strong>.</li>
+        <li>🎛️ Adjustable settings:
+            <ul>
+                <li>⏳ <strong>Frame Delay</strong> (adjust speed of the animation)</li>
+                <li>🎚️ <strong>Quality</strong> (modify GIF resolution)</li>
+                <li>📏 <strong>Resolution</strong> (adjust width and height)</li>
+            </ul>
+        </li>
+    </ul>
+
+    <br />
+    <h2 style="text-align: center;">🎨 Happy animating! 🚀✨</h2>
+</div>
+
+  <!-- Upload Button -->
+  <label for="fileInput" class="button-like">Upload Images</label>
+  <input type="file" id="fileInput" multiple accept="image/*" />
+
+  <div class="controls">
+    <label>
+      <input type="checkbox" id="autoSaveCheckbox" />
+      Auto-save each new composition to gallery
+    </label>
+    <button id="saveCanvasBtn" class="button-like">Save Current Frame to Gallery</button>
+    <button id="clearCanvasBtn" class="button-like">Clear Canvas</button>
+  </div>
+
+  <!-- Canvas Size Controls -->
+  <div class="controls">
+    <label for="canvasWidth">Canvas Width:</label>
+    <input type="number" id="canvasWidth" value="600" min="100" max="2000" />
+    <label for="canvasHeight">Canvas Height:</label>
+    <input type="number" id="canvasHeight" value="400" min="100" max="2000" />
+    <button id="resizeCanvasBtn" class="button-like">Resize Canvas</button>
+  </div>
+
+  <!-- Canvas + Container -->
+  <div class="canvas-container">
+    <canvas id="mainCanvas" width="600" height="400"></canvas>
+  </div>
+
+  <!-- Transform Controls for selected sprite -->
+  <div class="controls">
+    <label>Rotation:
+      <input type="range" id="rotationRange" min="0" max="360" value="0" />
+    </label>
+    <label>Scale:
+      <input type="range" id="scaleRange" min="0.1" max="3" step="0.1" value="1" />
+    </label>
+
+    <!-- Layer Reordering -->
+    <button id="bringForwardBtn" class="button-like">Bring Forward</button>
+    <button id="sendBackwardBtn" class="button-like">Send Backward</button>
+  </div>
+
+  <!-- Gallery Section -->
+  <h2>Gallery</h2>
+  <div id="gallery" class="gallery-grid"></div>
+  <div class="controls">
+    <button id="deleteSelectedBtn" class="button-like">Delete Selected</button>
+    <button id="clearGalleryBtn" class="button-like">Clear Gallery</button>
+    <button id="saveAllBtn" class="button-like">Download All Images</button>
+  </div>
+
+  <!-- GIF Creation Section -->
+  <h2>Create GIF</h2>
+  <div class="controls">
+    <label for="gifQuality">Quality:</label>
+    <input type="range" id="gifQuality" min="1" max="30" value="10" />
+    <span id="qualityValue">10</span>
+
+    <label for="gifWidth">Width:</label>
+    <input type="number" id="gifWidth" value="600" min="100" max="2000" />
+
+    <label for="gifHeight">Height:</label>
+    <input type="number" id="gifHeight" value="400" min="100" max="2000" />
+
+    <label for="gifSpeed">Speed (ms delay):</label>
+    <input type="number" id="gifSpeed" value="150" min="10" max="2000" />
+
+    <button id="createGifBtn" class="button-like">Create GIF</button>
+  </div>
+	
+	<!-- ... Keep any further HTML / Footer below unchanged ... -->
+
+<footer class="footer">
+        <p>
+					<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="/DrawingGifs/readme/"  class="styled-link">ReadMe</a></p>
+    </footer>
+
+  <!-- GIF library -->
+  <!-- Make sure you also have the worker script if needed (gif.worker.js) in ./lib/ -->
+  <script src="./lib/gif.js"></script>
+	
+<script src="../iframe_script.js"></script>
+<script src="../nav-fetch.js"></script>
+<script src="../nav_script2.js"></script>
+
+ <script src="./script.js"></script>
+</body>
+</html>

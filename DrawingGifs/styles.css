@@ -1,0 +1,881 @@
+/* ========================
+   CYBERPUNK RAINBOW THEME
+   ======================== */
+
+/* Universal settings */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: black;
+    font-family: 'Orbitron', sans-serif;
+    color: white;
+}
+
+/* ========== Background ========== */
+body {
+    background: linear-gradient(135deg, #ff0000, #ff7300, #ffea00, #00ff00, #00eaff, #2400ff, #ff00ff);
+    background-size: 400% 400%;
+    animation: rainbowBG 15s infinite linear;
+}
+
+@keyframes rainbowBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ========== Typography ========== */
+h1, h2 {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px #fff, 0 0 25px #ff00ff;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+/* ========== Buttons ========== */
+button {
+    background: linear-gradient(45deg, #ff0000, #ff7300, #ffea00, #00ff00, #00eaff, #2400ff, #ff00ff);
+    background-size: 400% 400%;
+    animation: rainbowBG 10s infinite linear;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    margin: 10px;
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px #ff00ff;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px #ffffff;
+}
+
+/* ========== Select Dropdown ========== */
+select {
+    background: black;
+    color: white;
+    border: 2px solid #00faff;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.2em;
+    box-shadow: 0 0 5px #ff00ff;
+    cursor: pointer;
+}
+
+select:hover {
+    box-shadow: 0 0 15px #ff00ff;
+}
+
+/* ========== Canvas Wrapper ========== */
+#fractalCanvasWrapper {
+    display: flex;
+    justify-content: center;  /* Centers horizontally */
+    align-items: center;      /* Centers vertically */
+    width: 100vw;             /* Full viewport width */
+    height: auto;             /* Adjusts based on canvas size */
+    position: relative;       
+    z-index: 100;             
+    border-radius: 15px;
+    padding: 20px;
+    margin: 5vh auto;
+		right: 4%;
+}
+
+/* ========== Fractal Canvas ========== */
+#fractalCanvas {
+    border: 3px solid #ff00ff;
+    cursor: crosshair;
+    box-shadow: 0 0 40px rgba(255, 0, 255, 0.7);
+    background: transparent;
+    
+    transition: all 0.3s ease-in-out; /* Smooth resizing */
+}
+
+
+
+/* ========== FRACTAL SETTINGS CONTAINER ========== */
+#fractalSettings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #ff00ff;
+    max-width: 600px;
+    margin: 20px auto;
+    border: 2px solid #ff00ff;
+}
+
+/* ========== FRACTAL SETTINGS HEADERS ========== */
+#fractalSettings label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: white;
+    text-shadow: 0 0 15px #ff00ff;
+    display: block;
+    margin-top: 15px;
+}
+
+/* ========== FRACTAL NUMBER INPUTS ========== */
+#fractalSettings input[type="number"] {
+    width: 80px;
+    height: 40px;
+    font-size: .9rem;
+    text-align: center;
+    background: black;
+    color: white;
+    border: 2px solid #ff00ff;
+    box-shadow: 0 0 10px #ff00ff;
+    margin: 10px;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+}
+
+/* Highlight input when focused */
+#fractalSettings input[type="number"]:focus {
+    box-shadow: 0 0 20px #ff00ff;
+    outline: none;
+}
+
+/* ========== FRACTAL RANGE SLIDERS ========== */
+#fractalSettings input[type="range"] {
+    -webkit-appearance: none;
+    width: 80%;
+    height: 15px;
+    background: black;
+    border-radius: 10px;
+    outline: none;
+    box-shadow: 0 0 10px #ff00ff;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+/* Style the slider thumb */
+#fractalSettings input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(45deg, #ff0000, #ff7300, #ffea00, #00ff00, #00eaff, #2400ff, #ff00ff);
+    border-radius: 50%;
+    box-shadow: 0 0 15px #ff00ff;
+    cursor: pointer;
+}
+
+/* Add hover effect to slider thumb */
+#fractalSettings input[type="range"]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 30px #ff00ff;
+}
+
+
+
+#fractalSettings label {
+    animation: neonGlow 2s infinite alternate;
+}
+
+/* ========== FRACTAL SETTINGS ANIMATIONS ========== */
+@keyframes neonGlow {
+    0% { text-shadow: 0 0 10px #ff00ff; }
+    50% { text-shadow: 0 0 20px #ff00ff; }
+    100% { text-shadow: 0 0 10px #ff00ff; }
+}
+
+/* ========== Gallery Section ========== */
+#fractalGalleryWrapper {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#fractalGallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+#fractalGallery img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    border: 2px solid white;
+    box-shadow: 0 0 15px #ff00ff;
+    transition: 0.3s ease-in-out;
+}
+
+#fractalGallery img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px #ff00ff;
+}
+
+/* ========== Footer ========== */
+.footer {
+    text-align: center;
+    background: black;
+    color: white;
+    padding: 15px;
+    font-size: .7rem;
+    box-shadow: 0 0 15px #ff00ff;
+}
+
+.footer a {
+    color: #ff00ff;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+
+
+/* === Rainbow Animation Keyframe === */
+@keyframes rainbowBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+
+
+/* === Dark Mode === */
+.dark-mode .navigation {
+    background: #222;
+    box-shadow: 0 0 15px #ff00ff;
+}
+
+.dark-mode .neumorphic-tab {
+    background: #333;
+    color: white;
+    box-shadow: 4px 4px 8px rgba(255, 0, 255, 0.3), -4px -4px 8px rgba(0, 255, 255, 0.3);
+}
+
+.dark-mode .neumorphic-tab:hover {
+    box-shadow: 0 0 30px #ff00ff;
+    transform: scale(1.1);
+}
+
+.dark-mode .submenu {
+    background: rgba(34, 34, 34, 0.9);
+}
+
+.dark-mode .toggle-button {
+    background: #222;
+    box-shadow: 0 0 15px #ff00ff;
+}
+
+/* ========== GIF SETTINGS PANEL ========== */
+#gifSettings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #ff00ff;
+    max-width: 600px;
+    margin: 20px auto;
+    border: 2px solid #ff00ff;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* ========== GIF SETTINGS HEADERS ========== */
+#gifSettings label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: white;
+    text-shadow: 0 0 15px #ff00ff;
+    display: block;
+    margin-top: 15px;
+}
+
+/* ========== GIF SETTINGS NUMBER INPUTS ========== */
+#gifSettings input[type="number"] {
+    width: 100px;
+    height: 40px;
+    font-size: 1rem;
+    text-align: center;
+    background: black;
+    color: white;
+    border: 2px solid #ff00ff;
+    box-shadow: 0 0 10px #ff00ff;
+    margin: 10px;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+}
+
+/* Highlight input when focused */
+#gifSettings input[type="number"]:focus {
+    box-shadow: 0 0 20px #ff00ff;
+    outline: none;
+}
+
+/* ========== GIF SETTINGS RANGE SLIDERS ========== */
+#gifSettings input[type="range"] {
+    -webkit-appearance: none;
+    width: 80%;
+    height: 15px;
+    background: black;
+    border-radius: 10px;
+    outline: none;
+    box-shadow: 0 0 10px #ff00ff;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+/* Style the slider thumb */
+#gifSettings input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(45deg, #ff0000, #ff7300, #ffea00, #00ff00, #00eaff, #2400ff, #ff00ff);
+    border-radius: 50%;
+    box-shadow: 0 0 15px #ff00ff;
+    cursor: pointer;
+}
+
+/* Add hover effect to slider thumb */
+#gifSettings input[type="range"]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 30px #ff00ff;
+}
+
+/* ========== GIF SETTINGS ANIMATIONS ========== */
+#gifSettings label {
+    animation: neonGlow 2s infinite alternate;
+}
+
+
+/* Overall background & text color */
+body.dark-mode {
+    /* Remove the rainbow gradient */
+    background: #101010 !important;
+    animation: none !important;
+    color: #ffffff !important;
+}
+
+/* Headings keep neon text shadows but can be dialed back if desired */
+body.dark-mode h1, 
+body.dark-mode h2 {
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; 
+}
+
+/* Buttons in dark mode: remove rainbow background, keep neon glow */
+body.dark-mode button {
+    background: #333 !important;
+    animation: none !important;
+    box-shadow: 0 0 15px #ff00ff;
+}
+
+body.dark-mode button:hover {
+    background: #444 !important;
+    box-shadow: 0 0 25px #ffffff;
+}
+
+/* Select dropdown in dark mode */
+body.dark-mode select {
+    background: #222 !important;
+    border-color: #ff00ff !important;
+}
+
+/* Navigation panel in dark mode */
+body.dark-mode .navigation {
+    background: #222 !important;
+    box-shadow: 0 0 15px #ff00ff;
+}
+
+/* Neumorphic tabs in dark mode */
+body.dark-mode .neumorphic-tab {
+    background: #333 !important;
+    color: #ffffff !important;
+    box-shadow: 4px 4px 8px rgba(255, 0, 255, 0.3), 
+                -4px -4px 8px rgba(0, 255, 255, 0.3);
+}
+
+body.dark-mode .neumorphic-tab:hover {
+    box-shadow: 0 0 30px #ff00ff;
+    transform: scale(1.1);
+}
+
+/* Submenu in dark mode */
+body.dark-mode .submenu {
+    background: rgba(34, 34, 34, 0.9) !important;
+    border-left-color: #ff00ff !important;
+}
+
+/* Dark mode toggle button itself */
+body.dark-mode .toggle-button {
+    background: #222 !important;
+    box-shadow: 0 0 15px #ff00ff;
+}
+
+/* Example override for the fractalSettings panel (just darkening more) */
+body.dark-mode #fractalSettings {
+    background: #181818 !important;
+}
+
+/* Example override for the fractalCanvas if you want it fully darkened */
+body.dark-mode #fractalCanvas {
+    background: #181818;
+    box-shadow: 0 0 40px rgba(255, 0, 255, 0.7);
+}
+
+/* Darken GIF settings area */
+body.dark-mode #gifSettings {
+    background: rgba(25, 25, 25, 0.95) !important;
+}
+
+
+
+
+/* === Toggle Button Styling === */
+.toggle-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    background: black;
+    color: white;
+    font-size: 1.2rem;
+    border-radius: 20px;
+    cursor: pointer;
+		border: 2px solid white;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px #ff00ff;
+    transition: 0.3s ease-in-out;
+    z-index: 1001;
+}
+
+.toggle-button:hover {
+    background: linear-gradient(45deg, #ff0000, #ff7300, #ffea00, #00ff00, #00eaff, #2400ff, #ff00ff);
+    background-size: 400% 400%;
+    animation: rainbowBG 6s infinite linear;
+    box-shadow: 0 0 25px #ffffff;
+    transform: scale(1.1);
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
+    pointer-events: none; /* Prevents clicking */
+}
+
+
+
+/* ================================
+   CYBERPUNK RAINBOW NAVIGATION
+================================ */
+
+/* === Neumorphic Navigation === */
+.navigation {
+    position: fixed;
+    top: 80px;
+    right: 10px;
+    background: black;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #ff00ff;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 1000;
+    max-height: 60vh;
+    overflow-y: auto;
+    text-align: center;
+    border: 2px solid #ff00ff;
+		
+}
+
+/* === Submenu Styling === */
+.submenu {
+    background: rgba(0, 0, 0, 0.8);
+    border-left: 2px solid #ff00ff;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.submenu a {
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+    color: white;
+    background: black;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+.submenu a:hover {
+    background: linear-gradient(45deg, #ff0000, #ff7300, #ffea00, #00ff00, #00eaff, #2400ff, #ff00ff);
+    background-size: 400% 400%;
+    animation: rainbowBG 6s infinite linear;
+    text-shadow: 0 0 20px white;
+    transform: scale(1.05);
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+
+/* === Neumorphic Tabs === */
+.neumorphic-tab {
+    display: inline-block;
+    margin: 4px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: white;
+    background: black;
+    box-shadow: 4px 4px 8px rgba(255, 0, 255, 0.3), -4px -4px 8px rgba(0, 255, 255, 0.3);
+    transition: 0.3s ease-in-out;
+}
+
+/* === Neumorphic Tab Hover Effect === */
+.neumorphic-tab:hover {
+    background: linear-gradient(45deg, #ff0000, #ff7300, #ffea00, #00ff00, #00eaff, #2400ff, #ff00ff);
+    background-size: 400% 400%;
+    animation: rainbowBG 6s infinite linear;
+    box-shadow: 0 0 20px #ff00ff, 0 0 30px #00eaff;
+    transform: scale(1.1);
+}
+
+/* === Neumorphic Tab Active State === */
+.neumorphic-tab.active {
+    background: #222;
+    box-shadow: inset 4px 4px 8px #ff00ff, inset -4px -4px 8px #00eaff;
+}
+
+/* ===============================
+   FRACTAL INTRODUCTION DESIGN
+   =============================== */
+
+/* Introduction Container */
+#appIntroduction {
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    max-width: 90%;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.7);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    text-align: center;
+    animation: glowBorder 4s infinite linear;
+}
+
+/* Animated Border Effect */
+@keyframes glowBorder {
+    0% { border-color: #ff00ff; }
+    25% { border-color: #00eaff; }
+    50% { border-color: #ffea00; }
+    75% { border-color: #ff7300; }
+    100% { border-color: #ff00ff; }
+}
+
+/* Title */
+#appIntroduction .page-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-shadow: 0 0 15px #ff00ff, 0 0 30px #00eaff;
+    margin-bottom: 20px;
+}
+
+/* Subtitles & Section Headings */
+#appIntroduction h2 {
+    font-size: 2rem;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px #ff00ff;
+    margin-top: 40px;
+    letter-spacing: 2px;
+    border-bottom: 2px solid rgba(255, 0, 255, 0.7);
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+/* Paragraph Styling */
+#appIntroduction p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
+    margin-bottom: 20px;
+}
+
+/* List Items */
+#appIntroduction ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+#appIntroduction ul li {
+    font-size: 1.4rem;
+    padding: 10px;
+    border-left: 3px solid #ff00ff;
+    transition: 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.7);
+}
+
+#appIntroduction ul li:hover {
+    border-left-color: #00eaff;
+    transform: translateX(10px);
+    text-shadow: 0 0 15px #00eaff;
+}
+
+/* Emoji & Icons Inside Lists */
+#appIntroduction ul li::before {
+    content: "✨";
+    margin-right: 10px;
+    font-size: .5rem;
+}
+
+/* HR Divider - Glowing Effect */
+#appIntroduction hr {
+    border: none;
+    height: 2px;
+    width: 80%;
+    margin: 30px auto;
+    background: linear-gradient(90deg, transparent, #ff00ff, #00eaff, transparent);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.6);
+}
+
+/* Centered Neon Message */
+#appIntroduction h2:last-of-type {
+    color: #ff00ff;
+    text-shadow: 0 0 20px #ff00ff, 0 0 40px #00eaff;
+    margin-top: 50px;
+    font-size: 1rem;
+}
+
+/* Responsive Styling */
+@media screen and (max-width: 768px) {
+    #appIntroduction {
+        padding: 20px;
+        max-width: 95%;
+    }
+    #appIntroduction .page-title {
+        font-size: 2rem;
+    }
+    #appIntroduction h2 {
+        font-size: 1.6rem;
+    }
+    #appIntroduction ul li {
+        font-size: 1rem;
+    }
+    #appIntroduction h2:last-of-type {
+        font-size: 1.8rem;
+    }
+}
+
+/* Checkbox Input (Hidden) */
+label input[type="checkbox"] {
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border: 2px solid #ff00ff;
+    border-radius: 5px;
+    background: black;
+    position: relative;
+    margin-right: 10px;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+/* Checkbox - Checked State */
+label input[type="checkbox"]:checked {
+    background: linear-gradient(45deg, #ff00ff, #00eaff);
+    border-color: #00eaff;
+    box-shadow: 0 0 25px #00eaff, 0 0 40px #ff00ff;
+}
+
+/* Glowing Checkmark */
+label input[type="checkbox"]::after {
+    content: "✔";
+    font-size: 1.2rem;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    text-shadow: 0 0 10px #ff00ff;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Show Checkmark When Checked */
+label input[type="checkbox"]:checked::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Label Hover Effect */
+label:hover {
+    text-shadow: 0 0 15px #00eaff;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    label {
+        font-size: 1rem;
+    }
+    label input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* Checkbox Container */
+label {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    color: white;
+    cursor: pointer;
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.7);
+    transition: 0.3s ease-in-out;
+}
+
+/* ================================
+   CYBERPUNK FRACTAL GALLERY
+================================ */
+
+/* Style for the fractal gallery container */
+#fractalGalleryWrapper {
+    text-align: center;
+    padding: 15px;
+}
+
+/* Grid layout for fractal images */
+.gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+/* Individual fractal image container */
+.fractal-item {
+    position: relative;
+    display: inline-block;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Glow effect when hovering */
+.fractal-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px #ff00ff;
+}
+
+/* Fractal image styling */
+.fractal-item img {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    border: 2px solid white;
+    box-shadow: 0 0 15px #ff00ff;
+    cursor: pointer;
+}
+
+/* ================================
+   CYBERPUNK CHECKBOX FOR GALLERY
+================================ */
+
+/* Checkbox for selecting images */
+.fractal-item input[type="checkbox"] {
+    appearance: none;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 25px;
+    height: 25px;
+    border: 2px solid #ff00ff;
+    border-radius: 5px;
+    background: black;
+    cursor: pointer;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+}
+
+/* Show checkbox when hovering over the fractal item */
+.fractal-item:hover input[type="checkbox"],
+.fractal-item.selected input[type="checkbox"] {
+    opacity: 1; /* Keep visible if selected */
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1;
+}
+
+/* Checkbox - Checked State */
+.fractal-item input[type="checkbox"]:checked {
+    background: linear-gradient(45deg, #ff00ff, #00eaff);
+    border-color: #00eaff;
+    box-shadow: 0 0 25px #00eaff, 0 0 40px #ff00ff;
+}
+
+/* Glowing Checkmark */
+.fractal-item input[type="checkbox"]::after {
+    content: "✔";
+    font-size: 1.2rem;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    text-shadow: 0 0 10px #ff00ff;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Show Checkmark When Checked */
+.fractal-item input[type="checkbox"]:checked::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Highlight selected images */
+.fractal-item.selected {
+    box-shadow: 0 0 30px #00eaff;
+    transform: scale(1.1);
+    border: 2px solid #00eaff;
+}
+
+/* Label Hover Effect */
+label:hover {
+    text-shadow: 0 0 15px #00eaff;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    .fractal-item input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+    }
+}
