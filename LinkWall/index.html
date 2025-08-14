@@ -302,19 +302,37 @@
     // Fetch previews in small batches to stay polite
     const batchSize = 12;
     const items = [];
-    for (let i = 0; i < urls.length; i += batchSize) {
-      const batch = urls.slice(i, i + batchSize);
-      const results = await Promise.allSettled(batch.map(e => fetchPreviewSameOrigin(e.loc)));
-      results.forEach((r, idx) => {
-        const u = batch[idx].loc;
-        items.push(r.status === "fulfilled"
-          ? r.value
-          : { url: u, title: u, description: "", image: "", site_name: domainFrom(u), favicon: "" });
-      });
+    // After fetching previews in batches
+for (let i = 0; i < urls.length; i += batchSize) {
+  const batch = urls.slice(i, i + batchSize);
+  const results = await Promise.allSettled(batch.map(e => fetchPreviewSameOrigin(e.loc)));
+  results.forEach((r, idx) => {
+    const u = batch[idx].loc;
+    if (r.status === "fulfilled" && r.value) {
+      const meta = r.value;
+      // Check if it has at least one piece of real meta-data
+      const hasMeta =
+        (meta.title && meta.title.trim() && meta.title.trim() !== u) ||
+        (meta.description && meta.description.trim()) ||
+        (meta.image && meta.image.trim());
+      if (hasMeta) {
+        items.push(meta);
+      }
     }
+  });
+}
 
-    sessionStorage.setItem(cacheKey, JSON.stringify(items));
-    listEl.innerHTML = items.map(renderCard).join("");
+// Sort items by "richness" of meta-data
+items.sort((a, b) => {
+  const score = o => 
+    (o.image ? 2 : 0) + 
+    (o.description ? 1 : 0) + 
+    (o.title && o.title !== o.url ? 1 : 0);
+  return score(b) - score(a);
+});
+
+sessionStorage.setItem(cacheKey, JSON.stringify(items));
+listEl.innerHTML = items.map(renderCard).join("");
   }
 
   let forceRefresh = false;
