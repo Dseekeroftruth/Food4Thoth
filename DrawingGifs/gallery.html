@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Canvas Sprites Animator — Community GIF Gallery | FOOD4THOTH</title>
+  <meta name="description" content="A living gallery of animated GIFs created with the Canvas Sprites Animator. Upload, compose, and export — then share your neon cyberpunk creations here." />
+  <link rel="canonical" href="https://www.food4thoth.com/DrawingGifs/gallery.html" />
+  <link rel="icon" type="image/png" href="../images/favicon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Canvas Sprites Animator — Community GIF Gallery" />
+  <meta property="og:description" content="A living gallery of animated GIFs created with the Canvas Sprites Animator." />
+  <meta property="og:image" content="https://www.food4thoth.com/DrawingGifs/og-preview.jpg" />
+  <meta property="og:url" content="https://www.food4thoth.com/DrawingGifs/gallery.html" />
+  <meta property="og:site_name" content="FOOD4THOTH" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Canvas Sprites Animator — Community GIF Gallery" />
+  <meta name="twitter:description" content="A living gallery of animated GIFs created with the Canvas Sprites Animator." />
+  <meta name="twitter:image" content="https://www.food4thoth.com/DrawingGifs/og-preview.jpg" />
+
+  <style>
+    :root{
+      --bg:#0a0a0f;
+      --fg:#e9f7ff;
+      --muted:#a8b3c2;
+      --glow: 0 0 18px rgba(0,255,255,.25), 0 0 36px rgba(255,0,255,.20);
+      --accent: linear-gradient(135deg,#ff004c,#ff8a00,#ffe500,#00ffa6,#00e5ff,#7a5cff,#ff00ff);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
+    a{color:#66e3ff;text-decoration:none}
+    header{
+      position:sticky;top:0;z-index:3;
+      background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.15));
+      backdrop-filter: blur(8px);
+      border-bottom:1px solid rgba(255,255,255,.07);
+    }
+    .wrap{max-width:1200px;margin:0 auto;padding:18px}
+    .title{
+      display:flex;align-items:center;gap:14px;flex-wrap:wrap
+    }
+    .brand {
+  padding: .5rem 1rem;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--accent);
+  box-shadow: var(--glow);
+  font-weight: 700;
+  letter-spacing: .3px;
+  text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
+}
+
+.btn {
+  padding: .5rem 1rem;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--accent);
+  box-shadow: var(--glow);
+  font-weight: 700;
+  letter-spacing: .3px;
+  text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
+}
+    .sub{color:var(--muted);font-size:.95rem}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .btn{
+      appearance:none;border:0;border-radius:10px;padding:.7rem 1rem;cursor:pointer;
+      color:#fff;background:var(--accent);box-shadow:var(--glow);font-weight:700
+    }
+    .btn.ghost{
+      background:rgba(255,255,255,.06);color:#e5faff;border:1px solid rgba(255,255,255,.15)
+    }
+    .search{
+      flex:1;min-width:200px;background:#0f1117;border:1px solid rgba(255,255,255,.12);
+      color:#e9f7ff;border-radius:10px;padding:.7rem 1rem;box-shadow:inset 0 0 0 1px rgba(255,255,255,.02)
+    }
+
+    /* Grid */
+    .grid{
+      --gap:14px;
+      display:grid;gap:var(--gap);grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      padding:20px 0
+    }
+    .card{
+      position:relative;border-radius:14px;overflow:hidden;background:#0f1017;
+      border:1px solid rgba(255,255,255,.08)
+    }
+    .card .thumb{
+      display:block;width:100%;height:0;padding-bottom:75%; /* 4:3 */
+      background:#0b0c12;position:relative;overflow:hidden
+    }
+  
+    .card .meta{
+      padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px
+    }
+    .meta .name{font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .meta .chip{
+      font-size:.7rem;padding:.25rem .5rem;border-radius:999px;color:#fff;background:rgba(255,255,255,.09);
+      border:1px solid rgba(255,255,255,.14)
+    }
+    .meta .row{display:flex;gap:8px;align-items:center}
+
+    /* Lightbox */
+    .lightbox{
+      position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;place-items:center;z-index:9
+    }
+    .lightbox.open{display:grid}
+    .viewer{
+      max-width:min(92vw,1100px);max-height:84vh;position:relative
+    }
+    
+    .action{
+      padding:.6rem .9rem;border-radius:10px;border:1px solid rgba(255,255,255,.2);
+      background:rgba(15,16,23,.8);color:#eaf6ff;cursor:pointer
+    }
+   
+    .footer{border-top:1px solid rgba(255,255,255,.07);margin-top:34px}
+    .empty{color:var(--muted);text-align:center;padding:40px}
+    @media (max-width:700px){
+      .viewer .actions{bottom:-52px}
+      .title{gap:10px}
+    }
+		
+		  .card img{
+      position:absolute;inset:0;margin:auto;width:100%;height:100%;object-fit:cover;
+      filter:saturate(1.15) contrast(1.05)
+    }
+		
+		.viewer img{width:100%;height:auto;display:block;border-radius:12px;box-shadow:var(--glow)}
+    .viewer .actions{
+      position:absolute;left:0;right:0;bottom:-58px;display:flex;gap:10px;flex-wrap:wrap
+    }
+		
+		 .close{
+      position:absolute;top:-48px;right:0;padding:.55rem .8rem;border-radius:10px;
+      background:rgba(15,16,23,.85);border:1px solid rgba(255,255,255,.18);cursor:pointer;color:#fff
+    }
+		
+		.brand a {
+  color: white;
+  text-decoration: none;
+  -webkit-text-stroke: .6px black; /* black outline */
+}
+
+.brand a:hover {
+  color: white;
+}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="title">
+        <span class="brand"><a href="https://www.food4thoth.com">FOOD4THOTH</a></span>
+        <h1 style="margin:0;font-size:1.35rem;">Canvas Sprites Animator — GIF Gallery</h1>
+      </div>
+      <p class="sub">Creations made at <a href="https://www.food4thoth.com/DrawingGifs/index.html">DrawingGifs</a>. Share yours by exporting a GIF and dropping it into the gallery folder.</p>
+
+      <div class="toolbar">
+      <input id="q" class="search" type="search" placeholder="Search titles, tags…" />
+        <button class="btn" id="shuffleBtn" title="Shuffle">Shuffle</button><p>
+        <a class="btn ghost" href="../index.html">Hub</a>
+				<a class="btn ghost" href="https://www.food4thoth.com/DrawingGifs/index.html">Animate More</a>
+				<a class="btn ghost" href="https://www.food4thoth.com/DrawingFractals/index.html">Draw w/Fractals</a></p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div id="grid" class="grid" aria-live="polite"></div>
+    <div id="empty" class="empty" hidden>Nothing here yet. Add some GIFs to the <code>/DrawingGifs/gallery/</code> folder (or update the list in this file).</div>
+  </main>
+
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="GIF viewer">
+    <div class="viewer">
+      <button class="close" id="closeLb" aria-label="Close">✕ Close</button>
+      <img id="lbImg" alt="Animated GIF preview" />
+      <div class="actions">
+        <a id="dl" class="action" download>⬇️ Download</a>
+        <button id="copy" class="action">🔗 Copy Link</button>
+        <button id="prev" class="action">◀ Prev</button>
+        <button id="next" class="action">Next ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="wrap" style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+      <span><a href="../Donations/index.html">Support</a> © 2025 FOOD4THOTH</span>
+     <span><a href="https://www.food4thoth.com/DrawingGifs/index.html">Create more GIFs</a> • 
+			 <a href="/DrawingGifs/readme/">ReadMe</a> • <a href="https://www.food4thoth.com">Go to Hub</a></span>
+    </div>
+  </footer>
+
+  <script>
+    /**
+     * QUICK START
+     * 1) Put your exported GIFs in /DrawingGifs/gallery/
+     * 2) List them below in GALLERY (or swap for a fetch to manifest.json)
+     * 3) Optional: add tags to enable filtering & search
+     */
+    const BASE = "./gallery/";
+    const GALLERY = [
+  { file: "AlienSasquatch.gif", title: "Alien Sasquatch", tags: ["alien","sasquatch","rainbow"] },
+  { file: "BlackWhitePinSpiral.gif", title: "Black/White Pin Spiral", tags: ["spiral","optical","pattern"] },
+  { file: "DuckJones.gif", title: "Duck Jones Art", tags: ["Duck Jones","cartoon","artist"] },
+  { file: "LittleAlien.gif", title: "Little Alien", tags: ["alien","cute","rainbow"] },
+  { file: "LoopFace.gif", title: "Loop Face", tags: ["face","loop","music looper"] },
+  { file: "RainbowCloud.gif", title: "Rainbow Cloud", tags: ["cloud","rainbow","cute"] },
+  { file: "RainbowSpiral.gif", title: "Rainbow Spiral", tags: ["spiral","rainbow","pattern"] }
+];
+
+    // If you prefer an external manifest, uncomment:
+    // fetch('./gallery/manifest.json').then(r=>r.json()).then(list => { init(list) });
+
+    const grid = document.getElementById('grid');
+    const empty = document.getElementById('empty');
+    const q = document.getElementById('q');
+
+    function init(list = GALLERY) {
+      if (!list || !list.length) { empty.hidden = false; return; }
+      empty.hidden = true;
+      grid.innerHTML = '';
+      list.forEach((item, idx) => {
+        const url = BASE + item.file;
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.dataset.index = idx;
+        card.dataset.title = (item.title || '').toLowerCase();
+        card.dataset.tags = (item.tags || []).join(',').toLowerCase();
+
+        card.innerHTML = `
+          <a class="thumb" href="${url}" data-index="${idx}" aria-label="Open ${item.title || item.file}">
+            <img loading="lazy" decoding="async" src="${url}" alt="${item.title || item.file}">
+          </a>
+          <div class="meta">
+            <span class="name" title="${item.title || item.file}">${item.title || item.file}</span>
+            <div class="row">
+              ${(item.tags||[]).map(t=>`<span class="chip">#${t}</span>`).join('')}
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+		
+		
+
+    // Lightbox
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const dl = document.getElementById('dl');
+    const copy = document.getElementById('copy');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const closeLb = document.getElementById('closeLb');
+
+    let idx = 0, listRef = GALLERY;
+
+    grid.addEventListener('click', e => {
+      const a = e.target.closest('a.thumb');
+      if (!a) return;
+      e.preventDefault();
+      idx = Number(a.dataset.index) || 0;
+      openLb(idx);
+    });
+
+    function openLb(i){
+      const item = listRef[i];
+      if (!item) return;
+      const url = BASE + item.file;
+      lbImg.src = url;
+      lbImg.alt = item.title || item.file;
+      dl.href = url;
+      dl.download = item.file;
+      copy.onclick = () => {
+        const absolute = new URL(url, window.location.href).href;
+        navigator.clipboard.writeText(absolute).then(()=> {
+          copy.textContent = "✅ Copied!";
+          setTimeout(()=>copy.textContent = "🔗 Copy Link", 1200);
+        });
+      };
+      lb.classList.add('open');
+    }
+
+    function step(dir){
+      idx = (idx + dir + listRef.length) % listRef.length;
+      openLb(idx);
+    }
+
+    prevBtn.onclick = () => step(-1);
+    nextBtn.onclick = () => step(1);
+    closeLb.onclick = () => lb.classList.remove('open');
+    lb.addEventListener('click', e => { if (e.target === lb) lb.classList.remove('open'); });
+    document.addEventListener('keydown', e => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') lb.classList.remove('open');
+      if (e.key === 'ArrowRight') step(1);
+      if (e.key === 'ArrowLeft') step(-1);
+    });
+
+    // Search / filter
+    q.addEventListener('input', () => {
+      const term = q.value.trim().toLowerCase();
+      [...grid.children].forEach(card => {
+        const t = card.dataset.title, tags = card.dataset.tags;
+        const match = !term || t.includes(term) || tags.includes(term);
+        card.style.display = match ? '' : 'none';
+      });
+    });
+
+    // Shuffle
+    document.getElementById('shuffleBtn').addEventListener('click', () => {
+      listRef = [...(GALLERY)];
+      for (let i = listRef.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [listRef[i], listRef[j]] = [listRef[j], listRef[i]];
+      }
+      init(listRef);
+    });
+
+    // Boot
+    init(GALLERY);
+		
+		// --- Search helpers ---
+  function normalize(str) {
+    return (str || "")
+      .toLowerCase()
+      .replace(/^#/, "")        // strip leading hashtag
+      .replace(/\s+/g, " ")     // collapse spaces
+      .trim();
+  }
+
+  function tokenize(query) {
+    // split by space or comma into terms; remove empties; strip leading #
+    return normalize(query)
+      .split(/[,\s]+/)
+      .map(t => t.replace(/^#/, ""))
+      .filter(Boolean);
+  }
+
+  function cardMatches(card, terms) {
+    if (!terms.length) return true;
+    const title = (card.dataset.title || "");
+    const tags  = (card.dataset.tags  || "");
+    // match if EVERY term is found in either title or tags
+    return terms.every(t => title.includes(t) || tags.includes(t));
+  }
+
+  function applyFilter() {
+    const terms = tokenize(q.value);
+    [...grid.children].forEach(card => {
+      card.style.display = cardMatches(card, terms) ? "" : "none";
+    });
+  }
+
+  
+
+  // --- Make tag chips clickable to filter ---
+  grid.addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    const tag = chip.textContent.replace(/^#/, '').trim();
+    q.value = tag;
+    applyFilter();
+  });
+
+
+  </script>
+</body>
+</html>
