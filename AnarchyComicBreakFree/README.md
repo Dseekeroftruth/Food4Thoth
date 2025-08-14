@@ -1,17 +1,17 @@
 ---
 layout: default
-title: “Anarchy Comic README”
-description: “A rebellious digital comic from the Food4Thoth universe — exploring autonomy, defiance, and transformation through visual narrative.”
+title: "Anarchy Comic README"
+description: "A rebellious digital comic from the Food4Thoth universe — exploring autonomy, defiance, and transformation through visual narrative."
 permalink: /AnarchyComicBreakFree/readme/
 image: https://www.food4thoth.com/AnarchyComicBreakFree/images/Panel3.1.WEBP
 
-og_title: “Anarchy Comic README”
-og_description: “A visual rebellion from Food4Thoth — explore resistance, nature, and freedom through powerful panels and poetic speech.”
+og_title: "Anarchy Comic README"
+og_description: "A visual rebellion from Food4Thoth — explore resistance, nature, and freedom through powerful panels and poetic speech."
 og_image: https://www.food4thoth.com/AnarchyComicBreakFree/images/Panel3.1.WEBP
 
 twitter_card: summary_large_image
-twitter_title: “Anarchy Comic — A Story of Resistance README”
-twitter_description: “Visually poetic, narratively bold. Anarchy Comic breaks the mold. From the Food4Thoth collective.”
+twitter_title: "Anarchy Comic — A Story of Resistance README"
+twitter_description: "Visually poetic, narratively bold. Anarchy Comic breaks the mold. From the Food4Thoth collective."
 twitter_image: https://www.food4thoth.com/AnarchyComicBreakFree/images/Panel3.1.WEBP
 ---
 
