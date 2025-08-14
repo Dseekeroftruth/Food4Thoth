@@ -1,21 +1,21 @@
 ---
 layout: default
-title: "NASA APIs Showcase (Live Data!)"
+title: "NASA APIs Showcase README"
 description: "A browser-based dashboard to explore breathtaking space imagery, sounds, news, and real-time data powered by NASA APIs. Features interactive cards for APOD, Mars Rover, ISS tracking, live sounds, and more."
 author: Food4Thoth
 tags: [NASA, API, JavaScript, Astronomy, Space, Data Visualization, Web App, Food4Thoth]
 date: 2025-06-12
 permalink: /Space/readme/
-image: /space-og-thumb.jpg
+image: https://www.food4thoth.com/space-og-thumb.jpg
 
-og_title: "NASA API Showcase by Food4Thoth"
+og_title: "NASA API Showcase README by Food4Thoth"
 og_description: "Explore the cosmos with interactive space data from NASA APIs — photos, sounds, rovers, asteroids, and more!"
-og_image: /space-og-thumb.jpg
+og_image: https://www.food4thoth.com/space-og-thumb.jpg
 
 twitter_card: summary_large_image
-twitter_title: "NASA API Showcase (Live Dashboard)"
+twitter_title: "NASA API Showcase README"
 twitter_description: "Breathtaking space images, ISS tracking, Mars rover photos, live sounds and more from NASA APIs — built by Food4Thoth"
-twitter_image: /space-og-thumb.jpg
+twitter_image: https://www.food4thoth.com/space-og-thumb.jpg
 ---
 
 
