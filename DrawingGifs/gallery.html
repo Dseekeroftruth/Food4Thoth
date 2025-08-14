@@ -156,9 +156,135 @@
 .brand a:hover {
   color: white;
 }
+
+/* === Toggle Button Styling === */
+.toggle-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    background: black;
+    color: white;
+    font-size: 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+		border: 2px solid white;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px #ff00ff;
+    transition: 0.3s ease-in-out;
+    z-index: 1001;
+}
+
+.toggle-button:hover {
+    background: linear-gradient(45deg, #ff0000, #ff7300, #ffea00, #00ff00, #00eaff, #2400ff, #ff00ff);
+    background-size: 400% 400%;
+    animation: rainbowBG 6s infinite linear;
+    box-shadow: 0 0 25px #ffffff;
+    transform: scale(1.1);
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
+    pointer-events: none; /* Prevents clicking */
+}
+
+
+
+/* ================================
+   CYBERPUNK RAINBOW NAVIGATION
+================================ */
+
+/* === Neumorphic Navigation === */
+.navigation {
+    position: fixed;
+    top: 80px;
+    right: 10px;
+    background: black;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #ff00ff;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 1000;
+    max-height: 60vh;
+    overflow-y: auto;
+    text-align: center;
+    border: 2px solid #ff00ff;
+		
+}
+
+/* === Submenu Styling === */
+.submenu {
+    background: rgba(0, 0, 0, 0.8);
+    border-left: 2px solid #ff00ff;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.submenu a {
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+    color: white;
+    background: black;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+.submenu a:hover {
+    background: linear-gradient(45deg, #ff0000, #ff7300, #ffea00, #00ff00, #00eaff, #2400ff, #ff00ff);
+    background-size: 400% 400%;
+    animation: rainbowBG 6s infinite linear;
+    text-shadow: 0 0 20px white;
+    transform: scale(1.05);
+}
+
+.submenu.hidden {
+    display: none;
+}
+
+
+/* === Neumorphic Tabs === */
+.neumorphic-tab {
+    display: inline-block;
+    margin: 4px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: white;
+    background: black;
+    box-shadow: 4px 4px 8px rgba(255, 0, 255, 0.3), -4px -4px 8px rgba(0, 255, 255, 0.3);
+    transition: 0.3s ease-in-out;
+}
+
+/* === Neumorphic Tab Hover Effect === */
+.neumorphic-tab:hover {
+    background: linear-gradient(45deg, #ff0000, #ff7300, #ffea00, #00ff00, #00eaff, #2400ff, #ff00ff);
+    background-size: 400% 400%;
+    animation: rainbowBG 6s infinite linear;
+    box-shadow: 0 0 20px #ff00ff, 0 0 30px #00eaff;
+    transform: scale(1.1);
+}
+
+/* === Neumorphic Tab Active State === */
+.neumorphic-tab.active {
+    background: #222;
+    box-shadow: inset 4px 4px 8px #ff00ff, inset -4px -4px 8px #00eaff;
+}
   </style>
 </head>
 <body>
+	<!-- Placeholder for the nav -->
+  <div id="nav-container"></div>
   <header>
     <div class="wrap">
       <div class="title">
@@ -378,5 +504,9 @@
 
 
   </script>
+	
+<script src="../iframe_script.js"></script>
+<script src="../nav-fetch.js"></script>
+<script src="../nav_script2.js"></script>
 </body>
 </html>
