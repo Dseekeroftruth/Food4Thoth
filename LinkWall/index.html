@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>FOOD4THOTH — Link Wall</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="FOOD4THOTH Link Wall — a scrollable collection of all pages on food4thoth.com, complete with Open Graph previews, images, and descriptions." />
+  <meta name="keywords" content="FOOD4THOTH, Link Wall, site map, page previews, Open Graph, Tarot, Community Garden, Seeker and the Star, Drawing Gifs, Egyptian Tarot, IdF to Ice, Trump Epstein, Rstory" />
+  <meta name="author" content="FOOD4THOTH" />
+  <link rel="canonical" href="https://www.food4thoth.com/LinkWall/index.html" />
+  <link rel="icon" href="/favicon.ico" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="FOOD4THOTH — Link Wall" />
+  <meta property="og:description" content="Explore every page on FOOD4THOTH in one place — complete with Open Graph previews, images, and descriptions." />
+  <meta property="og:url" content="https://www.food4thoth.com/LinkWall/index.html" />
+  <meta property="og:site_name" content="FOOD4THOTH" />
+  <meta property="og:image" content="https://www.food4thoth.com/images/og-preview.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FOOD4THOTH — Link Wall" />
+  <meta name="twitter:description" content="Explore every page on FOOD4THOTH in one place — with beautiful previews and easy navigation." />
+  <meta name="twitter:image" content="https://www.food4thoth.com/images/og-preview.jpg" />
+
+  <!-- Prefetch key assets -->
+  <link rel="preload" as="image" href="https://www.food4thoth.com/images/og-preview.jpg" />
+  <link rel="dns-prefetch" href="//www.food4thoth.com" />
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "FOOD4THOTH Link Wall",
+    "description": "A scrollable collection of all pages on FOOD4THOTH with Open Graph previews.",
+    "url": "https://www.food4thoth.com/LinkWall/index.html",
+    "publisher": {
+      "@type": "Organization",
+      "name": "FOOD4THOTH",
+      "url": "https://www.food4thoth.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.food4thoth.com/images/logo.png"
+      }
+    },
+    "image": "https://www.food4thoth.com/images/og-preview.jpg"
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg:#0b0b0f;
+      --card:#13131a;
+      --muted:#a8b0be;
+      --text:#e9eef6;
+      --accent:#7ee3ff;
+      --border:#1e2230;
+      --radius:16px;
+      --shadow:0 10px 25px rgba(0,0,0,.35);
+      --maxw:980px;
+    }
+    * { box-sizing: border-box; }
+    html,body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: linear-gradient(180deg, #0b0b0ff0 0%, #0b0b0fa0 70%, #0b0b0f00 100%);
+      backdrop-filter: blur(6px);
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 12px; }
+    h1 { margin: 0 0 6px; font-size: 18px; letter-spacing: .3px; }
+    .sub { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+
+    /* Controls */
+    .controls {
+      display: grid; grid-template-columns: 1fr auto; gap: 10px;
+      align-items: center;
+    }
+    input[type="search"] {
+      width: 100%; padding: 10px 12px; border-radius: 12px;
+      border: 1px solid var(--border); background: #0e0e14; color: var(--text);
+      outline: none;
+    }
+    button, .btn {
+      border: 1px solid var(--border); background: #101018; color: var(--text);
+      padding: 10px 14px; border-radius: 12px; cursor: pointer;
+    }
+    button:hover, .btn:hover { background: #151525; }
+
+    /* List area */
+    main { padding: 16px 0 40px; }
+    .list {
+      display: grid; gap: 14px;
+    }
+
+    /* Card */
+    .card {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: clip;
+      text-decoration: none; color: inherit;
+      transition: transform .08s ease, border-color .15s ease;
+    }
+    .card:hover { transform: translateY(-2px); border-color: #2a3146; }
+
+    .thumb {
+      position: relative; min-height: 100px;
+      background: #0f0f16;
+    }
+    .thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .fav {
+      position: absolute; top: 8px; left: 8px;
+      width: 20px; height: 20px; border-radius: 4px;
+      background: #0b0b0f; display: grid; place-items: center;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .fav img { width: 100%; height: 100%; object-fit: cover; }
+
+    .body { padding: 12px 12px 14px; display: grid; gap: 6px; align-content: start; }
+    .title { font-weight: 700; line-height: 1.3; font-size: 16px; }
+    .desc  { color: var(--muted); font-size: 14px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .meta  { display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 12px; }
+    .dot   { width: 4px; height: 4px; background: var(--muted); border-radius: 50%; opacity: .6; }
+
+    /* Skeletons */
+    .skeleton { position: relative; overflow: hidden; background: #141620; }
+    .skeleton::after {
+      content: ""; position: absolute; inset: 0; translate: -100% 0;
+      background: linear-gradient(90deg, transparent, #ffffff08, transparent);
+      animation: shimmer 1.2s infinite;
+    }
+    @keyframes shimmer { to { translate: 100% 0; } }
+
+    /* Mobile tweaks */
+    @media (max-width: 640px) {
+      .card { grid-template-columns: 1fr; }
+      .thumb { aspect-ratio: 1.91 / 1; min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>FOOD4THOTH — Link Wall</h1>
+      <div class="sub">A vertically scrollable feed with OG-style previews.</div>
+      <div class="controls">
+        <input id="filter" type="search" placeholder="Filter by title, site, or URL…" />
+        <button id="reload">Reload</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div id="list" class="list" aria-live="polite"></div>
+  </main>
+
+<script>
+  const listEl   = document.getElementById("list");
+  const filterEl = document.getElementById("filter");
+  const reloadEl = document.getElementById("reload");
+
+  // ---- Config ----
+  const SITEMAP_URL = "/sitemap.xml";
+  // Keep only these sections (edit to taste). If empty, keeps *all* same-origin pages.
+  const INCLUDE_PATHS = [];
+  // Exclude patterns (feeds, assets, images, PDFs, query-string variants, etc.)
+  const EXCLUDE_REGEX = /\/feed\.xml$|\/assets\/|\/images\/|\.xml$|\.json$|\.pdf$|\.jpg$|\.jpeg$|\.png$|\.gif$|\.webp$|\.svg$/i;
+
+  const MAX_LINKS = 500; // hard cap so you don't overload the page
+
+  // ---- Utils ----
+  function domainFrom(url){ try{ return new URL(url).hostname.replace(/^www\./,""); }catch{return ""} }
+  function cardSkeleton(){ return `
+    <a class="card" tabindex="-1">
+      <div class="thumb skeleton"></div>
+      <div class="body">
+        <div class="title skeleton" style="height:18px;width:70%"></div>
+        <div class="desc skeleton"  style="height:44px;"></div>
+        <div class="meta skeleton"  style="height:12px;width:40%"></div>
+      </div>
+    </a>`; }
+  function absolutize(base, maybe) { try { return new URL(maybe, base).href; } catch { return ""; } }
+
+  function extractMeta(html, url) {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    const tags = {};
+    doc.querySelectorAll("meta").forEach(m => {
+      const prop = (m.getAttribute("property") || m.getAttribute("name") || "").toLowerCase();
+      const content = m.getAttribute("content") || "";
+      if (prop && content) tags[prop] = content;
+    });
+
+    // favicon
+    let favicon = "";
+    const fav = doc.querySelector('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]');
+    if (fav?.getAttribute("href")) favicon = absolutize(url, fav.getAttribute("href"));
+
+    const titleTag = (doc.querySelector("title")?.textContent || "").trim();
+    const description = tags["og:description"] || tags["twitter:description"] || tags["description"] || "";
+
+    let image = tags["og:image"] || tags["twitter:image"] || tags["twitter:image:src"] || "";
+    if (image) image = absolutize(url, image);
+
+    const site = tags["og:site_name"] || tags["twitter:site"] || new URL(url).hostname.replace(/^www\./, "");
+
+    return {
+      url,
+      title: tags["og:title"] || tags["twitter:title"] || titleTag || url,
+      description,
+      image,
+      site_name: site,
+      favicon
+    };
+  }
+
+  async function fetchPreviewSameOrigin(url) {
+    const res = await fetch(url, { credentials: "omit" });
+    if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
+    const html = await res.text();
+    return extractMeta(html, url);
+  }
+
+  function renderCard(d){
+    const img = d.image ? `<img loading="lazy" src="${d.image}" alt="">` : "";
+    const fav = d.favicon ? `<div class="fav"><img src="${d.favicon}" alt=""></div>` : "";
+    const site = d.site_name || domainFrom(d.url) || "Website";
+    return `
+      <a class="card" href="${d.url}" target="_blank" rel="noopener">
+        <div class="thumb">${img}${fav}</div>
+        <div class="body">
+          <div class="title">${d.title || d.url}</div>
+          <div class="desc">${d.description || ""}</div>
+          <div class="meta">
+            <span>${site}</span><span class="dot"></span><span>${domainFrom(d.url)}</span>
+          </div>
+        </div>
+      </a>`;
+  }
+
+  async function loadFromSitemap() {
+    // Cache per-tab so reloads are instant
+    const cacheKey = "linkwall:items:v1";
+    const cached = sessionStorage.getItem(cacheKey);
+    if (cached && !forceRefresh) {
+      const items = JSON.parse(cached);
+      listEl.innerHTML = items.map(renderCard).join("");
+      return;
+    }
+
+    listEl.innerHTML = Array.from({length: 8}, cardSkeleton).join("");
+
+    const res = await fetch(SITEMAP_URL, { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed to load sitemap.xml");
+    const xml = await res.text();
+    const doc = new DOMParser().parseFromString(xml, "application/xml");
+
+    // Collect loc + lastmod
+    const entries = Array.from(doc.querySelectorAll("url")).map(u => ({
+      loc: u.querySelector("loc")?.textContent?.trim(),
+      lastmod: u.querySelector("lastmod")?.textContent?.trim() || ""
+    })).filter(e => !!e.loc);
+
+    // Filter to same-origin + include/ exclude rules
+    const origin = location.origin.replace(/^https?:\/\//, "");
+    let urls = entries
+      .filter(e => e.loc.startsWith(location.origin)) // same origin
+      .filter(e => !EXCLUDE_REGEX.test(e.loc));
+
+    if (INCLUDE_PATHS.length) {
+      urls = urls.filter(e => INCLUDE_PATHS.some(p => e.loc.includes(p)));
+    }
+
+    // Sort by lastmod desc if present
+    urls.sort((a, b) => {
+      const da = Date.parse(a.lastmod || 0) || 0;
+      const db = Date.parse(b.lastmod || 0) || 0;
+      return db - da;
+    });
+
+    urls = urls.slice(0, MAX_LINKS);
+
+    // Fetch previews in small batches to stay polite
+    const batchSize = 12;
+    const items = [];
+    for (let i = 0; i < urls.length; i += batchSize) {
+      const batch = urls.slice(i, i + batchSize);
+      const results = await Promise.allSettled(batch.map(e => fetchPreviewSameOrigin(e.loc)));
+      results.forEach((r, idx) => {
+        const u = batch[idx].loc;
+        items.push(r.status === "fulfilled"
+          ? r.value
+          : { url: u, title: u, description: "", image: "", site_name: domainFrom(u), favicon: "" });
+      });
+    }
+
+    sessionStorage.setItem(cacheKey, JSON.stringify(items));
+    listEl.innerHTML = items.map(renderCard).join("");
+  }
+
+  let forceRefresh = false;
+
+  // Filter box
+  filterEl.addEventListener("input", () => {
+    const q = filterEl.value.trim().toLowerCase();
+    listEl.querySelectorAll(".card").forEach(card => {
+      const text = (card.innerText + " " + (card.href || "")).toLowerCase();
+      card.style.display = text.includes(q) ? "" : "none";
+    });
+  });
+
+  // Reload button: clear session cache + re-fetch
+  reloadEl.addEventListener("click", () => {
+    forceRefresh = true;
+    sessionStorage.removeItem("linkwall:items:v1");
+    loadFromSitemap().finally(() => { forceRefresh = false; });
+  });
+
+  // Initial load
+  loadFromSitemap().catch(err => {
+    console.error(err);
+    // Fallback: nothing to render; you could hardcode a tiny list if you want
+    listEl.innerHTML = "<p>Couldn’t load sitemap or previews.</p>";
+  });
+</script>
+</body>
+</html>
