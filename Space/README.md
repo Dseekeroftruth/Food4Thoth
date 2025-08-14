@@ -6,16 +6,16 @@ author: Food4Thoth
 tags: [NASA, API, JavaScript, Astronomy, Space, Data Visualization, Web App, Food4Thoth]
 date: 2025-06-12
 permalink: /Space/readme/
-image: https://www.food4thoth.com/space-og-thumb.jpg
+image: https://www.food4thoth.com/Space/space_og_thumb.jpg
 
 og_title: "NASA API Showcase README by Food4Thoth"
 og_description: "Explore the cosmos with interactive space data from NASA APIs — photos, sounds, rovers, asteroids, and more!"
-og_image: https://www.food4thoth.com/space-og-thumb.jpg
+og_image: https://www.food4thoth.com/Space/space_og_thumb.jpg
 
 twitter_card: summary_large_image
 twitter_title: "NASA API Showcase README"
 twitter_description: "Breathtaking space images, ISS tracking, Mars rover photos, live sounds and more from NASA APIs — built by Food4Thoth"
-twitter_image: https://www.food4thoth.com/space-og-thumb.jpg
+twitter_image: https://www.food4thoth.com/Space/space_og_thumb.jpg
 ---
 
 
