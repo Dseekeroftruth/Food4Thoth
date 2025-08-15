@@ -1,5 +1,5 @@
 ---
-title: "The Unbroken Line: From Reconstruction Denied to Resistance Reborn"
+title: "The Unbroken Line: From Reconstruction Denied to Resistance Reborn README"
 subtitle: "A History of Supremacy and the Struggle Against It"
 author: DeJahn (Food4Thoth)
 created: 2025-07-18
