@@ -1,5 +1,5 @@
 ---
-title: "Empire’s Mirror: From Gaza to Georgia"
+title: "Empire’s Mirror: From Gaza to Georgia README"
 subtitle: "The Transnational Through Line of State Violence, Policing, and Social Warfare from the IDF to ICE"
 author: DeJahn (Food4Thoth)
 created: 2025-08-11
