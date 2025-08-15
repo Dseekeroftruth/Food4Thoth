@@ -114,7 +114,7 @@ The **I Spy Game** is an interactive and visually engaging hidden object game wh
 The **I Spy Game** is an engaging and creative experience that challenges players to find hidden objects in a visually immersive landscape. With its interactive elements, dynamic tracking, and potential for expansion, it’s a game that combines fun with focus, making it enjoyable for players of all ages.
 
 - [EyeSPY1 Game](./index.html)
-- [EyeSPY1 Game](../EyeSPY2/index.html)
+- [EyeSPY2 Game](../EyeSPY2/index.html)
 - [EyeSPY3 Game](../EyeSPY3/index.html)
 
 ---
