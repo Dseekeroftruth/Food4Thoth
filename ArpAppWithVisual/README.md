@@ -3,18 +3,18 @@ layout: default
 title: "Dynamic Arpeggiator Synth with Visualizer README"
 description: "A real-time Tone.js synth and sound-reactive fractal visualizer — create immersive audiovisual experiences on Food4Thoth."
 permalink: /ArpAppWithVisual/readme/
-image: /images/og-preview.jpg
+image: /ArpAppWithVisual/og-preview.jpg
 
 # Open Graph (Facebook, Discord, etc.)
 og_title: "Dynamic Arpeggiator Synth + Visualizer README – Food4Thoth"
 og_description: "Explore the fusion of music and visual art through a dynamic Tone.js synthesizer with real-time fractal animations and sound-reactive design."
-og_image: /images/og-preview.jpg
+og_image: /ArpAppWithVisual/og-preview.jpg
 
 # Twitter Card Meta
 twitter_card: summary_large_image
-twitter_title: "Arpeggiator Synth + Visualizer "
+twitter_title: "Arpeggiator Synth + Visualizer README"
 twitter_description: "Real-time music & fractal visualizer powered by Tone.js — compose, experiment, and perform live on Food4Thoth."
-twitter_image: /images/og-preview.jpg
+twitter_image: /ArpAppWithVisual/og-preview.jpg
 ---
 
 <style>
