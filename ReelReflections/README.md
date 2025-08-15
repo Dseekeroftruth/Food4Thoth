@@ -3,17 +3,17 @@ layout: default
 title: "Reel Reflections README"
 description: "Reel Reflections is a cinematic personality analyzer revealing the psychological, symbolic, and generational meaning behind your favorite movie. Built by Food4Thoth."
 permalink: /ReelReflections/readme/
-image: /ReelReflections/images/preview.png
+image: https://www.food4thoth.com/ReelReflections/preview.png
 
 og_title: "Reel Reflections – What Your Favorite Movie Reveals About You"
 og_description: "Enter your favorite movie and discover your cinematic soul: personality, symbolism, generational roots, and custom recommendations."
-og_image: /ReelReflections/images/preview.png
+og_image: https://www.food4thoth.com/ReelReflections/preview.png
 og_url: https://www.food4thoth.com/ReelReflections/index.html
 
 twitter_card: summary_large_image
 twitter_title: "Reel Reflections – Favorite Movie Personality Analyzer"
 twitter_description: "A poetic, psychological deep-dive into your favorite film. Analyze its meaning and reveal your cinematic self."
-twitter_image: /ReelReflections/preview.png
+twitter_image: https://www.food4thoth.com/ReelReflections/preview.png
 twitter_site: "@Food4Thoth"
 twitter_creator: "@Food4Thoth"
 ---
@@ -88,14 +88,12 @@ twitter_creator: "@Food4Thoth"
 
 ## 📁 File Structure
 
-```
 /ReelReflections/
 │── index.html
 │── movies.json
 │── preview.png
 │── favicon.ico
 │  
-```
 
 ---
 
