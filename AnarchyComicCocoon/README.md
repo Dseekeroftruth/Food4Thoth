@@ -3,16 +3,16 @@ layout: default
 title: "Anarchy Evolution Comic README"
 description: "A transformative digital comic from Food4Thoth — following the anarchist butterfly’s symbolic metamorphosis."
 permalink: /AnarchyComicCocoon/readme/
-image: /images/Panel4.1.WEBP
+image: https://www.food4thoth.com/AnarchyComicCocoon/images/Panel4.1.WEBP
 
-og_title: "Anarchy Evolution Comic"
+og_title: "Anarchy Evolution Comic README"
 og_description: "From caterpillar to anarchist butterfly — explore the metaphorical stages of rebellion and renewal in this interactive Food4Thoth comic."
-og_image: /images/Panel4.1.WEBP
+og_image: https://www.food4thoth.com/AnarchyComicCocoon/images/Panel4.1.WEBP
 
 twitter_card: summary_large_image
-twitter_title: "Anarchy Evolution Comic"
+twitter_title: "Anarchy Evolution Comic README"
 twitter_description: "A beautifully illustrated comic about transformation, resistance, and personal liberation — part of the Food4Thoth archive."
-twitter_image: /images/Panel4.1.WEBP
+twitter_image: https://www.food4thoth.com/AnarchyComicCocoon/images/Panel4.1.WEBP
 ---
 
 # Anarchy Evolution Comic
