@@ -3,16 +3,16 @@ layout: default
 title: "Dynamic Arpeggiator HiFi Synth README"
 description: "A powerful interactive audio tool using Tone.js — customize synths and effects. Explore, perform, and create with Food4Thoth."
 permalink: /ArpAppNoVisualHighFi/readme/
-image: /images/og-preview.jpg
+image: /ArpAppNoVisualHighFi/og-preview.jpg
 
-og_title: "Dynamic Arpeggiator HiFi Synth – Food4Thoth"
+og_title: "Dynamic Arpeggiator HiFi Synth README – Food4Thoth"
 og_description: "Interactive Tone.js synth with reverb, delay, and arpeggiation — live performance and sound design platform by Food4Thoth."
-og_image: /images/og-preview.jpg
+og_image: /ArpAppNoVisualHighFi/og-preview.jpg
 
 twitter_card: summary_large_image
-twitter_title: "Dynamic Arpeggiator HiFi Synth"
+twitter_title: "Dynamic Arpeggiator HiFi Synth README"
 twitter_description: "Explore cutting-edge web audio tools with the Food4Thoth Dynamic Arpeggiator Synth — customize, compose, perform."
-twitter_image: /images/og-preview.jpg
+twitter_image: /ArpAppNoVisualHighFi/og-preview.jpg
 ---
 
 <style>
