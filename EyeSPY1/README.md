@@ -1,3 +1,48 @@
+---
+title: "EyeSPY1 — Interactive Hidden Object Game README"
+subtitle: "An Immersive Visual Perception Challenge on FOOD4THOTH"
+author: "DeJahn (Food4Thoth)"
+created: 2025-08-15
+last_updated: 2025-08-15
+permalink: /EyeSPY1/readme/
+image: /EyeSPY1/og-preview.jpg
+tags: [EyeSPY1, hidden object game, visual perception, interactive, art, FOOD4THOTH, puzzle game, educational game]
+description: |
+  EyeSPY1 is an engaging hidden object game where players explore a rich, scrollable landscape to find cleverly placed items. Designed to enhance focus, observation, and visual perception, it blends fun and challenge for all ages.
+layout: default
+---
+
+<style>
+  body {
+    background: #111;
+    color: #fff;
+  }
+  a { color: #33e3ff; }
+  h1, h2, h3, h4, h5, h6 { color: #fffd87; }
+  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ee0979, #06c4ff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 2px 3px 12px rgba(255,0,150,0.35);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffea, #7c2ae8);
+    box-shadow: 0 0 10px #06c4ff;
+  }
+  .wrap {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+</style>
+
 ## 🔍 I Spy Game
 
 The **I Spy Game** is an interactive and visually engaging hidden object game where players search for items cleverly placed within a scrolling landscape. Designed for fun and focus, the game is suitable for all ages, encouraging observation and attention to detail.
