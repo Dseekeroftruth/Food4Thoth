@@ -1,3 +1,53 @@
+---
+title: "Glo-CALCULATO — Glowing Rainbow Calculator README"
+subtitle: "A Vibrant Math Tool with Style, Built by De'Jahn Bell"
+author: "De'Jahn Bell (Food4Thoth)"
+created: 2025-08-15
+last_updated: 2025-08-15
+permalink: /GloCalculato/readme/
+image: /GloCalculato/images/og-preview.jpg
+tags: [Glo-Calculato, calculator, glowing rainbow, math tool, trigonometry, interactive, FOOD4THOTH, JavaScript, CSS animation]
+description: |
+  Glo-CALCULATO is a unique glowing rainbow calculator that performs basic operations and trigonometry. Designed by De'Jahn Bell, it combines functionality with vibrant CSS animations, responsive design, and playful aesthetics. Built with JavaScript, math.js, and creative open-source styling, it’s both a useful tool and a visual delight.
+layout: default
+---
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a {
+    color: #00ffff;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffd700;
+  }
+  .wrap {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+
+  .nav-button {
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 6px;
+    background: linear-gradient(135deg, red, orange, yellow, green, blue, indigo, violet);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, violet, indigo, blue, green, yellow, orange, red);
+    box-shadow: 0 0 15px #00ffff;
+  }
+</style>
+
 # Glo-CALCULATO by De'Jahn Bell
 
 Welcome to **Glo-CALCULATO**, a unique glowing rainbow calculator that performs basic operations and trigonometry. I designed this calculator to be functional, colorful, and fun. It's one of the first applications I have ever built, so please be kind and bear with me. If you encounter any issues or have feedback, I’d appreciate your kind guidance.
