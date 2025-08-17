@@ -1,5 +1,5 @@
 ---
-title: "Ground Cherry Music | FOOD4THOTH Showcase"
+title: "Ground Cherry Music | FOOD4THOTH Showcase README"
 description: "Ground Cherry is a garage-psych trio blending stoner rock, post-punk, and math rock energy. Explore live performances, glitch-art visuals, photo galleries, and immersive video showcases at FOOD4THOTH."
 author: "DeJahn | FOOD4THOTH"
 date: 2025-01-01
@@ -15,16 +15,17 @@ license: "© 2025 FOOD4THOTH. All rights reserved."
 ---
 
 <div style="text-align: center; margin-bottom: 20px;">
-    <a class="nav-button" href="../index.html">FOOD4THOTH Website</a>
+    <a class="nav-button" href="https://www.food4thoth.com/">FOOD4THOTH Website</a>
     <a class="nav-button" href="https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho" target="_blank">FOOD4THOTH Instagram</a>
     <a class="nav-button" href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi" target="_blank">FOOD4THOTH Facebook</a>
-    <a class="nav-button" href="../Artabillies/index.html">Learn About ARTABILLIES</a>
+    <a class="nav-button" href="https://www.food4thoth.com/Artabillies/index.html">Learn About ARTABILLIES</a>
     <a class="nav-button" href="https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ==" target="_blank">ARTABILLIES Instagram</a>
     <a class="nav-button" href="https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi" target="_blank">ARTABILLIES Facebook</a>
     <a class="nav-button" href="https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP" target="_blank">ARTABILLIES Facebook Group</a>
     <a class="nav-button" href="https://www.artabillies.com/contact-us" target="_blank">Contact Artabillies</a>
     <a class="nav-button" href="https://www.artabillies.com/artist-info" target="_blank">Artists Info</a>
-    <a class="nav-button" href="../Inprogression/index.html">INPROGRESSION Info</a>
+    <a class="nav-button" href="https://www.food4thoth.com/Inprogression/index.html">INPROGRESSION Info</a>
+    <a class="nav-button" href="https://www.food4thoth.com/SeekerStar/index.html">Seeker and the Star</a>
 </div>
 
 <style>
