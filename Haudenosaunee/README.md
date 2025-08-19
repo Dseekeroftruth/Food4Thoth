@@ -1,3 +1,60 @@
+---
+layout: default
+title: "Haudenosaunee Thanksgiving Address Comic README"
+description: "An interactive webcomic adaptation of the Haudenosaunee Thanksgiving Address (Ohén:ton Karihwatéhkwen) — honoring Indigenous wisdom, gratitude, and unity through 20 illustrated panels."
+permalink: /Haudenosaunee/readme/
+image: "https://www.food4thoth.com/Haudenosaunee/og-preview.jpg"
+author: "Food4Thoth"
+date: 2025-08-19
+categories: [Comics, Indigenous Wisdom, Food4Thoth]
+tags: [Haudenosaunee, Thanksgiving Address, Comic, Indigenous, Gratitude, Food4Thoth]
+lang: en
+
+# Open Graph
+og_title: "Haudenosaunee Thanksgiving Address Comic — Ohén:ton Karihwatéhkwen"
+og_description: "A visual storytelling experience blending Indigenous wisdom and digital art. Explore gratitude, unity, and interconnectedness through illustrated panels."
+og_url: "https://www.food4thoth.com/Haudenosaunee/readme/"
+og_image: "https://www.food4thoth.com/Haudenosaunee/og-preview.jpg"
+
+# Twitter Card
+twitter:card: summary_large_image
+twitter:site: "@Food4Th0th"
+twitter:title: "Haudenosaunee Thanksgiving Address Comic"
+twitter:description: "Explore the Thanksgiving Address in interactive comic form — Indigenous teachings on gratitude and balance with the natural world."
+twitter:image: "https://www.food4thoth.com/Haudenosaunee/og-preview.jpg"
+---
+
+
+<style>
+  body {
+    background: #111;
+    color: #fff;
+  }
+  a { color: #33e3ff; }
+  h1, h2, h3, h4, h5, h6 { color: #fffd87; }
+  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ee0979, #06c4ff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 2px 3px 12px rgba(255,0,150,0.35);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffea, #7c2ae8);
+    box-shadow: 0 0 10px #06c4ff;
+  }
+  .wrap {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+</style>
 
 # Haudenosaunee Thanksgiving Address Comic
 
