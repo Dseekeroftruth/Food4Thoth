@@ -600,3 +600,13 @@ button:hover {
     display: none;
 }
 
+/* Toggle button */
+.toggle-button{
+  position: fixed;
+  top: 0.5rem;                 /* visible: not -2px */
+  left: 49%;
+  transform: translateX(-50%); /* center by viewport */
+  width: min(980px, 96vw);
+  box-sizing: border-box;
+}
+
