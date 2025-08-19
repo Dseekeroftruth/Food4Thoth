@@ -814,7 +814,8 @@ footer {
     box-shadow: inset 4px 4px 8px #0d0d0d, inset -4px -4px 8px #333333; /* Neumorphic effect */
     transition: all 0.3s ease;
 		width: 100%;
-		
+		justify-content: center; /* center horizontally */
+    align-items: center;     /* center vertically if rows have different heights */
 }
 
 /* Neumorphic Tabs */

@@ -1,14 +1,61 @@
+---
+title: "Hakim Bey & Join the Movement | Food4Thoth"
+permalink: /HakimBey/readme/
+layout: default
+author: "DeJahn"
+description: "Explore the philosophy of Hakim Bey, including Temporary Autonomous Zones (TAZ), Ontological Anarchy, and hermetic influences. Join the movement through collaboration, community projects, and cultural exploration."
+image: "/HakimBey/og-preview.jpg"
+canonical_url: "https://www.food4thoth.com/HakimBey/readme/"
+og_title: "Hakim Bey & Join the Movement | Food4Thoth"
+og_description: "Dive into the works of Hakim Bey — from TAZ and Ontological Anarchy to community-driven projects. Join the movement to collaborate, explore, and co-create."
+og_image: "/HakimBey/og-preview.jpg"
+og_url: "https://www.food4thoth.com/HakimBey/readme/"
+og_type: "website"
+twitter_card: "summary_large_image"
+twitter_title: "Hakim Bey & Join the Movement"
+twitter_description: "Philosophy, creativity, and community building — explore Hakim Bey’s ideas and join the movement at Food4Thoth."
+twitter_image: "/HakimBey/og-preview.jpg"
+favicon: "/images/favicon.png"
+theme_color: "#222222"
+---
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a { color: lime; }
+  h1, h2, h3, h4, h5, h6 { color: red; }
+
+  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ff00ff, #001eff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(255, 0, 255, 0.5);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffff, #6600cc);
+    box-shadow: 0 0 10px #00ffff;
+  }
+</style>
+
 <div style="text-align: center; margin-bottom: 20px;">
-    <button class="nav-button" onclick="location.href='../HakimBey/index.html'">Hakim Bey</button>
-    <button class="nav-button" onclick="location.href='../HakimBey/joinTheMovement.html'">Join</button>
-		<button class="nav-button" onclick="location.href='../AnarchyTAZ/index.html'">TAZ</button>
-		<button class="nav-button" onclick="location.href='../AnarchyDepth/index.html'">Depth</button>
-		<button class="nav-button" onclick="location.href='../AnarchyPoetics/index.html'">Poetics</button>
-		<button class="nav-button" onclick="location.href='../AnarchyComicCocoon/index.html'">Cocoon</button>
-		<button class="nav-button" onclick="location.href='../AnarchyComicBreakFree/index.html'">BreakFree</button>
-    <button class="nav-button" onclick="location.href='../index.html'">Food4Thoth</button>
-		<button class="nav-button" onclick="location.href='https://chatgpt.com/g/g-673580f0caf08190aef6fbd5a690f54a-radical-imagination'">Radical Imagination</button>
-		
+  <a class="nav-button" href="https://www.food4thoth.com/HakimBey/index.html">Hakim Bey</a>
+  <a class="nav-button" href="https://www.food4thoth.com/HakimBey/joinTheMovement.html">Join</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AnarchyTAZ/index.html">TAZ</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AnarchyDepth/index.html">Depth</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AnarchyPoetics/index.html">Poetics</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AnarchyComicCocoon/index.html">Cocoon</a>
+  <a class="nav-button" href="https://www.food4thoth.com/AnarchyComicBreakFree/index.html">BreakFree</a>
+  <a class="nav-button" href="https://www.food4thoth.com/index.html">Food4Thoth</a>
+  <a class="nav-button" href="https://chatgpt.com/g/g-673580f0caf08190aef6fbd5a690f54a-radical-imagination">Radical Imagination</a>
 </div>
 
 # ✨ Hakim Bey & Join the Movement Pages
