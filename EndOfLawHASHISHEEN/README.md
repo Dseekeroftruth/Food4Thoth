@@ -1,28 +1,69 @@
+---
+layout: default
+title: "Hashisheen Album & Track Reviews | Food4Thoth"
+permalink: /EndOfLawHASHISHEEN/readme/
+description: "Comprehensive reviews and analysis of Bill Laswell’s Hashisheen: The End of Law. Explore track-by-track insights into mysticism, rebellion, and avant-garde soundscapes, with cultural and philosophical reflections."
+author: "DeJahn | Food4Thoth"
+date: 2025-08-18
+categories: [Music, Reviews, Mysticism, Philosophy, Avant-Garde]
+tags: [Hashisheen, Bill Laswell, Album Review, Sussan Deyhim, Hakim Bey, Avant-Garde, Sufi, Mysticism, Food4Thoth]
+image: "https://www.food4thoth.com/EndOfLawHASHISHEEN/images/FullAlbumReview.png"
+canonical_url: "https://www.food4thoth.com/EndOfLawHASHISHEEN/readme/"
+---
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a { color: lime; }
+  h1, h2, h3, h4, h5, h6 { color: red; }
+
+  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ff00ff, #001eff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(255, 0, 255, 0.5);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffff, #6600cc);
+    box-shadow: 0 0 10px #00ffff;
+  }
+</style>
+
+
 <div style="text-align: center; margin-bottom: 20px;">
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/AllHashineenReviews.html'">Landing Page</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/FullAlbumReview.html'">Full Album Review</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index1.html'">Hashisheen Review (Track 1)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index2.html'">Hashisheen Review (Track 2)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index3.html'">Hashisheen  Review (Track 3)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index4.html'">Hashisheen Review (Track 4)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index5.html'">Hashisheen Review (Track 5)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index6.html'">Hashisheen Review (Track 6)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index7.html'">Hashisheen Review (Track 7)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index8.html'">Hashisheen Review (Track 8)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index9.html'">Hashisheen Review (Track 9)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index10.html'">Hashisheen Review (Track 10)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index11.html'">Hashisheen Review (Track 11)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index12.html'">Hashisheen Review (Track 12)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index13.html'">Hashisheen Review (Track 13)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index14.html'">Hashisheen Review (Track 14)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index15.html'">Hashisheen Review (Track 15)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index16.html'">Hashisheen Review (Track 16)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index17.html'">Hashisheen Review (Track 17)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index18.html'">Hashisheen Review (Track 18)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index19.html'">Hashisheen Review (Track 19)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index20.html'">Hashisheen Review (Track 20)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index21.html'">Hashisheen Review (Track 21)</button>
-    <button class="nav-button" onclick="location.href='../EndOfLawHASHISHEEN/index22.html'">Hashisheen Review (Track 22)</button>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/AllHashineenReviews.html">Landing Page</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/FullAlbumReview.html">Full Album Review</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index1.html">Hashisheen Review (Track 1)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index2.html">Hashisheen Review (Track 2)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index3.html">Hashisheen Review (Track 3)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index4.html">Hashisheen Review (Track 4)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index5.html">Hashisheen Review (Track 5)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index6.html">Hashisheen Review (Track 6)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index7.html">Hashisheen Review (Track 7)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index8.html">Hashisheen Review (Track 8)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index9.html">Hashisheen Review (Track 9)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index10.html">Hashisheen Review (Track 10)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index11.html">Hashisheen Review (Track 11)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index12.html">Hashisheen Review (Track 12)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index13.html">Hashisheen Review (Track 13)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index14.html">Hashisheen Review (Track 14)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index15.html">Hashisheen Review (Track 15)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index16.html">Hashisheen Review (Track 16)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index17.html">Hashisheen Review (Track 17)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index18.html">Hashisheen Review (Track 18)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index19.html">Hashisheen Review (Track 19)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index20.html">Hashisheen Review (Track 20)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index21.html">Hashisheen Review (Track 21)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EndOfLawHASHISHEEN/index22.html">Hashisheen Review (Track 22)</a>
 </div>
 
 # 🎶 Hashisheen Album and Track Review Pages

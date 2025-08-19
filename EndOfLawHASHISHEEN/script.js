@@ -1,3 +1,6 @@
+
+
+
 // JavaScript to preload images
 function preloadImages(urls) {
     urls.forEach((url) => {
@@ -91,15 +94,23 @@ function populateVoiceList() {
     const voiceSelect = document.getElementById('voiceSelect');
     voiceSelect.innerHTML = ''; // Clear existing options
 
-    voices.forEach((voice) => {
+    voices.forEach((voice, index) => {
         const option = document.createElement('option');
         option.textContent = `${voice.name} (${voice.lang})${voice.default ? ' [default]' : ''}`;
-        option.value = voice.voiceURI; // Use voiceURI as value
+        option.value = index; // store the index as value
         voiceSelect.appendChild(option);
     });
 
-    // Set the selected voice to the first available voice by default
-    selectedVoice = voices[0];
+    // Try to set Samantha as the default voice
+    const samanthaVoiceIndex = voices.findIndex(voice => voice.name.includes('Samantha'));
+    if (samanthaVoiceIndex !== -1) {
+        voiceSelect.value = samanthaVoiceIndex;
+        selectedVoice = voices[samanthaVoiceIndex];
+    } else {
+        // fallback to the first available voice
+        voiceSelect.value = 0;
+        selectedVoice = voices[0];
+    }
 }
 
 // Ensure voices are loaded before populating the list
