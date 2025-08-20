@@ -1,38 +1,117 @@
+---
+layout: default
+title: "I Ching Photo Divination App | FOOD4THOTH README"
+description: "Experience the timeless wisdom of the I Ching enhanced with fractal and photo-based divination. Upload photos, draw fractals, or toss coins to generate unique hexagrams and insights."
+permalink: /IchingPhoto/readme/
+image: "https://www.food4thoth.com/IchingPhoto/og-preview.jpg"
+og_image: "https://www.food4thoth.com/IchingPhoto/og-preview.jpg"
+twitter_card: "summary_large_image"
+twitter_site: "@Food4Th0th"
+author: "DeJahn"
+canonical_url: "https://www.food4thoth.com/IchingPhoto/readme/"
+
+# SEO & Social
+meta:
+  keywords: ["I Ching", "Photo Divination", "Fractal I Ching", "Hexagram", "Mysticism", "Spiritual Tools", "FOOD4THOTH"]
+  theme-color: "#111"
+  og:
+    type: "article"
+    title: "I Ching Photo Divination App | FOOD4THOTH"
+    description: "Upload photos, draw fractals, or toss coins to generate one-of-a-kind hexagrams and spiritual insights."
+    image: "https://www.food4thoth.com/IchingPhoto/og-preview.jpg"
+    url: "https://www.food4thoth.com/IchingPhoto/readme/"
+  twitter:
+    card: "summary_large_image"
+    site: "@Food4Th0th"
+    creator: "@Food4Th0th"
+    title: "I Ching Photo Divination App | FOOD4THOTH"
+    description: "Merge ancient divination with fractal and photo-based generation to explore the 64 hexagrams in new ways."
+    image: "https://www.food4thoth.com/IchingPhoto/og-preview.jpg"
+
+# Schema
+schema:
+  "@context": "https://schema.org"
+  "@type": "SoftwareApplication"
+  "name": "I Ching Photo Divination App"
+  "operatingSystem": "Web"
+  "applicationCategory": "SpiritualTool"
+  "creator":
+    "@type": "Person"
+    "name": "DeJahn"
+  "publisher":
+    "@type": "Organization"
+    "name": "FOOD4THOTH"
+    "url": "https://www.food4thoth.com"
+  "description": "An interactive divination tool combining I Ching wisdom with fractal art and photo-based generation. Features coin toss, manual input, fractal drawing, and photo analysis for unique hexagram creation."
+  "image": "https://www.food4thoth.com/IchingPhoto/og-preview.jpg"
+---
+
+<style>
+  body {
+    background: #111;
+    color: #fff;
+  }
+  a { color: #33e3ff; }
+  h1, h2, h3, h4, h5, h6 { color: #fffd87; }
+  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ee0979, #06c4ff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 2px 3px 12px rgba(255,0,150,0.35);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffea, #7c2ae8);
+    box-shadow: 0 0 10px #06c4ff;
+  }
+  .wrap {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+</style>
+
 <div style="text-align: center; margin-bottom: 20px;">
-    <button class="nav-button" onclick="location.href='../TarotLanding/index.html'">Tarot Orientation Landing</button>
-    <button class="nav-button" onclick="location.href='../TarotLanding/HowTo.html'">How To: Tarot – FOOD4THOTH</button>
-    <button class="nav-button" onclick="location.href='../TarotFlipCardGallery/index.html'">Quick Reference Flip Gallery</button>
-    <button class="nav-button" onclick="location.href='../TarotTogetherNoAge/index.html'">Tarot Card Gallery (3 Decks)</button>
-    <button class="nav-button" onclick="location.href='../TarotTogetherNoAge4Decks/index.html'">Tarot Card Gallery (4 Decks)</button>
-    <button class="nav-button" onclick="location.href='../CelticCrossTarot/index.html'">Celtic Cross Reading</button>
-    <button class="nav-button" onclick="location.href='../ThreeCardTarot/index.html'">Three-Card Tarot w/ Gallery</button>
-    <button class="nav-button" onclick="location.href='../ThreeCardTarotByItself/index.html'">Three-Card Tarot Reading</button>
-    <button class="nav-button" onclick="location.href='../TarotSacredGeometry/index.html'">Sacred Geometry Tarot</button>
-    <button class="nav-button" onclick="location.href='../TarotCyberPunkDark/index.html'">CyberPunk Dark Tarot</button>
-    <button class="nav-button" onclick="location.href='../TarotCyberPunkMelo/index.html'">CyberPunk Melo Tarot</button>
-    <button class="nav-button" onclick="location.href='../TarotOG/index.html'">OG Tarot w/ Voice Commands</button>
-    <button class="nav-button" onclick="location.href='../EgyptianTarot/index.html'">Custom Egyptian Major Arcana (1–22)</button>
-    <button class="nav-button" onclick="location.href='../EgyptianTarotFull/index.html'">Custom Sacred Geometry (1–78)</button>
-    <button class="nav-button" onclick="location.href='../TarotJungian/index.html'">Jungian Thoth Tarot Spread</button>
-    <button class="nav-button" onclick="location.href='../TarotTextList/index.html'">Cyberpunk Tarot Text Library</button>
-    <button class="nav-button" onclick="location.href='../DrawTarot/index.html'">All Spreads</button>
-    <button class="nav-button" onclick="location.href='../MajixLanding/index.html'">Majix Galleries Landing</button>
-    <button class="nav-button" onclick="location.href='../MajixTarotMajor/index.html'">Major Arcana</button>
-    <button class="nav-button" onclick="location.href='../MajixTarotWands/index.html'">Wands</button>
-    <button class="nav-button" onclick="location.href='../MajixTarotCups/index.html'">Cups</button>
-    <button class="nav-button" onclick="location.href='../MajixTarotSwords/index.html'">Swords</button>
-    <button class="nav-button" onclick="location.href='../MajixTarotPentacles/index.html'">Pentacles</button>
-    <button class="nav-button" onclick="location.href='../MajixTarotAll/index.html'">All Cards</button>
-    <button class="nav-button" onclick="location.href='../TarotGalleries/index.html'">Explore All Galleries</button>
-    <button class="nav-button" onclick="location.href='../TarotCrystalQueens/indexAge.html'">18+ Crystal Queens Tarot</button>
-    <button class="nav-button" onclick="location.href='../TarotCyberPunkX/indexAge.html'">18+ CyberPunk X Tarot</button>
-    <button class="nav-button" onclick="location.href='../TarotAgeVerify/index.html'">FOOD4THOTH 18+ Tarot Gallery</button>
-    <button class="nav-button" onclick="location.href='../TarotAllResources/index.html'">All Resources</button>
-    <button class="nav-button" onclick="location.href='../comingSoon.html'">More Tarot Coming Soon</button>
-    <button class="nav-button" onclick="location.href='../parental-controls.html'">Parental Controls</button>
-		<button class="nav-button" onclick="location.href='../Iching/index.html'">I Ching</button>
-    <button class="nav-button" onclick="location.href='../IchingFractal/index.html'">I Ching Fractal</button>
-    <button class="nav-button" onclick="location.href='../IchingPhoto/index.html'">I Ching Fractal/Photo</button>
+  <a class="nav-button" href="https://www.food4thoth.com/TarotLanding/index.html">Tarot Orientation Landing</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TarotLanding/HowTo.html">How To: Tarot – FOOD4THOTH</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TarotFlipCardGallery/index.html">Quick Reference Flip Gallery</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TarotTogetherNoAge/index.html">Tarot Card Gallery (3 Decks)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TarotTogetherNoAge4Decks/index.html">Tarot Card Gallery (4 Decks)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/CelticCrossTarot/index.html">Celtic Cross Reading</a>
+  <a class="nav-button" href="https://www.food4thoth.com/ThreeCardTarot/index.html">Three-Card Tarot w/ Gallery</a>
+  <a class="nav-button" href="https://www.food4thoth.com/ThreeCardTarotByItself/index.html">Three-Card Tarot Reading</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TarotSacredGeometry/index.html">Sacred Geometry Tarot</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TarotCyberPunkDark/index.html">CyberPunk Dark Tarot</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TarotCyberPunkMelo/index.html">CyberPunk Melo Tarot</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TarotOG/index.html">OG Tarot w/ Voice Commands</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EgyptianTarot/index.html">Custom Egyptian Major Arcana (1–22)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/EgyptianTarotFull/index.html">Custom Sacred Geometry (1–78)</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TarotJungian/index.html">Jungian Thoth Tarot Spread</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TarotTextList/index.html">Cyberpunk Tarot Text Library</a>
+  <a class="nav-button" href="https://www.food4thoth.com/DrawTarot/index.html">All Spreads</a>
+  <a class="nav-button" href="https://www.food4thoth.com/MajixLanding/index.html">Majix Galleries Landing</a>
+  <a class="nav-button" href="https://www.food4thoth.com/MajixTarotMajor/index.html">Major Arcana</a>
+  <a class="nav-button" href="https://www.food4thoth.com/MajixTarotWands/index.html">Wands</a>
+  <a class="nav-button" href="https://www.food4thoth.com/MajixTarotCups/index.html">Cups</a>
+  <a class="nav-button" href="https://www.food4thoth.com/MajixTarotSwords/index.html">Swords</a>
+  <a class="nav-button" href="https://www.food4thoth.com/MajixTarotPentacles/index.html">Pentacles</a>
+  <a class="nav-button" href="https://www.food4thoth.com/MajixTarotAll/index.html">All Cards</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TarotGalleries/index.html">Explore All Galleries</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TarotCrystalQueens/indexAge.html">18+ Crystal Queens Tarot</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TarotCyberPunkX/indexAge.html">18+ CyberPunk X Tarot</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TarotAgeVerify/index.html">FOOD4THOTH 18+ Tarot Gallery</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TarotAllResources/index.html">All Resources</a>
+  <a class="nav-button" href="https://www.food4thoth.com/comingSoon.html">More Tarot Coming Soon</a>
+  <a class="nav-button" href="https://www.food4thoth.com/parental-controls.html">Parental Controls</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Iching/index.html">I Ching</a>
+  <a class="nav-button" href="https://www.food4thoth.com/IchingFractal/index.html">I Ching Fractal</a>
+  <a class="nav-button" href="https://www.food4thoth.com/IchingPhoto/index.html">I Ching Fractal/Photo</a>
 </div>
 
 # 🧿 I Ching Fractal & Photo Divination App
