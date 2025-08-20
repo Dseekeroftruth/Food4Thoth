@@ -1,19 +1,97 @@
+---
+layout: default
+title: "INPROGRESSION - Complete Music Collection | FOOD4THOTH README"
+description: "Explore INPROGRESSION's complete music collection — a fusion of rock, funk, hip-hop, punk, and experimental soundscapes. Listen to albums, watch videos, and connect through Artabillies & Food4Thoth."
+permalink: /Inprogression/readme/
+author: "DeJahn · FOOD4THOTH · Artabillies"
+lang: en
+canonical_url: "https://www.food4thoth.com/Inprogression/readme/"
+image: "https://www.food4thoth.com/Inprogression/images/IMG_0688.jpeg"
+
+# Open Graph / Facebook
+og:
+  type: article
+  title: "INPROGRESSION - Complete Music Collection | FOOD4THOTH"
+  description: "A dynamic blend of rock, funk, hip-hop, punk, and experimental music. Albums include Time & Energy, Down the Rabbit Hole, and Burned."
+  url: "https://www.food4thoth.com/Inprogression/readme/"
+  image: "https://www.food4thoth.com/Inprogression/images/IMG_0688.jpeg"
+  site_name: "FOOD4THOTH"
+
+# Twitter Card
+twitter:
+  card: summary_large_image
+  title: "INPROGRESSION - Complete Music Collection"
+  description: "Stream INPROGRESSION’s full discography, explore visuals, and connect with Artabillies & Food4Thoth."
+  image: "https://www.food4thoth.com/Inprogression/images/IMG_0688.jpeg"
+
+# Schema.org JSON-LD
+schema:
+  "@context": "https://schema.org"
+  "@type": "MusicGroup"
+  "name": "INPROGRESSION"
+  "url": "https://www.food4thoth.com/Inprogression/"
+  "description": "INPROGRESSION blends rock, funk, hip-hop, punk, and experimental music into powerful performances and multimedia experiences."
+  "image": "https://www.food4thoth.com/Inprogression/images/IMG_0688.jpeg"
+  "sameAs":
+    - "https://www.artabillies.com/inprogression"
+    - "https://www.facebook.com/share/19M7DM1SrT/?mibextid=wwXIfr"
+    - "https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ=="
+    - "https://www.food4thoth.com/MusicLibrary/"
+    - "https://www.food4thoth.com/MusicLibraryVis/"
+---
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a {
+    color: #00ffff;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffd700;
+  }
+  .wrap {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+
+  .nav-button {
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 6px;
+    background: linear-gradient(135deg, red, orange, yellow, green, blue, indigo, violet);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, violet, indigo, blue, green, yellow, orange, red);
+    box-shadow: 0 0 15px #00ffff;
+  }
+</style>
+
 <div style="text-align: center; margin-bottom: 20px;">
-    <button class="nav-button" onclick="location.href='../index.html'">FOOD4THOTH Website</button>
-    <button class="nav-button" onclick="location.href='https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho'">FOOD4THOTH Instagram</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi'">FOOD4THOTH Facebook</button>
-    <button class="nav-button" onclick="location.href='../Artabillies/index.html'">Learn About ARTABILLIES</button>
-    <button class="nav-button" onclick="location.href='https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ=='">ARTABILLIES Instagram</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi'">ARTABILLIES Facebook</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP'">ARTABILLIES Facebook Group</button>
-    <button class="nav-button" onclick="location.href='https://www.artabillies.com/contact-us'">Contact Artabillies</button>
-    <button class="nav-button" onclick="location.href='https://www.artabillies.com/artist-info'">Artists Info</button>
-    <button class="nav-button" onclick="location.href='../RstoryArtabillies/index.html'">Artabillies Rstory & TUDE</button>
-    <button class="nav-button" onclick="location.href='../Inprogression/index.html'">INPROGRESSION Info</button>
-    <button class="nav-button" onclick="location.href='../MusicLibrary/index.html'">INPROGRESSION Music Library</button>
-    <button class="nav-button" onclick="location.href='../MusicLibraryVis/index.html'">INPROGRESSION Library w/Visualiser</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/19M7DM1SrT/?mibextid=wwXIfr'">INPROGRESSION Facebook</button>
-		<button class="nav-button" onclick="location.href='https://www.artabillies.com/inprogression'">INPROGRESSION Artabillies</button>
+  <a class="nav-button" href="https://www.food4thoth.com/index.html">FOOD4THOTH Website</a>
+  <a class="nav-button" href="https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho">FOOD4THOTH Instagram</a>
+  <a class="nav-button" href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi">FOOD4THOTH Facebook</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Artabillies/index.html">Learn About ARTABILLIES</a>
+  <a class="nav-button" href="https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ==">ARTABILLIES Instagram</a>
+  <a class="nav-button" href="https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi">ARTABILLIES Facebook</a>
+  <a class="nav-button" href="https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP">ARTABILLIES Facebook Group</a>
+  <a class="nav-button" href="https://www.artabillies.com/contact-us">Contact Artabillies</a>
+  <a class="nav-button" href="https://www.artabillies.com/artist-info">Artists Info</a>
+  <a class="nav-button" href="https://www.food4thoth.com/RstoryArtabillies/index.html">Artabillies Rstory & TUDE</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Inprogression/index.html">INPROGRESSION Info</a>
+  <a class="nav-button" href="https://www.food4thoth.com/MusicLibrary/index.html">INPROGRESSION Music Library</a>
+  <a class="nav-button" href="https://www.food4thoth.com/MusicLibraryVis/index.html">INPROGRESSION Library w/Visualiser</a>
+  <a class="nav-button" href="https://www.facebook.com/share/19M7DM1SrT/?mibextid=wwXIfr">INPROGRESSION Facebook</a>
+  <a class="nav-button" href="https://www.artabillies.com/inprogression">INPROGRESSION Artabillies</a>
 </div>
 
 # INPROGRESSION - Complete Music Collection
