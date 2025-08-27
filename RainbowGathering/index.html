@@ -25,14 +25,14 @@
   <meta property="og:site_name" content="FOOD4THOTH" />
   <meta property="og:title" content="Rainbow Gatherings Archive" />
   <meta property="og:description" content="Decades of sound recordings and cultural storytelling from Rainbow Gatherings — curated by FOOD4THOTH." />
-  <meta property="og:image" content="https://www.food4thoth.com/RainbowGathering/og-preview.jpg" />
+  <meta property="og:image" content="https://www.food4thoth.com/images/og-preview.jpg" />
   <meta property="og:image:alt" content="Rainbow Gatherings Archive psychedelic OG preview with rainbow spectrum and communal circle" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Rainbow Gatherings Archive" />
   <meta name="twitter:description" content="Listen to rare Rainbow Gathering field recordings and explore their culture through FOOD4THOTH’s archive." />
-  <meta name="twitter:image" content="https://www.food4thoth.com/RainbowGathering/og-preview.jpg" />
+  <meta name="twitter:image" content="https://www.food4thoth.com/images/og-preview.jpg" />
   <meta name="twitter:site" content="@food4thoth" />
 
   <!-- Prefetch / Preconnect -->
@@ -63,7 +63,7 @@
         "url": "https://www.food4thoth.com/images/favicon.png"
       }
     },
-    "image": "https://www.food4thoth.com/RainbowGathering/og-preview.jpg"
+    "image": "https://www.food4thoth.com/images/og-preview.jpg"
   }
   </script>
  
@@ -135,6 +135,295 @@
     1981 Washington Rainbow Gathering
   </a>
 </p>
+
+<!-- ============ Collapsible Lyrics + Context (mobile-friendly) ============ -->
+<div class="rg-lyrics-wrap" style="max-width:900px;margin:0 auto;">
+  <!-- Toggle button -->
+  <button id="rgToggleBtn"
+          aria-controls="rgLyrics"
+          aria-expanded="false"
+          style="display:inline-block;padding:10px 16px;background:#6a0dad;color:#fff;border:none;border-radius:8px;cursor:pointer;margin:10px 0;">
+    🎵 Show “Walking on the Earth” Lyrics & Info
+  </button>
+
+  <details id="rgLyrics" style="border:2px solid #6a0dad;border-radius:10px;background:#0e0e0e;color:#f2f2f2;max-height:400px;overflow-y:auto;">
+    <summary style="cursor:pointer;list-style:none;padding:14px 16px;font-weight:700;color:#ffd700;">
+      🎵 Rainbow Song Lyrics: <em>Walking on the Earth</em> — click to open/close
+    </summary>
+
+    <div style="padding:14px 16px;line-height:1.55;">
+      <!-- Full lyrics -->
+      <pre style="white-space:pre-wrap;font-family:inherit;margin:0;">
+Walking on the earth, 
+Walking on the earth we find our way Back home.
+
+Walking on the earth, 
+Walking on the earth, 
+Walking on the earth we find our way Back home.
+
+I am a Woman and I love my Mother 
+I am a Woman and I love my Father
+Beauty above me and beauty below me Beauty all around me.
+
+I
+
+am a Man and I love my Mother 
+I am a Man and I love my Father
+Beauty above me and beauty below me Beauty all around me.
+
+I
+
+am a Child and I love my Mother 
+I am a Child and I love my Father
+Beauty above me and beauty below me Beauty all around me.
+
+I 
+
+am a Rainbow and I love my Mother 
+I am a Rainbow and I love my Father
+Beauty above me and beauty below me Beauty all around me.
+
+I
+
+am a Mountain and I love my Mother 
+I am a Mountain and I love my Father
+Beauty above me and beauty below me Beauty all around me.
+
+I 
+
+am a River and I love my Mother 
+I am a River and I love my Father
+Beauty above me and beauty below me Beauty all around me.
+
+I
+
+am a Sun and I love my Mother 
+I am a Sun and I love my Father
+Beauty above me and beauty below me Beauty all around me.
+
+I
+
+am Alive and I love my mother 
+I am Alive and I love my father
+Beauty above me and beauty below me Beauty all around me.
+      </pre>
+
+      <hr style="border:none;border-top:1px solid #444;margin:16px 0;">
+
+      <p style="margin:0 0 10px 0;">
+        <strong>From</strong>:
+        <a href="https://archive.org/details/1981WashingtonRainbowGathering" target="_blank" rel="noopener noreferrer">
+          1981 Washington Rainbow Gathering
+        </a>
+      </p>
+
+      <p style="margin:0;">
+        <strong>Source notes</strong>: RainbowAlive1981.SideB (29:30) — 1981 Washington Rainbow Gathering by Tenali •
+        Usage: CC0 1.0 Universal • Topics: rainbow gathering, washington, field recording •
+        Added: 2016-11-28 • Identifier: 1981WashingtonRainbowGathering
+      </p>
+
+      <hr style="border:none;border-top:1px solid #444;margin:16px 0;">
+
+      <h4 style="color:#ffd700;margin:0 0 8px 0;">Structure & Meaning</h4>
+      <ul style="margin:0 0 8px 16px;padding:0;">
+        <li><strong>Chorus:</strong> Returning “home” to harmony with Earth & community.</li>
+        <li><strong>Verses:</strong> “I am…” expands identity (woman, man, child → rainbow, mountain, river, sun → alive).</li>
+        <li><strong>Blessing Way echo:</strong> “Beauty above, below, around.”</li>
+        <li><strong>Living tradition:</strong> A cappella or soft drums; call-and-response; often improvised.</li>
+      </ul>
+
+      <p style="margin:8px 0 0 0;">
+        🌈 Microcosm & macrocosm: the song affirms life, nature, and unity; the Gatherings embody that spirit in community.
+      </p>
+    </div>
+  </details>
+</div>
+
+<script>
+  (function () {
+    const d = document.getElementById('rgLyrics');
+    const b = document.getElementById('rgToggleBtn');
+    if (!d || !b) return;
+
+    // Keep closed on page load
+    d.removeAttribute('open');
+
+    // Sync button text + ARIA
+    const sync = () => {
+      const open = d.hasAttribute('open');
+      b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      b.textContent = open ? '🎵 Hide Lyrics & Info' : '🎵 Show Lyrics & Info';
+    };
+
+    // Toggle with button
+    b.addEventListener('click', () => {
+      if (d.hasAttribute('open')) {
+        d.removeAttribute('open');
+      } else {
+        d.setAttribute('open', '');
+      }
+      sync();
+    });
+
+    // Sync if <summary> is clicked
+    d.addEventListener('toggle', sync);
+
+    // Initialize
+    sync();
+  })();
+</script>
+
+<!-- ============ Responsive Facebook Video Embed (full width, iPhone-safe) ============ -->
+<div style="position:relative;width:100%;max-width:900px;margin:16px auto 0;height:0;padding-bottom:60%;">
+  <iframe
+    src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F807223958643302%2F&show_text=false"
+    style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;overflow:hidden;"
+    frameborder="0"
+    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+    allowfullscreen="true">
+  </iframe>
+</div>
+
+
+<!-- ============ Collapsible: "Basic Human Needs" (mobile-friendly) ============ -->
+<div class="bhn-wrap" style="max-width:900px;margin:0 auto;">
+  <!-- Toggle button -->
+  <button id="bhnToggleBtn"
+          aria-controls="bhnDetails"
+          aria-expanded="false"
+          style="display:inline-block;padding:10px 16px;background:#6a0dad;color:#fff;border:none;border-radius:8px;cursor:pointer;margin:10px 0;">
+    🎶 Show “Basic Human Needs” Lyrics & Info
+  </button>
+
+  <details id="bhnDetails" style="border:2px solid #0b7a4b;border-radius:10px;background:#0e0e0e;color:#f2f2f2;max-height:400px;overflow-y:auto;">
+    <summary style="cursor:pointer;list-style:none;padding:14px 16px;font-weight:700;color:#ffd700;">
+      🎶 Rainbow Song Lyrics: <em>Basic Human Needs</em> — click to open/close
+    </summary>
+
+    <div style="padding:14px 16px;line-height:1.55;">
+      <!-- Full lyrics, exact line breaks preserved -->
+      <pre style="white-space:pre-wrap;font-family:inherit;margin:0;">
+Wouldn’t it be sweet? 
+If people on the street, had shoes on their feet? 
+And something to eat?
+
+And wouldn’t it be fine? 
+If all humankind had shelter?
+
+Basic human needs 
+Doing what comes naturally
+Down in the garden 
+Where no one is apart
+Deep down in the garden the garden of our heart.
+
+Wouldn’t it be daring?
+If we all started sharing?
+Instead of comparing,
+What each other’s wearing? 
+
+And wouldn’t it be swell? If no one would sell, their mother?
+
+Basic human needs 
+Doing what comes naturally
+Down in the garden 
+Where no one is apart
+Deep down in the garden the garden of our heart.
+
+And wouldn’t it be grand? 
+If we all lend a hand? 
+So each one could stand on?
+A free piece of land? 
+
+And wouldn’t it be thrilling? 
+If we all stoping our killing?
+And started healing the land? 
+
+Basic human needs 
+Doing what comes naturally
+Down in the garden 
+Where no one is apart
+Deep down in the garden the garden of our heart.
+      </pre>
+
+      <hr style="border:none;border-top:1px solid #444;margin:16px 0;">
+
+      <p style="margin:0 0 10px 0;">
+        <strong>From</strong>:
+        <a href="https://archive.org/details/1981WashingtonRainbowGathering" target="_blank" rel="noopener noreferrer">
+          1981 Washington Rainbow Gathering
+        </a>
+      </p>
+
+      <p style="margin:0;">
+        <strong>Source notes</strong>: RainbowAlive1981.SideB (29:30) — 1981 Washington Rainbow Gathering by Tenali •
+        Usage: CC0 1.0 Universal (Creative Commons Zero) • Topics: rainbow gathering, washington, field recording •
+        Added: 2016-11-28 • Identifier: 1981WashingtonRainbowGathering
+      </p>
+
+      <hr style="border:none;border-top:1px solid #444;margin:16px 0;">
+
+      <h4 style="color:#ffd700;margin:0 0 8px 0;">Breakdown</h4>
+      <ul style="margin:0 0 8px 16px;padding:0;">
+        <li><strong>Opening:</strong> Dignity & care — shoes, food, shelter for all.</li>
+        <li><strong>Chorus:</strong> “Basic human needs…” — unity in the garden, no one apart.</li>
+        <li><strong>Middle:</strong> Sharing over comparing; don’t commodify “Mother.”</li>
+        <li><strong>Closing:</strong> Land, peace, and healing the Earth.</li>
+      </ul>
+
+      <p style="margin:8px 0 0 0;">
+        🌈 Microcosm ↔️ Macrocosm: the song voices Rainbow values; the Gatherings live them in community.
+      </p>
+    </div>
+  </details>
+</div>
+
+<script>
+  (function () {
+    const d = document.getElementById('bhnDetails');
+    const b = document.getElementById('bhnToggleBtn');
+    if (!d || !b) return;
+
+    // Always start closed
+    d.removeAttribute('open');
+
+    // Sync button text + ARIA
+    const sync = () => {
+      const open = d.hasAttribute('open');
+      b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      b.textContent = open
+        ? '🎶 Hide “Basic Human Needs” Lyrics & Info'
+        : '🎶 Show “Basic Human Needs” Lyrics & Info';
+    };
+
+    // Button toggles <details>
+    b.addEventListener('click', () => {
+      if (d.hasAttribute('open')) d.removeAttribute('open'); else d.setAttribute('open', '');
+      sync();
+    });
+
+    // Native <summary> click updates button
+    d.addEventListener('toggle', sync);
+
+    // Initialize
+    sync();
+  })();
+</script>
+
+
+
+<!-- ============ Responsive Facebook Video Embed (full width, iPhone-safe) ============ -->
+<div style="position:relative;width:100%;max-width:900px;margin:16px auto 0;height:0;padding-bottom:60%;">
+  <iframe
+    src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1109935217746738%2F&show_text=false"
+    style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;overflow:hidden;"
+    frameborder="0"
+    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+    allowfullscreen="true">
+  </iframe>
+</div>
+
+
 <br /><br /><br /><br />
       
 
