@@ -10,11 +10,18 @@
     }
 
     h1 {
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-      font-size: 3rem;
-      margin-top: 0.5rem;
-      z-index: 2;
-    }
+  font-size: 3rem;
+  margin-top: 3rem;
+  z-index: 2;
+  text-shadow: 
+    /* black outline */
+    -1px -1px 0 #000,  
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000,
+    /* white glow */
+    0 0 10px rgba(255, 255, 255, 0.8);
+}
 
     /* Background iframe */
     #background-iframe {
@@ -36,7 +43,7 @@
   display: flex;
   flex-direction: column; /* Forces vertical stacking */
   gap: 1rem;
-  padding: 1rem;
+  padding: .25rem;
   max-width: 400px;
   margin: auto;
 }
@@ -417,7 +424,12 @@
 
 .f4t-theme h2 {
   color: #c6ffdd;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  text-shadow: /* black outline */
+	-1px -1px 0 #000,  
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000,
+	0 0 10px rgba(255, 255, 255, 0.8);
 }
 
 .f4t-theme h3 {
@@ -556,7 +568,7 @@
 /* Toggle Button Styling */
 .toggle-button {
     position: fixed;
-    top: 40px;
+    top: 10px;
 		left: 10px;
     align-items: center;
 		justify-content: center;
