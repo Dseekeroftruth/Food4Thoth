@@ -3,29 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <title>Sacred Geometry Food4Thoth Tarot</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- CSS Reset -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" onerror="this.onerror=null;this.href='./libs/reset.min.css';">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<!-- Performance -->
+  <link rel="dns-prefetch" href="//www.food4thoth.com">
+  <link rel="preconnect" href="https://www.food4thoth.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://rawgithub.com" crossorigin>
+  <link rel="preconnect" href="https://ihatetomatoes.net" crossorigin>
 
-<link rel="stylesheet" href="./style.css">
+  <!-- Fonts -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Krona+One&family=Major+Mono+Display&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Krona+One&family=Major+Mono+Display&display=swap" media="all">
+  <link rel="prefetch" as="style" href="https://fonts.googleapis.com/css2?family=Krona+One&family=Major+Mono+Display&display=swap">
 
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" onerror="this.onerror=null;this.href='./libs/reset.min.css';">
+  <link rel="stylesheet" href="./style.css">
+	
+<!-- Preload: first/above-the-fold cards for best LCP -->
+<link rel="preload" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/AceSwords.JPEG" type="image/jpeg" fetchpriority="high" />
+  <link rel="preload" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/2Swords.JPEG" type="image/jpeg" fetchpriority="high" />
 
+  <!-- Prefetch: remaining SWORDS suit -->
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/3Swords.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/4Swords.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/5Swords.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/6Swords.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/7Swords.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/8Swords.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/9Swords.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/10Swords.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/PageSwords.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/KnightSwords.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/QueenSwords.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/KingSwords.JPEG" />
+
+  <!-- Prerender: whole Swords page for ultra-fast returns -->
+  <link rel="prerender" href="https://www.food4thoth.com/MajixTarotAll/indexSwords.html" />
+	
+	<link rel="prefetch" href="./scriptSwords.js" as="script" />
+	<link rel="prefetch" href="https://ihatetomatoes.net/merry-christmallax/js/skrollr.js" as="script" />
+	
 </head>
 <body>
  
-	
-	<!-- partial:index.partial.html -->
+<!-- partial:index.partial.html -->
 <!-- <div id="info">0</div> 
 <div id="scrollId"> 0 %</div> -->
 <div id="container"></div>
 
-
-
-
-
 <div id="app" class="container">
   <br>
  
-
   <card data-image="./Images/AceSwords.JPEG">
 
     <h1 slot="header">Ace</h1>
@@ -151,10 +183,6 @@
 </script>
 
 <script  src="./scriptSwords.js"></script>
-
-
-
-
 
 </body>
 </html>

@@ -3,24 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <title>Sacred Geometry Food4Thoth Tarot</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- CSS Reset -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" onerror="this.onerror=null;this.href='./libs/reset.min.css';">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="./style.css">
+<!-- Performance -->
+  <link rel="dns-prefetch" href="//www.food4thoth.com">
+  <link rel="preconnect" href="https://www.food4thoth.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://rawgithub.com" crossorigin>
+  <link rel="preconnect" href="https://ihatetomatoes.net" crossorigin>
 
+  <!-- Fonts -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Krona+One&family=Major+Mono+Display&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Krona+One&family=Major+Mono+Display&display=swap" media="all">
+  <link rel="prefetch" as="style" href="https://fonts.googleapis.com/css2?family=Krona+One&family=Major+Mono+Display&display=swap">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" onerror="this.onerror=null;this.href='./libs/reset.min.css';">
+  <link rel="stylesheet" href="./style.css">
+
+  <!-- Preload (above-the-fold) -->
+  <link rel="preload" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Fool.JPEG" type="image/jpeg" fetchpriority="high" />
+  <link rel="preload" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Magician.JPEG" type="image/jpeg" fetchpriority="high" />
+	
+	<!-- Prefetch: remaining Major Arcana images (warm cache) -->
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/HighPriestess.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Empress.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Emperor.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Hierophant.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Lovers.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Chariot.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Strength.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Hermit.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/WheelofFortune.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Justice.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/HangedMan.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Death.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Temperance.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Devil.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Tower.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Star.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Moon.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Sun.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/Judgment.JPEG" />
+  <link rel="prefetch" as="image" href="https://www.food4thoth.com/MajixTarotAll/Images/World.JPEG" />
+
+  <!-- Prerender -->
+  <link rel="prerender" href="https://www.food4thoth.com/MajixTarotAll/indexMajor.html" />
+	
+	<link rel="prefetch" href="./scriptMajor.js" as="script" />
+	<link rel="prefetch" href="https://ihatetomatoes.net/merry-christmallax/js/skrollr.js" as="script" />
 
 </head>
 <body>
  
-	
-	<!-- partial:index.partial.html -->
+<!-- partial:index.partial.html -->
 <!-- <div id="info">0</div> 
 <div id="scrollId"> 0 %</div> -->
 <div id="container"></div>
-
-
-
-
 
 <div id="app" class="container">
   <br>
@@ -189,10 +230,6 @@
 </script>
 
 <script  src="./scriptMajor.js"></script>
-
-
-
-
 
 </body>
 </html>
