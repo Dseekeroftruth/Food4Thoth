@@ -3,16 +3,16 @@ layout: default
 title: "Path of the Cosmic Serpent README"
 description: "An interactive choose-your-own-adventure experience built by FOOD4THOTH — featuring 120+ pages of branching mystic narratives, cosmic artwork, and user-driven discovery."
 permalink: /ChooseYourOwnAdventure/readme/
-image: ./images/compass.jpg
+image: https://www.food4thoth.com/ChooseYourOwnAdventure/images/compass.jpg
 
 og_title: "Path of the Cosmic Serpent"
 og_description: "Embark on a mystic narrative journey where every decision alters your path. Built by Food4Thoth and Artabillies."
-og_image: ./images/compass.jpg
+og_image: https://www.food4thoth.com/ChooseYourOwnAdventure/images/compass.jpg
 
 twitter_card: summary_large_image
 twitter_title: "Path of the Cosmic Serpent"
 twitter_description: "A visionary webcomic & interactive game through cosmic symbols and spiritual choices — part of the FOOD4THOTH universe."
-twitter_image: ./images/compass.jpg
+twitter_image: https://www.food4thoth.com/ChooseYourOwnAdventure/images/compass.jpg
 ---
 
 <style>
