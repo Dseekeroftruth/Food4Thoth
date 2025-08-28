@@ -5,7 +5,7 @@ author: "De'Jahn Bell (Food4Thoth)"
 created: 2025-08-15
 last_updated: 2025-08-15
 permalink: /GloCalculato/readme/
-image: /GloCalculato/images/og-preview.jpg
+image: /GloCalculato/og-preview.jpg
 tags: [Glo-Calculato, calculator, glowing rainbow, math tool, trigonometry, interactive, FOOD4THOTH, JavaScript, CSS animation]
 description: |
   Glo-CALCULATO is a unique glowing rainbow calculator that performs basic operations and trigonometry. Designed by De'Jahn Bell, it combines functionality with vibrant CSS animations, responsive design, and playful aesthetics. Built with JavaScript, math.js, and creative open-source styling, it’s both a useful tool and a visual delight.
