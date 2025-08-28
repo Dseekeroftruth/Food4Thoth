@@ -14,7 +14,6 @@
 	<!-- Favicons / PWA -->
   <link rel="icon" href="https://www.food4thoth.com/images/favicon.png" type="image/png" />
   
-	
  <!-- Open Graph -->
   <meta property="og:site_name" content="FOOD4THOTH" />
   <meta property="og:type" content="website" />
@@ -36,11 +35,46 @@
   <meta name="twitter:description" content="Explore all 78 tarot cards with immersive visuals, flip animations, and suit galleries." />
   <meta name="twitter:image" content="https://www.food4thoth.com/MajixLanding/og-preview.jpg" />
   <meta name="twitter:image:alt" content="Majix Tarot Galleries preview — sacred geometry tarot cards from FOOD4THOTH" />
+	
+	<!-- Social Profiles (optional reference) -->
+  <link rel="me" href="https://twitter.com/food4th0th" />
+  <link rel="me" href="https://www.instagram.com/emerald_path_food4th0th/" />
+  <link rel="me" href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/" />
+  <link rel="me" href="https://www.artabillies.com" />
 
+  <!-- Preconnect to Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+<!-- Preload the stylesheet -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap">
+
+<!-- Prefetch for future navigations -->
+<link rel="prefetch" as="style" href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap">
+
+<!-- Load stylesheet -->
+<link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet">
  
-  
-  <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet" />
+	<!-- Performance: DNS/Preconnect -->
+  <link rel="dns-prefetch" href="//www.food4thoth.com">
+  <link rel="preconnect" href="https://www.food4thoth.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://rawgithub.com" crossorigin>
+  <link rel="preconnect" href="https://ihatetomatoes.net" crossorigin>
+
+  <link rel="stylesheet" href="./styles.css" />
+	
+	<!-- Prerender: full Major Arcana page for instant next navigation -->
+  <link rel="prerender" href="https://www.food4thoth.com/MajixLanding/index.html" />
+
+	<!-- Prefetch helpful nav/scripts -->
+  <link rel="prefetch" href="../navigation.html" as="document" />
+  <link rel="prefetch" href="../iframe_script.js" as="script" />
+  <link rel="prefetch" href="../nav-fetch.js" as="script" />
+  <link rel="prefetch" href="../nav_script2.js" as="script" />
+	 <link rel="prefetch" href="https://ihatetomatoes.net/merry-christmallax/js/skrollr.js" as="script" />
 
  <link rel="stylesheet" href="./styles.css">
  
@@ -72,8 +106,6 @@
   <link rel="prefetch" as="document" href="https://www.food4thoth.com/MajixTarotSwords/index.html" />
   <link rel="prefetch" as="document" href="https://www.food4thoth.com/MajixTarotPentacles/index.html" />
   <link rel="prefetch" as="document" href="https://www.food4thoth.com/MajixTarotAll/index.html" />
-
-
 
 <!-- Structured Data: WebSite + WebPage + Breadcrumbs -->
   <script type="application/ld+json">
@@ -129,7 +161,30 @@
 	  <!-- JS (preload + defer execution) -->
   <link rel="preload" as="script" href="https://www.food4thoth.com/MajixLanding/script.js" />
   <script src="https://www.food4thoth.com/MajixLanding/script.js" defer></script>
-
+	
+	<!-- Prerender this page (speeds up same-URL navigations) -->
+  <link rel="prerender" href="https://www.food4thoth.com/MajixTarotAll/indexWands.html" />
+	<link rel="prerender" href="https://www.food4thoth.com/MajixTarotAll/indexCups.html" />
+	<link rel="prerender" href="https://www.food4thoth.com/MajixTarotAll/indexSwords.html" />
+	<link rel="prerender" href="https://www.food4thoth.com/MajixTarotAll/indexPentacles.html" />
+	<link rel="prerender" href="https://www.food4thoth.com/MajixTarotAll/indexMajor.html" />
+ <link rel="prerender" href="https://www.food4thoth.com/MajixTarotAll/indexMajor2.html" />
+  <link rel="prerender" href="https://www.food4thoth.com/MajixTarotAll/indexAll.html" />
+	
+	<!-- Prerender -->
+  <link rel="prerender" href="https://www.food4thoth.com/MajixTarotAll/index.html" />
+	
+	<!-- Prerender -->
+  <link rel="prerender" href="https://www.food4thoth.com/MajixTarotCups/index.html" />
+	
+	<!-- Prerender -->
+  <link rel="prerender" href="https://www.food4thoth.com/MajixTarotWands/index.html" />
+	
+	<!-- Prerender -->
+  <link rel="prerender" href="https://www.food4thoth.com/MajixTarotPentacles/index.html" />
+	
+	<!-- Prerender -->
+  <link rel="prerender" href="https://www.food4thoth.com/MajixTarotSwords/index.html" />
 
 </head>
 <body>
@@ -164,25 +219,25 @@
 
     <div class="tarot-frame theme-abyssal" data-bg="../MajixTarotAll/indexCups.html">
       <h2>Cups</h2>
-      <iframe src="../MajixTarotCups/index.html" loading="lazy"></iframe>
+      <iframe src="../MajixTarotCups/index.html"></iframe>
       <p><a href="../MajixTarotCups/index.html" target="_blank" class="cta-button cta-button-melo">Cups</a></p>
     </div>
 
     <div class="tarot-frame theme-geometry" data-bg="../MajixTarotAll/indexSwords.html">
       <h2>Swords</h2>
-      <iframe src="../MajixTarotSwords/index.html" loading="lazy"></iframe>
+      <iframe src="../MajixTarotSwords/index.html"></iframe>
       <p><a href="../MajixTarotSwords/index.html" target="_blank" class="cta-button cta-button-abyssal">Swords</a></p>
     </div>
 		
 		<div class="tarot-frame theme-crystal" data-bg="../MajixTarotAll/indexPentacles.html">
       <h2>Pentacles</h2>
-      <iframe src="../MajixTarotPentacles/index.html" loading="lazy"></iframe>
+      <iframe src="../MajixTarotPentacles/index.html"></iframe>
       <p><a href="../MajixTarotPentacles/index.html" target="_blank" class="cta-button cta-button-neon-noir">Pentacles</a></p>
     </div>
 		
 		 <div class="tarot-frame theme-sacred" data-bg="../MajixTarotAll/indexAll.html">
       <h2>All Cards</h2>
-      <iframe src="../MajixTarotAll/index.html" loading="lazy"></iframe>
+      <iframe src="../MajixTarotAll/index.html"></iframe>
       <p><a href="../MajixTarotAll/index.html" target="_blank" class="cta-button cta-button-sacred">All Cards</a></p>
     </div>
 		
@@ -311,7 +366,7 @@
     <footer class="footer">
       <p>🔮 Powered by De'Jahn of:<br /><a href="http://www.food4thoth.com" target="_blank"><strong>Food4Thoth</strong></a> &amp; <a href="http://www.artabillies.com" target="_blank"><strong>Artabillies</strong></a></p>
       <p>For inquiries or feedback, email us at <a href="mailto:food4thoth@proton.me">food4thoth@proton.me</a></p>
-      <p>&copy; 2025 Food4Thoth. All rights reserved.<br /><a href="/MajixLanding/readme/"  class="styled-link"><strong>ReadMe</strong></a></p></p>
+      <p>&copy; 2025 Food4Thoth. All rights reserved.<br /><a href="/MajixLanding/readme/"  class="styled-link"><strong>ReadMe</strong></a></p>
     </footer>
 
 </body>
