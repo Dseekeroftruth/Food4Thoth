@@ -1,3 +1,45 @@
+---
+title: "Mescalito's Art Reveal Pages • FOOD4THOTH README"
+description: "Interactive art reveal pages blending iframes, WebGL liquid masking, staggered grids, and immersive navigation. Includes Mescalito's Amazing Story with audio and dynamic backgrounds."
+author: "DeJahn • Food4Thoth / Artabillies"
+date: 2025-08-27
+permalink: /Mescalito/readme/
+canonical_url: "https://www.food4thoth.com/Mescalito/readme/"
+layout: default
+image: "https://www.food4thoth.com/Mescalito/og-preview.jpg"
+
+tags:
+  - Food4Thoth
+  - Artabillies
+  - Interactive Art
+  - WebGL
+  - Iframes
+  - Esoteric Tools
+  - Digital Garden
+  - Mescalito
+  - Sacred Geometry
+
+social:
+  twitter: "https://twitter.com/food4th0th"
+  facebook: "https://www.facebook.com/share/W8VnfAM2NHBAMTUb/"
+  instagram: "https://www.instagram.com/emerald_path_food4th0th/"
+  artabillies: "https://www.artabillies.com"
+
+# SEO / Open Graph
+og:
+  title: "Art Reveal Pages • FOOD4THOTH"
+  description: "Explore dynamic iframe grids, liquid masking animations, staggered reveals, and Mescalito's Amazing Story — part of the FOOD4THOTH art & mysticism ecosystem."
+  image: "https://www.food4thoth.com/Mescalito/og-preview.jpg"
+  url: "https://www.food4thoth.com/Mescalito/readme/"
+
+twitter:
+  card: "summary_large_image"
+  site: "@food4th0th"
+  title: "Art Reveal Pages • FOOD4THOTH"
+  description: "Two immersive art reveal pages with iframe grids, background animations, and Mescalito’s Amazing Story."
+  image: "https://www.food4thoth.com/Mescalito/og-preview.jpg"
+---
+
 # Art Reveal Pages
 
 # 📌 Overview
