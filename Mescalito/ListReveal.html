@@ -505,8 +505,14 @@ body.iframe-mode .toggle-button {
     img.classList.add("cyberpunk-image");
 
     const link = document.createElement("a");
-    link.href = `./index${index + 1}.html`; // Generates ./index1.html, ./index2.html, etc.
-    link.textContent = `Index ${index + 1}`;
+    // Special case for the first one
+    if (index === 0) {
+      link.href = "./index.html";
+      link.textContent = "Index 1";
+    } else {
+      link.href = `./index${index + 1}.html`;
+      link.textContent = `Index ${index + 1}`;
+    }
 
     card.appendChild(img);
     card.appendChild(link);

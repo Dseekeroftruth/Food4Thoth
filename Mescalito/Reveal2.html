@@ -94,7 +94,7 @@
 <link rel="preload"
       as="video"
       href="Untitled.mov"
-      type="video/mp4"
+      type="video/quicktime"
       fetchpriority="high" />
 
 <!-- Ambient audio -->
@@ -146,6 +146,8 @@
       "/Mescalito/readme/",
       "../index.html",
       "../contact.html",
+      "./Reveal2.html",
+      "./ListReveal.html",
       "../navigation.html"
     ]}
   ]
@@ -482,13 +484,27 @@ body.iframe-mode .toggle-button {
 		}
 				
   </style>
+	
+	<script>
+  function __setAnimState() {
+    document.documentElement.style.setProperty("--anim-state", document.hidden ? "paused" : "running");
+  }
+  document.addEventListener("visibilitychange", __setAnimState);
+  __setAnimState();
+</script>
+
+<style>
+  /* any long-running animations you use */
+  .glow-effect, .path { animation-play-state: var(--anim-state, running); }
+</style>
 </head>
 <body>
 	
 	<!-- Background container -->
 <div class="background-container">
     <video id="background-video" autoplay muted loop playsinline>
-        <source src="Untitled.mov" type="video/mp4">
+        <!-- if keeping .mov -->
+<source src="./Untitled.mov" type="video/quicktime">
         Your browser does not support the video tag.
     </video>
 </div>
@@ -552,33 +568,48 @@ body.iframe-mode .toggle-button {
 
     const iframeGrid = document.getElementById("iframeGrid");
 
-    // 2) Recursive function that loads one iframe at a time.
-    function loadIframesSequentially(index) {
-      // If we've loaded all URLs, stop.
-      if (index >= iframeURLs.length) {
-        console.log("All iframes have finished loading.");
-        return;
-      }
+  // postMessage helper
+  const tell = (frame, cmd) => {
+    try { frame?.contentWindow?.postMessage({ cmd }, "*"); } catch (e) {}
+  };
 
-      // Create a new iframe for this URL.
-      const iframe = document.createElement("iframe");
-      iframe.src = iframeURLs[index];
-
-      // When this iframe finishes loading, trigger the next iframe to load.
-      iframe.onload = function() {
-        console.log(`Iframe ${index + 1} of ${iframeURLs.length} loaded.`);
-        // Move on to the next iframe.
-        loadIframesSequentially(index + 1);
-      };
-
-      // Add the iframe to the grid container.
-      iframeGrid.appendChild(iframe);
+  // Pause/resume an iframe based on viewport visibility
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      tell(e.target, e.isIntersecting ? "resume" : "pause");
     }
+  }, { root: null, threshold: 0.1 });
 
-    // 3) Start loading from the first iframe.
-    //    Each one will load after the previous finishes.
-    loadIframesSequentially(0);
-  </script>
+  // Sequential loader (unchanged behavior)
+  function loadIframesSequentially(index) {
+    if (index >= iframeURLs.length) {
+      console.log("All iframes have finished loading.");
+      return;
+    }
+    const iframe = document.createElement("iframe");
+    iframe.src = iframeURLs[index];
+    iframe.loading = "lazy"; // hint
+    iframe.referrerPolicy = "no-referrer";
+    iframe.setAttribute("allow", "autoplay; fullscreen");
+
+    iframe.onload = () => {
+      console.log(`Iframe ${index + 1} of ${iframeURLs.length} loaded.`);
+      loadIframesSequentially(index + 1);
+    };
+
+    iframeGrid.appendChild(iframe);
+    io.observe(iframe);
+  }
+
+  // Tab visibility → pause/resume all
+  document.addEventListener("visibilitychange", () => {
+    const cmd = document.hidden ? "pause" : "resume";
+    [...document.querySelectorAll("#iframeGrid iframe")].forEach(f => tell(f, cmd));
+  });
+
+  // Start
+  loadIframesSequentially(0);
+</script>
 	
 <script src="../nav-fetch.js"></script>
 <script src="../nav_script2.js"></script>

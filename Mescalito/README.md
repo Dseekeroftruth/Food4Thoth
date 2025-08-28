@@ -40,6 +40,34 @@ twitter:
   image: "https://www.food4thoth.com/Mescalito/og-preview.jpg"
 ---
 
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a { color: #00ffff; }
+  h1, h2, h3, h4, h5, h6 { color: #ff66cc; }
+	
+	  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ff00ff, #001eff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(255, 0, 255, 0.5);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffff, #6600cc);
+    box-shadow: 0 0 10px #00ffff;
+  }
+
+</style>
+
 # Art Reveal Pages
 
 # 📌 Overview

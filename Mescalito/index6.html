@@ -18,7 +18,102 @@
   
 </div>
 
+<script>
+/* ---------- WebGL low-power + rAF gate + pointer throttling (non-breaking) ---------- */
+(function () {
+  /* Force friendlier WebGL attributes without touching your code */
+  const origGetCtx = HTMLCanvasElement.prototype.getContext;
+  HTMLCanvasElement.prototype.getContext = function(type, attrs) {
+    if (type === "webgl" || type === "experimental-webgl") {
+      attrs = Object.assign(
+        { antialias: false, preserveDrawingBuffer: false, powerPreference: "low-power", alpha: true },
+        attrs || {}
+      );
+    }
+    return origGetCtx.call(this, type, attrs);
+  };
 
+  /* Gate requestAnimationFrame so we can pause/resume safely */
+  const nativeRAF = window.requestAnimationFrame.bind(window);
+  const nativeCAF = window.cancelAnimationFrame.bind(window);
+  let paused = false;
+  let pending = null; // { id, cb }
+
+  // Optional FPS cap (0 = off). Set to 30 for extra savings without visible change.
+  const FPS_CAP = 0; // e.g., 30
+  const STEP = FPS_CAP ? (1000 / FPS_CAP) : 0;
+  let lastTs = 0;
+
+  window.requestAnimationFrame = function(cb) {
+    // When paused, remember the last callback and don't tick the loop.
+    if (paused) {
+      const id = Math.floor(Math.random() * 1e9);
+      pending = { id, cb };
+      return id;
+    }
+    // Wrap cb to optionally cap FPS
+    const wrapped = (ts) => {
+      if (paused) { pending = { id: 0, cb }; return; }
+      if (!STEP || ts - lastTs >= STEP) { lastTs = ts; cb(ts); }
+      else { nativeRAF(wrapped); }
+    };
+    return nativeRAF(wrapped);
+  };
+
+  window.cancelAnimationFrame = function(id) {
+    if (pending && pending.id === id) { pending = null; return; }
+    nativeCAF(id);
+  };
+
+  // Expose controller for parent
+  window.__rafController = {
+    pause() { paused = true; pending = null; },
+    resume() {
+      if (!paused) return;
+      paused = false;
+      const cb = pending && pending.cb;
+      pending = null;
+      if (cb) nativeRAF(cb);
+    }
+  };
+
+  // Be conservative on lifecycle
+  addEventListener("pagehide", () => { paused = true; pending = null; });
+  addEventListener("visibilitychange", () => {
+    if (document.hidden) window.__rafController.pause();
+    else window.__rafController.resume();
+  });
+
+  // Lightly throttle super-chatty pointer moves (keeps gesture feel)
+  document.addEventListener("DOMContentLoaded", () => {
+    const canvas = document.querySelector("canvas");
+    if (!canvas) return;
+    let last = 0;
+    const MIN_DELTA = 1000 / 45; // allow up to ~45 events/sec
+    canvas.addEventListener("pointermove", (e) => {
+      const now = performance.now();
+      if (now - last < MIN_DELTA) {
+        // Skip propagating this event to handlers set by your script.js
+        e.stopImmediatePropagation();
+        return;
+      }
+      last = now;
+    }, true); // capture so we can throttle before other listeners
+
+    // Safety: if GL context is lost, pause to prevent tight loops
+    canvas.addEventListener("webglcontextlost", (ev) => { ev.preventDefault(); window.__rafController.pause(); }, false);
+    canvas.addEventListener("webglcontextrestored", () => { window.__rafController.resume(); }, false);
+  });
+})();
+</script>
+
+<script>
+  window.addEventListener("message", (e) => {
+    if (!e.data || !e.data.cmd) return;
+    if (e.data.cmd === "pause") window.__rafController?.pause();
+    if (e.data.cmd === "resume") window.__rafController?.resume();
+  });
+</script>
 
 <script type="x-shader/x-fragment" id="vertShader">
     precision highp float;
