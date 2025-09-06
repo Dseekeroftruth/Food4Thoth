@@ -482,6 +482,104 @@ body.iframe-mode .toggle-button {
 		body.iframe-mode .navbar {
 			font-size: 8px;
 		}
+		
+		/* --- Single-Active Iframe Cards --- */
+.iframe-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+  width: 100vw;
+  margin: 40px auto;
+  padding: 20px;
+  margin-top: 100px;
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
+.iframe-card {
+  position: relative;
+  height: 60vh;
+  border: 10px solid purple;
+  border-radius: 50px;
+  background: rgba(10, 0, 25, 0.55);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+/* When live iframe is present */
+.iframe-card.is-active {
+  background: #000;
+  box-shadow: 0 0 24px rgba(255, 0, 255, 0.35);
+}
+
+.iframe-card iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Poster state (before activation) */
+.iframe-card .poster {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  background: radial-gradient(1200px 600px at 50% 50%, rgba(255,0,255,0.15), rgba(0,0,0,0.75));
+  color: #00ffff;
+  text-align: center;
+  padding: 16px;
+}
+
+.iframe-card .label {
+  font-size: clamp(18px, 2.4rem, 32px);
+  font-weight: 700;
+  text-shadow: 0 0 8px #ff00ff, 0 0 12px #00ffff;
+}
+
+/* Reuse your neon button vibe */
+.iframe-card .activate-btn {
+  cursor: pointer;
+  border: 2px solid #00ffff;
+  background: #111;
+  color: #00ffff;
+  font-weight: bold;
+  font-size: clamp(16px, 2rem, 24px);
+  padding: 12px 28px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,255,255,0.4);
+  transition: 0.25s ease;
+}
+.iframe-card .activate-btn:hover {
+  color: #fff;
+  background: #ff00ff;
+  border-color: #ff00ff;
+  box-shadow: 0 0 20px rgba(255,0,255,0.7);
+}
+
+/* Close (deactivate) button when live */
+.iframe-card .close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 20px;
+  line-height: 1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 2px solid #ff00ff;
+  background: rgba(20, 0, 40, 0.9);
+  color: #fff;
+  cursor: pointer;
+  z-index: 5;
+  box-shadow: 0 0 12px rgba(255,0,255,0.5);
+}
+.iframe-card .close-btn:hover {
+  filter: brightness(1.2);
+}
 				
   </style>
 	
@@ -554,61 +652,122 @@ body.iframe-mode .toggle-button {
 <br /><br />
 
   <!-- Where the iframes will appear -->
-  <div class="iframe-grid" id="iframeGrid"></div>
-	
-  <script>
-    // 1) List all the URLs for the 24 iframes.
-    const iframeURLs = [
-      "./index5.html",
-      "./index6.html",
-      "./index7.html",
-      "./index8.html",
-      "./index10.html"
-    ];
+<div class="iframe-grid" id="iframeGrid"></div>
 
-    const iframeGrid = document.getElementById("iframeGrid");
+<script>
+  // 🔮 Only ONE live iframe at a time
+  const iframeURLs = [
+    "./index5.html",
+    "./index6.html",
+    "./index7.html",
+    "./index8.html",
+    "./index10.html"
+  ];
 
-  // postMessage helper
-  const tell = (frame, cmd) => {
+  const grid = document.getElementById("iframeGrid");
+  let active = { card: null, iframe: null };
+
+  // Helper to safely notify inner frame (if it listens)
+  function postCmd(frame, cmd) {
     try { frame?.contentWindow?.postMessage({ cmd }, "*"); } catch (e) {}
-  };
-
-  // Pause/resume an iframe based on viewport visibility
-  const io = new IntersectionObserver((entries) => {
-    for (const e of entries) {
-      tell(e.target, e.isIntersecting ? "resume" : "pause");
-    }
-  }, { root: null, threshold: 0.1 });
-
-  // Sequential loader (unchanged behavior)
-  function loadIframesSequentially(index) {
-    if (index >= iframeURLs.length) {
-      console.log("All iframes have finished loading.");
-      return;
-    }
-    const iframe = document.createElement("iframe");
-    iframe.src = iframeURLs[index];
-    iframe.loading = "lazy"; // hint
-    iframe.referrerPolicy = "no-referrer";
-    iframe.setAttribute("allow", "autoplay; fullscreen");
-
-    iframe.onload = () => {
-      console.log(`Iframe ${index + 1} of ${iframeURLs.length} loaded.`);
-      loadIframesSequentially(index + 1);
-    };
-
-    iframeGrid.appendChild(iframe);
-    io.observe(iframe);
   }
 
-  // Tab visibility → pause/resume all
-  document.addEventListener("visibilitychange", () => {
-    const cmd = document.hidden ? "pause" : "resume";
-    [...document.querySelectorAll("#iframeGrid iframe")].forEach(f => tell(f, cmd));
+  function buildPosterHTML(label) {
+    return `
+      <div class="poster">
+        <div class="label">${label}</div>
+        <button class="activate-btn" type="button" aria-label="Activate ${label}">Activate</button>
+      </div>
+    `;
+  }
+
+  function deactivateActive() {
+    if (!active.card) return;
+
+    // Ask inner frame to pause first
+    postCmd(active.iframe, "pause");
+
+    // Hard-stop to recover memory on mobile/iOS
+    try { active.iframe.src = "about:blank"; } catch (_) {}
+    active.card.classList.remove("is-active");
+    active.card.innerHTML = buildPosterHTML(active.card.dataset.label);
+
+    active = { card: null, iframe: null };
+  }
+
+  function activateCard(card) {
+    if (active.card === card) return; // already active
+
+    // Turn off currently-live frame
+    deactivateActive();
+
+    // Build new live iframe in this card
+    const url = card.dataset.url;
+    const iframe = document.createElement("iframe");
+    iframe.src = url;                 // load only on click
+    iframe.loading = "eager";         // it's the only live one
+    iframe.referrerPolicy = "no-referrer";
+    iframe.setAttribute("allow", "autoplay; fullscreen");
+    iframe.setAttribute("title", card.dataset.label);
+
+    // Close control
+    const close = document.createElement("button");
+    close.className = "close-btn";
+    close.type = "button";
+    close.textContent = "×";
+    close.title = "Deactivate";
+    close.addEventListener("click", (e) => {
+      e.stopPropagation();
+      deactivateActive();
+    });
+
+    card.classList.add("is-active");
+    card.innerHTML = "";
+    card.appendChild(close);
+    card.appendChild(iframe);
+
+    active = { card, iframe };
+  }
+
+  // Build cards (posters) only; no iframes yet
+  iframeURLs.forEach((url, i) => {
+    const card = document.createElement("div");
+    card.className = "iframe-card";
+    card.dataset.url = url;
+    // Always show "Reveal N" instead of file name
+  card.dataset.label = "Reveal " + (i + 1);
+
+ 
+
+    card.innerHTML = buildPosterHTML(card.dataset.label);
+
+    // Activate on button click (not the whole card to avoid mis-taps)
+    card.addEventListener("click", (e) => {
+      const btn = e.target.closest(".activate-btn");
+      if (!btn) return;
+      activateCard(card);
+    });
+
+    grid.appendChild(card);
   });
 
-  // Start
-  loadIframesSequentially(0);
+  // If the page loses visibility, reclaim resources
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) deactivateActive();
+  });
+
+  // Allow ESC to deactivate
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") deactivateActive();
+  });
+
+  // Optional: if you want to auto-pause background video while an iframe is live
+  // const bg = document.getElementById("background-video");
+  // const observer = new MutationObserver(() => {
+  //   if (active.card) { try { bg.pause(); } catch(_){} }
+  //   else { try { bg.play(); } catch(_){} }
+  // });
+  // observer.observe(grid, { childList: true, subtree: true });
 </script>
 	
 <script src="../nav-fetch.js"></script>
