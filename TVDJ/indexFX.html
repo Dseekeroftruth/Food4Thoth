@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- ===== Core Meta ===== -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AV Slicer — Live Video + Audio Sampler (Web App) • FOOD4THOTH</title>
+<meta name="description" content="AV Slicer is a browser-based sampler that slices video with audio, triggers clips from a grid or keyboard, layers overlapping playback, adds an optional backing track, and supports quantize/grid timing for live performance." />
+<meta name="keywords" content="AV slicer, video sampler, audio sampler, live performance, clip launcher, keyboard trigger, quantize, web audio, web video, FOOD4THOTH" />
+<meta name="author" content="Food4Thoth / Artabillies" />
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+
+<link rel="canonical" href="https://www.food4thoth.com/TVDJ/" />
+<link rel="icon" href="https://www.food4thoth.com/images/favicon.png" type="image/png" />
+<meta name="theme-color" content="#0b0b0f" />
+
+<!-- ===== Open Graph / Social ===== -->
+<meta property="og:site_name" content="FOOD4THOTH" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="AV Slicer — Live Video + Audio Sampler (Web App)" />
+<meta property="og:description" content="Slice video, trigger clip grids, layer overlapping audio, and quantize to BPM — all in your browser." />
+<meta property="og:url" content="https://www.food4thoth.com/TVDJ/" />
+<meta property="og:image" content="https://www.food4thoth.com/TVDJ/og-preview.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="AV Slicer web app — grid of clip buttons and video preview" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AV Slicer — Live Video + Audio Sampler (Web App)" />
+<meta name="twitter:description" content="Browser-based AV slicer with clip grid triggers, overlapping layers, backing track, and quantize." />
+<meta name="twitter:site" content="@food4th0th" />
+<meta name="twitter:image" content="https://www.food4thoth.com/TVDJ/og-preview.jpg" />
+<meta name="twitter:image:alt" content="AV Slicer web app — grid of clip buttons and video preview" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "AV Slicer",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "Web",
+  "description": "A web app to slice video+audio into triggerable clips with keyboard or on-screen buttons, optional backing track, overlapping layers, and BPM quantize.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "creator": { "@type": "Organization", "name": "Food4Thoth / Artabillies", "url": "https://www.food4thoth.com" },
+  "url": "https://www.food4thoth.com/TVDJ/",
+  "featureList": [
+    "Video+audio slicing",
+    "Clip grid launcher",
+    "Keyboard banks (digits & letters)",
+    "Overlapping clip layers",
+    "Backing track (Web Audio/Media)",
+    "BPM quantize & grid",
+    "Mobile mini-keyboard"
+  ],
+  "image": "https://www.food4thoth.com/TVDJ/og-preview.jpg"
+}
+</script>
+
+<!-- ===== Performance Hints ===== -->
+<link rel="dns-prefetch" href="//www.food4thoth.com" />
+<link rel="preconnect" href="https://www.food4thoth.com" crossorigin />
+<link rel="preload" as="script" href="../nav-fetch.js" />
+<link rel="preload" as="script" href="../nav_script2.js" />
+<link rel="preload" as="document" href="../navigation.html" fetchpriority="low" />
+<link rel="prefetch" as="document" href="../index.html" />
+<link rel="prefetch" as="document" href="../contact.html" />
+<link rel="prefetch" as="document" href="/TVDJ/readme/" />
+<script type="speculationrules">
+{
+  "prerender": [
+    { "source": "document", "targets": ["navigation"], "urls": ["../index.html"] }
+  ],
+  "prefetch": [
+    { "source": "document", "urls": ["../contact.html","/TVDJ/readme/","../navigation.html"] }
+  ]
+}
+</script>
+<style>
+  :root { --bg:#0b0b0f; --panel:#141420; --ink:#e8e8ef; --muted:#9aa0a6; --accent:#7df; --accent2:#9f7dff; --warn:#ff6b6b; }
+  html,body { height:100%; background:var(--bg); color:var(--ink); margin:0; font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; }
+  .wrap { display:grid; grid-template-columns: 360px 1fr; gap:12px; margin-top:15px; padding:12px; padding-bottom:120px; }
+  .card { background:var(--panel); border:1px solid #22243a; border-radius:10px; padding:12px; box-shadow: 0 0 0 1px #0e1022 inset; }
+  h2 { margin:0 0 10px; font-size:16px; letter-spacing:.2px; }
+  .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:8px; }
+  label { font-size:12px; color:var(--muted); }
+  input[type="number"], input[type="text"], select { background:#0e0f18; color:var(--ink); border:1px solid #26283f; border-radius:8px; padding:6px 8px; min-width:70px; }
+  input[type="range"]{ width:160px; }
+  input[type="file"]{ color:var(--muted); }
+  button { background:linear-gradient(180deg,#1a1e35,#11152b); border:1px solid #2a2d48; color:var(--ink); padding:8px 10px; border-radius:10px; cursor:pointer; }
+  button:hover { border-color:#3b3f6b; }
+  button.accent { background:linear-gradient(180deg,#12334a,#10273a); border-color:#166; color:#b6f3ff; }
+  button.warn { background:linear-gradient(180deg,#3a1a1a,#2a1212); border-color:#6b2d2d; color:#ffd6d6; }
+  .video-area { display:grid; grid-template-rows:auto auto; gap:8px; }
+  #mainVideo { width:100%; max-height:55vh; background:black; border-radius:10px; border:1px solid #22243a; }
+  .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:8px; }
+  .clip-card { background:linear-gradient(180deg,#111828,#0e1524); border:1px solid #283054; border-radius:10px; padding:8px; display:flex; flex-direction:column; gap:6px; }
+  .clip-btn { width:100%; padding:10px; border-radius:8px; border:1px solid #314066; background:linear-gradient(180deg,#142036,#0f1828); text-align:left; color:#ccf1ff; position:relative; overflow:hidden; }
+  .clip-btn small{ display:block; color:#9ec7d6; font-size:11px; margin-top:3px; }
+  .badge { position:absolute; top:6px; right:8px; font-size:10px; color:#9aa7ff; }
+  .kbd { position:absolute; left:8px; top:6px; font-size:10px; color:#cfe0ff; background:#1b2236; border:1px solid #2a3358; padding:2px 6px; border-radius:6px; }
+  .clip-ctrls { display:flex; flex-wrap:wrap; align-items:center; gap:6px; }
+  .clip-ctrls label { font-size:11px; color:#9aa0a6; }
+  .clip-ctrls input[type="number"] { width:80px; padding:4px 6px; font-size:12px; }
+  .clip-ctrls .small { padding:4px 8px; font-size:12px; border-radius:6px; }
+  .clip-ctrls .del { background:linear-gradient(180deg,#3a1a1a,#2a1212); border:1px solid #6b2d2d; color:#ffd6d6; }
+  .clip-ctrls .save { background:linear-gradient(180deg,#12334a,#10273a); border:1px solid #166; color:#b6f3ff; }
+  .muted { color:var(--muted); }
+  .hidden-audio { width:0; height:0; overflow:hidden; position:absolute; left:-9999px; top:-9999px; }
+  .sep { height:1px; background:#21243a; margin:8px 0; }
+  .switch { display:inline-flex; align-items:center; gap:6px; }
+  .mini-bar { position:fixed; left:0; right:0; bottom:0; background:rgba(16,18,30,.95); border-top:1px solid #22243a; padding:8px; padding-bottom:calc(8px + env(safe-area-inset-bottom)); z-index:999; backdrop-filter:blur(6px); }
+  .mini-wrap { display:flex; align-items:center; gap:8px; }
+  .mini-keys { display:grid; grid-template-columns: repeat(auto-fill, minmax(36px, 1fr)); gap:6px; flex:1; }
+  .keypad-btn { padding:10px 0; font-weight:700; text-align:center; border-radius:8px; border:1px solid #283054; background:linear-gradient(180deg,#141c2a,#0f1624); color:#cfe0ff; touch-action:manipulation; }
+  .bank-btn { padding:10px 12px; font-weight:700; }
+  #bankInfo { font-size:12px; color:#9aa0a6; min-width:72px; text-align:center; }
+  @keyframes flash { from { outline:2px solid var(--accent); } to { outline:0 solid transparent; } }
+  .flash { animation: flash .25s ease; }
+  .toggle-button { position: fixed; top: 5px; left: 5px; padding: 5px 10px; background: black; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 12px; box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff; transition: background-color 0.3s; z-index: 1000; }
+  .toggle-button:hover { background-color: black; }
+  .hidden { opacity: 0; height: 0; overflow: hidden; transition: all 0.5s ease; pointer-events: none; display: none; }
+  .navigation { position: fixed; top: 40px; left: 10px; background-color: #e0e0e0; padding: 5px; border-radius: 15px; box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff; display: flex; flex-direction: column; gap: 7px; z-index: 1000; height: 50%; overflow-y: auto; }
+  .neumorphic-tab { display:inline-block; margin:2px 2px; padding:3px 3px; border-radius:25px; background:#e0e0e0; box-shadow:8px 8px 16px #bebebe, -8px -8px 16px #ffffff; text-decoration:none; color:#333; font-weight:bold; font-size:clamp(16px,1.2vw,22px); text-align:center; }
+  .neumorphic-tab:hover { box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff; }
+  .neumorphic-tab.active { background:#d1d1d1; }
+  .submenu { padding-left:20px; background-color:#f0f0f0; border-left:2px solid #ccc; margin-top:5px; margin-bottom:5px; display:flex; flex-direction:column; }
+  .submenu a { font-size:0.9rem; padding:2px 10px; border-radius:10px; margin-bottom:7px; margin-top:5px; }
+  .submenu.hidden { display:none; }
+  a { color:#314066; }
+  footer { margin-top:30px; margin-left:5%; }
+</style>
+</head>
+<body>
+  <div id="nav-container"></div>
+
+<div class="wrap">
+  <!-- LEFT: Controls -->
+  <div class="card">
+    <h2>Sources</h2>
+    <div class="row">
+      <label>Video (with audio):</label>
+      <input id="videoFile" type="file" accept="video/*" />
+    </div>
+    <div class="row">
+      <label>Backing track (optional):</label>
+      <input id="backFile"
+       type="file"
+       accept="audio/*,video/*,.mp3,.m4a,.aac,.wav,.aif,.aiff,.flac,.ogg,.opus,.mp4,.m4v,.mov,.webm,.mkv" />
+    </div>
+    <div class="row">
+      <button id="playBack" disabled>▶ Backing</button>
+      <label>Vol</label><input id="backVol" type="range" min="0" max="1" step="0.01" value="0.7" />
+      <label>Master</label><input id="masterVol" type="range" min="0" max="1" step="0.01" value="0.9" />
+    </div>
+
+    <div class="sep"></div>
+    <h2>Slicing</h2>
+    <div class="row">
+      <label>Mode</label>
+      <select id="sliceMode">
+        <option value="length">Fixed length (sec)</option>
+        <option value="count">Equal slices (by count)</option>
+      </select>
+      <label>Len (s)</label><input id="sliceLen" type="number" min="0.1" step="0.1" value="2.0" />
+      <label>Count</label><input id="sliceCount" type="number" min="1" step="1" value="16" />
+    </div>
+    <div class="row">
+      <label>Offset (s)</label><input id="offset" type="number" min="0" step="0.1" value="0" />
+      <label>Max overlap</label><input id="maxOverlap" type="number" min="1" step="1" value="4" />
+    </div>
+    <div class="row">
+      <button id="makeClips" class="accent" disabled>Make Clip Buttons</button>
+      <span id="durInfo" class="muted"></span>
+    </div>
+
+    <div class="sep"></div>
+    <h2>Quantize (optional)</h2>
+    <div class="row">
+      <label>BPM</label><input id="bpm" type="number" min="30" max="300" value="120" />
+      <label>Grid</label>
+      <select id="grid">
+        <option value="1">1 beat (¼ note)</option>
+        <option value="0.5">½ beat (8th)</option>
+        <option value="0.25">¼ beat (16th)</option>
+        <option value="2">2 beats (½ note)</option>
+        <option value="4">4 beats (bar)</option>
+      </select>
+      <button id="toggleQuant">Quantize: OFF</button>
+    </div>
+    <div class="row">
+      <div class="switch">
+        <input type="checkbox" id="visualFollow" checked />
+        <label for="visualFollow">Visual follows last trigger</label>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+    <h2>Clip Defaults</h2>
+    <div class="row">
+      <label>Clip volume</label><input id="clipVol" type="range" min="0" max="1" step="0.01" value="1" />
+      <button id="stopAll" class="warn">Stop All Clips</button>
+    </div>
+
+    <div class="sep"></div>
+    <h2>FX (clips only)</h2>
+    <div class="row">
+      <div class="switch">
+        <input type="checkbox" id="fxOn" checked />
+        <label for="fxOn">Enable FX Rack</label>
+      </div>
+      <label>Mix</label><input id="fxMix" type="range" min="0" max="1" step="0.01" value="0.35" />
+    </div>
+
+    <div class="row">
+      <div class="switch"><input type="checkbox" id="rvOn" checked /><label for="rvOn">Reverb</label></div>
+      <label>Wet</label><input id="rvWet" type="range" min="0" max="1" step="0.01" value="0.25" />
+      <label>Size</label><input id="rvSize" type="range" min="0.1" max="6" step="0.1" value="2.5" />
+    </div>
+
+    <div class="row">
+      <div class="switch"><input type="checkbox" id="dlOn" checked /><label for="dlOn">Delay / Echo</label></div>
+      <label>Time</label><input id="dlTime" type="range" min="0.05" max="1.2" step="0.01" value="0.33" />
+      <label>FB</label><input id="dlFb" type="range" min="0" max="0.95" step="0.01" value="0.45" />
+      <label>Wet</label><input id="dlWet" type="range" min="0" max="1" step="0.01" value="0.25" />
+    </div>
+
+    <div class="row">
+      <div class="switch"><input type="checkbox" id="vbOn" /><label for="vbOn">Vibrato</label></div>
+      <label>Rate</label><input id="vbRate" type="range" min="0.1" max="8" step="0.1" value="5" />
+      <label>Depth</label><input id="vbDepth" type="range" min="0" max="0.02" step="0.001" value="0.004" />
+      <label>Wet</label><input id="vbWet" type="range" min="0" max="1" step="0.01" value="0.3" />
+    </div>
+
+    <div class="row">
+      <div class="switch"><input type="checkbox" id="dsOn" /><label for="dsOn">Distortion</label></div>
+      <label>Drive</label><input id="dsDrive" type="range" min="0" max="1.5" step="0.01" value="0.6" />
+      <label>Wet</label><input id="dsWet" type="range" min="0" max="1" step="0.01" value="0.2" />
+    </div>
+
+    <div class="row">
+      <div class="switch"><input type="checkbox" id="bcOn" /><label for="bcOn">Bitcrusher</label></div>
+      <label>Bits</label><input id="bcBits" type="range" min="4" max="16" step="1" value="8" />
+      <label>Down</label><input id="bcRed" type="range" min="1" max="16" step="1" value="4" />
+      <label>Wet</label><input id="bcWet" type="range" min="0" max="1" step="0.01" value="0.25" />
+    </div>
+
+    <footer class="footer">
+      <p><a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="/TVDJ/readme/" class="styled-link">ReadMe</a></p>
+    </footer>
+  </div>
+
+  <!-- RIGHT: Player + Clips -->
+  <div class="video-area">
+    <video id="mainVideo" controls muted playsinline></video>
+    <div id="clips" class="grid"></div>
+  </div>
+</div>
+
+<!-- Hidden containers used for overlapping audio/video clones -->
+<div id="cloneBin" class="hidden-audio" aria-hidden="true"></div>
+
+<!-- Sticky mini keyboard (mobile + desktop) -->
+<div class="mini-bar" role="toolbar" aria-label="Clip trigger keyboard">
+  <div class="mini-wrap">
+    <button id="prevBank" class="bank-btn">◀</button>
+    <div id="miniKeys" class="mini-keys"></div>
+    <button id="nextBank" class="bank-btn">▶</button>
+    <span id="bankInfo"></span>
+  </div>
+</div>
+
+<script>
+(() => {
+  // --- Elements
+  const videoFile = document.getElementById('videoFile');
+  const backFile  = document.getElementById('backFile');
+  const playBack  = document.getElementById('playBack');
+  const backVol   = document.getElementById('backVol');
+  const masterVol = document.getElementById('masterVol');
+  const sliceMode = document.getElementById('sliceMode');
+  const sliceLen  = document.getElementById('sliceLen');
+  const sliceCount= document.getElementById('sliceCount');
+  const offsetInp = document.getElementById('offset');
+  const makeClips = document.getElementById('makeClips');
+  const durInfo   = document.getElementById('durInfo');
+  const bpmInp    = document.getElementById('bpm');
+  const gridSel   = document.getElementById('grid');
+  const toggleQuant = document.getElementById('toggleQuant');
+  const visualFollow = document.getElementById('visualFollow');
+  const clipVol   = document.getElementById('clipVol');
+  const stopAll   = document.getElementById('stopAll');
+
+  const mainVideo = document.getElementById('mainVideo');
+  const clipsGrid = document.getElementById('clips');
+  const cloneBin  = document.getElementById('cloneBin');
+
+  // Mini keyboard
+  const miniKeys  = document.getElementById('miniKeys');
+  const prevBank  = document.getElementById('prevBank');
+  const nextBank  = document.getElementById('nextBank');
+  const bankInfo  = document.getElementById('bankInfo');
+
+  // --- State
+  let videoURL = null;
+  let videoLoaded = false;
+  let videoDuration = 0;
+  let quantizeOn = false;
+
+  /* ====== FX RACK (clips only) ============================================ */
+  let clipsPreGain, clipsDryGain, clipsBus, fxSendGain, fxSumGain, fxMasterWet;
+  let rvConvolver, rvWet, dlDelay, dlFbGain, dlWet, vbDelay, vbLFO, vbWet, dsShaper, dsWet;
+  let bcNode, bcWet;
+  let fxInitialized = false;
+
+  const fxOn     = document.getElementById('fxOn');
+  const fxMix    = document.getElementById('fxMix');
+  // Reverb
+  const rvOn     = document.getElementById('rvOn');
+  const rvWetCtl = document.getElementById('rvWet');
+  const rvSize   = document.getElementById('rvSize');
+  // Delay
+  const dlOn     = document.getElementById('dlOn');
+  const dlTime   = document.getElementById('dlTime');
+  const dlFb     = document.getElementById('dlFb');
+  const dlWetCtl = document.getElementById('dlWet');
+  // Vibrato
+  const vbOn     = document.getElementById('vbOn');
+  const vbRate   = document.getElementById('vbRate');
+  const vbDepth  = document.getElementById('vbDepth');
+  const vbWetCtl = document.getElementById('vbWet');
+  // Distortion
+  const dsOn     = document.getElementById('dsOn');
+  const dsDrive  = document.getElementById('dsDrive');
+  const dsWetCtl = document.getElementById('dsWet');
+  // Bitcrusher
+  const bcOn     = document.getElementById('bcOn');
+  const bcBits   = document.getElementById('bcBits');
+  const bcRed    = document.getElementById('bcRed');
+  const bcWetCtl = document.getElementById('bcWet');
+
+  function buildImpulse(ctx, seconds=2.5) {
+    const rate = ctx.sampleRate;
+    const len  = Math.max(1, Math.floor(seconds * rate));
+    const buf  = ctx.createBuffer(2, len, rate);
+    for (let ch=0; ch<2; ch++) {
+      const data = buf.getChannelData(ch);
+      for (let i=0; i<len; i++) {
+        const n = Math.random()*2-1;
+        const decay = Math.pow(1 - i/len, 2.5);
+        data[i] = n * decay * 0.8;
+      }
+    }
+    return buf;
+  }
+  function makeCurve(amount=0.6) {
+    const k = amount * 100 + 1;
+    const n = 44100;
+    const curve = new Float32Array(n);
+    for (let i = 0; i < n; i++) {
+      const x = (i / n) * 2 - 1;
+      curve[i] = Math.tanh(k * x) / Math.tanh(k);
+    }
+    return curve;
+  }
+
+  let bitcrusherModuleLoaded = false;
+  async function createBitcrusher(ctx) {
+    if (ctx.audioWorklet && !bitcrusherModuleLoaded) {
+      const code = `
+        class BitCrusher extends AudioWorkletProcessor {
+          static get parameterDescriptors() {
+            return [
+              { name:'bits', defaultValue:8, minValue:1, maxValue:16, automationRate:'k-rate' },
+              { name:'reduction', defaultValue:4, minValue:1, maxValue:32, automationRate:'k-rate' }
+            ];
+          }
+          constructor(){ super(); this.phase = 0; this.last = 0; }
+          process(inputs, outputs, parameters){
+            const input = inputs[0], output = outputs[0];
+            if (!input || !input[0]) return true;
+            const bits = parameters.bits[0]|0;
+            const red  = parameters.reduction[0]|0;
+            const step = 2 / (Math.pow(2, bits) - 1);
+            for (let ch=0; ch<output.length; ch++){
+              const iCh = input[ch] || input[0], oCh = output[ch];
+              for (let i=0; i<oCh.length; i++){
+                this.phase++;
+                if (this.phase >= Math.max(1, red)) {
+                  this.phase = 0;
+                  this.last = step * Math.round(iCh[i] / step);
+                }
+                oCh[i] = this.last;
+              }
+            }
+            return true;
+          }
+        }
+        registerProcessor('bitcrusher', BitCrusher);
+      `;
+      const blob = new Blob([code], {type:'application/javascript'});
+      const url  = URL.createObjectURL(blob);
+      await ctx.audioWorklet.addModule(url);
+      URL.revokeObjectURL(url);
+      bitcrusherModuleLoaded = true;
+    }
+
+    if (bitcrusherModuleLoaded) {
+      const node = new AudioWorkletNode(ctx, 'bitcrusher', {
+        numberOfInputs: 1, numberOfOutputs: 1, outputChannelCount: [2]
+      });
+      node.parameters.get('bits').value = parseFloat(bcBits.value);
+      node.parameters.get('reduction').value = parseFloat(bcRed.value);
+      return node;
+    }
+
+    const sp = ctx.createScriptProcessor(1024, 2, 2);
+    sp.bits = parseFloat(bcBits.value)|0; sp.reduction = parseFloat(bcRed.value)|0;
+    sp.onaudioprocess = (e) => {
+      for (let ch=0; ch<2; ch++){
+        const input = e.inputBuffer.getChannelData(ch);
+        const output= e.outputBuffer.getChannelData(ch);
+        const step  = 2 / (Math.pow(2, sp.bits) - 1);
+        sp._phase = sp._phase || 0; sp._last = sp._last || 0;
+        for (let i=0;i<input.length;i++){
+          sp._phase++;
+          if (sp._phase >= Math.max(1, sp.reduction)) {
+            sp._phase = 0;
+            sp._last = step * Math.round(input[i] / step);
+          }
+          output[i] = sp._last;
+        }
+      }
+    };
+    return sp;
+  }
+
+  // --- Web Audio mixer (backing)
+  let audioCtx = null, masterGain = null, backGain = null;
+  function ensureAudioCtx() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      masterGain = audioCtx.createGain();
+      backGain   = audioCtx.createGain();
+      masterGain.gain.value = parseFloat(masterVol.value);
+      backGain.gain.value   = parseFloat(backVol.value);
+      backGain.connect(masterGain);
+      masterGain.connect(audioCtx.destination);
+      window.addEventListener('click', () => audioCtx.resume(), { once:true });
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && audioCtx?.state === 'suspended') audioCtx.resume();
+      });
+    }
+  }
+
+  // ===== Build FX graph once and wire =====
+  async function initFXOnce() {
+    if (fxInitialized) return;
+    ensureAudioCtx();
+
+    clipsBus    = audioCtx.createGain();
+    clipsPreGain= audioCtx.createGain();
+    clipsDryGain= audioCtx.createGain();
+    fxSendGain  = audioCtx.createGain();
+    fxSumGain   = audioCtx.createGain();
+    fxMasterWet = audioCtx.createGain();
+
+    clipsPreGain.gain.value = parseFloat(clipVol.value);
+    clipsDryGain.gain.value = 1 - parseFloat(fxMix.value);
+    fxSendGain.gain.value   = 1;
+    fxMasterWet.gain.value  = parseFloat(fxMix.value);
+
+    rvConvolver = audioCtx.createConvolver();
+    rvConvolver.buffer = buildImpulse(audioCtx, parseFloat(rvSize.value));
+    rvWet = audioCtx.createGain(); rvWet.gain.value = parseFloat(rvWetCtl.value);
+
+    dlDelay   = audioCtx.createDelay(2.0);
+    dlDelay.delayTime.value = parseFloat(dlTime.value);
+    dlFbGain  = audioCtx.createGain(); dlFbGain.gain.value = parseFloat(dlFb.value);
+    dlWet     = audioCtx.createGain(); dlWet.gain.value = parseFloat(dlWetCtl.value);
+    dlDelay.connect(dlFbGain); dlFbGain.connect(dlDelay);
+
+    vbDelay = audioCtx.createDelay(0.05);
+    vbDelay.delayTime.value = parseFloat(vbDepth.value);
+    vbLFO   = audioCtx.createOscillator();
+    const vbGain = audioCtx.createGain(); vbGain.gain.value = parseFloat(vbDepth.value);
+    vbLFO.frequency.value = parseFloat(vbRate.value);
+    vbLFO.connect(vbGain).connect(vbDelay.delayTime);
+    vbLFO.start();
+    vbWet = audioCtx.createGain(); vbWet.gain.value = parseFloat(vbWetCtl.value);
+
+    dsShaper = audioCtx.createWaveShaper();
+    dsShaper.curve = makeCurve(parseFloat(dsDrive.value));
+    dsWet = audioCtx.createGain(); dsWet.gain.value = parseFloat(dsWetCtl.value);
+
+    bcNode = await createBitcrusher(audioCtx);
+    bcWet  = audioCtx.createGain(); bcWet.gain.value = parseFloat(bcWetCtl.value);
+
+    fxSendGain.connect(rvConvolver); rvConvolver.connect(rvWet).connect(fxSumGain);
+    fxSendGain.connect(dlDelay);     dlDelay.connect(dlWet).connect(fxSumGain);
+    fxSendGain.connect(vbDelay);     vbDelay.connect(vbWet).connect(fxSumGain);
+    fxSendGain.connect(dsShaper);    dsShaper.connect(dsWet).connect(fxSumGain);
+    fxSendGain.connect(bcNode);      bcNode.connect(bcWet).connect(fxSumGain);
+
+    clipsPreGain.connect(clipsDryGain).connect(clipsBus);
+    clipsPreGain.connect(fxSendGain);
+    fxSumGain.connect(fxMasterWet).connect(clipsBus);
+
+    clipsBus.connect(masterGain);
+
+    const updMix = () => {
+      const mix = fxOn.checked ? parseFloat(fxMix.value) : 0;
+      clipsDryGain.gain.value = 1 - mix;
+      fxMasterWet.gain.value  = mix;
+    };
+    fxOn.addEventListener('change', updMix);
+    fxMix.addEventListener('input', updMix);
+
+    rvOn.addEventListener('change', ()=> rvWet.gain.value = rvOn.checked ? parseFloat(rvWetCtl.value) : 0);
+    rvWetCtl.addEventListener('input', ()=> rvWet.gain.value = rvOn.checked ? parseFloat(rvWetCtl.value) : 0);
+    rvSize.addEventListener('change', ()=> { rvConvolver.buffer = buildImpulse(audioCtx, parseFloat(rvSize.value)); });
+
+    dlOn.addEventListener('change', ()=> dlWet.gain.value = dlOn.checked ? parseFloat(dlWetCtl.value) : 0);
+    dlWetCtl.addEventListener('input', ()=> dlWet.gain.value = dlOn.checked ? parseFloat(dlWetCtl.value) : 0);
+    dlTime.addEventListener('input', ()=> dlDelay.delayTime.value = parseFloat(dlTime.value));
+    dlFb.addEventListener('input',   ()=> dlFbGain.gain.value     = parseFloat(dlFb.value));
+
+    vbOn.addEventListener('change', ()=> vbWet.gain.value = vbOn.checked ? parseFloat(vbWetCtl.value) : 0);
+    vbWetCtl.addEventListener('input', ()=> vbWet.gain.value = vbOn.checked ? parseFloat(vbWetCtl.value) : 0);
+    vbRate.addEventListener('input', ()=> vbLFO.frequency.value = parseFloat(vbRate.value));
+    vbDepth.addEventListener('input',()=> vbDelay.delayTime.value = parseFloat(vbDepth.value));
+
+    dsOn.addEventListener('change', ()=> dsWet.gain.value = dsOn.checked ? parseFloat(dsWetCtl.value) : 0);
+    dsWetCtl.addEventListener('input', ()=> dsWet.gain.value = dsOn.checked ? parseFloat(dsWetCtl.value) : 0);
+    dsDrive.addEventListener('input', ()=> dsShaper.curve = makeCurve(parseFloat(dsDrive.value)));
+
+    bcOn.addEventListener('change', ()=> bcWet.gain.value = bcOn.checked ? parseFloat(bcWetCtl.value) : 0);
+    bcWetCtl.addEventListener('input', ()=> bcWet.gain.value = bcOn.checked ? parseFloat(bcWetCtl.value) : 0);
+    bcBits.addEventListener('input', ()=> {
+      if (bcNode.parameters) { bcNode.parameters.get('bits').value = parseFloat(bcBits.value); }
+      else { bcNode.bits = parseFloat(bcBits.value)|0; }
+    });
+    bcRed.addEventListener('input', ()=> {
+      if (bcNode.parameters) { bcNode.parameters.get('reduction').value = parseFloat(bcRed.value); }
+      else { bcNode.reduction = parseFloat(bcRed.value)|0; }
+    });
+
+    clipVol.addEventListener('input', () => {
+      if (clipsPreGain) clipsPreGain.gain.value = parseFloat(clipVol.value);
+    });
+
+    fxInitialized = true;
+  }
+
+  /* Connect a <video> clone’s audio into the FX bus (Safari-safe) */
+  async function attachClipToFX(videoEl){
+    await initFXOnce();
+    ensureAudioCtx();
+
+    // Important: keep element UNMUTED so MediaElementSource has signal.
+    // Silence its direct output to avoid double audio; WebAudio carries the sound.
+    videoEl.muted = false;
+    videoEl.volume = 0;
+
+    const src = audioCtx.createMediaElementSource(videoEl);
+    videoEl._srcNode = src;
+    src.connect(clipsPreGain);
+  }
+
+  // --- Backing engine (BUFFER or MEDIA)
+  let backingMode = 'none';
+  let backBuffer = null, backSource = null, backPlaying = false, backStartTime = 0, backOffset = 0;
+  let backMediaEl = null, backMediaNode = null, backMediaURL = null;
+
+  function clearBacking() {
+    stopBacking(true);
+    backBuffer = null; backSource = null; backPlaying = false; backOffset = 0;
+    if (backMediaEl) { try { backMediaEl.pause(); } catch {} }
+    if (backMediaNode) { try { backMediaNode.disconnect(); } catch {} }
+    if (backMediaURL) { URL.revokeObjectURL(backMediaURL); }
+    backMediaEl = null; backMediaNode = null; backMediaURL = null;
+    backingMode = 'none';
+  }
+
+  function startBacking() {
+    ensureAudioCtx();
+    if (backingMode === 'buffer') {
+      if (!backBuffer) return;
+      if (backSource) { try { backSource.stop(); } catch {} backSource.disconnect(); }
+      backSource = audioCtx.createBufferSource();
+      backSource.buffer = backBuffer;
+      backSource.loop = true;
+      backSource.connect(backGain);
+      backStartTime = audioCtx.currentTime;
+      backSource.start(0, backOffset % backBuffer.duration);
+      backPlaying = true;
+      playBack.textContent = '⏸ Backing';
+    } else if (backingMode === 'media') {
+      if (!backMediaEl) return;
+      backMediaEl.loop = true;
+      backMediaEl.muted = true;
+      backMediaEl.volume = 1;
+      backMediaEl.play().then(()=>{ playBack.textContent = '⏸ Backing'; }).catch(()=>{});
+      backPlaying = true;
+    }
+  }
+
+  function stopBacking(force = false) {
+    if (backingMode === 'buffer') {
+      if (backSource) {
+        if (!force) {
+          const t = backingClockSeconds() ?? 0;
+          backOffset = backBuffer ? (t % backBuffer.duration) : 0;
+        }
+        try { backSource.stop(); } catch {}
+        backSource.disconnect();
+        backSource = null;
+      }
+      backPlaying = false;
+    } else if (backingMode === 'media') {
+      if (backMediaEl) { try { backMediaEl.pause(); } catch {} }
+      backPlaying = false;
+    }
+    playBack.textContent = '▶ Backing';
+  }
+
+  function backingClockSeconds() {
+    if (!audioCtx || !backPlaying) return null;
+    if (backingMode === 'buffer' && backBuffer) {
+      return backOffset + (audioCtx.currentTime - backStartTime);
+    }
+    if (backingMode === 'media' && backMediaEl) {
+      return backMediaEl.currentTime || 0;
+    }
+    return null;
+  }
+
+  // Volumes for HTMLMedia (clips & main video)
+  const allMedia = new Set();
+  function setMasterVolumeForMedia(v) {
+    allMedia.forEach(m => {
+      if (m.dataset.role === 'clip') {
+        // Always keep element output at 0 to prevent double audio.
+        m.volume = 0;
+      } else {
+        m.volume = v;
+      }
+    });
+  }
+  masterVol.addEventListener('input', () => {
+    setMasterVolumeForMedia(parseFloat(masterVol.value));
+    if (masterGain) masterGain.gain.value = parseFloat(masterVol.value);
+  });
+  backVol.addEventListener('input', () => {
+    if (backGain) backGain.gain.value = parseFloat(backVol.value);
+  });
+
+  // --- Load Main Video
+  videoFile.addEventListener('change', () => {
+    const f = videoFile.files?.[0];
+    if (!f) return;
+    if (videoURL) URL.revokeObjectURL(videoURL);
+    videoURL = URL.createObjectURL(f);
+    mainVideo.src = videoURL;
+    mainVideo.muted = true; // visuals only; audio via clones
+    allMedia.add(mainVideo);
+    mainVideo.onloadedmetadata = () => {
+      videoDuration = mainVideo.duration || 0;
+      videoLoaded = true;
+      durInfo.textContent = `Video duration: ${videoDuration.toFixed(2)}s`;
+      makeClips.disabled = false;
+      mainVideo.currentTime = 0.01;
+    };
+  });
+
+  // --- Load Backing (try BUFFER decode, else MEDIA element including video)
+  backFile.addEventListener('change', async () => {
+    const f = backFile.files?.[0];
+    if (!f) return;
+    ensureAudioCtx();
+    clearBacking();
+    playBack.disabled = true;
+    playBack.textContent = '…loading';
+
+    try {
+      const arrBuf = await f.arrayBuffer();
+      backBuffer = await audioCtx.decodeAudioData(arrBuf);
+      backingMode = 'buffer';
+      backOffset = 0;
+      playBack.disabled = false;
+      playBack.textContent = '▶ Backing';
+      return;
+    } catch (e) {}
+
+    try {
+      backMediaURL = URL.createObjectURL(f);
+      backMediaEl = f.type.startsWith('video/') ? document.createElement('video') : document.createElement('audio');
+      backMediaEl.src = backMediaURL;
+      backMediaEl.preload = 'auto';
+      backMediaEl.crossOrigin = 'anonymous';
+      backMediaEl.muted = true;
+      backMediaEl.loop = true;
+      backMediaEl.playsInline = true;
+      backMediaEl.controls = false;
+      backMediaNode = audioCtx.createMediaElementSource(backMediaEl);
+      backMediaNode.connect(backGain);
+
+      backMediaEl.addEventListener('canplay', () => {
+        backingMode = 'media';
+        playBack.disabled = false;
+        playBack.textContent = '▶ Backing';
+      }, { once: true });
+      backMediaEl.addEventListener('loadedmetadata', () => {
+        if (playBack.disabled) { playBack.disabled = false; playBack.textContent = '▶ Backing'; }
+      }, { once: true });
+    } catch (err) {
+      console.error('Backing load failed:', err);
+      playBack.disabled = true;
+      playBack.textContent = 'Unsupported';
+      backingMode = 'none';
+    }
+  });
+
+  // --- Backing toggle
+  playBack.addEventListener('click', async () => {
+    ensureAudioCtx();
+    await audioCtx.resume();
+    if (backingMode === 'none') return;
+    if (!backPlaying) startBacking();
+    else stopBacking();
+  });
+
+  // --- Quantize
+  toggleQuant.addEventListener('click', () => {
+    quantizeOn = !quantizeOn;
+    toggleQuant.textContent = `Quantize: ${quantizeOn ? 'ON' : 'OFF'}`;
+  });
+  function quantizeDelaySec() {
+    if (!quantizeOn) return 0;
+    const bpm   = Math.max(1, parseFloat(bpmInp.value) || 120);
+    const theBeats = parseFloat(gridSel.value) || 1;
+    const qSec  = (60 / bpm) * theBeats;
+    const bt    = backingClockSeconds();
+    const t     = (bt !== null) ? bt : performance.now()/1000;
+    const next  = Math.ceil(t / qSec) * qSec;
+    return Math.max(0, next - t);
+  }
+
+  // === Keyboard mapping / mini keyboard ====================================
+  const BASE_KEYS = (() => {
+    const digits = ['1','2','3','4','5','6','7','8','9','0'];
+    const letters = Array.from({length:26}, (_,i)=> String.fromCharCode(97+i));
+    return [...digits, ...letters];
+  })();
+  let segments = [];           // [{start,dur}, ...]
+  let clipButtons = [];        // DOM nodes for visual flash
+  let keyBanks = [];           // [ Map(key -> clipIndex), ... ]
+  let currentBank = 0;
+
+  function buildKeyBanks(count) {
+    const banks = [];
+    const per = BASE_KEYS.length;
+    const totalBanks = Math.max(1, Math.ceil(count / per));
+    for (let b = 0; b < totalBanks; b++) {
+      const m = new Map();
+      for (let i = 0; i < per; i++) {
+        const clipIndex = b*per + i;
+        if (clipIndex >= count) break;
+        m.set(BASE_KEYS[i], clipIndex);
+      }
+      banks.push(m);
+    }
+    return banks;
+  }
+
+  function renderMiniKeys() {
+    miniKeys.innerHTML = '';
+    const map = keyBanks[currentBank] || new Map();
+    for (const [k, idx] of map) {
+      const btn = document.createElement('button');
+      btn.className = 'keypad-btn';
+      btn.textContent = k.toUpperCase();
+      btn.title = `Clip ${idx+1}`;
+      btn.addEventListener('pointerdown', (e) => { e.preventDefault(); triggerByIndex(idx); });
+      btn.addEventListener('click', (e) => { e.preventDefault(); });
+      miniKeys.appendChild(btn);
+    }
+    bankInfo.textContent = `Bank ${currentBank+1}/${Math.max(1, keyBanks.length)}`;
+    prevBank.disabled = currentBank === 0;
+    nextBank.disabled = currentBank >= keyBanks.length - 1;
+  }
+
+  function normalizeKey(e) {
+    let k = e.key || '';
+    if (!k) return null;
+    const mapShiftDigits = {'!':'1','@':'2','#':'3','$':'4','%':'5','^':'6','&':'7','*':'8','(':'9',')':'0'};
+    if (mapShiftDigits[k]) k = mapShiftDigits[k];
+    k = k.toLowerCase();
+    if (k.length !== 1) return null;
+    if (!/[a-z0-9]/.test(k)) return null;
+    return k;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    const tag = (document.activeElement?.tagName || '').toUpperCase();
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || document.activeElement?.isContentEditable) return;
+    if (e.repeat) return;
+
+    const k = normalizeKey(e);
+    if (!k) return;
+
+    const bankTry = e.shiftKey && keyBanks[1] ? 1 : currentBank;
+    const map = keyBanks[bankTry] || new Map();
+    if (map.has(k)) {
+      e.preventDefault();
+      triggerByIndex(map.get(k));
+    }
+  });
+
+  prevBank.addEventListener('click', () => { if (currentBank > 0) { currentBank--; renderMiniKeys(); } });
+  nextBank.addEventListener('click', () => { if (currentBank < keyBanks.length-1) { currentBank++; renderMiniKeys(); } });
+
+  function labelForClip(i){
+    const per = BASE_KEYS.length;
+    const bank = Math.floor(i / per);
+    const k = BASE_KEYS[i % per].toUpperCase();
+    return bank === 0 ? k : `⇧+${k}`;
+  }
+
+  function flashClip(i){
+    const btn = clipButtons[i];
+    if (!btn) return;
+    btn.classList.remove('flash'); btn.offsetHeight;
+    btn.classList.add('flash');
+  }
+
+  function triggerByIndex(i){
+    const seg = segments[i];
+    if (!seg) return;
+    triggerClip(seg.start, seg.dur);
+    flashClip(i);
+  }
+
+  // ====== CLIP RENDERING with EDIT/DELETE ===================================
+  function clamp(val, min, max){ return Math.min(max, Math.max(min, val)); }
+
+  function renderAllClips() {
+    clipsGrid.innerHTML = '';
+    clipButtons = [];
+    segments.forEach((seg, i) => {
+      const card = document.createElement('div');
+      card.className = 'clip-card';
+      card.dataset.index = i;
+
+      const btn = document.createElement('button');
+      btn.className = 'clip-btn';
+      btn.innerHTML = `<span class="kbd">${labelForClip(i)}</span>
+                       <span class="badge" data-badge>${seg.dur.toFixed(2)}s</span>
+                       Clip ${i+1}
+                       <small data-range>${fmt(seg.start)} → ${fmt(seg.start+seg.dur)}</small>`;
+      btn.addEventListener('click', () => triggerClip(seg.start, seg.dur));
+      card.appendChild(btn);
+      clipButtons.push(btn);
+
+      const ctrls = document.createElement('div');
+      ctrls.className = 'clip-ctrls';
+      ctrls.innerHTML = `
+        <label>Start</label>
+        <input type="number" step="0.01" min="0" value="${seg.start.toFixed(2)}" data-start>
+        <label>Len</label>
+        <input type="number" step="0.01" min="0.05" value="${seg.dur.toFixed(2)}" data-len>
+        <button class="small save">Save</button>
+        <button class="small del">Delete</button>
+      `;
+      ctrls.querySelector('.save').addEventListener('click', () => {
+        const startInp = ctrls.querySelector('[data-start]');
+        const lenInp   = ctrls.querySelector('[data-len]');
+        let s = parseFloat(startInp.value); if (!Number.isFinite(s)) s = seg.start;
+        let d = parseFloat(lenInp.value);   if (!Number.isFinite(d)) d = seg.dur;
+
+        s = clamp(s, 0, Math.max(0, videoDuration - 0.01));
+        d = clamp(d, 0.05, Math.max(0.05, videoDuration - s));
+        segments[i] = { start: s, dur: d };
+        renderAfterChange();
+      });
+      ctrls.querySelector('.del').addEventListener('click', () => {
+        segments.splice(i, 1);
+        renderAfterChange(true);
+      });
+
+      card.appendChild(ctrls);
+      clipsGrid.appendChild(card);
+    });
+  }
+
+  function renderAfterChange(deleted=false){
+    keyBanks = buildKeyBanks(segments.length);
+    if (deleted) currentBank = Math.min(currentBank, Math.max(0, keyBanks.length-1));
+    renderMiniKeys();
+    renderAllClips();
+  }
+
+  // --- Slice / Make buttons
+  makeClips.addEventListener('click', () => {
+    if (!videoLoaded) return;
+    segments = [];
+
+    const offset = Math.max(0, parseFloat(offsetInp.value) || 0);
+
+    if (sliceMode.value === 'length') {
+      const L = Math.max(0.1, parseFloat(sliceLen.value) || 2);
+      for (let t = offset; t + 0.05 < videoDuration; t += L) {
+        const dur = Math.min(L, videoDuration - t);
+        segments.push({ start: t, dur });
+      }
+    } else {
+      const N = Math.max(1, parseInt(sliceCount.value,10) || 8);
+      const usable = Math.max(0, videoDuration - offset);
+      const L = usable / N;
+      for (let i = 0; i < N; i++) {
+        const start = offset + i * L;
+        const dur = Math.min(L, videoDuration - start);
+        if (dur > 0.05) segments.push({ start, dur });
+      }
+    }
+
+    keyBanks = buildKeyBanks(segments.length);
+    currentBank = 0;
+    renderMiniKeys();
+    renderAllClips();
+  });
+
+  function fmt(t) {
+    const m = Math.floor(t/60), s = (t%60).toFixed(2).padStart(5,'0');
+    return `${m}:${s}`;
+  }
+
+  // --- Clip triggering
+  const liveClones = new Set();
+  async function triggerClip(start, dur) {
+    const delay = quantizeDelaySec();
+    ensureAudioCtx();
+    await audioCtx.resume();
+
+    // Visual bus
+    if (visualFollow.checked) {
+      seekAndPlay(mainVideo, start, dur, delay, /*mute*/ true);
+    } else {
+      // just line up the scrubber for reference (don’t play audio here)
+      setTimeout(() => { mainVideo.currentTime = Math.max(0.01, start); }, delay*1000);
+    }
+
+    // Layered audio via hidden clones
+    pruneClones();
+    const allowed = Math.max(1, parseInt(document.getElementById('maxOverlap').value,10) || 4);
+    if (liveClones.size >= allowed) {
+      const first = liveClones.values().next().value;
+      stopClone(first);
+    }
+
+    const v = document.createElement('video');
+    v.src = videoURL;
+    v.preload = 'auto';
+    v.crossOrigin = 'anonymous';
+    v.playsInline = true;
+    v.controls = false;
+    v.dataset.role = 'clip';
+
+    cloneBin.appendChild(v);
+    allMedia.add(v);
+    liveClones.add(v);
+
+    await attachClipToFX(v);
+
+    // IMPORTANT: do NOT mute clones — pass mute=false
+    seekAndPlay(v, start, dur, delay, /*mute*/ false, () => { stopClone(v); });
+  }
+
+  function pruneClones() {
+    [...liveClones].forEach(v => {
+      if (v.ended || (v.paused && v.currentTime === 0)) stopClone(v);
+    });
+  }
+  function stopClone(v) {
+    try { v.pause(); } catch {}
+    try {
+      if (v._srcNode) { v._srcNode.disconnect(); v._srcNode = null; }
+    } catch {}
+    v.removeAttribute('src'); v.load?.();
+    allMedia.delete(v);
+    liveClones.delete(v);
+    v.remove();
+  }
+
+  function seekAndPlay(videoEl, start, dur, delaySec, mute, onDone) {
+    const target = Math.min(Math.max(0.01, start), Math.max(0.01, (videoDuration||start)));
+    videoEl.pause();
+
+    // Mute only non-clip elements (visual player); keep clip elements unmuted but volume=0
+    if (videoEl.dataset.role === 'clip') {
+      videoEl.muted = false;
+      videoEl.volume = 0;
+    } else {
+      videoEl.muted = !!mute;
+    }
+
+    const scheduleAt = performance.now() + (delaySec*1000);
+
+    const playAt = () => {
+      const armStop = () => {
+        const stopAt = target + dur;
+        const tick = () => {
+          if (videoEl.currentTime >= stopAt - 0.005) {
+            videoEl.pause();
+            onDone && setTimeout(onDone, 200); // small grace for FX tails
+          } else {
+            requestAnimationFrame(tick);
+          }
+        };
+        requestAnimationFrame(tick);
+      };
+      videoEl.addEventListener('playing', armStop, { once: true });
+      videoEl.play().catch(()=>{ /* user-gesture/autoplay races are fine */ });
+    };
+
+    const startPlay = () => {
+      const ms = Math.max(0, scheduleAt - performance.now());
+      if (ms <= 4) playAt(); else setTimeout(playAt, ms);
+    };
+
+    if (isNaN(videoEl.duration) || videoEl.readyState < 2) {
+      videoEl.addEventListener('loadedmetadata', () => {
+        videoEl.currentTime = target;
+        videoEl.addEventListener('seeked', startPlay, { once: true });
+      }, { once: true });
+      return;
+    }
+    videoEl.addEventListener('seeked', startPlay, { once: true });
+    try { videoEl.currentTime = target; } catch { startPlay(); }
+  }
+
+  // --- Stop all (does NOT stop backing)
+  stopAll.addEventListener('click', () => {
+    [...liveClones].forEach(stopClone);
+    mainVideo.pause();
+  });
+
+  // Apply initial volumes
+  setMasterVolumeForMedia(parseFloat(masterVol.value));
+
+  // --- Load Backing wiring (kept same)
+  backFile.addEventListener('change', async () => {
+    const f = backFile.files?.[0];
+    if (!f) return;
+    ensureAudioCtx();
+    clearBacking();
+    playBack.disabled = true;
+    playBack.textContent = '…loading';
+
+    try {
+      const arrBuf = await f.arrayBuffer();
+      backBuffer = await audioCtx.decodeAudioData(arrBuf);
+      backingMode = 'buffer';
+      backOffset = 0;
+      playBack.disabled = false;
+      playBack.textContent = '▶ Backing';
+      return;
+    } catch (e) {}
+
+    try {
+      backMediaURL = URL.createObjectURL(f);
+      backMediaEl = f.type.startsWith('video/') ? document.createElement('video') : document.createElement('audio');
+      backMediaEl.src = backMediaURL;
+      backMediaEl.preload = 'auto';
+      backMediaEl.crossOrigin = 'anonymous';
+      backMediaEl.muted = true;
+      backMediaEl.loop = true;
+      backMediaEl.playsInline = true;
+      backMediaEl.controls = false;
+      backMediaNode = audioCtx.createMediaElementSource(backMediaEl);
+      backMediaNode.connect(backGain);
+
+      backMediaEl.addEventListener('canplay', () => {
+        backingMode = 'media';
+        playBack.disabled = false;
+        playBack.textContent = '▶ Backing';
+      }, { once: true });
+      backMediaEl.addEventListener('loadedmetadata', () => {
+        if (playBack.disabled) { playBack.disabled = false; playBack.textContent = '▶ Backing'; }
+      }, { once: true });
+    } catch (err) {
+      console.error('Backing load failed:', err);
+      playBack.disabled = true;
+      playBack.textContent = 'Unsupported';
+      backingMode = 'none';
+    }
+  });
+
+})();
+</script>
+
+<script src="../nav-fetch.js"></script>
+<script src="../nav_script2.js"></script>
+</body>
+</html>
