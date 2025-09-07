@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- ===== Core Meta ===== -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AV Slicer — Live Video + Audio Sampler + Sequencer • FOOD4THOTH</title>
+<meta name="description" content="AV Slicer is a browser-based sampler that slices video with audio, triggers clips from a grid or keyboard, layers overlapping playback, adds an optional backing track, supports BPM quantize, and now includes a step sequencer." />
+<meta name="keywords" content="AV slicer, video sampler, audio sampler, sequencer, step sequencer, live performance, clip launcher, keyboard trigger, quantize, web audio, web video, FOOD4THOTH" />
+<meta name="author" content="Food4Thoth / Artabillies" />
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+
+<link rel="canonical" href="https://www.food4thoth.com/TVDJ/" />
+<link rel="icon" href="https://www.food4thoth.com/images/favicon.png" type="image/png" />
+<meta name="theme-color" content="#0b0b0f" />
+
+<!-- ===== Open Graph / Social ===== -->
+<meta property="og:site_name" content="FOOD4THOTH" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="AV Slicer — Live AV Sampler + Sequencer (Web App)" />
+<meta property="og:description" content="Slice video, trigger clip grids, layer overlapping audio, quantize to BPM, and program step sequences — all in your browser." />
+<meta property="og:url" content="https://www.food4thoth.com/TVDJ/" />
+<meta property="og:image" content="https://www.food4thoth.com/TVDJ/og-preview.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="AV Slicer web app — grid of clip buttons, video, and sequencer" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AV Slicer — Live AV Sampler + Sequencer (Web App)" />
+<meta name="twitter:description" content="Browser-based AV slicer with clip grid, overlapping layers, backing track, BPM quantize, and step sequencer." />
+<meta name="twitter:site" content="@food4th0th" />
+<meta name="twitter:image" content="https://www.food4thoth.com/TVDJ/og-preview.jpg" />
+<meta name="twitter:image:alt" content="AV Slicer web app — grid of clip buttons and sequencer" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "AV Slicer",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "Web",
+  "description": "A web app to slice video+audio into triggerable clips with keyboard/on-screen buttons, optional backing track, overlapping layers, BPM quantize, and a step sequencer.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "creator": { "@type": "Organization", "name": "Food4Thoth / Artabillies", "url": "https://www.food4thoth.com" },
+  "url": "https://www.food4thoth.com/TVDJ/",
+  "featureList": [
+    "Video+audio slicing",
+    "Clip grid launcher",
+    "Keyboard banks (digits & letters)",
+    "Overlapping clip layers",
+    "Backing track (Web Audio/Media)",
+    "BPM quantize & grid",
+    "Step sequencer (bars/steps/swing)",
+    "Mobile mini-keyboard"
+  ],
+  "image": "https://www.food4thoth.com/TVDJ/og-preview.jpg"
+}
+</script>
+
+<!-- ===== Performance Hints ===== -->
+<link rel="dns-prefetch" href="//www.food4thoth.com" />
+<link rel="preconnect" href="https://www.food4thoth.com" crossorigin />
+<link rel="preload" as="script" href="../nav-fetch.js" />
+<link rel="preload" as="script" href="../nav_script2.js" />
+<link rel="preload" as="document" href="../navigation.html" fetchpriority="low" />
+<link rel="prefetch" as="document" href="../index.html" />
+<link rel="prefetch" as="document" href="../contact.html" />
+<link rel="prefetch" as="document" href="/TVDJ/readme/" />
+<script type="speculationrules">
+{
+  "prerender": [
+    { "source": "document", "targets": ["navigation"], "urls": ["../index.html"] }
+  ],
+  "prefetch": [
+    { "source": "document", "urls": ["../contact.html","/TVDJ/readme/","../navigation.html"] }
+  ]
+}
+</script>
+<style>
+  :root { --bg:#0b0b0f; --panel:#141420; --ink:#e8e8ef; --muted:#9aa0a6; --accent:#7df; --accent2:#9f7dff; --warn:#ff6b6b; --on:#2aa5ff; --on2:#6ef3ff; }
+  html,body { height:100%; background:var(--bg); color:var(--ink); margin:0; font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; }
+  .wrap { display:grid; grid-template-columns: 380px 1fr; gap:12px; margin-top:15px; padding:12px; padding-bottom:160px; }
+  .card { background:var(--panel); border:1px solid #22243a; border-radius:10px; padding:12px; box-shadow: 0 0 0 1px #0e1022 inset; }
+  h2 { margin:0 0 10px; font-size:16px; letter-spacing:.2px; }
+  .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:8px; }
+  label { font-size:12px; color:var(--muted); }
+  input[type="number"], input[type="text"], select { background:#0e0f18; color:var(--ink); border:1px solid #26283f; border-radius:8px; padding:6px 8px; min-width:70px; }
+  input[type="range"]{ width:160px; }
+  input[type="file"]{ color:var(--muted); }
+  button { background:linear-gradient(180deg,#1a1e35,#11152b); border:1px solid #2a2d48; color:var(--ink); padding:8px 10px; border-radius:10px; cursor:pointer; }
+  button:hover { border-color:#3b3f6b; }
+  button.accent { background:linear-gradient(180deg,#12334a,#10273a); border-color:#166; color:#b6f3ff; }
+  button.warn { background:linear-gradient(180deg,#3a1a1a,#2a1212); border-color:#6b2d2d; color:#ffd6d6; }
+  .video-area { display:grid; grid-template-rows:auto auto; gap:8px; }
+  #mainVideo { width:100%; max-height:55vh; background:black; border-radius:10px; border:1px solid #22243a; }
+  .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:8px; }
+
+  .clip-card { background:linear-gradient(180deg,#111828,#0e1524); border:1px solid #283054; border-radius:10px; padding:8px; display:flex; flex-direction:column; gap:6px; }
+  .clip-btn { width:100%; padding:10px; border-radius:8px; border:1px solid #314066; background:linear-gradient(180deg,#142036,#0f1828); text-align:left; color:#ccf1ff; position:relative; overflow:hidden; }
+  .clip-btn small{ display:block; color:#9ec7d6; font-size:11px; margin-top:3px; }
+  .badge { position:absolute; top:6px; right:8px; font-size:10px; color:#9aa7ff; }
+  .kbd { position:absolute; left:8px; top:6px; font-size:10px; color:#cfe0ff; background:#1b2236; border:1px solid #2a3358; padding:2px 6px; border-radius:6px; }
+  .clip-ctrls { display:flex; flex-wrap:wrap; align-items:center; gap:6px; }
+  .clip-ctrls label { font-size:11px; color:var(--muted); }
+  .clip-ctrls input[type="number"] { width:80px; padding:4px 6px; font-size:12px; }
+  .clip-ctrls .small { padding:4px 8px; font-size:12px; border-radius:6px; }
+  .clip-ctrls .del { background:linear-gradient(180deg,#3a1a1a,#2a1212); border:1px solid #6b2d2d; color:#ffd6d6; }
+  .clip-ctrls .save { background:linear-gradient(180deg,#12334a,#10273a); border:1px solid #166; color:#b6f3ff; }
+  .muted { color:var(--muted); }
+  .hidden-audio { width:0; height:0; overflow:hidden; position:absolute; left:-9999px; top:-9999px; }
+  .sep { height:1px; background:#21243a; margin:8px 0; }
+  .switch { display:inline-flex; align-items:center; gap:6px; }
+
+  /* Mini keyboard */
+  .mini-bar { position:fixed; left:0; right:0; bottom:0; background:rgba(16,18,30,.95); border-top:1px solid #22243a; padding:8px; padding-bottom:calc(8px + env(safe-area-inset-bottom)); z-index:999; backdrop-filter:blur(6px); }
+  .mini-wrap { display:flex; align-items:center; gap:8px; }
+  .mini-keys { display:grid; grid-template-columns: repeat(auto-fill, minmax(36px, 1fr)); gap:6px; flex:1; }
+  .keypad-btn { padding:10px 0; font-weight:700; text-align:center; border-radius:8px; border:1px solid #283054; background:linear-gradient(180deg,#141c2a,#0f1624); color:#cfe0ff; touch-action:manipulation; }
+  .bank-btn { padding:10px 12px; font-weight:700; }
+  #bankInfo { font-size:12px; color:#9aa0a6; min-width:72px; text-align:center; }
+  @keyframes flash { from { outline:2px solid var(--accent); } to { outline:0 solid transparent; } }
+  .flash { animation: flash .25s ease; }
+
+  /* Sequencer */
+  .seq-card .row tight { gap:6px; }
+  .seq-grid { display:flex; flex-direction:column; gap:6px; max-height:42vh; overflow:auto; padding-right:4px; }
+  .seq-head { display:grid; gap:2px; grid-template-columns: 160px 1fr; align-items:center; }
+  .seq-steps-head { display:grid; gap:2px; }
+  .seq-row { display:grid; gap:6px; grid-template-columns: 160px 1fr; align-items:center; }
+  .seq-track-controls { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .seq-steps { display:grid; gap:2px; }
+  .seq-step { width:22px; height:22px; border-radius:4px; border:1px solid #2a2d48; background:#0f1624; cursor:pointer; }
+  .seq-step.on { background:linear-gradient(180deg,#16324d,#10273a); border-color:#2e4a7a; box-shadow: inset 0 0 0 1px #1b4f7a; }
+  .seq-step.play { outline:2px solid var(--on); }
+  .bar-split { background:#1a2136; height:2px; grid-column:1/-1; margin:6px 0 2px; }
+
+  .tiny { font-size:12px; color:var(--muted); }
+  .pill { padding:4px 8px; border-radius:999px; font-size:12px; border:1px solid #2a2d48; background:linear-gradient(180deg,#1a1e35,#11152b); }
+  .pill.on { border-color:#3b3f6b; box-shadow: inset 0 0 0 1px #3b3f6b; }
+
+    .toggle-button { position: fixed; top: 5px; left: 5px; padding: 5px 10px; background: black; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 12px; box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff; transition: background-color 0.3s; z-index: 1000; }
+  .toggle-button:hover { background-color: black; }
+  .hidden { opacity: 0; height: 0; overflow: hidden; transition: all 0.5s ease; pointer-events: none; display: none; }
+  .navigation { position: fixed; top: 40px; left: 10px; background-color: #e0e0e0; padding: 5px; border-radius: 15px; box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff; display: flex; flex-direction: column; gap: 7px; z-index: 1000; height: 50%; overflow-y: auto; }
+  .neumorphic-tab { display:inline-block; margin:2px 2px; padding:3px 3px; border-radius:25px; background:#e0e0e0; box-shadow:8px 8px 16px #bebebe, -8px -8px 16px #ffffff; text-decoration:none; color:#333; font-weight:bold; font-size:clamp(16px,1.2vw,22px); text-align:center; }
+  .neumorphic-tab:hover { box-shadow: inset 8px 8px 16px #bebebe, inset -8px -8px 16px #ffffff; }
+  .neumorphic-tab.active { background:#d1d1d1; }
+  .submenu { padding-left:20px; background-color:#f0f0f0; border-left:2px solid #ccc; margin-top:5px; margin-bottom:5px; display:flex; flex-direction:column; }
+  .submenu a { font-size:0.9rem; padding:2px 10px; border-radius:10px; margin-bottom:7px; margin-top:5px; }
+  .submenu.hidden { display:none; }
+  a { color:#314066; }
+  footer { margin-top:30px; margin-left:5%; }
+</style>
+</head>
+<body>
+  <div id="nav-container"></div>
+
+<div class="wrap">
+  <!-- LEFT: Controls -->
+  <div class="card">
+    <h2>Sources</h2>
+    <div class="row">
+      <label>Video (with audio):</label>
+      <input id="videoFile" type="file" accept="video/*" />
+    </div>
+    <div class="row">
+      <label>Backing track (optional):</label>
+      <input id="backFile"
+       type="file"
+       accept="audio/*,video/*,.mp3,.m4a,.aac,.wav,.aif,.aiff,.flac,.ogg,.opus,.mp4,.m4v,.mov,.webm,.mkv" />
+    </div>
+    <div class="row">
+      <button id="playBack" disabled>▶ Backing</button>
+      <label>Vol</label><input id="backVol" type="range" min="0" max="1" step="0.01" value="0.7" />
+      <label>Master</label><input id="masterVol" type="range" min="0" max="1" step="0.01" value="0.9" />
+    </div>
+
+    <div class="sep"></div>
+    <h2>Slicing</h2>
+    <div class="row">
+      <label>Mode</label>
+      <select id="sliceMode">
+        <option value="length">Fixed length (sec)</option>
+        <option value="count">Equal slices (by count)</option>
+      </select>
+      <label>Len (s)</label><input id="sliceLen" type="number" min="0.1" step="0.1" value="2.0" />
+      <label>Count</label><input id="sliceCount" type="number" min="1" step="1" value="16" />
+    </div>
+    <div class="row">
+      <label>Offset (s)</label><input id="offset" type="number" min="0" step="0.1" value="0" />
+      <label>Max overlap</label><input id="maxOverlap" type="number" min="1" step="1" value="4" />
+    </div>
+    <div class="row">
+      <button id="makeClips" class="accent" disabled>Make Clip Buttons</button>
+      <span id="durInfo" class="muted"></span>
+    </div>
+
+    <div class="sep"></div>
+    <h2>Quantize (optional)</h2>
+    <div class="row">
+      <label>BPM</label><input id="bpm" type="number" min="30" max="300" value="120" />
+      <label>Grid</label>
+      <select id="grid">
+        <option value="1">1 beat (¼ note)</option>
+        <option value="0.5">½ beat (8th)</option>
+        <option value="0.25">¼ beat (16th)</option>
+        <option value="2">2 beats (½ note)</option>
+        <option value="4">4 beats (bar)</option>
+      </select>
+      <button id="toggleQuant">Quantize: OFF</button>
+    </div>
+    <div class="row">
+      <div class="switch">
+        <input type="checkbox" id="visualFollow" checked />
+        <label for="visualFollow">Visual follows last trigger</label>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+    <h2>Clip Defaults</h2>
+    <div class="row">
+      <label>Clip volume</label><input id="clipVol" type="range" min="0" max="1" step="0.01" value="1" />
+      <button id="stopAll" class="warn">Stop All Clips</button>
+    </div>
+
+    <div class="sep"></div>
+    <h2>FX (clips only)</h2>
+    <div class="row">
+      <div class="switch">
+        <input type="checkbox" id="fxOn" checked />
+        <label for="fxOn">Enable FX Rack</label>
+      </div>
+      <label>Mix</label><input id="fxMix" type="range" min="0" max="1" step="0.01" value="0.35" />
+    </div>
+
+    <div class="row">
+      <div class="switch"><input type="checkbox" id="rvOn" checked /><label for="rvOn">Reverb</label></div>
+      <label>Wet</label><input id="rvWet" type="range" min="0" max="1" step="0.01" value="0.25" />
+      <label>Size</label><input id="rvSize" type="range" min="0.1" max="6" step="0.1" value="2.5" />
+    </div>
+
+    <div class="row">
+      <div class="switch"><input type="checkbox" id="dlOn" checked /><label for="dlOn">Delay / Echo</label></div>
+      <label>Time</label><input id="dlTime" type="range" min="0.05" max="1.2" step="0.01" value="0.33" />
+      <label>FB</label><input id="dlFb" type="range" min="0" max="0.95" step="0.01" value="0.45" />
+      <label>Wet</label><input id="dlWet" type="range" min="0" max="1" step="0.01" value="0.25" />
+    </div>
+
+    <div class="row">
+      <div class="switch"><input type="checkbox" id="vbOn" /><label for="vbOn">Vibrato</label></div>
+      <label>Rate</label><input id="vbRate" type="range" min="0.1" max="8" step="0.1" value="5" />
+      <label>Depth</label><input id="vbDepth" type="range" min="0" max="0.02" step="0.001" value="0.004" />
+      <label>Wet</label><input id="vbWet" type="range" min="0" max="1" step="0.01" value="0.3" />
+    </div>
+
+    <div class="row">
+      <div class="switch"><input type="checkbox" id="dsOn" /><label for="dsOn">Distortion</label></div>
+      <label>Drive</label><input id="dsDrive" type="range" min="0" max="1.5" step="0.01" value="0.6" />
+      <label>Wet</label><input id="dsWet" type="range" min="0" max="1" step="0.01" value="0.2" />
+    </div>
+
+    <div class="row">
+      <div class="switch"><input type="checkbox" id="bcOn" /><label for="bcOn">Bitcrusher</label></div>
+      <label>Bits</label><input id="bcBits" type="range" min="4" max="16" step="1" value="8" />
+      <label>Down</label><input id="bcRed" type="range" min="1" max="16" step="1" value="4" />
+      <label>Wet</label><input id="bcWet" type="range" min="0" max="1" step="0.01" value="0.25" />
+    </div>
+
+    <div class="sep"></div>
+    <h2>Sequencer</h2>
+    <div class="row">
+      <button id="seqStart" class="accent">▶ Start</button>
+      <button id="seqStop">⏹ Stop</button>
+      <label>Bars</label><input id="seqBars" type="number" min="1" max="16" step="1" value="2" />
+      <label>Steps/Bar</label>
+      <select id="seqSPB">
+        <option>4</option><option>8</option><option selected>16</option><option>24</option><option>32</option>
+      </select>
+      <label>Swing</label><input id="seqSwing" type="range" min="0" max="0.6" step="0.01" value="0" />
+    </div>
+    <div class="row">
+      <label>Tracks</label><input id="seqTracks" type="number" min="1" max="12" step="1" value="4" />
+      <button id="seqRebuild">Apply</button>
+      <span class="tiny">Pattern tools:</span>
+      <button id="seqClear">Clear</button>
+      <button id="seqFour">4-on-the-floor</button>
+      <button id="seqRand">Random 35%</button>
+      <button id="seqEuclid">Euclidean</button>
+    </div>
+    <div class="row">
+      <button id="seqExport">Export</button>
+      <input id="seqImportFile" type="file" accept="application/json" />
+    </div>
+
+    <div id="seqGrid" class="seq-grid">
+      <div class="seq-head">
+        <div class="tiny">Track / Clip</div>
+        <div id="seqStepsHead" class="seq-steps-head"></div>
+      </div>
+      <div id="seqRows"></div>
+    </div>
+
+    <footer class="footer">
+      <p><a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="/TVDJ/readme/" class="styled-link">ReadMe</a></p>
+    </footer>
+  </div>
+
+  <!-- RIGHT: Player + Clips -->
+  <div class="video-area">
+    <video id="mainVideo" controls muted playsinline></video>
+    <div id="clips" class="grid"></div>
+  </div>
+</div>
+
+<!-- Hidden containers used for overlapping audio/video clones -->
+<div id="cloneBin" class="hidden-audio" aria-hidden="true"></div>
+
+<!-- Sticky mini keyboard (mobile + desktop) -->
+<div class="mini-bar" role="toolbar" aria-label="Clip trigger keyboard">
+  <div class="mini-wrap">
+    <button id="prevBank" class="bank-btn">◀</button>
+    <div id="miniKeys" class="mini-keys"></div>
+    <button id="nextBank" class="bank-btn">▶</button>
+    <span id="bankInfo"></span>
+  </div>
+</div>
+<script>
+(() => {
+  /* ========== DOM HOOKS (unchanged ids) ========= */
+  const videoFile = document.getElementById('videoFile');
+  const backFile  = document.getElementById('backFile');
+  const playBack  = document.getElementById('playBack');
+  const backVol   = document.getElementById('backVol');
+  const masterVol = document.getElementById('masterVol');
+  const sliceMode = document.getElementById('sliceMode');
+  const sliceLen  = document.getElementById('sliceLen');
+  const sliceCount= document.getElementById('sliceCount');
+  const offsetInp = document.getElementById('offset');
+  const makeClips = document.getElementById('makeClips');
+  const durInfo   = document.getElementById('durInfo');
+  const bpmInp    = document.getElementById('bpm');
+  const gridSel   = document.getElementById('grid');
+  const toggleQuant = document.getElementById('toggleQuant');
+  const visualFollow = document.getElementById('visualFollow');
+  const clipVol   = document.getElementById('clipVol');
+  const stopAll   = document.getElementById('stopAll');
+
+  const mainVideo = document.getElementById('mainVideo');
+  const clipsGrid = document.getElementById('clips');
+  const cloneBin  = document.getElementById('cloneBin');
+
+  // mini keyboard
+  const miniKeys  = document.getElementById('miniKeys');
+  const prevBank  = document.getElementById('prevBank');
+  const nextBank  = document.getElementById('nextBank');
+  const bankInfo  = document.getElementById('bankInfo');
+
+  // sequencer UI
+  const seqStartBtn = document.getElementById('seqStart');
+  const seqStopBtn  = document.getElementById('seqStop');
+  const seqBarsInp  = document.getElementById('seqBars');
+  const seqSPBInp   = document.getElementById('seqSPB');
+  const seqSwingInp = document.getElementById('seqSwing');
+  const seqTracksInp= document.getElementById('seqTracks');
+  const seqRebuild  = document.getElementById('seqRebuild');
+  const seqClearBtn = document.getElementById('seqClear');
+  const seqFourBtn  = document.getElementById('seqFour');
+  const seqRandBtn  = document.getElementById('seqRand');
+  const seqEuclidBtn= document.getElementById('seqEuclid');
+  const seqExportBtn= document.getElementById('seqExport');
+  const seqImportFile = document.getElementById('seqImportFile');
+  const seqStepsHead= document.getElementById('seqStepsHead');
+  const seqRowsEl   = document.getElementById('seqRows');
+
+  /* ========= GLOBAL STATE ========= */
+  let videoURL = null, videoLoaded = false, videoDuration = 0, quantizeOn = false;
+
+  /* ========= AUDIO / FX ========= */
+  let audioCtx = null, masterGain = null, backGain = null;
+  let clipsPreGain, clipsGate, clipsDryGain, clipsBus, fxSendGain, fxSumGain, fxMasterWet;
+  let rvConvolver, rvWet, dlDelay, dlFbGain, dlWet, vbDelay, vbLFO, vbWet, dsShaper, dsWet;
+  let bcNode, bcWet, fxInitialized = false, bitcrusherModuleLoaded = false;
+  let gateOpened = false;
+
+  /* ========= POLYPHONY / VOICE POOL ========= */
+  const MAX_HARD_VOICES = 64;          // absolute ceiling to avoid runaway DOM
+  let voices=[], voiceIndex=0;
+  let poolTarget = 16;                 // auto-raised to peak pattern need
+  const maxOverlapInp = document.getElementById('maxOverlap');
+  maxOverlapInp.value = String(Math.max(16, parseInt(maxOverlapInp.value||16,10)));
+
+  /* ========= HELPERS ========= */
+  function ensureAudioCtx() {
+    if (audioCtx) return;
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    masterGain = audioCtx.createGain();
+    backGain   = audioCtx.createGain();
+    masterGain.gain.value = parseFloat(masterVol.value);
+    backGain.gain.value   = parseFloat(backVol.value);
+    backGain.connect(masterGain);
+    masterGain.connect(audioCtx.destination);
+
+    // keep it alive
+    const tryResume = () => { if (audioCtx.state !== 'running') audioCtx.resume().catch(()=>{}); };
+    window.addEventListener('pointerdown', tryResume, {passive:true});
+    window.addEventListener('keydown', tryResume);
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') tryResume(); });
+    audioCtx.addEventListener('statechange', tryResume);
+
+    // also prime the main video so autoplay is granted
+    mainVideo.muted = true; mainVideo.play().then(()=>mainVideo.pause()).catch(()=>{});
+  }
+  function openGateOnce(){
+    if (!gateOpened && audioCtx && clipsGate){
+      clipsGate.gain.setValueAtTime(1, audioCtx.currentTime);
+      gateOpened = true;
+    }
+  }
+  function clamp(v,min,max){ return Math.min(max,Math.max(min,v)); }
+  function fmt(t){ const m=Math.floor(t/60), s=(t%60).toFixed(2).padStart(5,'0'); return `${m}:${s}`; }
+
+  function buildImpulse(ctx, seconds=2.5) {
+    const rate = ctx.sampleRate, len = Math.max(1, Math.floor(seconds*rate));
+    const buf = ctx.createBuffer(2, len, rate);
+    for (let ch=0; ch<2; ch++){
+      const d = buf.getChannelData(ch);
+      for (let i=0;i<len;i++){ d[i] = (Math.random()*2-1) * Math.pow(1 - i/len, 2.5) * 0.8; }
+    }
+    return buf;
+  }
+  function makeCurve(amount=0.6) {
+    const k=amount*100+1, n=44100, c=new Float32Array(n);
+    for (let i=0;i<n;i++){ const x=(i/n)*2-1; c[i]=Math.tanh(k*x)/Math.tanh(k); }
+    return c;
+  }
+
+  async function createBitcrusher(ctx){
+    if (ctx.audioWorklet && !bitcrusherModuleLoaded){
+      const code = `
+        class BitCrusher extends AudioWorkletProcessor {
+          static get parameterDescriptors(){ return [
+            {name:'bits', defaultValue:8, minValue:4, maxValue:16, automationRate:'k-rate'},
+            {name:'reduction', defaultValue:4, minValue:1, maxValue:32, automationRate:'k-rate'}
+          ];}
+          constructor(){ super(); this.phase=0; this.last=0; }
+          process(inputs, outputs, params){
+            const input=inputs[0], output=outputs[0];
+            if (!input || !input[0]) return true;
+            const bits=params.bits[0]|0, red=params.reduction[0]|0;
+            const step=2/(Math.pow(2,bits)-1);
+            for (let ch=0; ch<output.length; ch++){
+              const iCh=input[ch]||input[0], oCh=output[ch];
+              for (let i=0;i<oCh.length;i++){
+                if (++this.phase>=Math.max(1,red)){ this.phase=0; this.last=step*Math.round(iCh[i]/step); }
+                oCh[i]=this.last;
+              }
+            }
+            return true;
+          }
+        }
+        registerProcessor('bitcrusher', BitCrusher);
+      `;
+      const url = URL.createObjectURL(new Blob([code],{type:'application/javascript'}));
+      await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url); bitcrusherModuleLoaded=true;
+    }
+    if (bitcrusherModuleLoaded){
+      return new AudioWorkletNode(ctx,'bitcrusher',{numberOfInputs:1,numberOfOutputs:1,outputChannelCount:[2]});
+    }
+    return ctx.createScriptProcessor(1024,2,2);
+  }
+
+  /* ========= FX INIT ========= */
+  async function initFXOnce(){
+    if (fxInitialized) return;
+    ensureAudioCtx();
+
+    // Controls
+    const fxOn     = document.getElementById('fxOn');
+    const fxMixEl  = document.getElementById('fxMix');
+    const rvOn     = document.getElementById('rvOn');
+    const rvWetCtl = document.getElementById('rvWet');
+    const rvSizeEl = document.getElementById('rvSize');
+    const dlOn     = document.getElementById('dlOn');
+    const dlTime   = document.getElementById('dlTime');
+    const dlFb     = document.getElementById('dlFb');
+    const dlWetCtl = document.getElementById('dlWet');
+    const vbOn     = document.getElementById('vbOn');
+    const vbRate   = document.getElementById('vbRate');
+    const vbDepth  = document.getElementById('vbDepth');
+    const vbWetCtl = document.getElementById('vbWet');
+    const dsOn     = document.getElementById('dsOn');
+    const dsDrive  = document.getElementById('dsDrive');
+    const dsWetCtl = document.getElementById('dsWet');
+    const bcOn     = document.getElementById('bcOn');
+    const bcBits   = document.getElementById('bcBits');
+    const bcRed    = document.getElementById('bcRed');
+    const bcWetCtl = document.getElementById('bcWet');
+
+    // Buses
+    clipsBus     = audioCtx.createGain();
+    clipsPreGain = audioCtx.createGain();
+    clipsGate    = audioCtx.createGain();
+    clipsDryGain = audioCtx.createGain();
+    fxSendGain   = audioCtx.createGain();
+    fxSumGain    = audioCtx.createGain();
+    fxMasterWet  = audioCtx.createGain();
+
+    // Init values
+    clipsPreGain.gain.value = parseFloat(clipVol.value);
+    clipsGate.gain.value    = 0; // open on first interaction
+    clipsDryGain.gain.value = 1 - parseFloat(fxMixEl.value);
+    fxSendGain.gain.value   = 1;
+    fxMasterWet.gain.value  = parseFloat(fxMixEl.value);
+
+    // FX nodes
+    rvConvolver = audioCtx.createConvolver();
+    rvConvolver.buffer = buildImpulse(audioCtx, parseFloat(rvSizeEl.value));
+    rvWet = audioCtx.createGain();
+
+    dlDelay  = audioCtx.createDelay(2.0);
+    dlFbGain = audioCtx.createGain();
+    dlWet    = audioCtx.createGain();
+    dlDelay.connect(dlFbGain).connect(dlDelay);
+
+    vbDelay = audioCtx.createDelay(0.05);
+    vbLFO   = audioCtx.createOscillator();
+    const vbGain = audioCtx.createGain(); vbGain.gain.value = 1;
+    vbLFO.connect(vbGain).connect(vbDelay.delayTime); vbLFO.start();
+    vbWet = audioCtx.createGain();
+
+    dsShaper = audioCtx.createWaveShaper();
+    dsWet    = audioCtx.createGain();
+
+    bcNode = await createBitcrusher(audioCtx);
+    bcWet  = audioCtx.createGain();
+
+    // Routing
+    fxSendGain.connect(rvConvolver); rvConvolver.connect(rvWet).connect(fxSumGain);
+    fxSendGain.connect(dlDelay);     dlDelay.connect(dlWet).connect(fxSumGain);
+    fxSendGain.connect(vbDelay);     vbDelay.connect(vbWet).connect(fxSumGain);
+    fxSendGain.connect(dsShaper);    dsShaper.connect(dsWet).connect(fxSumGain);
+    fxSendGain.connect(bcNode);      bcNode.connect(bcWet).connect(fxSumGain);
+    fxSumGain.connect(fxMasterWet).connect(clipsBus);
+
+    clipsPreGain.connect(clipsGate);
+    clipsGate.connect(clipsDryGain).connect(clipsBus); // dry
+    clipsGate.connect(fxSendGain);                     // wet
+    clipsBus.connect(masterGain);
+
+    // UI binds
+    const updMix = () => {
+      const mix = fxOn.checked ? parseFloat(fxMixEl.value) : 0;
+      clipsDryGain.gain.value = 1 - mix;
+      fxMasterWet.gain.value  = mix;
+    };
+    fxOn.addEventListener('change', updMix);
+    fxMixEl.addEventListener('input', updMix);
+
+    rvWet.gain.value = parseFloat(rvWetCtl.value);
+    rvOn.addEventListener('change',  ()=> rvWet.gain.value = rvOn.checked ? parseFloat(rvWetCtl.value) : 0);
+    rvWetCtl.addEventListener('input',()=> rvWet.gain.value = rvOn.checked ? parseFloat(rvWetCtl.value) : 0);
+    rvSizeEl.addEventListener('change',()=> rvConvolver.buffer = buildImpulse(audioCtx, parseFloat(rvSizeEl.value)));
+
+    dlDelay.delayTime.value = parseFloat(dlTime.value);
+    dlFbGain.gain.value     = parseFloat(dlFb.value);
+    dlWet.gain.value        = dlOn.checked ? parseFloat(dlWetCtl.value) : 0;
+    dlOn.addEventListener('change',  ()=> dlWet.gain.value = dlOn.checked ? parseFloat(dlWetCtl.value) : 0);
+    dlWetCtl.addEventListener('input',()=> dlWet.gain.value = dlOn.checked ? parseFloat(dlWetCtl.value) : 0);
+    dlTime.addEventListener('input', ()=> dlDelay.delayTime.value = parseFloat(dlTime.value));
+    dlFb.addEventListener('input',   ()=> dlFbGain.gain.value     = parseFloat(dlFb.value));
+
+    vbLFO.frequency.value   = parseFloat(vbRate.value);
+    vbDelay.delayTime.value = parseFloat(vbDepth.value);
+    vbWet.gain.value        = vbOn.checked ? parseFloat(vbWetCtl.value) : 0;
+    vbOn.addEventListener('change',  ()=> vbWet.gain.value = vbOn.checked ? parseFloat(vbWetCtl.value) : 0);
+    vbWetCtl.addEventListener('input',()=> vbWet.gain.value = vbOn.checked ? parseFloat(vbWetCtl.value) : 0);
+    vbRate.addEventListener('input', ()=> vbLFO.frequency.value = parseFloat(vbRate.value));
+    vbDepth.addEventListener('input',()=> vbDelay.delayTime.value = parseFloat(vbDepth.value));
+
+    dsShaper.curve   = makeCurve(parseFloat(dsDrive.value));
+    dsWet.gain.value = dsOn.checked ? parseFloat(dsWetCtl.value) : 0;
+    dsOn.addEventListener('change',  ()=> dsWet.gain.value = dsOn.checked ? parseFloat(dsWetCtl.value) : 0);
+    dsWetCtl.addEventListener('input',()=> dsWet.gain.value = dsOn.checked ? parseFloat(dsWetCtl.value) : 0);
+    dsDrive.addEventListener('input', ()=> dsShaper.curve = makeCurve(parseFloat(dsDrive.value)));
+
+    bcWet.gain.value = bcOn.checked ? parseFloat(bcWetCtl.value) : 0;
+    bcOn.addEventListener('change',  ()=> bcWet.gain.value = bcOn.checked ? parseFloat(bcWetCtl.value) : 0);
+    bcWetCtl.addEventListener('input',()=> bcWet.gain.value = bcOn.checked ? parseFloat(bcWetCtl.value) : 0);
+    bcBits.addEventListener('input', ()=> {
+      if (bcNode.parameters) bcNode.parameters.get('bits').value = parseFloat(bcBits.value);
+      else bcNode.bits = parseFloat(bcBits.value)|0;
+    });
+    bcRed.addEventListener('input',  ()=> {
+      if (bcNode.parameters) bcNode.parameters.get('reduction').value = parseFloat(bcRed.value);
+      else bcNode.reduction = parseFloat(bcRed.value)|0;
+    });
+
+    clipVol.addEventListener('input', () => { clipsPreGain.gain.value = parseFloat(clipVol.value); });
+
+    fxInitialized = true;
+  }
+
+  /* ========= BACKING ========= */
+  let backingMode='none', backBuffer=null, backSource=null, backPlaying=false, backStartTime=0, backOffset=0;
+  let backMediaEl=null, backMediaNode=null, backMediaURL=null;
+
+  function clearBacking(){
+    stopBacking(true);
+    backBuffer=null; backSource=null; backPlaying=false; backOffset=0;
+    try { backMediaEl?.pause(); } catch{}
+    try { backMediaNode?.disconnect(); } catch{}
+    if (backMediaURL) URL.revokeObjectURL(backMediaURL);
+    backMediaEl=null; backMediaNode=null; backMediaURL=null; backingMode='none';
+  }
+  function startBacking(){
+    ensureAudioCtx();
+    if (backingMode==='buffer'){
+      if (backSource){ try{backSource.stop();}catch{} backSource.disconnect(); }
+      backSource = audioCtx.createBufferSource();
+      backSource.buffer = backBuffer; backSource.loop=true; backSource.connect(backGain);
+      backStartTime = audioCtx.currentTime;
+      backSource.start(0, backOffset % backBuffer.duration);
+      backPlaying=true; playBack.textContent='⏸ Backing';
+    } else if (backingMode==='media'){
+      if (!backMediaEl) return;
+      backMediaEl.loop=true; backMediaEl.muted=true; backMediaEl.volume=1;
+      backMediaEl.play().then(()=>{ playBack.textContent='⏸ Backing'; }).catch(()=>{});
+      backPlaying=true;
+    }
+  }
+  function stopBacking(force=false){
+    if (backingMode==='buffer'){
+      if (backSource){
+        if (!force){ const t=backingClockSeconds()??0; backOffset = backBuffer ? (t % backBuffer.duration) : 0; }
+        try{ backSource.stop(); }catch{} backSource.disconnect(); backSource=null;
+      }
+      backPlaying=false;
+    } else if (backingMode==='media'){
+      try{ backMediaEl?.pause(); }catch{} backPlaying=false;
+    }
+    playBack.textContent='▶ Backing';
+  }
+  function backingClockSeconds(){
+    if (!audioCtx || !backPlaying) return null;
+    if (backingMode==='buffer' && backBuffer) return backOffset + (audioCtx.currentTime - backStartTime);
+    if (backingMode==='media' && backMediaEl) return backMediaEl.currentTime || 0;
+    return null;
+  }
+
+  // global media volume routing (elements with role='clip' are muted; audio goes via WebAudio)
+  const allMedia = new Set();
+  function setMasterVolumeForMedia(v){
+    allMedia.forEach(m => { if (m.dataset.role==='clip') m.volume=0; else m.volume=v; });
+  }
+  masterVol.addEventListener('input', ()=>{
+    const v=parseFloat(masterVol.value); setMasterVolumeForMedia(v); if (masterGain) masterGain.gain.value=v;
+  });
+  backVol.addEventListener('input', ()=> { if (backGain) backGain.gain.value = parseFloat(backVol.value); });
+
+  /* ========= LOAD MAIN VIDEO ========= */
+  videoFile.addEventListener('change', ()=>{
+    const f = videoFile.files?.[0]; if (!f) return;
+    if (videoURL) URL.revokeObjectURL(videoURL);
+    videoURL = URL.createObjectURL(f);
+    mainVideo.src = videoURL; mainVideo.muted = true; mainVideo.dataset.role='screen';
+    allMedia.add(mainVideo);
+    mainVideo.onloadedmetadata = () => {
+      videoDuration = mainVideo.duration || 0; videoLoaded = true;
+      durInfo.textContent = `Video duration: ${videoDuration.toFixed(2)}s`;
+      makeClips.disabled = false; mainVideo.currentTime = 0.01;
+      initVoicesPool(); // prepare voices
+    };
+  });
+
+  /* ========= LOAD BACKING ========= */
+  backFile.addEventListener('change', async ()=>{
+    const f = backFile.files?.[0]; if (!f) return;
+    ensureAudioCtx(); clearBacking(); playBack.disabled=true; playBack.textContent='…loading';
+    try { const ab=await f.arrayBuffer(); backBuffer=await audioCtx.decodeAudioData(ab);
+      backingMode='buffer'; backOffset=0; playBack.disabled=false; playBack.textContent='▶ Backing'; return;
+    } catch {}
+    try {
+      backMediaURL = URL.createObjectURL(f);
+      backMediaEl  = f.type.startsWith('video/') ? document.createElement('video') : document.createElement('audio');
+      backMediaEl.src = backMediaURL; backMediaEl.preload='auto'; backMediaEl.crossOrigin='anonymous';
+      backMediaEl.muted=true; backMediaEl.loop=true; backMediaEl.playsInline=true; backMediaEl.controls=false;
+      backMediaEl.disablePictureInPicture = true;
+      backMediaEl.disableRemotePlayback = true;
+      backMediaEl.setAttribute('controlsList','nodownload noplaybackrate noremoteplayback');
+      backMediaNode = (ensureAudioCtx(), audioCtx.createMediaElementSource(backMediaEl));
+      backMediaNode.connect(backGain);
+      backMediaEl.addEventListener('canplay', ()=>{ backingMode='media'; playBack.disabled=false; playBack.textContent='▶ Backing'; }, {once:true});
+      backMediaEl.addEventListener('loadedmetadata', ()=>{ if (playBack.disabled){ playBack.disabled=false; playBack.textContent='▶ Backing'; } }, {once:true});
+    } catch (e) { console.error(e); playBack.disabled=true; playBack.textContent='Unsupported'; backingMode='none'; }
+  });
+  playBack.addEventListener('click', async ()=>{ ensureAudioCtx(); await audioCtx.resume(); if (backingMode==='none') return; backPlaying?stopBacking():startBacking(); });
+
+  /* ========= QUANTIZE ========= */
+  toggleQuant.addEventListener('click', ()=>{ quantizeOn=!quantizeOn; toggleQuant.textContent=`Quantize: ${quantizeOn?'ON':'OFF'}`; });
+  function quantizeDelaySec(){
+    if (!quantizeOn) return 0;
+    const bpm=Math.max(1, parseFloat(bpmInp.value)||120), beats=parseFloat(gridSel.value)||1;
+    const qSec=(60/bpm)*beats, bt=backingClockSeconds(), t=(bt!==null)?bt:performance.now()/1000;
+    const next=Math.ceil(t/qSec)*qSec; return Math.max(0,next-t);
+  }
+
+  /* ========= CLIPS (slicing + UI) ========= */
+  const BASE_KEYS = (()=>{
+    const d=['1','2','3','4','5','6','7','8','9','0'], l=Array.from({length:26},(_,i)=>String.fromCharCode(97+i));
+    return [...d,...l];
+  })();
+  let segments = [], clipButtons=[], keyBanks=[], currentBank=0;
+
+  function labelForClip(i){ const per=BASE_KEYS.length, bank=Math.floor(i/per), k=BASE_KEYS[i%per].toUpperCase(); return bank===0?k:`⇧+${k}`; }
+  function renderMiniKeys(){
+    miniKeys.innerHTML=''; const map=keyBanks[currentBank]||new Map();
+    for (const [k, idx] of map){
+      const b=document.createElement('button'); b.className='keypad-btn'; b.textContent=k.toUpperCase(); b.title=`Clip ${idx+1}`;
+      b.addEventListener('pointerdown', e=>{ e.preventDefault(); triggerByIndex(idx); });
+      b.addEventListener('click', e=>e.preventDefault());
+      miniKeys.appendChild(b);
+    }
+    bankInfo.textContent=`Bank ${currentBank+1}/${Math.max(1,keyBanks.length)}`;
+    prevBank.disabled=currentBank===0; nextBank.disabled=currentBank>=keyBanks.length-1;
+  }
+  function buildKeyBanks(n){ const per=BASE_KEYS.length, banks=[], total=Math.max(1,Math.ceil(n/per));
+    for (let b=0;b<total;b++){ const m=new Map(); for (let i=0;i<per;i++){ const ci=b*per+i; if (ci>=n) break; m.set(BASE_KEYS[i], ci); } banks.push(m); } return banks;
+  }
+  function renderAllClips(){
+    clipsGrid.innerHTML=''; clipButtons=[];
+    segments.forEach((seg,i)=>{
+      const card=document.createElement('div'); card.className='clip-card'; card.dataset.index=i;
+      const btn=document.createElement('button'); btn.className='clip-btn';
+      btn.innerHTML=`<span class="kbd">${labelForClip(i)}</span><span class="badge" data-badge>${seg.dur.toFixed(2)}s</span>Clip ${i+1}<small data-range>${fmt(seg.start)} → ${fmt(seg.start+seg.dur)}</small>`;
+      btn.addEventListener('click', ()=> triggerClip(seg.start, seg.dur));
+      card.appendChild(btn); clipButtons.push(btn);
+
+      const ctrls=document.createElement('div'); ctrls.className='clip-ctrls';
+      ctrls.innerHTML=`<label>Start</label><input type="number" step="0.01" min="0" value="${seg.start.toFixed(2)}" data-start>
+                       <label>Len</label><input type="number" step="0.01" min="0.05" value="${seg.dur.toFixed(2)}" data-len>
+                       <button class="small save">Save</button><button class="small del">Delete</button>`;
+      ctrls.querySelector('.save').addEventListener('click', ()=>{
+        const s=clamp(parseFloat(ctrls.querySelector('[data-start]').value), 0, Math.max(0, videoDuration-0.01));
+        const d=clamp(parseFloat(ctrls.querySelector('[data-len]').value),   0.05, Math.max(0.05, videoDuration-s));
+        segments[i] = {start:s, dur:d}; renderAfterChange();
+      });
+      ctrls.querySelector('.del').addEventListener('click', ()=>{ segments.splice(i,1); renderAfterChange(true); });
+      card.appendChild(ctrls); clipsGrid.appendChild(card);
+    });
+    refreshTrackClipSelectors();
+  }
+  function renderAfterChange(del=false){ keyBanks=buildKeyBanks(segments.length); if (del) currentBank=Math.min(currentBank, Math.max(0,keyBanks.length-1)); renderMiniKeys(); renderAllClips(); }
+  makeClips.addEventListener('click', ()=>{
+    if (!videoLoaded) return;
+    const offset=Math.max(0, parseFloat(offsetInp.value)||0);
+    segments=[];
+    if (sliceMode.value==='length'){
+      const L=Math.max(0.1, parseFloat(sliceLen.value)||2);
+      for (let t=offset; t+0.05<videoDuration; t+=L){ segments.push({start:t, dur:Math.min(L, videoDuration-t)}); }
+    } else {
+      const N=Math.max(1, parseInt(sliceCount.value,10)||8), usable=Math.max(0, videoDuration-offset), L=usable/N;
+      for (let i=0;i<N;i++){ const s=offset+i*L, d=Math.min(L, videoDuration-s); if (d>0.05) segments.push({start:s, dur:d}); }
+    }
+    currentBank=0; keyBanks=buildKeyBanks(segments.length); renderMiniKeys(); renderAllClips(); buildSequencerUI(); recalcPolyphonyTarget();
+  });
+
+  // keyboard trigger
+  function normalizeKey(e){ let k=e.key||''; const map={'!':'1','@':'2','#':'3','$':'4','%':'5','^':'6','&':'7','*':'8','(':'9',')':'0'}; if (map[k]) k=map[k]; k=k.toLowerCase(); if (k.length!==1||!/^[a-z0-9]$/.test(k)) return null; return k; }
+  document.addEventListener('keydown', (e)=>{
+    const tag=(document.activeElement?.tagName||'').toUpperCase();
+    if (['INPUT','TEXTAREA','SELECT'].includes(tag) || document.activeElement?.isContentEditable) return;
+    if (e.repeat) return;
+    const k=normalizeKey(e); if (!k) return;
+    const bank = (e.shiftKey && keyBanks[1]) ? 1 : currentBank;
+    const map = keyBanks[bank] || new Map();
+    if (map.has(k)){ e.preventDefault(); triggerByIndex(map.get(k)); }
+  });
+  prevBank.addEventListener('click', ()=>{ if (currentBank>0){ currentBank--; renderMiniKeys(); } });
+  nextBank.addEventListener('click', ()=>{ if (currentBank<keyBanks.length-1){ currentBank++; renderMiniKeys(); } });
+  function triggerByIndex(i){ const seg=segments[i]; if (!seg) return; triggerClip(seg.start, seg.dur); flashClip(i); }
+  function flashClip(i){ const b=clipButtons[i]; if (!b) return; b.classList.remove('flash'); b.offsetHeight; b.classList.add('flash'); }
+
+  /* ========= HIGH-PRECISION SCHEDULING ========= */
+  function callAtCtxTime(targetCtxTime, fn){
+    ensureAudioCtx();
+    const early=0.05, tight=0.005; // slightly more lead; tighter final tick
+    const wake = Math.max(0, (targetCtxTime - audioCtx.currentTime - early)*1000);
+    setTimeout(function tick(){
+      const dt = targetCtxTime - audioCtx.currentTime;
+      if (dt <= tight) { fn(); }
+      else { setTimeout(tick, Math.max(1, (dt - tight)*1000)); }
+    }, wake);
+  }
+
+  /* ========= VOICE POOL ========= */
+  function maxVoicesSetting(){ return Math.max(1, parseInt(maxOverlapInp.value||16,10)); }
+
+  function createVoice(){
+    const v=document.createElement('video');
+    v.src=videoURL; v.preload='auto'; v.crossOrigin='anonymous'; v.playsInline=true; v.controls=false;
+    v.muted=true; v.volume=0; v.tabIndex=-1; v.dataset.role='clip';
+    v.disablePictureInPicture = true;
+    v.disableRemotePlayback = true;
+    v.setAttribute('controlsList','nodownload noplaybackrate noremoteplayback');
+    cloneBin.appendChild(v); allMedia.add(v);
+
+    // warm up autoplay/decoder so later starts are instant
+    v.play().then(()=>v.pause()).catch(()=>{});
+
+    (async()=>{ await initFXOnce(); ensureAudioCtx(); v._srcNode = audioCtx.createMediaElementSource(v); v._srcNode.connect(clipsPreGain); })();
+    return {el:v, busy:false, stopAt:0};
+  }
+
+  function initVoicesPool(){
+    voices.forEach(v=>{ try{v.el.pause();}catch{} try{v.el._srcNode?.disconnect();}catch{} v.el.removeAttribute('src'); v.el.load?.(); allMedia.delete(v.el); v.el.remove(); });
+    voices=[]; voiceIndex=0;
+    ensurePoolSize(Math.max(2, maxVoicesSetting()));
+  }
+
+  function ensurePoolSize(target){
+    target = Math.min(MAX_HARD_VOICES, Math.max(target, maxVoicesSetting()));
+    while (voices.length < target) voices.push(createVoice());
+    if (voices.length > target){
+      // trim extras that are idle
+      for (let i=voices.length-1; i>=target; i--){
+        if (!voices[i].busy){
+          const v = voices.pop();
+          try{v.el.pause();}catch{} try{v.el._srcNode?.disconnect();}catch{} allMedia.delete(v.el); v.el.remove();
+        } else break;
+      }
+    }
+    poolTarget = target;
+  }
+
+  function getVoice(){
+    for (let i=0;i<voices.length;i++){
+      const idx=(voiceIndex+i)%voices.length;
+      if (!voices[idx].busy) { voiceIndex=(idx+1)%voices.length; return voices[idx]; }
+    }
+    // grow if allowed
+    if (voices.length < Math.min(MAX_HARD_VOICES, Math.max(poolTarget, maxVoicesSetting()))){
+      const v=createVoice(); voices.push(v); voiceIndex=voices.length%voices.length; return v;
+    }
+    // otherwise steal the one finishing soonest
+    let best=0, bestRemain=Infinity, now=audioCtx?audioCtx.currentTime:0;
+    voices.forEach((v,i)=>{ const rem=Math.max(0,v.stopAt-now); if (rem<bestRemain){bestRemain=rem; best=i;} });
+    voiceIndex=(best+1)%voices.length; return voices[best];
+  }
+
+  function armClipOnVoice(voice, startSec, durSec, whenCtx){
+    const v=voice.el;
+    voice.busy=true; voice.stopAt = whenCtx + durSec + 0.2; // leave a tiny FX tail
+
+    const lead = 0.15;
+    callAtCtxTime(Math.max(audioCtx.currentTime, whenCtx - lead), ()=>{
+      try{
+        if ('fastSeek' in v) v.fastSeek(startSec);
+        else v.currentTime = Math.max(0.01, Math.min(startSec, videoDuration||startSec));
+      }catch{}
+    });
+
+    callAtCtxTime(whenCtx, ()=>{
+      const stopAt = startSec + durSec;
+      const tick = () => {
+        if (v.currentTime >= stopAt - 0.005) { try{v.pause();}catch{} voice.busy=false; v.removeEventListener('stalled', retry); }
+        else { requestAnimationFrame(tick); }
+      };
+      const retry = () => { v.play().catch(()=>{}); };
+      v.addEventListener('stalled', retry);
+      v.play().then(()=>{ requestAnimationFrame(tick); }).catch(()=>{ voice.busy=false; });
+    });
+
+    // final safety
+    setTimeout(()=>{ voice.busy=false; try{v.pause();}catch{} }, Math.max(150, (durSec+0.75)*1000));
+  }
+
+  // drive main screen visuals without opening new video windows
+  function scheduleVisualClip(startSec, durSec, whenCtx){
+    if (!visualFollow.checked) return;
+    const lead = 0.12;
+    callAtCtxTime(Math.max(audioCtx.currentTime, whenCtx - lead), ()=>{
+      try{
+        if ('fastSeek' in mainVideo) mainVideo.fastSeek(startSec);
+        else mainVideo.currentTime = Math.max(0.01, Math.min(startSec, videoDuration||startSec));
+      }catch{}
+    });
+    callAtCtxTime(whenCtx, ()=>{ mainVideo.muted = true; mainVideo.play().catch(()=>{}); });
+  }
+
+  /* ========= MANUAL TRIGGER ========= */
+  async function triggerClip(start, dur){
+    ensureAudioCtx(); await audioCtx.resume(); openGateOnce();
+    ensurePoolSize(Math.max(poolTarget, maxVoicesSetting()));
+    const delay = quantizeDelaySec();
+    const when  = audioCtx.currentTime + delay;
+
+    scheduleVisualClip(start, dur, when);
+    if (!videoLoaded) return;
+    const voice = getVoice();
+    armClipOnVoice(voice, start, dur, when);
+  }
+
+  stopAll.addEventListener('click', ()=>{
+    voices.forEach(v=>{ try{v.el.pause();}catch{} v.busy=false; });
+    mainVideo.pause();
+  });
+
+  setMasterVolumeForMedia(parseFloat(masterVol.value));
+
+  /* ========= SEQUENCER ========= */
+  const seq = {
+    playing:false, bars:parseInt(seqBarsInp.value,10), stepsPerBar:parseInt(seqSPBInp.value,10),
+    beatsPerBar:4, swing:parseFloat(seqSwingInp.value), tracks:[]
+  };
+  function totalSteps(){ return seq.bars*seq.stepsPerBar; }
+  function stepSeconds(){ const bpm=Math.max(1, parseFloat(bpmInp.value)||120); return (60/bpm)*(seq.beatsPerBar/seq.stepsPerBar); }
+
+  let headCols = [];
+  function buildHeadRow(){
+    const cols=totalSteps(); seqStepsHead.innerHTML=''; seqStepsHead.style.gridTemplateColumns=`repeat(${cols},22px)`; headCols.length=cols;
+    for (let i=0;i<cols;i++){
+      const h=document.createElement('div'); h.className='tiny'; h.style.textAlign='center';
+      const bar=Math.floor(i/seq.stepsPerBar)+1, pos=(i%seq.stepsPerBar)+1; h.textContent=(pos===1)?bar:'•';
+      seqStepsHead.appendChild(h); headCols[i]=[];
+    }
+  }
+  function renderStepsRow(container, track){
+    const cols=totalSteps(); container.innerHTML='';
+    for (let c=0;c<cols;c++){
+      const btn=document.createElement('button'); btn.className='seq-step'; if (track.steps[c]) btn.classList.add('on');
+      btn.addEventListener('click', ()=>{
+        track.steps[c]=track.steps[c]?0:1;
+        btn.classList.toggle('on', !!track.steps[c]);
+        recalcPolyphonyTarget();  // keep pool sized to pattern
+      });
+      container.appendChild(btn);
+      (headCols[c]||(headCols[c]=[])).push(btn);
+    }
+  }
+  function buildTrackRows(){
+    const cols=totalSteps(); seqRowsEl.innerHTML='';
+    seq.tracks.forEach((t,i)=>{
+      const row=document.createElement('div'); row.className='seq-row';
+      const controls=document.createElement('div'); controls.className='seq-track-controls';
+      controls.innerHTML=`<span class="tiny">Track ${i+1}</span><select data-clip></select>
+                          <button class="pill" data-mute>${t.mute?'Unmute':'Mute'}</button>
+                          <button class="pill" data-clear>Clear</button>`;
+      row.appendChild(controls);
+      const sel=controls.querySelector('[data-clip]');
+      sel.innerHTML = segments.map((s,idx)=>`<option value="${idx}" ${idx===t.clip?'selected':''}>Clip ${idx+1} (${fmt(s.start)}→${fmt(s.start+s.dur)})</option>`).join('');
+      sel.addEventListener('change', ()=> t.clip=parseInt(sel.value,10)||0);
+      const muteBtn=controls.querySelector('[data-mute]');
+      const setMute=()=>{ muteBtn.textContent=t.mute?'Unmute':'Mute'; muteBtn.classList.toggle('on',t.mute); recalcPolyphonyTarget(); };
+      muteBtn.addEventListener('click', ()=>{ t.mute=!t.mute; setMute(); }); setMute();
+      controls.querySelector('[data-clear]').addEventListener('click', ()=>{ t.steps.fill(0); renderStepsRow(stepsWrap,t); recalcPolyphonyTarget(); });
+
+      const stepsWrap=document.createElement('div'); stepsWrap.className='seq-steps'; stepsWrap.style.gridTemplateColumns=`repeat(${cols},22px)`; row.appendChild(stepsWrap);
+      renderStepsRow(stepsWrap,t);
+      seqRowsEl.appendChild(row);
+    });
+  }
+  function refreshTrackClipSelectors(){
+    document.querySelectorAll('select[data-clip]').forEach((sel,idx)=>{
+      const t=seq.tracks[idx], prev=t?.clip??0;
+      sel.innerHTML=segments.map((s,i)=>`<option value="${i}" ${i===prev?'selected':''}>Clip ${i+1} (${fmt(s.start)}→${fmt(s.start+s.dur)})</option>`).join('');
+    });
+  }
+  function resizePatternPreserving(){
+    const n=totalSteps();
+    seq.tracks.forEach(t=>{ const old=t.steps, next=new Uint8Array(n); next.set(old.subarray(0,Math.min(old.length,n))); t.steps=next; });
+  }
+  function buildSequencerUI(){
+    const want=parseInt(seqTracksInp.value,10)||4;
+    while (seq.tracks.length<want) seq.tracks.push({clip: Math.min(seq.tracks.length, Math.max(0,segments.length-1)), mute:false, steps:new Uint8Array(totalSteps())});
+    while (seq.tracks.length>want) seq.tracks.pop();
+    buildHeadRow(); buildTrackRows(); recalcPolyphonyTarget();
+  }
+  seqRebuild.addEventListener('click', ()=>{ seq.bars=parseInt(seqBarsInp.value,10)||1; seq.stepsPerBar=parseInt(seqSPBInp.value,10)||16; seq.swing=parseFloat(seqSwingInp.value)||0; resizePatternPreserving(); buildSequencerUI(); });
+  seqBarsInp.addEventListener('change', ()=>seqRebuild.click()); seqSPBInp.addEventListener('change', ()=>seqRebuild.click());
+  seqSwingInp.addEventListener('input', ()=>{ seq.swing=parseFloat(seqSwingInp.value)||0; });
+
+  // pattern tools
+  seqClearBtn.addEventListener('click', ()=>{ seq.tracks.forEach(t=>t.steps.fill(0)); buildSequencerUI(); });
+  seqFourBtn.addEventListener('click', ()=>{
+    const spb=seq.stepsPerBar, bpb=seq.beatsPerBar;
+    seq.tracks.forEach(t=>{ t.steps.fill(0); for (let bar=0;bar<seq.bars;bar++){ for (let beat=0;beat<bpb;beat++){ t.steps[bar*spb + beat*(spb/bpb)] = 1; } }});
+    buildSequencerUI();
+  });
+  seqRandBtn.addEventListener('click', ()=>{ const p=0.35; seq.tracks.forEach(t=>{ for (let i=0;i<totalSteps();i++) t.steps[i] = (Math.random()<p)?1:0; }); buildSequencerUI(); });
+  function euclid(pulses, steps){ let pattern=[], counts=[], rem=[pulses], level=0, divisor=steps-pulses;
+    while (true){ counts.push(Math.floor(divisor/rem[level])); const r=divisor%rem[level]; rem.push(r); divisor=rem[level]; level++; if (rem[level]<=1) break; } counts.push(divisor);
+    function build(l){ if (l===-1) pattern.push(0); else if (l===-2) pattern.push(1); else { for (let i=0;i<counts[l];i++) build(l-1); if (rem[l]!==0) build(l-2); } } build(level); return pattern.slice(0,steps);
+  }
+  seqEuclidBtn.addEventListener('click', ()=>{ const steps=totalSteps(), pulses=Math.max(1,Math.round(steps*0.3)), base=euclid(pulses,steps); seq.tracks.forEach(t=> t.steps=new Uint8Array(base)); buildSequencerUI(); });
+
+  // polyphony estimator (keeps pool big enough for current pattern)
+  function estimatePeakPolyphony() {
+    const n = totalSteps(); let peak = 1;
+    for (let c=0;c<n;c++){
+      let count = 0;
+      for (const t of seq.tracks) if (!t.mute && t.steps[c]) count++;
+      if (count > peak) peak = count;
+    }
+    return Math.min(MAX_HARD_VOICES, Math.max(1, peak));
+  }
+  function recalcPolyphonyTarget() {
+    const needed = estimatePeakPolyphony();
+    ensurePoolSize(Math.max(needed, maxVoicesSetting()));
+  }
+
+  // play/stop
+  let schedulerTimer=null, nextStepIndex=0, nextStepTime=0, playheadCol=-1;
+  function setPlayhead(col, on){
+    (headCols[col]||[]).forEach(el=>el.classList.toggle('play', !!on));
+  }
+  function startSequencer(){
+    ensureAudioCtx(); if (seq.playing) return; seq.playing=true; openGateOnce();
+    recalcPolyphonyTarget();
+    const s=stepSeconds(); nextStepIndex=0; nextStepTime = audioCtx.currentTime + 0.15;
+    const lookahead=0.025, horizon=0.20;
+    const loop = ()=>{
+      if (!seq.playing) return;
+      const now=audioCtx.currentTime;
+      while (nextStepTime < now + horizon){
+        scheduleStep(nextStepIndex, nextStepTime);
+        nextStepIndex = (nextStepIndex+1) % totalSteps();
+        nextStepTime += s;
+      }
+      schedulerTimer = setTimeout(loop, lookahead*1000);
+    };
+    loop(); seqStartBtn.textContent='⏸ Running'; seqStartBtn.disabled=true;
+  }
+  function stopSequencer(){
+    seq.playing=false; if (schedulerTimer){ clearTimeout(schedulerTimer); schedulerTimer=null; }
+    if (playheadCol>=0) setPlayhead(playheadCol,false);
+    playheadCol=-1; seqStartBtn.textContent='▶ Start'; seqStartBtn.disabled=false;
+  }
+  function scheduleStep(stepIdx, whenCtx){
+    // swing
+    if (seq.swing>0){
+      const spb=seq.stepsPerBar/seq.beatsPerBar;
+      if (spb>=2){
+        const inBeat = stepIdx % Math.round(spb);
+        if ((inBeat%2)===1) whenCtx += (stepSeconds()/2)*seq.swing;
+      }
+    }
+
+    // draw playhead exactly on time (no early flicker)
+    callAtCtxTime(whenCtx, ()=>{
+      if (playheadCol>=0) setPlayhead(playheadCol,false);
+      playheadCol = stepIdx;
+      setPlayhead(stepIdx,true);
+    });
+
+    // fire tracks (full clip length, overlapping allowed)
+    const fired = [];
+    for (const t of seq.tracks){
+      if (t.mute || !t.steps[stepIdx]) continue;
+      const clip = segments[t.clip]; if (!clip) continue;
+      fired.push(clip);
+      ensurePoolSize(Math.max(poolTarget, fired.length)); // scale up if this step is dense
+      const voice = getVoice();
+      armClipOnVoice(voice, clip.start, clip.dur, whenCtx);
+    }
+
+    // drive main screen with the last triggered clip this step
+    if (fired.length){
+      const last = fired[fired.length-1];
+      scheduleVisualClip(last.start, last.dur, whenCtx);
+    }
+  }
+  seqStartBtn.addEventListener('click', startSequencer);
+  seqStopBtn.addEventListener('click',  stopSequencer);
+
+  /* ========= INIT ========= */
+// NOTE: BASE_KEYS, keyBanks, currentBank, clipButtons, labelForClip/renderMiniKeys/renderAllClips
+// are already defined above in the "CLIPS (slicing + UI)" section — don't redeclare them here.
+
+function buildInitialTracks(){
+  const want = parseInt(seqTracksInp.value, 10) || 4;
+  seq.tracks.length = 0;
+  for (let i = 0; i < want; i++){
+    seq.tracks.push({ clip: 0, mute: false, steps: new Uint8Array(totalSteps()) });
+  }
+}
+
+buildInitialTracks();
+buildSequencerUI();
+})();
+</script>
+
+<script src="../nav-fetch.js"></script>
+<script src="../nav_script2.js"></script>
+</body>
+</html>
