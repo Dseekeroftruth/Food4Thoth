@@ -279,7 +279,7 @@ const mediaData = [
     genre: 'Experimental',
     released: '2024 A.D.',
     album: 'No Album',
-    url: './music/BlipBlox3.wav',
+    url: 'https://www.food4thoth.com/MusicLibraryVis/music/BlipBlox3.wav',
     showDetails: false
   },
 	{
@@ -288,7 +288,7 @@ const mediaData = [
     genre: 'Experimental',
     released: '2012 A.D.',
     album: 'No Album',
-    url: './music/MescalinosAmazingStory.wav',
+    url: 'https://www.food4thoth.com/MusicLibraryVis/music/MescalinosAmazingStory.wav',
     showDetails: false
   }
   /* ... Your existing data objects ... */
