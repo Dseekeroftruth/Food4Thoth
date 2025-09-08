@@ -276,7 +276,7 @@ const media = [
     genre: 'Experimental',
     released: '2024 A.D.',
     album: 'No Album',
-    url: './music/BlipBlox3.wav',
+    url: 'https://www.food4thoth.com/MusicLibraryVis/music/BlipBlox3.wav',
     showDetails: false
   },
 	{
@@ -285,7 +285,16 @@ const media = [
     genre: 'Experimental',
     released: '2012 A.D.',
     album: 'No Album',
-    url: './music/MescalinosAmazingStory.wav',
+    url: 'https://www.food4thoth.com/MusicLibraryVis/music/MescalinosAmazingStory.wav',
+    showDetails: false
+  },
+	{
+    title: 'Rstory Rap Backtrack',
+    artist: 'DeJahn',
+    genre: 'Experimental',
+    released: '2025 A.D.',
+    album: 'No Album',
+    url: 'https://www.food4thoth.com/MusicLibraryVis/music/RstoryRainbowRap.m4a',
     showDetails: false
   }
       // Add the rest of your tracks here...
