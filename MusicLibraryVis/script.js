@@ -279,7 +279,7 @@ const mediaData = [
     genre: 'Experimental',
     released: '2024 A.D.',
     album: 'No Album',
-    url: 'https://www.food4thoth.com/MusicLibraryVis/music/BlipBlox3.wav',
+    url: './music/BlipBlox3.wav',
     showDetails: false
   },
 	{
@@ -288,7 +288,16 @@ const mediaData = [
     genre: 'Experimental',
     released: '2012 A.D.',
     album: 'No Album',
-    url: 'https://www.food4thoth.com/MusicLibraryVis/music/MescalinosAmazingStory.wav',
+    url: './music/MescalinosAmazingStory.wav',
+    showDetails: false
+  },
+	{
+    title: 'Rstory Rap Backtrack',
+    artist: 'DeJahn',
+    genre: 'Experimental',
+    released: '2025 A.D.',
+    album: 'No Album',
+    url: './music/RstoryRainbowRap.m4a',
     showDetails: false
   }
   /* ... Your existing data objects ... */
@@ -390,46 +399,7 @@ new Vue({
   },
 });
 
-/***************************************************
- * 4) Toggle Nav & Controls
- ***************************************************/
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleButton = document.getElementById('toggle-nav');
-    const navigation = document.getElementById('navigation');
-    const navLinks = document.querySelectorAll('.neumorphic-tab');
 
-    // Toggle main navigation visibility
-    toggleButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent the click from triggering the document click listener
-        const isHidden = navigation.classList.toggle('hidden');
-        toggleButton.textContent = isHidden ? '☰ Nav' : '✖ Close';
-    });
-
-    // Handle submenu expansion
-    navLinks.forEach(link => {
-        link.addEventListener('click', (event) => {
-            const submenuId = link.getAttribute('data-expand');
-            if (submenuId) {
-                event.preventDefault(); // Prevent link navigation
-                const submenu = document.getElementById(submenuId);
-                submenu.classList.toggle('hidden'); // Toggle submenu visibility
-            } else {
-                navigation.classList.add('hidden'); // Hide navigation if it's a regular link
-                toggleButton.textContent = '☰ Nav';
-            }
-        });
-    });
-
-    // Close navigation when clicking outside of it
-    document.addEventListener('click', (event) => {
-        if (!navigation.contains(event.target) && !toggleButton.contains(event.target)) {
-            if (!navigation.classList.contains('hidden')) {
-                navigation.classList.add('hidden');
-                toggleButton.textContent = '☰ Nav';
-            }
-        }
-    });
-});
 
 const toggleControlsBtn = document.getElementById('toggle-Controls1');
 const controlsFractal = document.getElementById('controls');
