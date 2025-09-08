@@ -1,6 +1,61 @@
+---
+layout: default
+title: "MINDMELT — Psychedelic Experimental Art Portal"
+description: "An immersive FOOD4THOTH experience of glitch aesthetics, parallax illusions, looping animations, and experimental multimedia—featuring slideshows, embedded videos, and a neumorphic navigation hub."
+permalink: /MindMelt/readme/
+image: https://www.food4thoth.com/MindMelt/og-preview.jpg
+canonical_url: https://www.food4thoth.com/MindMelt/
+
+# Open Graph
+og_title: "MINDMELT — Psychedelic Experimental Art Portal"
+og_description: "Glitch, graffiti, and surreal visuals in a parallax playground with slideshow galleries and embedded video art."
+og_type: website
+og_url: https://www.food4thoth.com/MindMelt/
+og_image: https://www.food4thoth.com/MindMelt/og-preview.jpg
+og_image_alt: "Collage of psychedelic MINDMELT artwork from FOOD4THOTH"
+og_site_name: "FOOD4THOTH"
+
+# Twitter
+twitter_card: summary_large_image
+twitter_title: "MINDMELT — Psychedelic Experimental Art Portal"
+twitter_description: "A mind-bending gallery of glitchy, surreal experiments—images, videos, and more."
+twitter_site: "@food4th0th"
+twitter_image: https://www.food4thoth.com/MindMelt/og-preview.jpg
+twitter_image_alt: "Collage of psychedelic MINDMELT artwork from FOOD4THOTH"
+
+---
+
 # 🧠 MINDMELT — Psychedelic Experimental Art Portal
 
 ---
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a { color: #00ffff; }
+  h1, h2, h3, h4, h5, h6 { color: yellow; }
+	
+	  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ff00ff, #001eff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(255, 0, 255, 0.5);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffff, #6600cc);
+    box-shadow: 0 0 10px #00ffff;
+  }
+
+</style>
 
 # 🌈 Overview
 
