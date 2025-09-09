@@ -32,8 +32,8 @@ layout: default
 
 <div>
   <a class="nav-button" href="/NationGuardKKK/index.html">Open Article</a>
-  <a class="nav-button" href="/NationGuardKKK/ManufacteredEmergencies.pdf" target="_blank" rel="noopener">Download PDF</a>
-  <a class="nav-button" href="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://www.food4thoth.com/NationGuardKKK/ManufacteredEmergencies.pdf" target="_blank" rel="noopener">View PDF in Browser</a>
+  <a class="nav-button" href="https://www.food4thoth.com/NationGuardKKK/ManufacturedEmergencies.pdf" target="_blank" rel="noopener">Download PDF</a>
+  <a class="nav-button" href="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://www.food4thoth.com/NationGuardKKK/ManufacturedEmergencies.pdf" target="_blank" rel="noopener">View PDF in Browser</a>
 </div>
 
 ---
@@ -65,27 +65,27 @@ It advances four core claims:
 
 ## 📑 Table of Contents (Article)
 
-- [Introduction](../index.html#intro)  
-- [I. Constitutional Framework](../index.html#i-framework)  
-  - [A. Separation of Powers](../index.html#i-a)  
-  - [B. Due Process & Equal Protection](../index.html#i-b)
-- [II. Illegality of False Pretenses](../index.html#ii-illegality)  
-  - [A. Constitutional Fraud](../index.html#ii-a)  
-  - [B. Take Care Clause & Ultra Vires](../index.html#ii-b)
-- [III. Historical Parallels: From the Klan to ICE](../index.html#iii-parallels)  
-  - [A. Klan & State Terror](../index.html#iii-a)  
-  - [B. Jim Crow Legal Fictions](../index.html#iii-b)  
-  - [C. Modern Carceral Continuities](../index.html#iii-c)
-- [IV. Case Studies of Manufactured Emergencies](../index.html#iv-cases)  
-  - [A. Bonus Army](../index.html#iv-a)  
-  - [B. Kent State](../index.html#iv-b)  
-  - [C. COINTELPRO](../index.html#iv-c)
-- [Part V: Doctrinal Analysis](../index.html#v-doctrine)  
-  - [Milligan](../index.html#v-a) · [Duncan](../index.html#v-b) · [Youngstown](../index.html#v-c) · [Hamdi](../index.html#v-d)
-- [Part VI: Policy Reform Recommendations](../index.html#vi-policy)  
-- [VII. Conclusion](../index.html#vii-conclusion)  
-- [Appendices](../index.html#appendix)  
-- [Legal Disclaimer](../index.html#legal-disclaimer)
+- [Introduction](https://www.food4thoth.com/NationGuardKKK/#intro)  
+- [I. Constitutional Framework](https://www.food4thoth.com/NationGuardKKK/#i-framework)  
+  - [A. Separation of Powers](https://www.food4thoth.com/NationGuardKKK/#i-a)  
+  - [B. Due Process & Equal Protection](https://www.food4thoth.com/NationGuardKKK/#i-b)
+- [II. Illegality of False Pretenses](https://www.food4thoth.com/NationGuardKKK/#ii-illegality)  
+  - [A. Constitutional Fraud](https://www.food4thoth.com/NationGuardKKK/#ii-a)  
+  - [B. Take Care Clause & Ultra Vires](https://www.food4thoth.com/NationGuardKKK/#ii-b)
+- [III. Historical Parallels: From the Klan to ICE](https://www.food4thoth.com/NationGuardKKK/#iii-parallels)  
+  - [A. Klan & State Terror](https://www.food4thoth.com/NationGuardKKK/#iii-a)  
+  - [B. Jim Crow Legal Fictions](https://www.food4thoth.com/NationGuardKKK/#iii-b)  
+  - [C. Modern Carceral Continuities](https://www.food4thoth.com/NationGuardKKK/#iii-c)
+- [IV. Case Studies of Manufactured Emergencies](https://www.food4thoth.com/NationGuardKKK/#iv-cases)  
+  - [A. Bonus Army](https://www.food4thoth.com/NationGuardKKK/#iv-a)  
+  - [B. Kent State](https://www.food4thoth.com/NationGuardKKK/#iv-b)  
+  - [C. COINTELPRO](https://www.food4thoth.com/NationGuardKKK/#iv-c)
+- [Part V: Doctrinal Analysis](https://www.food4thoth.com/NationGuardKKK/#v-doctrine)  
+  - [Milligan](https://www.food4thoth.com/NationGuardKKK/#v-a) · [Duncan](https://www.food4thoth.com/NationGuardKKK/#v-b) · [Youngstown](https://www.food4thoth.com/NationGuardKKK/#v-c) · [Hamdi](https://www.food4thoth.com/NationGuardKKK/#v-d)
+- [Part VI: Policy Reform Recommendations](https://www.food4thoth.com/NationGuardKKK/#vi-policy)  
+- [VII. Conclusion](https://www.food4thoth.com/NationGuardKKK/#vii-conclusion)  
+- [Appendices](https://www.food4thoth.com/NationGuardKKK/#appendix)  
+- [Legal Disclaimer](https://www.food4thoth.com/NationGuardKKK/#legal-disclaimer)
 
 ---
 
