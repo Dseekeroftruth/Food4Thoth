@@ -4,8 +4,8 @@ subtitle: "Why Deploying the National Guard to Washington, D.C. on False Pretens
 author: DeJahn (Food4Thoth)
 created: 2025-07-20
 last_updated: 2025-07-20
-permalink: /NationalGuardKKK/readme/
-image: https://www.food4thoth.com/NationalGuardKKK/og-preview.jpg
+permalink: /NationGuardKKK/readme/
+image: https://www.food4thoth.com/NationGuardKKK/og-preview.jpg
 tags: [National Guard, Posse Comitatus, Insurrection Act, constitutional law, militarization, KKK, Jim Crow, COINTELPRO, D.C., state terror, Food4Thoth]
 description: |
   A constitutional, historical, and doctrinal analysis demonstrating that the 2025 deployment of National Guard units to Washington, D.C. on fabricated “crime emergency” grounds is unlawful and unconstitutional. The work situates the deployment within a lineage of state terror—from the KKK and Jim Crow through COINTELPRO to modern carceral expansion—and offers concrete policy reforms.
@@ -31,9 +31,9 @@ layout: default
 *Why Deploying the National Guard to Washington, D.C. on False Pretenses is Unconstitutional and Historically Resonant with State Terror*
 
 <div>
-  <a class="nav-button" href="/NationalGuardKKK/index.html">Open Article</a>
-  <a class="nav-button" href="/NationalGuardKKK/ManufacteredEmergencies.pdf" target="_blank" rel="noopener">Download PDF</a>
-  <a class="nav-button" href="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://www.food4thoth.com/NationalGuardKKK/ManufacteredEmergencies.pdf" target="_blank" rel="noopener">View PDF in Browser</a>
+  <a class="nav-button" href="/NationGuardKKK/index.html">Open Article</a>
+  <a class="nav-button" href="/NationGuardKKK/ManufacteredEmergencies.pdf" target="_blank" rel="noopener">Download PDF</a>
+  <a class="nav-button" href="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://www.food4thoth.com/NationGuardKKK/ManufacteredEmergencies.pdf" target="_blank" rel="noopener">View PDF in Browser</a>
 </div>
 
 ---
