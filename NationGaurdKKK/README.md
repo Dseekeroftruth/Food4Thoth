@@ -81,7 +81,7 @@ It advances four core claims:
   - [B. Kent State](../index.html#iv-b)  
   - [C. COINTELPRO](../index.html#iv-c)
 - [Part V: Doctrinal Analysis](../index.html#v-doctrine)  
-  - Milligan · Duncan · Youngstown · Hamdi
+  - [Milligan](../index.html#v-a) · [Duncan](../index.html#v-b) · [Youngstown](../index.html#v-c) · [Hamdi](../index.html#v-d)
 - [Part VI: Policy Reform Recommendations](../index.html#vi-policy)  
 - [VII. Conclusion](../index.html#vii-conclusion)  
 - [Appendices](../index.html#appendix)  
