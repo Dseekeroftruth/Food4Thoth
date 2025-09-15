@@ -1,22 +1,61 @@
+---
+layout: default
+title: "Interactive Games: From Terminal to Cross-Platform Masterpieces | FOOD4THOTH"
+description: "A collection of interactive games tracing the evolution from terminal-based ASCII art to mobile, desktop, and HTML5 pixel adventures. Explore wizard, kid, and retro-style games built by Food4Thoth."
+author: "DeJahn / Food4Thoth / Artabillies"
+permalink: /NewSchoolGameKid/readme/
+image: "https://www.food4thoth.com/NewSchoolGameKid/og-preview.jpg"
+---
+
 <div style="text-align: center; margin-bottom: 20px;">
-    <button class="nav-button" onclick="location.href='https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho'">FOOD4THOTH Instagram</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi'">FOOD4THOTH Facebook</button>
-    <button class="nav-button" onclick="location.href='../Artabillies/index.html'">Learn About ARTABILLIES</button>
-    <button class="nav-button" onclick="location.href='http://www.artabillies.com'">ARTABILLIES Website</button>
-    <button class="nav-button" onclick="location.href='https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ=='">ARTABILLIES Instagram</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi'">ARTABILLIES Facebook</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP'">ARTABILLIES Facebook Group</button>
-    <button class="nav-button" onclick="location.href='../RstoryArtabillies/index.html'">Rstory, FOOD4THOTH & ARTABILLIES</button>
-    <button class="nav-button" onclick="location.href='../Donations/index.html'">Donations Page</button>
-    <button class="nav-button" onclick="location.href='./about.html'">About</button>
-    <button class="nav-button" onclick="location.href='./contact.html'">Contact</button>
-    <button class="nav-button" onclick="location.href='../TerminalGameTransition/index.html'">Transition From Terminal</button>
-    <button class="nav-button" onclick="location.href='../OldSchoolGameMobile/index.html'">Mobile Game</button>
-		<button class="nav-button" onclick="location.href='../OldSchoolGameDesktop/index.html'">Desktop Version</button>
-		<button class="nav-button" onclick="location.href='../NewSchoolGameWizard/index.html'">Wizard Sprite Edition</button>
-		<button class="nav-button" onclick="location.href='../NewSchoolGameKid/index.html'">Kid Sprite Edition</button>
-    <button class="nav-button" onclick="location.href='../index.html'">FOOD4THOTH HOME</button>
+
+  <a class="nav-button" href="https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho">FOOD4THOTH Instagram</a>
+  <a class="nav-button" href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi">FOOD4THOTH Facebook</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Artabillies/index.html">Learn About ARTABILLIES</a>
+  <a class="nav-button" href="http://www.artabillies.com">ARTABILLIES Website</a>
+  <a class="nav-button" href="https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ==">ARTABILLIES Instagram</a>
+  <a class="nav-button" href="https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi">ARTABILLIES Facebook</a>
+  <a class="nav-button" href="https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP">ARTABILLIES Facebook Group</a>
+  <a class="nav-button" href="https://www.food4thoth.com/RstoryArtabillies/index.html">Rstory, FOOD4THOTH & ARTABILLIES</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Donations/index.html">Donations Page</a>
+  <a class="nav-button" href="https://www.food4thoth.com/NewSchoolGameKid/about.html">About</a>
+  <a class="nav-button" href="https://www.food4thoth.com/NewSchoolGameKid/contact.html">Contact</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TerminalGameTransition/index.html">Transition From Terminal</a>
+  <a class="nav-button" href="https://www.food4thoth.com/OldSchoolGameMobile/index.html">Mobile Game</a>
+  <a class="nav-button" href="https://www.food4thoth.com/OldSchoolGameDesktop/index.html">Desktop Version</a>
+  <a class="nav-button" href="https://www.food4thoth.com/NewSchoolGameWizard/index.html">Wizard Sprite Edition</a>
+  <a class="nav-button" href="https://www.food4thoth.com/NewSchoolGameKid/index.html">Kid Sprite Edition</a>
+  <a class="nav-button" href="https://www.food4thoth.com/index.html">FOOD4THOTH HOME</a>
+
 </div>
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a { color: #00ffff; }
+  h1, h2, h3, h4, h5, h6 { color: yellow; }
+	
+	  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ff00ff, #001eff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(255, 0, 255, 0.5);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffff, #6600cc);
+    box-shadow: 0 0 10px #00ffff;
+  }
+
+</style>
 
 # 🎮 Interactive Games: From Terminal to Cross-Platform Masterpieces
 

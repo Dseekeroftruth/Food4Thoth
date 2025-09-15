@@ -3,15 +3,86 @@
 <head>
     <meta charset="UTF-8">
 	
-    <title>Kid Sprite Game</title>
-<link rel="preload" href="./sounds/8-bit-heaven-26287.mp3" as="audio/mpeg">
-<link rel="preload" href="./sounds/sfx_jump_07-80241.mp3" as="sounds/audio/mpeg">
-<link rel="preload" href="./sounds/game-over-38511.mp3" as="audio/mpeg">
+     <title>NewSchoolGameKid — Pixel Adventure Platformer | FOOD4THOTH</title>
+  <meta name="description" content="Play NewSchoolGameKid — a retro-styled pixel adventure. Collect treasures, dodge enemies, grab power-ups, and level up with dynamic challenges. Built by FOOD4THOTH." />
+  <meta name="keywords" content="NewSchoolGameKid, pixel game, retro platformer, Food4Thoth games, arcade style, treasure hunt, 8-bit, power-ups, wizard version, mobile game" />
+  <meta name="author" content="Food4Thoth / Artabillies" />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
 
-<!-- Normalize CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" onerror="this.onerror=null;this.href='./normalize.min.css';">
-<link rel="stylesheet" href="./styles.css">
-    
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.food4thoth.com/NewSchoolGameKid/index.html" />
+
+  <link rel="icon" href="https://www.food4thoth.com/images/favicon.png" type="image/png" />
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="NewSchoolGameKid — Pixel Adventure Platformer" />
+  <meta property="og:description" content="A Food4Thoth retro game: dodge goblin-gremlin enemies, collect gems, and power up with speed, invincibility, and score multipliers." />
+  <meta property="og:image" content="https://www.food4thoth.com/NewSchoolGameKid/og-preview.jpg" />
+  <meta property="og:url" content="https://www.food4thoth.com/NewSchoolGameKid/index.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="FOOD4THOTH" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NewSchoolGameKid — Pixel Adventure Platformer" />
+  <meta name="twitter:description" content="Collect treasures, dodge enemies, and power up in this 8-bit styled arcade game." />
+  <meta name="twitter:image" content="https://www.food4thoth.com/NewSchoolGameKid/og-preview.jpg" />
+  <meta name="twitter:site" content="@food4th0th" />
+
+    <!-- Preload Core Assets (absolute URLs) -->
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameKid/sounds/8-bit-heaven-26287.mp3" as="audio" type="audio/mpeg" fetchpriority="high" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameKid/sounds/sfx_jump_07-80241.mp3" as="audio" type="audio/mpeg" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameKid/sounds/game-over-38511.mp3" as="audio" type="audio/mpeg" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameKid/images/player.PNG" as="image" fetchpriority="high" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameKid/images/enemy.PNG" as="image" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameKid/images/gem.PNG" as="image" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameKid/images/powerup_speed.PNG" as="image" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameKid/images/powerup_invincible.PNG" as="image" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameKid/images/powerup_multiplier.PNG" as="image" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameKid/images/background.PNG" as="image" />
+
+  <!-- Prefetch Helpful Navigation -->
+  <link rel="prefetch" href="../OldSchoolGameMobile/index.html" as="document" />
+  <link rel="prefetch" href="../OldSchoolGameDesktop/index.html" as="document" />
+  <link rel="prefetch" href="../NewSchoolGameWizard/index.html" as="document" />
+  <link rel="prefetch" href="../index.html" as="document" />
+  <link rel="prefetch" href="/NewSchoolGameKid/readme/" as="document" />
+
+  <!-- Normalize CSS fallback already included -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" onerror="this.onerror=null;this.href='./normalize.min.css';">
+  <link rel="stylesheet" href="./styles.css" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "NewSchoolGameKid",
+    "url": "https://www.food4thoth.com/NewSchoolGameKid/index.html",
+    "image": "https://www.food4thoth.com/NewSchoolGameKid/og-preview.jpg",
+    "author": {
+      "@type": "Organization",
+      "name": "Food4Thoth / Artabillies"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Food4Thoth"
+    },
+    "description": "A retro-inspired pixel adventure game where you collect gems, avoid enemies, and use power-ups to advance through levels.",
+    "genre": ["Platformer", "Arcade", "Adventure"],
+    "operatingSystem": "Any modern browser",
+    "applicationCategory": "Game",
+    "playMode": "SinglePlayer",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 </head>
 <body>
     <div id="gameContainer">
@@ -51,8 +122,11 @@
 						<p><a href="../NewSchoolGameWizard/index.html">Wizard Version</a></p>
 						<footer class="footer">
         <p>
-					<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="README.md"  class="styled-link">ReadMe</a></p>
+					<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="/NewSchoolGameKid/readme/"  class="styled-link">ReadMe</a></p>
     </footer>
+		
+		<!-- Placeholder for the nav -->
+  <div id="nav-container"></div>
         </div>
         <canvas id="gameCanvas"></canvas>
     </div>
@@ -103,6 +177,7 @@
 
    <script src="./script.js"></script>
 		
-		
+	<script src="../nav-fetch.js"></script>
+  <script src="../nav_script2.js"></script>
 </body>
 </html>
