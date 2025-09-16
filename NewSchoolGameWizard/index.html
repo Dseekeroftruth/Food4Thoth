@@ -2,30 +2,85 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>WIZARD Sprite Game</title>
-		<!-- Preloading audio files -->
-		
-		<link rel="prefetch" href="README.md">
-<link rel="prefetch" href="../OldSchoolGameMobile/index.html">
-<link rel="prefetch" href="../OldSchoolGameDesktop/index.html">
-<link rel="prefetch" href="../NewSchoolGameKid/index.html">
-		
-<link rel="preload" href="./sounds/8-bit-heaven-26287.mp3" as="audio/mpeg">
-<link rel="preload" href="./sounds/sfx_jump_07-80241.mp3" as="sounds/audio/mpeg">
-<link rel="preload" href="./sounds/game-over-38511.mp3" as="audio/mpeg">
+      <!-- Title & Meta -->
+  <title>NewSchoolGameWizard — Pixel Wizard Platformer | FOOD4THOTH</title>
+  <meta name="description" content="Play NewSchoolGameWizard — a retro-styled pixel adventure. Dodge enemies, collect treasures, and power up across escalating levels. Built by FOOD4THOTH." />
+  <meta name="keywords" content="NewSchoolGameWizard, pixel game, retro platformer, wizard game, Food4Thoth games, arcade, treasure, 8-bit, power-ups, mobile game" />
+  <meta name="author" content="Food4Thoth / Artabillies" />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
 
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.food4thoth.com/NewSchoolGameWizard/index.html" />
 
+  <!-- Favicon / Theme -->
+  <link rel="icon" href="https://www.food4thoth.com/images/favicon.png" type="image/png" />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="FOOD4THOTH" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="NewSchoolGameWizard — Pixel Wizard Platformer" />
+  <meta property="og:description" content="A Food4Thoth retro game: dodge enemies, collect gems, and stack power-ups like speed, invincibility, and score multipliers." />
+  <meta property="og:url" content="https://www.food4thoth.com/NewSchoolGameWizard/index.html" />
+  <meta property="og:image" content="https://www.food4thoth.com/NewSchoolGameWizard/og-preview.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="NewSchoolGameWizard — retro pixel wizard dodging enemies and collecting treasures" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NewSchoolGameWizard — Pixel Wizard Platformer" />
+  <meta name="twitter:description" content="dodge goblins, collect treasures, and power up in a retro wizard adventure." />
+  <meta name="twitter:image" content="https://www.food4thoth.com/NewSchoolGameWizard/og-preview.jpg" />
+  <meta name="twitter:site" content="@food4th0th" />
+
+  <!-- Performance: connection warmup -->
+  <link rel="dns-prefetch" href="//www.food4thoth.com" />
+  <link rel="preconnect" href="https://www.food4thoth.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
 <!-- Normalize CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" onerror="this.onerror=null;this.href='./normalize.min.css';">
 <link rel="stylesheet" href="./styles.css">
 
-<!-- Preload Google Font -->
-    <link rel="preload" href="https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8TnDuT89MKv9Q4U5XmU0gYcs.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-    
-    <!-- Standard Google Font Import -->
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    
+  <!-- Preload Core Game Assets (absolute URLs) -->
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameWizard/sounds/8-bit-heaven-26287.mp3" as="audio" type="audio/mpeg" fetchpriority="high" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameWizard/sounds/sfx_jump_07-80241.mp3" as="audio" type="audio/mpeg" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameWizard/sounds/game-over-38511.mp3" as="audio" type="audio/mpeg" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameWizard/images/player3.PNG" as="image" fetchpriority="high" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameWizard/images/enemy6.PNG" as="image" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameWizard/images/gem3.PNG" as="image" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameWizard/images/powerup_speed5.PNG" as="image" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameWizard/images/powerup_invincible3.PNG" as="image" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameWizard/images/powerup_multiplier4.PNG" as="image" />
+  <link rel="preload" href="https://www.food4thoth.com/NewSchoolGameWizard/images/2background.PNG" as="image" />
+
+  <!-- Prefetch likely next pages -->
+  <link rel="prefetch" href="https://www.food4thoth.com/OldSchoolGameMobile/index.html" as="document" />
+  <link rel="prefetch" href="https://www.food4thoth.com/OldSchoolGameDesktop/index.html" as="document" />
+  <link rel="prefetch" href="https://www.food4thoth.com/NewSchoolGameKid/index.html" as="document" />
+  <link rel="prefetch" href="https://www.food4thoth.com/NewSchoolGameKid/readme/" as="document" />
+  <link rel="prefetch" href="https://www.food4thoth.com/index.html" as="document" />
+
+  <!-- Structured Data (VideoGame) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "NewSchoolGameWizard",
+    "url": "https://www.food4thoth.com/NewSchoolGameWizard/index.html",
+    "image": "https://www.food4thoth.com/NewSchoolGameWizard/og-preview.jpg",
+    "description": "A retro-inspired pixel wizard adventure: sling spells, dodge enemies, collect gems, and use power-ups to advance through levels.",
+    "genre": ["Platformer", "Arcade", "Adventure"],
+    "applicationCategory": "Game",
+    "operatingSystem": "Any modern browser",
+    "playMode": "SinglePlayer",
+    "author": { "@type": "Organization", "name": "Food4Thoth / Artabillies", "url": "https://www.food4thoth.com" },
+    "publisher": { "@type": "Organization", "name": "Food4Thoth", "url": "https://www.food4thoth.com" },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
 </head>
 <body>
     <div id="gameContainer">
@@ -66,8 +121,11 @@
 						
 						<footer class="footer">
         <p>
-					<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="README.md"  class="styled-link">ReadMe</a></p>
+					<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="/NewSchoolGameKid/readme/"  class="styled-link">ReadMe</a></p>
     </footer>
+		
+		<!-- Placeholder for the nav -->
+  <div id="nav-container"></div>
         </div>
         <canvas id="gameCanvas"></canvas>
     </div>
@@ -117,7 +175,8 @@
 </script>
 
        <script src="./script.js"></script>
-		
+	<script src="../nav-fetch.js"></script>
+  <script src="../nav_script2.js"></script>
 
 </body>
 </html>
