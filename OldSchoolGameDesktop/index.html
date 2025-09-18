@@ -1,18 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terminal Game in HTML</title>
-		<link rel="preload" href="./sounds/8-bit-heaven-26287.mp3" as="audio">
-<link rel="preload" href="./sounds/sfx_jump_07-80241.mp3" as="audio">
-<link rel="preload" href="./sounds/game-over-38511.mp3" as="audio">
+  <!-- Charset & Viewport -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Title & Description -->
+  <title>OldSchoolGameDesktop — Retro Terminal Pixel Game | FOOD4THOTH</title>
+  <meta name="description" content="Play OldSchoolGameDesktop — a retro pixelated terminal-style arcade game by Food4Thoth. Dodge enemies, collect treasures, and power up through levels on desktop." />
+  <meta name="keywords" content="OldSchoolGameDesktop, retro game, HTML5 arcade, Food4Thoth, pixel platformer, 8-bit games, desktop version" />
+  <meta name="author" content="Food4Thoth / Artabillies" />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
 
-		<link rel="prefetch" href="README.md">
-<link rel="prefetch" href="../OldSchoolGameMobile/index.html">
-<link rel="prefetch" href="../OldSchoolGameDesktop/index.html">
-<link rel="prefetch" href="../NewSchoolGameKid/index.html">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.food4thoth.com/OldSchoolGameDesktop/index.html" />
+
+  <!-- Favicon & Theme -->
+  <link rel="icon" href="https://www.food4thoth.com/images/favicon.png" type="image/png" />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="FOOD4THOTH" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="OldSchoolGameDesktop — Retro Terminal Pixel Game" />
+  <meta property="og:description" content="A retro pixel adventure in terminal style. Dodge red squares, collect green treasures, and unlock power-ups in this Food4Thoth desktop game." />
+  <meta property="og:url" content="https://www.food4thoth.com/OldSchoolGameDesktop/index.html" />
+  <meta property="og:image" content="https://www.food4thoth.com/OldSchoolGameDesktop/og-preview.jpg" />
+  <meta property="og:image:alt" content="OldSchoolGameDesktop retro pixel gameplay preview" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="OldSchoolGameDesktop — Retro Terminal Pixel Game" />
+  <meta name="twitter:description" content="Play OldSchoolGameDesktop — Food4Thoth’s retro pixel game with levels, treasures, and power-ups." />
+  <meta name="twitter:image" content="https://www.food4thoth.com/OldSchoolGameDesktop/og-preview.jpg" />
+  <meta name="twitter:site" content="@food4th0th" />
+
+  <!-- Connection Hints -->
+  <link rel="dns-prefetch" href="//www.food4thoth.com" />
+  <link rel="preconnect" href="https://www.food4thoth.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  
+	
+  <!-- Preload Core Sounds -->
+  <link rel="preload" href="https://www.food4thoth.com/OldSchoolGameDesktop/sounds/8-bit-heaven-26287.mp3" as="audio" type="audio/mpeg" />
+  <link rel="preload" href="https://www.food4thoth.com/OldSchoolGameDesktop/sounds/sfx_jump_07-80241.mp3" as="audio" type="audio/mpeg" />
+  <link rel="preload" href="https://www.food4thoth.com/OldSchoolGameDesktop/sounds/game-over-38511.mp3" as="audio" type="audio/mpeg" />
+
+  <!-- Prefetch Likely Navigations -->
+  <link rel="prefetch" href="https://www.food4thoth.com/OldSchoolGameMobile/index.html" as="document" />
+  <link rel="prefetch" href="https://www.food4thoth.com/NewSchoolGameWizard/index.html" as="document" />
+  <link rel="prefetch" href="https://www.food4thoth.com/NewSchoolGameKid/index.html" as="document" />
+  <link rel="prefetch" href="https://www.food4thoth.com/NewSchoolGameKid/readme/" as="document" />
+  <link rel="prefetch" href="https://www.food4thoth.com/index.html" as="document" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "OldSchoolGameDesktop",
+    "url": "https://www.food4thoth.com/OldSchoolGameDesktop/index.html",
+    "image": "https://www.food4thoth.com/OldSchoolGameDesktop/og-preview.jpg",
+    "description": "Retro terminal-style arcade game by Food4Thoth. Dodge red squares, collect green treasures, and power up in the desktop edition.",
+    "genre": ["Arcade", "Retro", "Desktop Game"],
+    "applicationCategory": "Game",
+    "operatingSystem": "Any modern desktop browser",
+    "playMode": "SinglePlayer",
+    "author": {
+      "@type": "Organization",
+      "name": "Food4Thoth / Artabillies",
+      "url": "https://www.food4thoth.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Food4Thoth",
+      "url": "https://www.food4thoth.com"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 
 <link rel="stylesheet" href="./styles.css">
 
@@ -44,9 +118,10 @@
 						
 						<footer class="footer">
         <p>
-					<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="README.md"  class="styled-link">ReadMe</a></p>
+					<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="/NewSchoolGameKid/readme/"  class="styled-link">ReadMe</a></p>
     </footer>
-						
+				<!-- Placeholder for the nav -->
+  <div id="nav-container"></div>		
         </div>
         <canvas id="gameCanvas"></canvas>
     </div>
@@ -65,5 +140,7 @@
         Your browser does not support the audio element.
     </audio>
        <script src="./script.js"></script>
+ <script src="../nav-fetch.js"></script>
+ <script src="../nav_script2.js"></script>
 </body>
 </html>
