@@ -1,28 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-		 
-    <title>Terminal Game in HTML</title>
-		<link rel="preload" href="./sounds/8-bit-heaven-26287.mp3" as="audio">
-<link rel="preload" href="./sounds/sfx_jump_07-80241.mp3" as="audio">
-<link rel="preload" href="./sounds/game-over-38511.mp3" as="audio">
+  <!-- Charset & Viewport -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
 
-<link rel="prefetch" href="./README.md">
-<link rel="prefetch" href="../OldSchoolGameMobile/index.html">
-<link rel="prefetch" href="../OldSchoolGameDesktop/index.html">
-<link rel="prefetch" href="../NewSchoolGameKid/index.html">
+  <!-- Title & Meta -->
+  <title>OldSchoolGameMobile — Retro Terminal Pixel Game | FOOD4THOTH</title>
+  <meta name="description" content="Play OldSchoolGameMobile — a retro pixel terminal-style adventure. Dodge red squares, collect green treasures, and power up with speed, invincibility, and score multipliers." />
+  <meta name="keywords" content="OldSchoolGameMobile, pixel game, retro arcade, HTML5 terminal game, Food4Thoth games, 8-bit, power-ups, mobile platformer" />
+  <meta name="author" content="Food4Thoth / Artabillies" />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
 
-<link rel="stylesheet" href="./styles.css">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.food4thoth.com/OldSchoolGameMobile/index.html" />
 
-<!-- Preload Google Font -->
-    <link rel="preload" href="https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8TnDuT89MKv9Q4U5XmU0gYcs.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-    
-    <!-- Standard Google Font Import -->
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    
+  <!-- Favicon & Theme -->
+  <link rel="icon" href="https://www.food4thoth.com/images/favicon.png" type="image/png" />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="FOOD4THOTH" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="OldSchoolGameMobile — Retro Terminal Pixel Game" />
+  <meta property="og:description" content="Dodge red enemies, collect green treasures, and power up across levels in this retro pixel mobile terminal game." />
+  <meta property="og:url" content="https://www.food4thoth.com/OldSchoolGameMobile/index.html" />
+  <meta property="og:image" content="https://www.food4thoth.com/OldSchoolGameMobile/og-preview.jpg" />
+  <meta property="og:image:alt" content="OldSchoolGameMobile — retro terminal pixel gameplay" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="OldSchoolGameMobile — Retro Terminal Pixel Game" />
+  <meta name="twitter:description" content="Play OldSchoolGameMobile — Food4Thoth’s retro pixel adventure with enemies, treasures, and power-ups." />
+  <meta name="twitter:image" content="https://www.food4thoth.com/OldSchoolGameMobile/og-preview.jpg" />
+  <meta name="twitter:site" content="@food4th0th" />
+
+  <!-- Connection Hints -->
+  <link rel="dns-prefetch" href="//www.food4thoth.com" />
+  <link rel="preconnect" href="https://www.food4thoth.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Preload Fonts -->
+  <link rel="preload"
+        href="https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8TnDuT89MKv9Q4U5XmU0gYcs.ttf"
+        as="font" type="font/ttf" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./styles.css">
+
+  <!-- Preload Core Sounds -->
+  <link rel="preload" href="https://www.food4thoth.com/OldSchoolGameMobile/sounds/8-bit-heaven-26287.mp3" as="audio" type="audio/mpeg" />
+  <link rel="preload" href="https://www.food4thoth.com/OldSchoolGameMobile/sounds/sfx_jump_07-80241.mp3" as="audio" type="audio/mpeg" />
+  <link rel="preload" href="https://www.food4thoth.com/OldSchoolGameMobile/sounds/game-over-38511.mp3" as="audio" type="audio/mpeg" />
+
+  <!-- Prefetch likely next navigations -->
+  <link rel="prefetch" href="https://www.food4thoth.com/OldSchoolGameDesktop/index.html" as="document" />
+  <link rel="prefetch" href="https://www.food4thoth.com/NewSchoolGameWizard/index.html" as="document" />
+  <link rel="prefetch" href="https://www.food4thoth.com/NewSchoolGameKid/index.html" as="document" />
+  <link rel="prefetch" href="https://www.food4thoth.com/NewSchoolGameKid/readme/" as="document" />
+  <link rel="prefetch" href="https://www.food4thoth.com/index.html" as="document" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "OldSchoolGameMobile",
+    "url": "https://www.food4thoth.com/OldSchoolGameMobile/index.html",
+    "image": "https://www.food4thoth.com/OldSchoolGameMobile/og-preview.jpg",
+    "description": "A Food4Thoth retro pixel mobile terminal game. Dodge red squares, collect green treasures, and power up with speed, invincibility, and score multipliers.",
+    "genre": ["Arcade", "Retro", "Mobile Game"],
+    "applicationCategory": "Game",
+    "operatingSystem": "Any modern mobile browser",
+    "playMode": "SinglePlayer",
+    "author": {
+      "@type": "Organization",
+      "name": "Food4Thoth / Artabillies",
+      "url": "https://www.food4thoth.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Food4Thoth",
+      "url": "https://www.food4thoth.com"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 </head>
 <body>
     <div id="gameContainer">
@@ -45,8 +116,10 @@
 						
 						<footer class="footer">
         <p>
-					<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="./README.md"  class="styled-link">ReadMe</a></p>
+					<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="/NewSchoolGameKid/readme/"  class="styled-link">ReadMe</a></p>
     </footer>
+		<!-- Placeholder for the nav -->
+  <div id="nav-container"></div>
         </div>
         <canvas id="gameCanvas"></canvas>
     </div>
@@ -72,6 +145,7 @@
     </audio>
 		
     <script src="./script.js"></script>
-		
+	<script src="../nav-fetch.js"></script>
+  <script src="../nav_script2.js"></script>
 </body>
 </html>
