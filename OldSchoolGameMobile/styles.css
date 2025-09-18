@@ -132,14 +132,15 @@ body {
 /* For devices with a width below 768px (e.g., smaller tablets or iPad portrait) */
 @media screen and (max-width: 768px) {
   #startScreen {
-    font-size: 1rem; /* Further reduce font size */
+    font-size: .9rem; /* Further reduce font size */
   }
 }
 
 /* For devices with a width below 480px (e.g., mobile phones) */
 @media screen and (max-width: 480px) {
   #startScreen {
-    font-size: 1rem; /* Smallest font size for phones */
+    font-size: .85rem; /* Smallest font size for phones */
+		padding-top: 15px;
 	}
 		#startButton {
             padding: 10px 20px;
