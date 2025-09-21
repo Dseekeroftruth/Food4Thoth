@@ -38,26 +38,57 @@
       100% { background-position: 100% 50%; }
     }
 
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: #000;
-      color: #fff;
-      
-      z-index: 1000;
-			text-align: center;
-			padding-bottom: 5px;
-			border: 1px solid lightblue;
-    }
+    /* Stop iOS from keeping zoomed text size after rotate */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 
-    header .nav-links a {
-      color: #fff;
-      text-decoration: none;
-      margin: 0 .5rem;
-			
-    }
+/* Orientation-driven vars */
+:root {
+  --nav-font: 16px;   /* default */
+  --header-pad: 6px;  /* default */
+}
+
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: #000;
+  color: #fff;
+  z-index: 1000;
+  text-align: center;
+  border: 1px solid lightblue;
+  box-sizing: border-box;
+
+  /* pad recomputes each rotate */
+  padding-top: calc(env(safe-area-inset-top, 0px) + var(--header-pad));
+  padding-bottom: var(--header-pad);
+}
+
+header .nav-links a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 .5rem;
+  font-size: var(--nav-font);   /* size recomputes each rotate */
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* Portrait: slightly smaller */
+@media (orientation: portrait) {
+  :root {
+    --nav-font: clamp(14px, 3.2vw, 18px);
+    --header-pad: 8px;
+  }
+}
+
+/* Landscape: a bit bigger, tighter padding */
+@media (orientation: landscape) {
+  :root {
+    --nav-font: clamp(12px, 1.8vw, 16px);
+    --header-pad: 4px;
+  }
+}
 
     .gallery-container {
       display: flex;
