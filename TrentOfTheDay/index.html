@@ -1,12 +1,714 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TRENT - OF THE DAY</title>
-   <link rel="stylesheet" href="./styles.css">
+      <meta charset="UTF-8" />
+  <title>Trent of the Day — Son of Reznor | FOOD4THOTH</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary SEO -->
+  <meta name="description" content="Trent of the Day is a loving tribute to Trent — Son of Reznor. Browse a rotating quote, photo gallery, GIFs & movies, and embedded posts celebrating his joyful, adventurous life." />
+  <meta name="keywords" content="Trent of the Day, Trent Son of Reznor, dog tribute, memorial dog page, photo gallery, GIFs, Instagram embeds, FOOD4THOTH" />
+  <meta name="author" content="Food4Thoth / Artabillies" />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+  <link rel="canonical" href="https://www.food4thoth.com/TrentOfTheDay/index.html" />
+
+  <!-- Icons / Theme -->
+  <link rel="icon" href="https://www.food4thoth.com/images/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="https://www.food4thoth.com/images/favicon.png" />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Trent of the Day — Son of Reznor" />
+  <meta property="og:description" content="A heartfelt tribute to Trent featuring rotating quotes, an image gallery, GIFs & movies, and social embeds." />
+  <meta property="og:image" content="https://www.food4thoth.com/TrentOfTheDay/og-preview.jpg" />
+  <meta property="og:url" content="https://www.food4thoth.com/TrentOfTheDay/index.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="FOOD4THOTH" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Trent of the Day — Son of Reznor" />
+  <meta name="twitter:description" content="Celebrate Trent’s life with rotating quotes, photos, and videos." />
+  <meta name="twitter:image" content="https://www.food4thoth.com/TrentOfTheDay/og-preview.jpg" />
+  <meta name="twitter:site" content="@food4th0th" />
+
+  <!-- Performance Hints -->
+  <link rel="preload" href="https://www.food4thoth.com/TrentOfTheDay/styles.css" as="style" />
+  <link rel="preload" href="https://www.food4thoth.com/TrentOfTheDay/og-preview.jpg" as="image" />
+  <link rel="dns-prefetch" href="//www.instagram.com" />
+  <link rel="preconnect" href="https://www.instagram.com" crossorigin />
+  <link rel="dns-prefetch" href="//www.facebook.com" />
+  <link rel="preconnect" href="https://www.facebook.com" crossorigin />
+  <link rel="prefetch" href="https://www.food4thoth.com/TrentOfTheDay/about.html" as="document" />
+  <link rel="prefetch" href="https://www.food4thoth.com/TrentOfTheDay/contact.html" as="document" />
+  <link rel="prefetch" href="https://www.food4thoth.com/TrentStorybook1stMobile/index.html" as="document" />
+  <link rel="prefetch" href="https://www.food4thoth.com/TrentOfTheDay/readme/" as="document" />
+	
 		<script async defer src="https://www.instagram.com/embed.js"></script>
-		<script src="./script.js"></script>
+	
+	<script>
+document.addEventListener("DOMContentLoaded", () => {
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual'; // Prevents browser from restoring the scroll position
+    }
+
+    getRandomContent(); // Load an image immediately
+
+    preloadImages(images); // Preload other images in the background
+});
+
+// **Preload function** - Loads images into cache
+function preloadImages(imgArray) {
+    imgArray.forEach(path => {
+        const img = new Image();
+        img.src = path;
+    });
+}
+
+// **Fetch and display a random image & quote immediately**
+function getRandomContent() {
+    const randomImageIndex = Math.floor(Math.random() * images.length);
+    const randomQuoteIndex = Math.floor(Math.random() * quotes.length);
+
+    const imgElement = document.getElementById("randomImage");
+
+    // Display image instantly by setting src
+    imgElement.src = images[randomImageIndex];
+    imgElement.style.display = "block"; // Ensure visibility
+    document.getElementById("randomQuote").textContent = quotes[randomQuoteIndex];
+
+    console.log(`Chosen Image: ${images[randomImageIndex]}`);
+}
+
+// **Ensure the first image is shown immediately after a reload**
+function reloadPage() {
+    window.scrollTo(0, 0);
+    getRandomContent(); // Load a new random image instantly
+}
+
+        const images = [
+            // Original list
+  "images/IMG_7855.JPG",
+  "images/IMG_7856.JPG",
+  "images/IMG_7857.JPG",
+  "images/IMG_7858.JPG",
+  "images/IMG_7859.JPG",
+  "images/IMG_7860.JPG",
+  "images/IMG_7861.JPG",
+  "images/IMG_7862.JPG",
+  "images/IMG_7863.JPG",
+  "images/IMG_7864.JPG",
+  "images/IMG_7865.JPG",
+  "images/IMG_7866.JPG",
+  "images/IMG_7867.JPG",
+  "images/IMG_7868.JPG",
+  "images/IMG_7869.JPG",
+  "images/IMG_7871.JPG",
+  "images/IMG_7872.JPG",
+  "images/IMG_7873.JPG",
+  "images/IMG_7874.JPG",
+  "images/IMG_7875.JPG",
+  "images/IMG_7876.JPG",
+  "images/IMG_7877.JPG",
+  "images/IMG_7878.JPG",
+  "images/IMG_7879.JPG",
+  "images/IMG_7880.JPG",
+  "images/IMG_7881.JPG",
+  "images/IMG_7882.JPG",
+  "images/IMG_7883.JPG",
+  "images/IMG_7884.JPG",
+  "images/IMG_7885.JPG",
+  "images/IMG_7886.JPG",
+  "images/IMG_7887.JPG",
+  "images/IMG_7888.JPG",
+  "images/IMG_7889.JPG",
+  "images/IMG_7890.JPG",
+  "images/IMG_7891.JPG",
+  "images/IMG_7892.JPG",
+  "images/IMG_7893.JPG",
+  "images/IMG_7894.JPG",
+  "images/IMG_7895.JPG",
+  "images/IMG_7896.JPG",
+  "images/IMG_7897.JPG",
+  "images/IMG_7898.JPG",
+  "images/IMG_7899.JPG",
+  "images/IMG_7900.JPG",
+  "images/IMG_7901.JPG",
+  "images/IMG_7902.JPG",
+  "images/IMG_7904.JPG",
+  "images/IMG_7905.JPG",
+  "images/IMG_7906.JPG",
+  "images/IMG_7907.JPG",
+  "images/IMG_7908.JPG",
+  "images/IMG_7909.JPG",
+  "images/IMG_7910.JPG",
+  "images/IMG_7911.JPG",
+  "images/IMG_7912.JPG",
+  "images/IMG_7913.JPG",
+  "images/IMG_7914.JPG",
+  "images/IMG_7915.JPG",
+  "images/IMG_7916.JPG",
+  "images/IMG_7917.JPG",
+  "images/IMG_7918.JPG",
+  "images/IMG_7919.JPG",
+  "images/IMG_7920.JPG",
+  "images/IMG_7921.JPG",
+  "images/IMG_7922.JPG",
+  "images/IMG_7923.JPG",
+  "images/IMG_7924.JPG",
+  "images/IMG_7925.JPG",
+  "images/IMG_7926.JPG",
+  "images/IMG_7927.JPG",
+  "images/IMG_7928.JPG",
+  "images/IMG_7929.JPG",
+  "images/IMG_7930.JPG",
+  "images/IMG_7931.JPG",
+  "images/IMG_7932.JPG",
+  "images/IMG_7933.JPG",
+  "images/IMG_7934.JPG",
+  "images/IMG_7935.JPG",
+  "images/IMG_7936.JPG",
+  "images/IMG_7937.JPG",
+  "images/IMG_7938.JPG",
+  "images/IMG_7939.JPG",
+  "images/IMG_7940.JPG",
+  "images/IMG_7941.JPG",
+  "images/IMG_7942.JPG",
+  "images/IMG_7943.JPG",
+  "images/IMG_7944.JPG",
+  "images/IMG_7945.JPG",
+  "images/IMG_7946.JPG",
+  "images/IMG_7947.JPG",
+  "images/IMG_7948.JPG",
+  "images/IMG_7949.JPG",
+
+  // New additions
+  "images/2014_1.jpg",
+  "images/2014_2.jpg",
+  "images/2014_3.jpg",
+  "images/2014_4.jpg",
+  "images/2014_5.jpg",
+  "images/2014_6.jpg",
+  "images/2014_7.jpg",
+  "images/FullSizeRender_4.jpg",
+  "images/FullSizeRender_5.jpg",
+  "images/FullSizeRender_7_2.jpg",
+  "images/FullSizeRender_7.jpg",
+  "images/FullSizeRender_12.jpg",
+  "images/FullSizeRender_13.jpg",
+  "images/FullSizeRender_16.jpg",
+  "images/FullSizeRender_18.jpg",
+  "images/FullSizeRender_136.jpg",
+  "images/FullSizeRender_137.jpg",
+  "images/FullSizeRender_138.jpg",
+  "images/FullSizeRender_139.jpg",
+  "images/FullSizeRender_141.jpg",
+  "images/FullSizeRender_145.jpg",
+  "images/FullSizeRender_146.jpg",
+  "images/FullSizeRender_149.jpg",
+  "images/FullSizeRender_150.jpg",
+  "images/FullSizeRender_151.jpg",
+  "images/FullSizeRender_152.jpg",
+  "images/FullSizeRender_153.jpg",
+  "images/FullSizeRender_160.jpg",
+  "images/FullSizeRender_162.jpg",
+  "images/FullSizeRender_167.jpg",
+  "images/FullSizeRender_169.jpg",
+  "images/FullSizeRender_181.jpg",
+  "images/FullSizeRender_182.jpg",
+  "images/FullSizeRender_188.jpg",
+  "images/FullSizeRender_191.jpg",
+  "images/FullSizeRender_194.jpg",
+  "images/FullSizeRender_195.jpg",
+  "images/FullSizeRender_199.jpg",
+  "images/FullSizeRender_200.jpg",
+  "images/FullSizeRender_201.jpg",
+  "images/FullSizeRender_208.jpg",
+  "images/FullSizeRender_211.jpg",
+  "images/FullSizeRender_213.jpg",
+  "images/FullSizeRender.jpg",
+  "images/IMG_0101.jpg",
+  "images/IMG_0104.jpg",
+  "images/IMG_0105.jpg",
+  "images/IMG_0106.jpg",
+  "images/IMG_0107.jpg",
+  "images/IMG_0219.jpg",
+  "images/IMG_1027.JPG",
+  "images/IMG_1028.JPG",
+  "images/IMG_1030.JPG",
+  "images/IMG_1040.JPG",
+  "images/IMG_1043.JPG",
+  "images/IMG_1046.JPG",
+  "images/IMG_1047.JPG",
+  "images/IMG_1048.JPG",
+  "images/IMG_1054.JPG",
+  "images/IMG_1056.JPG",
+  "images/IMG_1057.JPG",
+  "images/IMG_1066.JPG",
+  "images/IMG_1067.JPG",
+  "images/IMG_1068.JPG",
+  "images/IMG_1069.JPG",
+  "images/IMG_1964.jpg",
+  "images/IMG_1966.jpg",
+  "images/IMG_1968.jpg",
+  "images/IMG_1972.jpg",
+  "images/IMG_1974.jpg",
+  "images/IMG_1976.jpg",
+  "images/IMG_1978.jpg",
+  "images/IMG_3828.JPG",
+  "images/IMG_4112.JPG",
+  "images/IMG_4565.JPG",
+  "images/IMG_4566.JPG",
+  "images/IMG_4569.JPG",
+  "images/IMG_4571.JPG",
+  "images/IMG_4572.JPG",
+  "images/IMG_5556.JPG",
+  "images/IMG_5559.JPG",
+  "images/IMG_5560.JPG",
+  "images/IMG_5587.JPG",
+  "images/IMG_5589.JPG",
+  "images/IMG_5590.JPG",
+  "images/IMG_6084.JPG",
+  "images/IMG_6085.JPG",
+  "images/IMG_6306.JPG",
+  "images/IMG_6307.JPG",
+  "images/IMG_6308.JPG",
+  "images/IMG_6506_2.JPG",
+  "images/IMG_6683.JPG",
+  "images/IMG_6684.JPG",
+  "images/IMG_6685.JPG",
+  "images/IMG_6751.JPG",
+  "images/IMG_6938.JPG",
+  "images/IMG_7015.JPG",
+  "images/IMG_7016.JPG",
+  "images/IMG_7017.JPG",
+  "images/IMG_7018.JPG",
+  "images/IMG_7673.JPG",
+  "images/IMG_7674.JPG",
+  "images/IMG_7676.JPG",
+  "images/IMG_7677.JPG",
+  "images/IMG_7678.JPG",
+  "images/IMG_7679.JPG",
+  "images/IMG_7680.JPG",
+  "images/IMG_7681.JPG",
+  "images/IMG_7682.JPG",
+  "images/IMG_7819.JPG",
+  "images/IMG_7820.JPG",
+  "images/IMG_7821.JPG",
+  "images/IMG_7933.JPG",
+  "images/IMG_8875.JPG",
+  "images/IMG_9559.JPG",
+  "images/IMG_9611.JPG",
+  "images/IMG_9626.JPG",
+  "images/P1010167.jpg",
+  "images/thanks_for_visiting_laura_dejahn_and_trent.JPG",
+  "images/trent_2.JPG",
+  "images/trent_and_laura.JPG",
+  "images/trent_and_pot_plants.JPG",
+  "images/trent_and_us.JPG",
+  "images/trent_and_uther.JPG",
+  "images/trent_cozin_with.JPG",
+  "images/trent_eyes.JPG",
+  "images/trent_in_the_packed car.JPG",
+  "images/trent_is_the_best.JPG",
+  "images/trent_laura_sunset.JPG",
+  "images/trent_on_a_stool_at_rolands.JPG",
+  "images/trent_on_bed.JPG",
+  "images/trent_on_the_beach.JPG",
+  "images/trent_prarie_dog.JPG",
+  "images/trent_rainbow.JPG",
+  "images/trent_says_hello.JPG",
+  "images/trent_snuggle.JPG",
+  "images/trent_spencers_butte.JPG",
+  "images/trent_tie_dye_2.JPG",
+  "images/trent_tie_dye.JPG",
+  "images/trent_welcomes_us_home_sweet_home.JPG",
+  "images/trent.jpg",
+  "images/trent1_2.JPG",
+  "images/trent1.jpg",
+  "images/trents_and_lauras_underbite_fight.JPG"
+        ];
+				
+        const quotes = [
+    "I'm not lazy, I'm just conserving energy for my next adventure!",
+    "Beach runs are the best runs.",
+    "Life is better with a bow tie and a nap.",
+    "If there's no couch, I'm not interested.",
+    "Happiness is a belly rub away.",
+    "Why walk when you can roll in the grass?",
+    "Sunsets at the beach make everything better.",
+    "Adventure is fun, but naps are divine.",
+    "There's no such thing as too much sleep.",
+    "A nap a day keeps the boredom away.",
+    "I live for love, naps, and snacks.",
+    "I wasn't made for fetching; I was made for chilling.",
+    "It’s not a lazy day; it’s a Trent day.",
+    "I don’t chase balls; I chase dreams.",
+    "Sleep is the real adventure.",
+    "Bow ties make everything fancy.",
+    "I’m not spoiled; I’m just well-loved.",
+    "The world is my couch, and I intend to nap on it.",
+    "Who needs running when you can stroll in style?",
+    "My heart belongs to the beach.",
+    "I dream of beach days and belly rubs.",
+    "Sometimes, the smallest dog has the biggest spirit.",
+    "Every dog has its day—mine just involves more napping.",
+    "There’s no shame in being a professional sleeper.",
+    "I bark for fun, not for work.",
+    "I’m not stubborn; I’m selectively obedient.",
+    "The beach is my happy place.",
+    "Why be ordinary when you can be an Ewok dog?",
+    "I don’t need much, just a comfy spot and a snack.",
+    "Lazy? No, I prefer the term 'energy efficient.'",
+    "Love me, pet me, and never leave me.",
+    "Life’s too short for bad treats.",
+    "Follow your heart, especially if it leads to the couch.",
+    "Good dogs are loved; great dogs are pampered.",
+    "I may be little, but I’m full of love.",
+    "There’s nothing better than a nap on a rainy day.",
+    "Dogs who nap together, stay together.",
+    "The couch isn’t just furniture; it’s a lifestyle.",
+    "All you need is love…and a comfy bed.",
+    "Why fetch when you can cuddle?",
+    "Belly rubs are the key to happiness.",
+    "I’m a nap enthusiast and a snack connoisseur.",
+    "Every day should be a beach day.",
+    "Chasing squirrels? Nah, I’m chasing dreams.",
+    "I don’t follow trends; I follow my human.",
+    "The beach is my playground, and the couch is my throne.",
+    "Life’s too short for boring adventures.",
+    "I’d rather be napping than doing just about anything.",
+    "Being cute is my full-time job.",
+    "Take time to stop and smell the snacks.",
+    "Always wear your best bow tie for every occasion.",
+    "Couch potatoes unite!",
+    "My superpower is making humans smile.",
+    "A wagging tail is the best kind of happiness.",
+    "I don’t climb mountains, but I do climb on couches.",
+    "Live like someone left the treat jar open.",
+    "Let the wind ruffle your fur and the sun warm your belly.",
+    "Always nap like no one's watching.",
+    "The beach is calling, and I must roll in the sand.",
+    "True love is sharing your favorite spot on the couch.",
+    "Adventures are fun, but so are cozy blankets.",
+    "Never underestimate the power of a well-timed nap.",
+    "I’m the king of my own comfy kingdom.",
+    "Live life unleashed.",
+    "The couch is my kingdom, and I am its ruler.",
+    "It’s a beautiful day to do absolutely nothing.",
+    "I may not be fast, but I’m incredibly cute.",
+    "Loyalty looks like following your human everywhere.",
+    "The softer the couch, the better the nap.",
+    "Nothing beats a lazy day in the sun.",
+    "You can take the dog out of the couch, but you can’t take the couch out of the dog.",
+    "Cuddles are the best kind of medicine.",
+    "I like my naps long and my treats frequent.",
+    "Why chase sticks when you can chase snacks?",
+    "I believe in taking it easy, one day at a time.",
+    "I don’t need much, just love, naps, and snacks.",
+    "I’m not antisocial; I’m just saving my energy.",
+    "There’s no such thing as too many naps.",
+    "Life’s a beach, and I’m here for the naps.",
+    "Find a comfy spot and let the world pass by.",
+    "I’d rather be snoozing.",
+    "Sleep tight, dream big.",
+    "I don’t need a leash; I need a nap.",
+    "Good things come to those who sleep.",
+    "Dreams are made of naps and snacks.",
+    "I’m not lazy; I’m a nap enthusiast.",
+    "A dog’s life is a good life.",
+    "Wherever my human goes, I follow.",
+    "I sleep to live and live to sleep.",
+    "The best adventures start with a nap.",
+    "Why walk when you can ride in style?",
+    "Never let anyone disturb your nap.",
+    "Life is simple: eat, sleep, and cuddle.",
+    "Live, love, and nap often.",
+    "A nap is never wasted time.",
+    "The best view is from the couch.",
+    "Why fetch when you can lounge?",
+    "It’s not a lazy day; it’s a relaxed day.",
+    "Treat yourself, always.",
+    "The comfiest place is where I lay my head.",
+    "Sunshine and naps—my perfect day.",
+    "I’m always ready for a cuddle.",
+    "I may look like an Ewok, but I’m a couch king.",
+    "Every dog has its day; mine just involves more napping.",
+    "Cuddle first, ask questions later.",
+    "I bark, therefore I am.",
+    "The softer the bed, the sweeter the dream.",
+    "Dogs who nap together stay together.",
+    "My motto: sleep in, play later.",
+    "I’m not just a dog; I’m an expert lounger.",
+    "Why rush when you can take it slow?",
+    "I wasn’t built for speed; I was built for comfort.",
+    "The couch is calling, and I must go.",
+    "I live to love, laugh, and sleep.",
+    "The beach is my paradise, and the couch is my throne.",
+    "I’ve mastered the art of doing nothing.",
+    "Couch time is quality time.",
+    "Napping is my cardio.",
+    "Live in the moment, nap in the next.",
+    "Who needs toys when you have a comfy bed?",
+    "Always stay pawsitive.",
+    "Nap like you mean it.",
+    "I’m not tired; I’m just in rest mode.",
+    "Every day should include a nap break.",
+    "The beach breeze is my lullaby.",
+    "I don’t fetch; I relax.",
+    "My spirit animal is a couch potato.",
+    "Why bark when you can snuggle?",
+    "Dogs make the best pillows.",
+    "The world needs more nap enthusiasts.",
+    "Wag more, nap often.",
+    "Boring days don’t exist when you’re a dog.",
+    "The sun is the best blanket.",
+    "I’m the nap champion of the world.",
+    "No adventure is complete without a nap break.",
+    "I’m not spoiled; I’m cherished.",
+    "My mission in life: maximize comfort.",
+    "I nap hard, I play easy.",
+    "Who needs an alarm clock when you have treats?",
+    "The couch is my playground.",
+    "Never let a comfy spot go to waste.",
+    "I don’t need toys; I need naps.",
+    "I’m not demanding; I just know what I like.",
+    "Sunshine and belly rubs are life’s best treasures.",
+    "I’ll follow you anywhere, as long as there’s a treat.",
+    "Life’s a breeze when you’re napping in the sun.",
+    "I’m not just a dog; I’m a relaxation expert.",
+    "I sleep with one eye open, dreaming of treats.",
+    "Why stress when you can snooze?",
+    "I’ve perfected the art of relaxation.",
+    "Let the good times nap.",
+    "Why run when you can rest?",
+    "I’m not tired; I’m just highly relaxed.",
+    "Happiness is a warm bed and a full belly.",
+    "I take life one nap at a time.",
+    "My life philosophy: sleep, eat, repeat.",
+    "Napping is an art form, and I’m the artist.",
+    "I live for belly rubs and treats.",
+    "I’m not clingy; I’m loyal.",
+    "The beach is my playground, and the world is my bed.",
+    "I’m the king of comfort.",
+    "No adventure is complete without a nap.",
+    "Dream big, nap bigger.",
+    "Life’s a beach, so make the most of it.",
+    "I’m a pro at taking it easy.",
+    "The softer the blanket, the happier the dog.",
+    "I’m not lazy; I’m an expert lounger.",
+    "The couch is my favorite travel destination.",
+    "Love me, feed me, never leave me.",
+    "I don’t chase; I contemplate.",
+    "Comfort is my middle name.",
+    "Sleep now, adventure later.",
+    "If it’s not comfy, it’s not for me.",
+    "My motto: more naps, less stress.",
+    "The best things in life are naps.",
+    "Cuddles and comfort are life’s essentials.",
+    "Why be active when you can be relaxed?",
+    "Live like every day is a Sunday.",
+    "My spirit is wild, but my body is resting.",
+    "I’m a nap expert and a treat enthusiast.",
+    "Why settle for one nap when you can have three?",
+    "Love is lying on the couch together.",
+    "Sleepy dogs are happy dogs.",
+    "Comfort is a way of life.",
+    "I don’t do mornings.",
+    "Dogs make life better, one nap at a time.",
+    "I follow my heart and my human.",
+    "Why chase your tail when you can chase dreams?",
+    "The best days are spent doing nothing.",
+    "There’s no wrong time for a nap.",
+    "The world is my bed, and I intend to sleep on it.",
+    "I’m not shy; I’m just saving my energy.",
+    "Lazy days are the best days.",
+    "I’m living my best couch life.",
+    "The beach is my happy place.",
+    "Why run when you can stroll?",
+    "I don’t bark; I make statements.",
+    "The world needs more napping dogs.",
+    "Life is better with a little sand between your paws.",
+    "Live for the moments that make you nap.",
+    "I’m a dog of leisure and luxury.",
+    "My ideal day: beach, treats, and naps.",
+    "I’m a master of rest and relaxation.",
+    "Love like there’s no tomorrow, nap like there’s no today.",
+    "I’m a simple dog: I like treats, naps, and beach days.",
+    "Why hurry when you can dawdle?",
+    "I’m not sleepy; I’m just deep in thought.",
+    "The couch is my throne, and I am its king.",
+    "Happiness is a warm spot in the sun.",
+    "Sleep well, dream often.",
+    "Dogs make the world a cozier place.",
+    "The best adventures start with a nap.",
+    "My love for naps is unconditional.",
+    "A life well-lived includes plenty of sleep.",
+    "I don’t bark at strangers; I nap at them.",
+    "Let the wind carry your worries away.",
+    "I’m not bored; I’m in rest mode.",
+    "Comfort is key to a happy life.",
+    "Why be serious when you can be cozy?",
+    "Live slow, nap often.",
+    "A well-deserved nap is the best reward.",
+    "I’m not lazy; I’m highly efficient at resting.",
+    "Dogs who nap are dogs who love deeply.",
+    "A comfy spot is worth its weight in gold.",
+    "I’m not just a dog; I’m a professional lounger.",
+    "Sleep like there’s no tomorrow.",
+    "Let your dreams be big and your naps be long.",
+    "The best days are spent by the sea.",
+    "I live for the sound of the waves and the warmth of the sun.",
+    "There’s always time for one more nap.",
+    "Why stress when you can rest?",
+    "My mission: find the world’s best napping spots.",
+    "I’m not tired; I’m recharging my cute.",
+    "The world is my playground, and the couch is my resting place.",
+    "Why be active when you can be comfortable?",
+    "The best adventures are followed by the best naps.",
+    "I’m a nap enthusiast and a comfort expert.",
+    "Why be ordinary when you can be napping?",
+    "My spirit is wild, but my heart is resting.",
+    "Always let the good times nap.",
+    "Let the breeze ruffle your fur and the sun warm your belly.",
+    "I may be small, but my naps are legendary.",
+    "The best days are beach days.",
+    "Why run when you can stroll?",
+    "Sleep tight, dream bright.",
+    "Comfort first, adventures second.",
+    "Why hurry when you can dawdle?",
+    "Life’s too short to skip a nap.",
+    "Live with all your heart and nap with all your might.",
+    "The world needs more napping dogs.",
+    "There’s no wrong time for a nap.",
+    "Comfort is a way of life.",
+    "I’m a simple dog: I like treats, naps, and beach days."
+];
+
+// Scroll to the top of the page
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Smooth scrolling effect
+    });
+}
+
+// Scroll to the bottom of the page
+function scrollToBottom() {
+    window.scrollTo({
+        top: document.body.scrollHeight, // Scroll to the full height of the page
+        behavior: 'smooth' // Smooth scrolling effect
+    });
+}
+
+function scrollToSection(id) {
+    const element = document.getElementById(id);
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+ 
+document.addEventListener("DOMContentLoaded", () => {
+            const script = document.createElement("script");
+            script.src = "https://www.instagram.com/embed.js";
+            script.async = true;
+            document.body.appendChild(script);
+        });
+
+       // Function to toggle visibility on button clicks
+function toggleVisibility(id, buttonId) {
+    const element = document.getElementById(id);
+    const button = buttonId ? document.getElementById(buttonId) : null;
+
+    const isHidden = element.classList.contains('hidden') || element.style.display === 'none';
+
+    if (isHidden) {
+        // Show the container
+        element.classList.remove('hidden');
+        element.style.display = 'flex';
+
+        if (button) {
+            button.innerHTML = id === 'gallery' 
+                ? '<strong>Close Gallery</strong>' 
+                : id === 'socialLinks' 
+                ? '<strong>Close Links</strong>' 
+                : id === 'trentMovies' 
+                ? '<strong>Close Gifs & Movies</strong>' 
+                : button.innerHTML;
+        }
+    } else {
+        // Hide the container
+        element.classList.add('hidden');
+        element.style.display = 'none';
+
+        if (button) {
+            button.innerHTML = id === 'gallery' 
+                ? '<strong>Gallery</strong>' 
+                : id === 'socialLinks' 
+                ? '<strong>Social Links</strong>' 
+                : id === 'trentMovies' 
+                ? '<strong>Gifs & Movies</strong>' 
+                : button.innerHTML;
+        }
+    }
+}
+
+// **For Navigation Clicks Only**
+function scrollToSection(id) {
+    const element = document.getElementById(id);
+    const isHidden = element.classList.contains('hidden') || element.style.display === 'none';
+
+    if (isHidden) {
+        toggleVisibility(id, null, true); // Open but don’t close
+    }
+
+    setTimeout(() => {
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest'
+        });
+    }, 50);
+}
+
+// **For Button Clicks Only (Toggles Without Scrolling)**
+function toggleSection(id) {
+    const buttonId = id === 'gallery' ? 'galleryButton' 
+                 : id === 'socialLinks' ? 'socialLinksButton' 
+                 : id === 'trentMovies' ? 'trentMoviesButton' 
+                 : null; 
+
+    toggleVisibility(id, buttonId); // Toggle open/close
+}	
+	</script>
+
+   <link rel="stylesheet" href="./styles.css">
+	
+		<!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Trent of the Day — Son of Reznor",
+    "url": "https://www.food4thoth.com/TrentOfTheDay/index.html",
+    "inLanguage": "en",
+    "description": "A loving tribute page for Trent — Son of Reznor — featuring rotating quotes, photos, GIFs, and social embeds.",
+    "image": "https://www.food4thoth.com/TrentOfTheDay/og-preview.jpg",
+    "about": {
+      "@type": "Animal",
+      "name": "Trent",
+      "additionalType": "https://schema.org/Pet"
+    },
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "FOOD4THOTH",
+      "url": "https://www.food4thoth.com/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Food4Thoth",
+      "url": "https://www.food4thoth.com/"
+    }
+  }
+  </script>
 </head>
 <body>
     <header>
@@ -18,378 +720,28 @@
     <a href="../TrentStorybook1stMobile/index.html">Trent Storybook</a>
     <a onclick="scrollToSection('gallery')">Gallery</a>
     <a onclick="scrollToSection('socialLinks')">Social Media</a>
-    <a onclick="scrollToSection('trentMovies')">Gifs & Movies</a>
-						
-<button id="toggle-nav1" class="toggle-button1">☰ Nav</button>
+    <a onclick="scrollToSection('trentMovies')">Gifs/Movies</a>
+			
+        </div>			
         </nav>
     </header>
-				
-<div id="navigation1" class="navigation1 hidden">
-	      
-	<a href="../index.html" class="neumorphic-tab">Home</a>
-	
-	<a href="../Donations/index.html" class="neumorphic-tab">Donations Page</a>
-  
-  <a href="#" class="neumorphic-tab" data-expand="submenu-black-business">Black Business Eugene</a>
-  <div id="submenu-black-business" class="submenu hidden">
-    <a href="../BlackBuisnessEugene/index.html" class="neumorphic-tab">Black Business Directory</a>
-    <a href="../BlackBuisnessEugene/blackbusinessformpage.html" class="neumorphic-tab">Black Business Form</a>
-  </div>
-
-  <a href="#" class="neumorphic-tab" data-expand="submenu-community-garden">Community Gardens</a>
-<div id="submenu-community-garden" class="submenu hidden">
-  <a href="../CommunityGardensLists/index.html" class="neumorphic-tab">Full List of All Gardens</a>
-	<a href="../CommunityGardenLand/index.html" class="neumorphic-tab">Mobile Landing</a>
-  <a href="../CommunityGardenLand/indexDesktop.html" class="neumorphic-tab">Desktop Landing</a>
-  <a href="../CommunityGardensMaps/indexEugeneMap.html" class="neumorphic-tab">Eugene Garden Map</a>
-	 <a href="../CommunityGardensMaps/indexPortlandMap.html" class="neumorphic-tab">Portland Garden Map</a>
-  <a href="../CommunityGardensInfo/index.html" class="neumorphic-tab">Community Garden Info</a>
-  <a href="../CommunityGardensLists/indexEugene.html" class="neumorphic-tab">Eugene Garden List</a>
-  <a href="../CommunityGardensLists/indexPortland.html" class="neumorphic-tab">Portland Garden List</a>
-</div>
-
-<a href="#" class="neumorphic-tab" data-expand="submenu-visualizers">Sound & Voice Visualizers</a>
-<div id="submenu-visualizers" class="submenu hidden">
-  <a href="../SoundActivatedVisualizor/index.html" class="neumorphic-tab">Voice Activated Visualizer</a>
-  <a href="../SoundVisualizerWmedia/index.html" class="neumorphic-tab">Sound Visualizer w/Media Loader</a>
-</div>
-
-<a href="#" class="neumorphic-tab" data-expand="submenu-arp">ARP Synths</a>
-<div id="submenu-arp" class="submenu hidden">
-  <a href="../ArpAppNoVisualHighFi/index.html" class="neumorphic-tab">ARP App: No Visual (High-Fi)</a>
-  <a href="../ArpAppNoVisualLoFi/index.html" class="neumorphic-tab">ARP App: No Visual (Lo-Fi)</a>
-  <a href="../ArpAppWithVisual/index.html" class="neumorphic-tab">ARP App: With Visual</a>
-	
-</div>
-
-<a href="#" class="neumorphic-tab" data-expand="submenu-loopstation">Loop Stations</a>
-<div id="submenu-loopstation" class="submenu hidden">
-  <!-- Animated Music Loopers -->
-  <a href="../Bboy/index.html" class="neumorphic-tab">NoWhere Man Looper</a>
-
-  <a href="../BJungle/index.html" class="neumorphic-tab">BJungle Looper</a>
-
-  <!-- Loop Stations -->
-  <a href="../LoopStation/index.html" class="neumorphic-tab">Loop Station</a>
-
-  <!-- Advanced Loop Stations with Effects -->
-  <a href="../LoopStationHiFi/index.html" class="neumorphic-tab">Loop Station HiFi (Advanced Effects)</a>
-</div>
-
-<a href="#" class="neumorphic-tab" data-expand="submenu-music">Music Vue Library</a>
-<div id="submenu-music" class="submenu hidden">
-  <!-- Main Music Library -->
-  <a href="../MusicLibrary/index.html" class="neumorphic-tab">Music Library Lite</a>
-
-  <!-- Music Library with Visualizer -->
-  <a href="../MusicLibraryVis/index.html" class="neumorphic-tab">Music Library (Visualizer)</a>
-</div>
-
-<!-- Music Collection Section -->
-<a href="#" class="neumorphic-tab" data-expand="submenu-music_collection">Music Collections</a>
-<div id="submenu-music_collection" class="submenu hidden">
-	<a href="../DeJahn/index.html" class="neumorphic-tab">DeJahn</a>
-	<a href="../SeekerStar/index.html" class="neumorphic-tab">Seeker & the Star</a>
-	<a href="../GroundCherry/index.html" class="neumorphic-tab">Ground Cherry</a>
-	<a href="../PeruvianMelt/index.html" class="neumorphic-tab">Peruvian Melt</a>
-		<a href="../comingSoon.html" class="neumorphic-tab">Abyss of Bliss</a>
 		
-<a href="https://www.artabillies.com/inprogression" class="neumorphic-tab">INPROGRESSION Artabillies</a>
+		<!-- Placeholder for the nav -->
+  <div id="nav-container"></div>
 
-<a href="https://youtube.com/playlist?list=PLsiMr0_hgaOmqlIGzjHZBzi94yaRgQ38L&si=DMZc6ng8GWx8uMbU" class="neumorphic-tab">INPROGRESSION DVD</a>
-	</div>
-	
-	  <a href="../ChooseYourOwnAdventure/prologue.html" class="neumorphic-tab">Choose Your Own Adventure</a>
-
- <a href="#" class="neumorphic-tab" data-expand="submenu-games">Games</a>
-<div id="submenu-games" class="submenu hidden">
-  <a href="../NewSchoolGameKid/index.html" class="neumorphic-tab">New School Game: Kid Sprite</a>
-  <a href="../NewSchoolGameWizard/index.html" class="neumorphic-tab">New School Game: Wizard Sprite</a>
-  <a href="../OldSchoolGameDesktop/index.html" class="neumorphic-tab">Old School Game: Desktop</a>
-  <a href="../OldSchoolGameMobile/index.html" class="neumorphic-tab">Old School Game: Mobile</a>
-  <a href="../TerminalGameTransition/index.html" class="neumorphic-tab">Terminal Transition Game</a>
-	<a href="../bergs-of-life/index.html" class="neumorphic-tab">Bergs of Life</a>
-	<a href="../comingSoon.html" class="neumorphic-tab">SideScroll Game</a>
-</div>
-
-<a href="#" class="neumorphic-tab" data-expand="submenu-claw-machine">Claw Machine</a>
-<div id="submenu-claw-machine" class="submenu hidden">
-  <a href="../claw-machine/index.html" class="neumorphic-tab">Claw Machine OG</a>
-  <a href="../claw-machineGame/index.html" class="neumorphic-tab">Claw Machine Enhanced</a>
-</div>
-
-  <a href="#" class="neumorphic-tab" data-expand="submenu-glo-calculato">Glo-Calculato</a>
-  <div id="submenu-glo-calculato" class="submenu hidden">
-    <a href="../GloCalculatoLanding/index.html" class="neumorphic-tab">Glo-Calculato Landing</a>
-    <a href="../GloCalculato/index.html" class="neumorphic-tab">Full-Sized Glo-Calculato</a>
-    <a href="../GloCalculatoLanding/GLO-CALCULATO/Glo-Calculato.zip" class="neumorphic-tab">Download Glo-Calculato</a>
-  </div>
-
-  <a href="#" class="neumorphic-tab" data-expand="submenu-tarot">Tarot</a>
-<div id="submenu-tarot" class="submenu hidden">
-  <!-- Main Tarot Landing and Learning -->
-  <a href="../TarotLanding/index.html" class="neumorphic-tab">Tarot Orientation Landing</a>
-  <a href="../TarotLanding/HowTo.html" class="neumorphic-tab">How To: Tarot – FOOD4THOTH</a>
-	<a href="../TarotFlipCardGallery/index.html" class="neumorphic-tab">Quick Reference Flip Gallery</a>
-
-  <!-- General Tarot Decks and Readings -->
-  <a href="../TarotTogetherNoAge/index.html" class="neumorphic-tab">Tarot Card Gallery (3 Decks)</a>
-  <a href="../TarotTogetherNoAge4Decks/index.html" class="neumorphic-tab">Tarot Card Gallery (4 Decks)</a>
-  <a href="../CelticCrossTarot/index.html" class="neumorphic-tab">Celtic Cross Reading</a>
-	<a href="../ThreeCardTarot/index.html" class="neumorphic-tab">Three-Card Tarot w/ Gallery</a>
-  <a href="../ThreeCardTarotByItself/index.html" class="neumorphic-tab">Three-Card Tarot Reading</a>
-
-  <!-- Cyberpunk and Thematic Tarot Decks -->
-  <a href="../TarotSacredGeometry/index.html" class="neumorphic-tab">Sacred Geometry Tarot</a>
-  <a href="../TarotCyberPunkDark/index.html" class="neumorphic-tab">CyberPunk Dark Tarot</a>
-  <a href="../TarotCyberPunkMelo/index.html" class="neumorphic-tab">CyberPunk Melo Tarot</a>
-  <a href="../TarotOG/index.html" class="neumorphic-tab">OG Tarot w/Voice Commands</a>
-	
-	<!-- Experimental and Custom Decks -->
-  <a href="../EgyptianTarot/index.html" class="neumorphic-tab">Custom Egyptian Major Arcana (1–22)</a>
-  <a href="../EgyptianTarotFull/index.html" class="neumorphic-tab">Custom Sacred Geometry (1–78)</a>
-  <a href="../TarotJungian/index.html" class="neumorphic-tab">Jungian Thoth Tarot Spread</a>
-  <a href="../TarotTextList/index.html" class="neumorphic-tab">Cyberpunk Tarot Text Library</a>
-	
-	<a href="../DrawTarot/index.html" class="neumorphic-tab">All Spreads</a>
-
-  <!-- Majix Tarot Galleries (Individual Arcana) -->
-  <a href="../MajixLanding/index.html" class="neumorphic-tab">Majix Galleries Landing</a>
-  <a href="../MajixTarotMajor/index.html" class="neumorphic-tab">Majix Major Arcana</a>
-  <a href="../MajixTarotWands/index.html" class="neumorphic-tab">Majix Wands</a>
-  <a href="../MajixTarotCups/index.html" class="neumorphic-tab">Majix Cups</a>
-  <a href="../MajixTarotSwords/index.html" class="neumorphic-tab">Majix Swords</a>
-  <a href="../MajixTarotPentacles/index.html" class="neumorphic-tab">Majix Pentacles</a>
-  <a href="../MajixTarotAll/index.html" class="neumorphic-tab">Majix All Cards</a>
-  
-  <a href="../TarotGalleries/index.html" class="neumorphic-tab">Explore All Galleries</a>
-
-  <a href="../TarotCrystalQueens/indexAge.html" class="neumorphic-tab">18+ Crystal Queens Tarot</a>
-  <a href="../TarotCyberPunkX/indexAge.html" class="neumorphic-tab">18+ CyberPunk X Tarot</a>
-  <a href="../TarotAgeVerify/index.html" class="neumorphic-tab">FOOD4THOTH 18+ Tarot Gallery</a>
-	
-	<a href="../TarotAllResources/index.html" class="neumorphic-tab">All Resources</a>
-
-  <!-- Additional Resources -->
-  <a href="../comingSoon.html" class="neumorphic-tab">More Tarot</a>
-  <a href="../parental-controls.html" class="neumorphic-tab">Parental Controls</a>
-</div>
-
-<a href="#" class="neumorphic-tab" data-expand="submenu-iching">I Ching</a>
-<div id="submenu-iching" class="submenu hidden">
-  <a href="../Iching/index.html" class="neumorphic-tab">I Ching Simple</a>
-	<a href="../IchingFractal/index.html" class="neumorphic-tab">I Ching Fractal</a>
-	<a href="../IchingPhoto/index.html" class="neumorphic-tab">I Ching Fractal/Photo</a>
-  <a href="../Iching/ichingAnimeLoop.html" class="neumorphic-tab">I Ching Anime Loop</a>
-</div>
-
-<a href="#" class="neumorphic-tab" data-expand="submenu-hakim-bey">Hakim Bey</a>
-  <div id="submenu-hakim-bey" class="submenu hidden">
-    <a href="../HakimBey/index.html" class="neumorphic-tab">Hakim Bey Anarchy Page</a>
-    <a href="../HakimBey/joinTheMovement.html" class="neumorphic-tab">Anarchy Collective Contact</a>
-  </div>
-
-  <a href="#" class="neumorphic-tab" data-expand="submenu-hashisheen">Hashisheen Album Reviews</a>
-  <div id="submenu-hashisheen" class="submenu hidden">
-		 <a href="../EndOfLawHASHISHEEN/AllHashineenReviews.html" class="neumorphic-tab">Landing Page</a>
-    <a href="../EndOfLawHASHISHEEN/FullAlbumReview.html" class="neumorphic-tab">Full Album Review</a>
-     <a href="../EndOfLawHASHISHEEN/index1.html" class="neumorphic-tab">Hashisheen Album Review (Track 1)</a>
-    <a href="../EndOfLawHASHISHEEN/index2.html" class="neumorphic-tab">Hashisheen Album Review (Track 2)</a>
-    <a href="../EndOfLawHASHISHEEN/index3.html" class="neumorphic-tab">Hashisheen Album Review (Track 3)</a>
-    <a href="../EndOfLawHASHISHEEN/index4.html" class="neumorphic-tab">Hashisheen Album Review (Track 4)</a>
-    <a href="../EndOfLawHASHISHEEN/index5.html" class="neumorphic-tab">Hashisheen Album Review (Track 5)</a>
-    <a href="../EndOfLawHASHISHEEN/index6.html" class="neumorphic-tab">Hashisheen Album Review (Track 6)</a>
-    <a href="../EndOfLawHASHISHEEN/index7.html" class="neumorphic-tab">Hashisheen  Album Review (Track 7)</a>
-    <a href="../EndOfLawHASHISHEEN/index8.html" class="neumorphic-tab">Hashisheen Album Review (Track 8)</a>
-    <a href="../EndOfLawHASHISHEEN/index9.html" class="neumorphic-tab">Hashisheen Album Review (Track 9)</a>
-    <a href="../EndOfLawHASHISHEEN/index10.html" class="neumorphic-tab">Hashisheen Album Review (Track 10)</a>
-    <a href="../EndOfLawHASHISHEEN/index11.html" class="neumorphic-tab">Hashisheen Album Review (Track 11)</a>
-    <a href="../EndOfLawHASHISHEEN/index12.html" class="neumorphic-tab">Hashisheen Album Review (Track 12)</a>
-    <a href="../EndOfLawHASHISHEEN/index13.html" class="neumorphic-tab">Hashisheen Album Review (Track 13)</a>
-    <a href="../EndOfLawHASHISHEEN/index14.html" class="neumorphic-tab">Hashisheen Album Review (Track 14)</a>
-    <a href="../EndOfLawHASHISHEEN/index15.html" class="neumorphic-tab">Hashisheen Album Review (Track 15)</a>
-    <a href="../EndOfLawHASHISHEEN/index16.html" class="neumorphic-tab">Hashisheen Album Review (Track 16)</a>
-    <a href="../EndOfLawHASHISHEEN/index17.html" class="neumorphic-tab">Hashisheen Album Review (Track 17)</a>
-    <a href="../EndOfLawHASHISHEEN/index18.html" class="neumorphic-tab">Hashisheen Album Review (Track 18)</a>
-    <a href="../EndOfLawHASHISHEEN/index19.html" class="neumorphic-tab">Hashisheen Album Review (Track 19)</a>
-    <a href="../EndOfLawHASHISHEEN/index20.html" class="neumorphic-tab">Hashisheen Album Review (Track 20)</a>
-    <a href="../EndOfLawHASHISHEEN/index21.html" class="neumorphic-tab">Hashisheen Album Review (Track 21)</a>
-    <a href="../EndOfLawHASHISHEEN/index22.html" class="neumorphic-tab">Hashisheen Album Review (Track 22)</a>
-		<a href="../comingSoon.html" class="neumorphic-tab">More Reviews</a>
-  </div>
-	
-	<a href="../DrawingFractals/index.html" class="neumorphic-tab">Draw w/Fractals</a>
-	
-	<a href="../RainbowGathering/index.html" class="neumorphic-tab">Rainbow Recordings</a>
-	
-	<a href="#" class="neumorphic-tab" data-expand="submenu-rainbows">Rainbow Reveals & Generators</a>
-<div id="submenu-rainbows" class="submenu hidden">
-  <!-- Rainbow Reveals -->
-  <a href="../Rainbows4Thoth/Reveal1.html" class="neumorphic-tab">Rainbow Reveal 1</a>
-  <a href="../Rainbows4Thoth/Reveal2.html" class="neumorphic-tab">Rainbow Reveal 2</a>
-	<a href="../Rainbows4Thoth/ListReveal.html" class="neumorphic-tab">Rainbow Reveal List</a>
-
-  <!-- Rainbow Generators -->
-  <a href="../RainbowFracGenerator/index.html" class="neumorphic-tab">Fractal Generator</a>
-  
-  <a href="../RainbowGenerator/index.html" class="neumorphic-tab">Rainbow Shape Generator</a>
-</div>
-
-<a href="#" class="neumorphic-tab" data-expand="submenu-mescalito">Mescalito Reveals</a>
-<div id="submenu-mescalito" class="submenu hidden">
-  <!-- Rainbow Reveals -->
-  <a href="../Mescalito/Reveal1.html" class="neumorphic-tab">Mescalito Reveal 1</a>
-  <a href="../Mescalito/Reveal2.html" class="neumorphic-tab">Mescalito Reveal 2</a>
-	<a href="../Mescalito/ListReveal.html" class="neumorphic-tab">Mescalito Reveal List</a>
-</div>
-	
-	<a href="#" class="neumorphic-tab" data-expand="submenu-akashic">Akashic Records</a>
-<div id="submenu-akashic" class="submenu hidden">
-  <a href="../css-only-3d-image-carousel/index.html" class="neumorphic-tab">Main Landing</a>
-  <a href="../AkashicAsclepiusDeep/index.html" class="neumorphic-tab">Akashic Asclepius Deep</a>
-  <a href="../AkashicAsclepiusLite/index.html" class="neumorphic-tab">Akashic Asclepius Lite</a>
-  <a href="../AkashicEmeraldAsAbove/index.html" class="neumorphic-tab">Akashic Emerald As Above</a>
-  <a href="../AkashicEmeraldDeep/index.html" class="neumorphic-tab">Akashic Emerald Deep</a>
-  <a href="../AkashicEmeraldLite/index.html" class="neumorphic-tab">Akashic Emerald Lite</a>
-  <a href="../AkashicHermiticum/index.html" class="neumorphic-tab">Akashic Hermiticum</a>
-  <a href="../AkashicHymnLite/index.html" class="neumorphic-tab">Akashic Hymn Lite</a>
-  <a href="../AkashicNag/index.html" class="neumorphic-tab">Akashic Nag</a>
-  <a href="../AkashicNag13Codex/index.html" class="neumorphic-tab">Akashic Nag 13 Codex</a>
-  <a href="../AkashicNagTreaties/index.html" class="neumorphic-tab">Akashic Nag Treaties</a>
-  <a href="../AkashicThothDeep/index.html" class="neumorphic-tab">Akashic Thoth Deep</a>
-  <a href="../AkashicThothLite/index.html" class="neumorphic-tab">Akashic Thoth Lite</a>
-	<a href="../comingSoon.html" class="neumorphic-tab">More Records</a>
-</div>
-
-<a href="#" class="neumorphic-tab" data-expand="submenu-anarchy">Anarchy Comics & Info</a>
-<div id="submenu-anarchy" class="submenu hidden">
-  <a href="../AnarchyComicBreakFree/index.html" class="neumorphic-tab">Anarchy Comic: Break Free</a>
-  <a href="../AnarchyComicCocoon/index.html" class="neumorphic-tab">Anarchy Comic: Cocoon</a>
-  <a href="../AnarchyDepth/index.html" class="neumorphic-tab">Anarchy Depth</a>
-  <a href="../AnarchyIsAlwaysMobile/index.html" class="neumorphic-tab">Anarchy Is Always Mobile</a>
-  <a href="../AnarchyPoetics/index.html" class="neumorphic-tab">Anarchy Poetics</a>
-  <a href="../AnarchyTAZ/index.html" class="neumorphic-tab">Anarchy TAZ</a>
-	<a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
-</div>
-
-<a href="#" class="neumorphic-tab" data-expand="submenu-eyespy">Eye Spy</a>
-<div id="submenu-eyespy" class="submenu hidden">
-  <a href="../EyeSPY1/index.html" class="neumorphic-tab">Eye Spy Game 20 (1st Edition)</a>
-	<a href="../EyeSPY2/index.html" class="neumorphic-tab">Eye Spy Game 46 (2nd Edition)</a>
-	<a href="../EyeSPY3/index.html" class="neumorphic-tab">Eye Spy Game 66 (3rd Edition)</a>
-	<a href="../comingSoon.html" class="neumorphic-tab">More Pages</a>
-</div>
-
-<a href="#" class="neumorphic-tab" data-expand="submenu-tide-walk">Tide Walk</a>
-<div id="submenu-tide-walk" class="submenu hidden">
-	<a href="../TideApp/index.html" class="neumorphic-tab">Tide Walk USA</a>
-  <a href="../TideApp/indexOregon.html" class="neumorphic-tab">Tide Walk Oregon</a>
-  <a href="../TideApp/indexBoston.html" class="neumorphic-tab">Tide Walk Boston</a>
-</div>
-
-<a href="#" class="neumorphic-tab" data-expand="submenu-trent">Trent</a>
-<div id="submenu-trent" class="submenu hidden">
-  <a href="../TrentOfTheDay/index.html" class="neumorphic-tab">Trent of the Day</a>
-  <a href="../TrentStorybook1stMobile/index.html" class="neumorphic-tab">Trent Storybook</a>
-  <a href="../TrentStorybook1stMobile/contact.html" class="neumorphic-tab">Contact</a>
-  <a href="../TrentStorybook1stMobile/about.html" class="neumorphic-tab">About</a>
-	<a href="../comingSoon.html" class="neumorphic-tab">Space StoryBook</a>
-</div>
-
-<!-- Prayer Section -->
-<a href="#" class="neumorphic-tab" data-expand="submenu-prayer">Prayer For Love</a>
-<div id="submenu-prayer" class="submenu hidden">
-	<a href="../PrayerForLove/index.html" class="neumorphic-tab">Prayer For Love</a>
-	<a href="../PrayerThanks/index.html" class="neumorphic-tab">Thanks & Graditude</a>
-	<a href="../PrayerChildrensStill/index.html" class="neumorphic-tab">Prayer Childrens Still image</a>
-	<a href="../PrayerChildrensFade/index.html" class="neumorphic-tab">Prayer Childrens Fade</a>
-		<a href="../PrayerChildrensFlip/index.html" class="neumorphic-tab">Prayer Childrens Flip</a>
-	</div>
-	
-<a href="../Haudenosaunee/index.html" class="neumorphic-tab">Haudenosaunee Thanksgiving</a>
-
-<a href="../Inprogression/index.html" class="neumorphic-tab">INPROGRESSION</a>
-
-<a href="../MindMelt/index.html" class="neumorphic-tab">MindMelt</a>
-
-<a href="../behind-the-fold/index.html" class="neumorphic-tab">Behind the Fold</a>
-
-<a href="../skating-bunny/index.html" class="neumorphic-tab">Rabbit Hole</a>
-
-<!-- Socials Section -->
-<a href="#" class="neumorphic-tab" data-expand="submenu-socials">Socials</a>
-<div id="submenu-socials" class="submenu hidden">
-
-    <!-- FOOD4THOTH Links -->
-    <a href="https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho" class="neumorphic-tab" target="_blank">FOOD4THOTH Instagram</a>
-    <a href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi" class="neumorphic-tab" target="_blank">FOOD4THOTH Facebook</a>
-
-    <!-- INPROGRESSION Links -->
-    <a href="https://www.facebook.com/share/19M7DM1SrT/?mibextid=wwXIfr" class="neumorphic-tab" target="_blank">INPROGRESSION Facebook</a>
-
-    <!-- ARTABILLIES Links -->
-    <a href="https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ==" class="neumorphic-tab" target="_blank">ARTABILLIES Instagram</a>
-    <a href="https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi" class="neumorphic-tab" target="_blank">ARTABILLIES Facebook</a>
-    <a href="https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP" class="neumorphic-tab" target="_blank">ARTABILLIES Facebook Group</a>
-    <a href="https://www.artabillies.com/contact-us" class="neumorphic-tab" target="_blank">Contact Artabillies</a>
-    <a href="https://www.artabillies.com/artist-info" class="neumorphic-tab" target="_blank">Artabillies Artists</a>
-		
-<a href="https://www.facebook.com/share/1A3Puz9LiE/?mibextid=wwXIfr" class="neumorphic-tab">Peruvian Melt Facebook</a>
-<a href="https://www.facebook.com/share/1ASf9gTHNd/?mibextid=wwXIfr" class="neumorphic-tab">Seeker and the Star Facebook</a>
-<a href="https://www.facebook.com/share/15JCrs2ByF/?mibextid=wwXIfr" class="neumorphic-tab">INPROGRESSION Facebook</a>
-<a href="https://www.facebook.com/share/14u1KuMKxKC/?mibextid=wwXIfr" class="neumorphic-tab">Abyss of Bliss Facebook</a>
-<a href="https://www.facebook.com/share/1A92psCHBz/?mibextid=wwXIfr" class="neumorphic-tab">DeJahn's Facebook</a>
-
-<a href="https://www.instagram.com/trent_son_of_reznor?igsh=MTNpam0zZDY3dGludg==" class="neumorphic-tab">Trent's Instagram</a>
-</div>
-
-<!-- Music Collection Section -->
-<a href="#" class="neumorphic-tab" data-expand="submenu-youtube">YouTube</a>
-<div id="submenu-youtube" class="submenu hidden">
-		
-<a href="https://youtube.com/playlist?list=PL2P9hSa1PuEh6kMDZk3VMK7qPYKxECmEX&si=RyjXAR8fyDIKDXjq" class="neumorphic-tab">Artabillies Videos</a>
-<a href="https://youtube.com/playlist?list=PL2P9hSa1PuEhO0ax57jPofQtKw4q-Ac66&si=SUZaW6uJkIpXOa2a" class="neumorphic-tab">Artabillies Music</a>
-
-<a href="https://youtube.com/playlist?list=PLe089QV1U3-LFF_RgkdEC1OobqUnw8G3P&si=efVtCycW88FjotuS" class="neumorphic-tab">Peruvian Melt Playlist</a>
-<a href="https://youtube.com/playlist?list=PLsiMr0_hgaOmqlIGzjHZBzi94yaRgQ38L&si=DMZc6ng8GWx8uMbU" class="neumorphic-tab">INPROGRESSION DVD</a>
-<a href="https://youtube.com/playlist?list=PLe089QV1U3-LJfWXtDubFrSggdQrSAtQr&si=HHvg-AxCR9B5K0P1" class="neumorphic-tab">Ground Cherry</a>
-<a href="https://youtube.com/playlist?list=PLHLqP3bn74o1JZi7PwVssJZmJ6-3eZ-UQ&si=Nm_FdCnyWb1EcZOn" class="neumorphic-tab">DeJahn's Playlist</a>
-<a href="https://youtube.com/@dejahnlamar3569?si=_lah2UhBbNcV8Y8_" class="neumorphic-tab">DeJahn's YouTube</a>
-<a href="https://youtube.com/@artabillies8291?si=3aRiP1B0ltfkvCPO" class="neumorphic-tab">Artabillies YouTube</a>
-	</div>
-	
-<a href="#" class="neumorphic-tab" data-expand="submenu-rstory">Rstory</a>
-<div id="submenu-rstory" class="submenu hidden">
-	<!-- Rstory Links -->
-	<a href="https://rstory.io/Dobbs_GATE.html" class="neumorphic-tab">Do You Do Dobbs Gallery</a>
-	<a href="../RstoryArtabillies/index.html" class="neumorphic-tab">Rstory Artabillies & Food4Thoth</a>
-	<!-- Articles & Additional Resources -->
-    <a href="https://hive.blog/crypto/@rstory/artabillies-receives-1m-rstory-gratitude-tokens" class="neumorphic-tab" target="_blank">ARTABILLIES Article</a>
-    <a href="https://rstory.io" class="neumorphic-tab" target="_blank"> Rstory Official Website</a>
-    <a href="https://t.me/+m-WEaUc7Ud8yY2Qx" class="neumorphic-tab" target="_blank">RSTORY Telegram Community</a>
-    <a href="https://github.com/ma-da/rstory" class="neumorphic-tab" target="_blank"> RSTORY GitHub</a>
-</div>
-
-<a href="https://github.com/Dseekeroftruth" class="neumorphic-tab">GitHub</a>
-
-<a href="#" class="neumorphic-tab" data-expand="submenu-summary">Summary</a>
-<div id="submenu-summary" class="submenu hidden">
-	<a href="../CollectiveSummary/index.html" class="neumorphic-tab">Collective Summary 1.0</a>
-	<a href="../CollectiveSummary/index2.html" class="neumorphic-tab">Collective Summary 2.0</a>
-</div>
-	<a href="../Artabillies/index.html" class="neumorphic-tab">Artabillies Info</a>
-  <a href="https://www.artabillies.com/" class="neumorphic-tab">Artabillies.com</a>
-	<a href="../portfolio.html" class="neumorphic-tab">Portfolio</a>
-	<a href="../comingSoon.html" class="neumorphic-tab">Desktop Landing</a>
-	<a href="../contact.html" class="neumorphic-tab">Contact</a>
-  <a href="mailto:food4thoth@proton.me" class="neumorphic-tab">Email: food4thoth@proton.me</a>
-	<a href="../README.md" class="neumorphic-tab">F4T ReadMe</a>
-</div>
-	
     <div class="container">
         <div id="about" class="image-quote">
             <h2><strong>Trent - Son of Reznor</strong></h2>
-            <img id="randomImage" src="" alt="Trent the Dog">
+            <!-- In the HTML (not JS): pick a tiny/lightweight poster you have -->
+<img
+  id="randomImage"
+  src="https://www.food4thoth.com/TrentOfTheDay/og-preview.jpg"
+  alt="Trent the Dog"
+  width="800" height="800"
+  loading="eager"
+  decoding="async"
+  fetchpriority="high"
+/>
             <p class="quote" id="randomQuote"></p>
             <div class="description">
                    <p>Trent, the second generation stoner dog, was a misfit rarity of amazing proportions. He looked like an Ewok, and both dogs and people didn't know what to make of him. With a face so ugly that it was cute, he could stop people in their tracks, making them laugh. Trent looked dashing in a bow tie and was deeply loved by his human mother, the lovely Laura, whom he followed everywhere.</p>
@@ -397,14 +749,14 @@
             </div>
         </div>
     </div>
-				
+			
 <div class="scroll-buttons">
     <button onclick="scrollToTop()">&#9650;</button> <!-- Up Arrow -->
     <button onclick="scrollToBottom()">&#9660;</button> <!-- Down Arrow -->
 </div>
 
     <div class="container">
-    <button id="galleryButton" class="toggle-button" 
+    <button id="galleryButton" class="toggle-button1" 
             onclick="toggleSection('gallery')">
         <strong>Gallery</strong>
     </button>
@@ -509,7 +861,7 @@
     </div>
     
 <div class="container">
-        <button id="socialLinksButton" class="toggle-button" 
+        <button id="socialLinksButton" class="toggle-button1" 
             onclick="toggleSection('socialLinks')">
         <strong>Social Links</strong>
     </button>
@@ -570,8 +922,8 @@
         <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/BNnQEN3hD5F/?igsh=MXAzaGZoa3Rka2hocQ==" data-instgrm-version="14" style="width: 100%; max-width: 800px; margin: auto;"></blockquote>
     </div>
 		
-     <div class="instagram-embed">
-	<iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Fdejahn.lamar%2Fvideos%2F695141813972908%2F&show_text=false&width=317&t=0" width="317" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+		<div class="instagram-embed">
+		<iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Fdejahn.lamar%2Fvideos%2F695141813972908%2F&show_text=false&width=317&t=0" width="317" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
 		 </div>
 
   <div class="instagram-embed">
@@ -581,87 +933,66 @@
 <div class="instagram-embed">
 <iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Fdejahn.lamar%2Fvideos%2F942759255877828%2F&show_text=false&width=267&t=0" width="267" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
  </div>
+
+
 </div>
 
 <div class="container">
-      <button id="trentMoviesButton" class="toggle-button"
+      <button id="trentMoviesButton" class="toggle-button1"
             onclick="toggleSection('trentMovies')">
       <strong>Gifs & Movies</strong>
   </button>
   <div id="trentMovies" class="hidden">
       
-<div class="movies-gallery" style="display: flex; flex-wrap: wrap; gap: 1rem;">
+      <div class="movies-gallery" style="display: flex; flex-wrap: wrap; gap: 1rem;">
           
           <!-- Looping GIFs -->
-<img src="./images/TRENTMOVIE/IMG_6442.GIF" alt="Trent GIF 3" />
+					<img src="./images/TRENTMOVIE/IMG_6442.GIF"           alt="Trent GIF 3" />
           
-<img src="./images/TRENTMOVIE/trent_tacos.GIF" alt="Trent GIF 2" />
+          <img src="./images/TRENTMOVIE/trent_tacos.GIF"        alt="Trent GIF 2" />
 					
-<img src="./images/TRENTMOVIE/trent_son_of_reznor_3.GIF" alt="Trent GIF 1" />
-                
-         <!-- 🔁 Lazy Load Videos -->
-<video data-src="./images/TRENTMOVIE/IMG_1026.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/IMG_6058.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/IMG_6097.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/IMG_6113.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/IMG_6136.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/IMG_6298.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/IMG_6299.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/IMG_6603.MP4" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/IMG_7687.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/trent_and_us_say_happy_thanksgiving.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/trent_flop_on_beach1.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/trent_flops_around_on_beach 3.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/trent_flops_on_beach.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/trent_on_the_beach_boy.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/trent_say_hello.mov" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/trent_slow_poke_beach.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/trent.MP4" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/trim.6BC40287-8185-4183-9A70-C7A54A4B7F15.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/trim.9D858A70-F738-47A9-B319-DD7571950C18.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/trim.2012E958-6C4E-4F76-8250-2D68B27095AF.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/trim.02230984-3C41-4075-91E4-A1FC358AD2BF.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/trim.D2B1B097-BA03-416C-90C0-70FAFD8B1E83.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/trim.D0572C5F-8064-45BE-8A07-C0884C50C879.MOV" controls loop preload="none" muted playsinline></video>
-<video data-src="./images/TRENTMOVIE/trim.F4969DF4-93BC-4C01-859E-02F6E22ECFC0.MOV" controls loop preload="none" muted playsinline></video>
+					<img src="./images/TRENTMOVIE/trent_son_of_reznor_3.GIF" alt="Trent GIF 1" />
+          
+          <!-- Playable videos (with controls) -->
+          <video src="./images/TRENTMOVIE/IMG_1026.MOV"  controls loop></video>
+          <video src="./images/TRENTMOVIE/IMG_6058.MOV"  controls loop></video>
+          <video src="./images/TRENTMOVIE/IMG_6096.MOV"  controls loop></video>
+          <video src="./images/TRENTMOVIE/IMG_6097.MOV"  controls loop></video>
+          <video src="./images/TRENTMOVIE/IMG_6113.MOV"  controls loop></video>
+          <video src="./images/TRENTMOVIE/IMG_6136.MOV"  controls loop></video>
+          <video src="./images/TRENTMOVIE/IMG_6298.MOV"  controls loop></video>
+          <video src="./images/TRENTMOVIE/IMG_6299.MOV"  controls loop></video>
+          <video src="./images/TRENTMOVIE/IMG_6603.MP4"  controls loop></video>
+          <video src="./images/TRENTMOVIE/IMG_7687.MOV"  controls loop></video>
+          <video src="./images/TRENTMOVIE/trent_and_us_say_happy_thanksgiving.MOV" controls loop></video>
+          <video src="./images/TRENTMOVIE/trent_flop_on_beach1.MOV" controls loop></video>
+          <video src="./images/TRENTMOVIE/trent_flops_around_on_beach 3.MOV" controls loop></video>
+          <video src="./images/TRENTMOVIE/trent_flops_on_beach.MOV" controls loop></video>
+          <video src="./images/TRENTMOVIE/trent_on_the_beach_boy.MOV" controls loop></video>
+          <video src="./images/TRENTMOVIE/trent_say_hello.mov" controls loop></video>
+          <video src="./images/TRENTMOVIE/trent_slow_poke_beach.MOV" controls loop></video>
+          <video src="./images/TRENTMOVIE/trent_son_of_reznor.MOV" controls loop></video>
+          <video src="./images/TRENTMOVIE/trent.MP4" controls loop></video>
+          <video src="./images/TRENTMOVIE/trim.6BC40287-8185-4183-9A70-C7A54A4B7F15.MOV" controls loop></video>
+          <video src="./images/TRENTMOVIE/trim.9D858A70-F738-47A9-B319-DD7571950C18.MOV" controls loop></video>
+          <video src="./images/TRENTMOVIE/trim.2012E958-6C4E-4F76-8250-2D68B27095AF.MOV" controls loop></video>
+          <video src="./images/TRENTMOVIE/trim.02230984-3C41-4075-91E4-A1FC358AD2BF.MOV" controls loop></video>
+          <video src="./images/TRENTMOVIE/trim.D2B1B097-BA03-416C-90C0-70FAFD8B1E83.MOV" controls loop></video>
+          <video src="./images/TRENTMOVIE/trim.D0572C5F-8064-45BE-8A07-C0884C50C879.MOV" controls loop></video>
+          <video src="./images/TRENTMOVIE/trim.F4969DF4-93BC-4C01-859E-02F6E22ECFC0.MOV" controls loop></video>
 
-<!-- 🔽 Lazy Load Script -->
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const videos = document.querySelectorAll('video[data-src]');
-
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const video = entry.target;
-          const src = video.getAttribute('data-src');
-          if (src) {
-            video.src = src;
-            video.load();
-            video.removeAttribute('data-src');
-          }
-          observer.unobserve(video);
-        }
-      });
-    }, {
-      rootMargin: '100px',
-      threshold: 0.25
-    });
-
-    videos.forEach(video => observer.observe(video));
-  });
-</script>
       </div>
   </div>
 </div>
 
  <footer class="footer">
         <p>
-<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="./README.md"  class="styled-link">ReadMe</a></p>
+					<a href="../index.html">Visit Our Hub</a> | © 2025 Food4Thoth | <a href="/TrentOfTheDay/readme/"  class="styled-link">ReadMe</a></p>
     </footer>
 
 <script src="./iframe_script.js"></script>
+<script src="../nav-fetch.js"></script>
+<script src="../nav_script2.js"></script>
 
-<script src="./nav_script.js"></script>
 </body>
 </html>

@@ -1,19 +1,124 @@
+---
+title: "Trent of the Day — Son of Reznor | FOOD4THOTH"
+description: "A heartfelt tribute to Trent, the beloved Son of Reznor — celebrating his adventurous spirit with random quotes, images, galleries, and interactive features. Part of the Food4Thoth digital creative hub."
+keywords:
+  - Trent of the Day
+  - Son of Reznor
+  - Food4Thoth
+  - Artabillies
+  - interactive tribute
+  - retro games
+  - creative digital hub
+author: "DeJahn | Food4Thoth & Artabillies"
+permalink: /TrentOfTheDay/readme/
+canonical_url: "https://www.food4thoth.com/TrentOfTheDay/readme/"
+image: "https://www.food4thoth.com/TrentOfTheDay/og-preview.jpg"
+favicon: "https://www.food4thoth.com/images/favicon.png"
+theme_color: "#000000"
+
+# Social metadata
+twitter:
+  card: "summary_large_image"
+  site: "@food4th0th"
+  title: "Trent of the Day — Son of Reznor"
+  description: "Celebrate Trent’s legacy with daily quotes, images, and stories. Explore interactive galleries and social media integrations at Food4Thoth."
+  image: "https://www.food4thoth.com/TrentOfTheDay/og-preview.jpg"
+
+open_graph:
+  type: "website"
+  title: "Trent of the Day — Son of Reznor"
+  description: "A tribute page with random quotes, interactive gallery, and Instagram embeds — celebrating Trent’s joyful legacy."
+  url: "https://www.food4thoth.com/TrentOfTheDay/readme/"
+  image: "https://www.food4thoth.com/TrentOfTheDay/og-preview.jpg"
+  site_name: "FOOD4THOTH"
+
+navigation:
+  - label: "FOOD4THOTH Instagram"
+    url: "https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho"
+  - label: "FOOD4THOTH Facebook"
+    url: "https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi"
+  - label: "Learn About ARTABILLIES"
+    url: "../Artabillies/index.html"
+  - label: "ARTABILLIES Website"
+    url: "http://www.artabillies.com"
+  - label: "ARTABILLIES Instagram"
+    url: "https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ=="
+  - label: "ARTABILLIES Facebook"
+    url: "https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi"
+  - label: "ARTABILLIES Facebook Group"
+    url: "https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP"
+  - label: "Rstory, FOOD4THOTH & ARTABILLIES"
+    url: "../RstoryArtabillies/index.html"
+  - label: "Donations Page"
+    url: "../Donations/index.html"
+  - label: "About"
+    url: "./about.html"
+  - label: "Contact"
+    url: "./contact.html"
+  - label: "Trent Of The Day"
+    url: "../TrentOfTheDay/index.html"
+  - label: "Trent Storybook"
+    url: "../TrentStorybook1stMobile/index.html"
+  - label: "Trent Instagram"
+    url: "https://www.instagram.com/trent_son_of_reznor?igsh=MTNpam0zZDY3dGludg=="
+  - label: "FOOD4THOTH HOME"
+    url: "../index.html"
+
+license: "© 2025 Food4Thoth. All rights reserved."
+---
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a {
+    color: #00ffff;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffd700;
+  }
+  .wrap {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+
+  .nav-button {
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 6px;
+    background: linear-gradient(135deg, red, orange, yellow, green, blue, indigo, violet);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, violet, indigo, blue, green, yellow, orange, red);
+    box-shadow: 0 0 15px #00ffff;
+  }
+</style>
+
 <div style="text-align: center; margin-bottom: 20px;">
-    <button class="nav-button" onclick="location.href='https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho'">FOOD4THOTH Instagram</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi'">FOOD4THOTH Facebook</button>
-    <button class="nav-button" onclick="location.href='../Artabillies/index.html'">Learn About ARTABILLIES</button>
-    <button class="nav-button" onclick="location.href='http://www.artabillies.com'">ARTABILLIES Website</button>
-    <button class="nav-button" onclick="location.href='https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ=='">ARTABILLIES Instagram</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi'">ARTABILLIES Facebook</button>
-    <button class="nav-button" onclick="location.href='https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP'">ARTABILLIES Facebook Group</button>
-    <button class="nav-button" onclick="location.href='../RstoryArtabillies/index.html'">Rstory, FOOD4THOTH & ARTABILLIES</button>
-    <button class="nav-button" onclick="location.href='../Donations/index.html'">Donations Page</button>
-    <button class="nav-button" onclick="location.href='./about.html'">About</button>
-    <button class="nav-button" onclick="location.href='./contact.html'">Contact</button>
-    <button class="nav-button" onclick="location.href='../TrentOfTheDay/index.html'">Trent Of The Day</button>
-    <button class="nav-button" onclick="location.href='../TrentStorybook1stMobile/index.html'">Trent Storybook</button>
-		<button class="nav-button" onclick="location.href='https://www.instagram.com/trent_son_of_reznor?igsh=MTNpam0zZDY3dGludg=='">Trent Instagram</button>
-    <button class="nav-button" onclick="location.href='../index.html'">FOOD4THOTH HOME</button>
+  <a class="nav-button" href="https://www.instagram.com/emerald_path_food4th0th/profilecard/?igsh=dTJnejRlczhqNjho">FOOD4THOTH Instagram</a>
+  <a class="nav-button" href="https://www.facebook.com/share/W8VnfAM2NHBAMTUb/?mibextid=JRoKGi">FOOD4THOTH Facebook</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Artabillies/index.html">Learn About ARTABILLIES</a>
+  <a class="nav-button" href="http://www.artabillies.com">ARTABILLIES Website</a>
+  <a class="nav-button" href="https://www.instagram.com/artabillies/profilecard/?igsh=MW1zbGg2Y2Z1a3FhdQ==">ARTABILLIES Instagram</a>
+  <a class="nav-button" href="https://www.facebook.com/share/sEUxePbaAo9kyRNN/?mibextid=JRoKGi">ARTABILLIES Facebook</a>
+  <a class="nav-button" href="https://www.facebook.com/share/g/6N5MX3W8pS3dbQuD/?mibextid=K35XfP">ARTABILLIES Facebook Group</a>
+  <a class="nav-button" href="https://www.food4thoth.com/RstoryArtabillies/index.html">Rstory, FOOD4THOTH & ARTABILLIES</a>
+  <a class="nav-button" href="https://www.food4thoth.com/Donations/index.html">Donations Page</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TrentOfTheDay/about.html">About</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TrentOfTheDay/contact.html">Contact</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TrentOfTheDay/index.html">Trent Of The Day</a>
+  <a class="nav-button" href="https://www.food4thoth.com/TrentStorybook1stMobile/index.html">Trent Storybook</a>
+  <a class="nav-button" href="https://www.instagram.com/trent_son_of_reznor?igsh=MTNpam0zZDY3dGludg==">Trent Instagram</a>
+  <a class="nav-button" href="https://www.food4thoth.com/index.html">FOOD4THOTH HOME</a>
 </div>
 
 # 🐾 Trent of the Day: Son of Reznor
@@ -303,4 +408,4 @@ Designed, coded, and curated by DeJahn under Artabillies & FOOD4THOTH.
 
 © 2025 Food4Thoth. All rights reserved. Unauthorized redistribution, copying, or modification without explicit permission is prohibited.
 
-#### [About](./about.html) • [Contact](./contact.html) • [Trent Of The Day](../TrentOfTheDay/index.html) • [Trent Storybook](../TrentStorybook1stMobile/index.html) • [Trent Instagram](https://www.instagram.com/trent_son_of_reznor?igsh=MTNpam0zZDY3dGludg==) • [FOOD4THOTH HOME](../index.html)
+#### [About](https://www.food4thoth.com/TrentOfTheDay/about.html) • [Contact](https://www.food4thoth.com/TrentOfTheDay/contact.html) • [Trent Of The Day](https://www.food4thoth.com/TrentOfTheDay/index.html) • [Trent Storybook](https://www.food4thoth.com/TrentStorybook1stMobile/index.html) • [Trent Instagram](https://www.instagram.com/trent_son_of_reznor?igsh=MTNpam0zZDY3dGludg==) • [FOOD4THOTH HOME](https://www.food4thoth.com/index.html)

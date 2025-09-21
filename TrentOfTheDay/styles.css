@@ -88,7 +88,7 @@ footer {
 }
 				
         /* Buttons for Gallery and Social Links */
-.toggle-button {
+.toggle-button1 {
     font-size: 1.5rem;
     padding: 1rem 2rem;
     margin: 1rem;
@@ -100,7 +100,7 @@ footer {
     transition: background-color 0.3s, transform 0.2s;
 }
 
-.toggle-button:hover {
+.toggle-button1:hover {
     background-color: #444;
     transform: scale(1.05);
 }
@@ -200,8 +200,8 @@ footer {
 
 
 /* Toggle Button Styling */
-.toggle-button1 {
-    position: fixed;
+.toggle-button {
+    position: absolute;
     top: 40px;
     right: 4px;
     padding: 5px 10px;
@@ -216,7 +216,7 @@ footer {
 		z-index: 1000;
 }
 
-.toggle-button1:hover {
+.toggle-button:hover {
     background-color: black;
 }
 
@@ -224,7 +224,7 @@ footer {
 
 
 /* Neumorphic Navigation Container */
-.navigation1 {
+.navigation {
     position: fixed;
     top: 70px; /* Adjust to stay below the toggle button */
     right: 50px;
@@ -238,6 +238,7 @@ footer {
     z-index: 1000;
 		height: 50%;
 		overflow-y: auto; /* Enable vertical scrolling */
+		
 	}
 				
         .neumorphic-tab {
@@ -275,7 +276,7 @@ footer {
 
 
 @media (min-width: 1024px) {
-    .toggle-button1 {
+    .toggle-button {
         font-size: 1rem;
 		top: 6%;
     }
@@ -292,7 +293,7 @@ footer {
 		font-size: 2.5rem;
 	}
 	
-	.navigation1 {
+	.navigation {
 		top: 125px;
 	}
 	
