@@ -1,3 +1,99 @@
+---
+layout: default
+title: "Prayer for Love — Interactive Web Comic | FOOD4THOTH"
+description: "An illustrated, web-based comic inspired by the closing prayer of Don Miguel Ruiz’s The Four Agreements—guiding readers through love, unity, and self-realization with animated panels and speech bubbles."
+permalink: /PrayerForLove/readme/
+canonical_url: "https://www.food4thoth.com/PrayerForLove/readme/"
+image: "https://www.food4thoth.com/PrayerForLove/images/Panel1.webp"
+favicon: "https://www.food4thoth.com/images/favicon.png"
+theme_color: "#000000"
+author: "DeJahn | Food4Thoth & Artabillies"
+robots: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"
+sitemap: true
+tags:
+  - Prayer for Love
+  - The Four Agreements
+  - Webcomic
+  - Spirituality
+  - Visual Storytelling
+  - Food4Thoth
+  - Artabillies
+  - Mindfulness
+  - Web Animation
+
+# Open Graph
+og_title: "Prayer for Love — Illustrated Meditation"
+og_description: "A contemplative, panel-by-panel visual prayer that blossoms into love for self, nature, and humanity."
+og_image: "https://www.food4thoth.com/PrayerForLove/images/Panel1.webp"
+og_url: "https://www.food4thoth.com/PrayerForLove/readme/"
+og_type: article
+og_site_name: "FOOD4THOTH"
+
+# Twitter Card
+twitter_card: summary_large_image
+twitter_site: "@food4th0th"
+twitter_title: "Prayer for Love — Interactive Web Comic"
+twitter_description: "Experience a visual prayer for love and unity—animated panels, speech bubbles, and a mindful journey."
+twitter_image: "https://www.food4thoth.com/PrayerForLove/images/Panel1.webp"
+
+# Helpful links (optional for templates that surface these)
+links:
+  - label: "Read the Comic"
+    url: "https://www.food4thoth.com/PrayerForLove/index.html"
+  - label: "FOOD4THOTH Home"
+    url: "https://www.food4thoth.com/index.html"
+  - label: "About"
+    url: "https://www.food4thoth.com/PrayerForLove/README.md"
+  - label: "Contact"
+    url: "mailto:food4thoth@proton.me"
+
+# JSON-LD (optional if your layout injects it)
+structured_data:
+  "@context": "https://schema.org"
+  "@type": "Article"
+  "headline": "Prayer for Love — Interactive Web Comic"
+  "description": "An illustrated meditation inspired by The Four Agreements, presented as a web comic."
+  "image": "https://www.food4thoth.com/PrayerForLove/images/Panel1.webp"
+  "author":
+    "@type": "Person"
+    "name": "DeJahn"
+  "publisher":
+    "@type": "Organization"
+    "name": "Food4Thoth"
+    "logo":
+      "@type": "ImageObject"
+      "url": "https://www.food4thoth.com/images/favicon.png"
+  "mainEntityOfPage": "https://www.food4thoth.com/PrayerForLove/readme/"
+---
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a { color: #00ffff; }
+  h1, h2, h3, h4, h5, h6 { color: yellow; }
+	
+	  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ff00ff, #001eff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(255, 0, 255, 0.5);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffff, #6600cc);
+    box-shadow: 0 0 10px #00ffff;
+  }
+
+</style>
+
 # 📖 Prayer for Love Comic
 
 # 🌟 Overview
