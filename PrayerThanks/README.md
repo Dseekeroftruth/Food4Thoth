@@ -1,3 +1,62 @@
+---
+title: "Prayer Thanks Comic — A Digital Invocation of Love & Enlightenment"
+subtitle: "An interactive webcomic inspired by Don Miguel Ruiz’s The Four Agreements"
+author: "DeJahn (Food4Thoth / Artabillies)"
+created: 2025-08-11
+last_updated: 2025-08-11
+permalink: /PrayerThanks/readme/
+layout: default
+image: https://www.food4thoth.com/PrayerThanks/images/Panel19.webp
+tags:
+  - prayer
+  - gratitude
+  - comic
+  - Toltec wisdom
+  - Four Agreements
+  - Food4Thoth
+  - mysticism
+description: |
+  The Prayer Thanks Comic is an immersive web-based comic inspired by Don Miguel Ruiz’s *The Four Agreements*. 
+  Through illustrated panels, poetic narration, and interactive design, the story carries the essence of self-love, 
+  gratitude, and spiritual awakening. Built with HTML, CSS, and JavaScript, it blends sacred wisdom with modern storytelling.
+canonical_url: "https://www.food4thoth.com/PrayerThanks/index.html"
+social:
+  image: "https://www.food4thoth.com/images/og-preview.jpg"
+  twitter_card: "summary_large_image"
+  twitter_site: "@Food4ThOth"
+  og_type: "website"
+  og_title: "Prayer Thanks Comic — A Visual Invocation of Love & Gratitude"
+  og_description: "Experience an interactive digital comic rooted in Toltec wisdom and The Four Agreements. A journey into love, unity, and enlightenment."
+---
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a { color: #00ffff; }
+  h1, h2, h3, h4, h5, h6 { color: yellow; }
+	
+	  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ff00ff, #001eff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(255, 0, 255, 0.5);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffff, #6600cc);
+    box-shadow: 0 0 10px #00ffff;
+  }
+
+</style>
+
 # 📖 Prayer Thanks Comic
 
 # 🌟 Overview
