@@ -1,8 +1,69 @@
+---
+title: "🌈 Rainbow 3D Fractal Generator – FOOD4THOTH"
+subtitle: "Interactive Cyberpunk 3D Fractals with Sacred Geometry & Rotational Dynamics"
+author: "DeJahn (Food4Thoth)"
+created: 2025-08-12
+last_updated: 2025-08-12
+permalink: /RainbowGenerator/readme/
+layout: default
+image: /RainbowGenerator/og-preview.jpg
+tags:
+  - rainbow fractal
+  - 3D fractals
+  - sacred geometry
+  - cyberpunk art
+  - generative art
+  - Three.js
+  - Food4Thoth
+  - psychedelic visuals
+description: |
+  The Rainbow 3D Fractal Generator is an interactive fractal art tool built with Three.js. 
+  It produces cyberpunk-inspired fractal structures with randomized rainbow, pastel, and vivid color themes. 
+  Explore Sacred Geometry, Kaleidoscope, Mandala, Spiral, Tessellation, Infinity (Paisley), and Toroidal fractals. 
+  Features include dynamic rotational motion, user-controlled orbit navigation, and neon-inspired cyber aesthetics.
+canonical_url: "https://www.food4thoth.com/RainbowGenerator/index.html"
+social:
+  image: "https://www.food4thoth.com/RainbowGenerator/og-preview.jpg"
+  twitter_card: "summary_large_image"
+  twitter_site: "@food4th0th"
+  og_type: "website"
+  og_title: "Rainbow 3D Fractal Generator – Interactive Cyberpunk Geometry"
+  og_description: "Generate 3D rainbow fractals with Sacred Geometry, Kaleidoscope, Spiral, Mandala, and more. Built with Three.js and Food4Thoth’s cyberpunk aesthetic."
+---
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a { color: #00ffff; }
+  h1, h2, h3, h4, h5, h6 { color: yellow; }
+	
+	  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ff00ff, #001eff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(255, 0, 255, 0.5);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffff, #6600cc);
+    box-shadow: 0 0 10px #00ffff;
+  }
+
+</style>
+
 # Rainbow 3D Fractal Generator
 
 ## 🌈 Overview
 
-The Rainbow Fractal Generator is a visually dynamic and interactive web-based fractal generator. It utilizes Three.js to create mesmerizing, cyberpunk-inspired fractal structures with vibrant, randomly generated color themes and rotational patterns. The interface allows users to select different fractal styles, creating unique visuals that change dynamically.
+The Rainbow Fractal Shape Generator is a visually dynamic and interactive web-based fractal generator. It utilizes Three.js to create mesmerizing, cyberpunk-inspired fractal structures with vibrant, randomly generated color themes and rotational patterns. The interface allows users to select different fractal styles, creating unique visuals that change dynamically.
 
 ---
 
