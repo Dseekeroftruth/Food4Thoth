@@ -1,3 +1,64 @@
+---
+title: "🌈 Rainbow Fractal Generator – FOOD4THOTH"
+subtitle: "Interactive Cyberpunk-Styled Fractal Art & Sacred Geometry"
+author: "DeJahn (Food4Thoth)"
+created: 2025-08-11
+last_updated: 2025-08-11
+permalink: /RainbowFracGenerator/readme/
+layout: default
+image: /RainbowFracGenerator/og-preview.jpg
+tags:
+  - fractal art
+  - rainbow fractal generator
+  - psychedelic art
+  - sacred geometry
+  - Food4Thoth
+  - cyberpunk aesthetics
+  - generative art
+description: |
+  The Rainbow Fractal Generator is an interactive cyberpunk-styled visualization tool 
+  blending mathematics, art, and mysticism. Part of the FOOD4THOTH ecosystem, it allows 
+  users to explore Mandelbrot, Julia, Mandala, Kaleidoscope, Spiral, Tessellation, Paisley, 
+  and Sacred Geometry fractals in glowing neon rainbow gradients. 
+  Every render is unique — a portal to endless digital exploration.
+canonical_url: "https://www.food4thoth.com/RainbowFracGenerator/index.html"
+social:
+  image: "https://www.food4thoth.com/RainbowFracGenerator/og-preview.jpg"
+  twitter_card: "summary_large_image"
+  twitter_site: "@food4th0th"
+  og_type: "website"
+  og_title: "Rainbow Fractal Generator – Interactive Sacred Geometry & Cyberpunk Art"
+  og_description: "Create interactive fractals in rainbow neon styles: Mandelbrot, Julia, Mandala, Kaleidoscope, Spiral, and Sacred Geometry with Food4Thoth."
+---
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  a { color: #00ffff; }
+  h1, h2, h3, h4, h5, h6 { color: yellow; }
+	
+	  .nav-button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 6px;
+    background: linear-gradient(135deg, #ff00ff, #001eff);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 12px rgba(255, 0, 255, 0.5);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .nav-button:hover {
+    background: linear-gradient(135deg, #00ffff, #6600cc);
+    box-shadow: 0 0 10px #00ffff;
+  }
+
+</style>
+
 # 🌈 Rainbow Fractal Generator – FOOD4THOTH
 
 ## ✨ Overview
