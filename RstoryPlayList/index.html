@@ -1,0 +1,2254 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=.8, user-scalable=no, maximum-scale=1.0">
+  <!-- ===== SEO: title + mobile ===== -->
+<title>FOOD4THOTH — Rstory Token-Gated Playlist & Downloader</title>
+
+<!-- ===== Canonical ===== -->
+<link rel="canonical" href="https://www.food4thoth.com/RstoryPlayList/">
+<link rel="alternate" hreflang="en" href="https://www.food4thoth.com/RstoryPlayList/">
+
+<!-- ===== Robots ===== -->
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="googlebot" content="index,follow">
+
+<!-- ===== Description (155–160 chars) ===== -->
+<meta name="description"
+      content="Stream FOOD4THOTH tracks and unlock exclusive, token-gated song downloads. Connect Phantom and hold RSTORY to access videos, lyrics and downloads.">
+
+<!-- ===== Open Graph (Facebook, LinkedIn, etc.) ===== -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FOOD4THOTH">
+<meta property="og:title" content="FOOD4THOTH — Rstory Token-Gated Playlist & Downloader">
+<meta property="og:description"
+      content="Stream tracks and unlock exclusive downloads by connecting Phantom and holding RSTORY.">
+<meta property="og:url" content="https://www.food4thoth.com/RstoryPlayList/">
+<meta property="og:image" content="https://www.food4thoth.com/RstoryPlayList/TaxStarve.png">
+<meta property="og:image:alt" content="FOOD4THOTH playlist artwork">
+<!-- Optional if you know dimensions:
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630"> -->
+
+<!-- ===== Twitter Card ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FOOD4THOTH — Rstory Token-Gated Playlist & Downloader">
+<meta name="twitter:description"
+      content="Connect Phantom, hold RSTORY, and unlock exclusive FOOD4THOTH song downloads.">
+<meta name="twitter:image" content="https://www.food4thoth.com/RstoryPlayList/TaxStarve.png">
+<meta name="twitter:image:alt" content="FOOD4THOTH playlist artwork">
+
+<!-- ===== Theme Color (browser UI) ===== -->
+<meta name="theme-color" content="#15141b">
+
+<!-- ===== Structured Data (JSON-LD) ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicPlaylist",
+  "name": "FOOD4THOTH — Rstory Token-Gated Playlist & Downloader",
+  "description": "Stream tracks and unlock exclusive, token-gated song downloads when you connect a Phantom wallet and hold RSTORY.",
+  "url": "https://www.food4thoth.com/RstoryPlayList/",
+  "image": "https://www.food4thoth.com/RstoryPlayList/TaxStarve.png",
+  "inLanguage": "en",
+  "numTracks": 8,
+  "track": [
+    { "@type": "MusicRecording", "name": "Riviera of Bones", "url": "https://www.food4thoth.com/RstoryPlayList/#riviera" },
+    { "@type": "MusicRecording", "name": "Midway Blitz — industrial indictment", "url": "https://www.food4thoth.com/RstoryPlayList/#midway-blitz" },
+    { "@type": "MusicRecording", "name": "You Pay Tax Dollars to Starve Children", "url": "https://www.food4thoth.com/RstoryPlayList/#core-truth" },
+    { "@type": "MusicRecording", "name": "Rstory BackTrack", "url": "https://www.food4thoth.com/MusicLibraryVis/music/RstoryRainbowRap.m4a" },
+    { "@type": "MusicRecording", "name": "Time is Breaking", "byArtist": { "@type": "MusicGroup", "name": "INPROGRESSION" }, "url": "https://www.food4thoth.com/Inprogression/index.html" },
+    { "@type": "MusicRecording", "name": "Blip Blox 3D", "url": "https://www.food4thoth.com/MusicLibraryVis/music/BlipBlox3.wav" },
+    { "@type": "MusicRecording", "name": "Mescalito Amazing Story", "url": "https://www.food4thoth.com/Mescalito/Reveal1.html" },
+    { "@type": "MusicRecording", "name": "Rabbit Hole", "byArtist": { "@type": "MusicGroup", "name": "INPROGRESSION" }, "url": "https://www.food4thoth.com/Inprogression/index.html" }
+  ],
+  "publisher": { "@type": "Organization", "name": "FOOD4THOTH", "url": "https://www.food4thoth.com/" }
+}
+</script>
+	
+	<!-- warm the CDNs/origins you use -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://pbs.twimg.com" crossorigin>
+<link rel="preconnect" href="https://www.food4thoth.com" crossorigin>
+<link rel="preconnect" href="https://bronze-kind-tick-370.mypinata.cloud" crossorigin>
+
+<!-- modulepreload for modules that will be imported/executed -->
+<link rel="modulepreload" href="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" crossorigin>
+<link rel="modulepreload" href="https://esm.sh/@solana/web3.js@1.95.3" crossorigin>
+
+<!-- ===== Early networking hints ===== -->
+<link rel="dns-prefetch" href="//pbs.twimg.com">
+<link rel="preconnect" href="https://pbs.twimg.com" crossorigin>
+
+<link rel="dns-prefetch" href="//static1.squarespace.com">
+<link rel="preconnect" href="https://static1.squarespace.com" crossorigin>
+
+<!-- Optional if this page is also on food4thoth.com; harmless either way -->
+<link rel="preconnect" href="https://www.food4thoth.com">
+
+<!-- ===== Preload: images (needed on this page) ===== -->
+<link rel="preload" as="image" href="IMG_9573.JPG">
+<link rel="preload" as="image" href="MidwayBlitz.png">
+<link rel="preload" as="image" href="RivieraBones.png">
+<link rel="preload" as="image" href="TaxStarve.png">
+<link rel="preload" as="image" href="https://pbs.twimg.com/media/G2bxDZuXgAA-GlI?format=jpg&name=large" crossorigin>
+<link rel="preload" as="image" href="https://www.food4thoth.com/Inprogression/images/IMG_0691.jpeg">
+<link rel="preload" as="image" href="https://www.food4thoth.com/GloCalculato/images/17background.PNG">
+<link rel="preload" as="image" href="https://www.food4thoth.com/Mescalito/images/1.webp">
+<link rel="preload" as="image" href="https://www.food4thoth.com/Inprogression/images/IMG_0690.jpeg">
+<link rel="preload" as="image" href="https://www.food4thoth.com/Artabillies/images/Artabillies.PNG">
+
+<!-- ===== Preload: audio (needed on this page) ===== -->
+<link rel="preload" as="audio" href="https://www.food4thoth.com/MusicLibraryVis/music/RstoryRainbowRap.m4a" type="audio/mp4">
+<link rel="preload" as="audio" href="https://www.food4thoth.com/MusicLibraryVis/InproSqSpace/Inprogression+-+Time+and+Energy+-+02+Time+is+Breaking.mp3" type="audio/mpeg">
+<link rel="preload" as="audio" href="https://www.food4thoth.com/MusicLibraryVis/music/BlipBlox3.wav" type="audio/wav">
+<link rel="preload" as="audio" href="https://www.food4thoth.com/MusicLibraryVis/music/MescalinosAmazingStory.wav" type="audio/wav">
+<link rel="preload" as="audio" href="https://www.food4thoth.com/MusicLibraryVis/InproSqSpace/Inprogression+-+Down+the+Rabbit+Hole+-+03+Rabbit+Hole%202.mp3" type="audio/mpeg">
+<link rel="preload" as="audio" href="https://static1.squarespace.com/static/569ded85a128e6228959a613/t/56b0bbfd2eeb819ad6daaf05/1454423107728/ZOOM0003_ST001.mp3/original/ZOOM0003_ST001.mp3" type="audio/mpeg" crossorigin>
+
+<!-- ===== Prefetch duplicates (kept low priority for subsequent use) ===== -->
+<link rel="prefetch" as="image" href="IMG_9573.JPG">
+<link rel="prefetch" as="image" href="MidwayBlitz.png">
+<link rel="prefetch" as="image" href="RivieraBones.png">
+<link rel="prefetch" as="image" href="TaxStarve.png">
+<link rel="prefetch" as="image" href="https://pbs.twimg.com/media/G2bxDZuXgAA-GlI?format=jpg&name=large" crossorigin>
+<link rel="prefetch" as="image" href="https://www.food4thoth.com/Inprogression/images/IMG_0691.jpeg">
+<link rel="prefetch" as="image" href="https://www.food4thoth.com/GloCalculato/images/17background.PNG">
+<link rel="prefetch" as="image" href="https://www.food4thoth.com/Mescalito/images/1.webp">
+<link rel="prefetch" as="image" href="https://www.food4thoth.com/Inprogression/images/IMG_0690.jpeg">
+<link rel="prefetch" as="image" href="https://www.food4thoth.com/Artabillies/images/Artabillies.PNG">
+
+<link rel="prefetch" as="audio" href="https://www.food4thoth.com/MusicLibraryVis/music/RstoryRainbowRap.m4a" type="audio/mp4">
+<link rel="prefetch" as="audio" href="https://www.food4thoth.com/MusicLibraryVis/InproSqSpace/Inprogression+-+Time+and+Energy+-+02+Time+is+Breaking.mp3" type="audio/mpeg">
+<link rel="prefetch" as="audio" href="https://www.food4thoth.com/MusicLibraryVis/music/BlipBlox3.wav" type="audio/wav">
+<link rel="prefetch" as="audio" href="https://www.food4thoth.com/MusicLibraryVis/music/MescalinosAmazingStory.wav" type="audio/wav">
+<link rel="prefetch" as="audio" href="https://www.food4thoth.com/MusicLibraryVis/InproSqSpace/Inprogression+-+Down+the+Rabbit+Hole+-+03+Rabbit+Hole%202.mp3" type="audio/mpeg">
+<link rel="prefetch" as="audio" href="https://static1.squarespace.com/static/569ded85a128e6228959a613/t/56b0bbfd2eeb819ad6daaf05/1454423107728/ZOOM0003_ST001.mp3/original/ZOOM0003_ST001.mp3" type="audio/mpeg" crossorigin>
+
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css'>
+
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600&display=swap");
+
+:root {
+  --primary-clr: rgba(228, 228, 229, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Nunito", sans-serif;
+}
+
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  background: url(IMG_9573.JPG);
+  background-repeat: no-repeat;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(9px);
+  animation: slidein 120s forwards infinite alternate;
+}
+
+@keyframes slidein {
+  0%,
+  100% {
+    background-position: 20% 0%;
+    background-size: 3400px;
+  }
+  50% {
+    background-position: 100% 0%;
+    background-size: 2400px;
+  }
+}
+
+.album-cover {
+  width: 90%;
+}
+
+.swiper {
+  width: 100%;
+  padding: 40px 0 100px;
+}
+
+.swiper-slide {
+  position: relative;
+  max-width: 200px;
+  aspect-ratio: 1/1;
+  border-radius: 10px;
+}
+
+.swiper-slide img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  -webkit-box-reflect: below -5px linear-gradient(transparent, transparent, rgba(0, 0, 0, 0.4));
+  transform-origin: center;
+  transform: perspective(800px);
+  transition: 0.3s ease-out;
+  pointer-events: none;
+  user-select: none;
+}
+
+.swiper-slide-active .overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100.1%;
+  background-color: rgba(28, 22, 37, 0.6);
+  border-radius: inherit;
+  opacity: 0;
+  transition: all 0.4s linear;
+}
+
+.swiper-slide:hover .overlay {
+  opacity: 1;
+}
+
+.swiper-slide .overlay ion-icon {
+  opacity: 0;
+}
+
+.swiper-slide-active:hover .overlay ion-icon {
+  font-size: 4rem;
+  color: #eb0b0b;
+  opacity: 1;
+  cursor: pointer;
+}
+
+/* Music Player */
+
+.music-player {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary-clr);
+  width: 380px;
+  padding: 10px 30px;
+  border-radius: 20px;
+}
+
+.music-player h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.music-player p {
+  font-size: 1rem;
+  font-weight: 400;
+  opacity: 0.6;
+}
+
+/* Music Player Progress */
+
+#progress {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 7px;
+  background: rgba(163, 162, 164, 0.4);
+  border-radius: 4px;
+  margin: 32px 0 24px;
+  cursor: pointer;
+}
+
+#progress::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  background: rgba(163, 162, 164, 0.9);
+  width: 16px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  outline: 4px solid var(--primary-clr);
+  box-shadow: 0 6px 10px rgba(5, 36, 28, 0.3);
+}
+
+/* Music Player Controls */
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.controls button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  aspect-ratio: 1/1;
+  margin: 20px;
+  background: rgba(163, 162, 164, 0.3);
+  color: var(--primary-clr);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  outline: 0;
+  font-size: 1.1rem;
+  box-shadow: 0 10px 20px rgba(5, 36, 28, 0.3);
+  cursor: pointer;
+  transition: all 0.3s linear;
+}
+
+.controls button:is(:hover, :focus-visible) {
+  transform: scale(0.96);
+}
+
+.controls button:nth-child(2) {
+  transform: scale(1.3);
+}
+
+.controls button:nth-child(2):is(:hover, :focus-visible) {
+  transform: scale(1.25);
+}
+
+ .overlay a { color:#fff; text-decoration:none; font-size:20px; line-height:1; }
+    .overlay a:hover { color:#0ff; }
+  .overlay {
+      position:absolute; right:14px; bottom:14px; display:flex; gap:10px; z-index:2;
+      background:rgba(0,0,0,.45); padding:8px 10px; border-radius:12px; backdrop-filter: blur(4px); }
+			
+				.hidden {
+    display: none;
+}
+			/* General Navigation Styles */
+.navigation {
+	position: sticky;
+            top: 0;
+            z-index: 999;
+    display: flex;
+    flex-wrap: wrap; /* Allow tabs to wrap on smaller screens */
+    gap: 15px; /* Space between tabs */
+    padding: 20px;
+    background-color: #1a1a1a; /* Match the page background */
+    border-radius: 10px; /* Smooth corners */
+    box-shadow: inset 4px 4px 8px #0d0d0d, inset -4px -4px 8px #333333; /* Neumorphic effect */
+    transition: all 0.3s ease;
+    max-height: 300px; /* Set a maximum height for scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+		align-items: center;
+		justify-content: center;
+}
+
+#nav-container{
+	position: sticky;
+            top: 0;
+            z-index: 999;
+}
+
+/* Optional: Style the scrollbar for better appearance */
+.navigation::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.navigation::-webkit-scrollbar-thumb {
+    background: #333333; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+}
+
+.navigation::-webkit-scrollbar-thumb:hover {
+    background: #ff6600; /* Change color on hover */
+}
+
+.navigation::-webkit-scrollbar-track {
+    background: #1a1a1a; /* Track color */
+}
+
+.navigation.hidden {
+    display: none; /* Initially hidden */
+}
+
+/* Neumorphic Tabs */
+.neumorphic-tab {
+    text-decoration: none;
+    color: #e0e0e0;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 12px;
+    background-color: #262626; /* Slightly lighter than the page background */
+    box-shadow: 6px 6px 12px #0d0d0d, -6px -6px 12px #333333; /* Neumorphic effect */
+    transition: all 0.3s ease;
+    text-align: center;
+    width: calc(33.33% - 30px); /* Adjust to fit 3 tabs per row */
+    width: 100%; /* Limit the width */
+		z-index: 9999;
+}
+
+/* Hover and Active States */
+.neumorphic-tab:hover {
+    color: #ffffff;
+    background-color: #ff6600; /* Highlight color */
+    box-shadow: 4px 4px 8px #cc5200, -4px -4px 8px #ff9900; /* Highlighted neumorphic effect */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.neumorphic-tab:active {
+    transform: translateY(1px); /* Press effect */
+    box-shadow: inset 4px 4px 8px #cc5200, inset -4px -4px 8px #ff9900;
+}
+
+/* Toggle Button */
+.toggle-button {
+	position: sticky;
+            top: 0;
+            z-index: 999;
+    padding: 10px 15px;
+    background-color: purple;
+    color: #e0e0e0;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+    cursor: pointer;
+    box-shadow: 4px 4px 8px #0d0d0d, -4px -4px 8px #333333;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+		width: 100%;
+}
+
+.toggle-button:hover {
+    background-color: gold;
+    color: #ffffff;
+    box-shadow: 4px 4px 8px #cc5200, -4px -4px 8px #ff9900;
+}
+
+.toggle-button:active {
+    transform: translateY(1px);
+    box-shadow: inset 4px 4px 8px #cc5200, inset -4px -4px 8px #ff9900;
+}
+
+.submenu {
+    padding-left: 20px; /* Indent submenu items */
+    background-color: purple;
+    border-left: 2px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu a {
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+		margin-bottom: 7px;
+		margin-top: 5px;
+		width: 70vw;
+}
+
+.submenu.hidden {
+    display: none;
+}
+</style>
+
+</head>
+<body>
+	
+	<!-- Placeholder for the nav -->
+  <div id="nav-container"></div>
+	
+	  <style>
+    :root{
+       --fg:#e7e4d9; --muted:#a9a295;
+      --ok:#10b981; --warn:#f59e0b; --err:#ef4444; --border:#2b2b2b;
+    }
+    
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--fg);}
+    .card{width:min(680px,92vw);border:1px solid var(--border);border-radius:12px;padding:18px;display:grid;gap:12px;background:#15141b}
+    h1{margin:0;font-size:20px}
+    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .right{margin-left:auto}
+    button{border:1px solid var(--border);background:#1e1d25;color:var(--fg);padding:10px 14px;border-radius:10px;cursor:pointer}
+    button:hover{filter:brightness(1.1)}
+    .badge{font-size:12px;padding:6px 10px;border-radius:999px;background:#201f29;color:var(--muted);border:1px solid var(--border)}
+    .ok{color:#052e24;background:rgba(16,185,129,.18)}
+    .warn{color:#3e2a05;background:rgba(245,158,11,.18)}
+    .err{color:#3f0b0b;background:rgba(239,68,68,.18)}
+    .gateout{padding:12px;border:1px dashed var(--border);border-radius:8px;color:var(--muted)}
+    .gated{display:none}
+    .kv{font-size:13px;color:var(--muted)}
+    code{background:#1f1e26;border:1px solid var(--border);padding:2px 6px;border-radius:6px}
+			:root {
+  /* Height of the fixed top bar (tweak as you like) */
+  --topbar-height: 56px;
+}
+
+/* Full-width fixed top bar */
+.toggle-button {
+  position: fixed;       /* instead of sticky */
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;          /* spans the viewport */
+  margin: 0;             /* no margin so it hugs the top */
+  border-radius: 0 0 10px 10px; /* only bottom corners */
+  z-index: 999;        /* above everything */
+  padding: calc(10px + env(safe-area-inset-top)) 16px 10px; /* notch-safe on iOS */
+}
+
+/* Push the page content below the fixed bar */
+body {
+  padding-top: calc(var(--topbar-height) + env(safe-area-inset-top));
+}
+
+/* Make the collapsible nav sit *under* the top bar when shown */
+.navigation {
+  position: sticky;
+  top: var(--topbar-height);
+}
+  </style>
+	
+	<style>
+	/* Keep line breaks & control height behavior */
+.msg { white-space: pre-wrap; }
+
+/* Small, non-intrusive preview */
+.msg.preview {
+  max-height: clamp(8rem, 22vh, 16rem);
+  overflow: hidden;              /* no scroll in preview */
+}
+
+/* During/after decode: readable area with scroll */
+.msg.decoding,
+.msg.decoded {
+  max-height: clamp(28rem, 60vh, 44rem);
+  overflow: auto;                /* scroll inside box */
+}
+
+/* (From your earlier styles) pretty cipher look */
+.msg.cipher {
+  position: relative;
+  font-size: 1.35rem;
+  line-height: 1.7;
+  letter-spacing: .4px;
+  background: radial-gradient(1200px 600px at 10% 0%, #0e1626 0%, #0b0f14 60%);
+  border: 1px solid #243040;
+  box-shadow: inset 0 0 40px #0a0f1c;
+}
+
+/* Optional faint scanlines pre-decode only */
+.msg.cipher.pre::after {
+  content: "";
+  position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(to bottom,
+      rgba(255,255,255,.05) 0px, rgba(255,255,255,.05) 1px,
+      transparent 2px, transparent 3px);
+  mix-blend-mode: overlay; opacity: .06;
+}
+
+/* Glyph states */
+.glyph { display:inline-block; min-width:.62ch; filter: blur(.25px);
+  text-shadow:0 0 6px rgba(61,171,255,.22), 0 0 12px rgba(61,171,255,.12);
+  transition: filter .3s ease, color .3s ease, text-shadow .3s ease; }
+.glyph.spin { text-shadow:
+  0 0 6px rgba(61,171,255,.35), 0 0 14px rgba(61,171,255,.25),
+  1px 0 rgba(0,255,170,.10), -1px 0 rgba(140,120,255,.10); }
+.glyph.revealed { filter:none; color:var(--fg); text-shadow:none; }
+
+/***********************************
+  FOOTER (fixed to bottom, full-bleed)
+************************************/
+footer {
+  position: fixed;
+  inset: auto 0 0 0;                 /* left:0; right:0; bottom:0 */
+  z-index: 1000;
+
+  /* full width across viewport */
+  width: 100%;
+  margin: 0;                         /* no centering container bleed needed */
+
+  /* glass look */
+  background: rgba(17, 17, 17, 0.45);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  backdrop-filter: blur(8px) saturate(120%);
+
+  /* layout */
+  text-align: center;
+  padding: 20px 5vw calc(20px + env(safe-area-inset-bottom));
+
+  /* subtle edge */
+  border-top: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.25) inset;
+}
+
+footer p {
+  letter-spacing: 0.05rem;
+  color: #eaeaea;
+  margin: 0;
+}
+
+/* Outlined link text for contrast */
+footer a {
+  color: #ff00ff;
+  text-decoration: none;
+  text-shadow:
+    -1px -1px 0 rgba(0,0,0,0.65),
+     1px -1px 0 rgba(0,0,0,0.65),
+    -1px  1px 0 rgba(0,0,0,0.65),
+     1px  1px 0 rgba(0,0,0,0.65);
+  -webkit-text-stroke: 0.5px rgba(0,0,0,0.55);
+}
+
+footer a:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Prevent last content from hiding behind the fixed footer */
+body {
+  /* Adjust this if your footer is taller/shorter */
+  padding-bottom: 200px; /* ~ footer height (20px top + text + 20px bottom) */
+}
+
+
+	</style>
+	
+	<style id="song-modal-css">
+  /* ===== FOOD4THOTH Songs Modal (isolated to #song-modal) ===== */
+
+  /* Overlay */
+  #song-modal {
+    position: fixed;
+    inset: 0;
+    display: none;                 /* toggle to flex when opened */
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,.8);
+    z-index: 10000;                /* above headers/footers */
+    overflow: auto;
+  }
+  /* helper class you can add/remove in JS */
+  #song-modal.is-open { display: flex; }
+
+  /* Panel */
+  #song-modal .modal-content {
+    background: WhiteSmoke;
+    color: #30303;
+    border: 12px solid LightGray;
+    border-radius: 16px;
+    padding: 20px;
+    max-width: 900px;
+    width: 90vw;
+    max-height: 90vh;
+    overflow: auto;
+  }
+
+  /* Close button */
+  #song-modal .close {
+    cursor: pointer;
+    color: red;
+    font-weight: bold;
+    margin-top: 12px;
+  }
+
+  /* Buttons (scoped) */
+  #song-modal .btn {
+    background: rgba(255,255,255,.5);
+    border: 12px solid cyan;
+    color: #000;
+    padding: 16px;
+    font-family: "Pathway Gothic One", sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    text-transform: uppercase;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: .1s;
+  }
+  #song-modal .btn:hover { background: cyan; transform: scale(1.05); }
+  #song-modal .btn.black { border-color: LightGray; color: #d1492c; }
+  #song-modal .btn.black:hover { background: #d1492c; color: cyan; }
+
+  /* Cards + layout */
+  #song-modal .song-card {
+    border: 12px solid LightGray;
+    border-radius: 16px;
+    background: rgba(255,255,255,.6);
+    padding: 12px;
+    margin: 12px 0;
+  }
+  #song-modal .song-head {
+    font-family: "Pathway Gothic One", sans-serif;
+    font-size: 28px;
+    margin: 0 0 8px;
+  }
+  #song-modal .row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  #song-modal .row .btn {
+    font-size: 18px;
+    border-width: 8px;
+  }
+  #song-modal .small {
+    font-size: 14px;
+    font-family: monospace;
+    color: #333;
+    background: transparent;
+  }
+
+  /* Typography & links only inside the modal */
+  #song-modal p,
+  #song-modal li {
+    font: 18px "Noto Serif", serif;
+    background: #fff;
+  }
+  #song-modal a {
+    color: red;
+    text-decoration: none;
+  }
+  #song-modal a:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  /* Media */
+  #song-modal video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Responsive tweaks limited to modal */
+  @media (max-width: 980px) {
+    #song-modal .modal-content { max-width: 95%; max-height: 85%; }
+  }
+	
+	/* Keep the decode card & button above neighboring layers */
+#decodeCard { position: relative; z-index: 3000; }
+#decryptBtn { position: relative; z-index: 3001; pointer-events: auto; }
+
+/* Make Swiper explicitly lower than the decode card (still interactive) */
+.album-cover, .swiper { position: relative; z-index: 1; }
+</style>
+
+<script>
+  function openModal(id){ const m=document.getElementById(id); if(m) m.classList.add('is-open'); }
+  function closeModal(id){ const m=document.getElementById(id); if(m) m.classList.remove('is-open'); }
+</script>
+	
+  <div class="card">
+    <div class="row">
+      <h1>Rstory Holders Gate (Client-only)</h1>
+      <span class="badge right" id="status">Not connected</span>
+    </div>
+
+    <div class="row">
+      <button id="connectBtn">Connect Phantom</button>
+      <span id="walletBadge" class="badge">Wallet: —</span>
+      <span id="balanceBadge" class="badge">RSTORY: —</span>
+    </div>
+
+    <div class="gateout" id="gateMsg">
+      Connect Phantom and hold at least <strong id="thrShow2">1</strong> RSTORY to view message or <strong id="thrShow">10,000</strong> for exclusive FOOD4THOTH song downloads.
+    </div>
+
+    <!-- GATED CONTENT -->
+    <div id="gatedArea" class="gated">
+      <p class="kv"> Access granted. You hold enough <code>RSTORY</code> to enter.</p>
+      <!-- Add this -->
+			<!-- Songs Modal -->
+  <div class="modal" id="song-modal">
+    <div class="modal-content">
+      <h2 style="font-family:'Pathway Gothic One',sans-serif; margin-top:0;">FOOD4THOTH — Token-Gated Song Hub</h2>
+
+      <!-- SONG 1 -->
+<div class="song-card" data-song-id="riviera">
+  <h3 class="song-head">Riviera of Bones — <span style="color:#d1492c;">Brand-new track</span></h3>
+  <video controls preload="metadata"></video>
+        <p class="small">Also watch:
+          <a target="_blank" href="https://www.facebook.com/share/v/19wJ9hvGke/?mibextid=wwXIfr">Facebook</a> ·
+          <a target="_blank" href="https://www.tiktok.com/t/ZP8Add3Xy/">TikTok</a> ·
+          <a target="_blank" href="https://www.instagram.com/reel/DPR2T5UiqoA/?igsh=MWl0aDNnb2J4dHppYw==">Instagram</a>
+        </p>
+        <div class="row">
+          <button class="btn black" disabled
+                  data-cid-hex="62616679626569666833763535706770376d677378346a656e696466777335683370767a656665716668786135657663356b70727a62323634676d"
+                  onclick="getDownload(this)">
+            Download MP4 (token required)
+          </button>
+          <span class="small" data-status></span>
+        </div>
+
+<details style="margin-top:8px;">
+  <summary>Artist note, lyrics &amp; annotations</summary>
+  <div style="margin-top:10px;">
+    <p><em>New Track: “Riviera of Bones”</em></p>
+
+    <p>This isn’t entertainment for me—it’s testimony. “Riviera of Bones” is a hip-hop indictment of glossy “peace plans” that rebrand siege as aid, displacement as “relocation,” and privatized rebuilds as salvation. The song names what’s happening: starvation used as leverage, governance without representation, slide-deck futures sold over real graves.</p>
+
+    <blockquote>
+      “Call it ‘peace,’ but it’s a leash—same cage, brand-new slaves.<br>
+      Article Forty-Nine—write that law across the page.<br>
+      Starvation as a weapon, now they rebrand it ‘aid.’<br>
+      Great Trust? No trust.”
+    </blockquote>
+
+    <p>This track stands with international law and with people—not with ultimatums, not with consultant fantasies. Peace means an immediate ceasefire that breathes, unimpeded humanitarian access, homes rebuilt before ribbon-cut shows, and a political voice chosen by Palestinians themselves. Anything less is a management plan for an ongoing catastrophe.</p>
+
+    <p><strong>#Ceasefire #HumanRights #Gaza #InternationalLaw #RivieraOfBones</strong></p>
+
+    <h4>HOOK</h4>
+
+    <p><q>Riviera of bones, they selling condos on our graves,</q></p>
+    <ul>
+      <li><em>Meaning:</em> Flips the glossy “Gaza Riviera” fantasy on its head—luxury redevelopment imagined atop mass death. “Bones” makes the cost explicit.</li>
+      <li><em>Function:</em> Stakes the song’s thesis in one bar: real bodies vs. fake beachfronts.</li>
+      <li><em>Delivery:</em> Drag out “bones” and punch “condos” for the clash between death and real estate.</li>
+    </ul>
+
+    <p><q>Call it ‘peace,’ but it’s a leash—same cage, brand-new slaves.</q></p>
+    <ul>
+      <li><em>Meaning:</em> “Peace” as rebranded control—ceasefire without freedom. “Brand-new slaves” = economic/political captivity under a new label.</li>
+      <li><em>Subtext:</em> Peace-as-marketing; a leash masquerading as relief.</li>
+      <li><em>Delivery:</em> Break after “peace” for a hard drop on “leash.”</li>
+    </ul>
+
+    <p><q>Article forty-nine—write that law across the page,</q></p>
+    <ul>
+      <li><em>Meaning:</em> Cites Article 49 of the Fourth Geneva Convention (ban on forcible transfer of civilians).</li>
+      <li><em>Function:</em> Grounds the song in international law; not just emotion, but statute.</li>
+      <li><em>Delivery:</em> Enunciate “forty-nine” like a case number.</li>
+    </ul>
+
+    <p><q>Starvation as a weapon, now they rebrand it ‘aid.’</q></p>
+    <ul>
+      <li><em>Meaning:</em> Aid routes used as coercion: restricted access, militarized distribution, PR spin calling it “humanitarian.”</li>
+      <li><em>Image:</em> Food deliveries under gun-sights; “aid” as a choke point.</li>
+      <li><em>Delivery:</em> Sarcastic air quotes on “aid.”</li>
+    </ul>
+
+    <p><q>Great Trust? No trust. Slide deck full of lies.</q></p>
+    <ul>
+      <li><em>Meaning:</em> Dismantles the “GREAT Trust” proposal—slick investor deck dressed up as salvation.</li>
+      <li><em>Device:</em> Call-and-response reversal (“X? No X.”) that the crowd can join.</li>
+      <li><em>Delivery:</em> Staccato. Leave space after “No trust.”</li>
+    </ul>
+
+    <p><q>AI dreams, dead kids—glossed over in the skies.</q></p>
+    <ul>
+      <li><em>Meaning:</em> Fantasy promo (AI renderings, drone shots) hovering above real civilian deaths.</li>
+      <li><em>Contrast:</em> Aerial spectacle vs. ground truth.</li>
+      <li><em>Delivery:</em> Drop the voice on “dead kids” to cut the music-video glamour.</li>
+    </ul>
+
+    <p><q>You can’t ‘relocate’ a people with a check and guns outside—</q></p>
+    <ul>
+      <li><em>Meaning:</em> “Voluntary relocation” is not voluntary under siege, hunger, or threat; money stipends don’t make it free choice.</li>
+      <li><em>Legal echo:</em> Consent under duress is void.</li>
+      <li><em>Delivery:</em> Snarl “check” and “guns” as the counterfeit and the compulsion.</li>
+    </ul>
+
+    <p><q>We don’t move, we don’t bow—we testify.</q></p>
+    <ul>
+      <li><em>Meaning:</em> Refusal and witness. “Testify” = moral record, courtroom vibe, and church cadence.</li>
+      <li><em>Function:</em> Turns the hook into a vow.</li>
+      <li><em>Delivery:</em> Stack harmonies on “testify” like a choir.</li>
+    </ul>
+
+    <hr>
+
+    <h4>VERSE 1</h4>
+    <p><q>They got a plan with a timer and an ultimatum,</q> — <em>Meaning:</em> Deadline diplomacy—accept fast or else. Pressure cooker, not negotiation.</p>
+    <p><q>‘Sign here in seven days or face annihilation.’</q> — <em>Meaning:</em> Exposes the coercive subtext; the “offer” is backed by threat. <em>Tone:</em> Dark satire—reading fine print out loud.</p>
+    <p><q>Board of Peace with no Gazan representation—</q> — <em>Meaning:</em> Foreign-chaired “governance” with Palestinians excluded. Peace about them, without them.</p>
+    <p><q>That ain’t mediation, that’s occupation’s automation.</q> — <em>Meaning:</em> Process that mechanically reproduces domination—bureaucracy doing the occupier’s work. <em>Wordplay:</em> “Automation” suggests machine-like inevitability.</p>
+    <p><q>GHF checkpoints—bullets whistlin’ by the breadline,</q> — <em>Meaning:</em> Gaza Humanitarian Foundation–style distribution points under fire. “Breadline” = survival basics under threat.</p>
+    <p><q>NGOs screaming ‘not relief,’ but you left us on the redline.</q> — <em>Meaning:</em> Major aid orgs denouncing the model; “redline” = moral boundary crossed &amp; emergency zone. <em>Double:</em> evokes maps and no-go corridors.</p>
+    <p><q>Consultants at the table with a spreadsheet and a headline,</q> — <em>Meaning:</em> Suits reduce catastrophe to KPIs and PR; data dashboards over human lives.</p>
+    <p><q>Turn blockade into revenue, then bill it as a lifeline.</q> — <em>Meaning:</em> Profit and prestige extracted from controlling aid flows; the blockade becomes a business model.</p>
+    <p><q>They pitch a ‘Riviera,’ sell a beach out the back door,</q> — <em>Meaning:</em> Side-deal redevelopment while the public script says “peace.”</p>
+    <p><q>Photoshopping paradise while bodies wash ashore.</q> — <em>Meaning:</em> PR renderings vs. the sea returning the dead. <em>Knife twist:</em> The sea refuses the rebrand.</p>
+    <p><q>If you can’t feed the hungry, what you buildin’ towers for?</q> — <em>Meaning:</em> Priorities—basic needs before vanity projects.</p>
+    <p><q>Ceasefire without justice just rehearses more war.</q> — <em>Meaning:</em> A pause that preserves structures of harm guarantees relapse. <em>Thesis:</em> Peace needs rights, not just quiet.</p>
+
+    <hr>
+
+    <h4>PRE-HOOK (half-time chant)</h4>
+    <ul>
+      <li><q>Not a peace plan—management plan.</q> — <em>Meaning:</em> Containment with a new logo.</li>
+      <li><q>Not a safe hand—same hand, new brand.</q> — <em>Meaning:</em> Actors didn’t change; only the marketing.</li>
+      <li><q>Not a lifeline—ledger line scam.</q> — <em>Meaning:</em> Budgets over bodies. <em>Poetics:</em> “Lifeline/ledger line” slant rhyme.</li>
+      <li><q>We see the numbers. We know the plan.</q> — <em>Meaning:</em> Receipts called out; community not fooled.</li>
+    </ul>
+
+    <h4>HOOK (repeats)</h4>
+    <p><em>Note:</em> Repetition hard-codes the indictment as a chant to memorize.</p>
+
+    <hr>
+
+    <h4>VERSE 2</h4>
+    <p><q>They want a tech zone, tax-free special enclave,</q> — <em>Meaning:</em> SEZ logic: carve-outs for investors, not residents.</p>
+    <p><q>Innovation districts where the trauma’s un-saved.</q> — <em>Meaning:</em> Futurist campuses ignoring healing.</p>
+    <p><q>Artificial islands like a moon-shaped parade—</q> — <em>Meaning:</em> Vanity mega-projects skewered.</p>
+    <p><q>Mega-projects for the press while the shelters go un-paved.</q> — <em>Meaning:</em> Media bait over basics.</p>
+    <p><q>Two suits from Blair’s shop ‘early stage’ on the deck,</q> — <em>Meaning:</em> Proximate tie—“early stage” as tell.</p>
+    <p><q>Then deny, then revise—spin cycle, deflect.</q> — <em>Meaning:</em> Denial → partial admit → reposition.</p>
+    <p><q>We still remember Iraq, every doctored intel check—</q> — <em>Meaning:</em> Pattern, not one-off.</p>
+    <p><q>A million marched in London; you marched us to a wreck.</q> — <em>Meaning:</em> Opposition ignored; catastrophe followed.</p>
+    <p><q>This is not development, it’s demographic drift,</q> — <em>Meaning:</em> Population engineering in “development” clothing.</p>
+    <p><q>Turn displacement into stipends, call it ‘voluntary lift.’</q> — <em>Meaning:</em> Cash to leave under coercion.</p>
+    <p><q>But consent under a rifle? That’s a counterfeit gift.</q> — <em>Meaning:</em> Consent void under threat.</p>
+    <p><q>You can’t launder ethnic cleansing through a philanthropic grift.</q> — <em>Meaning:</em> Charity branding can’t cleanse the crime.</p>
+
+    <hr>
+
+    <h4>BRIDGE (call &amp; response)</h4>
+    <ul>
+      <li><strong>Call:</strong> “Who wrote the terms?” | <strong>Crowd:</strong> “Not us!”</li>
+      <li><strong>Call:</strong> “Who owns the land?” | <strong>Crowd:</strong> “Not ‘Trusts!’”</li>
+      <li><strong>Call:</strong> “What’s a ‘ceasefire’ with a muzzle on our voice?” | <strong>Crowd:</strong> “No choice. No choice.”</li>
+      <li><strong>Call:</strong> “What’s a future on a spreadsheet soaked in blood?” | <strong>Crowd:</strong> “No flood. No flood.”</li>
+      <li><strong>Call:</strong> “What does justice spell in letters, say it loud!” | <strong>Crowd:</strong> “End siege. End shroud.”</li>
+    </ul>
+
+    <hr>
+
+    <h4>VERSE 3 (double-time)</h4>
+    <p><q>Signatures on white paper, inked in blackout nights,</q> — deals signed in secrecy.</p>
+    <p><q>Clause one: disarm the starved—clause two: privatized lights.</q> — disarmament demands + privatized utilities.</p>
+    <p><q>Clause three: foreign chair—clause four: staged rights.</q> — external chair; theatrical rights.</p>
+    <p><q>Clause five: ‘relocate’ lines hiding forced flights.</q> — legalese masking expulsion.</p>
+    <p><q>We read the small print, every footnote screams,</q> — the harm is in the fine print.</p>
+    <p><q>‘Keep the crossings throttled, funnel aid through schemes.’</q> — borders throttled; politicized aid.</p>
+    <p><q>Under UN sun, they built a shadow regime,</q> — parallel systems under a veneer.</p>
+    <p><q>While a million empty plates make a prophet of a meme.</q> — hunger makes truth unavoidable.</p>
+    <p><q>Trump’s AI fantasy—beach clubs, drones, chrome,</q> — cartoonish high-gloss vision.</p>
+    <p><q>Blair’s Rolodex diplomacy—glass phones, tone-deaf tone.</q> — elite phone politics.</p>
+    <p><q>If peace is just a gated lease with equity unknown,</q> — temporary rental; equity hidden.</p>
+    <p><q>Then say it with your chest: you never planned to give a home.</q> — call the bluff.</p>
+
+    <hr>
+
+    <h4>BREAKDOWN (“Receipts”, spoken)</h4>
+    <ul>
+      <li>Starvation = war crime.</li>
+      <li>Blockades that stop food and fuel? War crime.</li>
+      <li>Forced transfer dressed up as ‘voluntary’? Illegal.</li>
+      <li>“Early-stage involvement” in a plan to pay half a million to leave?</li>
+      <li>We see you. Names, dates, documents.</li>
+      <li>You sell a skyline, we count the graves.</li>
+    </ul>
+
+    <h4>HOOK (bigger)</h4>
+    <p><em>Note:</em> Stacked vocals &amp; octave doubles turn the thesis into an anthem; each repeat deepens the indictment.</p>
+
+    <hr>
+
+    <h4>OUTRO (spoken + children’s chorus)</h4>
+    <ul>
+      <li>Ceasefire that breathes.</li>
+      <li>Aid that flows.</li>
+      <li>Homes rebuilt before ribbon-cut shows.</li>
+      <li>Vote that counts.</li>
+      <li>Borders that open.</li>
+      <li>Until then—your peace plan’s broken.</li>
+    </ul>
+  </div>
+</details>
+      </div>
+
+      <!-- SONG 2 -->
+<div class="song-card" data-song-id="core-truth">
+  <h3 class="song-head">You Pay Tax Dollars to Starve Children <span style="color:#d1492c;">Brand-new track</span></h3>
+  <video controls preload="metadata"></video>
+
+        <p class="small">Also watch:
+          <a target="_blank" href="https://www.facebook.com/share/v/175WRNoPsi/?mibextid=wwXIfr">Facebook</a> ·
+          <a target="_blank" href="https://www.tiktok.com/t/ZTMM9kkFE/">TikTok</a> ·
+          <a target="_blank" href="https://www.instagram.com/reel/DPVO_puDshN/?igsh=ZDZiZWdvbTB6OTdp">Instagram</a>
+        </p>
+        <div class="row">
+          <button class="btn black" disabled
+                  data-cid-hex="62616679626569627a6877326963716876646d7361736c326b66723669613279666b6d646b35696d79337470326d6e6a7472793368677261346d79"
+                  onclick="getDownload(this)">
+            Download MP4 (token required)
+          </button>
+          <span class="small" data-status></span>
+        </div>
+				<details style="margin-top:8px;">
+  <summary>Artist note, lyrics &amp; annotations</summary>
+  <div style="margin-top:10px;">
+    <p><em>New Track: “You Pay Tax Dollars to Starve Children”</em></p>
+
+    <h4>The Core Truth</h4>
+    <p>In America, every paycheck, every purchase, every tax dollar is entangled in a machine that weaponizes scarcity. Whether you’re Republican, Democrat, independent, apolitical, rich, poor, religious, or not — you’re paying into a system that starves children in Gaza and starves children at home.</p>
+
+    <h4>Gaza</h4>
+    <ul>
+      <li><strong>Tax Dollars as Weapons:</strong> U.S. military aid and arms sales go directly into blockades, bombs, and siege tactics. Starvation is wielded as leverage, dressed up as “policy” or “security.”</li>
+      <li><strong>Aid as Control:</strong> Even when food or medicine is sent, it’s filtered through conditions — a hand that gives and strangles at the same time.</li>
+      <li><strong>Your Money:</strong> When you file taxes, a portion of that goes to missiles, surveillance drones, and the very logistics that keep Gaza under siege.</li>
+    </ul>
+
+    <h4>America at Home</h4>
+    <ul>
+      <li><strong>Inflation &amp; Wages:</strong> While corporations post record profits, workers’ wages stay stagnant. The “invisible tax” of inflation eats your pay.</li>
+      <li><strong>Food Programs Cut:</strong> SNAP, school lunches, and WIC are cut back, leaving children hungry — even though America produces surplus food.</li>
+      <li><strong>Healthcare Costs:</strong> Rising Medicare premiums, deductibles, and drug prices strip families of resources. Sick children go untreated, malnourished, or buried under debt.</li>
+      <li><strong>Tariffs &amp; Taxes:</strong> Everyday people pay higher costs on basics while billionaires use loopholes to avoid contributing.</li>
+      <li><strong>Military-Industrial Drain:</strong> Trillions poured into endless wars could fund schools, meals, and clinics — but instead, they fatten defense contractors.</li>
+    </ul>
+
+    <h4>The Connection</h4>
+    <ul>
+      <li><strong>Gaza &amp; America Mirror Each Other:</strong> The same system that starves Gaza through siege starves American families by design — austerity at home, militarism abroad.</li>
+      <li><strong>Everyone Pays:</strong> It doesn’t matter what you believe politically or spiritually. If you live and work here, your labor and your taxes fund bombs before bread, profit before children.</li>
+    </ul>
+
+    <h4>The Conclusion</h4>
+    <p>Starving Gaza is starving America’s children. The system doesn’t care about borders; it only cares about power and profit. Until it’s changed, every citizen is forced to pay the bill in blood, hunger, and lost futures.</p>
+
+    <h4>TL;DR</h4>
+    <p>🎤 <strong>New Track Drop</strong><br>
+      <strong>“You Pay Tax Dollars to Starve Children”</strong>
+    </p>
+
+    <p>💥 <strong>Core Truth:</strong><br>
+      Every paycheck, every purchase, every tax dollar — locked into a machine of scarcity. No matter who you are in America, your money fuels bombs abroad and hunger at home.
+    </p>
+
+    <p>🌍 <strong>Gaza:</strong><br>
+      Tax dollars fund siege &amp; missiles. Aid arrives as a weapon — filtered, conditional, choking life.
+    </p>
+
+    <p>🇺🇸 <strong>America:</strong><br>
+      Wages flat, food programs cut, healthcare bleeding families dry. Inflation eats pay while billionaires dodge taxes.
+    </p>
+
+    <p>🔗 <strong>The Connection:</strong><br>
+      The same system that starves Gaza starves our kids here — austerity at home, militarism abroad.
+    </p>
+
+    <p>⚠️ <strong>The Conclusion:</strong><br>
+      Borders don’t matter to the machine. Profit before children. Bombs before bread.<br>
+      <strong>Starving Gaza = starving America’s future.</strong>
+    </p>
+
+    <p>🎶 Out now — this track is protest in rhythm.</p>
+
+    <!-- ==== Added Verses & Sections ==== -->
+    <h4>Verse 1</h4>
+    <p>
+      You pay tax dollars to starve children,<br>
+      Breadline bombs, rationed milk, walls they’re sealed in.<br>
+      Freedom stamped with an eagle, but the talons drip red,<br>
+      Exporting democracy, importing the dead.
+    </p>
+    <p>
+      Politicians smile on a Sunday stage,<br>
+      Hands washed clean while they lock the cage.<br>
+      CNN scrolls with a sponsored lie,<br>
+      Meanwhile a mother holds her child and cries.
+    </p>
+
+    <p>⸻</p>
+
+    <h4>Hook</h4>
+    <p>
+      You pay tax dollars to starve children,<br>
+      Silence dressed up as law-driven.<br>
+      Say “peace plan,” but the graves keep filling,<br>
+      This is blood on the hands of the system we live in.
+    </p>
+
+    <p>⸻</p>
+
+    <h4>Verse 2</h4>
+    <p>
+      Article 49, Geneva erased,<br>
+      Homes bulldozed, whole streets displaced.<br>
+      They call it “aid,” but it’s crumbs on chains,<br>
+      Control through hunger, oppression remains.
+    </p>
+    <p>
+      From Ferguson streets to Gaza’s fire,<br>
+      The empire’s script never does expire.<br>
+      Cops with tanks, drones in the sky,<br>
+      Different borders, same war cry.
+    </p>
+
+    <p>⸻</p>
+
+    <h4>Hook</h4>
+    <p>
+      You pay tax dollars to starve children,<br>
+      Budget lines for war-driven.<br>
+      Say “security,” but the truth is chilling,<br>
+      Empire eats while the young die willing.
+    </p>
+
+    <p>⸻</p>
+
+    <h4>Bridge</h4>
+    <p>
+      Flags wave high while the bombs fall low,<br>
+      Tax checks cashed where the pipelines flow.<br>
+      If justice was real, if freedom was true,<br>
+      Would starving a child be done in your name too?
+    </p>
+
+    <p>⸻</p>
+
+    <h4>Outro (Chant)</h4>
+    <p>
+      You pay tax dollars to starve children!<br>
+      <em>(Whose side you on? Whose side you on?)</em><br>
+      You pay tax dollars to starve children!<br>
+      <em>(The system profits while the people are gone.)</em>
+    </p>
+    <!-- ==== /Added Verses & Sections ==== -->
+
+  </div>
+</details>
+      </div>
+
+      <!-- SONG 3 -->
+<div class="song-card" data-song-id="midway-blitz">
+  <h3 class="song-head">Midway Blitz — industrial indictment <span style="color:#d1492c;">Brand-new track</span></h3>
+  <video controls preload="metadata"></video>
+
+        <p class="small">Also watch:
+          <a target="_blank" href="https://www.facebook.com/share/v/1J1c5bDDVj/?mibextid=wwXIfr">Facebook</a> ·
+          <a target="_blank" href="https://www.tiktok.com/t/ZTMrwjWaU/">TikTok</a> ·
+          <a target="_blank" href="https://www.instagram.com/reel/DPZfKq3ChvE/?igsh=MTA0em1rMHR3cTJmeA==">Instagram</a>
+        </p>
+        <div class="row">
+          <button class="btn black" disabled
+                  data-cid-hex="62616679626569676c6b6e636870327937656d6c6675757877696371776e7a65633668326663756a3376366d78617961617864673534676a336c75"
+                  onclick="getDownload(this)">
+            Download MP4 (token required)
+          </button>
+          <span class="small" data-status></span>
+        </div>
+				<details style="margin-top:8px;">
+  <summary>Artist note, lyrics &amp; annotations</summary>
+  <div style="margin-top:10px;">
+    <p><em>MIDWAY BLITZ // industrial indictment</em></p>
+
+    <h4>[SYSTEM BOOT]</h4>
+    <p>
+      South Shore—pre-dawn.<br>
+      Five stories of brick.<br>
+      Rope burns on rooftops.<br>
+      Black Hawks breathe diesel.<br>
+      Flashbangs fracture bedrooms.<br>
+      “Operation Midway Blitz”—the file name in cold type.
+    </p>
+
+    <h4>Movement I — The Operation, Its Scale, and Targets</h4>
+    <p>
+      Border Patrol, ICE, FBI, ATF—multi-agency stack.<br>
+      Thirty-seven bodies logged, processed, numbered.<br>
+      DHS copy: drug distribution, weapons crimes, immigration violators.<br>
+      Rappels cut the sky into wires; boots harvest drywall from ceilings.<br>
+      Tactical gear reflects blue sirens on broken picture frames.<br>
+      A building turns to evidence: fences bent, hinges flowering metal.
+    </p>
+
+    <h4>Movement II — Witness Voltage</h4>
+    <p>
+      A muzzle becomes a sunrise pressed against a cheek:<br>
+      “I’ve never had a gun in my face.”<br>
+      Hallways cough white powder from doors kicked wrong.<br>
+      Children are lifted, some without clothes, breath smoking in the night.<br>
+      Zip-ties braid small wrists into one organism of fear.<br>
+      A laugh splits the scene: “F— them kids,” tossed like a coin.<br>
+      Neighbors fold themselves behind couches, count flashbangs like heartbeats.<br>
+      The street eats names and gives back numbers.
+    </p>
+
+    <h4>Movement III — Names, Ages, Waiting</h4>
+    <p>
+      Rodrick Johnson, sixty-seven, U.S. citizen: dragged, zip-tied, handcuffed,<br>
+      parked outside for hours like a forfeited appliance.<br>
+      “Warrant?” “Lawyer?”—answers deferred to the weather.<br>
+      Four U.S.-citizen children, DHS says, “taken into custody”<br>
+      until guardians or the state assemble a shape called safety.<br>
+      Bags upended. Photo albums tipped into footprints.<br>
+      The apartment keeps the new geometry of intrusion.
+    </p>
+
+    <h4>Movement IV — Lines Drawn in Law</h4>
+    <p>
+      Fourth Amendment: a key with a measured tooth—warrant, probable cause.<br>
+      Exigent is a thin, sharp word; someone keeps stretching it.<br>
+      Due Process: you do not cut parent from child with a bolt cutter of policy.<br>
+      Equal Protection: skin is not suspicion; papers are not personhood.<br>
+      Posse Comitatus breathes under the floorboards;<br>
+      Insurrection Act taps on the pipes—who turns that valve, and when?<br>
+      Oversight should be a floodlight, not a halo in a press release.
+    </p>
+
+    <h4>Movement V — Los Angeles Precedent / The Kavanaugh Stop</h4>
+    <p>
+      Home Depot lots. Walmart lots. A net without a border.<br>
+      Narcco Barranco—thirty years here, three sons Marines—<br>
+      hammered to asphalt, shoulder unseated, zip-coded to detention.<br>
+      Van Nuys car wash: Rafi, seventy-nine, citizen—<br>
+      asks What are you doing?—meets linoleum, cuffs, bruised punctuation.<br>
+      Brian Gavid—American—phone rifled twenty minutes, Real ID pocketed like a trophy.<br>
+      Bench trial says, No. Appeals say, Still no.<br>
+      The high court steps in, 6–3 silence carved into a green light.<br>
+      A concurrence whispers: if you release the body quickly enough,<br>
+      race is a rumor you can operationalize.<br>
+      Critics name it the Kavanaugh Stop—<br>
+      a doctrine poured into gas tanks, not casebooks.
+    </p>
+
+    <h4>Movement VI — Deployments Map (Noise Tableau)</h4>
+    <p>
+      Los Angeles: ~4,000 Guard + 700 Marines—crowd control scaffolding “after protests,”<br>
+      a judge writes Posse Comitatus in red pen across the order—appeal pending.<br>
+      Washington, D.C.: ~2,000–2,254 Guard; tourist zones policed like museums of fear.<br>
+      Portland: ~200 Guard proposed to ring ICE in a necklace of camo;<br>
+      Oregon sues, a judge recuses, the docket breathes.<br>
+      Memphis: task force swells; Guard teased at “no more than 150 unarmed.”<br>
+      Chicago: ~100 Guard discussed to “protect ICE,”<br>
+      while Illinois shapes its lawsuit like a shield.<br>
+      A pattern prints itself: Democratic mayors under a federal stencil.<br>
+      The legend in the corner reads: crime crackdown / protect federal sites / support raids.
+    </p>
+    <p><em>The cartographer does not draw the families.</em></p>
+
+    <h4>Movement VII — Mirror Room: 1934 / 1938 / 2025</h4>
+    <p>
+      July 1934: knives in the night; February 1938: the Wehrmacht rearranged like furniture—<br>
+      loyalty notarized to a single throat.<br>
+      Dissent refiled under Treason; anti-fascists relabeled Terror.<br>
+      Generals taught to point inward.<br>
+      September 2025: a closed door, a long table, a phrase—“war from within.”<br>
+      Mission-first loyalty demanded like fingerprints.<br>
+      Antifa sketched as a unitary hydra—terrorist by declaration,<br>
+      domestic pluralism melted into a single enemy silhouette.<br>
+      Propaganda sutures the wound between policy and spectacle.<br>
+      The floor hums: history is not rhyming; it’s sampling.
+    </p>
+
+    <h4>Movement VIII — Disputed / Undisclosed / Redacted</h4>
+    <p>
+      Warrants: some? all? none? Exigency: declared? inferred?<br>
+      Probable cause diffuses like tear gas—seen, not held.<br>
+      Charge sheets locked in a drawer marked Later.<br>
+      Children processed, “temporarily.” Adults processed, “administratively.”<br>
+      The chain of command published as a photograph, not a document.<br>
+      Oversight promised in the passive voice.
+    </p>
+
+    <h4>Movement IX — Why This Matters (Signal, Not Echo)</h4>
+    <p>
+      High-profile, high-velocity, high-visibility trauma.<br>
+      Helicopters set to the key of litigation.<br>
+      A test case to measure how far a state can lean into a private home.<br>
+      Precedent desires repetition; repetition becomes policy;<br>
+      policy becomes the weather you forget to notice.<br>
+      “Enemy within” turns the mirror into a target;<br>
+      the target answers by blinking.
+    </p>
+
+    <h4>Movement X — Outro: Constitution as Percussion</h4>
+    <p>
+      Bill of Rights on sheet metal:<br>
+      search, seizure—strike<br>
+      due process—strike<br>
+      equal protection—strike<br>
+      parental rights—strike<br>
+      Posse Comitatus—strike<br>
+      Insurrection Act—don’t.<br>
+      Mask + badge + helicopter = theater of consent.<br>
+      But consent is not silence; consent is a warrant signed in light.<br>
+      If freedom is anything, it is the right to remain unbroken in your sleep.
+    </p>
+
+    <p><strong>#MidwayBlitz #IndustrialPoetry #ProtestArt #Chicago #CivilRights #FourthAmendment #DueProcess #EqualProtection #ArtAsWitness #Food4Thoth #Artabillies #NoMoreRaids</strong></p>
+  </div>
+</details>
+      </div>
+
+      <div class="close" onclick="closeModal('song-modal')">close</div>
+    </div>
+  </div>
+ 
+    </div>
+
+    <div class="kv">
+      <div>Mint: <code id="mintShow">RstyC4aoSD1JKPGTxnjB3PkWdRzV3yoePH1XiPMxBfz</code></div>
+    </div>
+  </div>
+
+	
+<section id="decodeCard" class="card" style="margin-top:12px">
+		<button id="decryptBtn" class="btn" disabled>Decrypt</button>
+      <h3>Decrypted Message</h3>
+      <div id="message" class="msg mono" aria-live="polite"
+           data-plaintext="Welcome, holder. This is your coded drop. When you see this text, you’ve proven you hold an Rstory token. Stay tuned—more keys, more doors."
+           data-scramble="true">▮▮▮ scrambled ▮▮▮</div>
+      <p class="tiny muted">You’ll see the message “decode” once verified</p>
+    </section>
+	
+	<!-- Solana web3.js (ESM) -->
+<script type="module">
+  import { Connection, PublicKey } from "https://esm.sh/@solana/web3.js@1.95.3";
+
+  /********** CONFIG **********/
+  // Your key (hex-encoded) — replace with your own for production
+  const ANKR_HEX   = "35633830303766323934363736326238336235346532363565396235633435333832623531336664663933373531346637646563313833396239366665653137";
+  const CHAIN      = "solana"; // "solana", "solana_devnet", "solana_testnet"
+  const RSTORY_MINT = "RstyC4aoSD1JKPGTxnjB3PkWdRzV3yoePH1XiPMxBfz";
+  const RSTORY_DECIMALS = 6;
+
+  // DOWNLOAD threshold (10k)
+  const THRESHOLD_USER_UNITS = 10000;
+  const THRESHOLD_RAW_UNITS  = BigInt(THRESHOLD_USER_UNITS) * BigInt(10 ** RSTORY_DECIMALS);
+
+  // VIEW threshold (1 token)
+  const VIEW_THRESHOLD_USER_UNITS = 1;
+  const VIEW_THRESHOLD_RAW_UNITS  = BigInt(VIEW_THRESHOLD_USER_UNITS) * BigInt(10 ** RSTORY_DECIMALS);
+
+  // Update banner counts
+  document.getElementById("thrShow2").textContent = VIEW_THRESHOLD_USER_UNITS.toString();
+  document.getElementById("thrShow").textContent  = THRESHOLD_USER_UNITS.toLocaleString();
+
+  /********** DOM **********/
+  const statusEl   = document.getElementById("status");
+  const gateMsg    = document.getElementById("gateMsg");
+  const gatedArea  = document.getElementById("gatedArea");
+  const connectBtn = document.getElementById("connectBtn");
+  const walletBd   = document.getElementById("walletBadge");
+  const balBd      = document.getElementById("balanceBadge");
+  document.getElementById("mintShow").textContent = RSTORY_MINT;
+
+  /********** UTILS **********/
+  function hexToString(hex){
+    const clean = String(hex).replace(/[^0-9a-f]/gi,"");
+    let out = "";
+    for(let i=0;i<clean.length;i+=2){
+      out += String.fromCharCode(parseInt(clean.slice(i,i+2),16));
+    }
+    return out;
+  }
+  function hasPhantom(){ return typeof window.solana !== "undefined" && window.solana?.isPhantom; }
+  function shortKey(k){ return k.slice(0,4)+"…"+k.slice(-4); }
+
+  // compact "k" format for balances
+  function formatHumanK(rawBig){
+    const scale = Number(10 ** RSTORY_DECIMALS);
+    const units = Number(rawBig) / scale;
+    if (units >= 1000){
+      const k = units / 1000;
+      return (k % 1 === 0 ? k.toFixed(0) : (k >= 10 ? k.toFixed(0) : k.toFixed(1))) + "k";
+    }
+    if (units >= 1)   return units.toFixed(2).replace(/\.00$/,"");
+    if (units >= 0.1) return units.toFixed(1);
+    return units.toFixed(3).replace(/0+$/,"").replace(/\.$/,"");
+  }
+
+  /********** SOLANA **********/
+  const SOLANA_RPC = `https://rpc.ankr.com/${CHAIN}/${encodeURIComponent(hexToString(ANKR_HEX))}`;
+  const connection = new Connection(SOLANA_RPC, { commitment: "confirmed" });
+  let walletPubkey = null;
+
+  async function getRstoryBalanceRaw(ownerPk){
+    const accounts = await connection.getParsedTokenAccountsByOwner(ownerPk, { mint: new PublicKey(RSTORY_MINT) });
+    let sum = 0n;
+    for (const acc of accounts.value){
+      const info = acc.account.data.parsed.info;
+      sum += BigInt(info.tokenAmount.amount);
+    }
+    return sum; // BigInt raw units
+  }
+
+  async function enforceGate(){
+    if (!walletPubkey){
+      statusEl.textContent = "Connect Phantom";
+      statusEl.className = "badge warn";
+      gatedArea.style.display = "none";
+      gateMsg.style.display   = "block";
+      // broadcast locked state
+      window.dispatchEvent(new CustomEvent("rstory:gate", {
+        detail: { hasAny:false, hasDownload:false, raw:"0" }
+      }));
+      return false;
+    }
+
+    statusEl.textContent = "Checking RSTORY…";
+    statusEl.className   = "badge";
+
+    try{
+      const raw = await getRstoryBalanceRaw(walletPubkey);
+      const humanK = formatHumanK(raw);
+      balBd.textContent = `RSTORY: ${humanK}`;
+
+      const hasAny      = raw >= VIEW_THRESHOLD_RAW_UNITS;     // ≥1 token
+      const hasDownload = raw >= THRESHOLD_RAW_UNITS;          // ≥10k tokens
+
+      // Always broadcast both gates
+      window.dispatchEvent(new CustomEvent("rstory:gate", {
+        detail: { hasAny, hasDownload, raw: raw.toString() }
+      }));
+
+      if (hasDownload){
+        statusEl.textContent = "Access granted";
+        statusEl.className   = "badge ok";
+        gateMsg.style.display  = "none";
+        gatedArea.style.display= "block";
+        return true;
+      } else {
+        statusEl.textContent = hasAny ? "Message unlocked" : "Insufficient balance";
+        statusEl.className   = hasAny ? "badge" : "badge err";
+        gateMsg.style.display  = "block";   // show note about thresholds
+        gatedArea.style.display= "none";    // downloads still locked
+        return false;
+      }
+    }catch(e){
+      console.error(e);
+      statusEl.textContent = "Balance check failed";
+      statusEl.className   = "badge err";
+      gateMsg.style.display  = "block";
+      gatedArea.style.display= "none";
+      // broadcast safe "no access"
+      window.dispatchEvent(new CustomEvent("rstory:gate", {
+        detail: { hasAny:false, hasDownload:false, raw:"0" }
+      }));
+      return false;
+    }
+  }
+
+  async function connectPhantom(){
+    if (!hasPhantom()){
+      statusEl.textContent = "Phantom not found";
+      statusEl.className   = "badge err";
+      window.open("https://phantom.app/", "_blank");
+      return;
+    }
+    try{
+      const resp = await window.solana.connect();
+      walletPubkey = new PublicKey(resp.publicKey.toString());
+      walletBd.textContent = "Wallet: " + shortKey(walletPubkey.toBase58());
+      await enforceGate();
+    }catch(err){
+      statusEl.textContent = "Connect canceled";
+      statusEl.className   = "badge warn";
+    }
+  }
+
+  // listeners
+  connectBtn.addEventListener("click", connectPhantom);
+  try{
+    window.solana?.on?.("accountChanged", async (pubkey)=>{
+      if (pubkey){
+        walletPubkey = new PublicKey(pubkey.toString());
+        walletBd.textContent = "Wallet: " + shortKey(walletPubkey.toBase58());
+      } else {
+        walletPubkey = null;
+        walletBd.textContent = "Wallet: —";
+      }
+      await enforceGate();
+    });
+  }catch{}
+
+  // Optional: auto-detect Phantom on load and set status
+  (function init(){
+    statusEl.textContent = hasPhantom() ? "Phantom detected" : "Install Phantom";
+    statusEl.className   = hasPhantom() ? "badge" : "badge warn";
+  })();
+</script>
+	
+
+<script type="module">
+  // ===== PREVIEW RUNES → FULL DECODE (scroll after) =====
+  const messageEl  = document.getElementById('message');
+  const decryptBtn = document.getElementById('decryptBtn');
+
+  // Toggle if you want auto-decode immediately after gate unlock.
+  const AUTO_DECODE_ON_GATE = false;
+
+  // Rune alphabet
+  const RUNE_SET = Array.from(
+    "ᚠᚡᚢᚣᚤᚥᚦᚨᚩᚪᚫᚬᚭᚮᚯᚰᚱᚳᚴᚷᚹᚺᚻᚾᛁᛃᛄᛇᛈᛉᛊᛋᛏᛒᛖᛗᛚᛟᛞᛠ" +
+    "◊◇◆✶✷✸✦✧✩✪✫✬✭✮✯⌘◈⟡◐◑◒◓⊛⋆"
+  );
+  const randRune = () => RUNE_SET[(Math.random() * RUNE_SET.length) | 0];
+
+  // HEX → UTF-8
+  function fromHex(hex) {
+    const clean = String(hex).replace(/[^0-9a-f]/gi, "");
+    const bytes = new Uint8Array(clean.length / 2);
+    for (let i = 0; i < clean.length; i += 2) bytes[i/2] = parseInt(clean.slice(i, i+2), 16);
+    return new TextDecoder().decode(bytes);
+  }
+
+  // ===== Your message (UTF-8 hex) =====
+  const MSG_HEX = `
+e2809c57656c636f6d652c20686f6c6465722e205468697320697320796f757220636f6465642064726f702e205768656e20796f7520736565207468
+697320746578742c20796f75e2809976652070726f76656e20796f7520686f6c6420616e205273746f727920746f6b656e2e20537461792074756e65
+64e280946d6f7265206b6579732c206d6f726520646f6f72732e0a0a0a5468652063686f69636520697320796f75727320736f2063686f6f73652077
+6973656c792c0a0a74686520636f6e73657175656e63657320636f756c64206265636f6d652071756974652073697a656c792c0a0a77617463682079
+6f7572207374657020616e642072656d656d6265722074686520706173742c0a0a646f6e277420666f7267657420746861742074686973206c696665
+20646f6e2774206c6173742c0a0a697427732061207265616c20776f726c64207468726f776e20696e746f206120636f736d696320737769726c2c0a
+0a7370696e6e696e6720696e20612067616c616374696320776869726c2c0a0a636f6e7374616e746c79206372656174696e67206c69666520746f20
+6d616b6520697420657874696e63742c0a0a61207265706561746564207061747465726e20646572697665642066726f6d2061206e61747572616c20
+696e7374696e63742c0a0a736f20697427732074696d65206f6e636520616761696e2c0a0a736372616d626c6520746f2066696e6420796f75722066
+7269656e642c0a0a74696768746c7920686f6c642074686569722068616e642c0a0a617320796f752077617463682074686520776f726c6420747572
+6e20696e7374616e746c7920746f2073616e642c0a0a796f752066696e64206f75742069742773207465727269626c7920746f6f206c6174652c0a0a
+776527766520616c7265616479207365616c6564206f757220686f7272696679696e6720666174652c0a0a736f207468652063686f69636520697320
+796f757220736f2063686f6f736520776973656c792c0a0a74686520636f6e73657175656e63657320636f756c64206265636f6d6520717569746520
+73697a656c790a0a3c33200a4f6c6420706f656d206279206d65207772697474656e206174206d79206669727374206164756c74206a6f622c206120
+666163746f727920776869636820616c6d6f737420746f6f6b206d792072696768742068616e642028616c6d6f73742064657374726f796564206d65
+2c2049276d20616e2061727469737420616e64206472756d6d65722c206d792068616e642077617320612063656e74696d657465722066726f6d2067
+657474696e6720616d707574617465642c20616e64207468657920666564206d652077697468207061696e2070696c6c7320666f7220612079656172
+207768696368206973206e6f20676f6f6420666f7220796f757220626f64792c206d696e642c206f7220736f756c2c206e6f7420666f72206c6f6e67
+207465726d206174206c6561737429202c20746865206368756767696e67206f6620746865206d616368696e6520776173207468652074656d706f2c
+20616e642067657474696e67206f757420616c69766520776173206d79206465736972652e20547279696e6720746f2070726f766520746f20616e79
+6f6e6520796f757220616e206164756c74206973206e6576657220676f6f642c20626164207468696e67732068617070656e207768656e2074727969
+6e6720746f20626520696e2074686520776f726c642065766572796f6e652077616e747320666f7220796f7520616e64206e6f7420746865206f6e65
+20796f752063726561746520666f7220796f757273656c6621204e6f206c6f6e67657220736f6d657468696e672049276d2077696c6c696e6720746f
+207269736b2c20746f206665656c20492062656c6f6e67206e6f7220746f2062652061636365707465642c2069742773206265656e2061206c6f6e67
+20726f616420616e64207365656d732069742077696c6c20636f6e74696e756520746f2062652c2062757420626c657373696e677320746f20796f75
+206173207765206d65657420616c6f6e67206f757220706174687321204b4944554c5420464f5245564552212121205375727265616c697374206174
+20686561727420616e642053796e6368726f6e69737420696e2070726163746963652ee2809d
+`;
+
+
+  // ---------- Preview builder (short symbolic paragraph/s) ----------
+  function buildRunePreview(el, { lines = 20, cols = 52, paraGap = 1 } = {}) {
+    el.textContent = "";
+    el.classList.add("cipher", "pre", "preview"); // styled small & masked
+    const totalLines = Math.max(1, lines);
+    for (let r = 0; r < totalLines; r++) {
+      for (let c = 0; c < cols; c++) {
+        const span = document.createElement("span");
+        span.className = "glyph";
+        span.textContent = randRune();
+        el.appendChild(span);
+      }
+      el.appendChild(document.createElement("br"));
+      if ((r + 1) % Math.max(1, paraGap + 1) === 0 && r !== totalLines - 1) {
+        el.appendChild(document.createElement("br")); // blank line between paragraphs
+      }
+    }
+  }
+
+  // ---------- Full coded builder from real text ----------
+  function buildCodedFromText(el, text) {
+    el.textContent = "";
+    el.classList.add("cipher", "pre"); // keep scanlines until revealed
+    el.classList.remove("preview");    // switch out of compact mode
+    for (const ch of text.replace(/\r/g, "")) {
+      if (ch === "\n") { el.appendChild(document.createElement("br")); continue; }
+      if (ch === " ")  { el.appendChild(document.createTextNode(" ")); continue; }
+      const span = document.createElement("span");
+      span.className = "glyph";
+      span.dataset.target = ch;
+      span.textContent = randRune();
+      el.appendChild(span);
+    }
+  }
+  function buildCodedFromHex(el, hex) { buildCodedFromText(el, fromHex(hex)); }
+
+  // ---------- One-time decode (slot → reveal) ----------
+  function decodeOnce(el, { stagger=10, minCycles=10, maxCycles=26, tickMin=18, tickMax=30 } = {}) {
+    if (el.dataset.decoded === "true") return;
+    const cells = el.querySelectorAll(".glyph");
+    if (!cells.length) return;
+
+    el.classList.add("decoding"); // enables scroll-area while animating
+
+    let finished = 0, total = cells.length;
+    cells.forEach((cell, i) => {
+      const target = cell.dataset.target || cell.textContent;
+      if (!target.trim()) { doneOne(); return; }
+      const cycles = (minCycles + Math.random() * (maxCycles - minCycles)) | 0;
+      const tick   = (tickMin + Math.random() * (tickMax - tickMin));
+      const start  = i * stagger;
+      let n = 0;
+
+      setTimeout(() => {
+        cell.classList.add("spin");
+        const spin = setInterval(() => {
+          if (++n < cycles) {
+            cell.textContent = randRune();
+          } else {
+            clearInterval(spin);
+            cell.textContent = target;
+            cell.classList.remove("spin");
+            cell.classList.add("revealed");
+            doneOne();
+          }
+        }, tick);
+      }, start);
+    });
+
+    function doneOne() {
+      if (++finished === total) {
+        el.dataset.decoded = "true";
+        el.classList.remove("pre", "decoding"); // remove scanlines
+        el.classList.add("decoded");            // keep scroll, no growth
+        if (decryptBtn) decryptBtn.disabled = true;
+      }
+    }
+  }
+
+  // ---------- Init: small preview only ----------
+  window.addEventListener("load", () => {
+    buildRunePreview(messageEl, { lines: 4, cols: 56, paraGap: 1 });
+    if (decryptBtn) decryptBtn.disabled = true; // wait for gate
+  });
+
+  // ---------- rstory gate hookup ----------
+  window.addEventListener("rstory:gate", (e) => {
+    const d = e?.detail;
+    const hasAny = (d && typeof d === "object") ? !!d.hasAny : !!d;
+    if (hasAny) {
+      if (decryptBtn) decryptBtn.disabled = false;
+      if (AUTO_DECODE_ON_GATE) {
+        // swap preview → full coded → animate
+        buildCodedFromHex(messageEl, MSG_HEX);
+        decodeOnce(messageEl);
+      }
+    } else {
+      if (decryptBtn) decryptBtn.disabled = true;
+    }
+  });
+
+  // ---------- Manual trigger ----------
+  function doDecrypt() {
+    // Replace compact preview with the FULL coded message, then animate:
+    buildCodedFromHex(messageEl, MSG_HEX);
+    decodeOnce(messageEl);
+    // Note: .msg gets "decoding"→"decoded" which enables internal scroll
+  }
+  if (decryptBtn) decryptBtn.addEventListener("click", doDecrypt);
+  window.addEventListener("keydown", (e) => { if (e.key.toLowerCase() === "d") doDecrypt(); });
+</script>
+
+<script type="module">
+  // --- Helpers: hex <-> utf-8 ---
+  function fromHex(hex) {
+    const clean = String(hex).replace(/[^0-9a-f]/gi, "");
+    const bytes = new Uint8Array(clean.length / 2);
+    for (let i = 0; i < clean.length; i += 2) bytes[i/2] = parseInt(clean.slice(i, i+2), 16);
+    return new TextDecoder().decode(bytes);
+  }
+  // Optional: encode new links quickly in DevTools
+  function toHex(str) {
+    const bytes = new TextEncoder().encode(str);
+    return [...bytes].map(b => b.toString(16).padStart(2,"0")).join("");
+  }
+
+  // --- Your HEX sources (one per song) ---
+  // (These are exactly what you posted.)
+  const VIDEO_HEX_BY_ID = new Map([
+    ["midway-blitz", "68747470733a2f2f62726f6e7a652d6b696e642d7469636b2d3337302e6d7970696e6174612e636c6f75642f697066732f62616679626569676c6b6e636870327937656d6c6675757877696371776e7a65633668326663756a3376366d78617961617864673534676a336c75"],
+    ["riviera",      "68747470733a2f2f62726f6e7a652d6b696e642d7469636b2d3337302e6d7970696e6174612e636c6f75642f697066732f62616679626569666833763535706770376d677378346a656e696466777335683370767a656665716668786135657663356b70727a62323634676d"],
+    ["core-truth",   "68747470733a2f2f62726f6e7a652d6b696e642d7469636b2d3337302e6d7970696e6174612e636c6f75642f697066732f62616679626569627a6877326963716876646d7361736c326b66723669613279666b6d646b35696d79337470326d6e6a7472793368677261346d79"],
+  ]);
+
+  // --- Prevent early loads (make sure no 'src' exists initially) ---
+  document.querySelectorAll(".song-card video").forEach(v => {
+    v.removeAttribute("src");
+    // Optional UX: show a poster placeholder and/or muted controls until unlock
+    // v.setAttribute("poster", "/placeholder.jpg");
+  });
+
+  // --- Assign sources after gate unlock ---
+  function hydrateVideosAfterGate() {
+    document.querySelectorAll(".song-card").forEach(card => {
+      const id = card.getAttribute("data-song-id");
+      const hex = VIDEO_HEX_BY_ID.get(id);
+      if (!hex) return;
+      const v = card.querySelector("video");
+      if (!v) return;
+      if (v.dataset.hydrated === "1") return;
+
+      const url = fromHex(hex);
+      v.src = url + "#t=0.1";    // keep your small seek to force keyframe thumb
+      v.dataset.hydrated = "1";
+      // Safari iOS usually needs a user gesture to play; setting src is fine here.
+      // v.load(); // optional
+    });
+  }
+
+  // --- Hook into your existing token gate event ---
+  window.addEventListener("rstory:gate", (e) => {
+    const d = e?.detail;
+    const hasAny = (d && typeof d === "object") ? !!d.hasAny : !!d;
+    if (hasAny) {
+      hydrateVideosAfterGate();
+    }
+  });
+
+  // --- Optional: manual/test unlock (e.g., from a button) ---
+  window.unlockSongsForTesting = hydrateVideosAfterGate;
+</script>
+<!-- partial:index.partial.html -->
+	
+	
+    <div class="album-cover">
+      <div class="swiper">
+        <div class="swiper-wrapper">
+					<div class="swiper-slide">
+            <img
+              src="https://pbs.twimg.com/media/G2bxDZuXgAA-GlI?format=jpg&name=large" />
+            <div class="overlay">
+							
+              <a
+                href="https://youtube.com/playlist?list=PLx9gj5n6fEkSRJo_tOvzGNviJdFiKvByf&si=IC7KQMZUgmcgB_3d"
+                target="_blank"
+                ><ion-icon name="logo-youtube"></ion-icon
+              ></a>
+							
+							<a href="https://www.food4thoth.com/RstoryArtabillies/index.html" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+<a href="https://www.facebook.com/share/g/1CfQ2fSM4y/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img
+              src="https://www.food4thoth.com/Inprogression/images/IMG_0691.jpeg" />
+            <div class="overlay">
+              <a
+                href="https://youtu.be/24J31g6M-SY?si=EeeTjWnEAEKZ928t"
+                target="_blank"
+                ><ion-icon name="logo-youtube"></ion-icon
+              ></a>
+							<a href="https://www.food4thoth.com/Inprogression/index.html" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+<a href="https://www.facebook.com/share/14MZTja9Zfs/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img
+              src="https://www.food4thoth.com/GloCalculato/images/17background.PNG" />
+            <div class="overlay">
+							<a
+                href="https://youtu.be/2M_PlSnJ9WM?si=LcejVToLYk468JAL"
+                target="_blank"
+                ><ion-icon name="logo-youtube"></ion-icon
+              ></a>
+              <a href="https://www.food4thoth.com/MajixTarotAll/" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+<a href="https://www.facebook.com/share/1BdXpSDLmm/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img
+              src="MidwayBlitz.png" />
+							<button class="downloadBtn" title="Hold 10k RSTORY to download" disabled>
+    <i class="fa-solid fa-download"></i>
+  </button>
+            <div class="overlay">
+              <a href="https://www.food4thoth.com/" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+            <a href="https://www.facebook.com/share/v/1J1c5bDDVj/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://www.tiktok.com/t/ZTMrwjWaU/" target="_blank" title="TikTok">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+            <a href="https://www.instagram.com/reel/DPZfKq3ChvE/?igsh=MTA0em1rMHR3cTJmeA==" target="_blank" title="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img
+              src="RivieraBones.png" />
+							<button class="downloadBtn" title="Hold 10k RSTORY to download" disabled>
+    <i class="fa-solid fa-download"></i>
+  </button>
+            <div class="overlay"> 
+						 <a href="https://www.food4thoth.com/" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+            <a href="https://www.facebook.com/share/v/19wJ9hvGke/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://www.tiktok.com/t/ZP8Add3Xy/" target="_blank" title="TikTok">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+            <a href="https://www.instagram.com/reel/DPR2T5UiqoA/?igsh=MWl0aDNnb2J4dHppYw==" target="_blank" title="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img
+              src="TaxStarve.png" />
+							<button class="downloadBtn" title="Hold 10k RSTORY to download" disabled>
+    <i class="fa-solid fa-download"></i>
+  </button>
+            <div class="overlay">
+						 <a href="https://www.food4thoth.com/" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+            <a href="https://www.facebook.com/share/v/175WRNoPsi/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://www.tiktok.com/t/ZTMM9kkFE/" target="_blank" title="TikTok">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+            <a href="https://www.instagram.com/reel/DPVO_puDshN/?igsh=ZDZiZWdvbTB6OTdp" target="_blank" title="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img
+              src="https://www.food4thoth.com/Mescalito/images/1.webp" />
+            <div class="overlay">
+							<a href="https://www.facebook.com/share/1BdXpSDLmm/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+							<a href="https://www.food4thoth.com/Mescalito/Reveal1.html" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+              <a
+                href="https://youtube.com/playlist?list=PLHLqP3bn74o1JZi7PwVssJZmJ6-3eZ-UQ&si=rr7OHP-YnXweaAcy"
+                target="_blank"
+                ><ion-icon name="logo-youtube"></ion-icon
+              ></a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img
+              src="https://www.food4thoth.com/Inprogression/images/IMG_0690.jpeg" />
+            <div class="overlay">
+							<a href="https://www.facebook.com/share/14MZTja9Zfs/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+							<a href="https://www.food4thoth.com/Inprogression/index.html" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+              <a
+                href="https://youtu.be/o_ixeuo0jgw?si=2Vlfd4Ujay936jZ_"
+                target="_blank"
+                ><ion-icon name="logo-youtube"></ion-icon
+              ></a>
+            </div>
+          </div>
+					<div class="swiper-slide">
+            <img
+              src="https://www.food4thoth.com/Artabillies/images/Artabillies.PNG" />
+            <div class="overlay">
+							<a href="https://www.facebook.com/share/15N1kcxqJGK/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+							<a href="https://www.artabillies.com" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+              <a
+                href="https://youtu.be/8iBxQgY7iF8?si=BfVz-xOQ8FsfP40j"
+                target="_blank"
+                ><ion-icon name="logo-youtube"></ion-icon
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="music-player">
+      <h1>Title</h1>
+      <p>Song Name</p>
+
+      <audio id="song">
+        <source src="song-list/Luke-Bergs-Gold.mp3" type="audio/mpeg" />
+      </audio>
+
+      <input type="range" value="0" id="progress" />
+
+      <div class="controls">
+        <button class="backward">
+          <i class="fa-solid fa-backward"></i>
+        </button>
+        <button class="play-pause-btn">
+          <i class="fa-solid fa-play" id="controlIcon"></i>
+        </button>
+        <button class="forward">
+          <i class="fa-solid fa-forward"></i>
+        </button>
+      </div>
+    </div>
+		
+  </body>
+	
+	
+<!-- ✅ Use CORS + correct module flags -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" crossorigin="anonymous"></script>
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" crossorigin="anonymous"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js" crossorigin="anonymous"></script>
+
+<script>
+	const progress = document.getElementById("progress");
+const song = document.getElementById("song");
+const controlIcon = document.getElementById("controlIcon");
+const playPauseButton = document.querySelector(".play-pause-btn");
+const forwardButton = document.querySelector(".controls button.forward");
+const backwardButton = document.querySelector(".controls button.backward");
+const songName = document.querySelector(".music-player h1");
+const artistName = document.querySelector(".music-player p");
+const downloadBtn = document.getElementById("downloadBtn");
+
+const songs = [
+{
+    title: "Rstory BackTrack",
+    name: "FOOD4THOTH",
+    source:
+      "https://www.food4thoth.com/MusicLibraryVis/music/RstoryRainbowRap.m4a",
+  },
+  {
+    title: "Time is Breaking",
+    name: "INPROGRESSION",
+    source:
+      "https://www.food4thoth.com/MusicLibraryVis/InproSqSpace/Inprogression+-+Time+and+Energy+-+02+Time+is+Breaking.mp3",
+  },
+  {
+    title: "Blip Blox 3D",
+    name: "DeJahn",
+    source:
+      "https://www.food4thoth.com/MusicLibraryVis/music/BlipBlox3.wav",
+  },
+  {
+    title: "Midway Blitz — industrial indictment",
+    name: "FOOD4THOTH",
+    gated: true,
+    sourceHex: "68747470733a2f2f62726f6e7a652d6b696e642d7469636b2d3337302e6d7970696e6174612e636c6f75642f697066732f62616679626569676c6b6e636870327937656d6c6675757877696371776e7a65633668326663756a3376366d78617961617864673534676a336c75"
+  },
+  {
+    title: "Riviera of Bones",
+    name: "FOOD4THOTH",
+    gated: true,
+    sourceHex: "68747470733a2f2f62726f6e7a652d6b696e642d7469636b2d3337302e6d7970696e6174612e636c6f75642f697066732f62616679626569666833763535706770376d677378346a656e696466777335683370767a656665716668786135657663356b70727a62323634676d"
+  },
+  {
+    title: "You Pay Tax Dollars to Starve Children",
+    name: "FOOD4THOTH",
+    gated: true,
+    sourceHex: "68747470733a2f2f62726f6e7a652d6b696e642d7469636b2d3337302e6d7970696e6174612e636c6f75642f697066732f62616679626569627a6877326963716876646d7361736c326b66723669613279666b6d646b35696d79337470326d6e6a7472793368677261346d79"
+  },
+  {
+    title: "Mescalito Amazing Story",
+    name: "DeJahn",
+    source:
+      "https://www.food4thoth.com/MusicLibraryVis/music/MescalinosAmazingStory.wav",
+  },
+  {
+    title: "Rabbit Hole",
+    name: "INPROGRESSION",
+    source:
+      "https://www.food4thoth.com/MusicLibraryVis/InproSqSpace/Inprogression+-+Down+the+Rabbit+Hole+-+03+Rabbit+Hole%202.mp3",
+  },
+	{
+    title: "Funkin Around",
+    name: "DeJahn",
+    source:
+      "https://static1.squarespace.com/static/569ded85a128e6228959a613/t/56b0bbfd2eeb819ad6daaf05/1454423107728/ZOOM0003_ST001.mp3/original/ZOOM0003_ST001.mp3",
+  },
+];
+
+let currentSongIndex = 4;
+
+// === helper: hex -> string (safe here, not global) ===
+function fromHex(hex) {
+  const clean = String(hex).replace(/[^0-9a-f]/gi, "");
+  let out = "";
+  for (let i = 0; i < clean.length; i += 2) {
+    out += String.fromCharCode(parseInt(clean.slice(i, i + 2), 16));
+  }
+  return out;
+}
+
+// Gate state (set by your Phantom code via window.dispatchEvent)
+// … your audio player script …
+let gateOK = false;
+window.addEventListener("rstory:gate", (e) => {
+  const d = e.detail || {};
+  gateOK = !!d.hasDownload;     // Only true when ≥10k
+  updateDownloadState();
+});
+
+function updateDownloadState() {
+  const s = songs[currentSongIndex];
+  const locked = s.gated && !gateOK;
+
+  if (downloadBtn) {
+    downloadBtn.disabled = locked;
+    downloadBtn.title = locked
+      ? "Hold 10k RSTORY to download"
+      : "Download";
+  }
+}
+
+// Save current track to disk (only if allowed)
+downloadBtn?.addEventListener("click", async () => {
+  const s = songs[currentSongIndex];
+  if (s.gated && !gateOK) return; // extra guard
+
+  // Prefer an explicit downloadHex if present, else fall back to source/sourceHex
+  const downloadUrl = s.downloadHex
+    ? fromHex(s.downloadHex)
+    : (s.source || (s.sourceHex ? fromHex(s.sourceHex) : ""));
+
+  if (!downloadUrl) return;
+
+  try {
+    // Fetch → blob → objectURL so we can force a file save
+    const resp = await fetch(downloadUrl, { mode: "cors" });
+    if (!resp.ok) throw new Error("HTTP " + resp.status);
+    const blob = await resp.blob();
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    const safeName = (s.title || "track").replace(/[^\w\-]+/g, "_");
+    const ext = (blob.type && blob.type.split("/")[1]) || "mp3";
+    a.href = url;
+    a.download = `${safeName}.${ext}`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch (e) {
+    console.error(e);
+    alert("Download failed. Please try again.");
+  }
+});
+
+// allow playback for everyone; gate only downloads
+function updateSongInfo() {
+  const s = songs[currentSongIndex];
+  songName.textContent = s.title;
+  artistName.textContent = s.name;
+
+  // Gated tracks: decode hex so we can LISTEN
+  if (s.gated && !s.source && s.sourceHex) {
+    s.source = fromHex(s.sourceHex);
+  }
+
+  // Public tracks already have s.source
+  song.src = s.source || "";
+
+  if (typeof updateDownloadState === "function") updateDownloadState();
+
+
+  song.addEventListener("loadeddata", function () {});
+}
+
+song.addEventListener("timeupdate", function () {
+  if (!song.paused) {
+    progress.value = song.currentTime;
+  }
+});
+
+song.addEventListener("loadedmetadata", function () {
+  progress.max = song.duration;
+  progress.value = song.currentTime;
+});
+
+function pauseSong() {
+  song.pause();
+  controlIcon.classList.remove("fa-pause");
+  controlIcon.classList.add("fa-play");
+}
+
+function playSong() {
+  song.play();
+  controlIcon.classList.add("fa-pause");
+  controlIcon.classList.remove("fa-play");
+}
+
+function playPause() {
+  if (song.paused) {
+    playSong();
+  } else {
+    pauseSong();
+  }
+}
+
+playPauseButton.addEventListener("click", playPause);
+
+progress.addEventListener("input", function () {
+  song.currentTime = progress.value;
+});
+
+progress.addEventListener("change", function () {
+  playSong();
+});
+
+forwardButton.addEventListener("click", function () {
+  currentSongIndex = (currentSongIndex + 1) % songs.length;
+  updateSongInfo();
+  playPause();
+});
+
+backwardButton.addEventListener("click", function () {
+  currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+  updateSongInfo();
+  playPause();
+});
+
+updateSongInfo();
+
+var swiper = new Swiper(".swiper", {
+  effect: "coverflow",
+  centeredSlides: true,
+  initialSlide: 4,
+  slidesPerView: "auto",
+  spaceBetween: 40,
+  coverflowEffect: {
+    rotate: 25,
+    stretch: 0,
+    depth: 50,
+    modifier: 1,
+    slideShadows: false,
+  },
+
+  /* ⬇️ Enable touch */
+  allowTouchMove: true,             // was false
+  simulateTouch: true,
+  grabCursor: true,
+  threshold: 8,                     // small movement required to count as a swipe
+  touchStartPreventDefault: false,  // don't block native scrolling
+  passiveListeners: true,
+  slideToClickedSlide: true,        // tap a side slide to focus it
+  keyboard: { enabled: true, onlyInViewport: true },
+
+  /* Keep your existing buttons working as nav too */
+  navigation: {
+    nextEl: ".forward",
+    prevEl: ".backward",
+  },
+
+  /* Be resilient to layout changes */
+  observer: true,
+  observeParents: true,
+});
+
+// Map Swiper slide index -> songs[] index (adjust if you reorder slides)
+const slideToSong = [0, 1, 2, 3, 4, 5, 6, 7, 8]; 
+const AUTOPLAY_ON_SWIPE = false; // set true if you want auto-play on slide change
+
+function syncPlayerToSlide(i, { autoplay = AUTOPLAY_ON_SWIPE } = {}) {
+  const next = slideToSong[i];
+  if (next == null) return;           // non-mapped slide: do nothing
+  currentSongIndex = next;
+  updateSongInfo();
+  if (autoplay) playSong(); else pauseSong();
+}
+
+// initial sync (matches initialSlide)
+syncPlayerToSlide(swiper.realIndex, { autoplay: false });
+
+// keep player in sync with swipes/clicks/keys
+swiper.on("slideChange", () => {
+  syncPlayerToSlide(swiper.realIndex);
+});
+
+
+	
+	// nav-fetch.js
+document.addEventListener("DOMContentLoaded", () => {
+  const navContainer = document.getElementById("nav-container");
+  if (!navContainer) return;
+
+  fetch("../navigation.html")
+    .then(response => response.text())
+    .then(html => {
+      // Insert the navigation HTML
+      navContainer.innerHTML = html;
+
+      // Dispatch a custom event so other scripts know the nav is ready
+      document.dispatchEvent(new CustomEvent("navLoaded"));
+    })
+    .catch(error => {
+      console.error("Error loading navigation:", error);
+    });
+});
+
+document.addEventListener("navLoaded", () => {
+  // Grab relevant elements that are now in the DOM
+  const toggleButton = document.getElementById('toggle-nav');
+    const navigation = document.getElementById('navigation');
+    const navLinks = document.querySelectorAll('.neumorphic-tab');
+
+    // Toggle main navigation visibility
+    toggleButton.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent the click from triggering the document click listener
+        const isHidden = navigation.classList.toggle('hidden');
+        toggleButton.textContent = isHidden ? '☰ Nav' : '✖ Close';
+    });
+
+    // Handle submenu expansion
+    navLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            const submenuId = link.getAttribute('data-expand');
+            if (submenuId) {
+                event.preventDefault(); // Prevent link navigation
+                const submenu = document.getElementById(submenuId);
+                submenu.classList.toggle('hidden'); // Toggle submenu visibility
+            } else {
+                navigation.classList.add('hidden'); // Hide navigation if it's a regular link
+                toggleButton.textContent = '☰ Nav';
+            }
+        });
+    });
+
+    // Close navigation when clicking outside of it
+    document.addEventListener('click', (event) => {
+        if (!navigation.contains(event.target) && !toggleButton.contains(event.target)) {
+            if (!navigation.classList.contains('hidden')) {
+                navigation.classList.add('hidden');
+                toggleButton.textContent = '☰ Nav';
+            }
+        }
+    });
+});
+</script>
+
+<!-- Footer -->
+  <footer id="footer">
+    <p>
+      <a href="../index.html">Visit Our Hub</a> <br /> &copy; 2025 FOOD4THOTH 
+      <br /> All Rights Reserved 
+    </p>
+    <p>
+       <a href="../contact.html" id="contact" class="styled-link">Contact</a> | 
+       <a href="/RstoryPlayList/readme/" class="styled-link">ReadMe</a>
+    </p>
+	
+  </footer>
+</body>
+</html>
