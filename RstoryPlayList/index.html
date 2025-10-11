@@ -520,7 +520,13 @@ body {
 	
 	<style>
 	/* Keep line breaks & control height behavior */
-.msg { white-space: pre-wrap; }
+.msg { 
+  white-space: pre-wrap;       /* preserve paragraphs/line breaks */
+  word-break: normal;          /* don't break inside words */
+  overflow-wrap: normal;       /* don't force breaks inside long words */
+  hyphens: none;               /* no hyphenation */
+  overflow-x: auto;            /* if a single word is super long, allow horizontal scroll */
+}
 
 /* Small, non-intrusive preview */
 .msg.preview {
@@ -621,7 +627,16 @@ body {
   padding-bottom: 200px; /* ~ footer height (20px top + text + 20px bottom) */
 }
 
+/* each word stays together */
+.msg .word {
+  display: inline-block;       /* keep the whole word on one line */
+  white-space: nowrap;
+}
 
+/* letters animate as before */
+.msg .glyph {
+  display: inline-block;       /* fine, per-letter animation */
+}
 	</style>
 	
 	<style id="song-modal-css">
@@ -748,6 +763,13 @@ body {
   function openModal(id){ const m=document.getElementById(id); if(m) m.classList.add('is-open'); }
   function closeModal(id){ const m=document.getElementById(id); if(m) m.classList.remove('is-open'); }
 </script>
+
+<script>
+  const openSongsBtn = document.getElementById('openSongsBtn');
+  if (openSongsBtn) {
+    openSongsBtn.addEventListener('click', () => openModal('song-modal'));
+  }
+</script>
 	
   <div class="card">
     <div class="row">
@@ -769,7 +791,12 @@ body {
     <div id="gatedArea" class="gated">
       <p class="kv"> Access granted. You hold enough <code>RSTORY</code> to enter.</p>
       <!-- Add this -->
-			<!-- Songs Modal -->
+			
+ 	<div class="row">
+  <button id="openSongsBtn" class="btn black" disabled>Open Song Hub</button>
+</div>
+		
+		<!-- Songs Modal -->
   <div class="modal" id="song-modal">
     <div class="modal-content">
       <h2 style="font-family:'Pathway Gothic One',sans-serif; margin-top:0;">FOOD4THOTH — Token-Gated Song Hub</h2>
@@ -1290,14 +1317,14 @@ body {
       <div class="close" onclick="closeModal('song-modal')">close</div>
     </div>
   </div>
- 
+			
     </div>
 
     <div class="kv">
       <div>Mint: <code id="mintShow">RstyC4aoSD1JKPGTxnjB3PkWdRzV3yoePH1XiPMxBfz</code></div>
     </div>
   </div>
-
+	
 	
 <section id="decodeCard" class="card" style="margin-top:12px">
 		<button id="decryptBtn" class="btn" disabled>Decrypt</button>
@@ -1307,6 +1334,8 @@ body {
            data-scramble="true">▮▮▮ scrambled ▮▮▮</div>
       <p class="tiny muted">You’ll see the message “decode” once verified</p>
     </section>
+		
+	
 	
 	<!-- Solana web3.js (ESM) -->
 <script type="module">
@@ -1401,7 +1430,10 @@ body {
       const humanK = formatHumanK(raw);
       balBd.textContent = `RSTORY: ${humanK}`;
 
-      const hasAny      = raw >= VIEW_THRESHOLD_RAW_UNITS;     // ≥1 token
+      const hasAny      = raw >= VIEW_THRESHOLD_RAW_UNITS;			// ≥1 token
+			// after: const hasAny = raw >= VIEW_THRESHOLD_RAW_UNITS;
+const openSongsBtn = document.getElementById('openSongsBtn');
+if (openSongsBtn) openSongsBtn.disabled = !hasAny; // enable once ≥1 token
       const hasDownload = raw >= THRESHOLD_RAW_UNITS;          // ≥10k tokens
 
       // Always broadcast both gates
@@ -1551,22 +1583,55 @@ e2809c57656c636f6d652c20686f6c6465722e205468697320697320796f757220636f6465642064
     }
   }
 
-  // ---------- Full coded builder from real text ----------
   function buildCodedFromText(el, text) {
-    el.textContent = "";
-    el.classList.add("cipher", "pre"); // keep scanlines until revealed
-    el.classList.remove("preview");    // switch out of compact mode
-    for (const ch of text.replace(/\r/g, "")) {
-      if (ch === "\n") { el.appendChild(document.createElement("br")); continue; }
-      if (ch === " ")  { el.appendChild(document.createTextNode(" ")); continue; }
-      const span = document.createElement("span");
-      span.className = "glyph";
-      span.dataset.target = ch;
-      span.textContent = randRune();
-      el.appendChild(span);
-    }
+  el.textContent = "";
+  el.classList.add("cipher", "pre");   // keep your styling
+  el.classList.remove("preview");
+
+  // Normalize CRLF and split into lines so we preserve paragraphs
+  const lines = String(text).replace(/\r/g, "").split("\n");
+
+  for (let li = 0; li < lines.length; li++) {
+    const line = lines[li];
+
+    // Split into tokens while KEEPING whitespace tokens
+    // e.g. ["Hello", " ", "world", "  ", "again"]
+    const tokens = line.split(/(\s+)/);
+
+    tokens.forEach(tok => {
+      if (tok.trim() === "") {
+        // whitespace — add exactly as-is so spacing is preserved
+        el.appendChild(document.createTextNode(tok));
+      } else {
+        // a "word": wrap it so the browser won't wrap inside it
+        const word = document.createElement("span");
+        word.className = "word";
+
+        for (const ch of tok) {
+          const span = document.createElement("span");
+          span.className = "glyph";
+          span.dataset.target = ch;
+          // show a placeholder rune (or keep as the target to avoid pre-scramble)
+          span.textContent = "◊";
+          word.appendChild(span);
+        }
+        el.appendChild(word);
+      }
+    });
+
+    // Re-create line breaks (including blank lines between paragraphs)
+    if (li < lines.length - 1) el.appendChild(document.createElement("br"));
   }
-  function buildCodedFromHex(el, hex) { buildCodedFromText(el, fromHex(hex)); }
+}
+
+// helper unchanged if you need hex input
+function buildCodedFromHex(el, hex) {
+  const clean = String(hex).replace(/[^0-9a-f]/gi, "");
+  const bytes = new Uint8Array(clean.length / 2);
+  for (let i = 0; i < clean.length; i += 2) bytes[i/2] = parseInt(clean.slice(i, i+2), 16);
+  const text = new TextDecoder().decode(bytes);
+  buildCodedFromText(el, text);
+}
 
   // ---------- One-time decode (slot → reveal) ----------
   function decodeOnce(el, { stagger=10, minCycles=10, maxCycles=26, tickMin=18, tickMax=30 } = {}) {
