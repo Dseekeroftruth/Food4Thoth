@@ -134,12 +134,18 @@
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css'>
 
 <style>
+/* =========================================
+   Imports & Root Vars
+========================================= */
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600&display=swap");
 
 :root {
   --primary-clr: rgba(228, 228, 229, 1);
 }
 
+/* =========================================
+   Global Reset & Base
+========================================= */
 * {
   margin: 0;
   padding: 0;
@@ -163,8 +169,7 @@ body {
 }
 
 @keyframes slidein {
-  0%,
-  100% {
+  0%, 100% {
     background-position: 20% 0%;
     background-size: 3400px;
   }
@@ -174,6 +179,9 @@ body {
   }
 }
 
+/* =========================================
+   Swiper / Album Cover
+========================================= */
 .album-cover {
   width: 90%;
 }
@@ -203,6 +211,7 @@ body {
   user-select: none;
 }
 
+/* Overlay (active slide) */
 .swiper-slide-active .overlay {
   display: flex;
   align-items: center;
@@ -232,8 +241,9 @@ body {
   cursor: pointer;
 }
 
-/* Music Player */
-
+/* =========================================
+   Music Player
+========================================= */
 .music-player {
   display: flex;
   flex-direction: column;
@@ -257,8 +267,7 @@ body {
   opacity: 0.6;
 }
 
-/* Music Player Progress */
-
+/* Progress */
 #progress {
   appearance: none;
   -webkit-appearance: none;
@@ -281,8 +290,7 @@ body {
   box-shadow: 0 6px 10px rgba(5, 36, 28, 0.3);
 }
 
-/* Music Player Controls */
-
+/* Controls */
 .controls {
   display: flex;
   justify-content: center;
@@ -319,190 +327,183 @@ body {
   transform: scale(1.25);
 }
 
- .overlay a { color:#fff; text-decoration:none; font-size:20px; line-height:1; }
-    .overlay a:hover { color:#0ff; }
-  .overlay {
-      position:absolute; right:14px; bottom:14px; display:flex; gap:10px; z-index:2;
-      background:rgba(0,0,0,.45); padding:8px 10px; border-radius:12px; backdrop-filter: blur(4px); }
-			
-				.hidden {
-    display: none;
+/* =========================================
+   Generic Overlay (icon cluster)
+========================================= */
+.overlay a { color:#fff; text-decoration:none; font-size:20px; line-height:1; }
+.overlay a:hover { color:#0ff; }
+.overlay {
+  position:absolute; right:14px; bottom:14px; display:flex; gap:10px; z-index:2;
+  background:rgba(0,0,0,.45); padding:8px 10px; border-radius:12px; backdrop-filter: blur(4px);
 }
-			/* General Navigation Styles */
+
+/* Utils */
+.hidden { display: none; }
+
+/* =========================================
+   Navigation (Sticky, Neumorphic)
+========================================= */
 .navigation {
-	position: sticky;
-            top: 0;
-            z-index: 999;
-    display: flex;
-    flex-wrap: wrap; /* Allow tabs to wrap on smaller screens */
-    gap: 15px; /* Space between tabs */
-    padding: 20px;
-    background-color: #1a1a1a; /* Match the page background */
-    border-radius: 10px; /* Smooth corners */
-    box-shadow: inset 4px 4px 8px #0d0d0d, inset -4px -4px 8px #333333; /* Neumorphic effect */
-    transition: all 0.3s ease;
-    max-height: 300px; /* Set a maximum height for scrolling */
-    overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-		align-items: center;
-		justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 20px;
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  box-shadow: inset 4px 4px 8px #0d0d0d, inset -4px -4px 8px #333333;
+  transition: all 0.3s ease;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  align-items: center;
+  justify-content: center;
 }
 
-#nav-container{
-	position: sticky;
-            top: 0;
-            z-index: 999;
+#nav-container {
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
-/* Optional: Style the scrollbar for better appearance */
-.navigation::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
-}
+/* Custom scrollbar */
+.navigation::-webkit-scrollbar { width: 8px; }
+.navigation::-webkit-scrollbar-thumb { background: #333333; border-radius: 10px; }
+.navigation::-webkit-scrollbar-thumb:hover { background: #ff6600; }
+.navigation::-webkit-scrollbar-track { background: #1a1a1a; }
 
-.navigation::-webkit-scrollbar-thumb {
-    background: #333333; /* Color of the scrollbar thumb */
-    border-radius: 10px; /* Rounded corners for the scrollbar thumb */
-}
-
-.navigation::-webkit-scrollbar-thumb:hover {
-    background: #ff6600; /* Change color on hover */
-}
-
-.navigation::-webkit-scrollbar-track {
-    background: #1a1a1a; /* Track color */
-}
-
-.navigation.hidden {
-    display: none; /* Initially hidden */
-}
+.navigation.hidden { display: none; }
 
 /* Neumorphic Tabs */
 .neumorphic-tab {
-    text-decoration: none;
-    color: #e0e0e0;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 10px 15px;
-    border-radius: 12px;
-    background-color: #262626; /* Slightly lighter than the page background */
-    box-shadow: 6px 6px 12px #0d0d0d, -6px -6px 12px #333333; /* Neumorphic effect */
-    transition: all 0.3s ease;
-    text-align: center;
-    width: calc(33.33% - 30px); /* Adjust to fit 3 tabs per row */
-    width: 100%; /* Limit the width */
-		z-index: 9999;
+  text-decoration: none;
+  color: #e0e0e0;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 12px;
+  background-color: #262626;
+  box-shadow: 6px 6px 12px #0d0d0d, -6px -6px 12px #333333;
+  transition: all 0.3s ease;
+  text-align: center;
+  width: calc(33.33% - 30px);
+  width: 100%;
+  z-index: 9999;
 }
 
-/* Hover and Active States */
 .neumorphic-tab:hover {
-    color: #ffffff;
-    background-color: #ff6600; /* Highlight color */
-    box-shadow: 4px 4px 8px #cc5200, -4px -4px 8px #ff9900; /* Highlighted neumorphic effect */
-    transform: translateY(-2px); /* Slight lift on hover */
+  color: #ffffff;
+  background-color: #ff6600;
+  box-shadow: 4px 4px 8px #cc5200, -4px -4px 8px #ff9900;
+  transform: translateY(-2px);
 }
 
 .neumorphic-tab:active {
-    transform: translateY(1px); /* Press effect */
-    box-shadow: inset 4px 4px 8px #cc5200, inset -4px -4px 8px #ff9900;
+  transform: translateY(1px);
+  box-shadow: inset 4px 4px 8px #cc5200, inset -4px -4px 8px #ff9900;
 }
 
-/* Toggle Button */
+/* =========================================
+   Toggle Button (Initial Sticky Style)
+========================================= */
 .toggle-button {
-	position: sticky;
-            top: 0;
-            z-index: 999;
-    padding: 10px 15px;
-    background-color: purple;
-    color: #e0e0e0;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-bottom-left-radius: 10px;
-		border-bottom-right-radius: 10px;
-    cursor: pointer;
-    box-shadow: 4px 4px 8px #0d0d0d, -4px -4px 8px #333333;
-    transition: all 0.3s ease;
-    margin-bottom: 15px;
-		width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  padding: 10px 15px;
+  background-color: purple;
+  color: #e0e0e0;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  cursor: pointer;
+  box-shadow: 4px 4px 8px #0d0d0d, -4px -4px 8px #333333;
+  transition: all 0.3s ease;
+  margin-bottom: 15px;
+  width: 100%;
 }
 
 .toggle-button:hover {
-    background-color: gold;
-    color: #ffffff;
-    box-shadow: 4px 4px 8px #cc5200, -4px -4px 8px #ff9900;
+  background-color: gold;
+  color: #ffffff;
+  box-shadow: 4px 4px 8px #cc5200, -4px -4px 8px #ff9900;
 }
 
 .toggle-button:active {
-    transform: translateY(1px);
-    box-shadow: inset 4px 4px 8px #cc5200, inset -4px -4px 8px #ff9900;
+  transform: translateY(1px);
+  box-shadow: inset 4px 4px 8px #cc5200, inset -4px -4px 8px #ff9900;
 }
 
+/* =========================================
+   Submenu
+========================================= */
 .submenu {
-    padding-left: 20px; /* Indent submenu items */
-    background-color: purple;
-    border-left: 2px solid #ccc;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    display: flex;
-    flex-direction: column;
+  padding-left: 20px;
+  background-color: purple;
+  border-left: 2px solid #ccc;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
 }
 
 .submenu a {
-    font-size: 0.9rem;
-    padding: 2px 10px;
-    border-radius: 10px;
-		margin-bottom: 7px;
-		margin-top: 5px;
-		width: 70vw;
+  font-size: 0.9rem;
+  padding: 2px 10px;
+  border-radius: 10px;
+  margin-bottom: 7px;
+  margin-top: 5px;
+  width: 70vw;
 }
 
-.submenu.hidden {
-    display: none;
-}
-</style>
+.submenu.hidden { display: none; }
 
-</head>
-<body>
-	
-	<!-- Placeholder for the nav -->
-  <div id="nav-container"></div>
-	
-	  <style>
-    :root{
-       --fg:#e7e4d9; --muted:#a9a295;
-      --ok:#10b981; --warn:#f59e0b; --err:#ef4444; --border:#2b2b2b;
-    }
-    
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--fg);}
-    .card{width:min(680px,92vw);border:1px solid var(--border);border-radius:12px;padding:18px;display:grid;gap:12px;background:#15141b}
-    h1{margin:0;font-size:20px}
-    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .right{margin-left:auto}
-    button{border:1px solid var(--border);background:#1e1d25;color:var(--fg);padding:10px 14px;border-radius:10px;cursor:pointer}
-    button:hover{filter:brightness(1.1)}
-    .badge{font-size:12px;padding:6px 10px;border-radius:999px;background:#201f29;color:var(--muted);border:1px solid var(--border)}
-    .ok{color:#052e24;background:rgba(16,185,129,.18)}
-    .warn{color:#3e2a05;background:rgba(245,158,11,.18)}
-    .err{color:#3f0b0b;background:rgba(239,68,68,.18)}
-    .gateout{padding:12px;border:1px dashed var(--border);border-radius:8px;color:var(--muted)}
-    .gated{display:none}
-    .kv{font-size:13px;color:var(--muted)}
-    code{background:#1f1e26;border:1px solid var(--border);padding:2px 6px;border-radius:6px}
-			:root {
+/* =========================================
+   Token-Gate UI (Vars + Cards + Badges)
+========================================= */
+:root{
+  --fg:#e7e4d9; --muted:#a9a295;
+  --ok:#10b981; --warn:#f59e0b; --err:#ef4444; --border:#2b2b2b;
+}
+
+body { font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--fg); }
+.card { width:min(680px,92vw); border:1px solid var(--border); border-radius:12px; padding:18px; display:grid; gap:12px; background:#15141b; }
+h1 { margin:0; font-size:20px; }
+.row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.right { margin-left:auto; }
+button { border:1px solid var(--border); background:#1e1d25; color:var(--fg); padding:10px 14px; border-radius:10px; cursor:pointer; }
+button:hover { filter:brightness(1.1); }
+.badge { font-size:12px; padding:6px 10px; border-radius:999px; background:#201f29; color:var(--muted); border:1px solid var(--border); }
+.ok { color:#052e24; background:rgba(16,185,129,.18); }
+.warn { color:#3e2a05; background:rgba(245,158,11,.18); }
+.err { color:#3f0b0b; background:rgba(239,68,68,.18); }
+.gateout { padding:12px; border:1px dashed var(--border); border-radius:8px; color:var(--muted); }
+.gated { display:none; }
+.kv { font-size:13px; color:var(--muted); }
+code { background:#1f1e26; border:1px solid var(--border); padding:2px 6px; border-radius:6px; }
+
+/* =========================================
+   Top Bar Override (Fixed Full-Width)
+========================================= */
+:root {
   /* Height of the fixed top bar (tweak as you like) */
   --topbar-height: 56px;
 }
 
-/* Full-width fixed top bar */
+/* Full-width fixed top bar (overrides earlier .toggle-button) */
 .toggle-button {
-  position: fixed;       /* instead of sticky */
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  width: 100vw;          /* spans the viewport */
-  margin: 0;             /* no margin so it hugs the top */
-  border-radius: 0 0 10px 10px; /* only bottom corners */
-  z-index: 999;        /* above everything */
+  width: 100vw;
+  margin: 0;
+  border-radius: 0 0 10px 10px;
+  z-index: 999;
   padding: calc(10px + env(safe-area-inset-top)) 16px 10px; /* notch-safe on iOS */
 }
 
@@ -516,10 +517,10 @@ body {
   position: sticky;
   top: var(--topbar-height);
 }
-  </style>
-	
-	<style>
-	/* Keep line breaks & control height behavior */
+
+/* =========================================
+   Message / Cipher Blocks
+========================================= */
 .msg { 
   white-space: pre-wrap;       /* preserve paragraphs/line breaks */
   word-break: normal;          /* don't break inside words */
@@ -528,20 +529,18 @@ body {
   overflow-x: auto;            /* if a single word is super long, allow horizontal scroll */
 }
 
-/* Small, non-intrusive preview */
 .msg.preview {
   max-height: clamp(8rem, 22vh, 16rem);
-  overflow: hidden;              /* no scroll in preview */
+  overflow: hidden;
 }
 
-/* During/after decode: readable area with scroll */
 .msg.decoding,
 .msg.decoded {
   max-height: clamp(28rem, 60vh, 44rem);
-  overflow: auto;                /* scroll inside box */
+  overflow: auto;
 }
 
-/* (From your earlier styles) pretty cipher look */
+/* Pretty cipher look */
 .msg.cipher {
   position: relative;
   font-size: 1.35rem;
@@ -552,7 +551,7 @@ body {
   box-shadow: inset 0 0 40px #0a0f1c;
 }
 
-/* Optional faint scanlines pre-decode only */
+/* Faint scanlines pre-decode only */
 .msg.cipher.pre::after {
   content: "";
   position: absolute; inset: 0; pointer-events: none;
@@ -571,28 +570,24 @@ body {
   1px 0 rgba(0,255,170,.10), -1px 0 rgba(140,120,255,.10); }
 .glyph.revealed { filter:none; color:var(--fg); text-shadow:none; }
 
-/***********************************
-  FOOTER (fixed to bottom, full-bleed)
-************************************/
+/* Keep words together; letters animate */
+.msg .word { display: inline-block; white-space: nowrap; }
+.msg .glyph { display: inline-block; }
+
+/* =========================================
+   Footer (Fixed Bottom, Full-Bleed)
+========================================= */
 footer {
   position: fixed;
-  inset: auto 0 0 0;                 /* left:0; right:0; bottom:0 */
+  inset: auto 0 0 0;
   z-index: 1000;
-
-  /* full width across viewport */
   width: 100%;
-  margin: 0;                         /* no centering container bleed needed */
-
-  /* glass look */
+  margin: 0;
   background: rgba(17, 17, 17, 0.45);
   -webkit-backdrop-filter: blur(8px) saturate(120%);
   backdrop-filter: blur(8px) saturate(120%);
-
-  /* layout */
   text-align: center;
   padding: 20px 5vw calc(20px + env(safe-area-inset-bottom));
-
-  /* subtle edge */
   border-top: 1px solid rgba(255,255,255,0.08);
   box-shadow: 0 -10px 30px rgba(0,0,0,0.25) inset;
 }
@@ -623,153 +618,162 @@ footer a:hover {
 
 /* Prevent last content from hiding behind the fixed footer */
 body {
-  /* Adjust this if your footer is taller/shorter */
-  padding-bottom: 200px; /* ~ footer height (20px top + text + 20px bottom) */
+  padding-bottom: 200px; /* ~ footer height */
 }
 
-/* each word stays together */
-.msg .word {
-  display: inline-block;       /* keep the whole word on one line */
-  white-space: nowrap;
+/* =========================================
+   Modal: Token-Gated Song Hub
+========================================= */
+/* Overlay */
+#song-modal {
+  position: fixed;
+  inset: 0;
+  display: none;                 /* toggle to flex when opened */
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,.8);
+  z-index: 10000;                /* above headers/footers */
+  overflow: auto;
+}
+#song-modal.is-open { display: flex; }
+
+/* Panel */
+#song-modal .modal-content {
+  background: WhiteSmoke;
+  color: #30303;
+  border: 12px solid LightGray;
+  border-radius: 16px;
+  padding: 20px;
+  max-width: 900px;
+  width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
 }
 
-/* letters animate as before */
-.msg .glyph {
-  display: inline-block;       /* fine, per-letter animation */
+/* Close button */
+#song-modal .close {
+  cursor: pointer;
+  color: red;
+  font-weight: bold;
+  margin-top: 12px;
 }
-	</style>
-	
-	<style id="song-modal-css">
-  /* ===== FOOD4THOTH Songs Modal (isolated to #song-modal) ===== */
 
-  /* Overlay */
-  #song-modal {
-    position: fixed;
-    inset: 0;
-    display: none;                 /* toggle to flex when opened */
-    justify-content: center;
-    align-items: center;
-    background: rgba(0,0,0,.8);
-    z-index: 10000;                /* above headers/footers */
-    overflow: auto;
-  }
-  /* helper class you can add/remove in JS */
-  #song-modal.is-open { display: flex; }
+/* Buttons (scoped) */
+#song-modal .btn {
+  background: rgba(255,255,255,.5);
+  border: 12px solid cyan;
+  color: #000;
+  padding: 16px;
+  font-family: "Pathway Gothic One", sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  text-transform: uppercase;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: .1s;
+}
+#song-modal .btn:hover { background: cyan; transform: scale(1.05); }
+#song-modal .btn.black { border-color: LightGray; color: #d1492c; }
+#song-modal .btn.black:hover { background: #d1492c; color: cyan; }
 
-  /* Panel */
-  #song-modal .modal-content {
-    background: WhiteSmoke;
-    color: #30303;
-    border: 12px solid LightGray;
-    border-radius: 16px;
-    padding: 20px;
-    max-width: 900px;
-    width: 90vw;
-    max-height: 90vh;
-    overflow: auto;
-  }
+/* Cards + layout */
+#song-modal .song-card {
+  border: 12px solid LightGray;
+  border-radius: 16px;
+  background: rgba(255,255,255,.6);
+  padding: 12px;
+  margin: 12px 0;
+}
+#song-modal .song-head {
+  font-family: "Pathway Gothic One", sans-serif;
+  font-size: 28px;
+  margin: 0 0 8px;
+}
+#song-modal .row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#song-modal .row .btn {
+  font-size: 18px;
+  border-width: 8px;
+}
+#song-modal .small {
+  font-size: 14px;
+  font-family: monospace;
+  color: #333;
+  background: transparent;
+}
 
-  /* Close button */
-  #song-modal .close {
-    cursor: pointer;
-    color: red;
-    font-weight: bold;
-    margin-top: 12px;
-  }
+/* Typography & links only inside the modal */
+#song-modal p,
+#song-modal li {
+  font: 18px "Noto Serif", serif;
+  background: #fff;
+}
+#song-modal a {
+  color: red;
+  text-decoration: none;
+}
+#song-modal a:hover {
+  background: #000;
+  color: #fff;
+}
 
-  /* Buttons (scoped) */
-  #song-modal .btn {
-    background: rgba(255,255,255,.5);
-    border: 12px solid cyan;
-    color: #000;
-    padding: 16px;
-    font-family: "Pathway Gothic One", sans-serif;
-    font-weight: bold;
-    font-size: 24px;
-    text-transform: uppercase;
-    border-radius: 16px;
-    cursor: pointer;
-    transition: .1s;
-  }
-  #song-modal .btn:hover { background: cyan; transform: scale(1.05); }
-  #song-modal .btn.black { border-color: LightGray; color: #d1492c; }
-  #song-modal .btn.black:hover { background: #d1492c; color: cyan; }
+/* Media */
+#song-modal video {
+  max-width: 100%;
+  height: auto;
+}
 
-  /* Cards + layout */
-  #song-modal .song-card {
-    border: 12px solid LightGray;
-    border-radius: 16px;
-    background: rgba(255,255,255,.6);
-    padding: 12px;
-    margin: 12px 0;
-  }
-  #song-modal .song-head {
-    font-family: "Pathway Gothic One", sans-serif;
-    font-size: 28px;
-    margin: 0 0 8px;
-  }
-  #song-modal .row {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  #song-modal .row .btn {
-    font-size: 18px;
-    border-width: 8px;
-  }
-  #song-modal .small {
-    font-size: 14px;
-    font-family: monospace;
-    color: #333;
-    background: transparent;
-  }
+/* Responsive tweaks limited to modal */
+@media (max-width: 980px) {
+  #song-modal .modal-content { max-width: 95%; max-height: 85%; }
+}
 
-  /* Typography & links only inside the modal */
-  #song-modal p,
-  #song-modal li {
-    font: 18px "Noto Serif", serif;
-    background: #fff;
-  }
-  #song-modal a {
-    color: red;
-    text-decoration: none;
-  }
-  #song-modal a:hover {
-    background: #000;
-    color: #fff;
-  }
-
-  /* Media */
-  #song-modal video {
-    max-width: 100%;
-    height: auto;
-  }
-
-  /* Responsive tweaks limited to modal */
-  @media (max-width: 980px) {
-    #song-modal .modal-content { max-width: 95%; max-height: 85%; }
-  }
-	
-	/* Keep the decode card & button above neighboring layers */
+/* =========================================
+   Z-Index / Layering for Decode & Swiper
+========================================= */
 #decodeCard { position: relative; z-index: 3000; }
 #decryptBtn { position: relative; z-index: 3001; pointer-events: auto; }
 
 /* Make Swiper explicitly lower than the decode card (still interactive) */
 .album-cover, .swiper { position: relative; z-index: 1; }
+
+/* Download buttons/icon on top */
+.downloadBtn,
+.fa-download {
+  position: relative;
+  z-index: 99999 !important;
+  pointer-events: auto !important;
+  cursor: pointer;
+}
+
+/* If inside a container with overflow hidden (like Swiper slides) */
+.swiper-slide,
+.overlay {
+  overflow: visible !important;
+}
+
+/* Optional: icon glow */
+.fa-download {
+  color: cyan;
+  text-shadow: 0 0 6px rgba(0, 255, 255, 0.6),
+               0 0 12px rgba(0, 255, 255, 0.4);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.fa-download:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
 </style>
 
-<script>
-  function openModal(id){ const m=document.getElementById(id); if(m) m.classList.add('is-open'); }
-  function closeModal(id){ const m=document.getElementById(id); if(m) m.classList.remove('is-open'); }
-</script>
-
-<script>
-  const openSongsBtn = document.getElementById('openSongsBtn');
-  if (openSongsBtn) {
-    openSongsBtn.addEventListener('click', () => openModal('song-modal'));
-  }
-</script>
+</head>
+<body>
+	
+	<!-- Placeholder for the nav -->
+  <div id="nav-container"></div>
 	
   <div class="card">
     <div class="row">
@@ -1324,8 +1328,7 @@ body {
       <div>Mint: <code id="mintShow">RstyC4aoSD1JKPGTxnjB3PkWdRzV3yoePH1XiPMxBfz</code></div>
     </div>
   </div>
-	
-	
+
 <section id="decodeCard" class="card" style="margin-top:12px">
 		<button id="decryptBtn" class="btn" disabled>Decrypt</button>
       <h3>Decrypted Message</h3>
@@ -1336,9 +1339,242 @@ body {
     </section>
 		
 	
+<!-- partial:index.partial.html -->
 	
-	<!-- Solana web3.js (ESM) -->
+    <div class="album-cover">
+      <div class="swiper">
+        <div class="swiper-wrapper">
+					<div class="swiper-slide">
+            <img
+              src="https://pbs.twimg.com/media/G2bxDZuXgAA-GlI?format=jpg&name=large" />
+            <div class="overlay">
+							
+              <a
+                href="https://youtube.com/playlist?list=PLx9gj5n6fEkSRJo_tOvzGNviJdFiKvByf&si=IC7KQMZUgmcgB_3d"
+                target="_blank"
+                ><ion-icon name="logo-youtube"></ion-icon
+              ></a>
+							
+							<a href="https://www.food4thoth.com/RstoryArtabillies/index.html" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+<a href="https://www.facebook.com/share/g/1CfQ2fSM4y/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img
+              src="https://www.food4thoth.com/Inprogression/images/IMG_0691.jpeg" />
+            <div class="overlay">
+              <a
+                href="https://youtu.be/24J31g6M-SY?si=EeeTjWnEAEKZ928t"
+                target="_blank"
+                ><ion-icon name="logo-youtube"></ion-icon
+              ></a>
+							<a href="https://www.food4thoth.com/Inprogression/index.html" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+<a href="https://www.facebook.com/share/14MZTja9Zfs/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img
+              src="https://www.food4thoth.com/GloCalculato/images/17background.PNG" />
+            <div class="overlay">
+							<a
+                href="https://youtu.be/2M_PlSnJ9WM?si=LcejVToLYk468JAL"
+                target="_blank"
+                ><ion-icon name="logo-youtube"></ion-icon
+              ></a>
+              <a href="https://www.food4thoth.com/MajixTarotAll/" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+<a href="https://www.facebook.com/share/1BdXpSDLmm/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img
+              src="MidwayBlitz.png" />
+							
+            <div class="overlay">
+							<button class="downloadBtn"title="Hold 10k RSTORY to download" disabled>
+    <i class="fa-solid fa-download"></i>
+  </button>
+              <a href="https://www.food4thoth.com/" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+            <a href="https://www.facebook.com/share/v/1J1c5bDDVj/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://www.tiktok.com/t/ZTMrwjWaU/" target="_blank" title="TikTok">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+            <a href="https://www.instagram.com/reel/DPZfKq3ChvE/?igsh=MTA0em1rMHR3cTJmeA==" target="_blank" title="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img
+              src="RivieraBones.png" />
+							
+            <div class="overlay"> 
+							<button class="downloadBtn" title="Hold 10k RSTORY to download" disabled>
+    <i class="fa-solid fa-download"></i>
+  </button>
+						 <a href="https://www.food4thoth.com/" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+            <a href="https://www.facebook.com/share/v/19wJ9hvGke/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://www.tiktok.com/t/ZP8Add3Xy/" target="_blank" title="TikTok">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+            <a href="https://www.instagram.com/reel/DPR2T5UiqoA/?igsh=MWl0aDNnb2J4dHppYw==" target="_blank" title="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img
+              src="TaxStarve.png" />
+							
+            <div class="overlay">
+							<button class="downloadBtn" title="Hold 10k RSTORY to download" disabled>
+    <i class="fa-solid fa-download"></i>
+  </button>
+						 <a href="https://www.food4thoth.com/" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+            <a href="https://www.facebook.com/share/v/175WRNoPsi/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://www.tiktok.com/t/ZTMM9kkFE/" target="_blank" title="TikTok">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+            <a href="https://www.instagram.com/reel/DPVO_puDshN/?igsh=ZDZiZWdvbTB6OTdp" target="_blank" title="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img
+              src="https://www.food4thoth.com/Mescalito/images/1.webp" />
+            <div class="overlay">
+							<a href="https://www.facebook.com/share/1BdXpSDLmm/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+							<a href="https://www.food4thoth.com/Mescalito/Reveal1.html" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+              <a
+                href="https://youtube.com/playlist?list=PLHLqP3bn74o1JZi7PwVssJZmJ6-3eZ-UQ&si=rr7OHP-YnXweaAcy"
+                target="_blank"
+                ><ion-icon name="logo-youtube"></ion-icon
+              ></a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img
+              src="https://www.food4thoth.com/Inprogression/images/IMG_0690.jpeg" />
+            <div class="overlay">
+							<a href="https://www.facebook.com/share/14MZTja9Zfs/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+							<a href="https://www.food4thoth.com/Inprogression/index.html" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+              <a
+                href="https://youtu.be/o_ixeuo0jgw?si=2Vlfd4Ujay936jZ_"
+                target="_blank"
+                ><ion-icon name="logo-youtube"></ion-icon
+              ></a>
+            </div>
+          </div>
+					<div class="swiper-slide">
+            <img
+              src="https://www.food4thoth.com/Artabillies/images/Artabillies.PNG" />
+            <div class="overlay">
+							<a href="https://www.facebook.com/share/15N1kcxqJGK/?mibextid=wwXIfr" target="_blank" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+							<a href="https://www.artabillies.com" target="_blank" rel="noopener">
+  <i class="fa-solid fa-globe"></i>
+</a>
+              <a
+                href="https://youtu.be/8iBxQgY7iF8?si=BfVz-xOQ8FsfP40j"
+                target="_blank"
+                ><ion-icon name="logo-youtube"></ion-icon
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="music-player">
+      <h1>Title</h1>
+      <p>Song Name</p>
+
+      <audio id="song">
+        <source src="song-list/Luke-Bergs-Gold.mp3" type="audio/mpeg" />
+      </audio>
+
+      <input type="range" value="0" id="progress" />
+
+      <div class="controls">
+        <button class="backward">
+          <i class="fa-solid fa-backward"></i>
+        </button>
+        <button class="play-pause-btn">
+          <i class="fa-solid fa-play" id="controlIcon"></i>
+        </button>
+        <button class="forward">
+          <i class="fa-solid fa-forward"></i>
+        </button>
+      </div>
+    </div>
+		
+		<!-- Footer -->
+  <footer id="footer">
+    <p>
+      <a href="../index.html">Visit Our Hub</a> <br /> &copy; 2025 FOOD4THOTH 
+      <br /> All Rights Reserved 
+    </p>
+    <p>
+       <a href="../contact.html" id="contact" class="styled-link">Contact</a> | 
+       <a href="/RstoryPlayList/readme/" class="styled-link">ReadMe</a>
+    </p>
+	
+  </footer>
+	
+<!-- ✅ Use CORS + correct module flags -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" crossorigin="anonymous"></script>
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" crossorigin="anonymous"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js" crossorigin="anonymous"></script>
+
+<!-- Solana web3.js (ESM) -->
 <script type="module">
+	function openModal(id){ const m=document.getElementById(id); if(m) m.classList.add('is-open'); }
+  function closeModal(id){ const m=document.getElementById(id); if(m) m.classList.remove('is-open'); }
+  // Attach after DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('openSongsBtn');
+    if (btn) btn.addEventListener('click', () => openModal('song-modal'));
+  });
+
+  // Safety: delegated listener if the button is injected or re-rendered
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest && e.target.closest('#openSongsBtn');
+    if (t) openModal('song-modal');
+  });
   import { Connection, PublicKey } from "https://esm.sh/@solana/web3.js@1.95.3";
 
   /********** CONFIG **********/
@@ -1409,16 +1645,17 @@ body {
     return sum; // BigInt raw units
   }
 
+  // --- gate state (make it global-ish so other scripts can read it) ---
+  window.__rstoryGate = { hasAny:false, hasDownload:false, raw:"0" };
+
   async function enforceGate(){
     if (!walletPubkey){
       statusEl.textContent = "Connect Phantom";
       statusEl.className = "badge warn";
       gatedArea.style.display = "none";
       gateMsg.style.display   = "block";
-      // broadcast locked state
-      window.dispatchEvent(new CustomEvent("rstory:gate", {
-        detail: { hasAny:false, hasDownload:false, raw:"0" }
-      }));
+      window.__rstoryGate = { hasAny:false, hasDownload:false, raw:"0" };
+      window.dispatchEvent(new CustomEvent("rstory:gate",{ detail: window.__rstoryGate }));
       return false;
     }
 
@@ -1430,40 +1667,45 @@ body {
       const humanK = formatHumanK(raw);
       balBd.textContent = `RSTORY: ${humanK}`;
 
-      const hasAny      = raw >= VIEW_THRESHOLD_RAW_UNITS;			// ≥1 token
-			// after: const hasAny = raw >= VIEW_THRESHOLD_RAW_UNITS;
-const openSongsBtn = document.getElementById('openSongsBtn');
-if (openSongsBtn) openSongsBtn.disabled = !hasAny; // enable once ≥1 token
-      const hasDownload = raw >= THRESHOLD_RAW_UNITS;          // ≥10k tokens
+      const hasAny      = raw >= VIEW_THRESHOLD_RAW_UNITS;     // ≥1 token
+      const hasDownload = raw >= THRESHOLD_RAW_UNITS;          // ≥10k
 
-      // Always broadcast both gates
-      window.dispatchEvent(new CustomEvent("rstory:gate", {
-        detail: { hasAny, hasDownload, raw: raw.toString() }
-      }));
+      // broadcast both gates + store globally
+      window.__rstoryGate = { hasAny, hasDownload, raw: raw.toString() };
+      window.dispatchEvent(new CustomEvent("rstory:gate",{ detail: window.__rstoryGate }));
 
-      if (hasDownload){
-        statusEl.textContent = "Access granted";
-        statusEl.className   = "badge ok";
-        gateMsg.style.display  = "none";
-        gatedArea.style.display= "block";
-        return true;
+      // --- visibility rules ---
+      // If user has ≥1 token: show gated area (view/stream) and the Open button
+      if (hasAny){
+        gateMsg.style.display   = "none";
+        gatedArea.style.display = "block";
+        const openBtn = document.getElementById('openSongsBtn');
+        if (openBtn) openBtn.disabled = false;
+        statusEl.textContent = hasDownload ? "Access granted" : "Message unlocked";
+        statusEl.className   = hasDownload ? "badge ok" : "badge";
       } else {
-        statusEl.textContent = hasAny ? "Message unlocked" : "Insufficient balance";
-        statusEl.className   = hasAny ? "badge" : "badge err";
-        gateMsg.style.display  = "block";   // show note about thresholds
-        gatedArea.style.display= "none";    // downloads still locked
-        return false;
+        // <1 token: keep the gate note visible; hide song hub
+        gateMsg.style.display   = "block";
+        gatedArea.style.display = "none";
+        statusEl.textContent = "Insufficient balance";
+        statusEl.className   = "badge err";
       }
+
+      // --- downloads: only enable when ≥10k ---
+      document.querySelectorAll('.downloadBtn, #song-modal .btn.black').forEach(btn=>{
+        const isDownload = /download/i.test(btn.textContent || '') || btn.classList.contains('downloadBtn');
+        if (isDownload) btn.disabled = !hasDownload;
+      });
+
+      return hasDownload;
     }catch(e){
       console.error(e);
       statusEl.textContent = "Balance check failed";
       statusEl.className   = "badge err";
-      gateMsg.style.display  = "block";
-      gatedArea.style.display= "none";
-      // broadcast safe "no access"
-      window.dispatchEvent(new CustomEvent("rstory:gate", {
-        detail: { hasAny:false, hasDownload:false, raw:"0" }
-      }));
+      gateMsg.style.display   = "block";
+      gatedArea.style.display = "none";
+      window.__rstoryGate = { hasAny:false, hasDownload:false, raw:"0" };
+      window.dispatchEvent(new CustomEvent("rstory:gate",{ detail: window.__rstoryGate }));
       return false;
     }
   }
@@ -1506,11 +1748,80 @@ if (openSongsBtn) openSongsBtn.disabled = !hasAny; // enable once ≥1 token
     statusEl.textContent = hasPhantom() ? "Phantom detected" : "Install Phantom";
     statusEl.className   = hasPhantom() ? "badge" : "badge warn";
   })();
-</script>
 	
+	// Small hex -> string helper (non-module scope)
+  function __fromHex(hex){
+    const clean = String(hex).replace(/[^0-9a-f]/gi,"");
+    let out = "";
+    for(let i=0;i<clean.length;i+=2){
+      out += String.fromCharCode(parseInt(clean.slice(i,i+2),16));
+    }
+    return out;
+  }
 
-<script type="module">
-  // ===== PREVIEW RUNES → FULL DECODE (scroll after) =====
+  // Reusable downloader (uses window.__rstoryGate.hasDownload)
+  async function getDownload(btn){
+    try{
+      const gate = window.__rstoryGate || {};
+      const status = btn.closest('.row')?.querySelector('[data-status]');
+      if (!gate.hasDownload){
+        if (status) status.textContent = "Need ≥10,000 RSTORY to download.";
+        return;
+      }
+      // Your data attribute currently stores hex for a bare CID (bafy...)
+      const cidHex = btn.getAttribute('data-cid-hex');
+      if (!cidHex){
+        if (status) status.textContent = "Missing CID.";
+        return;
+      }
+      const cid = __fromHex(cidHex).trim();     // e.g. bafy...
+      const url = `https://bronze-kind-tick-370.mypinata.cloud/ipfs/${cid}`;
+      if (status) status.textContent = "Fetching…";
+
+      const resp = await fetch(url, { mode:'cors' });
+      if (!resp.ok) throw new Error("HTTP "+resp.status);
+      const blob = await resp.blob();
+
+      const a = document.createElement('a');
+      const safe = (btn.closest('.song-card')?.querySelector('.song-head')?.textContent || 'track').replace(/[^\w\-]+/g,'_');
+      const ext  = (blob.type && blob.type.split('/')[1]) || 'mp4';
+      a.href = URL.createObjectURL(blob);
+      a.download = `${safe}.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(a.href);
+
+      if (status) status.textContent = "Saved.";
+    }catch(err){
+      console.error(err);
+      const status = btn.closest('.row')?.querySelector('[data-status]');
+      if (status) status.textContent = "Download failed.";
+      alert("Download failed. Please try again.");
+    }
+  }
+
+  // make available to inline onclick
+  window.getDownload = getDownload;
+	
+  document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.downloadBtn');
+    if (!btn) return;
+    const gate = window.__rstoryGate || {};
+    if (!gate.hasDownload) {
+      btn.title = "Need ≥10,000 RSTORY to download";
+      return;
+    }
+    // You can map slide -> hex URL like you did for videos:
+    // simplest: click to open the modal for now
+    openModal('song-modal');
+  });
+	
+</script>
+
+<script>
+	
+	// ===== PREVIEW RUNES → FULL DECODE (scroll after) =====
   const messageEl  = document.getElementById('message');
   const decryptBtn = document.getElementById('decryptBtn');
 
@@ -1562,7 +1873,6 @@ e2809c57656c636f6d652c20686f6c6465722e205468697320697320796f757220636f6465642064
 206173207765206d65657420616c6f6e67206f757220706174687321204b4944554c5420464f5245564552212121205375727265616c697374206174
 20686561727420616e642053796e6368726f6e69737420696e2070726163746963652ee2809d
 `;
-
 
   // ---------- Preview builder (short symbolic paragraph/s) ----------
   function buildRunePreview(el, { lines = 20, cols = 52, paraGap = 1 } = {}) {
@@ -1707,9 +2017,7 @@ function buildCodedFromHex(el, hex) {
   }
   if (decryptBtn) decryptBtn.addEventListener("click", doDecrypt);
   window.addEventListener("keydown", (e) => { if (e.key.toLowerCase() === "d") doDecrypt(); });
-</script>
-
-<script type="module">
+	
   // --- Helpers: hex <-> utf-8 ---
   function fromHex(hex) {
     const clean = String(hex).replace(/[^0-9a-f]/gi, "");
@@ -1767,215 +2075,9 @@ function buildCodedFromHex(el, hex) {
 
   // --- Optional: manual/test unlock (e.g., from a button) ---
   window.unlockSongsForTesting = hydrateVideosAfterGate;
+	
+	
 </script>
-<!-- partial:index.partial.html -->
-	
-	
-    <div class="album-cover">
-      <div class="swiper">
-        <div class="swiper-wrapper">
-					<div class="swiper-slide">
-            <img
-              src="https://pbs.twimg.com/media/G2bxDZuXgAA-GlI?format=jpg&name=large" />
-            <div class="overlay">
-							
-              <a
-                href="https://youtube.com/playlist?list=PLx9gj5n6fEkSRJo_tOvzGNviJdFiKvByf&si=IC7KQMZUgmcgB_3d"
-                target="_blank"
-                ><ion-icon name="logo-youtube"></ion-icon
-              ></a>
-							
-							<a href="https://www.food4thoth.com/RstoryArtabillies/index.html" target="_blank" rel="noopener">
-  <i class="fa-solid fa-globe"></i>
-</a>
-<a href="https://www.facebook.com/share/g/1CfQ2fSM4y/?mibextid=wwXIfr" target="_blank" title="Facebook">
-              <i class="fa-brands fa-facebook"></i>
-            </a>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <img
-              src="https://www.food4thoth.com/Inprogression/images/IMG_0691.jpeg" />
-            <div class="overlay">
-              <a
-                href="https://youtu.be/24J31g6M-SY?si=EeeTjWnEAEKZ928t"
-                target="_blank"
-                ><ion-icon name="logo-youtube"></ion-icon
-              ></a>
-							<a href="https://www.food4thoth.com/Inprogression/index.html" target="_blank" rel="noopener">
-  <i class="fa-solid fa-globe"></i>
-</a>
-<a href="https://www.facebook.com/share/14MZTja9Zfs/?mibextid=wwXIfr" target="_blank" title="Facebook">
-              <i class="fa-brands fa-facebook"></i>
-            </a>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <img
-              src="https://www.food4thoth.com/GloCalculato/images/17background.PNG" />
-            <div class="overlay">
-							<a
-                href="https://youtu.be/2M_PlSnJ9WM?si=LcejVToLYk468JAL"
-                target="_blank"
-                ><ion-icon name="logo-youtube"></ion-icon
-              ></a>
-              <a href="https://www.food4thoth.com/MajixTarotAll/" target="_blank" rel="noopener">
-  <i class="fa-solid fa-globe"></i>
-</a>
-<a href="https://www.facebook.com/share/1BdXpSDLmm/?mibextid=wwXIfr" target="_blank" title="Facebook">
-              <i class="fa-brands fa-facebook"></i>
-            </a>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <img
-              src="MidwayBlitz.png" />
-							<button class="downloadBtn" title="Hold 10k RSTORY to download" disabled>
-    <i class="fa-solid fa-download"></i>
-  </button>
-            <div class="overlay">
-              <a href="https://www.food4thoth.com/" target="_blank" rel="noopener">
-  <i class="fa-solid fa-globe"></i>
-</a>
-            <a href="https://www.facebook.com/share/v/1J1c5bDDVj/?mibextid=wwXIfr" target="_blank" title="Facebook">
-              <i class="fa-brands fa-facebook"></i>
-            </a>
-            <a href="https://www.tiktok.com/t/ZTMrwjWaU/" target="_blank" title="TikTok">
-              <i class="fa-brands fa-tiktok"></i>
-            </a>
-            <a href="https://www.instagram.com/reel/DPZfKq3ChvE/?igsh=MTA0em1rMHR3cTJmeA==" target="_blank" title="Instagram">
-              <i class="fa-brands fa-instagram"></i>
-            </a>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <img
-              src="RivieraBones.png" />
-							<button class="downloadBtn" title="Hold 10k RSTORY to download" disabled>
-    <i class="fa-solid fa-download"></i>
-  </button>
-            <div class="overlay"> 
-						 <a href="https://www.food4thoth.com/" target="_blank" rel="noopener">
-  <i class="fa-solid fa-globe"></i>
-</a>
-            <a href="https://www.facebook.com/share/v/19wJ9hvGke/?mibextid=wwXIfr" target="_blank" title="Facebook">
-              <i class="fa-brands fa-facebook"></i>
-            </a>
-            <a href="https://www.tiktok.com/t/ZP8Add3Xy/" target="_blank" title="TikTok">
-              <i class="fa-brands fa-tiktok"></i>
-            </a>
-            <a href="https://www.instagram.com/reel/DPR2T5UiqoA/?igsh=MWl0aDNnb2J4dHppYw==" target="_blank" title="Instagram">
-              <i class="fa-brands fa-instagram"></i>
-            </a>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <img
-              src="TaxStarve.png" />
-							<button class="downloadBtn" title="Hold 10k RSTORY to download" disabled>
-    <i class="fa-solid fa-download"></i>
-  </button>
-            <div class="overlay">
-						 <a href="https://www.food4thoth.com/" target="_blank" rel="noopener">
-  <i class="fa-solid fa-globe"></i>
-</a>
-            <a href="https://www.facebook.com/share/v/175WRNoPsi/?mibextid=wwXIfr" target="_blank" title="Facebook">
-              <i class="fa-brands fa-facebook"></i>
-            </a>
-            <a href="https://www.tiktok.com/t/ZTMM9kkFE/" target="_blank" title="TikTok">
-              <i class="fa-brands fa-tiktok"></i>
-            </a>
-            <a href="https://www.instagram.com/reel/DPVO_puDshN/?igsh=ZDZiZWdvbTB6OTdp" target="_blank" title="Instagram">
-              <i class="fa-brands fa-instagram"></i>
-            </a>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <img
-              src="https://www.food4thoth.com/Mescalito/images/1.webp" />
-            <div class="overlay">
-							<a href="https://www.facebook.com/share/1BdXpSDLmm/?mibextid=wwXIfr" target="_blank" title="Facebook">
-              <i class="fa-brands fa-facebook"></i>
-            </a>
-							<a href="https://www.food4thoth.com/Mescalito/Reveal1.html" target="_blank" rel="noopener">
-  <i class="fa-solid fa-globe"></i>
-</a>
-              <a
-                href="https://youtube.com/playlist?list=PLHLqP3bn74o1JZi7PwVssJZmJ6-3eZ-UQ&si=rr7OHP-YnXweaAcy"
-                target="_blank"
-                ><ion-icon name="logo-youtube"></ion-icon
-              ></a>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <img
-              src="https://www.food4thoth.com/Inprogression/images/IMG_0690.jpeg" />
-            <div class="overlay">
-							<a href="https://www.facebook.com/share/14MZTja9Zfs/?mibextid=wwXIfr" target="_blank" title="Facebook">
-              <i class="fa-brands fa-facebook"></i>
-            </a>
-							<a href="https://www.food4thoth.com/Inprogression/index.html" target="_blank" rel="noopener">
-  <i class="fa-solid fa-globe"></i>
-</a>
-              <a
-                href="https://youtu.be/o_ixeuo0jgw?si=2Vlfd4Ujay936jZ_"
-                target="_blank"
-                ><ion-icon name="logo-youtube"></ion-icon
-              ></a>
-            </div>
-          </div>
-					<div class="swiper-slide">
-            <img
-              src="https://www.food4thoth.com/Artabillies/images/Artabillies.PNG" />
-            <div class="overlay">
-							<a href="https://www.facebook.com/share/15N1kcxqJGK/?mibextid=wwXIfr" target="_blank" title="Facebook">
-              <i class="fa-brands fa-facebook"></i>
-            </a>
-							<a href="https://www.artabillies.com" target="_blank" rel="noopener">
-  <i class="fa-solid fa-globe"></i>
-</a>
-              <a
-                href="https://youtu.be/8iBxQgY7iF8?si=BfVz-xOQ8FsfP40j"
-                target="_blank"
-                ><ion-icon name="logo-youtube"></ion-icon
-              ></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="music-player">
-      <h1>Title</h1>
-      <p>Song Name</p>
-
-      <audio id="song">
-        <source src="song-list/Luke-Bergs-Gold.mp3" type="audio/mpeg" />
-      </audio>
-
-      <input type="range" value="0" id="progress" />
-
-      <div class="controls">
-        <button class="backward">
-          <i class="fa-solid fa-backward"></i>
-        </button>
-        <button class="play-pause-btn">
-          <i class="fa-solid fa-play" id="controlIcon"></i>
-        </button>
-        <button class="forward">
-          <i class="fa-solid fa-forward"></i>
-        </button>
-      </div>
-    </div>
-		
-  </body>
-	
-	
-<!-- ✅ Use CORS + correct module flags -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" crossorigin="anonymous"></script>
-
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" crossorigin="anonymous"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js" crossorigin="anonymous"></script>
 
 <script>
 	const progress = document.getElementById("progress");
@@ -2303,17 +2405,5 @@ document.addEventListener("navLoaded", () => {
 });
 </script>
 
-<!-- Footer -->
-  <footer id="footer">
-    <p>
-      <a href="../index.html">Visit Our Hub</a> <br /> &copy; 2025 FOOD4THOTH 
-      <br /> All Rights Reserved 
-    </p>
-    <p>
-       <a href="../contact.html" id="contact" class="styled-link">Contact</a> | 
-       <a href="/RstoryPlayList/readme/" class="styled-link">ReadMe</a>
-    </p>
-	
-  </footer>
 </body>
 </html>
