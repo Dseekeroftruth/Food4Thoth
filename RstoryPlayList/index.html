@@ -732,6 +732,23 @@ body {
   #song-modal .modal-content { max-width: 95%; max-height: 85%; }
 }
 
+/* Force all modal text headings and paragraphs to black */
+#song-modal h1,
+#song-modal h2,
+#song-modal h3,
+#song-modal h4,
+#song-modal h5,
+#song-modal h6,
+#song-modal p,
+#song-modal li,
+#song-modal summary,
+#song-modal strong,
+#song-modal em,
+#song-modal blockquote,
+#song-modal q {
+  color: #000 !important;
+}
+
 /* =========================================
    Z-Index / Layering for Decode & Swiper
 ========================================= */
@@ -1562,19 +1579,41 @@ body {
 
 <!-- Solana web3.js (ESM) -->
 <script type="module">
-	function openModal(id){ const m=document.getElementById(id); if(m) m.classList.add('is-open'); }
-  function closeModal(id){ const m=document.getElementById(id); if(m) m.classList.remove('is-open'); }
-  // Attach after DOM is ready
-  document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.getElementById('openSongsBtn');
-    if (btn) btn.addEventListener('click', () => openModal('song-modal'));
-  });
+	/* ===============================
+   Modal Controls for Song Hub
+=============================== */
+function openModal(id) {
+  const m = document.getElementById(id);
+  if (m) m.classList.add("is-open");
+}
 
-  // Safety: delegated listener if the button is injected or re-rendered
-  document.addEventListener('click', (e) => {
-    const t = e.target.closest && e.target.closest('#openSongsBtn');
-    if (t) openModal('song-modal');
-  });
+function closeModal(id) {
+  const m = document.getElementById(id);
+  if (m) m.classList.remove("is-open");
+}
+
+// Close modal when clicking outside its content
+document.addEventListener("click", (e) => {
+  const modal = e.target.closest(".modal");
+  if (modal && !e.target.closest(".modal-content")) {
+    modal.classList.remove("is-open");
+  }
+});
+
+// Optional: close with Escape key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    document.querySelectorAll(".modal.is-open")
+      .forEach(m => m.classList.remove("is-open"));
+  }
+});
+
+// Attach “open” button handler after DOM loads
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("openSongsBtn");
+  if (btn) btn.addEventListener("click", () => openModal("song-modal"));
+});
+
   import { Connection, PublicKey } from "https://esm.sh/@solana/web3.js@1.95.3";
 
   /********** CONFIG **********/
@@ -1759,50 +1798,88 @@ body {
     return out;
   }
 
-  // Reusable downloader (uses window.__rstoryGate.hasDownload)
-  async function getDownload(btn){
-    try{
-      const gate = window.__rstoryGate || {};
-      const status = btn.closest('.row')?.querySelector('[data-status]');
-      if (!gate.hasDownload){
-        if (status) status.textContent = "Need ≥10,000 RSTORY to download.";
-        return;
-      }
-      // Your data attribute currently stores hex for a bare CID (bafy...)
-      const cidHex = btn.getAttribute('data-cid-hex');
-      if (!cidHex){
-        if (status) status.textContent = "Missing CID.";
-        return;
-      }
-      const cid = __fromHex(cidHex).trim();     // e.g. bafy...
-      const url = `https://bronze-kind-tick-370.mypinata.cloud/ipfs/${cid}`;
-      if (status) status.textContent = "Fetching…";
-
-      const resp = await fetch(url, { mode:'cors' });
-      if (!resp.ok) throw new Error("HTTP "+resp.status);
-      const blob = await resp.blob();
-
-      const a = document.createElement('a');
-      const safe = (btn.closest('.song-card')?.querySelector('.song-head')?.textContent || 'track').replace(/[^\w\-]+/g,'_');
-      const ext  = (blob.type && blob.type.split('/')[1]) || 'mp4';
-      a.href = URL.createObjectURL(blob);
-      a.download = `${safe}.${ext}`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(a.href);
-
-      if (status) status.textContent = "Saved.";
-    }catch(err){
-      console.error(err);
-      const status = btn.closest('.row')?.querySelector('[data-status]');
-      if (status) status.textContent = "Download failed.";
-      alert("Download failed. Please try again.");
-    }
+  // --- safer: don't revoke too early, and add strong fallbacks ---
+async function getDownload(btn){
+  const gate = window.__rstoryGate || {};
+  const status = btn.closest('.row')?.querySelector('[data-status]');
+  if (!gate.hasDownload){
+    if (status) status.textContent = "Need ≥10,000 RSTORY to download.";
+    return;
   }
 
-  // make available to inline onclick
-  window.getDownload = getDownload;
+  // 1) Build the direct gateway URL from the hex-encoded CID
+  const cidHex = btn.getAttribute('data-cid-hex');
+  if (!cidHex){ if (status) status.textContent = "Missing CID."; return; }
+  const cid = (typeof __fromHex === 'function' ? __fromHex(cidHex) : cidHex).trim();
+  const baseUrl = `https://bronze-kind-tick-370.mypinata.cloud/ipfs/${cid}`;
+
+  // Filename from card title (keeps it nice)
+  const safe = (btn.closest('.song-card')?.querySelector('.song-head')?.textContent || 'track')
+                .replace(/[^\w\-]+/g,'_');
+
+  // Helper: blob → download
+  const triggerBlobDownload = (blob) => {
+    const ext = (blob.type && blob.type.split('/')[1]) || 'mp4';
+    const objectUrl = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = objectUrl;
+    a.download = `${safe}.${ext}`;
+    a.rel = 'noopener';
+    // iOS/Safari can be finicky: target=_blank helps sometimes
+    // a.target = '_blank';
+
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    // Revoke a bit later so the browser has time to start saving
+    setTimeout(()=> URL.revokeObjectURL(objectUrl), 3000);
+  };
+
+  if (status) status.textContent = "Fetching…";
+
+  try {
+    // 2) Best path: fetch the blob with CORS; if the gateway allows it, this yields a real file save
+    const resp = await fetch(baseUrl, {
+      mode: 'cors',
+      // Some gateways are picky; this often avoids referrer-based blocks
+      referrerPolicy: 'no-referrer',
+      // Cache bust in case the gateway serves a weird cached type
+      headers: { 'Cache-Control': 'no-cache' }
+    });
+
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+
+    // Edge case: opaque response (missing CORS headers)
+    // .blob() will still work for "cors", but if the server forbids it, we’ll hit catch()
+    const blob = await resp.blob();
+
+    // If we got a tiny HTML error page instead of media, fail over
+    if ((blob.type || '').includes('text/html')) throw new Error('HTML instead of media');
+
+    triggerBlobDownload(blob);
+    if (status) status.textContent = "Saved.";
+    return;
+  } catch (err) {
+    console.warn('Blob fetch failed, falling back:', err);
+  }
+
+  // 3) Fallback A: direct navigation with "download intent" query (many gateways honor this)
+  // If Pinata ignores it, the user still lands on a streamable file and can Save Video.
+  try {
+    const fallbackUrl = `${baseUrl}?download=1`;
+    if (status) status.textContent = "Opening…";
+    // new tab first, avoids breaking current UI and works better on iOS
+    const w = window.open(fallbackUrl, '_blank', 'noopener');
+    if (w) { if (status) status.textContent = "Opened in new tab."; return; }
+  } catch (err){ /* ignore */ }
+
+  // 4) Fallback B: last resort – same-tab navigation (user can long-press / Save Video)
+  window.location.href = baseUrl;
+  if (status) status.textContent = "Opening…";
+}
+window.getDownload = getDownload;
 	
   document.addEventListener('click', async (e) => {
     const btn = e.target.closest('.downloadBtn');
