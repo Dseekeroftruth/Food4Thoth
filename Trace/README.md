@@ -43,6 +43,50 @@ social:
     border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,.35);
   }
   .nav-button:hover { filter: saturate(115%); }
+
+:root{
+    --code-bg:#15161a;                 /* dark grey */
+    --code-text:#e8e8ff;               /* soft light */
+    --code-border:rgba(255,255,255,.12);
+  }
+
+  /* Inline code (backticks) */
+  :not(pre) > code,
+  code.highlighter-rouge {
+    background: var(--code-bg);
+    color: var(--code-text);
+    border: 1px solid var(--code-border);
+    border-radius: .35rem;
+    padding: .12em .4em;
+  }
+
+  /* Fenced code blocks ``` */
+  pre, pre code {
+    background: var(--code-bg) !important;
+    color: var(--code-text) !important;
+  }
+  pre {
+    border: 1px solid var(--code-border);
+    border-radius: .6rem;
+    padding: .9rem 1rem;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Jekyll/Rouge wrappers */
+  .highlighter-rouge,
+  .highlight {
+    background: var(--code-bg) !important;
+    border-radius: .6rem;
+  }
+  .highlight pre {
+    background: transparent !important; /* prevent double background */
+    color: var(--code-text) !important;
+    border: 0;
+    padding: 0; /* padding is on the outer wrapper already */
+  }
+  .highlight code { background: transparent !important; }
+
 </style>
 
 # 📷 FOOD4THOTH Trace Overlay — Mobile Camera Lucida
