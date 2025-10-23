@@ -1,0 +1,451 @@
+/* =========================================================
+   FOOD4THOTH — VJDJ UI (Clean Rewrite w/ Orientation Guard)
+   - Keeps existing look/feel on iPhone 15
+   - Ensures footer fonts return to original size in portrait
+   - Removes duplicate rules and minor inconsistencies
+   ========================================================= */
+
+/* ---- Base / Variables ---------------------------------- */
+:root{
+  --ui-bg: rgba(20,20,25,.75);
+  --ui-bd: rgba(255,255,255,.15);
+  --ui-txt:#e8e8f0;
+  --accent:#ff2d55;
+  --good:#2ecc71;
+
+  /* App chrome sizes */
+  --rail-left-w: min(78px, 18vw);
+  --rail-right-w: min(84px, 18vw);
+  --topbar-height: 44px; /* default if JS doesn't set it */
+
+  /* Footer typography (portrait baseline) */
+  --footer-font: 6px;   /* matches your current portrait look */
+  --footer-link-font: 8px;
+
+  /* Footer padding */
+  --footer-pad-x: 5vw;
+  --footer-pad-y: 20px;
+}
+
+/* Prevent iOS text auto-resizing across rotations */
+html{
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html, body{
+  height:100%;
+  margin:0;
+  background:#000;
+  overflow:hidden;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  color:var(--ui-txt);
+}
+
+/* Canvas Stage (full bleed) */
+#stage{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+  background:#000;
+}
+
+/* =========================================================
+   Left Tool Rail (Design Tools)
+   ========================================================= */
+.rail{
+  z-index:30;
+  position:fixed;
+  top:40px;
+  left:0;
+  height:100vh;
+  width:var(--rail-left-w);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding:10px;
+  pointer-events:none;
+}
+.rail .btn{
+  pointer-events:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:54px;
+  border-radius:12px;
+  background:var(--ui-bg);
+  border:1px solid var(--ui-bd);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-size:22px;
+  cursor:pointer;
+  user-select:none;
+  touch-action:manipulation;
+}
+.rail .btn:active{ transform:scale(.98); }
+
+/* =========================================================
+   Panels
+   ========================================================= */
+.panel{
+  position:fixed;
+  left:calc(var(--rail-left-w) + 10px);
+  top:40px;
+  max-width:min(92vw,520px);
+  z-index:25;
+  background:var(--ui-bg);
+  border:1px solid var(--ui-bd);
+  border-radius:14px;
+  padding:12px 12px 10px 12px;
+  display:none;
+  backdrop-filter: blur(10px);
+}
+.panel.open{ display:block; }
+.panel h3{
+  margin:.2rem 0 .6rem;
+  font-size:1rem;
+  font-weight:700;
+  letter-spacing:.25px;
+}
+.row{
+  display:grid;
+  grid-template-columns:1fr 90px;
+  align-items:center;
+  gap:10px;
+  margin:.35rem 0;
+}
+.row > label{ font-size:.92rem; opacity:.9; }
+.row input[type="range"]{ width:100%; }
+.row input[type="color"]{
+  width:100%;
+  height:36px;
+  border-radius:8px;
+  border:1px solid var(--ui-bd);
+  background:#111;
+}
+.sub{ font-size:.85rem; opacity:.8; margin:.35rem 0; }
+.pill{
+  display:inline-flex;
+  gap:6px;
+  align-items:center;
+  padding:.5rem .7rem;
+  border-radius:999px;
+  border:1px solid var(--ui-bd);
+  background:#101015;
+}
+.pill input{ accent-color:#8cf; }
+.grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.small{ font-size:.85rem; opacity:.8; }
+
+/* =========================================================
+   AudioHub (floating, bottom-right)
+   ========================================================= */
+.hub{
+  position:fixed;
+  left:100%;
+  bottom:35px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  z-index:30;
+}
+.hub .fab{
+  width:64px; height:64px; border-radius:50%;
+  background:var(--ui-bg); border:1px solid var(--ui-bd);
+  display:grid; place-items:center;
+  font-size:26px; cursor:pointer;
+  backdrop-filter: blur(8px);
+}
+.hub .sheet{
+  position:fixed;
+  right:10px;
+  bottom:86px;
+  max-width:min(96vw,250px);
+  background:var(--ui-bg);
+  border:1px solid var(--ui-bd);
+  border-radius:16px;
+  padding:12px;
+  display:none;
+}
+.hub .sheet.open{ display:block; }
+.row .sel, select{
+  width:100%;
+  height:36px;
+  border-radius:8px;
+  border:1px solid var(--ui-bd);
+  background:#0d0e12;
+  color:#e6e6ee;
+  padding:0 .45rem;
+}
+
+/* =========================================================
+   Recorder Rail (Right)
+   ========================================================= */
+.rec-rail{
+  position:fixed;
+  top:40px;
+  right:0;
+  height:100vh;
+  width:var(--rail-right-w);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding:10px;
+  z-index:20;
+  pointer-events:none;
+}
+.rec-rail .recbtn{
+  pointer-events:auto;
+  display:flex; align-items:center; justify-content:center;
+  height:64px; border-radius:14px;
+  background:linear-gradient(180deg,#ff5b6b,var(--accent));
+  border:1px solid #ff8895;
+  color:#fff; font-weight:700;
+  box-shadow:0 6px 18px rgba(255,45,85,.35);
+  font-size:20px; cursor:pointer;
+}
+.rec-rail .recbtn.rec{ background:linear-gradient(180deg,#d63031,#ff2d55); }
+.rec-rail .sm{
+  pointer-events:auto;
+  display:flex; gap:8px; flex-direction:column;
+}
+.rec-rail .sm .btn{
+  height:42px; border-radius:12px;
+  background:var(--ui-bg); border:1px solid var(--ui-bd);
+  display:grid; place-items:center; font-size:18px;
+}
+
+/* =========================================================
+   Bottom Dock (Transport / Import)
+   ========================================================= */
+.dock{
+  position:fixed;
+  left:45%;
+  transform:translateX(-50%);
+  bottom:30px;
+  z-index:20;
+  display:flex; gap:8px; align-items:center;
+  background:var(--ui-bg);
+  border:1px solid var(--ui-bd);
+  border-radius:14px;
+  padding:6px 8px;
+}
+.dock .btn{
+  width:44px; height:44px;
+  display:grid; place-items:center;
+  border-radius:10px; background:#12131a;
+  border:1px solid var(--ui-bd);
+  font-size:18px;
+}
+.dock input[type="file"]{ display:none; }
+.dock label{
+  display:grid; place-items:center;
+  width:44px; height:44px;
+  border-radius:10px; background:#12131a;
+  border:1px solid var(--ui-bd);
+  font-size:18px;
+}
+
+/* =========================================================
+   Hidden media
+   ========================================================= */
+video, audio{
+  position:fixed;
+  left:-9999px; top:-9999px;
+  width:1px; height:1px;
+}
+
+/* =========================================================
+   Status Badge
+   ========================================================= */
+.badge{
+  position:fixed;
+  left:12px;
+  bottom:0px;
+  background:#0e1018a6;
+  color:#d7d7ff;
+  border:1px solid var(--ui-bd);
+  border-radius:8px;
+  padding:.35rem .6rem;
+  font-size:.8rem;
+  z-index:2;
+}
+
+/* =========================================================
+   Utilities
+   ========================================================= */
+.hidden { display:none; }
+
+/* =========================================================
+   Navigation (Sticky, Neumorphic)
+   ========================================================= */
+.navigation{
+  position:sticky;
+  top: var(--topbar-height);
+  z-index:999;
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+  padding:20px;
+  background-color:#1a1a1a;
+  border-radius:10px;
+  box-shadow: inset 4px 4px 8px #0d0d0d, inset -4px -4px 8px #333333;
+  transition: all 0.3s ease;
+  max-height:300px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  align-items:center;
+  justify-content:center;
+}
+#nav-container{
+  position:sticky;
+  top:0px;
+  z-index:999;
+}
+.navigation::-webkit-scrollbar { width:8px; }
+.navigation::-webkit-scrollbar-thumb { background:#333333; border-radius:10px; }
+.navigation::-webkit-scrollbar-thumb:hover { background:#ff6600; }
+.navigation::-webkit-scrollbar-track { background:#1a1a1a; }
+.navigation.hidden { display:none; }
+
+/* Neumorphic Tabs */
+.neumorphic-tab{
+  text-decoration:none;
+  color:#e0e0e0;
+  font-size:1rem;
+  font-weight:700;
+  padding:10px 15px;
+  border-radius:12px;
+  background-color:#262626;
+  box-shadow:6px 6px 12px #0d0d0d, -6px -6px 12px #333333;
+  transition: all 0.3s ease;
+  text-align:center;
+  width:100%;
+  z-index:9999;
+}
+.neumorphic-tab:hover{
+  color:#ffffff;
+  background-color:#ff6600;
+  box-shadow:4px 4px 8px #cc5200, -4px -4px 8px #ff9900;
+  transform:translateY(-2px);
+}
+.neumorphic-tab:active{
+  transform:translateY(1px);
+  box-shadow: inset 4px 4px 8px #cc5200, inset -4px -4px 8px #ff9900;
+}
+
+/* =========================================================
+   Top Toggle / Collapsible Nav Button
+   (single definitive style: fixed, full-width)
+   ========================================================= */
+.toggle-button{
+  position:fixed;
+  top:0; left:0; right:0;
+  width:100vw;
+  margin:0;
+  border-radius:0 0 10px 10px;
+  z-index:999;
+  padding: calc(10px + env(safe-area-inset-top)) 16px 10px;
+  background-color: purple;
+  color:#e0e0e0;
+  font-size:1rem;
+  font-weight:700;
+  border:none;
+  cursor:pointer;
+  box-shadow: 4px 4px 8px #0d0d0d, -4px -4px 8px #333333;
+  transition: all 0.3s ease;
+}
+.toggle-button:hover{
+  background-color: gold;
+  color:#ffffff;
+  box-shadow:4px 4px 8px #cc5200, -4px -4px 8px #ff9900;
+}
+.toggle-button:active{
+  transform: translateY(1px);
+  box-shadow: inset 4px 4px 8px #cc5200, inset -4px -4px 8px #ff9900;
+}
+
+/* Push page below fixed bar */
+body{
+  padding-top: calc(var(--topbar-height) + env(safe-area-inset-top));
+}
+
+/* =========================================================
+   Footer (Fixed Bottom, Full-Bleed)
+   - Orientation-guarded font sizes to keep iPhone look
+   ========================================================= */
+footer{
+  position:fixed;
+  inset:auto 0 0 0;
+  z-index:0;
+  width:94%;
+  margin:0 auto;
+  background: rgba(17, 17, 17, 0.45);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  backdrop-filter: blur(8px) saturate(120%);
+  text-align:right;
+  padding: var(--footer-pad-y) var(--footer-pad-x) calc(5.5px + env(safe-area-inset-bottom));
+  border-top:1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.25) inset;
+  font-size: var(--footer-font); /* portrait baseline */
+}
+
+/* Enforce small type in portrait (your current look) */
+@media (orientation: portrait){
+  footer{ font-size: var(--footer-font); }
+  footer a{ font-size: var(--footer-link-font); }
+}
+
+/* Also explicitly size landscape to avoid iOS reflow anomalies.
+   If you want larger footer text in landscape, raise these values. */
+@media (orientation: landscape){
+  footer{ font-size: var(--footer-font); }
+  footer a{ font-size: var(--footer-link-font); }
+}
+
+footer p{
+  letter-spacing: 0.05rem;
+  color:#eaeaea;
+  margin:0;
+}
+
+/* Outlined link text for contrast */
+footer a{
+  color:#ff00ff;
+  text-decoration:none;
+  text-shadow:
+    -1px -1px 0 rgba(0,0,0,0.65),
+     1px -1px 0 rgba(0,0,0,0.65),
+    -1px  1px 0 rgba(0,0,0,0.65),
+     1px  1px 0 rgba(0,0,0,0.65);
+  -webkit-text-stroke: 0.5px rgba(0,0,0,0.55);
+  font-size: var(--footer-link-font);
+}
+footer a:hover{
+  color:#fff;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+
+/* Prevent last content from hiding behind the fixed footer */
+body{
+  padding-bottom: 200px; /* ~ footer height */
+}
+
+/* =========================================================
+   Canvas Blend Mode Selector (disabled state)
+   ========================================================= */
+#ovBlend option:disabled{ opacity:.5; }
+
+/* =========================================================
+   Small screens (iPhone widths) — preserve your layout
+   ========================================================= */
+@media (max-width: 430px){
+  .panel{
+    left:calc(var(--rail-left-w) + 4px);
+    right:calc(var(--rail-right-w) + 4px);
+  }
+  .row{ grid-template-columns:1fr 80px; }
+}

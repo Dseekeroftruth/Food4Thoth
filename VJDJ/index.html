@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+  <title>FOOD4THOTH Video-DJ — Live Visualizer + Recorder (Browser VJ App)</title>
+
+  <!-- Primary SEO -->
+  <meta name="description" content="FOOD4THOTH Video-DJ is a browser-based VJ tool: mix audio-reactive visuals with wallpaper & overlay videos, pro blend modes, glitch/kaleidoscope/mirror FX, and record WebM with audio." />
+  <link rel="canonical" href="https://www.food4thoth.com/VJDJ/index.html" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="author" content="FOOD4THOTH" />
+
+  <!-- Open Graph (Facebook, Discord, LinkedIn, etc.) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="FOOD4THOTH" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="https://www.food4thoth.com/VJDJ/index.html" />
+  <meta property="og:title" content="FOOD4THOTH Video-DJ — Live Visualizer + Recorder" />
+  <meta property="og:description" content="Audio-reactive VJ app in your browser. Mix overlay videos with blend modes, add glitch/kaleidoscope FX, and record shareable WebM clips." />
+  <meta property="og:image" content="https://www.food4thoth.com/VJDJ/og-preview.jpg" />
+  <meta property="og:image:alt" content="Psychedelic, neon visualizer interface for the FOOD4THOTH Video-DJ web app" />
+  <!-- (Optional if you know them)
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" /> -->
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FOOD4THOTH Video-DJ — Live Visualizer + Recorder" />
+  <meta name="twitter:description" content="Browser VJ app: audio-reactive visuals, overlay video blend modes, glitch/kaleidoscope FX, and one-click recording." />
+  <meta name="twitter:image" content="https://www.food4thoth.com/VJDJ/og-preview.jpg" />
+  <!-- If you have a handle, add it:
+  <meta name="twitter:site" content="@YourHandle" /> -->
+
+  <!-- Favicon -->
+<link rel="icon" href="https://www.food4thoth.com/images/favicon.png" type="image/png">
+  <!-- If you have a manifest, keep this; otherwise you can remove it -->
+  <!-- <link rel="manifest" href="/site.webmanifest"> -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Video-DJ" />
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "FOOD4THOTH Video-DJ",
+    "url": "https://www.food4thoth.com/VJDJ/index.html",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web",
+    "description": "Browser-based VJ / video-DJ that turns your music, mic, or files into audio-reactive visuals. Mix wallpaper and overlay videos with blend modes, add glitch/kaleidoscope/mirror FX, and record WebM with audio.",
+    "image": "https://www.food4thoth.com/VJDJ/og-preview.jpg",
+    "publisher": {
+      "@type": "Organization",
+      "name": "FOOD4THOTH",
+      "url": "https://www.food4thoth.com/"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Audio-reactive visualizer",
+      "Wallpaper + overlay video mixing",
+      "Blend modes (screen, multiply, overlay, more)",
+      "Glitch, kaleidoscope, mirror, pixel/post FX",
+      "Inputs: files, microphone/line-in, simulator",
+      "Record visuals with audio (WebM) and share"
+    ],
+    "browserRequirements": "Requires WebGL, Web Audio, MediaRecorder support."
+  }
+  </script>
+
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+	
+	<!-- Placeholder for the nav -->
+  <div id="nav-container"></div>
+
+<canvas id="stage"></canvas>
+<canvas id="src" width="1280" height="720" style="display:none"></canvas>
+
+<!-- Hidden media elements -->
+<video id="bgVideo" playsinline muted loop></video>
+<video id="overlayVideo" playsinline muted loop></video>
+<audio id="player" preload="metadata" crossorigin="anonymous"></audio>
+
+<!-- Left Design Tools rail -->
+<div class="rail">
+  <div class="btn" id="openWallpaper" title="Wallpaper / Media"><i class="fa-solid fa-image"></i></div>
+  <div class="btn" id="openColor"     title="Color / Levels"><i class="fa-solid fa-sliders"></i></div>
+  <div class="btn" id="openSfx"       title="SFX (Glitch / Mirror / Kaleidoscope)"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+  <div class="btn" id="openPresets"   title="Presets"><i class="fa-solid fa-shapes"></i></div>
+</div>
+
+<!-- Panels -->
+<div class="panel" id="panelWallpaper">
+  <h3>Wallpaper & Video Layers</h3>
+  <div class="row"><label>Background color</label><input type="color" id="bgColor" value="#000000"></div>
+  <div class="row"><label>Wallpaper image</label><input type="file" id="imgPick" accept="image/*"></div>
+  <div class="row"><label>Background video</label><input type="file" id="vidPick" accept="video/*"></div>
+  <div class="row"><label>Overlay video</label><input type="file" id="ovPick" accept="video/*"></div>
+  <div class="row"><label>Overlay scale</label><input type="range" id="ovScale" min="20" max="300" value="100"><span class="small" id="ovScaleV">100%</span></div>
+  <div class="row"><label>Overlay opacity</label><input type="range" id="ovAlpha" min="0" max="100" value="70"><span class="small" id="ovAlphaV">70%</span></div>
+ <div class="row"><label>Overlay blend</label>
+  <select id="ovBlend" class="sel">
+    <option value="source-over">normal</option>
+    <option value="screen">screen</option>
+    <option value="lighter">lighter</option>
+    <option value="multiply">multiply</option>
+    <option value="difference">difference</option>
+    <option value="hard-light">hard-light</option>
+    <option value="soft-light">soft-light</option>
+    <option value="overlay">overlay</option>
+    <option value="darken">darken</option>
+    <option value="lighten">lighten</option>
+    <option value="color-dodge">color-dodge</option>
+    <option value="color-burn">color-burn</option>
+    <option value="exclusion">exclusion</option>
+    <option value="hue">hue</option>
+    <option value="saturation">saturation</option>
+    <option value="color">color</option>
+    <option value="luminosity">luminosity</option>
+  </select>
+</div>
+  <div class="sub">Tip: load short loop videos and mix them with the visualizer—switch visuals any time, even while recording.</div>
+</div>
+
+<div class="panel" id="panelColor">
+  <h3>Color & Levels</h3>
+  <div class="row"><label>Hue shift</label><input type="range" id="hue" min="0" max="360" value="0"><span id="hueV">0°</span></div>
+  <div class="row"><label>Saturation</label><input type="range" id="sat" min="0" max="300" value="120"><span id="satV">120%</span></div>
+  <div class="row"><label>Contrast</label><input type="range" id="con" min="50" max="250" value="120"><span id="conV">120%</span></div>
+  <div class="row"><label>Trails (feedback)</label><input type="range" id="trail" min="0" max="95" value="25"><span id="trailV">25%</span></div>
+</div>
+
+<div class="panel" id="panelSfx">
+  <h3>SFX</h3>
+  <div class="row"><label>Glitch amount</label><input type="range" id="glitch" min="0" max="100" value="0"><span id="glitchV">0%</span></div>
+  <div class="row"><label>Kaleidoscope slices</label><input type="range" id="kSlices" min="1" max="16" value="6"><span id="kSlicesV">6</span></div>
+  <div class="row"><label>Mirror X / Y</label>
+    <span class="pill"><label><input type="checkbox" id="mX" checked> X</label><label><input type="checkbox" id="mY"> Y</label></span>
+  </div>
+  <div class="sub">Move the “knob” (sliders) any direction; tap the label to reset (double-tap on iPhone).</div>
+</div>
+
+<div class="panel" id="panelPresets">
+  <h3>Visualizer Presets</h3>
+  <div class="grid-3" id="presetGrid"></div>
+  <div class="sub">Switch visuals during recording; everything reacts to the music.</div>
+</div>
+
+<!-- Right side: Recorder -->
+<div class="rec-rail">
+  <button class="recbtn rec" id="recBtn" title="Record video + audio"><i class="fa-solid fa-circle"></i>&nbsp;REC</button>
+  <div class="sm">
+    <div class="btn" id="autoBtn" title="Auto-record this song"><i class="fa-solid fa-microchip"></i></div>
+    <div class="btn" id="shareBtn" title="Share last recording"><i class="fa-solid fa-share-nodes"></i></div>
+    <a id="dlLink" class="btn" title="Download last recording" download="VideoDJ.webm" style="text-decoration:none;color:#fff"><i class="fa-solid fa-download"></i></a>
+  </div>
+</div>
+
+<!-- Transport / Import (Bottom dock) -->
+<div class="dock">
+  <button class="btn" id="prev"><i class="fa-solid fa-backward-step"></i></button>
+  <button class="btn" id="play"><i class="fa-solid fa-play"></i></button>
+  <button class="btn" id="next"><i class="fa-solid fa-forward-step"></i></button>
+
+  <input id="pickAudio" type="file" accept="audio/*,video/*" multiple>
+  <label for="pickAudio" title="Add tracks"><i class="fa-solid fa-music"></i></label>
+
+  <button class="btn" id="micBtn" title="Use Microphone"><i class="fa-solid fa-microphone"></i></button>
+  <button class="btn" id="simBtn" title="Simulation source"><i class="fa-solid fa-wave-square"></i></button>
+
+  <!-- Open AudioHub -->
+  <div class="hub">
+    <div class="fab" id="openHub" title="AudioHub (sources, EQ, reverb)"><i class="fa-solid fa-headphones"></i></div>
+    <div class="sheet" id="hubSheet">
+      <h3>AudioHub</h3>
+      <div class="row"><label>Source</label>
+        <select id="srcSel">
+          <option value="file">Playlist (Files / iCloud / Drive)</option>
+          <option value="mic">Microphone / Line-In</option>
+          <option value="sim">Simulation (test tone + noise)</option>
+        </select>
+      </div>
+      <div class="row"><label>Master Volume</label><input type="range" id="vol" min="0" max="100" value="85"><span id="volV">85%</span></div>
+      <div class="row"><label>Reverb Amount</label><input type="range" id="rev" min="0" max="100" value="25"><span id="revV">25%</span></div>
+      <div class="row"><label>Bass (lowshelf)</label><input type="range" id="bass" min="-18" max="18" value="0"><span id="bassV">0 dB</span></div>
+      <div class="row"><label>Treble (highshelf)</label><input type="range" id="treb" min="-18" max="18" value="0"><span id="trebV">0 dB</span></div>
+      <div class="small">AutoMode: starts REC when play starts and stops when the current file ends.</div>
+    </div>
+  </div>
+</div>
+
+<div class="badge" id="status">Idle</div>
+
+<!-- Footer -->
+  <footer id="footer">
+    <p>
+      <a href="../index.html">Visit Our Hub</a> <br /> &copy; 2025 FOOD4THOTH 
+      <br /> All Rights Reserved 
+    </p>
+    <p>
+       <a href="../contact.html" id="contact" class="styled-link">Contact</a> | 
+       <a href="/VJDJ/readme/" class="styled-link">ReadMe</a>
+    </p>
+	
+  </footer>
+
+<script>
+/* ========= 1) AUDIO ENGINE ========= */
+let audioCtx, analyser, srcNode, micStream,
+    simOsc, simNoise, simLFO, simLFOGain, simNoiseGain, simMixer,
+    gain, bass, treb, convolver, convolverGain, master,
+    mediaEl, playlist = [], trackIndex = 0, audioGraph;
+
+let currentSource = 'none';
+let simOn = false;
+
+const player = document.getElementById('player');
+
+async function ensureAudio(){
+  if(audioCtx) return;
+  audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+  analyser = audioCtx.createAnalyser(); analyser.fftSize = 2048;
+
+  gain = audioCtx.createGain(); gain.gain.value = 0.85;
+  bass = audioCtx.createBiquadFilter(); bass.type='lowshelf'; bass.frequency.value = 200; bass.gain.value = 0;
+  treb = audioCtx.createBiquadFilter(); treb.type='highshelf'; treb.frequency.value = 3500; treb.gain.value = 0;
+
+  convolver = audioCtx.createConvolver(); convolver.buffer = makeImpulse(audioCtx, 2.8, 2.5);
+  convolverGain = audioCtx.createGain(); convolverGain.gain.value = 0.25;
+  master = audioCtx.createGain(); master.gain.value = 0.85;
+
+  const dry = audioCtx.createGain(); dry.gain.value = 1.0; dry.connect(master);
+  const send = audioCtx.createGain(); send.gain.value = 1.0;
+  convolver.connect(convolverGain); send.connect(convolver); convolverGain.connect(master);
+  master.connect(analyser); master.connect(audioCtx.destination);
+  audioGraph = { dry, send };
+
+  // keep play/pause UI in sync + AutoMode start/stop
+  player.addEventListener('play',  ()=>{ setPlayIcon(); if(playlist[trackIndex]) setStatus('Playing: ' + playlist[trackIndex].name); if(autoMode && !recorder) startRecording(); });
+  player.addEventListener('pause', ()=>{ setPlayIcon(); if(playlist[trackIndex]) setStatus('Paused: '  + playlist[trackIndex].name); });
+  player.addEventListener('ended', ()=>{ setPlayIcon(); if(autoMode) stopRecording(); });
+}
+
+function makeImpulse(ctx, duration=2.5, decay=2.0){
+  const rate = ctx.sampleRate, length = rate*duration;
+  const impulse = ctx.createBuffer(2, length, rate);
+  for(let ch=0; ch<2; ch++){
+    const data = impulse.getChannelData(ch);
+    for(let i=0;i<length;i++){ data[i] = (Math.random()*2-1) * Math.pow(1 - i/length, decay); }
+  }
+  return impulse;
+}
+
+function setSourceUI(type){ const sel = document.getElementById('srcSel'); if(sel) sel.value = type; }
+function disconnectCurrentSource(){ if(srcNode){ try{ srcNode.disconnect(); }catch{} srcNode = null; } }
+function stopMic(){ if(micStream){ micStream.getTracks().forEach(t=>t.stop()); micStream = null; } }
+function stopSim(){
+  if(simOsc){ try{ simOsc.stop(); }catch{} simOsc.disconnect(); simOsc = null; }
+  if(simNoise){ try{ simNoise.stop(); }catch{} simNoise.disconnect(); simNoise = null; }
+  if(simLFO){ try{ simLFO.stop(); }catch{} simLFO.disconnect(); simLFO = null; }
+  if(simLFOGain){ try{ simLFOGain.disconnect(); }catch{} simLFOGain = null; }
+  if(simNoiseGain){ try{ simNoiseGain.disconnect(); }catch{} simNoiseGain = null; }
+  if(simMixer){ try{ simMixer.disconnect(); }catch{} simMixer = null; }
+  simOn = false; if(currentSource === 'sim') currentSource = 'none'; setStatus('Simulation stopped');
+}
+function switchTo(type){ disconnectCurrentSource(); if(type !== 'mic') stopMic(); if(type !== 'sim') stopSim(); currentSource = type; setSourceUI(type); }
+function connectSource(node){
+  disconnectCurrentSource();
+  node.connect(bass); bass.connect(treb);
+  treb.connect(audioGraph.dry);
+  treb.connect(audioGraph.send);
+  srcNode = node;
+}
+
+/* == Files / Playlist == */
+async function useFiles(files){
+  await ensureAudio();
+  if(!files || !files.length) return;
+  stopSim(); switchTo('file');
+  playlist = Array.from(files).filter(f => /audio|video/.test(f.type));
+  trackIndex = 0; loadTrack(trackIndex, true);
+}
+function loadTrack(i, autoplay=false){
+  const file = playlist[i]; if(!file) return;
+  stopSim(); switchTo('file');
+  const url = URL.createObjectURL(file);
+  player.src = url;
+  if(!mediaEl){ mediaEl = audioCtx.createMediaElementSource(player); }
+  connectSource(mediaEl);
+  setStatus('Loaded: ' + file.name);
+  if(autoplay){ player.play(); }
+}
+
+/* == Mic == */
+async function useMic(){
+  await ensureAudio(); stopSim(); switchTo('mic');
+  const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+  micStream = stream;
+  const source = audioCtx.createMediaStreamSource(stream);
+  connectSource(source);
+  setStatus('Mic/Line-In active');
+}
+
+/* == Simulation (toggle) == */
+async function useSim(){
+  await ensureAudio();
+  if(simOn){
+    stopSim();
+    if(playlist.length){ switchTo('file'); if(mediaEl) connectSource(mediaEl); setSourceUI('file'); }
+    return;
+  }
+  switchTo('sim');
+  simOsc = audioCtx.createOscillator(); simOsc.type='sawtooth'; simOsc.frequency.value=110;
+  simLFO = audioCtx.createOscillator(); simLFO.type='sine'; simLFO.frequency.value=0.15;
+  simLFOGain = audioCtx.createGain(); simLFOGain.gain.value = 70; simLFO.connect(simLFOGain); simLFOGain.connect(simOsc.frequency); simLFO.start();
+
+  const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate*2, audioCtx.sampleRate);
+  const data = buffer.getChannelData(0); for(let k=0;k<data.length;k++) data[k]=Math.random()*2-1;
+  simNoise = audioCtx.createBufferSource(); simNoise.buffer=buffer; simNoise.loop=true;
+  simNoiseGain = audioCtx.createGain(); simNoiseGain.gain.value=0.12;
+
+  simMixer = audioCtx.createGain(); simMixer.gain.value=1.0;
+  simOsc.connect(simMixer); simNoise.connect(simNoiseGain); simNoiseGain.connect(simMixer);
+  connectSource(simMixer);
+  simOsc.start(); simNoise.start(); simOn = true;
+  setStatus('Simulation source running');
+}
+
+/* ========= AUDIO METRICS (bass/mid/treble/beat) ========= */
+const freqData = new Uint8Array(1024);
+let meters = { level:0, bass:0, mid:0, treb:0, beat:0 };
+let _prevLevel = 0;
+
+function avgBand(arr, a, b){
+  let s = 0, n = Math.max(1, b - a);
+  for (let i=a; i<b; i++) s += arr[i] / 255;
+  return s / n;
+}
+function smooth(prev, val, up=0.25, down=0.12){
+  return val > prev ? prev + (val - prev) * up
+                    : prev + (val - prev) * down;
+}
+function updateAudioMetrics(){
+  analyser.getByteFrequencyData(freqData);
+  const N = analyser.frequencyBinCount || freqData.length;
+  let sum = 0; for (let i=0; i<N; i++) sum += freqData[i];
+  const lvl = (sum / N) / 255;
+
+  const bEnd = Math.floor(N * 0.10);
+  const mEnd = Math.floor(N * 0.35);
+  const bassV = avgBand(freqData, 0, bEnd);
+  const midV  = avgBand(freqData, bEnd, mEnd);
+  const trebV = avgBand(freqData, mEnd, N);
+
+  meters.level = smooth(meters.level, lvl);
+  meters.bass  = smooth(meters.bass,  bassV);
+  meters.mid   = smooth(meters.mid,   midV);
+  meters.treb  = smooth(meters.treb,  trebV);
+
+  const vel = Math.max(0, meters.level - _prevLevel);
+  meters.beat = vel > 0.015 && meters.bass > 0.25 ? 1 : Math.max(0, meters.beat - 0.2);
+  _prevLevel = meters.level;
+}
+
+/* ========= 2) MEDIA LAYERS ========= */
+const $ = s=>document.querySelector(s);
+const $on = (el,ev,fn)=>el.addEventListener(ev,fn,{passive:true});
+
+const srcCanvas = $('#src'), sctx = srcCanvas.getContext('2d');
+const bgVideo = $('#bgVideo'), ovVideo = $('#overlayVideo');
+let wallpaperImg = null, bgColor = '#000000', ovScale = 1.0, ovAlpha = 0.7, ovBlend='source-over';
+$on($('#imgPick'),'change', e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const img=new Image(); img.onload=()=>{wallpaperImg=img}; img.src=URL.createObjectURL(f);
+});
+$on($('#vidPick'),'change', e=>{ const f=e.target.files[0]; if(!f) return; bgVideo.src=URL.createObjectURL(f); bgVideo.play(); });
+$on($('#ovPick'),'change', e=>{ const f=e.target.files[0]; if(!f) return; ovVideo.src=URL.createObjectURL(f); ovVideo.play(); });
+$on($('#bgColor'),'input', e=>bgColor=e.target.value);
+function bindRange(id,unit,cb){ const r=$(id), v=$(id+'V'); const fn=()=>{ v && (v.textContent = r.value + (unit||'')); cb && cb(+r.value); }; $on(r,'input',fn); fn(); }
+bindRange('#ovScale','%',v=>{ ovScale = v/100; }); 
+bindRange('#ovAlpha','%',v=>{ ovAlpha = v/100; });
+// ---------- Overlay blend: feature-detect + safe binding ----------
+(function(){
+  const ALL_BLEND_MODES = [
+    'source-over','screen','lighter','multiply','difference','hard-light','soft-light',
+    'overlay','darken','lighten','color-dodge','color-burn','exclusion','hue','saturation','color','luminosity'
+  ];
+
+  function supportedBlendModes(ctx){
+    const prev = ctx.globalCompositeOperation;
+    const ok = [];
+    for(const m of ALL_BLEND_MODES){
+      try{
+        ctx.globalCompositeOperation = m;
+        if(ctx.globalCompositeOperation === m) ok.push(m);
+      }catch(_){}
+    }
+    ctx.globalCompositeOperation = prev;
+    return ok;
+  }
+
+  const ovBlendSel = document.getElementById('ovBlend');
+  if(ovBlendSel && sctx){
+    const SUPPORTED = supportedBlendModes(sctx);
+
+    // Grey out any modes this browser can't do
+    ovBlendSel.querySelectorAll('option').forEach(opt=>{
+      const v = opt.value;
+      if(!SUPPORTED.includes(v)){ opt.disabled = true; opt.textContent += ' (unsupported)'; }
+    });
+
+    // Initialize safely
+    if(!SUPPORTED.includes(ovBlendSel.value)) ovBlendSel.value = 'source-over';
+    ovBlend = ovBlendSel.value; // uses your existing variable
+
+    // Bind changes with fallback
+    ovBlendSel.addEventListener('change', e=>{
+      const v = e.target.value;
+      ovBlend = SUPPORTED.includes(v) ? v : 'source-over';
+    }, {passive:true});
+  }
+})();
+
+/* ========= 3) VISUAL ENGINE (2D->WebGL with shader FX) ========= */
+const stage = $('#stage');
+let gl, program, tex, timeStart=performance.now();
+let uniforms = {
+  hue:0, sat:1.2, con:1.2, trail:0.25, glitch:0.0, kSlices:6.0, mX:1.0, mY:0.0,
+  // post-FX + audio-react master
+  pixel:2.0, vignette:0.35, aberr:1.5, warp:8.0, poster:2.0, scan:0.35, ar:1.2
+};
+
+let U = {};
+function initGL(){
+  gl = stage.getContext('webgl',{alpha:false,antialias:true,preserveDrawingBuffer:true});
+  if(!gl){ alert('WebGL not available'); return; }
+  stage.width = innerWidth*devicePixelRatio; stage.height = innerHeight*devicePixelRatio;
+  gl.viewport(0,0,stage.width,stage.height);
+
+  const vs = `
+    attribute vec2 p; varying vec2 v;
+    void main(){ v = (p+1.0)*0.5; gl_Position = vec4(p,0.0,1.0); }
+  `;
+  const fs = `
+    precision highp float;
+    varying vec2 v;
+    uniform sampler2D uTex;
+    uniform vec2  uRes;
+    uniform float uTime, uHue, uSat, uCon, uTrail;
+    uniform float uGlitch, uKSlices, uMX, uMY, uAudio;
+
+    // NEW uniforms
+    uniform vec3  uBands;   // bass, mid, treb
+    uniform float uBeat;    // 0..1 pulse
+    uniform float uPixel;   // px
+    uniform float uVignette;// 0..1
+    uniform float uAberr;   // px
+    uniform float uWarp;    // 0..30
+    uniform float uPoster;  // 0..8
+    uniform float uScan;    // 0..1
+    uniform float uAR;      // 0..2
+
+    // hsv helpers
+    vec3 rgb2hsv(vec3 c){ vec4 K = vec4(0.,-1./3.,2./3.,-1.); vec4 p = mix(vec4(c.bg, K.wz), vec4(c.gb, K.xy), step(c.b,c.g)); vec4 q = mix(vec4(p.xyw,c.r), vec4(c.r,p.yzx), step(p.x,c.r)); float d=q.x-min(q.w,q.y); float e=1e-10; return vec3(abs(q.z+(q.w-q.y)/(6.*d+e)), d/(q.x+e), q.x); }
+    vec3 hsv2rgb(vec3 c){ vec3 p = abs(fract(c.xxx+vec3(0.,1./3.,2./3.))*6.-3.); return c.z * mix(vec3(1.), clamp(p-1.,0.,1.), c.y); }
+
+    // kaleidoscope
+    vec2 kaleido(vec2 uv, float n){
+      vec2 c = uv - 0.5;
+      float a = atan(c.y,c.x);
+      float r = length(c)*1.0;
+      float tau = 6.28318530718;
+      a = mod(a, tau/ n);
+      a = abs(a - (tau/n)/2.);
+      vec2 p = vec2(cos(a), sin(a))*r;
+      return p + 0.5;
+    }
+
+    void main(){
+      vec2 uv = v;
+
+      // mirror
+      if(uMX>0.5) uv.x = abs(uv.x - 0.5)+0.5;
+      if(uMY>0.5) uv.y = abs(uv.y - 0.5)+0.5;
+
+      // kaleidoscope
+      if(uKSlices>1.0) uv = kaleido(uv, floor(uKSlices));
+
+      // AUDIO-REACTIVE warp (bass+mid)
+      float warpAmt = (uWarp + (uBands.y*20.0 + uBands.x*10.0) * uAR) / 600.0;
+      vec2 c = uv - 0.5;
+      float swirl = sin(uTime*2.0 + length(c)*16.0);
+      vec2 uvw = uv + c * swirl * warpAmt;
+
+      // pixelate (bass)
+      float px = uPixel + (uBands.x * 8.0) * uAR;
+      vec2 suv = uvw;
+      if (px > 0.5){
+        vec2 p = vec2(px)/uRes;
+        suv = (floor(uvw/p)+0.5)*p;
+      }
+
+      // glitch (treble)
+      float g = (uGlitch + uBands.z * 0.6 * uAR) * (0.5+uAudio*1.5);
+      float band = step(0.0, sin((suv.y+uTime*0.2)*60.0)) * g;
+      vec2 guv = suv + vec2(band*0.02, 0.0);
+
+      // chromatic aberration (beat pop)
+      float ab = (uAberr + uBeat*3.0*uAR) / max(uRes.x,uRes.y);
+      vec2 off = (guv - 0.5) * ab;
+
+      float r = texture2D(uTex, guv + off).r;
+      float gch= texture2D(uTex, guv       ).g;
+      float b = texture2D(uTex, guv - off).b;
+      vec3 col = vec3(r,gch,b);
+
+      // color ops (HSV)
+      vec3 hsv = rgb2hsv(col);
+      hsv.x = mod(hsv.x + uHue/360.0, 1.0);
+      hsv.y *= uSat;
+      col = hsv2rgb(hsv);
+
+      // posterize
+      if(uPoster > 0.5){
+        float steps = floor(uPoster) + 1.0;
+        col = floor(col * steps) / steps;
+      }
+
+      // contrast
+      col = (col - 0.5) * uCon + 0.5;
+
+      // scanlines
+      if(uScan > 0.001){
+        float scan = 0.5 + 0.5 * sin((uvw.y * uRes.y) * 3.14159);
+        col *= 1.0 - uScan * (0.35*scan);
+      }
+
+      // vignette
+      if(uVignette > 0.001){
+        float d = length(uvw - 0.5) * 1.6;
+        float vig = smoothstep(1.0, 0.5, d);
+        col *= mix(1.0, vig, uVignette);
+      }
+
+      gl_FragColor = vec4(clamp(col,0.0,1.0), 1.0);
+    }
+  `;
+  function compile(type,src){ const s=gl.createShader(type); gl.shaderSource(s,src); gl.compileShader(s); if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(s); return s; }
+  program = gl.createProgram();
+  gl.attachShader(program, compile(gl.VERTEX_SHADER,vs));
+  gl.attachShader(program, compile(gl.FRAGMENT_SHADER,fs));
+  gl.linkProgram(program); gl.useProgram(program);
+
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(program,'p');
+  gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+
+  tex = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+
+  const uni = n=>gl.getUniformLocation(program,n);
+  U = {
+    tex: uni('uTex'), res: uni('uRes'), time: uni('uTime'),
+    hue: uni('uHue'), sat: uni('uSat'), con: uni('uCon'), trail: uni('uTrail'),
+    glitch: uni('uGlitch'), k: uni('uKSlices'), mx: uni('uMX'), my: uni('uMY'), audio: uni('uAudio'),
+    bands: uni('uBands'), beat: uni('uBeat'),
+    pixel: uni('uPixel'), vignette: uni('uVignette'), aberr: uni('uAberr'),
+    warp: uni('uWarp'), poster: uni('uPoster'), scan: uni('uScan'), ar: uni('uAR')
+  };
+  gl.uniform1i(U.tex,0);
+  gl.uniform2f(U.res, stage.width, stage.height);
+}
+initGL(); addEventListener('resize', initGL, {passive:true});
+
+/* Visualizer modes drawn on srcCanvas, then shader FX are applied */
+const modes = {
+  Bars: drawBars,
+  Radial: drawRadial,
+  Mandala: drawMandala,
+  Shapes: drawShapes,
+  Dreaming: drawDream,
+  Psychedelic: drawPsy,
+  Tunnel: drawTunnel,
+  Lissajous: drawLissajous
+};
+let currentMode = 'Bars';
+
+// build preset buttons
+const grid = $('#presetGrid');
+Object.keys(modes).forEach(name=>{
+  const b=document.createElement('button');
+  b.className='btn'; b.style.cssText='height:40px;border-radius:10px;background:#12131a;border:1px solid var(--ui-bd);color:#fff';
+  b.textContent=name; b.onclick=()=>{ currentMode=name; setStatus('Preset: '+name); };
+  grid.appendChild(b);
+});
+
+/* ========= DRAW LOOP ========= */
+function draw(){
+  requestAnimationFrame(draw);
+  const W = srcCanvas.width, H = srcCanvas.height;
+
+  // clear / bg
+  sctx.globalAlpha = 1.0; sctx.fillStyle = bgColor; sctx.fillRect(0,0,W,H);
+
+  // bg media
+  if(bgVideo.readyState>=2){ cover(sctx, bgVideo, W,H, 1.0); }
+  if(wallpaperImg){ cover(sctx, wallpaperImg, W,H, 0.35); }
+
+  // audio metrics
+  let audioLevel = 0.0;
+  if(analyser){ updateAudioMetrics(); audioLevel = meters.level; }
+
+  // mode
+  modes[currentMode](sctx, W,H, freqData, audioLevel);
+
+  // overlay vid
+  if(ovVideo.readyState>=2){
+    sctx.save();
+    sctx.globalAlpha = ovAlpha;
+    sctx.globalCompositeOperation = ovBlend;
+    const scale = ovScale;
+    const vw = ovVideo.videoWidth || srcCanvas.width;
+    const vh = ovVideo.videoHeight || srcCanvas.height;
+    const w = vw * scale, h = vh * scale;
+    sctx.drawImage(ovVideo, (W-w)/2, (H-h)/2, w,h);
+    sctx.restore();
+  }
+
+  // upload to WebGL
+  gl.activeTexture(gl.TEXTURE0);
+  gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, srcCanvas);
+
+  // uniforms
+  const t = (performance.now()-timeStart)/1000;
+  gl.uniform1f(U.time, t);
+  gl.uniform1f(U.hue, uniforms.hue);
+  gl.uniform1f(U.sat, uniforms.sat);
+  gl.uniform1f(U.con, uniforms.con);
+  gl.uniform1f(U.trail, uniforms.trail);
+
+  gl.uniform1f(U.audio, audioLevel);
+  gl.uniform3f(U.bands, meters.bass, meters.mid, meters.treb);
+  gl.uniform1f(U.beat, meters.beat);
+
+  gl.uniform1f(U.glitch, uniforms.glitch);
+  gl.uniform1f(U.k, uniforms.kSlices);
+  gl.uniform1f(U.mx, uniforms.mX);
+  gl.uniform1f(U.my, uniforms.mY);
+
+  gl.uniform1f(U.pixel,   uniforms.pixel);
+  gl.uniform1f(U.vignette,uniforms.vignette);
+  gl.uniform1f(U.aberr,   uniforms.aberr);
+  gl.uniform1f(U.warp,    uniforms.warp);
+  gl.uniform1f(U.poster,  uniforms.poster);
+  gl.uniform1f(U.scan,    uniforms.scan);
+  gl.uniform1f(U.ar,      uniforms.ar);
+
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+}
+draw();
+
+/* helpers for media fitting */
+function cover(ctx, media, W,H, opacity){
+  const mw = media.videoWidth || media.width, mh = media.videoHeight || media.height;
+  const r = Math.max(W/mw, H/mh); const w=mw*r, h=mh*r;
+  ctx.save(); ctx.globalAlpha = opacity||1; ctx.drawImage(media, (W-w)/2,(H-h)/2,w,h); ctx.restore();
+}
+
+/* ========== Visualizer implementations (2D) ========== */
+function drawBars(ctx, W,H, bins, level){
+  ctx.save();
+  const n = 64, step = Math.max(1, Math.floor((bins.length||256)/n));
+  const barW = W/n;
+  for(let i=0;i<n;i++){
+    const v = bins[i*step]/255;
+    const h = (0.12+v)*H*0.9;
+    const x = i*barW;
+    const y = H - h;
+    ctx.fillStyle = `hsl(${(i/n*360+performance.now()/40)%360}, 90%, ${40+v*40}%)`;
+    ctx.fillRect(x,y,barW*0.9,h);
+  }
+  ctx.restore();
+}
+function drawRadial(ctx, W,H,bins, level){
+  ctx.save();
+  ctx.translate(W/2,H/2);
+  const radius = Math.min(W,H)*0.25;
+  const arms = 120;
+  for(let i=0;i<arms;i++){
+    const a = (i/arms)*Math.PI*2;
+    const v = bins[(i*2)%bins.length]/255;
+    const len = radius + v*radius*1.2;
+    ctx.strokeStyle = `hsla(${(i/arms*360+performance.now()/30)%360}, 95%, 60%, .9)`;
+    ctx.lineWidth = 2 + v*6;
+    ctx.beginPath();
+    ctx.moveTo(Math.cos(a)*radius, Math.sin(a)*radius);
+    ctx.lineTo(Math.cos(a)*len, Math.sin(a)*len);
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+function drawMandala(ctx, W,H,bins, level){
+  ctx.save();
+  const cx=W/2, cy=H/2;
+  const rings = 6, petals=24;
+  for(let r=1;r<=rings;r++){
+    for(let p=0;p<petals;p++){
+      const idx = ((r*petals)+p)%(bins.length||256);
+      const v = bins[idx]/255;
+      const a = (p/petals)*Math.PI*2 + performance.now()/1000*(0.15+0.1*r);
+      const rad = (r/(rings+1))*Math.min(W,H)*0.9 + v*50;
+      const x = cx + Math.cos(a)*rad, y = cy + Math.sin(a)*rad;
+      ctx.fillStyle = `hsla(${(p/petals*360+r*20+performance.now()/40)%360}, 100%, ${50+v*40}%, .85)`;
+      ctx.beginPath(); ctx.arc(x,y, 10+v*18, 0, Math.PI*2); ctx.fill();
+    }
+  }
+  ctx.restore();
+}
+function drawShapes(ctx,W,H,bins,level){
+  ctx.save();
+  const t = performance.now()/1000;
+  for(let i=0;i<80;i++){
+    const v = bins[(i*3)%bins.length]/255;
+    const x = (Math.sin(t*(.5+i*0.03)+i)*.5+.5)*W;
+    const y = (Math.cos(t*(.4+i*0.04)-i)*.5+.5)*H;
+    ctx.fillStyle = `hsla(${(i*12+t*40)%360},100%,60%,${.35+.6*v})`;
+    ctx.beginPath(); ctx.moveTo(x,y);
+    for(let k=0;k<6;k++){
+      const a = k/6*Math.PI*2 + t*.8;
+      const r = 6 + v*30;
+      ctx.lineTo(x+Math.cos(a)*r, y+Math.sin(a)*r);
+    }
+    ctx.closePath(); ctx.fill();
+  }
+  ctx.restore();
+}
+function drawDream(ctx,W,H,bins,level){
+  ctx.save();
+  const t = performance.now()/1000;
+  const g = ctx.createRadialGradient(W/2,H/2, 10, W/2,H/2, Math.min(W,H)/1.2);
+  g.addColorStop(0, `hsla(${(t*40)%360},100%,55%,.25)`);
+  g.addColorStop(1, `hsla(${(t*40+180)%360},100%,5%,.25)`);
+  ctx.globalCompositeOperation = 'screen';
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  for(let i=0;i<5;i++){
+    ctx.globalAlpha=.6;
+    ctx.beginPath();
+    const yy = (i+1)/6*H + Math.sin(t*0.6+i)*H*0.05*level*4;
+    ctx.moveTo(0,yy);
+    for(let x=0;x<=W;x+=20){
+      const y= yy + Math.sin(t*1.2 + x*0.01 + i)*20*level*6;
+      ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle=`hsla(${(i*50+t*30)%360},100%,70%,.6)`; ctx.lineWidth=2; ctx.stroke();
+  }
+  ctx.restore();
+}
+function drawPsy(ctx,W,H,bins,level){
+  const img = ctx.createImageData(W,H);
+  const d = img.data; const t = performance.now()/1000;
+  for(let y=0;y<H;y+=2){
+    for(let x=0;x<W;x+=2){
+      const v = Math.sin(x*0.01+ t) + Math.sin(y*0.013 - t*1.2) + Math.sin((x+y)*0.008 + t*0.7);
+      const n = (v*0.5+0.5) * (0.5 + level*0.8);
+      const h = ((x/W)*360 + t*40) % 360;
+      const c = hslToRgb(h/360, 0.9, n*0.6+0.2);
+      const idx = (y*W + x)*4;
+      for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++){
+        const i = idx + (dy*W + dx)*4;
+        d[i]=c[0]; d[i+1]=c[1]; d[i+2]=c[2]; d[i+3]=255;
+      }
+    }
+  }
+  ctx.putImageData(img,0,0);
+}
+function drawTunnel(ctx,W,H,bins,level){
+  const t = performance.now()/1000;
+  const cx=W/2, cy=H/2;
+  const rings=22;
+  ctx.save(); ctx.translate(cx,cy);
+  for(let i=0;i<rings;i++){
+    const v = bins[(i*4)%bins.length]/255;
+    const r = (Math.min(W,H)*0.05 + (i/rings)*Math.min(W,H)*0.55) * (1.0 + level*0.25);
+    ctx.strokeStyle = `hsla(${(t*50 + i*12)%360},100%,60%,${0.25+v*0.75})`;
+    ctx.lineWidth = 2 + v*10;
+    ctx.beginPath(); ctx.arc(0,0, r + Math.sin(t*1.6 + i)*20*level, 0, Math.PI*2); ctx.stroke();
+  }
+  ctx.restore();
+}
+function drawLissajous(ctx,W,H,bins,level){
+  const t = performance.now()/1000;
+  const a = 3 + Math.round(level*5);
+  const b = 2 + Math.round(level*7);
+  const sx = W*0.42, sy = H*0.42;
+  ctx.save(); ctx.translate(W/2,H/2);
+  ctx.beginPath();
+  for(let i=0;i<1200;i++){
+    const u = i/1200 * Math.PI*2;
+    const x = Math.sin(a*u + t*0.9) * sx * (0.7 + bins[(i*2)%bins.length]/255*0.5);
+    const y = Math.sin(b*u + t*1.1) * sy * (0.7 + bins[(i*3)%bins.length]/255*0.5);
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.strokeStyle = `hsla(${(t*80)%360},100%,70%,.85)`;
+  ctx.lineWidth = 1.5 + level*6; ctx.stroke();
+  ctx.restore();
+}
+function hslToRgb(h,s,l){
+  const a=s*Math.min(l,1-l);
+  const f=n=>{ const k=(n+h*12)%12; return l - a*Math.max(Math.min(k-3,9-k,1),-1); };
+  return [f(0)*255,f(8)*255,f(4)*255];
+}
+
+/* ========= 4) Shader controls bindings ========= */
+bindRange('#hue','°',v=>{ uniforms.hue = v; });
+bindRange('#sat','%',v=>{ uniforms.sat = v/100; });
+bindRange('#con','%',v=>{ uniforms.con = v/100; });
+bindRange('#trail','%',v=>{ uniforms.trail = v/100; });
+bindRange('#glitch','%',v=>{ uniforms.glitch = v/100; });
+bindRange('#kSlices','',v=>{ uniforms.kSlices = v; });
+$on($('#mX'),'change',e=>uniforms.mX = e.target.checked?1:0);
+$on($('#mY'),'change',e=>uniforms.mY = e.target.checked?1:0);
+
+/* ========= EXTRA SFX CONTROLS (injected) ========= */
+const sfx = document.getElementById('panelSfx');
+function addS(id,label,min,max,val,unit){
+  const row = document.createElement('div'); row.className = 'row';
+  row.innerHTML = `<label>${label}</label>
+    <input type="range" id="${id}" min="${min}" max="${max}" value="${val}">
+    <span id="${id}V">${val}${unit||''}</span>`;
+  sfx.insertBefore(row, sfx.querySelector('.sub'));
+}
+addS('pixel','Pixelate',0,20,2,'px');
+addS('vignette','Vignette',0,100,35,'%');
+addS('aberr','Chromatic aberration',0,10,1.5,'px');
+addS('warp','Warp',0,30,8,'');
+addS('poster','Posterize',0,8,2,'');
+addS('scan','Scanlines',0,100,35,'%');
+addS('ar','Audio-react amount',0,200,120,'%');
+
+bindRange('#pixel','px', v=> uniforms.pixel = v);
+bindRange('#vignette','%', v=> uniforms.vignette = v/100);
+bindRange('#aberr','px', v=> uniforms.aberr = v);
+bindRange('#warp','',   v=> uniforms.warp = v);
+bindRange('#poster','', v=> uniforms.poster = v);
+bindRange('#scan','%',  v=> uniforms.scan = v/100);
+bindRange('#ar','%',    v=> uniforms.ar = v/100);
+
+/* ========= 5) TRANSPORT / HUB WIRING ========= */
+$on($('#openHub'),'click',()=>$('#hubSheet').classList.toggle('open'));
+$on($('#openWallpaper'),'click',()=>togglePanel('panelWallpaper'));
+$on($('#openColor'),'click',()=>togglePanel('panelColor'));
+$on($('#openSfx'),'click',()=>togglePanel('panelSfx'));
+$on($('#openPresets'),'click',()=>togglePanel('panelPresets'));
+function togglePanel(id){ ['panelWallpaper','panelColor','panelSfx','panelPresets'].forEach(pid=>$('#'+pid).classList.toggle('open', pid===id && !$('#'+pid).classList.contains('open'))); }
+
+bindRange('#vol','%',val=>{ if(master) master.gain.value = val/100; });
+bindRange('#rev','%',val=>{ if(convolverGain) convolverGain.gain.value = val/100; });
+bindRange('#bass',' dB',val=>{ if(bass) bass.gain.value = val; });
+bindRange('#treb',' dB',val=>{ if(treb) treb.gain.value = val; });
+
+let playing=false;
+$on($('#play'),'click', async ()=>{
+  await ensureAudio();
+  if($('#srcSel').value==='file' && !playlist.length){ $('#pickAudio').click(); return; }
+  if(mediaEl){
+    if(player.paused){
+      stopSim(); switchTo('file'); connectSource(mediaEl); player.play(); playing = true;
+    }else{
+      player.pause(); playing = false;
+    }
+  }
+  setPlayIcon();
+});
+function setPlayIcon(){ $('#play').innerHTML = `<i class="fa-solid fa-${(mediaEl && !player.paused)?'pause':'play'}"></i>`; }
+
+$on($('#prev'),'click',()=>{ if(!playlist.length) return; trackIndex = (trackIndex-1+playlist.length)%playlist.length; loadTrack(trackIndex,true); });
+$on($('#next'),'click',()=>{ if(!playlist.length) return; trackIndex = (trackIndex+1)%playlist.length; loadTrack(trackIndex,true); });
+$on($('#pickAudio'),'change', e=>useFiles(e.target.files));
+$on($('#micBtn'),'click', ()=>{ $('#srcSel').value='mic'; useMic(); });
+$on($('#simBtn'),'click', async ()=>{ $('#srcSel').value='sim'; await useSim(); });
+$on($('#srcSel'),'change', e=>{
+  if(e.target.value==='mic')  useMic();
+  if(e.target.value==='sim')  useSim();
+  if(e.target.value==='file'){
+    stopSim(); switchTo('file');
+    if(mediaEl) connectSource(mediaEl);
+    if(playlist.length) setStatus('Loaded: ' + playlist[trackIndex].name);
+  }
+});
+
+/* ========= 6) RECORD / SHARE ========= */
+let recorder, chunks=[], lastBlob=null, autoMode=false;
+$on($('#recBtn'),'click',()=>{ recorder? stopRecording(): startRecording(); });
+$on($('#autoBtn'),'click',()=>{ autoMode=!autoMode; $('#autoBtn').style.outline = autoMode? '2px solid var(--good)':'none'; setStatus('AutoMode '+(autoMode?'ON':'OFF')); });
+
+async function startRecording(){
+  await ensureAudio();
+  const canvasStream = stage.captureStream(60);
+  const audioDest = audioCtx.createMediaStreamDestination();
+  master.connect(audioDest);
+
+  const mixed = new MediaStream([...canvasStream.getVideoTracks(), ...audioDest.stream.getAudioTracks()]);
+  const mime = MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus') ? 'video/webm;codecs=vp9,opus' :
+               MediaRecorder.isTypeSupported('video/webm;codecs=vp8,opus') ? 'video/webm;codecs=vp8,opus' :
+               'video/webm';
+  try{
+    recorder = new MediaRecorder(mixed, {mimeType:mime, videoBitsPerSecond:6000000, audioBitsPerSecond:192000});
+  }catch(e){ alert('Recording not supported: '+e.message); return; }
+  chunks=[]; recorder.ondataavailable = e=>{ if(e.data.size) chunks.push(e.data); };
+  recorder.onstop = ()=>{
+    lastBlob = new Blob(chunks, {type:mime});
+    const url = URL.createObjectURL(lastBlob);
+    const a = $('#dlLink'); a.href = url; a.download = 'VideoDJ_'+Date.now()+'.webm';
+    setStatus('Recording saved ('+Math.round(lastBlob.size/1024/1024)+' MB)');
+  };
+  recorder.start(200);
+  $('#recBtn').innerHTML='<i class="fa-solid fa-stop"></i>&nbsp;STOP';
+  setStatus('Recording…');
+  if(autoMode && mediaEl){ player.onended = ()=> stopRecording(); }
+}
+function stopRecording(){
+  if(recorder && recorder.state!=='inactive'){ recorder.stop(); }
+  recorder=null;
+  $('#recBtn').innerHTML='<i class="fa-solid fa-circle"></i>&nbsp;REC';
+}
+$on($('#shareBtn'),'click',async ()=>{
+  if(!lastBlob){ setStatus('Nothing to share yet'); return; }
+  if(navigator.canShare && navigator.canShare({files:[new File([lastBlob],'VideoDJ.webm',{type:lastBlob.type})]})){
+    try{ await navigator.share({files:[new File([lastBlob],'VideoDJ.webm',{type:lastBlob.type})], title:'VideoDJ'}); setStatus('Shared!'); }
+    catch(e){ setStatus('Share canceled'); }
+  }else{ setStatus('Sharing not supported here — use Download'); }
+});
+
+/* ========= 7) LABEL DOUBLE-TAP RESET ========= */
+['hue','sat','con','trail','glitch','kSlices','ovScale','ovAlpha','pixel','vignette','aberr','warp','poster','scan','ar'].forEach(id=>{
+  const lab = document.querySelector('label[for="'+id+'"]') || document.querySelector('#'+id)?.closest('.row')?.querySelector('label');
+  if(lab) lab.addEventListener('dblclick',()=>{
+    const el = document.getElementById(id);
+    const def = el?.getAttribute('value') || el?.defaultValue || 0;
+    if(el){ el.value = def; el.dispatchEvent(new Event('input')); }
+  }, {passive:true});
+});
+
+/* ========= 8) STATUS & QoL ========= */
+function setStatus(t){ $('#status').textContent=t; }
+document.addEventListener('visibilitychange', ()=>{ if(document.hidden && mediaEl && !player.paused){ player.pause(); setPlayIcon(); } });
+
+
+
+</script>
+<script src="../nav-fetch.js"></script>
+<script src="../nav_script2.js"></script>
+</body>
+</html>
