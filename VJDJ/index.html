@@ -162,10 +162,13 @@
 <div class="rec-rail">
   <button class="recbtn rec" id="recBtn" title="Record video + audio"><i class="fa-solid fa-circle"></i>&nbsp;REC</button>
   <div class="sm">
-    <div class="btn" id="autoBtn" title="Auto-record this song"><i class="fa-solid fa-microchip"></i></div>
-    <div class="btn" id="shareBtn" title="Share last recording"><i class="fa-solid fa-share-nodes"></i></div>
-    <a id="dlLink" class="btn" title="Download last recording" download="VideoDJ.webm" style="text-decoration:none;color:#fff"><i class="fa-solid fa-download"></i></a>
-  </div>
+  <!-- ADD: recording format selector -->
+  <select id="fmtSel" class="sel" title="Recording format"></select>
+
+  <div class="btn" id="autoBtn" title="Auto-record this song"><i class="fa-solid fa-microchip"></i></div>
+  <div class="btn" id="shareBtn" title="Share last recording"><i class="fa-solid fa-share-nodes"></i></div>
+  <a id="dlLink" class="btn" title="Download last recording" download="VideoDJ.webm" style="text-decoration:none;color:#fff"><i class="fa-solid fa-download"></i></a>
+</div>
 </div>
 
 <!-- Transport / Import (Bottom dock) -->
@@ -433,6 +436,69 @@ bindRange('#ovAlpha','%',v=>{ ovAlpha = v/100; });
   }
 })();
 
+/* ========= FORMAT OPTIONS (safe, feature-detected) ========= */
+const FORMAT_CANDIDATES = [
+  { label: 'WebM (VP9 + Opus)',  mime: 'video/webm;codecs=vp9,opus',  ext: 'webm' },
+  { label: 'WebM (VP8 + Opus)',  mime: 'video/webm;codecs=vp8,opus',  ext: 'webm' },
+  { label: 'WebM (auto)',        mime: 'video/webm',                  ext: 'webm' },
+  // MP4/H.264 is supported by some browsers (not all). We feature-detect.
+  { label: 'MP4 (H.264 + AAC)',  mime: 'video/mp4;codecs=avc1.42E01E,mp4a.40.2', ext: 'mp4' },
+  { label: 'MP4 (auto)',         mime: 'video/mp4',                    ext: 'mp4' },
+  // MOV recording is generally NOT supported via MediaRecorder; keep visible but disabled if unsupported.
+  { label: 'MOV (QuickTime)',    mime: 'video/quicktime',              ext: 'mov' }
+];
+
+function buildFormatMenu(){
+  const sel = document.getElementById('fmtSel');
+  if(!sel) return;
+
+  sel.innerHTML = ''; // reset
+
+  FORMAT_CANDIDATES.forEach(opt => {
+    const o = document.createElement('option');
+    o.value = opt.mime;
+    o.textContent = opt.label;
+
+    // Feature-detect; disable if unsupported
+    try {
+      if(!window.MediaRecorder || !MediaRecorder.isTypeSupported(opt.mime)){
+        o.disabled = true;
+        o.textContent += ' (unsupported)';
+      }
+    } catch(_){ o.disabled = true; o.textContent += ' (unsupported)'; }
+
+    sel.appendChild(o);
+  });
+
+  // Pick the first *supported* option by default; otherwise fallback to plain WebM as a safe guess
+  const firstEnabled = Array.from(sel.options).find(o => !o.disabled);
+  sel.value = firstEnabled ? firstEnabled.value : 'video/webm';
+}
+
+// Returns { mime, ext }
+function getSelectedFormat(){
+  const sel = document.getElementById('fmtSel');
+  const chosen = sel?.value || '';
+  const found  = FORMAT_CANDIDATES.find(f => f.mime === chosen);
+
+  // If user chose something that isn’t actually supported at runtime, fallback gracefully
+  if(found && window.MediaRecorder && MediaRecorder.isTypeSupported(found.mime)){
+    return { mime: found.mime, ext: found.ext };
+  }
+
+  // Fallback chain (maintain current behavior)
+  const fallback =
+    (window.MediaRecorder && MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus')) ? { mime:'video/webm;codecs=vp9,opus', ext:'webm' } :
+    (window.MediaRecorder && MediaRecorder.isTypeSupported('video/webm;codecs=vp8,opus')) ? { mime:'video/webm;codecs=vp8,opus', ext:'webm' } :
+    { mime: 'video/webm', ext: 'webm' };
+
+  if(found && chosen && found.ext !== fallback.ext){
+    // Let the user know we gracefully fell back
+    try { setStatus('Selected format not supported here. Using '+fallback.ext.toUpperCase()+'.'); } catch(_){}
+  }
+  return fallback;
+}
+
 /* ========= 3) VISUAL ENGINE (2D->WebGL with shader FX) ========= */
 const stage = $('#stage');
 let gl, program, tex, timeStart=performance.now();
@@ -603,6 +669,8 @@ const modes = {
   Lissajous: drawLissajous
 };
 let currentMode = 'Bars';
+
+buildFormatMenu();
 
 // build preset buttons
 const grid = $('#presetGrid');
@@ -920,19 +988,32 @@ async function startRecording(){
   master.connect(audioDest);
 
   const mixed = new MediaStream([...canvasStream.getVideoTracks(), ...audioDest.stream.getAudioTracks()]);
-  const mime = MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus') ? 'video/webm;codecs=vp9,opus' :
-               MediaRecorder.isTypeSupported('video/webm;codecs=vp8,opus') ? 'video/webm;codecs=vp8,opus' :
-               'video/webm';
+
+  // CHANGE: choose MIME from selector, with graceful fallback
+  const { mime, ext } = getSelectedFormat();
+
   try{
-    recorder = new MediaRecorder(mixed, {mimeType:mime, videoBitsPerSecond:6000000, audioBitsPerSecond:192000});
-  }catch(e){ alert('Recording not supported: '+e.message); return; }
-  chunks=[]; recorder.ondataavailable = e=>{ if(e.data.size) chunks.push(e.data); };
+    recorder = new MediaRecorder(mixed, {
+      mimeType: mime,
+      videoBitsPerSecond: 6000000,
+      audioBitsPerSecond: 192000
+    });
+  }catch(e){
+    alert('Recording not supported for this format here. ('+e.message+')');
+    return;
+  }
+
+  chunks=[];
+  recorder.ondataavailable = e=>{ if(e.data.size) chunks.push(e.data); };
   recorder.onstop = ()=>{
     lastBlob = new Blob(chunks, {type:mime});
     const url = URL.createObjectURL(lastBlob);
-    const a = $('#dlLink'); a.href = url; a.download = 'VideoDJ_'+Date.now()+'.webm';
-    setStatus('Recording saved ('+Math.round(lastBlob.size/1024/1024)+' MB)');
+    const a = $('#dlLink');
+    a.href = url;
+    a.download = 'VideoDJ_'+Date.now()+'.' + ext;  // CHANGE: extension from selection
+    setStatus('Recording saved ('+Math.round(lastBlob.size/1024/1024)+' MB, '+ext.toUpperCase()+')');
   };
+
   recorder.start(200);
   $('#recBtn').innerHTML='<i class="fa-solid fa-stop"></i>&nbsp;STOP';
   setStatus('Recording…');
@@ -945,10 +1026,18 @@ function stopRecording(){
 }
 $on($('#shareBtn'),'click',async ()=>{
   if(!lastBlob){ setStatus('Nothing to share yet'); return; }
-  if(navigator.canShare && navigator.canShare({files:[new File([lastBlob],'VideoDJ.webm',{type:lastBlob.type})]})){
-    try{ await navigator.share({files:[new File([lastBlob],'VideoDJ.webm',{type:lastBlob.type})], title:'VideoDJ'}); setStatus('Shared!'); }
-    catch(e){ setStatus('Share canceled'); }
-  }else{ setStatus('Sharing not supported here — use Download'); }
+  const { ext } = getSelectedFormat();
+  const name = 'VideoDJ.' + ext;
+  if(navigator.canShare && navigator.canShare({files:[new File([lastBlob], name, {type:lastBlob.type})]})){
+    try{
+      await navigator.share({files:[new File([lastBlob], name, {type:lastBlob.type})], title:'VideoDJ'});
+      setStatus('Shared!');
+    }catch(e){
+      setStatus('Share canceled');
+    }
+  }else{
+    setStatus('Sharing not supported here — use Download');
+  }
 });
 
 /* ========= 7) LABEL DOUBLE-TAP RESET ========= */
