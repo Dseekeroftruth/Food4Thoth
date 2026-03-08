@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Terminal Game Retro Arcade — Classic Mini Game</title>
+  <meta name="description" content="Retro Arcade is a fast, fun collection of classic-inspired mini games with a clean, modern retro vibe. Play, compete, and chase high scores." />
+  <meta name="theme-color" content="#0b0f14" />
+
+  <!-- Open Graph (good for sharing) -->
+  <meta property="og:title" content="Retro Arcade" />
+  <meta property="og:description" content="Classic-inspired mini game. Fast fun. High scores. Retro Arcade." />
+  <meta property="og:type" content="website" />
+  <!-- Replace with your hosted preview image (1200x630 recommended) -->
+  <meta property="og:image" content="./images/og-retro-arcade.png" />
+
+  <style>
+    :root{
+      --bg:#070a12;
+      --card:#0f1626;
+      --text:#e9eef7;
+      --muted:#a8b3c6;
+      --border:#1f2b44;
+      --accent:#7dd3fc;
+      --accent2:#a78bfa;
+      --good:#34d399;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% 0%, rgba(167,139,250,0.22) 0%, rgba(7,10,18,0.0) 55%),
+        radial-gradient(900px 500px at 85% 10%, rgba(125,211,252,0.22) 0%, rgba(7,10,18,0.0) 60%),
+        linear-gradient(180deg, #070a12 0%, #050711 100%);
+      line-height:1.55;
+      overflow-x:hidden;
+    }
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1050px;margin:0 auto;padding:24px 16px 64px}
+    header{
+      display:flex;gap:18px;align-items:flex-start;justify-content:space-between;
+      padding:22px 0 10px;
+    }
+    .brand{
+      display:flex;gap:14px;align-items:center;
+    }
+    .logo{
+  width:60px;
+  height:70px;
+  border-radius:14px;
+
+  background: linear-gradient(135deg, rgba(125,211,252,0.9), rgba(167,139,250,0.9));
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:1px solid rgba(255,255,255,0.18);
+  user-select:none;
+
+  overflow:hidden; /* keeps image inside rounded corners */
+}
+
+/* icon image */
+.logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;  /* ensures full icon visible */
+  border-radius:inherit;
+}
+    .toplinks{
+      display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end;
+    }
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:10px 14px;border-radius:12px;
+      border:1px solid var(--border);
+      background:rgba(15,22,38,0.75);
+      color:var(--text);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      backdrop-filter: blur(10px);
+      text-decoration:none;
+      font-weight:600;
+    }
+    .btn:hover{border-color: rgba(125,211,252,0.55)}
+    .btn.primary{
+      border-color: rgba(125,211,252,0.55);
+      background: linear-gradient(135deg, rgba(125,211,252,0.18), rgba(167,139,250,0.14));
+    }
+    .hero{
+      display:grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap:18px;
+      align-items:stretch;
+      padding:18px 0 8px;
+    }
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr; }
+      header{flex-direction:column;align-items:flex-start}
+      .toplinks{justify-content:flex-start}
+    }
+    .card{
+      background:rgba(15,22,38,0.72);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:18px;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.35);
+      backdrop-filter: blur(10px);
+    }
+    h1{margin:0 0 10px;font-size:2.3rem;letter-spacing:0.2px}
+    .tagline{color:var(--muted);margin:0 0 14px}
+    .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .chip{
+      font-size:0.92rem;
+      padding:7px 12px;border-radius:999px;
+      border:1px solid var(--border);
+      color:var(--muted);
+      background:rgba(7,10,18,0.25);
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+    @media (max-width: 900px){
+      .grid{grid-template-columns:1fr}
+    }
+    .feat h3{margin:0 0 6px;font-size:1.05rem}
+    .feat p{margin:0;color:var(--muted)}
+    .badge{
+      display:flex;flex-direction:column;gap:10px
+    }
+    .storebox{
+      border:1px dashed rgba(125,211,252,0.45);
+      border-radius:16px;
+      padding:14px;
+      background:rgba(7,10,18,0.25);
+    }
+    .note{color:var(--muted);font-size:0.95rem;margin:10px 0 0}
+    .ok{color:var(--good);font-weight:700}
+    .screens{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+    .shot{
+  width:100%;
+  max-width:100%;
+  aspect-ratio: 9/19.5;
+
+  border-radius:16px;
+  border:1px solid var(--border);
+
+  background:
+    linear-gradient(135deg, rgba(125,211,252,0.14), rgba(167,139,250,0.10)),
+    radial-gradient(700px 400px at 50% 0%, rgba(255,255,255,0.10), rgba(0,0,0,0));
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  color:rgba(233,238,247,0.65);
+  font-weight:700;
+
+  padding:10px;
+  box-sizing:border-box;
+}
+
+/* IMAGE */
+.shot img{
+  width:100%;
+  height:100%;
+  max-height:80vh;
+  object-fit:contain;   /* prevents cropping */
+  display:block;
+}
+
+/* caption BELOW image instead of overlay */
+.shot small{
+  margin-top:8px;
+  color:rgba(233,238,247,0.55);
+  font-weight:600;
+  text-align:center;
+}
+
+/* responsive */
+@media (max-width:700px){
+
+  .screens{
+    grid-template-columns:1fr;
+  }
+
+  .shot{
+    aspect-ratio:auto;
+  }
+
+  .shot img{
+    max-height:70vh;
+  }
+
+}
+    footer{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:0.95rem;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .tiny{font-size:0.9rem;color:rgba(168,179,198,0.9)}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo"><img src="./images/ICON.jpeg" alt="Game Image - Square Format" /></div>
+        <div>
+          <div style="font-weight:900;font-size:1.15rem;">Terminal Game Retro Arcade</div>
+          <div class="tiny">Classic-inspired mini game • High scores • Retro vibes</div>
+        </div>
+      </div>
+
+      <div class="toplinks">
+        <!-- Replace # with your real links when ready -->
+        <a class="btn primary" href="#download" aria-label="Download Terminal Game Retro Arcade">⬇️ Download</a>
+        <a class="btn" href="privacy.html" aria-label="Privacy Policy">🔒 Privacy Policy</a>
+        <a class="btn" href="#support" aria-label="Support">🛟 Support</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="card">
+        <h1>Terminal Game Retro Arcade</h1>
+        <p class="tagline">
+          A fast, fun classic-inspired mini game — built for quick sessions, clean controls, and
+          <span style="color:var(--accent2);font-weight:800;">one-more-round</span> energy.
+        </p>
+
+        <div class="chips">
+          <span class="chip">⚡ Quick play</span>
+          <span class="chip">🎮 Classic-inspired</span>
+          <span class="chip">🏆 High scores</span>
+          <span class="chip">🕹️ Retro UI</span>
+          <span class="chip">📱 Mobile-friendly</span>
+        </div>
+
+        <div class="grid">
+          <div class="card feat" style="padding:14px;">
+            <h3>Simple, satisfying controls</h3>
+            <p>Designed for quick play sessions with clean input and responsive feel.</p>
+          </div>
+          <div class="card feat" style="padding:14px;">
+            <h3>Chase scores</h3>
+            <p>Beat your best, share bragging rights, and keep the streak alive.</p>
+          </div>
+          <div class="card feat" style="padding:14px;">
+            <h3>Lightweight + smooth</h3>
+            <p>Optimized for fast loading and steady performance.</p>
+          </div>
+        </div>
+
+        <div class="screens">
+          <!-- Replace these placeholders with real screenshots -->
+          <div class="shot">
+            Screenshot 1
+            <small><img src="./images/Untitled2.png" alt="Game Image - Square Format" /></small>
+          </div>
+          <div class="shot">
+            Screenshot 2
+            <img src="./images/Untitled.png" alt="Game Image - Square Format" />
+          </div>
+          <div class="shot">
+            Screenshot 3
+            <small><img src="./images/Untitled3.png" alt="Game Image - Square Format" /></small>
+          </div>
+        </div>
+
+        <p class="note">
+        </p>
+      </div>
+
+      <aside class="card" id="download">
+        <h2 style="margin:0 0 10px;">Get Terminal Game Retro Arcade</h2>
+
+        <div class="storebox">
+          <p style="margin:0 0 8px;color:var(--muted);">
+            <!-- Replace when you have your App Store link -->
+            App Store link:
+          </p>
+          <p style="margin:0 0 12px;">
+            <a href="#" class="btn primary" style="width:100%;justify-content:center;">
+               App Store (add link when ready)
+            </a>
+          </p>
+
+          <p style="margin:0;color:var(--muted);">
+            TestFlight:
+          </p>
+          <p style="margin:8px 0 0;">
+            <a href="https://testflight.apple.com/join/z8ThHQbZ" class="btn" style="width:100%;justify-content:center;">
+              🧪 Join TestFlight
+            </a>
+          </p>
+
+          <p class="note">
+            Status: <span class="ok">Ready</span>
+          </p>
+        </div>
+
+        <div class="storebox" style="margin-top:12px;">
+          <h3 style="margin:0 0 6px;">App Details</h3>
+          <ul style="margin:8px 0 0 18px;color:var(--muted);">
+            <li>Category: Games</li>
+            <li>Modes: Single player</li>
+            <li>Pricing: Free</li>
+            <li>Support: Email + privacy page</li>
+          </ul>
+        </div>
+
+        <div class="storebox" style="margin-top:12px;">
+          <h3 style="margin:0 0 6px;">Developer</h3>
+          <p style="margin:0;color:var(--muted);">
+  <strong>FOOD4THOTH</strong> is a digital art + music portal—an experimental arcade of interactive experiences, mystical storytelling, and community-powered creativity. We build playful tools, retro-inspired worlds, and mind-expanding media that invite curiosity, imagination, and connection.
+</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="card" id="support">
+      <h2 style="margin:0 0 10px;">Support</h2>
+      <p style="margin:0 0 10px;color:var(--muted);">
+        Need help, found a bug, or want to suggest a new mini game? Reach out:
+      </p>
+      <ul style="margin:0 0 10px 18px;">
+        <li><strong>Email:</strong> <a href="mailto:food4thoth@proton.me">food4thoth@proton.me</a></li>
+        <li><strong>Privacy Policy:</strong> <a href="https://www.food4thoth.com/RetroArcadeIOS/PrivatePolicy.html">privacy.html</a></li>
+      </ul>
+      <p class="note">
+      </p>
+    </section>
+
+    <footer>
+      <div>© <span id="y"></span> Retro Arcade</div>
+      <div class="tiny">
+        Built for App Store Connect Marketing URL •
+        <a href="https://www.food4thoth.com/RetroArcadeIOS/PrivatePolicy.html">Privacy</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
