@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glo-CALCULATO — The Glowing Rainbow Calculator</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rainbow-1: #ff0000;
+      --rainbow-2: #ff7700;
+      --rainbow-3: #ffff00;
+      --rainbow-4: #00ff00;
+      --rainbow-5: #00ffff;
+      --rainbow-6: #0000ff;
+      --rainbow-7: #ff00ff;
+      --neon-green: #00ff99;
+      --dark-bg: #0a0a0f;
+      --card-bg: #12121a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark-bg);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes rainbowShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 20px #ff00ff80, 0 0 40px #0000ff40; }
+      50%       { box-shadow: 0 0 40px #00ffff80, 0 0 80px #00ff9940; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-12px); }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulseBorder {
+      0%, 100% { border-color: #ff00ff; }
+      25%       { border-color: #00ffff; }
+      50%       { border-color: #00ff99; }
+      75%       { border-color: #ffff00; }
+    }
+    @keyframes bgSwirl {
+      0%   { background-position: 0% 0%; }
+      100% { background-position: 200% 200%; }
+    }
+    @keyframes textRainbow {
+      0%   { color: #ff0000; }
+      15%  { color: #ff7700; }
+      30%  { color: #ffff00; }
+      45%  { color: #00ff00; }
+      60%  { color: #00ffff; }
+      75%  { color: #0000ff; }
+      90%  { color: #ff00ff; }
+      100% { color: #ff0000; }
+    }
+
+    /* ── RAINBOW BORDER UTILITY ── */
+    .rainbow-border {
+      position: relative;
+      border-radius: 20px;
+    }
+    .rainbow-border::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 23px;
+      background: linear-gradient(
+        90deg,
+        #ff0000, #ff7700, #ffff00, #00ff00,
+        #00ffff, #0000ff, #ff00ff, #ff0000
+      );
+      background-size: 300% 300%;
+      animation: rainbowShift 3s linear infinite;
+      z-index: -1;
+    }
+
+    /* ── SWIRLY BACKGROUND ── */
+    .swirl-bg {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(120,40,200,.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(0,200,255,.10) 0%, transparent 60%),
+        radial-gradient(ellipse at 50% 80%, rgba(0,255,100,.08) 0%, transparent 60%),
+        var(--dark-bg);
+      z-index: -10;
+      pointer-events: none;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,255,153,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,153,.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: bgSwirl 20s linear infinite;
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #1a0a2e, #0a1a2e);
+      border: 1px solid rgba(0,255,153,.4);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-size: 13px;
+      color: var(--neon-green);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      animation: pulseBorder 4s linear infinite;
+    }
+
+    .hero-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -2px;
+      margin-bottom: 16px;
+      background: linear-gradient(
+        135deg,
+        #ff0000 0%, #ff7700 14%, #ffff00 28%,
+        #00ff00 42%, #00ffff 57%, #0000ff 71%,
+        #ff00ff 85%, #ff0000 100%
+      );
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: rainbowShift 4s linear infinite;
+      animation: fadeInUp .8s ease both, rainbowShift 4s linear infinite;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.1rem, 3vw, 1.6rem);
+      color: rgba(255,255,255,.75);
+      max-width: 560px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+      animation: fadeInUp 1s .2s ease both;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeInUp 1s .4s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 36px;
+      border-radius: 100px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      background: linear-gradient(
+        90deg,
+        #ff00ff, #00ffff, #00ff99, #ffff00, #ff00ff
+      );
+      background-size: 300% 100%;
+      color: #000;
+      animation: rainbowShift 3s linear infinite;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 0 30px rgba(0,255,153,.4);
+    }
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 50px rgba(0,255,153,.7);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,.3);
+      transition: border-color .3s, background .3s;
+    }
+    .btn-secondary:hover {
+      border-color: var(--neon-green);
+      background: rgba(0,255,153,.08);
+    }
+
+    /* ── CALCULATOR VISUAL ── */
+    .calc-showcase {
+      margin: 60px auto 0;
+      animation: float 4s ease-in-out infinite, fadeInUp 1s .6s ease both;
+      position: relative;
+      display: inline-block;
+      max-width: 280px;
+      width: 100%;
+    }
+
+    .calc-device {
+      background: linear-gradient(160deg, #1a1a2e, #0d0d1a);
+      border-radius: 28px;
+      padding: 20px 16px;
+      position: relative;
+      animation: glow 3s ease-in-out infinite;
+    }
+    .calc-device::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 32px;
+      background: linear-gradient(
+        90deg,
+        #ff0000, #ff7700, #ffff00, #00ff00,
+        #00ffff, #0000ff, #ff00ff, #ff0000
+      );
+      background-size: 400% 400%;
+      animation: rainbowShift 2s linear infinite;
+      z-index: -1;
+    }
+
+    .calc-display {
+      background: #1e1e1e;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: right;
+      margin-bottom: 12px;
+      border: 1px solid rgba(0,255,153,.2);
+    }
+    .calc-display .expr { color: rgba(255,255,255,.5); font-size: 13px; }
+    .calc-display .result {
+      font-family: 'Orbitron', monospace;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--neon-green);
+    }
+
+  .calc-face {
+  background: #c8e6c9;
+  border-radius: 10px;
+  height: 70px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: flex-start;   /* move eyes upward */
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+  padding-top: 12px;         /* controls how high the eyes sit */
+}
+
+.eye {
+  width: 10px;
+  height: 18px;              /* taller like the reference */
+  background: #222;
+  border-radius: 999px;      /* pill shape */
+}
+
+.smile {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 12px;
+  width: 40px;
+  height: 18px;
+  border: 3px solid #222;
+  border-top: none;
+  border-radius: 0 0 24px 24px;
+}
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+    .calc-btn {
+      background: #111;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      padding: 10px 4px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      position: relative;
+      animation: pulseBorder 4s linear infinite;
+    }
+    .calc-btn.wide {
+      grid-column: span 4;
+      background: linear-gradient(90deg,#ff00ff20,#00ffff20,#00ff9920);
+      color: var(--neon-green);
+      font-size: 16px;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--neon-green);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .section-body {
+      color: rgba(255,255,255,.65);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      max-width: 640px;
+    }
+
+    /* ── FEATURES GRID ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 50px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 22px;
+      background: linear-gradient(
+        135deg,
+        #ff00ff40, #00ffff40, #00ff9940
+      );
+      z-index: -1;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .feature-card:hover { transform: translateY(-6px); }
+    .feature-card:hover::before { opacity: 1; }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .feature-name {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    .feature-desc {
+      font-size: .9rem;
+      color: rgba(255,255,255,.55);
+      line-height: 1.7;
+    }
+
+    /* ── RAINBOW DIVIDER ── */
+    .rainbow-line {
+      height: 3px;
+      background: linear-gradient(
+        90deg,
+        #ff0000, #ff7700, #ffff00, #00ff00,
+        #00ffff, #0000ff, #ff00ff
+      );
+      background-size: 300% 100%;
+      animation: rainbowShift 3s linear infinite;
+      border: none;
+      margin: 0;
+    }
+
+    /* ── MATH FEATURES ── */
+    .math-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+    .math-tag {
+      padding: 8px 18px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,.15);
+      font-size: .85rem;
+      color: rgba(255,255,255,.8);
+      background: rgba(255,255,255,.04);
+      transition: all .2s;
+    }
+    .math-tag:hover {
+      border-color: var(--neon-green);
+      color: var(--neon-green);
+      background: rgba(0,255,153,.08);
+    }
+
+    /* ── STATS ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 24px;
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 40px;
+      margin-top: 60px;
+      position: relative;
+    }
+    .stats-row::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 26px;
+      background: linear-gradient(
+        90deg,
+        #ff0000, #ff7700, #ffff00, #00ff00,
+        #00ffff, #0000ff, #ff00ff, #ff0000
+      );
+      background-size: 400% 400%;
+      animation: rainbowShift 4s linear infinite;
+      z-index: -1;
+    }
+    .stat-item { text-align: center; }
+    .stat-number {
+      font-family: 'Orbitron', monospace;
+      font-size: 2.2rem;
+      font-weight: 900;
+      animation: textRainbow 5s linear infinite;
+    }
+    .stat-label {
+      font-size: .8rem;
+      color: rgba(255,255,255,.5);
+      margin-top: 4px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ── DONATION TIERS ── */
+    .tiers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 50px;
+    }
+    .tier-card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 28px 22px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,.1);
+      transition: transform .3s, border-color .3s;
+    }
+    .tier-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0,255,153,.4);
+    }
+    .tier-card.featured {
+      border-color: var(--neon-green);
+      box-shadow: 0 0 30px rgba(0,255,153,.2);
+    }
+    .tier-emoji { font-size: 2.4rem; margin-bottom: 12px; display: block; }
+    .tier-name {
+      font-weight: 700;
+      font-size: .95rem;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+    .tier-price {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--neon-green);
+      margin-bottom: 8px;
+    }
+    .tier-badge {
+      display: inline-block;
+      font-size: .7rem;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: rgba(0,255,153,.15);
+      color: var(--neon-green);
+      border: 1px solid rgba(0,255,153,.3);
+      margin-top: 4px;
+    }
+
+    /* ── QUOTE ── */
+    .quote-block {
+      background: linear-gradient(135deg, #1a0a2e40, #0a1a2e40);
+      border-left: 4px solid var(--neon-green);
+      border-radius: 0 16px 16px 0;
+      padding: 28px 32px;
+      margin: 50px 0;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: rgba(255,255,255,.8);
+      line-height: 1.8;
+    }
+    .quote-block cite {
+      display: block;
+      font-style: normal;
+      font-size: .85rem;
+      color: var(--neon-green);
+      margin-top: 12px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #08080f;
+      padding: 48px 24px;
+      text-align: center;
+    }
+    .footer-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.4rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, #ff00ff, #00ffff, #00ff99);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+    .footer-copy {
+      font-size: .85rem;
+      color: rgba(255,255,255,.35);
+      margin-top: 24px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    .footer-links a {
+      color: rgba(255,255,255,.5);
+      text-decoration: none;
+      font-size: .9rem;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--neon-green); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .stats-row { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="swirl-bg"></div>
+
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<section class="hero" style="max-width:100%;padding-top:100px;">
+  <div class="hero-grid-lines"></div>
+
+  <div class="hero-badge">✨ Now Available on iOS &amp; Android</div>
+
+  <h1 class="hero-title">GLO-CALCULATO</h1>
+  <p class="hero-subtitle">
+    The world's most <em>glowing</em>, most <em>colorful</em>, most <em>alive</em>
+    calculator app. Full trig, rainbow borders, swirly vibes — and a smiley face that loves you.
+  </p>
+
+  <div class="hero-buttons">
+    <a href="#download" class="btn-primary">
+      📲 Get the App
+    </a>
+    <a href="https://www.food4thoth.com/GloCalculato" class="btn-secondary">
+      🌐 See the Original
+    </a>
+  </div>
+
+  <!-- Calculator mockup -->
+  <div class="calc-showcase">
+    <div class="calc-device">
+      
+      <div class="calc-face">
+        <div class="eye"></div>
+        <div class="eye"></div>
+        <div class="smile"></div>
+      </div>
+      <div class="calc-grid">
+        <div class="calc-btn">C</div>
+        <div class="calc-btn">DEL</div>
+        <div class="calc-btn">(</div>
+        <div class="calc-btn">)</div>
+        <div class="calc-btn">sin</div>
+        <div class="calc-btn">cos</div>
+        <div class="calc-btn">tan</div>
+        <div class="calc-btn">^</div>
+        <div class="calc-btn">7</div>
+        <div class="calc-btn">8</div>
+        <div class="calc-btn">9</div>
+        <div class="calc-btn">/</div>
+        <div class="calc-btn">4</div>
+        <div class="calc-btn">5</div>
+        <div class="calc-btn">6</div>
+        <div class="calc-btn">×</div>
+        <div class="calc-btn">1</div>
+        <div class="calc-btn">2</div>
+        <div class="calc-btn">3</div>
+        <div class="calc-btn">−</div>
+        <div class="calc-btn">0</div>
+        <div class="calc-btn">.</div>
+        <div class="calc-btn">√</div>
+        <div class="calc-btn">+</div>
+        <div class="calc-btn wide">=</div>
+      </div>
+    </div>
+  </div>
+</br>
+<div class="calc-display">
+        <div class="expr">sin(42)+365</div>
+        <div class="result">364.083478452</div>
+      </div>
+</section>
+
+
+<hr class="rainbow-line" />
+
+<!-- ═══════════════════════════ STATS ═══════════════════════════ -->
+<section>
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-number">∞</div>
+      <div class="stat-label">Rainbow Colors</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">6</div>
+      <div class="stat-label">Trig Functions</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">1</div>
+      <div class="stat-label">Smiley Face</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">Pure Glow</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">☮️</div>
+      <div class="stat-label">Good Vibes Only</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ FEATURES ═══════════════════════════ -->
+<hr class="rainbow-line" />
+<section>
+  <p class="section-label">Why Glo-CALCULATO</p>
+  <h2 class="section-title">Not just a calculator.<br/>An experience.</h2>
+  <p class="section-body">
+    Born from the creative universe of FOOD4THOTH, Glo-CALCULATO turns every calculation
+    into a colorful, living moment. Rotating rainbow gradients wrap every button and the
+    display — because math should feel <em>magical</em>.
+  </p>
+
+  <div class="features-grid">
+    <div class="feature-card rainbow-border">
+      <span class="feature-icon">🌈</span>
+      <div class="feature-name">Rotating Rainbow Borders</div>
+      <div class="feature-desc">
+        Every button and the calculator body are wrapped in a continuously rotating
+        full-spectrum rainbow gradient. No two moments look alike.
+      </div>
+    </div>
+
+    <div class="feature-card rainbow-border">
+      <span class="feature-icon">😊</span>
+      <div class="feature-name">Smiley Face Friend</div>
+      <div class="feature-desc">
+        A hand-drawn smiley face greets you on launch. Press any key and it
+        gently fades away. Tap AC and it comes back — happy to see you again.
+      </div>
+    </div>
+
+    <div class="feature-card rainbow-border">
+      <span class="feature-icon">🌀</span>
+      <div class="feature-name">Swirly Cosmic Background</div>
+      <div class="feature-desc">
+        A psychedelic, multi-layered swirling background fills your screen —
+        always flowing, always alive, day or night.
+      </div>
+    </div>
+
+    <div class="feature-card rainbow-border">
+      <span class="feature-icon">📐</span>
+      <div class="feature-name">Full Scientific Math</div>
+      <div class="feature-desc">
+        Sin, cos, tan, square roots, powers, parentheses, decimals — everything
+        you need for quick math, homework, or the cosmos.
+      </div>
+    </div>
+
+    <div class="feature-card rainbow-border">
+      <span class="feature-icon">💚</span>
+      <div class="feature-name">Neon Green Results</div>
+      <div class="feature-desc">
+        Your answers glow in vivid neon green on a dark display — crisp,
+        high-contrast, and satisfying every time you hit <strong>=</strong>.
+      </div>
+    </div>
+
+    <div class="feature-card rainbow-border">
+      <span class="feature-icon">🏅</span>
+      <div class="feature-name">Support &amp; VIP Donor</div>
+      <div class="feature-desc">
+        Love the app? Become a VIP Donor. Six donation tiers let you support
+        the creator at whatever level feels right — from a coffee to full love.
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rainbow-line" />
+
+<!-- ═══════════════════════════ MATH OPS ═══════════════════════════ -->
+<section>
+  <p class="section-label">Built-In Operations</p>
+  <h2 class="section-title">Everything you need.<br/>Nothing you don't.</h2>
+  <p class="section-body">
+    Clean, fast, and fully functional — Glo-CALCULATO handles the full range of
+    everyday and scientific calculations.
+  </p>
+
+  <div class="math-list">
+    <span class="math-tag">Addition +</span>
+    <span class="math-tag">Subtraction −</span>
+    <span class="math-tag">Multiplication ×</span>
+    <span class="math-tag">Division /</span>
+    <span class="math-tag">Sine sin()</span>
+    <span class="math-tag">Cosine cos()</span>
+    <span class="math-tag">Tangent tan()</span>
+    <span class="math-tag">Square Root √</span>
+    <span class="math-tag">Exponents ^</span>
+    <span class="math-tag">Parentheses ( )</span>
+    <span class="math-tag">Decimal Point .</span>
+    <span class="math-tag">Backspace DEL</span>
+    <span class="math-tag">Clear C / AC</span>
+    <span class="math-tag">Equals =</span>
+  </div>
+</section>
+
+<hr class="rainbow-line" />
+
+<!-- ═══════════════════════════ QUOTE ═══════════════════════════ -->
+<section style="padding-top:60px;padding-bottom:20px;">
+  <div class="quote-block">
+    "Mathematics is the language with which has written the universe — and now
+    that language has rainbow borders and a smiley face."
+    <cite>— Inspired by FOOD4THOTH</cite>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ DONATIONS ═══════════════════════════ -->
+<section>
+  <p class="section-label">Support the Creator</p>
+  <h2 class="section-title">Show the love.<br/>Become a V.I.P.</h2>
+  <p class="section-body">
+    Glo-CALCULATO is made with heart by the team at FOOD4THOTH.
+    Your support keeps the rainbow glowing and new features coming.
+    Every tier is a one-time donation — no subscriptions, ever.
+  </p>
+
+  <div class="tiers-grid">
+    <div class="tier-card">
+      <span class="tier-emoji">☕</span>
+      <div class="tier-name">1 Good Coffee</div>
+      <div class="tier-price">$4.99</div>
+      <span class="tier-badge">Basic</span>
+    </div>
+    <div class="tier-card">
+      <span class="tier-emoji">🥙</span>
+      <div class="tier-name">1 Good Lunch</div>
+      <div class="tier-price">$15.99</div>
+      <span class="tier-badge">Basic</span>
+    </div>
+    <div class="tier-card featured">
+      <span class="tier-emoji">🐕</span>
+      <div class="tier-name">1 Toy for my Dog</div>
+      <div class="tier-price">$19.99</div>
+      <span class="tier-badge">⭐ VIP Donor</span>
+    </div>
+    <div class="tier-card">
+      <span class="tier-emoji">🍲</span>
+      <div class="tier-name">1 Healthy Family Meal</div>
+      <div class="tier-price">$49.99</div>
+      <span class="tier-badge">👨‍👩‍👧‍👦 Family VIP</span>
+    </div>
+    <div class="tier-card">
+      <span class="tier-emoji">🎵</span>
+      <div class="tier-name">1 Musical Toy</div>
+      <div class="tier-price">$59.99</div>
+      <span class="tier-badge">👨‍👩‍👧‍👦 Family VIP</span>
+    </div>
+    <div class="tier-card featured">
+      <span class="tier-emoji">❤️</span>
+      <div class="tier-name">I Understand the Real App Value</div>
+      <div class="tier-price">$99.99</div>
+      <span class="tier-badge">💎 Full Supporter</span>
+    </div>
+  </div>
+</section>
+
+<hr class="rainbow-line" />
+
+<!-- ═══════════════════════════ CTA ═══════════════════════════ -->
+<section id="download" style="text-align:center;padding-bottom:100px;">
+  <p class="section-label">Ready to Glo?</p>
+  <h2 class="section-title" style="max-width:500px;margin:0 auto 20px;">
+    Download free.<br/>Calculate in color.
+  </h2>
+  <p class="section-body" style="margin:0 auto 40px;text-align:center;">
+    Available now on iOS and Android. Completely free to use — support optional.
+  </p>
+  <div class="hero-buttons" style="justify-content:center;">
+    <a href="https://food4thoth.com" class="btn-primary">
+      🍎 App Store
+    </a>
+    <a href="https://food4thoth.com" class="btn-primary" style="background:linear-gradient(90deg,#00ff99,#00ffff,#0000ff,#00ff99);background-size:300% 100%;">
+      🤖 Google Play
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<hr class="rainbow-line" />
+<footer>
+  <div class="footer-title">GLO-CALCULATO</div>
+  <div class="footer-links">
+    <a href="https://www.food4thoth.com">FOOD4THOTH.com</a>
+    <a href="https://www.food4thoth.com/GloCalculato">Original Web Version</a>
+    <a href="https://www.food4thoth.com/contact">Support</a>
+  </div>
+  <p class="footer-copy">
+    © 2024 DeJahn Bell · FOOD4THOTH · Made with 🌈 and love<br/>
+    All rights reserved.
+  </p>
+</footer>
+
+</body>
+</html>
