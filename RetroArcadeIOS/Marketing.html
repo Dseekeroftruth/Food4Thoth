@@ -3,15 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Terminal Game Retro Arcade — Classic Mini Game</title>
-  <meta name="description" content="Retro Arcade is a fast, fun collection of classic-inspired mini games with a clean, modern retro vibe. Play, compete, and chase high scores." />
+  <title>Terminal Game Retro Arcade — Classic Mini Game by FOOD4THOTH</title>
+  <meta name="description" content="Terminal Game Retro Arcade is a fast, free classic-inspired arcade game with retro pixel visuals, high scores, and smooth controls. Free on the App Store." />
   <meta name="theme-color" content="#0b0f14" />
-
-  <!-- Open Graph (good for sharing) -->
-  <meta property="og:title" content="Retro Arcade" />
-  <meta property="og:description" content="Classic-inspired mini game. Fast fun. High scores. Retro Arcade." />
+  <meta property="og:title" content="Terminal Game Retro Arcade" />
+  <meta property="og:description" content="Retro pixel arcade. Dodge. Collect. Survive. Free on the App Store." />
   <meta property="og:type" content="website" />
-  <!-- Replace with your hosted preview image (1200x630 recommended) -->
   <meta property="og:image" content="./images/og-retro-arcade.png" />
 
   <style>
@@ -24,339 +21,361 @@
       --accent:#7dd3fc;
       --accent2:#a78bfa;
       --good:#34d399;
+      --gold:#f59e0b;
+      --pq:#a78bfa;
     }
-    *{box-sizing:border-box}
+    *{box-sizing:border-box;margin:0;padding:0}
     body{
-      margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color:var(--text);
       background:
-        radial-gradient(1200px 700px at 15% 0%, rgba(167,139,250,0.22) 0%, rgba(7,10,18,0.0) 55%),
-        radial-gradient(900px 500px at 85% 10%, rgba(125,211,252,0.22) 0%, rgba(7,10,18,0.0) 60%),
-        linear-gradient(180deg, #070a12 0%, #050711 100%);
-      line-height:1.55;
+        radial-gradient(1200px 700px at 15% 0%, rgba(167,139,250,0.22) 0%, rgba(7,10,18,0) 55%),
+        radial-gradient(900px 500px at 85% 10%, rgba(125,211,252,0.22) 0%, rgba(7,10,18,0) 60%),
+        linear-gradient(180deg,#070a12 0%,#050711 100%);
+      line-height:1.6;
       overflow-x:hidden;
     }
     a{color:var(--accent);text-decoration:none}
     a:hover{text-decoration:underline}
-    .wrap{max-width:1050px;margin:0 auto;padding:24px 16px 64px}
+
+    .wrap{max-width:1060px;margin:0 auto;padding:24px 16px 72px}
+
+    /* HEADER */
     header{
       display:flex;gap:18px;align-items:flex-start;justify-content:space-between;
-      padding:22px 0 10px;
+      padding:22px 0 14px;
     }
-    .brand{
-      display:flex;gap:14px;align-items:center;
-    }
+    .brand{display:flex;gap:14px;align-items:center}
     .logo{
-  width:60px;
-  height:70px;
-  border-radius:14px;
-
-  background: linear-gradient(135deg, rgba(125,211,252,0.9), rgba(167,139,250,0.9));
-
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border:1px solid rgba(255,255,255,0.18);
-  user-select:none;
-
-  overflow:hidden; /* keeps image inside rounded corners */
-}
-
-/* icon image */
-.logo img{
-  width:100%;
-  height:100%;
-  object-fit:contain;  /* ensures full icon visible */
-  border-radius:inherit;
-}
-    .toplinks{
-      display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end;
+      width:62px;height:62px;border-radius:14px;
+      background:linear-gradient(135deg,rgba(125,211,252,0.9),rgba(167,139,250,0.9));
+      box-shadow:0 10px 30px rgba(0,0,0,0.35);
+      border:1px solid rgba(255,255,255,0.18);
+      overflow:hidden;flex-shrink:0;
     }
+    .logo img{width:100%;height:100%;object-fit:cover;display:block}
+    .brand-text .name{font-weight:900;font-size:1.15rem;line-height:1.3}
+    .brand-text .sub{font-size:0.88rem;color:var(--muted);margin-top:2px}
+    .toplinks{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+
+    /* BUTTONS */
     .btn{
-      display:inline-flex;align-items:center;gap:10px;
-      padding:10px 14px;border-radius:12px;
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 16px;border-radius:12px;
       border:1px solid var(--border);
       background:rgba(15,22,38,0.75);
-      color:var(--text);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-      backdrop-filter: blur(10px);
-      text-decoration:none;
-      font-weight:600;
+      color:var(--text);font-weight:600;font-size:0.9rem;
+      box-shadow:0 6px 20px rgba(0,0,0,0.18);
+      backdrop-filter:blur(10px);
+      text-decoration:none;transition:border-color 0.2s;
     }
-    .btn:hover{border-color: rgba(125,211,252,0.55)}
+    .btn:hover{border-color:rgba(125,211,252,0.55);text-decoration:none}
     .btn.primary{
-      border-color: rgba(125,211,252,0.55);
-      background: linear-gradient(135deg, rgba(125,211,252,0.18), rgba(167,139,250,0.14));
+      border-color:rgba(125,211,252,0.55);
+      background:linear-gradient(135deg,rgba(125,211,252,0.18),rgba(167,139,250,0.14));
     }
+    .btn.pq{
+      border-color:rgba(167,139,250,0.6);
+      background:linear-gradient(135deg,rgba(167,139,250,0.22),rgba(125,211,252,0.12));
+    }
+    .btn.pq:hover{border-color:rgba(167,139,250,0.9)}
+
+    /* LAYOUT */
     .hero{
-      display:grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap:18px;
-      align-items:stretch;
-      padding:18px 0 8px;
-    }
-    @media (max-width: 900px){
-      .hero{grid-template-columns:1fr; }
-      header{flex-direction:column;align-items:flex-start}
-      .toplinks{justify-content:flex-start}
+      display:grid;grid-template-columns:1.2fr 0.8fr;
+      gap:18px;align-items:start;padding:16px 0 8px;
     }
     .card{
       background:rgba(15,22,38,0.72);
       border:1px solid var(--border);
-      border-radius:18px;
-      padding:18px;
-      box-shadow: 0 16px 50px rgba(0,0,0,0.35);
-      backdrop-filter: blur(10px);
+      border-radius:18px;padding:20px;
+      box-shadow:0 16px 50px rgba(0,0,0,0.35);
+      backdrop-filter:blur(10px);
     }
-    h1{margin:0 0 10px;font-size:2.3rem;letter-spacing:0.2px}
-    .tagline{color:var(--muted);margin:0 0 14px}
-    .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    h1{font-size:2.2rem;letter-spacing:0.2px;margin-bottom:10px}
+    h2{font-size:1.25rem;margin-bottom:12px}
+    h3{font-size:1.05rem;margin-bottom:6px}
+    .tagline{color:var(--muted);margin-bottom:16px;font-size:1.02rem}
+
+    /* CHIPS */
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
     .chip{
-      font-size:0.92rem;
-      padding:7px 12px;border-radius:999px;
-      border:1px solid var(--border);
-      color:var(--muted);
-      background:rgba(7,10,18,0.25);
+      font-size:0.88rem;padding:6px 12px;border-radius:999px;
+      border:1px solid var(--border);color:var(--muted);
+      background:rgba(7,10,18,0.3);
     }
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-      margin-top:14px;
+
+    /* FEATURE GRID */
+    .feat-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);
+      gap:12px;margin:16px 0;
     }
-    @media (max-width: 900px){
-      .grid{grid-template-columns:1fr}
-    }
-    .feat h3{margin:0 0 6px;font-size:1.05rem}
-    .feat p{margin:0;color:var(--muted)}
-    .badge{
-      display:flex;flex-direction:column;gap:10px
-    }
-    .storebox{
-      border:1px dashed rgba(125,211,252,0.45);
-      border-radius:16px;
-      padding:14px;
-      background:rgba(7,10,18,0.25);
-    }
-    .note{color:var(--muted);font-size:0.95rem;margin:10px 0 0}
-    .ok{color:var(--good);font-weight:700}
+    .feat{padding:14px;border-radius:14px}
+    .feat h3{font-size:0.98rem;margin-bottom:5px}
+    .feat p{color:var(--muted);font-size:0.9rem;line-height:1.5}
+
+    /* SCREENSHOTS */
     .screens{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:10px;
-      margin-top:12px;
+      display:grid;grid-template-columns:repeat(3,1fr);
+      gap:10px;margin:18px 0 4px;
     }
     .shot{
-  width:100%;
-  max-width:100%;
-  aspect-ratio: 9/19.5;
-
-  border-radius:16px;
-  border:1px solid var(--border);
-
-  background:
-    linear-gradient(135deg, rgba(125,211,252,0.14), rgba(167,139,250,0.10)),
-    radial-gradient(700px 400px at 50% 0%, rgba(255,255,255,0.10), rgba(0,0,0,0));
-
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-
-  color:rgba(233,238,247,0.65);
-  font-weight:700;
-
-  padding:10px;
-  box-sizing:border-box;
-}
-
-/* IMAGE */
-.shot img{
-  width:100%;
-  height:100%;
-  max-height:80vh;
-  object-fit:contain;   /* prevents cropping */
-  display:block;
-}
-
-/* caption BELOW image instead of overlay */
-.shot small{
-  margin-top:8px;
-  color:rgba(233,238,247,0.55);
-  font-weight:600;
-  text-align:center;
-}
-
-/* responsive */
-@media (max-width:700px){
-
-  .screens{
-    grid-template-columns:1fr;
-  }
-
-  .shot{
-    aspect-ratio:auto;
-  }
-
-  .shot img{
-    max-height:70vh;
-  }
-
-}
-    footer{
-      margin-top:18px;
-      color:var(--muted);
-      font-size:0.95rem;
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
+      width:100%;border-radius:14px;
+      border:1px solid var(--border);overflow:hidden;
+      background:rgba(7,10,18,0.4);
     }
-    .tiny{font-size:0.9rem;color:rgba(168,179,198,0.9)}
+    .shot img{
+      width:100%;height:auto;
+      display:block;object-fit:contain;
+    }
+    .shot-label{
+      text-align:center;font-size:0.78rem;font-weight:600;
+      color:var(--muted);padding:6px 8px;
+      background:rgba(7,10,18,0.55);
+    }
+
+    /* SIDEBAR */
+    .storebox{
+      border:1px dashed rgba(125,211,252,0.4);
+      border-radius:14px;padding:16px;
+      background:rgba(7,10,18,0.3);
+      margin-bottom:14px;
+    }
+    .storebox:last-child{margin-bottom:0}
+    .storebox-label{font-size:0.82rem;color:var(--muted);margin-bottom:8px}
+    .storebox ul{margin:8px 0 0 18px;color:var(--muted);font-size:0.92rem;line-height:1.8}
+    .status{font-size:0.88rem;color:var(--muted);margin-top:10px}
+    .ok{color:var(--good);font-weight:700}
+
+    /* PIXEL QUEST UPGRADE BANNER */
+    .pq-banner{
+      border:1px solid rgba(167,139,250,0.45);
+      border-radius:16px;padding:20px;
+      background:linear-gradient(135deg,rgba(167,139,250,0.1),rgba(125,211,252,0.06));
+      margin-top:20px;
+    }
+    .pq-banner h3{
+      font-size:1.1rem;color:var(--pq);margin-bottom:8px;
+      display:flex;align-items:center;gap:8px;
+    }
+    .pq-banner p{color:var(--muted);font-size:0.92rem;line-height:1.6;margin-bottom:14px}
+    .pq-features{
+      display:flex;flex-direction:column;gap:6px;
+      margin-bottom:16px;
+    }
+    .pq-feature{
+      display:flex;align-items:center;gap:8px;
+      font-size:0.9rem;color:var(--text);
+    }
+    .pq-dot{
+      width:8px;height:8px;border-radius:50%;
+      background:var(--pq);flex-shrink:0;
+    }
+
+    /* SUPPORT */
+    .support-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
+    .support-item strong{display:block;margin-bottom:4px;font-size:0.95rem}
+    .support-item span{color:var(--muted);font-size:0.9rem}
+
+    /* FOOTER */
+    footer{
+      margin-top:24px;padding-top:16px;
+      border-top:1px solid var(--border);
+      color:var(--muted);font-size:0.88rem;
+      display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr}
+      header{flex-direction:column;align-items:flex-start}
+      .toplinks{justify-content:flex-start}
+      .feat-grid{grid-template-columns:1fr}
+      .support-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:680px){
+      .screens{grid-template-columns:1fr}
+      h1{font-size:1.75rem}
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
+
     <header>
       <div class="brand">
-        <div class="logo"><img src="./images/ICON.jpeg" alt="Game Image - Square Format" /></div>
-        <div>
-          <div style="font-weight:900;font-size:1.15rem;">Terminal Game Retro Arcade</div>
-          <div class="tiny">Classic-inspired mini game • High scores • Retro vibes</div>
+        <div class="logo"><img src="./images/ICON.jpeg" alt="Terminal Game icon" /></div>
+        <div class="brand-text">
+          <div class="name">Terminal Game Retro Arcade</div>
+          <div class="sub">Classic pixel arcade · High scores · Free</div>
         </div>
       </div>
-
       <div class="toplinks">
-        <!-- Replace # with your real links when ready -->
-        <a class="btn primary" href="#download" aria-label="Download Terminal Game Retro Arcade">⬇️ Download</a>
-        <a class="btn" href="https://www.food4thoth.com/RetroArcadeIOS/PrivatePolicy.html" aria-label="Privacy Policy">🔒 Privacy Policy</a>
-        <a class="btn" href="#support" aria-label="Support">🛟 Support</a>
+        <a class="btn primary" href="#download">⬇️ Download Free</a>
+        <a class="btn pq" href="#pixel-quest">🎮 Full Version</a>
+        <a class="btn" href="privacy.html">🔒 Privacy</a>
+        <a class="btn" href="#support">🛟 Support</a>
       </div>
     </header>
 
     <section class="hero">
+
+      <!-- LEFT: Main game info -->
       <div class="card">
         <h1>Terminal Game Retro Arcade</h1>
         <p class="tagline">
-          A fast, fun classic-inspired mini game — built for quick sessions, clean controls, and
+          A fast, free classic-inspired arcade game — built for quick sessions, clean controls, and
           <span style="color:var(--accent2);font-weight:800;">one-more-round</span> energy.
         </p>
 
         <div class="chips">
           <span class="chip">⚡ Quick play</span>
-          <span class="chip">🎮 Classic-inspired</span>
+          <span class="chip">🎮 Retro pixel style</span>
           <span class="chip">🏆 High scores</span>
-          <span class="chip">🕹️ Retro UI</span>
-          <span class="chip">📱 Mobile-friendly</span>
+          <span class="chip">🕹️ D-Pad + swipe controls</span>
+          <span class="chip">📱 Offline play</span>
+          <span class="chip">🆓 Free</span>
         </div>
 
-        <div class="grid">
-          <div class="card feat" style="padding:14px;">
-            <h3>Simple, satisfying controls</h3>
-            <p>Designed for quick play sessions with clean input and responsive feel.</p>
+        <div class="feat-grid">
+          <div class="card feat">
+            <h3>Dodge & Collect</h3>
+            <p>Avoid enemies while collecting gems to score. Every level gets faster and harder.</p>
           </div>
-          <div class="card feat" style="padding:14px;">
-            <h3>Chase scores</h3>
-            <p>Beat your best, share bragging rights, and keep the streak alive.</p>
+          <div class="card feat">
+            <h3>Power-Ups</h3>
+            <p>Grab speed boosts, invincibility, and 2x score multipliers as you play.</p>
           </div>
-          <div class="card feat" style="padding:14px;">
-            <h3>Lightweight + smooth</h3>
-            <p>Optimized for fast loading and steady performance.</p>
+          <div class="card feat">
+            <h3>Chase Your Best</h3>
+            <p>Top 5 scores saved per session. Beat yourself, then beat that.</p>
           </div>
         </div>
 
         <div class="screens">
-          <!-- Replace these placeholders with real screenshots -->
           <div class="shot">
-            Screenshot 1
-            <small><img src="./images/Untitled2.png" alt="Game Image - Square Format" /></small>
+            <img src="./images/Untitled2.png" alt="Terminal Game gameplay screenshot" />
+            <div class="shot-label">Gameplay</div>
           </div>
           <div class="shot">
-            Screenshot 2
-           <small><img src="./images/Untitled.png" alt="Game Image - Square Format" /></small>
+            <img src="./images/Untitled.png" alt="Terminal Game home screen screenshot" />
+            <div class="shot-label">Home Screen</div>
           </div>
           <div class="shot">
-            Screenshot 3
-            <small><img src="./images/Untitled3.png" alt="Game Image - Square Format" /></small>
+            <img src="./images/Untitled3.png" alt="Terminal Game score screen screenshot" />
+            <div class="shot-label">High Scores</div>
           </div>
         </div>
 
-        <p class="note">
-        </p>
+        <!-- Pixel Quest upgrade banner inside main card -->
+        <div class="pq-banner" id="pixel-quest">
+          <h3>🎮 Want More? Try Pixel Quest — The Full Version</h3>
+          <p>
+            Terminal Game is the free original. <strong style="color:var(--text)">Pixel Quest</strong> is the complete
+            upgrade — three full visual themes, unique sprite art, and every power-up fully included. No ads. No locked content.
+          </p>
+          <div class="pq-features">
+            <div class="pq-feature"><span class="pq-dot"></span>3 complete skin themes: Old School Bit, New School Kid, Wizard</div>
+            <div class="pq-feature"><span class="pq-dot"></span>Full sprite art — characters, enemies, gems, backgrounds</div>
+            <div class="pq-feature"><span class="pq-dot"></span>3 power-ups with unique visuals per skin</div>
+            <div class="pq-feature"><span class="pq-dot"></span>8 escalating enemy movement patterns</div>
+            <div class="pq-feature"><span class="pq-dot"></span>3 difficulty modes: Easy, Normal, Hard</div>
+            <div class="pq-feature"><span class="pq-dot"></span>Per-skin music, sound effects & haptic feedback</div>
+            <div class="pq-feature"><span class="pq-dot"></span>Top 5 scores per skin — fully offline</div>
+          </div>
+          <a class="btn pq" href="https://apps.apple.com/us/app/pixel-quest/id000000000" style="width:100%;justify-content:center;font-size:1rem;padding:14px;">
+            🚀 Get Pixel Quest on the App Store
+          </a>
+          <p style="font-size:0.8rem;color:var(--muted);text-align:center;margin-top:8px;">Coming soon — by the same developer, FOOD4THOTH</p>
+        </div>
       </div>
 
+      <!-- RIGHT: Download + details sidebar -->
       <aside class="card" id="download">
-        <h2 style="margin:0 0 10px;">Get Terminal Game Retro Arcade</h2>
+        <h2>Get Terminal Game</h2>
 
         <div class="storebox">
-          <p style="margin:0 0 8px;color:var(--muted);">
-            <!-- Replace when you have your App Store link -->
-            App Store link:
-          </p>
-          <p style="margin:0 0 12px;">
-            <a href="https://apps.apple.com/us/app/terminal-game/id6757940532" class="btn primary" style="width:100%;justify-content:center;">
-               App Store (add link when ready)
-            </a>
-          </p>
-
-          <p style="margin:0;color:var(--muted);">
-            TestFlight:
-          </p>
-          <p style="margin:8px 0 0;">
-            <a href="https://testflight.apple.com/join/z8ThHQbZ" class="btn" style="width:100%;justify-content:center;">
-              🧪 Join TestFlight
-            </a>
-          </p>
-
-          <p class="note">
-            Status: <span class="ok">Ready</span>
-          </p>
+          <div class="storebox-label">App Store — Free</div>
+          <a href="https://apps.apple.com/us/app/terminal-game/id6757940532" class="btn primary" style="width:100%;justify-content:center;font-size:0.97rem;padding:13px;">
+            🍎 Download on the App Store
+          </a>
+          <div class="status">Status: <span class="ok">Live</span></div>
         </div>
 
-        <div class="storebox" style="margin-top:12px;">
-          <h3 style="margin:0 0 6px;">App Details</h3>
-          <ul style="margin:8px 0 0 18px;color:var(--muted);">
+        <div class="storebox">
+          <div class="storebox-label">Beta — TestFlight</div>
+          <a href="https://testflight.apple.com/join/z8ThHQbZ" class="btn" style="width:100%;justify-content:center;font-size:0.92rem;padding:12px;">
+            🧪 Join TestFlight
+          </a>
+        </div>
+
+        <div class="storebox">
+          <div class="storebox-label">App Details</div>
+          <ul>
             <li>Category: Games</li>
-            <li>Modes: Single player</li>
+            <li>Mode: Single player</li>
             <li>Pricing: Free</li>
-            <li>Support: Email + privacy page</li>
+            <li>Platform: iOS</li>
+            <li>Works offline: Yes</li>
           </ul>
         </div>
 
-        <div class="storebox" style="margin-top:12px;">
-          <h3 style="margin:0 0 6px;">Developer</h3>
-          <p style="margin:0;color:var(--muted);">
-  <strong>FOOD4THOTH</strong> is a digital art + music portal—an experimental arcade of interactive experiences, mystical storytelling, and community-powered creativity. We build playful tools, retro-inspired worlds, and mind-expanding media that invite curiosity, imagination, and connection.
-</p>
+        <div class="storebox">
+          <div class="storebox-label" style="margin-bottom:10px">Also by FOOD4THOTH</div>
+          <a href="#pixel-quest" class="btn pq" style="width:100%;justify-content:center;font-size:0.92rem;padding:12px;">
+            🎮 Pixel Quest — Full Version
+          </a>
+          <p style="font-size:0.82rem;color:var(--muted);margin-top:10px;line-height:1.5">
+            Three skins, full sprites, all power-ups. The complete Pixel Quest experience.
+          </p>
+        </div>
+
+        <div class="storebox">
+          <div class="storebox-label" style="margin-bottom:8px">Developer</div>
+          <p style="color:var(--muted);font-size:0.9rem;line-height:1.6">
+            <strong style="color:var(--text)">FOOD4THOTH</strong> is a digital art + music portal — an experimental
+            arcade of interactive experiences, mystical storytelling, and community-powered creativity.
+            We build playful tools, retro-inspired worlds, and mind-expanding media.
+          </p>
         </div>
       </aside>
     </section>
 
-    <section class="card" id="support">
-      <h2 style="margin:0 0 10px;">Support</h2>
-      <p style="margin:0 0 10px;color:var(--muted);">
-        Need help, found a bug, or want to suggest a new mini game? Reach out:
+    <!-- SUPPORT -->
+    <section class="card" id="support" style="margin-top:18px">
+      <h2 style="margin-bottom:14px">Support</h2>
+      <p style="color:var(--muted);margin-bottom:16px">
+        Need help, found a bug, or have a suggestion? We're reachable and responsive.
       </p>
-      <ul style="margin:0 0 10px 18px;">
-        <li><strong>Email:</strong> <a href="mailto:food4thoth@proton.me">food4thoth@proton.me</a></li>
-        <li><strong>Privacy Policy:</strong> <a href="https://www.food4thoth.com/RetroArcadeIOS/PrivatePolicy.html">privacy.html</a></li>
-      </ul>
-      <p class="note">
-      </p>
+      <div class="support-grid">
+        <div class="support-item">
+          <strong>Email</strong>
+          <span><a href="mailto:food4thoth@proton.me">food4thoth@proton.me</a></span>
+        </div>
+        <div class="support-item">
+          <strong>Privacy Policy</strong>
+          <span><a href="privacy.html">View Privacy Policy</a></span>
+        </div>
+        <div class="support-item">
+          <strong>Terminal Game</strong>
+          <span><a href="https://apps.apple.com/us/app/terminal-game/id6757940532">App Store page</a></span>
+        </div>
+        <div class="support-item">
+          <strong>Pixel Quest</strong>
+          <span><a href="#pixel-quest">Full version — coming soon</a></span>
+        </div>
+      </div>
     </section>
 
     <footer>
-      <div>© <span id="y"></span> Retro Arcade</div>
-      <div class="tiny">
-        Built for App Store Connect Marketing URL •
-        <a href="https://www.food4thoth.com/RetroArcadeIOS/PrivatePolicy.html">Privacy</a>
+      <div>© <span id="y"></span> FOOD4THOTH. All rights reserved.</div>
+      <div>
+        <a href="privacy.html">Privacy Policy</a> ·
+        <a href="mailto:food4thoth@proton.me">Contact</a>
       </div>
     </footer>
+
   </div>
 
   <script>
