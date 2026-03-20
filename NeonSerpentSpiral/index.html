@@ -8,22 +8,16 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="theme-color" content="#000000" />
     <title>The Neon Serpent Spiral</title>
-
-    <!-- Canonical URL -->
+    <!-- Canonical and Open Graph -->
     <link rel="canonical" href="https://www.food4thoth.com/NeonSerpentSpiral/" />
-
-    <!-- Open Graph / Social sharing -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.food4thoth.com/NeonSerpentSpiral/" />
     <meta property="og:title" content="The Neon Serpent Spiral" />
     <meta property="og:description" content="A psychedelic adventure game — explore zones, play mini-games, and unravel the spiral." />
     <meta property="og:image" content="https://www.food4thoth.com/NeonSerpentSpiral/opengraph.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://www.food4thoth.com/NeonSerpentSpiral/" />
     <meta name="twitter:title" content="The Neon Serpent Spiral" />
-    <meta name="twitter:description" content="A psychedelic adventure game — explore zones, play mini-games, and unravel the spiral." />
     <meta name="twitter:image" content="https://www.food4thoth.com/NeonSerpentSpiral/opengraph.jpg" />
-
     <link rel="icon" type="image/svg+xml" href="/NeonSerpentSpiral/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,9 +31,23 @@
         100% { background-position: -200% center; }
       }
     </style>
+    <!--
+      The <base> tag makes the bundle's relative paths (./images/...) resolve under
+      /NeonSerpentSpiral/ correctly. The script rewrites the location so the router
+      (built with base:"") sees "/" and matches the home route.
+    -->
+    <base href="/NeonSerpentSpiral/">
+    <script>
+      (function () {
+        var base = '/NeonSerpentSpiral';
+        if (window.location.pathname.indexOf(base) === 0) {
+          window.history.replaceState(null, '', '/' + window.location.search + window.location.hash);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script defer src="/NeonSerpentSpiral/assets/index-NeonSerpentSpiral.js"></script>
+    <script defer src="/NeonSerpentSpiral/assets/index-Cw70xEvA.js"></script>
   </body>
 </html>
