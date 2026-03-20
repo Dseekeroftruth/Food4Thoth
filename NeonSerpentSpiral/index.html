@@ -8,40 +8,29 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="theme-color" content="#000000" />
     <title>The Neon Serpent Spiral</title>
-    <!--
-      base tag: makes all relative paths like ./images/... resolve under /NeonSerpentSpiral/
-      so the pre-built bundle's relative image references work correctly on GitHub Pages.
-    -->
-    <base href="/NeonSerpentSpiral/">
+    <link rel="canonical" href="https://www.food4thoth.com/NeonSerpentSpiral/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.food4thoth.com/NeonSerpentSpiral/" />
+    <meta property="og:title" content="The Neon Serpent Spiral" />
+    <meta property="og:description" content="A psychedelic adventure game — explore zones, play mini-games, and unravel the spiral." />
+    <meta property="og:image" content="https://www.food4thoth.com/NeonSerpentSpiral/opengraph.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Neon Serpent Spiral" />
+    <meta name="twitter:image" content="https://www.food4thoth.com/NeonSerpentSpiral/opengraph.jpg" />
     <link rel="icon" type="image/svg+xml" href="/NeonSerpentSpiral/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="preload" as="image" href="/NeonSerpentSpiral/images/tarot-back.png">
-    <link rel="preload" as="image" href="/NeonSerpentSpiral/images/tarot-card.png">
-    <link rel="stylesheet" href="/NeonSerpentSpiral/assets/index-Do_s-lVe.css">
     <style>
       @keyframes shimmer {
         0% { background-position: 0% center; }
         100% { background-position: -200% center; }
       }
     </style>
-    <script>
-      // The bundle was built with base:"" so its router matches routes starting at "/".
-      // On GitHub Pages we're at /NeonSerpentSpiral/ — rewrite the URL to "/" so the
-      // router matches correctly. The <base> tag above keeps relative asset paths intact.
-      (function () {
-        var base = '/NeonSerpentSpiral';
-        var path = window.location.pathname;
-        if (path.indexOf(base) === 0) {
-          var rest = path.slice(base.length) || '/';
-          window.history.replaceState(null, '', rest + window.location.search + window.location.hash);
-        }
-      })();
-    </script>
+    <script type="module" crossorigin src="/NeonSerpentSpiral/assets/index-Cii5ZG56.js"></script>
+    <link rel="stylesheet" crossorigin href="/NeonSerpentSpiral/assets/index-DDS9hz5y.css">
   </head>
   <body>
     <div id="root"></div>
-    <script defer src="/NeonSerpentSpiral/assets/index-Cw70xEvA.js"></script>
   </body>
 </html>
