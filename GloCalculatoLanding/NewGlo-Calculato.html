@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Glo-CALCULATO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --neon-green: #00ff99;
+      --dark-bg: #0d0d1a;
+      --display-bg: #2c2c2c;
+      --btn-bg: #1c1c1c;
+      --btn-text: #ffffff;
+      --rainbow-speed-border: 2.5s;
+      --rainbow-speed-body: 5s;
+    }
+
+    html, body {
+      height: 100%;
+      background:
+        url('https://www.food4thoth.com/GloCalculatoLanding/images/17background.PNG')
+        center center / cover no-repeat fixed;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND OVERLAY (darkens image slightly so UI pops) ── */
+    .swirl-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: rgba(0,0,0,0.25);
+    }
+
+    /* ── LAYOUT ── */
+    #app {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 24px 12px 32px;
+      gap: 12px;
+    }
+
+    /* ── RAINBOW BORDER WRAPPER ── */
+    .rb-wrap {
+      position: relative;
+      border-radius: var(--rb-radius, 20px);
+      overflow: hidden;
+    }
+    .rb-spin {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+      /* JS sets size, position, animation */
+    }
+    .rb-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── CALCULATOR OUTER BODY ── */
+    #calc-outer {
+      --rb-radius: 20px;
+      width: min(420px, 100%);
+    }
+    #calc-outer .rb-inner {
+      margin: 6px;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    /* ── CALCULATOR BODY (rainbow swirl bg) ── */
+    #calc-body {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      padding: 7px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    #calc-body .body-spin {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    #calc-body > * { position: relative; z-index: 1; }
+
+    /* ── DISPLAY ── */
+    #display {
+      --rb-radius: 12px;
+      position: relative;
+    }
+    #display .rb-inner {
+      margin: 3px;
+      border-radius: 9px;
+      overflow: hidden;
+      background: var(--display-bg);
+      height: 100px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 8px;
+      position: relative;
+    }
+
+    /* DEG/RAD badge — sits BEHIND the face (z-index 3 < face z-index 4) */
+    #angle-btn {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: #1a1a2e;
+      border: 1px solid #3a3a5a;
+      border-radius: 6px;
+      padding: 3px 8px;
+      color: #7788ff;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      z-index: 3;
+      user-select: none;
+    }
+    #angle-btn:active { opacity: .7; }
+
+    /* Copy button */
+    #copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #1a1a2e;
+      border: 1px solid #3a3a5a;
+      border-radius: 6px;
+      padding: 3px 8px;
+      color: #7788ff;
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 5;
+      user-select: none;
+      display: none;
+    }
+    #copy-btn:active { opacity: .7; }
+
+    /* Smiley face */
+    #face {
+      position: absolute;
+      inset: 0;
+      background: #c4edd6;
+      border-radius: 9px;
+      overflow: hidden;
+      transition: opacity 0.9s ease;
+      pointer-events: none;
+      z-index: 4;
+    }
+    #face .eye {
+      position: absolute;
+      background: #1a1a1a;
+      border-radius: 999px;
+    }
+    #face .smile-clip {
+      position: absolute;
+      overflow: hidden;
+    }
+    #face .smile-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 2.5px solid #2a2a2a;
+      background: transparent;
+    }
+
+    /* Copy flash overlay */
+    #copy-flash {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,200,120,0.18);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      z-index: 6;
+      border-radius: 9px;
+    }
+    #copy-flash .flash-label { color: #00cc77; font-size: 12px; font-weight: 500; }
+    #copy-flash .flash-value { color: #00ff99; font-size: 20px; font-weight: 700; }
+
+    /* Expression text */
+    #expr-text {
+      color: #fff;
+      font-weight: 700;
+      text-align: right;
+      font-size: 44px;
+      line-height: 1.1;
+      word-break: break-all;
+      transition: color 0.2s;
+      user-select: none;
+    }
+    #expr-text.result { color: var(--neon-green); }
+
+    /* ── BUTTON GRID ── */
+    #btn-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+
+    .calc-btn {
+      --rb-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .calc-btn .rb-inner {
+      margin: 3px;
+      border-radius: 7px;
+      background: var(--btn-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 52px;
+      transition: filter 0.1s;
+    }
+    .calc-btn:active .rb-inner { filter: brightness(1.4); }
+    .calc-btn.wide {
+      grid-column: span 4;
+    }
+    .calc-btn.wide .rb-inner { height: 52px; }
+    .calc-btn .btn-label {
+      color: var(--btn-text);
+      font-size: 20px;
+      font-weight: 600;
+      pointer-events: none;
+    }
+    .calc-btn.fn .btn-label { font-size: 15px; }
+    .calc-btn.eq .btn-label { font-size: 24px; }
+
+    /* ── CREDIT ── */
+    #credit {
+      color: rgba(255,255,255,0.35);
+      font-size: 11px;
+      text-align: center;
+    }
+
+    /* ── HISTORY PANEL ── */
+    #history-panel {
+      width: min(420px, 100%);
+      background: rgba(20,20,30,0.85);
+      border-radius: 14px;
+      padding: 10px;
+      border: 1px solid #2a2a3a;
+      display: none;
+    }
+    .hist-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .hist-title {
+      color: #555;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    #hist-clear {
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid #3a2a2a;
+      background: #1e1010;
+      color: #cc4444;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .hist-row {
+      padding: 5px 0;
+      border-bottom: 1px solid #1e1e2e;
+      cursor: pointer;
+    }
+    .hist-row:last-child { border-bottom: none; }
+    .hist-row:active { opacity: .7; }
+    .hist-expr {
+      color: #666;
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .hist-result {
+      color: #00cc77;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    /* ── RAINBOW ANIMATION ── */
+    @keyframes rotateFull {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="swirl-bg"></div>
+
+<div id="app">
+
+  <!-- CALCULATOR OUTER (rainbow border) -->
+  <div class="rb-wrap" id="calc-outer">
+    <div class="rb-spin" id="outer-spin"></div>
+    <div class="rb-inner">
+
+      <!-- CALCULATOR BODY (rainbow swirl background) -->
+      <div id="calc-body">
+        <div class="body-spin" id="body-spin-el"></div>
+
+        <!-- DISPLAY -->
+        <div class="rb-wrap" id="display">
+          <div class="rb-spin" id="display-spin"></div>
+          <div class="rb-inner">
+
+            <button id="angle-btn">DEG</button>
+            <button id="copy-btn">⎘</button>
+
+            <!-- Smiley face -->
+            <div id="face">
+              <div class="eye" id="eye-l"></div>
+              <div class="eye" id="eye-r"></div>
+              <div class="smile-clip" id="smile-clip">
+                <div class="smile-circle" id="smile-circle"></div>
+              </div>
+            </div>
+
+            <!-- Copy flash -->
+            <div id="copy-flash">
+              <div class="flash-label">Copied to clipboard</div>
+              <div class="flash-value" id="flash-value"></div>
+            </div>
+
+            <div id="expr-text">0</div>
+          </div>
+        </div>
+
+        <!-- BUTTON GRID -->
+        <div id="btn-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="credit">© 2024 De'Jahn Bell | FOOD4THOTH</div>
+
+  <!-- HISTORY -->
+  <div id="history-panel">
+    <div class="hist-header">
+      <span class="hist-title">History</span>
+      <button id="hist-clear">Clear</button>
+    </div>
+    <div id="hist-list"></div>
+  </div>
+
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+//  RAINBOW GRADIENT SPINNER helper
+// ─────────────────────────────────────────────
+const RAINBOW = ["#ff0000","#ff6600","#ffee00","#00ff00","#00ffff","#0055ff","#cc00ff","#ff00aa","#ff0000"];
+
+function makeSpinner(wrapEl, spinEl, { duration = 3000, borderWidth = 6 } = {}) {
+  const stops = RAINBOW.join(", ");
+
+  function resize() {
+    const w = wrapEl.offsetWidth;
+    const h = wrapEl.offsetHeight;
+    const size = Math.ceil(Math.sqrt(w * w + h * h) * 1.4);
+    spinEl.style.cssText = `
+      position: absolute;
+      width: ${size}px;
+      height: ${size}px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(0deg);
+      background: conic-gradient(${stops});
+      border-radius: 50%;
+      animation: rotateFull ${duration}ms linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    `;
+  }
+  resize();
+  new ResizeObserver(resize).observe(wrapEl);
+}
+
+function makeBodySpinner(wrapEl, spinEl, { duration = 5000 } = {}) {
+  const stops = RAINBOW.join(", ");
+  function resize() {
+    const w = wrapEl.offsetWidth;
+    const h = wrapEl.offsetHeight;
+    const size = Math.ceil(Math.sqrt(w * w + h * h) * 1.4);
+    spinEl.style.cssText = `
+      position: absolute;
+      width: ${size}px;
+      height: ${size}px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(0deg);
+      background: conic-gradient(${stops});
+      border-radius: 50%;
+      animation: rotateFull ${duration}ms linear infinite;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.22;
+    `;
+  }
+  resize();
+  new ResizeObserver(resize).observe(wrapEl);
+}
+
+function makeButtonSpinner(wrapEl, spinEl, { duration = 2500 } = {}) {
+  const stops = RAINBOW.join(", ");
+  function resize() {
+    const w = wrapEl.offsetWidth;
+    const h = wrapEl.offsetHeight;
+    const size = Math.ceil(Math.sqrt(w * w + h * h) * 1.4);
+    spinEl.style.cssText = `
+      position: absolute;
+      width: ${size}px;
+      height: ${size}px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(0deg);
+      background: conic-gradient(${stops});
+      border-radius: 50%;
+      animation: rotateFull ${duration}ms linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    `;
+  }
+  resize();
+  new ResizeObserver(resize).observe(wrapEl);
+}
+
+
+// ─────────────────────────────────────────────
+//  BUTTON DEFINITIONS
+// ─────────────────────────────────────────────
+const BUTTONS = [
+  { label: "C",   type: "clear",    action: "clear" },
+  { label: "DEL", type: "special",  action: "del",          fn: true },
+  { label: "(",   type: "special",  action: "append:(" },
+  { label: ")",   type: "special",  action: "append:)" },
+
+  { label: "sin", type: "function", action: "append:sin(",  fn: true },
+  { label: "cos", type: "function", action: "append:cos(",  fn: true },
+  { label: "tan", type: "function", action: "append:tan(",  fn: true },
+  { label: "^",   type: "operator", action: "append:^" },
+
+  { label: "log", type: "function", action: "append:log(",  fn: true },
+  { label: "ln",  type: "function", action: "append:ln(",   fn: true },
+  { label: "π",   type: "special",  action: "append:π" },
+  { label: "e",   type: "special",  action: "append:e" },
+
+  { label: "7",   type: "number",   action: "append:7" },
+  { label: "8",   type: "number",   action: "append:8" },
+  { label: "9",   type: "number",   action: "append:9" },
+  { label: "/",   type: "operator", action: "append:/" },
+
+  { label: "4",   type: "number",   action: "append:4" },
+  { label: "5",   type: "number",   action: "append:5" },
+  { label: "6",   type: "number",   action: "append:6" },
+  { label: "×",   type: "operator", action: "append:*" },
+
+  { label: "1",   type: "number",   action: "append:1" },
+  { label: "2",   type: "number",   action: "append:2" },
+  { label: "3",   type: "number",   action: "append:3" },
+  { label: "−",   type: "operator", action: "append:-" },
+
+  { label: "0",   type: "number",   action: "append:0" },
+  { label: ".",   type: "number",   action: "append:." },
+  { label: "√",   type: "function", action: "append:sqrt(", fn: true },
+  { label: "+",   type: "operator", action: "append:+" },
+
+  { label: "=",   type: "equals",   action: "equals",       wide: true, eq: true },
+];
+
+// ─────────────────────────────────────────────
+//  BUILD BUTTON GRID
+// ─────────────────────────────────────────────
+const grid = document.getElementById('btn-grid');
+
+BUTTONS.forEach(btn => {
+  const wrap = document.createElement('div');
+  wrap.className = 'rb-wrap calc-btn' +
+    (btn.wide ? ' wide' : '') +
+    (btn.fn   ? ' fn'   : '') +
+    (btn.eq   ? ' eq'   : '');
+  wrap.dataset.action = btn.action;
+
+  const spin = document.createElement('div');
+  spin.className = 'rb-spin';
+
+  const inner = document.createElement('div');
+  inner.className = 'rb-inner';
+
+  const label = document.createElement('span');
+  label.className = 'btn-label';
+  label.textContent = btn.label;
+  if (btn.action === 'clear') label.id = 'clear-label';
+
+  inner.appendChild(label);
+  wrap.appendChild(spin);
+  wrap.appendChild(inner);
+  grid.appendChild(wrap);
+
+  // delayed so layout is complete
+  requestAnimationFrame(() => makeButtonSpinner(wrap, spin, { duration: 2500 }));
+
+  wrap.addEventListener('pointerdown', () => {
+    inner.style.filter = 'brightness(1.5)';
+  });
+  wrap.addEventListener('pointerup',   () => { inner.style.filter = ''; });
+  wrap.addEventListener('pointerleave',() => { inner.style.filter = ''; });
+  wrap.addEventListener('click', () => handleAction(btn.action));
+});
+
+// ─────────────────────────────────────────────
+//  INIT OUTER SPINNERS (after first paint)
+// ─────────────────────────────────────────────
+requestAnimationFrame(() => {
+  makeSpinner(
+    document.getElementById('calc-outer'),
+    document.getElementById('outer-spin'),
+    { duration: 3500, borderWidth: 6 }
+  );
+  makeSpinner(
+    document.querySelector('#display .rb-wrap, #display'),
+    document.getElementById('display-spin'),
+    { duration: 2800, borderWidth: 3 }
+  );
+  makeBodySpinner(
+    document.getElementById('calc-body'),
+    document.getElementById('body-spin-el'),
+    { duration: 5000 }
+  );
+  sizeFace();
+});
+
+// ─────────────────────────────────────────────
+//  FACE LAYOUT
+// ─────────────────────────────────────────────
+function sizeFace() {
+  const displayInner = document.querySelector('#display .rb-inner');
+  const w = displayInner.clientWidth;
+  const h = displayInner.clientHeight;
+
+  const eyeW = Math.round(w * 0.09);
+  const eyeH = Math.round(h * 0.40);
+  const eyeTop = h * 0.10;
+  const leftX  = w * 0.28 - eyeW / 2;
+  const rightX = w * 0.72 - eyeW / 2;
+
+  const smileW = w * 0.34;
+  const smileH = Math.round(smileW * 0.22);
+  const smileLeft = w / 2 - smileW / 2;
+  const smileTop  = h * 0.63;
+  const circleOff = -(smileW - smileH);
+
+  const el = (id) => document.getElementById(id);
+
+  const setS = (el, css) => Object.assign(el.style, css);
+
+  setS(el('eye-l'), { left: leftX+'px', top: eyeTop+'px', width: eyeW+'px', height: eyeH+'px' });
+  setS(el('eye-r'), { left: rightX+'px', top: eyeTop+'px', width: eyeW+'px', height: eyeH+'px' });
+  setS(el('smile-clip'), { left: smileLeft+'px', top: smileTop+'px', width: smileW+'px', height: smileH+'px' });
+  setS(el('smile-circle'), { top: circleOff+'px', left: '0', width: smileW+'px', height: smileW+'px', borderRadius: smileW/2+'px' });
+}
+
+window.addEventListener('resize', sizeFace);
+
+// ─────────────────────────────────────────────
+//  CALCULATOR STATE
+// ─────────────────────────────────────────────
+let expression = '0';
+let isResult   = false;
+let showFace   = true;
+let clearLabel = 'C';
+let angleMode  = 'DEG';
+let history    = [];
+let copyTimer  = null;
+let faceTimer  = null;
+
+const exprEl     = document.getElementById('expr-text');
+const face       = document.getElementById('face');
+const angleBtn   = document.getElementById('angle-btn');
+const copyBtn    = document.getElementById('copy-btn');
+const copyFlash  = document.getElementById('copy-flash');
+const flashValue = document.getElementById('flash-value');
+const clearLbl   = document.getElementById('clear-label');
+const histPanel  = document.getElementById('history-panel');
+const histList   = document.getElementById('hist-list');
+
+// ── math helpers (DEG mode)
+const _sind = x => Math.sin(x * Math.PI / 180);
+const _cosd = x => Math.cos(x * Math.PI / 180);
+const _tand = x => Math.tan(x * Math.PI / 180);
+
+function evaluate(expr) {
+  let clean = expr
+    .replace(/sqrt\(/g, 'Math.sqrt(')
+    .replace(/log\(/g,  'Math.log10(')
+    .replace(/ln\(/g,   'Math.log(')
+    .replace(/π/g, String(Math.PI))
+    .replace(/\be\b/g, String(Math.E))
+    .replace(/\^/g, '**');
+
+  if (angleMode === 'DEG') {
+    clean = clean
+      .replace(/sin\(/g, '_sind(')
+      .replace(/cos\(/g, '_cosd(')
+      .replace(/tan\(/g, '_tand(');
+  } else {
+    clean = clean
+      .replace(/sin\(/g, 'Math.sin(')
+      .replace(/cos\(/g, 'Math.cos(')
+      .replace(/tan\(/g, 'Math.tan(');
+  }
+  return Function('_sind','_cosd','_tand',`"use strict"; return (${clean})`)(_sind, _cosd, _tand);
+}
+
+function formatResult(n) {
+  if (!isFinite(n)) return 'Error';
+  return String(parseFloat(n.toPrecision(12)));
+}
+
+function updateDisplay() {
+  exprEl.textContent = expression;
+
+  // font size responsive to length
+  const len = expression.length;
+  exprEl.style.fontSize = len > 18 ? '20px' : len > 12 ? '26px' : len > 7 ? '34px' : '44px';
+
+  exprEl.className = isResult ? 'result' : '';
+
+  // copy button visibility
+  copyBtn.style.display = expression !== '0' ? 'block' : 'none';
+}
+
+function setClear(label) {
+  clearLabel = label;
+  clearLbl.textContent = label;
+}
+
+// ── face fade
+function fadeOutFace() {
+  if (!showFace) return;
+  face.style.opacity = '0';
+  clearTimeout(faceTimer);
+  faceTimer = setTimeout(() => {
+    showFace = false;
+    face.style.display = 'none';
+  }, 950);
+}
+
+function fadeInFace() {
+  showFace = true;
+  face.style.display = 'block';
+  requestAnimationFrame(() => { face.style.opacity = '1'; });
+}
+
+// ── history
+function renderHistory() {
+  histPanel.style.display = history.length ? 'block' : 'none';
+  histList.innerHTML = '';
+  history.forEach(item => {
+    const row = document.createElement('div');
+    row.className = 'hist-row';
+    row.innerHTML = `<div class="hist-expr">${item.expr}</div><div class="hist-result">= ${item.result}</div>`;
+    row.addEventListener('click', () => {
+      expression = item.result;
+      isResult = true;
+      showFace = false;
+      face.style.display = 'none';
+      setClear('C');
+      updateDisplay();
+    });
+    histList.appendChild(row);
+  });
+}
+
+// ─────────────────────────────────────────────
+//  ACTION HANDLER
+// ─────────────────────────────────────────────
+function handleAction(action) {
+  if (action === 'clear') {
+    if (clearLabel === 'AC') {
+      expression = '0';
+      isResult = false;
+      setClear('C');
+      fadeInFace();
+    } else {
+      fadeOutFace();
+      expression = '0';
+      isResult = false;
+      setClear('AC');
+    }
+    updateDisplay();
+    return;
+  }
+
+  fadeOutFace();
+
+  if (action === 'del') {
+    expression = expression.length <= 1 ? '0' : expression.slice(0, -1);
+    isResult = false;
+    setClear('C');
+    updateDisplay();
+    return;
+  }
+
+  if (action === 'equals') {
+    try {
+      const r = evaluate(expression);
+      const result = formatResult(r);
+      if (expression !== '0' && expression !== result) {
+        history = [{ expr: expression, result }, ...history.slice(0, 9)];
+        renderHistory();
+      }
+      expression = result;
+      isResult = true;
+    } catch {
+      expression = 'Error';
+      isResult = true;
+    }
+    setClear('C');
+    updateDisplay();
+    return;
+  }
+
+  if (action.startsWith('append:')) {
+    const char = action.slice(7);
+    setClear('C');
+    const isOp = /^[+\-*/^]$/.test(char);
+
+    if (expression === '0' && !isOp && char !== '.') {
+      expression = char;
+    } else if (isResult && isOp) {
+      isResult = false;
+      expression = expression + char;
+    } else if (isResult) {
+      isResult = false;
+      expression = char;
+    } else {
+      expression = expression + char;
+    }
+    updateDisplay();
+  }
+}
+
+// ── DEG/RAD toggle
+angleBtn.addEventListener('click', () => {
+  angleMode = angleMode === 'DEG' ? 'RAD' : 'DEG';
+  angleBtn.textContent = angleMode;
+});
+
+// ── copy
+copyBtn.addEventListener('click', () => {
+  if (expression === '0') return;
+  navigator.clipboard?.writeText(expression).catch(() => {});
+  const label = expression.length > 14 ? expression.slice(0, 14) + '…' : expression;
+  flashValue.textContent = label;
+  copyFlash.style.display = 'flex';
+  clearTimeout(copyTimer);
+  copyTimer = setTimeout(() => { copyFlash.style.display = 'none'; }, 2000);
+});
+
+// ── clear history
+document.getElementById('hist-clear').addEventListener('click', () => {
+  history = [];
+  renderHistory();
+});
+
+// ── keyboard support
+document.addEventListener('keydown', e => {
+  const map = {
+    '0':'append:0','1':'append:1','2':'append:2','3':'append:3',
+    '4':'append:4','5':'append:5','6':'append:6','7':'append:7',
+    '8':'append:8','9':'append:9','.':'append:.',
+    '+':'append:+','-':'append:-','*':'append:*','/':'append:/',
+    '^':'append:^','(':'append:(', ')':'append:)',
+    'Enter':'equals','=':'equals',
+    'Backspace':'del','Escape':'clear',
+  };
+  if (map[e.key]) { e.preventDefault(); handleAction(map[e.key]); }
+});
+
+// ── init
+face.style.transition = 'opacity 0.9s ease';
+face.style.opacity = '1';
+updateDisplay();
+renderHistory();
+sizeFace();
+</script>
+</body>
+</html>
