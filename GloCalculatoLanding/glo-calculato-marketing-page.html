@@ -162,7 +162,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: rainbowShift 4s linear infinite;
       animation: fadeInUp .8s ease both, rainbowShift 4s linear infinite;
     }
 
@@ -277,37 +276,35 @@
       color: var(--neon-green);
     }
 
-  .calc-face {
-  background: #c8e6c9;
-  border-radius: 10px;
-  height: 70px;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: flex-start;   /* move eyes upward */
-  justify-content: center;
-  gap: 20px;
-  position: relative;
-  padding-top: 12px;         /* controls how high the eyes sit */
-}
-
-.eye {
-  width: 10px;
-  height: 18px;              /* taller like the reference */
-  background: #222;
-  border-radius: 999px;      /* pill shape */
-}
-
-.smile {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 12px;
-  width: 40px;
-  height: 18px;
-  border: 3px solid #222;
-  border-top: none;
-  border-radius: 0 0 24px 24px;
-}
+    .calc-face {
+      background: #c8e6c9;
+      border-radius: 10px;
+      height: 70px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+      padding-top: 12px;
+    }
+    .eye {
+      width: 10px;
+      height: 18px;
+      background: #222;
+      border-radius: 999px;
+    }
+    .smile {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 12px;
+      width: 40px;
+      height: 18px;
+      border: 3px solid #222;
+      border-top: none;
+      border-radius: 0 0 24px 24px;
+    }
 
     .calc-grid {
       display: grid;
@@ -483,54 +480,6 @@
       text-transform: uppercase;
     }
 
-    /* ── DONATION TIERS ── */
-    .tiers-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      margin-top: 50px;
-    }
-    .tier-card {
-      background: var(--card-bg);
-      border-radius: 18px;
-      padding: 28px 22px;
-      text-align: center;
-      border: 1px solid rgba(255,255,255,.1);
-      transition: transform .3s, border-color .3s;
-    }
-    .tier-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(0,255,153,.4);
-    }
-    .tier-card.featured {
-      border-color: var(--neon-green);
-      box-shadow: 0 0 30px rgba(0,255,153,.2);
-    }
-    .tier-emoji { font-size: 2.4rem; margin-bottom: 12px; display: block; }
-    .tier-name {
-      font-weight: 700;
-      font-size: .95rem;
-      margin-bottom: 6px;
-      color: #fff;
-    }
-    .tier-price {
-      font-family: 'Orbitron', monospace;
-      font-size: 1.4rem;
-      font-weight: 900;
-      color: var(--neon-green);
-      margin-bottom: 8px;
-    }
-    .tier-badge {
-      display: inline-block;
-      font-size: .7rem;
-      padding: 3px 10px;
-      border-radius: 100px;
-      background: rgba(0,255,153,.15);
-      color: var(--neon-green);
-      border: 1px solid rgba(0,255,153,.3);
-      margin-top: 4px;
-    }
-
     /* ── QUOTE ── */
     .quote-block {
       background: linear-gradient(135deg, #1a0a2e40, #0a1a2e40);
@@ -611,10 +560,10 @@
   </p>
 
   <div class="hero-buttons">
-    <a href="#download" class="btn-primary">
+    <a href="https://food4thoth.com" class="btn-primary">
       📲 Get the App
     </a>
-    <a href="https://www.food4thoth.com/GloCalculato" class="btn-secondary">
+    <a href="https://food4thoth.com/GloCalculato" class="btn-secondary">
       🌐 See the Original
     </a>
   </div>
@@ -622,7 +571,10 @@
   <!-- Calculator mockup -->
   <div class="calc-showcase">
     <div class="calc-device">
-      
+      <div class="calc-display">
+        <div class="expr">sin(45) + π</div>
+        <div class="result">3.8562</div>
+      </div>
       <div class="calc-face">
         <div class="eye"></div>
         <div class="eye"></div>
@@ -637,6 +589,10 @@
         <div class="calc-btn">cos</div>
         <div class="calc-btn">tan</div>
         <div class="calc-btn">^</div>
+        <div class="calc-btn">log</div>
+        <div class="calc-btn">ln</div>
+        <div class="calc-btn">π</div>
+        <div class="calc-btn">e</div>
         <div class="calc-btn">7</div>
         <div class="calc-btn">8</div>
         <div class="calc-btn">9</div>
@@ -657,13 +613,7 @@
       </div>
     </div>
   </div>
-</br>
-<div class="calc-display">
-        <div class="expr">sin(42)+365</div>
-        <div class="result">364.083478452</div>
-      </div>
 </section>
-
 
 <hr class="rainbow-line" />
 
@@ -675,8 +625,8 @@
       <div class="stat-label">Rainbow Colors</div>
     </div>
     <div class="stat-item">
-      <div class="stat-number">6</div>
-      <div class="stat-label">Trig Functions</div>
+      <div class="stat-number">12+</div>
+      <div class="stat-label">Math Functions</div>
     </div>
     <div class="stat-item">
       <div class="stat-number">1</div>
@@ -736,8 +686,8 @@
       <span class="feature-icon">📐</span>
       <div class="feature-name">Full Scientific Math</div>
       <div class="feature-desc">
-        Sin, cos, tan, square roots, powers, parentheses, decimals — everything
-        you need for quick math, homework, or the cosmos.
+        Sin, cos, tan, log, ln, π, e, square roots, powers, parentheses —
+        everything you need for homework, engineering, or the cosmos.
       </div>
     </div>
 
@@ -751,11 +701,38 @@
     </div>
 
     <div class="feature-card rainbow-border">
-      <span class="feature-icon">🏅</span>
-      <div class="feature-name">Support &amp; VIP Donor</div>
+      <span class="feature-icon">📳</span>
+      <div class="feature-name">Haptic Feedback</div>
       <div class="feature-desc">
-        Love the app? Become a VIP Donor. Six donation tiers let you support
-        the creator at whatever level feels right — from a coffee to full love.
+        Every button press delivers a precise haptic tap. The equals button
+        gives a stronger pulse — that satisfying finish you can feel.
+      </div>
+    </div>
+
+    <div class="feature-card rainbow-border">
+      <span class="feature-icon">📋</span>
+      <div class="feature-name">Calculation History</div>
+      <div class="feature-desc">
+        Every result you calculate is saved in a scrollable history panel.
+        Tap any past result to instantly load it back into the display.
+      </div>
+    </div>
+
+    <div class="feature-card rainbow-border">
+      <span class="feature-icon">🔄</span>
+      <div class="feature-name">DEG / RAD Toggle</div>
+      <div class="feature-desc">
+        Switch between Degrees and Radians with one tap. Trig functions
+        automatically adjust — sin(90°) always gives 1 in DEG mode.
+      </div>
+    </div>
+
+    <div class="feature-card rainbow-border">
+      <span class="feature-icon">⎘</span>
+      <div class="feature-name">One-Tap Copy</div>
+      <div class="feature-desc">
+        Tap the copy icon on the display to copy any expression or result
+        straight to your clipboard — ready to paste anywhere.
       </div>
     </div>
   </div>
@@ -780,6 +757,10 @@
     <span class="math-tag">Sine sin()</span>
     <span class="math-tag">Cosine cos()</span>
     <span class="math-tag">Tangent tan()</span>
+    <span class="math-tag">Log base-10 log()</span>
+    <span class="math-tag">Natural Log ln()</span>
+    <span class="math-tag">Pi π</span>
+    <span class="math-tag">Euler's e</span>
     <span class="math-tag">Square Root √</span>
     <span class="math-tag">Exponents ^</span>
     <span class="math-tag">Parentheses ( )</span>
@@ -787,6 +768,7 @@
     <span class="math-tag">Backspace DEL</span>
     <span class="math-tag">Clear C / AC</span>
     <span class="math-tag">Equals =</span>
+    <span class="math-tag">DEG / RAD Mode</span>
   </div>
 </section>
 
@@ -795,72 +777,20 @@
 <!-- ═══════════════════════════ QUOTE ═══════════════════════════ -->
 <section style="padding-top:60px;padding-bottom:20px;">
   <div class="quote-block">
-    "Mathematics is the language with which has written the universe — and now
+    "Mathematics is the language with which God has written the universe — and now
     that language has rainbow borders and a smiley face."
     <cite>— Inspired by FOOD4THOTH</cite>
   </div>
 </section>
 
-<!-- ═══════════════════════════ DONATIONS ═══════════════════════════ -->
-<section>
-  <p class="section-label">Support the Creator</p>
-  <h2 class="section-title">Show the love.<br/>Become a V.I.P.</h2>
-  <p class="section-body">
-    Glo-CALCULATO is made with heart by the team at FOOD4THOTH.
-    Your support keeps the rainbow glowing and new features coming.
-    Every tier is a one-time donation — no subscriptions, ever.
-  </p>
-
-  <div class="tiers-grid">
-    <div class="tier-card">
-      <span class="tier-emoji">☕</span>
-      <div class="tier-name">1 Good Coffee</div>
-      <div class="tier-price">$4.99</div>
-      <span class="tier-badge">Basic</span>
-    </div>
-    <div class="tier-card">
-      <span class="tier-emoji">🥙</span>
-      <div class="tier-name">1 Good Lunch</div>
-      <div class="tier-price">$15.99</div>
-      <span class="tier-badge">Basic</span>
-    </div>
-    <div class="tier-card featured">
-      <span class="tier-emoji">🐕</span>
-      <div class="tier-name">1 Toy for my Dog</div>
-      <div class="tier-price">$19.99</div>
-      <span class="tier-badge">⭐ VIP Donor</span>
-    </div>
-    <div class="tier-card">
-      <span class="tier-emoji">🍲</span>
-      <div class="tier-name">1 Healthy Family Meal</div>
-      <div class="tier-price">$49.99</div>
-      <span class="tier-badge">👨‍👩‍👧‍👦 Family VIP</span>
-    </div>
-    <div class="tier-card">
-      <span class="tier-emoji">🎵</span>
-      <div class="tier-name">1 Musical Toy</div>
-      <div class="tier-price">$59.99</div>
-      <span class="tier-badge">👨‍👩‍👧‍👦 Family VIP</span>
-    </div>
-    <div class="tier-card featured">
-      <span class="tier-emoji">❤️</span>
-      <div class="tier-name">I Understand the Real App Value</div>
-      <div class="tier-price">$99.99</div>
-      <span class="tier-badge">💎 Full Supporter</span>
-    </div>
-  </div>
-</section>
-
-<hr class="rainbow-line" />
-
 <!-- ═══════════════════════════ CTA ═══════════════════════════ -->
-<section id="download" style="text-align:center;padding-bottom:100px;">
+<section style="text-align:center;padding-bottom:100px;">
   <p class="section-label">Ready to Glo?</p>
   <h2 class="section-title" style="max-width:500px;margin:0 auto 20px;">
     Download free.<br/>Calculate in color.
   </h2>
   <p class="section-body" style="margin:0 auto 40px;text-align:center;">
-    Available now on iOS and Android. Completely free to use — support optional.
+    Available now on iOS and Android. Completely free to use.
   </p>
   <div class="hero-buttons" style="justify-content:center;">
     <a href="https://food4thoth.com" class="btn-primary">
@@ -877,12 +807,13 @@
 <footer>
   <div class="footer-title">GLO-CALCULATO</div>
   <div class="footer-links">
-    <a href="https://www.food4thoth.com">FOOD4THOTH.com</a>
-    <a href="https://www.food4thoth.com/GloCalculato">Original Web Version</a>
-    <a href="https://www.food4thoth.com/contact">Support</a>
+    <a href="https://food4thoth.com">FOOD4THOTH.com</a>
+    <a href="https://food4thoth.com/GloCalculato">Original Web Version</a>
+    <a href="https://food4thoth.com">Support</a>
+    <a href="./glo-calculato-privacy-policy.html">Privacy Policy</a>
   </div>
   <p class="footer-copy">
-    © 2024 DeJahn Bell · FOOD4THOTH · Made with 🌈 and love<br/>
+    © 2024 De'Jahn Bell · FOOD4THOTH · Made with 🌈 and love<br/>
     All rights reserved.
   </p>
 </footer>
