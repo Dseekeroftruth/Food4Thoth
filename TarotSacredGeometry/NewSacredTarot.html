@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<title>FOOD4THOTH Sacred Tarot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --midnight:#0A0814;--deep:#120A2E;--surface:#1E1250;--card-bg:#120A2E;
+  --gold:#D4AF37;--soft-gold:#E8C96A;--muted-gold:#8A6C20;
+  --cream:#F5E6C8;--dim-cream:#B8A882;--muted:#6B5F8A;
+  --border:#3D2A7D;--indigo:#1A0F3C;
+  --major:#CE93D8;--wands:#E07C2A;--cups:#4FC3F7;--swords:#90CAF9;--pentacles:#81C784;
+  --tab-h:72px;
+}
+html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cream);font-family:'Inter',sans-serif}
+#app{position:fixed;inset:0;display:flex;flex-direction:column;overflow:hidden}
+
+/* ── VIEWS ── */
+.view{position:absolute;inset:0;bottom:var(--tab-h);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;opacity:0;pointer-events:none;transition:opacity .2s}
+.view.active{opacity:1;pointer-events:all}
+
+/* ── TAB BAR ── */
+#tabbar{position:absolute;bottom:0;left:0;right:0;height:var(--tab-h);background:rgba(10,8,20,.97);border-top:1px solid rgba(61,42,125,.5);display:flex;align-items:center;justify-content:space-around;padding-bottom:env(safe-area-inset-bottom,0px);z-index:100}
+.tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0;border:none;background:none;cursor:pointer;color:var(--muted);transition:color .2s}
+.tab-btn.active{color:var(--gold)}
+.tab-btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase}
+
+/* ── DETAIL PANEL (Card / Spread) ── */
+#detail-panel{position:absolute;inset:0;z-index:50;background:var(--midnight);overflow-y:auto;transform:translateX(100%);transition:transform .3s cubic-bezier(.25,.46,.45,.94)}
+#detail-panel.open{transform:translateX(0)}
+
+/* ── SACRED GEOMETRY BG ── */
+.sg-bg{position:absolute;pointer-events:none;opacity:.06;animation:spin 30s linear infinite}
+.sg-bg.slow{animation-duration:60s}
+.sg-bg.rev{animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── HEADERS ── */
+.screen-header{padding:20px 20px 16px;text-align:center;position:relative;z-index:2}
+.screen-title{font-family:'Cinzel',serif;font-weight:700;font-size:22px;color:var(--gold);letter-spacing:4px;text-shadow:0 0 20px rgba(212,175,55,.25)}
+.screen-subtitle{font-family:'Cinzel',serif;font-size:11px;color:var(--dim-cream);letter-spacing:2.5px;margin-top:3px}
+
+/* ── SEARCH / FILTER ── */
+.search-wrap{margin:0 16px 10px;display:flex;align-items:center;gap:8px;background:rgba(30,18,80,.55);border:1px solid rgba(61,42,125,.4);border-radius:10px;padding:9px 12px}
+.search-wrap input{flex:1;background:none;border:none;outline:none;font-family:'Inter',sans-serif;font-size:14px;color:var(--cream)}
+.search-wrap input::placeholder{color:var(--muted)}
+.search-ico{color:var(--muted);flex-shrink:0}
+.clear-btn{color:var(--muted);background:none;border:none;cursor:pointer;padding:0;line-height:1}
+
+.filter-row{display:flex;gap:8px;padding:0 16px 10px;overflow-x:auto;scrollbar-width:none}
+.filter-row::-webkit-scrollbar{display:none}
+.chip{font-family:'Inter',sans-serif;font-size:12px;padding:5px 14px;border-radius:20px;border:1px solid rgba(61,42,125,.35);background:transparent;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .2s;letter-spacing:.5px}
+.chip.active{border-color:var(--active-color,var(--gold));color:var(--active-color,var(--gold));background:rgba(212,175,55,.1)}
+
+/* ── DECK GRID ── */
+#deck-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:4px 14px 120px;position:relative;z-index:2}
+.card-item{cursor:pointer;transition:transform .15s,opacity .15s}
+.card-item:active{transform:scale(.96);opacity:.75}
+.card-img-wrap{position:relative;border-radius:10px;overflow:hidden;background:var(--card-bg)}
+.card-img-wrap img{width:100%;display:block;aspect-ratio:.625;object-fit:cover}
+.card-label-row{display:flex;align-items:center;gap:6px;margin-top:7px;padding:0 2px}
+.card-dot{width:5px;height:5px;border-radius:3px;flex-shrink:0}
+.card-label{font-family:'Inter',sans-serif;font-size:11px;color:var(--dim-cream);letter-spacing:.3px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card-glow{box-shadow:0 4px 20px rgba(0,0,0,.6)}
+
+/* ── EMPTY STATE ── */
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:16px;opacity:.5}
+.empty-state p{font-family:'Cinzel',serif;font-size:14px;color:var(--muted);letter-spacing:1px}
+
+/* ── DRAW SCREEN ── */
+#draw-view{display:flex;flex-direction:column;align-items:stretch}
+.draw-date{font-size:13px;color:var(--muted);text-align:center;margin-top:4px;letter-spacing:.5px}
+.draw-area{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;min-height:430px;position:relative}
+.card-flip-scene{width:240px;height:384px;perspective:1000px;cursor:pointer}
+.card-flip-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.25,.46,.45,.94)}
+.card-flip-inner.flipped{transform:rotateY(180deg)}
+.card-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:10px;overflow:hidden}
+.card-back-face{background:var(--card-bg)}
+.card-front-face{transform:rotateY(180deg)}
+.card-front-face img,.card-back-face img{width:100%;height:100%;object-fit:cover;display:block}
+.card-reversed .card-front-face img{transform:rotate(180deg)}
+@keyframes pulseScale{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.pulse-anim{animation:pulseScale 3.6s ease-in-out infinite}
+.draw-btn{display:flex;align-items:center;gap:8px;align-self:center;background:var(--gold);color:var(--midnight);font-family:'Cinzel',serif;font-weight:700;font-size:15px;letter-spacing:1.5px;border:none;border-radius:30px;padding:14px 32px;cursor:pointer;box-shadow:0 4px 20px rgba(212,175,55,.35);transition:transform .15s,opacity .15s;margin-bottom:24px}
+.draw-btn:active{transform:scale(.97);opacity:.85}
+.card-info-panel{margin:0 16px 20px;background:rgba(18,10,46,.8);border:1px solid rgba(61,42,125,.4);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.card-name-row{display:flex;align-items:flex-start;justify-content:space-between}
+.card-suit-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:500;margin-bottom:4px}
+.card-big-name{font-family:'Cinzel',serif;font-weight:700;font-size:22px;color:var(--cream);letter-spacing:.5px}
+.reversed-tag{font-size:11px;color:#E63946;letter-spacing:1px;margin-top:2px}
+.fav-btn{background:none;border:none;cursor:pointer;padding:4px;line-height:0}
+.keywords-row{display:flex;gap:8px;flex-wrap:wrap}
+.kw-chip{font-size:11px;padding:4px 10px;border-radius:12px;border:1px solid;letter-spacing:.5px}
+.attrs-row{display:flex;gap:10px;flex-wrap:wrap}
+.attr-chip{display:flex;flex-direction:column;align-items:center;background:rgba(26,15,60,.5);border-radius:10px;padding:6px 14px}
+.attr-chip-label{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.attr-chip-val{font-size:13px;font-weight:600;margin-top:2px}
+.desc-box{border:1px solid;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.desc-box-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;text-align:center}
+.desc-box-text{font-size:14px;color:var(--cream);line-height:22px;font-style:italic;text-align:center;opacity:.9}
+.read-more-btn{display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid;border-radius:12px;padding:12px 16px;cursor:pointer;background:transparent;font-family:'Inter',sans-serif;transition:opacity .15s}
+.read-more-btn:active{opacity:.7}
+.read-more-btn span{font-size:13px;font-weight:600;letter-spacing:.5px;flex:1;text-align:center}
+
+/* ── SPREADS ── */
+.section-header{padding:10px 16px;background:rgba(30,18,80,.27);border-top:1px solid rgba(61,42,125,.27);border-bottom:1px solid rgba(61,42,125,.27);margin-top:4px}
+.section-header-text{font-family:'Cinzel',serif;font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase}
+.spread-row{display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:1px solid rgba(61,42,125,.2);cursor:pointer;transition:background .15s}
+.spread-row:active{background:rgba(30,18,80,.27)}
+.spread-icon-wrap{width:50px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.spread-row-text{flex:1}
+.spread-row-name{font-family:'Cinzel',serif;font-size:15px;color:var(--cream);letter-spacing:.3px}
+.spread-row-subtitle{font-size:12px;color:var(--muted);margin-top:2px;letter-spacing:.2px}
+.spread-badge{width:22px;height:22px;border-radius:11px;background:rgba(212,175,55,.13);border:1px solid rgba(212,175,55,.35);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);font-weight:600;flex-shrink:0}
+.spread-list-content{padding-bottom:100px}
+
+/* ── FAVORITES ── */
+#fav-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:4px 14px 120px;position:relative;z-index:2}
+.fav-card-wrap{position:relative;cursor:pointer}
+.fav-remove{position:absolute;top:4px;right:4px;z-index:5;background:rgba(10,8,20,.7);border:none;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#E63946;font-size:14px;line-height:1}
+.fav-card-wrap img{width:100%;aspect-ratio:.625;object-fit:cover;border-radius:8px;display:block}
+.fav-card-name{font-family:'Cinzel',serif;font-size:9px;color:var(--dim-cream);letter-spacing:.3px;text-align:center;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.no-favs{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:16px;text-align:center}
+.no-favs p{font-family:'Cinzel',serif;font-size:14px;color:var(--muted);letter-spacing:1px}
+.browse-btn{font-family:'Cinzel',serif;font-size:12px;color:var(--midnight);background:var(--gold);border:none;border-radius:20px;padding:10px 24px;cursor:pointer;letter-spacing:1px;margin-top:8px}
+
+/* ── CARD DETAIL ── */
+#card-detail-content{padding:0 20px 48px;display:flex;flex-direction:column}
+.detail-header{display:flex;align-items:center;justify-content:space-between;padding:16px 16px 8px;position:sticky;top:0;z-index:10;background:var(--midnight)}
+.back-btn{display:flex;align-items:center;gap:4px;background:none;border:none;cursor:pointer;color:var(--cream);font-size:16px;padding:8px 4px}
+.fav-icon-btn{background:none;border:none;cursor:pointer;padding:4px;line-height:0}
+.detail-card-wrap{display:flex;justify-content:center;margin:20px 0}
+.detail-card-img{border-radius:12px;box-shadow:0 0 40px rgba(212,175,55,.25);max-width:280px;width:78%;aspect-ratio:.625;object-fit:cover}
+.detail-title-block{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:16px}
+.detail-num{font-family:'Cinzel',serif;font-size:15px;letter-spacing:3px;opacity:.8}
+.detail-name{font-family:'Cinzel',serif;font-weight:700;font-size:28px;color:var(--cream);text-align:center;letter-spacing:1px}
+.suit-badge{border:1px solid;border-radius:20px;padding:4px 16px}
+.suit-badge-text{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;font-weight:700}
+.divider{height:1px;margin:20px 0;border-radius:1px;opacity:.4}
+.full-desc-header{font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;text-align:center;margin-bottom:12px;opacity:.85}
+.loading-block{display:flex;flex-direction:column;align-items:center;gap:12px;padding:32px;opacity:.7}
+.loading-txt{font-size:14px;color:var(--muted);font-style:italic}
+.full-desc-text{font-size:15px;color:var(--cream);line-height:26px;opacity:.9;white-space:pre-wrap;word-break:break-word}
+.journal-box{border:1px solid;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.journal-textarea{width:100%;background:none;border:none;outline:none;font-family:'Inter',sans-serif;font-size:14px;color:var(--cream);line-height:22px;min-height:100px;resize:none;opacity:.9}
+.journal-textarea::placeholder{color:var(--muted)}
+.save-note-btn{display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid;border-radius:10px;padding:10px 16px;cursor:pointer;background:transparent;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:.5px;transition:opacity .15s}
+.save-note-btn:active{opacity:.7}
+
+/* ── SPREAD DETAIL ── */
+#spread-detail-content{padding:0 0 80px}
+.spread-detail-header{padding:16px 16px 12px;display:flex;flex-direction:column}
+.spread-detail-back{display:flex;align-items:center;gap:4px;background:none;border:none;cursor:pointer;color:var(--cream);font-size:15px;margin-bottom:12px;padding:0}
+.spread-detail-title{font-family:'Cinzel',serif;font-weight:700;font-size:22px;color:var(--gold);letter-spacing:2px;text-align:center}
+.spread-detail-subtitle{font-size:13px;color:var(--muted);text-align:center;letter-spacing:.5px;margin-top:4px}
+.spread-diagram-wrap{display:flex;justify-content:center;padding:20px 0;position:relative}
+.spread-diagram{position:relative}
+.spread-pos-card{position:absolute;transform:translate(-50%,-50%);border:1px solid rgba(212,175,55,.5);border-radius:5px;background:rgba(30,18,80,.6);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;overflow:hidden}
+.spread-pos-card.revealed{border-color:var(--gold);box-shadow:0 0 12px rgba(212,175,55,.3)}
+.spread-pos-card img{width:100%;height:100%;object-fit:cover;border-radius:4px}
+.spread-pos-label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--dim-cream);white-space:nowrap;font-family:'Cinzel',serif;letter-spacing:.5px}
+.spread-shuffle-btn{display:flex;align-items:center;gap:8px;align-self:center;margin:10px auto;background:var(--gold);color:var(--midnight);font-family:'Cinzel',serif;font-weight:700;font-size:14px;letter-spacing:1.5px;border:none;border-radius:30px;padding:12px 28px;cursor:pointer;box-shadow:0 4px 20px rgba(212,175,55,.3);transition:transform .15s}
+.spread-shuffle-btn:active{transform:scale(.97)}
+.spread-cards-list{padding:0 16px}
+.spread-card-entry{background:rgba(18,10,46,.7);border:1px solid rgba(61,42,125,.35);border-radius:14px;padding:14px;margin-bottom:12px;cursor:pointer;transition:border-color .2s}
+.spread-card-entry:active{border-color:var(--gold)}
+.spread-entry-header{display:flex;align-items:center;gap:12px}
+.spread-entry-thumb{width:44px;height:70px;border-radius:6px;object-fit:cover;flex-shrink:0}
+.spread-entry-info{flex:1}
+.spread-entry-pos{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.spread-entry-name{font-family:'Cinzel',serif;font-size:14px;color:var(--cream);letter-spacing:.3px}
+.spread-entry-suit{font-size:11px;letter-spacing:1px;margin-top:2px;text-transform:uppercase}
+.spread-pos-desc{font-size:12px;color:var(--muted);line-height:18px;margin-top:8px;font-style:italic}
+
+/* ── ONBOARDING ── */
+#onboarding{position:fixed;inset:0;z-index:200;background:var(--midnight);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:60px 32px 50px}
+#onboarding.hidden{display:none}
+.ob-geo{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.09;animation:spin 45s linear infinite}
+.ob-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center;max-width:360px}
+.ob-slide{display:none;flex-direction:column;align-items:center;gap:24px}
+.ob-slide.active{display:flex}
+.ob-title{font-family:'Cinzel',serif;font-weight:900;font-size:32px;color:var(--gold);letter-spacing:5px;text-shadow:0 0 30px rgba(212,175,55,.3)}
+.ob-subtitle{font-family:'Cinzel',serif;font-size:13px;color:var(--dim-cream);letter-spacing:3px}
+.ob-body{font-size:17px;color:var(--cream);line-height:1.7;opacity:.85}
+.ob-dots{display:flex;gap:8px;justify-content:center;position:relative;z-index:2}
+.ob-dot{width:7px;height:7px;border-radius:4px;background:rgba(212,175,55,.3);transition:all .3s}
+.ob-dot.active{background:var(--gold);width:20px}
+.ob-actions{display:flex;align-items:center;gap:16px;width:100%;max-width:320px;position:relative;z-index:2}
+.ob-skip{background:none;border:none;font-family:'Cinzel',serif;font-size:13px;color:var(--muted);cursor:pointer;letter-spacing:1px;padding:14px;flex-shrink:0}
+.ob-next{flex:1;background:var(--gold);color:var(--midnight);font-family:'Cinzel',serif;font-weight:700;font-size:14px;letter-spacing:2px;border:none;border-radius:30px;padding:14px 24px;cursor:pointer}
+
+/* ── GLOW PULSE ── */
+@keyframes glowPulse{0%,100%{opacity:.08}50%{opacity:.2}}
+.glow-pulse{animation:glowPulse 4s ease-in-out infinite}
+
+/* ── CARD BACK SVG BG ── */
+.card-back-pattern{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#120A2E 0%,#1E1250 100%)}
+
+/* ── SCROLLBAR HIDE ── */
+.view::-webkit-scrollbar,#detail-panel::-webkit-scrollbar{width:0}
+
+@media(min-width:480px){
+  #deck-grid{grid-template-columns:1fr 1fr 1fr}
+  #fav-grid{grid-template-columns:1fr 1fr 1fr 1fr}
+}
+@media(min-width:768px){
+  #deck-grid{grid-template-columns:repeat(4,1fr)}
+  #fav-grid{grid-template-columns:repeat(5,1fr)}
+  .draw-area{padding:40px}
+}
+</style>
+</head>
+<body>
+
+<!-- ONBOARDING -->
+<div id="onboarding">
+  <svg class="ob-geo" width="500" height="500" viewBox="0 0 500 500" fill="none">
+    <circle cx="250" cy="250" r="230" stroke="#D4AF37" stroke-width=".8"/>
+    <circle cx="250" cy="250" r="115" stroke="#D4AF37" stroke-width=".6"/>
+    <circle cx="250" cy="135" r="115" stroke="#D4AF37" stroke-width=".5"/>
+    <circle cx="250" cy="365" r="115" stroke="#D4AF37" stroke-width=".5"/>
+    <circle cx="151" cy="192" r="115" stroke="#D4AF37" stroke-width=".5"/>
+    <circle cx="349" cy="192" r="115" stroke="#D4AF37" stroke-width=".5"/>
+    <circle cx="151" cy="308" r="115" stroke="#D4AF37" stroke-width=".5"/>
+    <circle cx="349" cy="308" r="115" stroke="#D4AF37" stroke-width=".5"/>
+    <polygon points="250,90 400,340 100,340" stroke="#D4AF37" stroke-width=".8" fill="none"/>
+    <polygon points="250,410 100,160 400,160" stroke="#D4AF37" stroke-width=".8" fill="none"/>
+    <circle cx="250" cy="250" r="5" fill="#D4AF37"/>
+  </svg>
+  <div class="ob-content">
+    <div class="ob-slide active" id="ob-0">
+      <svg width="180" height="180" viewBox="0 0 200 200" fill="none" style="opacity:.9">
+        <circle cx="100" cy="100" r="90" stroke="#D4AF37" stroke-width="1"/>
+        <circle cx="100" cy="100" r="45" stroke="#D4AF37" stroke-width=".8"/>
+        <circle cx="100" cy="55" r="45" stroke="#D4AF37" stroke-width=".6"/>
+        <circle cx="100" cy="145" r="45" stroke="#D4AF37" stroke-width=".6"/>
+        <circle cx="61" cy="77.5" r="45" stroke="#D4AF37" stroke-width=".6"/>
+        <circle cx="139" cy="77.5" r="45" stroke="#D4AF37" stroke-width=".6"/>
+        <circle cx="61" cy="122.5" r="45" stroke="#D4AF37" stroke-width=".6"/>
+        <circle cx="139" cy="122.5" r="45" stroke="#D4AF37" stroke-width=".6"/>
+        <polygon points="100,40 160,130 40,130" stroke="#D4AF37" stroke-width=".8" fill="none"/>
+        <polygon points="100,160 40,70 160,70" stroke="#D4AF37" stroke-width=".8" fill="none"/>
+        <circle cx="100" cy="100" r="4" fill="#D4AF37"/>
+      </svg>
+      <div class="ob-title">FOOD4THOTH</div>
+      <div class="ob-subtitle">Sacred Geometry Tarot</div>
+      <div class="ob-body">A living oracle of 78 sacred cards — each woven with the geometry of the cosmos.</div>
+    </div>
+    <div class="ob-slide" id="ob-1">
+      <div style="font-size:64px">🌅</div>
+      <div class="ob-title" style="font-size:22px">Daily Draw</div>
+      <div class="ob-body">Draw one sacred card each morning. Watch it flip to reveal your message. Upright or reversed — the cosmos speaks both ways.</div>
+    </div>
+    <div class="ob-slide" id="ob-2">
+      <div style="font-size:64px">✦</div>
+      <div class="ob-title" style="font-size:22px">Spreads</div>
+      <div class="ob-body">Single card, three-card, Celtic Cross, Merkaba, and more. Each position holds a sacred meaning for your reading.</div>
+    </div>
+    <div class="ob-slide" id="ob-3">
+      <div style="font-size:64px">📖</div>
+      <div class="ob-title" style="font-size:22px">Sacred Journal</div>
+      <div class="ob-body">Write personal reflections on any card. Your notes are saved privately in your browser — never shared, never uploaded.</div>
+    </div>
+  </div>
+  <div class="ob-dots">
+    <div class="ob-dot active" id="dot-0"></div>
+    <div class="ob-dot" id="dot-1"></div>
+    <div class="ob-dot" id="dot-2"></div>
+    <div class="ob-dot" id="dot-3"></div>
+  </div>
+  <div class="ob-actions">
+    <button class="ob-skip" onclick="completeOnboarding()">Skip</button>
+    <button class="ob-next" id="ob-next-btn" onclick="obNext()">Next</button>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" style="display:none">
+
+  <!-- DECK VIEW -->
+  <div class="view active" id="view-deck">
+    <svg class="sg-bg slow" style="width:320px;height:320px;position:absolute;top:-40px;right:-80px" viewBox="0 0 320 320" fill="none">
+      <circle cx="160" cy="160" r="148" stroke="#D4AF37" stroke-width=".7"/>
+      <circle cx="160" cy="160" r="74" stroke="#D4AF37" stroke-width=".5"/>
+      <circle cx="160" cy="86" r="74" stroke="#D4AF37" stroke-width=".4"/>
+      <circle cx="160" cy="234" r="74" stroke="#D4AF37" stroke-width=".4"/>
+      <circle cx="96" cy="123" r="74" stroke="#D4AF37" stroke-width=".4"/>
+      <circle cx="224" cy="123" r="74" stroke="#D4AF37" stroke-width=".4"/>
+      <circle cx="96" cy="197" r="74" stroke="#D4AF37" stroke-width=".4"/>
+      <circle cx="224" cy="197" r="74" stroke="#D4AF37" stroke-width=".4"/>
+      <polygon points="160,56 243,200 77,200" stroke="#D4AF37" stroke-width=".6" fill="none"/>
+      <polygon points="160,264 77,120 243,120" stroke="#D4AF37" stroke-width=".6" fill="none"/>
+      <circle cx="160" cy="160" r="3" fill="#D4AF37"/>
+    </svg>
+    <div class="screen-header">
+      <div class="screen-title">FOOD4THOTH</div>
+      <div class="screen-subtitle">Sacred Geometry Tarot</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:6px" id="deck-count">78 of 78 cards</div>
+    </div>
+    <div class="search-wrap">
+      <svg class="search-ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="deck-search" placeholder="Search cards or keywords…" oninput="filterDeck()"/>
+      <button class="clear-btn" onclick="clearDeckSearch()" id="deck-clear" style="display:none">✕</button>
+    </div>
+    <div class="filter-row" id="suit-filter"></div>
+    <div id="deck-grid"></div>
+  </div>
+
+  <!-- DRAW VIEW -->
+  <div class="view" id="view-draw" style="overflow-y:auto">
+    <svg class="sg-bg" style="width:400px;height:400px;position:absolute;top:40px;left:50%;transform:translateX(-50%)" viewBox="0 0 400 400" fill="none">
+      <circle cx="200" cy="200" r="185" stroke="#D4AF37" stroke-width=".8"/>
+      <circle cx="200" cy="200" r="92" stroke="#D4AF37" stroke-width=".6"/>
+      <circle cx="200" cy="108" r="92" stroke="#D4AF37" stroke-width=".5"/>
+      <circle cx="200" cy="292" r="92" stroke="#D4AF37" stroke-width=".5"/>
+      <circle cx="120" cy="154" r="92" stroke="#D4AF37" stroke-width=".5"/>
+      <circle cx="280" cy="154" r="92" stroke="#D4AF37" stroke-width=".5"/>
+      <circle cx="120" cy="246" r="92" stroke="#D4AF37" stroke-width=".5"/>
+      <circle cx="280" cy="246" r="92" stroke="#D4AF37" stroke-width=".5"/>
+      <polygon points="200,74 311,260 89,260" stroke="#D4AF37" stroke-width=".7" fill="none"/>
+      <polygon points="200,326 89,140 311,140" stroke="#D4AF37" stroke-width=".7" fill="none"/>
+      <circle cx="200" cy="200" r="4" fill="#D4AF37"/>
+    </svg>
+    <div style="padding:20px 20px 0;position:relative;z-index:2">
+      <div class="screen-header" style="padding:0 0 0">
+        <div class="screen-title">Daily Draw</div>
+        <div class="draw-date" id="draw-today-date"></div>
+      </div>
+    </div>
+    <div class="draw-area" style="position:relative;z-index:2">
+      <div id="draw-empty" class="pulse-anim" style="display:flex;flex-direction:column;align-items:center;gap:20px">
+        <svg width="200" height="200" viewBox="0 0 200 200" fill="none" style="opacity:.18">
+          <circle cx="100" cy="100" r="92" stroke="#D4AF37" stroke-width="1"/>
+          <circle cx="100" cy="100" r="46" stroke="#D4AF37" stroke-width=".7"/>
+          <circle cx="100" cy="54" r="46" stroke="#D4AF37" stroke-width=".5"/>
+          <circle cx="100" cy="146" r="46" stroke="#D4AF37" stroke-width=".5"/>
+          <circle cx="60" cy="77" r="46" stroke="#D4AF37" stroke-width=".5"/>
+          <circle cx="140" cy="77" r="46" stroke="#D4AF37" stroke-width=".5"/>
+          <circle cx="60" cy="123" r="46" stroke="#D4AF37" stroke-width=".5"/>
+          <circle cx="140" cy="123" r="46" stroke="#D4AF37" stroke-width=".5"/>
+          <polygon points="100,40 157,130 43,130" stroke="#D4AF37" stroke-width=".7" fill="none"/>
+          <polygon points="100,160 43,70 157,70" stroke="#D4AF37" stroke-width=".7" fill="none"/>
+          <circle cx="100" cy="100" r="3.5" fill="#D4AF37"/>
+        </svg>
+        <span style="font-family:'Cinzel',serif;font-size:14px;color:var(--muted);letter-spacing:1px">Draw your card for today</span>
+      </div>
+      <div id="draw-card-wrap" style="display:none;position:relative">
+        <div id="card-glow-aura" class="glow-pulse" style="position:absolute;inset:-30px;border-radius:20px;pointer-events:none"></div>
+        <div class="card-flip-scene" id="flip-scene" onclick="openDrawnCard()">
+          <div class="card-flip-inner" id="flip-inner">
+            <div class="card-face card-back-face" id="flip-back">
+              <div class="card-back-pattern">
+                <svg width="200" height="320" viewBox="0 0 200 320" fill="none">
+                  <rect x="1" y="1" width="198" height="318" rx="8" stroke="#D4AF37" stroke-width=".8"/>
+                  <circle cx="100" cy="160" r="70" stroke="#D4AF37" stroke-width=".7"/>
+                  <circle cx="100" cy="160" r="35" stroke="#D4AF37" stroke-width=".5"/>
+                  <circle cx="100" cy="125" r="35" stroke="#D4AF37" stroke-width=".4"/>
+                  <circle cx="100" cy="195" r="35" stroke="#D4AF37" stroke-width=".4"/>
+                  <circle cx="70" cy="142.5" r="35" stroke="#D4AF37" stroke-width=".4"/>
+                  <circle cx="130" cy="142.5" r="35" stroke="#D4AF37" stroke-width=".4"/>
+                  <circle cx="70" cy="177.5" r="35" stroke="#D4AF37" stroke-width=".4"/>
+                  <circle cx="130" cy="177.5" r="35" stroke="#D4AF37" stroke-width=".4"/>
+                  <polygon points="100,112 130,168 70,168" stroke="#D4AF37" stroke-width=".6" fill="none"/>
+                  <polygon points="100,208 70,152 130,152" stroke="#D4AF37" stroke-width=".6" fill="none"/>
+                  <circle cx="100" cy="160" r="3" fill="#D4AF37"/>
+                  <text x="100" y="38" text-anchor="middle" fill="#D4AF37" font-family="Cinzel,serif" font-size="8" letter-spacing="3">FOOD4THOTH</text>
+                  <text x="100" y="296" text-anchor="middle" fill="#D4AF37" font-family="Cinzel,serif" font-size="6" letter-spacing="2">SACRED TAROT</text>
+                </svg>
+              </div>
+            </div>
+            <div class="card-face card-front-face" id="flip-front">
+              <img id="drawn-card-img" src="" alt="Daily Card" style="width:100%;height:100%;object-fit:cover"/>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:8px">Tap card to view full details</div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;position:relative;z-index:2">
+      <button class="draw-btn" id="draw-btn" onclick="handleDraw()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Draw Card
+      </button>
+    </div>
+    <div id="card-info-panel" style="display:none"></div>
+    <div style="height:40px"></div>
+  </div>
+
+  <!-- SPREADS VIEW -->
+  <div class="view" id="view-spreads">
+    <svg class="sg-bg rev slow" style="width:300px;height:300px;position:absolute;top:40px;right:-60px" viewBox="0 0 300 300" fill="none">
+      <circle cx="150" cy="150" r="138" stroke="#D4AF37" stroke-width=".6"/>
+      <circle cx="150" cy="150" r="69" stroke="#D4AF37" stroke-width=".5"/>
+      <polygon points="150,60 228,195 72,195" stroke="#D4AF37" stroke-width=".6" fill="none"/>
+      <polygon points="150,240 72,105 228,105" stroke="#D4AF37" stroke-width=".6" fill="none"/>
+      <circle cx="150" cy="150" r="3" fill="#D4AF37"/>
+    </svg>
+    <div class="screen-header">
+      <div class="screen-title">Tarot Spreads</div>
+      <div class="screen-subtitle">Choose your reading layout</div>
+    </div>
+    <div class="search-wrap">
+      <svg class="search-ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="spreads-search" placeholder="Search spreads…" oninput="filterSpreads()"/>
+      <button class="clear-btn" onclick="clearSpreadsSearch()" id="spreads-clear" style="display:none">✕</button>
+    </div>
+    <div class="filter-row" id="spread-category-filter"></div>
+    <div id="spreads-list" class="spread-list-content" style="position:relative;z-index:2"></div>
+  </div>
+
+  <!-- FAVORITES VIEW -->
+  <div class="view" id="view-favorites">
+    <div class="screen-header">
+      <div class="screen-title">Favorites</div>
+      <div class="screen-subtitle">Your Saved Cards</div>
+    </div>
+    <div id="fav-content"></div>
+  </div>
+
+  <!-- TAB BAR -->
+  <div id="tabbar">
+    <button class="tab-btn active" id="tab-deck" onclick="switchTab('deck')">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/><rect x="14" y="16" width="7" height="5" rx="1"/></svg>
+      <span class="tab-label">Deck</span>
+    </button>
+    <button class="tab-btn" id="tab-draw" onclick="switchTab('draw')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2m-3.22-6.78-1.42 1.42M6.64 17.36l-1.42 1.42m12.72 0-1.42-1.42M6.64 6.64 5.22 5.22"/></svg>
+      <span class="tab-label">Draw</span>
+    </button>
+    <button class="tab-btn" id="tab-spreads" onclick="switchTab('spreads')">
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="6" height="10" rx="1"/><rect x="9" y="4" width="6" height="13" rx="1"/><rect x="16" y="7" width="6" height="10" rx="1"/></svg>
+      <span class="tab-label">Spreads</span>
+    </button>
+    <button class="tab-btn" id="tab-favorites" onclick="switchTab('favorites')">
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span class="tab-label">Favorites</span>
+    </button>
+  </div>
+
+</div>
+
+<!-- DETAIL PANEL (shared for card + spread detail) -->
+<div id="detail-panel">
+  <div id="detail-panel-inner"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════════════
+const BASE_IMG = "https://www.food4thoth.com/TarotSacredGeometry/images";
+const BASE_TXT = "https://raw.githubusercontent.com/Dseekeroftruth/Food4Thoth/main/TarotSacredGeometry/full_descriptions";
+
+const SUIT_COLORS = { major:"#CE93D8", wands:"#E07C2A", cups:"#4FC3F7", swords:"#90CAF9", pentacles:"#81C784" };
+const SUIT_LABELS = { major:"Major Arcana", wands:"Wands", cups:"Cups", swords:"Swords", pentacles:"Pentacles" };
+
+const ALL_CARDS = [
+  {id:1,name:"The Fool",suit:"major",number:"0",keywords:["beginnings","innocence","spontaneity","free spirit"],description:"The Fool is a card of new beginnings, opportunities, and adventures.",reversedDescription:"The reversed Fool may indicate recklessness or impulsiveness without considering consequences. Themes: reckless, careless, distracted, naive, foolish, gullible.",imageUrl:"FOOL.PNG",descriptionUrl:"1_0TheFoolMajorArcana.txt",element:"Air",planet:"Uranus",zodiac:null},
+  {id:2,name:"The Magician",suit:"major",number:"I",keywords:["manifestation","power","skill","willpower"],description:"The Magician represents power, skill, and creativity.",reversedDescription:"When reversed, energy is blocked or misdirected. Themes: manipulation, cunning, trickery, wasted talent, illusion, deception.",imageUrl:"MAGICIAN.PNG",descriptionUrl:"2_1TheMagicianMajorArcana.txt",element:"Air",planet:"Mercury",zodiac:null},
+  {id:3,name:"The High Priestess",suit:"major",number:"II",keywords:["intuition","mystery","subconscious","inner knowledge"],description:"The High Priestess symbolizes intuition, mystery, and inner knowledge.",reversedDescription:"When reversed, energies are blocked or misaligned. Themes: repressed intuition, hidden motives, superficiality, confusion.",imageUrl:"HIGHPRIESTESS.PNG",descriptionUrl:"3_2TheHighPriestessMajorArcana.txt",element:"Water",planet:"Moon",zodiac:null},
+  {id:4,name:"The Empress",suit:"major",number:"III",keywords:["femininity","beauty","nature","abundance"],description:"The Empress represents femininity, beauty, nature, and abundance.",reversedDescription:"May indicate creative blocks or dependence. Themes: dependence, smothering, disharmony, negligence, insecurity.",imageUrl:"EMPRESS.PNG",descriptionUrl:"4_3TheEmpressMajorArcana.txt",element:"Earth",planet:"Venus",zodiac:null},
+  {id:5,name:"The Emperor",suit:"major",number:"IV",keywords:["authority","structure","control","fatherhood"],description:"The Emperor symbolizes authority, structure, and control.",reversedDescription:"When reversed, energy may be blocked or imbalanced. Themes: tyrant, domineering, rigid, stubborn, lack of discipline.",imageUrl:"EMPEROR.PNG",descriptionUrl:"5_4TheEmperorMajorArcana.txt",element:"Fire",planet:null,zodiac:"Aries"},
+  {id:6,name:"The Hierophant",suit:"major",number:"V",keywords:["tradition","conformity","spiritual wisdom","institutions"],description:"The Hierophant stands for tradition, conformity, and spiritual wisdom.",reversedDescription:"When reversed, energy may be misapplied. Themes: rebellion, unconventionality, non-conformity, new methods, ignorance.",imageUrl:"HIEROPHANT.PNG",descriptionUrl:"6_5TheHierophantMajorArcana.txt",element:"Earth",planet:null,zodiac:"Taurus"},
+  {id:7,name:"The Lovers",suit:"major",number:"VI",keywords:["love","harmony","relationships","values alignment"],description:"The Lovers card represents love, harmony, and relationships.",reversedDescription:"When reversed, energy may be misaligned. Themes: disharmony, imbalance, conflict, detachment, bad choices.",imageUrl:"LOVERS.PNG",descriptionUrl:"7_6TheLoversMajorArcana.txt",element:"Air",planet:null,zodiac:"Gemini"},
+  {id:8,name:"The Chariot",suit:"major",number:"VII",keywords:["willpower","determination","victory","control"],description:"The Chariot symbolizes willpower, determination, and success through control.",reversedDescription:"Themes: forceful, no direction, no control, powerless, aggression, obstacles.",imageUrl:"CHARIOT.PNG",descriptionUrl:"8_7TheChariotMajorArcana.txt",element:"Water",planet:null,zodiac:"Cancer"},
+  {id:9,name:"Strength",suit:"major",number:"VIII",keywords:["courage","persuasion","influence","compassion"],description:"Strength represents courage, persuasion, and influence.",reversedDescription:"Themes: self-doubt, weakness, low confidence, inadequacy, cowardice, forcefulness.",imageUrl:"STRENGTH.PNG",descriptionUrl:"9_8StrengthMajorArcana.txt",element:"Fire",planet:null,zodiac:"Leo"},
+  {id:10,name:"The Hermit",suit:"major",number:"IX",keywords:["introspection","solitude","inner guidance","wisdom"],description:"The Hermit symbolizes introspection, solitude, and inner guidance.",reversedDescription:"Themes: loneliness, isolation, recluse, being anti-social, rejection, returning to society.",imageUrl:"HERMIT.PNG",descriptionUrl:"10_9TheHermitMajorArcana.txt",element:"Earth",planet:null,zodiac:"Virgo"},
+  {id:11,name:"Wheel of Fortune",suit:"major",number:"X",keywords:["good luck","karma","life cycles","destiny","turning point"],description:"The Wheel of Fortune represents cycles, change, and destiny.",reversedDescription:"Themes: bad luck, lack of control, clinging to control, unwelcome changes, delays.",imageUrl:"WHEEL_OF_FORTUNE.PNG",descriptionUrl:"11_10TheWheelofFortuneMajorArcana.txt",element:"Fire",planet:"Jupiter",zodiac:null},
+  {id:12,name:"Justice",suit:"major",number:"XI",keywords:["fairness","truth","cause and effect","law"],description:"Justice stands for fairness, truth, and the law.",reversedDescription:"Themes: injustice, retribution, dishonesty, corruption, unfairness, avoiding accountability.",imageUrl:"JUSTICE.PNG",descriptionUrl:"12_11JusticeMajorArcana.txt",element:"Air",planet:null,zodiac:"Libra"},
+  {id:13,name:"The Hanged Man",suit:"major",number:"XII",keywords:["suspension","letting go","new perspectives","sacrifice"],description:"The Hanged Man represents suspension, letting go, and new perspectives.",reversedDescription:"Themes: stalling, disinterest, stagnation, avoiding sacrifice, standstill, apathy.",imageUrl:"HANGEDMAN.PNG",descriptionUrl:"13_12TheHangedManMajorArcana.txt",element:"Water",planet:"Neptune",zodiac:null},
+  {id:14,name:"Death",suit:"major",number:"XIII",keywords:["endings","change","transformation","transition"],description:"Death is a powerful symbol of transformation, endings, and transition.",reversedDescription:"Themes: fear of change, repeating negative patterns, resisting change, stagnancy, decay.",imageUrl:"DEATH.PNG",descriptionUrl:"14_13DeathMajorArcana.txt",element:"Water",planet:"Pluto",zodiac:"Scorpio"},
+  {id:15,name:"Temperance",suit:"major",number:"XIV",keywords:["balance","moderation","patience","purpose"],description:"Temperance represents balance, moderation, patience, and purpose.",reversedDescription:"Themes: imbalance, excess, extremes, discord, recklessness, hastiness.",imageUrl:"TEMPERANCE.PNG",descriptionUrl:"15_14TemperanceMajorArcana.txt",element:"Fire",planet:null,zodiac:"Sagittarius"},
+  {id:16,name:"The Devil",suit:"major",number:"XV",keywords:["shadow self","attachment","addiction","restriction"],description:"The Devil represents the shadow self, bondage, and materialism.",reversedDescription:"Themes: independence, freedom, revelation, release, reclaiming power.",imageUrl:"DEVIL.PNG",descriptionUrl:"16_15TheDevilMajorArcana.txt",element:"Earth",planet:"Saturn",zodiac:"Capricorn"},
+  {id:17,name:"The Tower",suit:"major",number:"XVI",keywords:["sudden change","upheaval","chaos","revelation"],description:"The Tower symbolizes sudden change, upheaval, chaos, and revelation.",reversedDescription:"Themes: averting disaster, delaying the inevitable, resisting change.",imageUrl:"TOWER.PNG",descriptionUrl:"17_16TheTowerMajorArcana.txt",element:"Fire",planet:"Mars",zodiac:null},
+  {id:18,name:"The Star",suit:"major",number:"XVII",keywords:["hope","faith","purpose","renewal","spirituality"],description:"The Star represents hope, faith, renewal, and spiritual inspiration.",reversedDescription:"Themes: hopelessness, despair, negativity, lack of faith, despondent.",imageUrl:"STAR.PNG",descriptionUrl:"18_17TheStarMajorArcana.txt",element:"Air",planet:null,zodiac:"Aquarius"},
+  {id:19,name:"The Moon",suit:"major",number:"XVIII",keywords:["illusion","fear","the unconscious","subconscious"],description:"The Moon symbolizes illusion, fear, and the mysteries of the unconscious.",reversedDescription:"Themes: fear, deception, anxiety, misunderstanding, clarity, understanding.",imageUrl:"MOON.PNG",descriptionUrl:"19_18TheMoonMajorArcana.txt",element:"Water",planet:"Moon",zodiac:"Pisces"},
+  {id:20,name:"The Sun",suit:"major",number:"XIX",keywords:["joy","success","positivity","vitality","celebration"],description:"The Sun represents joy, success, positivity, and vitality.",reversedDescription:"Themes: blocked happiness, excessive enthusiasm, pessimism, unrealistic expectations.",imageUrl:"SUN.PNG",descriptionUrl:"20_19TheSunMajorArcana.txt",element:"Fire",planet:"Sun",zodiac:null},
+  {id:21,name:"Judgement",suit:"major",number:"XX",keywords:["reflection","reckoning","awakening","absolution"],description:"Judgement represents reflection, reckoning, awakening, and absolution.",reversedDescription:"Themes: self-doubt, lack of self-awareness, failure to learn lessons, self-loathing.",imageUrl:"JUDGEMENT.PNG",descriptionUrl:"21_20JudgementMajorArcana.txt",element:"Fire",planet:"Pluto",zodiac:null},
+  {id:22,name:"The World",suit:"major",number:"XXI",keywords:["completion","integration","accomplishment","travel"],description:"The World symbolizes completion, integration, accomplishment, and wholeness.",reversedDescription:"Themes: lack of closure, lack of achievement, feeling incomplete, emptiness.",imageUrl:"WORLD.PNG",descriptionUrl:"22_21TheWorldMajorArcana.txt",element:"Earth",planet:"Saturn",zodiac:null},
+  {id:23,name:"Ace of Wands",suit:"wands",number:"Ace",keywords:["inspiration","new opportunities","growth","potential"],description:"The Ace of Wands represents new beginnings, inspiration, and creative potential.",reversedDescription:"Themes: delays, blocks, lack of passion, lack of energy, hesitancy, creative blocks.",imageUrl:"ACEWANDS.PNG",descriptionUrl:"23_1AceofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:24,name:"2 of Wands",suit:"wands",number:"2",keywords:["future planning","progress","decisions","discovery"],description:"The 2 of Wands symbolizes future planning, progress, and decisions.",reversedDescription:"Themes: bad planning, overanalyzing, not taking action, playing it safe, avoiding risk.",imageUrl:"2WANDS.PNG",descriptionUrl:"24_2ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:25,name:"3 of Wands",suit:"wands",number:"3",keywords:["progress","expansion","foresight","overseas"],description:"The 3 of Wands represents progress, expansion, and foresight.",reversedDescription:"Themes: restriction, limitations, lack of progress, obstacles, delays, frustration.",imageUrl:"3WANDS.PNG",descriptionUrl:"25_3ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:26,name:"4 of Wands",suit:"wands",number:"4",keywords:["celebration","joy","harmony","relaxation","homecoming"],description:"The 4 of Wands represents celebration, joy, harmony, and homecoming.",reversedDescription:"Themes: lack of support, instability, feeling unwelcome, transience, home conflict.",imageUrl:"4WANDS.PNG",descriptionUrl:"26_4ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:27,name:"5 of Wands",suit:"wands",number:"5",keywords:["conflict","disagreements","competition","tension"],description:"The 5 of Wands represents conflict, disagreements, and competition.",reversedDescription:"Themes: end of conflict, cooperation, agreements, truces, harmony, peace.",imageUrl:"5WANDS.PNG",descriptionUrl:"27_5ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:28,name:"6 of Wands",suit:"wands",number:"6",keywords:["success","public recognition","victory","progress"],description:"The 6 of Wands symbolizes success, public recognition, and victory.",reversedDescription:"Themes: failure, lack of recognition, no rewards, lack of achievement.",imageUrl:"6WANDS.PNG",descriptionUrl:"28_6ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:29,name:"7 of Wands",suit:"wands",number:"7",keywords:["challenge","competition","protection","perseverance"],description:"The 7 of Wands represents challenge, competition, and perseverance.",reversedDescription:"Themes: giving up, admitting defeat, yielding, lack of self belief, surrender.",imageUrl:"7WANDS.PNG",descriptionUrl:"29_7ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:30,name:"8 of Wands",suit:"wands",number:"8",keywords:["movement","fast-paced change","action","alignment"],description:"The 8 of Wands symbolizes movement, fast-paced change, and alignment.",reversedDescription:"Themes: waiting, slowness, chaos, delays, losing momentum, hastiness.",imageUrl:"8WANDS.PNG",descriptionUrl:"30_8ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:31,name:"9 of Wands",suit:"wands",number:"9",keywords:["resilience","persistence","test of faith","boundaries"],description:"The 9 of Wands represents resilience, persistence, and testing of faith.",reversedDescription:"Themes: stubbornness, rigidity, defensiveness, refusing compromise, giving up.",imageUrl:"9WANDS.PNG",descriptionUrl:"31_9ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:32,name:"10 of Wands",suit:"wands",number:"10",keywords:["burden","extra responsibility","hard work","completion"],description:"The 10 of Wands represents burden, extra responsibility, and completion.",reversedDescription:"Themes: failure to delegate, shouldering too much responsibility, collapse, breakdown.",imageUrl:"10WANDS.PNG",descriptionUrl:"32_10ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:33,name:"Page of Wands",suit:"wands",number:"Page",keywords:["exploration","excitement","freedom","adventure"],description:"The Page of Wands symbolizes exploration, excitement, freedom, and adventure.",reversedDescription:"Themes: hasty, impatient, lacking ideas, tantrums, laziness, boring, unreliable.",imageUrl:"PAGEWANDS.PNG",descriptionUrl:"33_11PageofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:34,name:"Knight of Wands",suit:"wands",number:"Knight",keywords:["energy","passion","inspired action","adventure"],description:"The Knight of Wands symbolizes action, adventure, and impulsiveness.",reversedDescription:"Themes: arrogant, reckless, impatient, lack of self control, passive, volatile.",imageUrl:"KNIGHTWANDS.PNG",descriptionUrl:"34_12KnightofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:35,name:"Queen of Wands",suit:"wands",number:"Queen",keywords:["courage","confidence","independence","determination"],description:"The Queen of Wands represents confidence, determination, and charisma.",reversedDescription:"Themes: demanding, vengeful, low confidence, jealous, selfish, temperamental.",imageUrl:"QUEENWANDS.PNG",descriptionUrl:"35_13QueenofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:36,name:"King of Wands",suit:"wands",number:"King",keywords:["natural leader","vision","entrepreneur","honour"],description:"The King of Wands symbolizes leadership, vision, and entrepreneurship.",reversedDescription:"Themes: forceful, domineering, tyrant, vicious, powerless, ineffective.",imageUrl:"KINGWANDS.PNG",descriptionUrl:"36_14KingofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:37,name:"Ace of Cups",suit:"cups",number:"Ace",keywords:["love","new relationships","compassion","creativity"],description:"The Ace of Cups represents new beginnings in love, compassion, and emotional fulfillment.",reversedDescription:"May indicate blocked emotions or difficulty expressing love.",imageUrl:"ACECUPS.PNG",descriptionUrl:"37_1AceofCupsMinorArcana.txt",element:"Water",planet:null,zodiac:null},
+  {id:38,name:"2 of Cups",suit:"cups",number:"2",keywords:["unified love","partnership","mutual attraction"],description:"The 2 of Cups symbolizes partnership, unity, and mutual attraction.",reversedDescription:"May indicate disharmony or challenges in a relationship.",imageUrl:"2CUPS.PNG",descriptionUrl:"38_2ofCupsMinorArcana.txt",element:"Water",planet:null,zodiac:null},
+  {id:39,name:"3 of Cups",suit:"cups",number:"3",keywords:["celebration","friendship","creativity","collaborations"],description:"The 3 of Cups represents celebration, friendship, and social gatherings.",reversedDescription:"May indicate isolation, overindulgence, or conflicts within a group.",imageUrl:"3CUPS.PNG",descriptionUrl:"39_3ofCupsMinorArcana.txt",element:"Water",planet:null,zodiac:null},
+  {id:40,name:"4 of Cups",suit:"cups",number:"4",keywords:["contemplation","apathy","re-evaluation","boredom"],description:"The 4 of Cups signifies contemplation, reevaluation, and apathy.",reversedDescription:"May indicate becoming more aware of opportunities around you.",imageUrl:"4CUPS.PNG",descriptionUrl:"40_4ofCupsMinorArcana.txt",element:"Water",planet:null,zodiac:null},
+  {id:41,name:"5 of Cups",suit:"cups",number:"5",keywords:["grief","loss","despair","bereavement"],description:"The 5 of Cups represents loss, regret, and focusing on the negative.",reversedDescription:"May indicate beginning to move beyond grief and sorrow.",imageUrl:"5CUPS.PNG",descriptionUrl:"41_5ofCupsMinorArcana.txt",element:"Water",planet:null,zodiac:null},
+  {id:42,name:"6 of Cups",suit:"cups",number:"6",keywords:["revisiting the past","childhood memories","innocence"],description:"The 6 of Cups symbolizes nostalgia, childhood memories, and innocence.",reversedDescription:"May indicate difficulty letting go of the past.",imageUrl:"6CUPS.PNG",descriptionUrl:"42_6ofCupsMinorArcana.txt",element:"Water",planet:null,zodiac:null},
+  {id:43,name:"7 of Cups",suit:"cups",number:"7",keywords:["choices","fantasy","illusion","wishful thinking"],description:"The 7 of Cups represents choices, illusions, and wishful thinking.",reversedDescription:"May indicate a movement towards clarity and focus.",imageUrl:"7CUPS.PNG",descriptionUrl:"43_7ofCupsMinorArcana.txt",element:"Water",planet:null,zodiac:null},
+  {id:44,name:"8 of Cups",suit:"cups",number:"8",keywords:["disappointment","abandonment","withdrawal","escapism"],description:"The 8 of Cups signifies walking away, abandonment, and seeking deeper meaning.",reversedDescription:"May indicate struggling to let go of something that no longer serves you.",imageUrl:"8CUPS.PNG",descriptionUrl:"44_8ofCupsMinorArcana.txt",element:"Water",planet:null,zodiac:null},
+  {id:45,name:"9 of Cups",suit:"cups",number:"9",keywords:["contentment","satisfaction","gratitude","wish come true"],description:"The 9 of Cups symbolizes contentment, satisfaction, and emotional fulfillment.",reversedDescription:"May indicate wishes and desires not being fulfilled as expected.",imageUrl:"9CUPS.PNG",descriptionUrl:"45_9ofCupsMinorArcana.txt",element:"Water",planet:null,zodiac:null},
+  {id:46,name:"10 of Cups",suit:"cups",number:"10",keywords:["divine love","blissful relationships","harmony","alignment"],description:"The 10 of Cups represents happiness, family harmony, and lasting love.",reversedDescription:"May indicate feeling emotionally unfulfilled or discontented.",imageUrl:"10CUPS.PNG",descriptionUrl:"46_10ofCupsMinorArcana.txt",element:"Water",planet:null,zodiac:null},
+  {id:47,name:"Page of Cups",suit:"cups",number:"Page",keywords:["creative opportunities","curiosity","possibility"],description:"The Page of Cups symbolizes creativity, new emotions, and intuitive insights.",reversedDescription:"May indicate emotional blockages or difficulty expressing feelings.",imageUrl:"PAGECUPS.PNG",descriptionUrl:"47_11PageofCupsMinorArcana.txt",element:"Water",planet:null,zodiac:null},
+  {id:48,name:"Knight of Cups",suit:"cups",number:"Knight",keywords:["romance","charm","imagination","beauty"],description:"The Knight of Cups represents romance, charm, and pursuing the heart's desires.",reversedDescription:"May indicate emotional turmoil or feeling overwhelmed by emotions.",imageUrl:"KNIGHTCUPS.PNG",descriptionUrl:"48_12KnightofCupsMinorArcana.txt",element:"Water",planet:null,zodiac:null},
+  {id:49,name:"Queen of Cups",suit:"cups",number:"Queen",keywords:["compassionate","caring","emotionally stable","intuitive"],description:"The Queen of Cups symbolizes compassion, emotional security, and intuitive wisdom.",reversedDescription:"May indicate feeling emotionally overwhelmed or out of balance.",imageUrl:"QUEENCUPS.PNG",descriptionUrl:"49_13QueenofCupsMinorArcana.txt",element:"Water",planet:null,zodiac:null},
+  {id:50,name:"King of Cups",suit:"cups",number:"King",keywords:["emotionally balanced","compassionate","diplomatic"],description:"The King of Cups represents emotional balance, leadership, and control over feelings.",reversedDescription:"May indicate emotional imbalance or struggling to manage emotions.",imageUrl:"KINGCUPS.PNG",descriptionUrl:"50_14KingofCupsMinorArcana.txt",element:"Water",planet:null,zodiac:null},
+  {id:51,name:"Ace of Swords",suit:"swords",number:"Ace",keywords:["breakthrough","clarity","sharp mind","success"],description:"The Ace of Swords represents breakthrough, clarity, and sharp intellect.",reversedDescription:"May indicate a lack of mental clarity or difficulty in thinking clearly.",imageUrl:"ACESWORDS.PNG",descriptionUrl:"51_1AceofSwordsMinorArcana.txt",element:"Air",planet:null,zodiac:null},
+  {id:52,name:"2 of Swords",suit:"swords",number:"2",keywords:["difficult decisions","weighing options","stalemate"],description:"The 2 of Swords represents difficult decisions, weighing options, and stalemate.",reversedDescription:"May indicate that a period of indecision is coming to an end.",imageUrl:"2SWORDS.PNG",descriptionUrl:"52_2ofSwordsMinorArcana.txt",element:"Air",planet:null,zodiac:null},
+  {id:53,name:"3 of Swords",suit:"swords",number:"3",keywords:["heartbreak","sorrow","grief","hurt"],description:"The 3 of Swords represents heartbreak, sorrow, and emotional pain.",reversedDescription:"May indicate beginning to heal from emotional pain or heartbreak.",imageUrl:"3SWORDS.PNG",descriptionUrl:"53_3ofSwordsMinorArcana.txt",element:"Air",planet:null,zodiac:null},
+  {id:54,name:"4 of Swords",suit:"swords",number:"4",keywords:["rest","restoration","contemplation","recuperation"],description:"The 4 of Swords represents rest, restoration, and contemplation.",reversedDescription:"May indicate restlessness or an inability to relax.",imageUrl:"4SWORDS.PNG",descriptionUrl:"54_4ofSwordsMinorArcana.txt",element:"Air",planet:null,zodiac:null},
+  {id:55,name:"5 of Swords",suit:"swords",number:"5",keywords:["conflict","disagreements","competition","defeat"],description:"The 5 of Swords represents conflict, disagreements, and defeat.",reversedDescription:"May indicate the resolution of a conflict.",imageUrl:"5SWORDS.PNG",descriptionUrl:"55_5ofSwordsMinorArcana.txt",element:"Air",planet:null,zodiac:null},
+  {id:56,name:"6 of Swords",suit:"swords",number:"6",keywords:["transition","change","rite of passage","moving on"],description:"The 6 of Swords symbolizes transition, change, and moving on.",reversedDescription:"May indicate resistance to change or difficulty moving forward.",imageUrl:"6SWORDS.PNG",descriptionUrl:"56_6ofSwordsMinorArcana.txt",element:"Air",planet:null,zodiac:null},
+  {id:57,name:"7 of Swords",suit:"swords",number:"7",keywords:["betrayal","deception","getting away","strategy"],description:"The 7 of Swords represents betrayal, deception, and getting away.",reversedDescription:"May indicate that a deception is about to be exposed.",imageUrl:"7SWORDS.PNG",descriptionUrl:"57_7ofSwordsMinorArcana.txt",element:"Air",planet:null,zodiac:null},
+  {id:58,name:"8 of Swords",suit:"swords",number:"8",keywords:["imprisonment","entrapment","self-victimization","slavery"],description:"The 8 of Swords represents imprisonment, entrapment, and self-victimization.",reversedDescription:"May indicate beginning to release limiting beliefs.",imageUrl:"8SWORDS.PNG",descriptionUrl:"58_8ofSwordsMinorArcana.txt",element:"Air",planet:null,zodiac:null},
+  {id:59,name:"9 of Swords",suit:"swords",number:"9",keywords:["anxiety","worry","fear","depression","nightmares"],description:"The 9 of Swords represents anxiety, worry, fear, and nightmares.",reversedDescription:"May indicate beginning to release anxiety and worry.",imageUrl:"9SWORDS.PNG",descriptionUrl:"59_9ofSwordsMinorArcana.txt",element:"Air",planet:null,zodiac:null},
+  {id:60,name:"10 of Swords",suit:"swords",number:"10",keywords:["painful endings","deep wounds","betrayal","loss"],description:"The 10 of Swords represents painful endings, deep wounds, and betrayal.",reversedDescription:"May indicate beginning to recover from a difficult period.",imageUrl:"10SWORDS.PNG",descriptionUrl:"60_10ofSwordsMinorArcana.txt",element:"Air",planet:null,zodiac:null},
+  {id:61,name:"Page of Swords",suit:"swords",number:"Page",keywords:["new ideas","curiosity","thirst for knowledge","new ways"],description:"The Page of Swords represents new ideas, curiosity, and a thirst for knowledge.",reversedDescription:"May indicate communication is not as clear as it should be.",imageUrl:"PAGESWORDS.PNG",descriptionUrl:"61_11PageofSwordsMinorArcana.txt",element:"Air",planet:null,zodiac:null},
+  {id:62,name:"Knight of Swords",suit:"swords",number:"Knight",keywords:["ambitious","action-oriented","driven","fast-thinking"],description:"The Knight of Swords represents ambition, action, and fast thinking.",reversedDescription:"May indicate acting too impulsively or recklessly.",imageUrl:"KNIGHTSWORDS.PNG",descriptionUrl:"62_12KnightofSwordsMinorArcana.txt",element:"Air",planet:null,zodiac:null},
+  {id:63,name:"Queen of Swords",suit:"swords",number:"Queen",keywords:["independent","unbiased judgment","clear boundaries"],description:"The Queen of Swords represents independence, perceptiveness, and clear thinking.",reversedDescription:"May indicate becoming overly detached or cold.",imageUrl:"QUEENSWORDS.PNG",descriptionUrl:"63_13QueenofSwordsMinorArcana.txt",element:"Air",planet:null,zodiac:null},
+  {id:64,name:"King of Swords",suit:"swords",number:"King",keywords:["mental clarity","intellectual power","authority","truth"],description:"The King of Swords symbolizes intellect, authority, and truth.",reversedDescription:"May indicate misusing power or authority.",imageUrl:"KINGSWORDS.PNG",descriptionUrl:"64_14KingofSwordsMinorArcana.txt",element:"Air",planet:null,zodiac:null},
+  {id:65,name:"Ace of Pentacles",suit:"pentacles",number:"Ace",keywords:["opportunity","prosperity","new venture","manifestation"],description:"The Ace of Pentacles represents new financial or career opportunities, prosperity, and manifestation.",reversedDescription:"May indicate missing out on a valuable opportunity.",imageUrl:"ACEPENTACLES.PNG",descriptionUrl:"65_1AceofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:66,name:"2 of Pentacles",suit:"pentacles",number:"2",keywords:["multiple priorities","time management","adaptability"],description:"The 2 of Pentacles symbolizes balance, adaptability, and time management.",reversedDescription:"May indicate struggling to maintain balance in life.",imageUrl:"2PENTACLES.PNG",descriptionUrl:"66_2ofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:67,name:"3 of Pentacles",suit:"pentacles",number:"3",keywords:["teamwork","collaboration","learning","implementation"],description:"The 3 of Pentacles represents teamwork, collaboration, and building something together.",reversedDescription:"May indicate issues with collaboration and teamwork.",imageUrl:"3PENTACLES.PNG",descriptionUrl:"67_3ofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:68,name:"4 of Pentacles",suit:"pentacles",number:"4",keywords:["conservation","frugality","security","scarcity","control"],description:"The 4 of Pentacles signifies control, stability, and material security.",reversedDescription:"May indicate a period of letting go and releasing control.",imageUrl:"4PENTACLES.PNG",descriptionUrl:"68_4ofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:69,name:"5 of Pentacles",suit:"pentacles",number:"5",keywords:["financial loss","poverty","lack mindset","isolation"],description:"The 5 of Pentacles represents financial loss, poverty, and feeling isolated.",reversedDescription:"May indicate beginning to recover from hardship.",imageUrl:"5PENTACLES.PNG",descriptionUrl:"69_5ofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:70,name:"6 of Pentacles",suit:"pentacles",number:"6",keywords:["generosity","charity","giving","receiving","sharing wealth"],description:"The 6 of Pentacles symbolizes generosity, sharing wealth, and helping others.",reversedDescription:"May indicate an imbalance in relationships or interactions.",imageUrl:"6PENTACLES.PNG",descriptionUrl:"70_6ofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:71,name:"7 of Pentacles",suit:"pentacles",number:"7",keywords:["long-term view","sustainable results","perseverance"],description:"The 7 of Pentacles represents long-term investment, patience, and reward for hard work.",reversedDescription:"May indicate frustration or impatience with lack of progress.",imageUrl:"7PENTACLES.PNG",descriptionUrl:"71_7ofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:72,name:"8 of Pentacles",suit:"pentacles",number:"8",keywords:["apprenticeship","repetitive tasks","mastery","skill"],description:"The 8 of Pentacles signifies diligence, skill development, and craftsmanship.",reversedDescription:"May indicate struggling with lack of focus or commitment.",imageUrl:"8PENTACLES.PNG",descriptionUrl:"72_8ofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:73,name:"9 of Pentacles",suit:"pentacles",number:"9",keywords:["abundance","luxury","self-sufficiency","financial independence"],description:"The 9 of Pentacles represents luxury, self-sufficiency, and financial independence.",reversedDescription:"May indicate feelings of insecurity or lack of self-worth.",imageUrl:"9PENTACLES.PNG",descriptionUrl:"73_9ofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:74,name:"10 of Pentacles",suit:"pentacles",number:"10",keywords:["wealth","financial security","family","long-term success"],description:"The 10 of Pentacles symbolizes wealth, legacy, and family traditions.",reversedDescription:"May indicate financial insecurity or challenges related to material wealth.",imageUrl:"10PENTACLES.PNG",descriptionUrl:"74_10ofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:75,name:"Page of Pentacles",suit:"pentacles",number:"Page",keywords:["manifestation","financial opportunity","skill development"],description:"The Page of Pentacles represents ambition, diligence, and a new opportunity in the material world.",reversedDescription:"May indicate struggling to find focus or direction.",imageUrl:"PAGEPENTACLES.PNG",descriptionUrl:"75_11PageofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:76,name:"Knight of Pentacles",suit:"pentacles",number:"Knight",keywords:["hard work","productivity","routine","conservatism"],description:"The Knight of Pentacles symbolizes hard work, responsibility, and perseverance.",reversedDescription:"May indicate feeling stuck or that progress has slowed to a halt.",imageUrl:"KNIGHTPENTACLES.PNG",descriptionUrl:"76_12KnightofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:77,name:"Queen of Pentacles",suit:"pentacles",number:"Queen",keywords:["practicality","creature comforts","financial security","nurturing"],description:"The Queen of Pentacles represents a nurturing, practical, and financially savvy individual.",reversedDescription:"May indicate prioritizing work over personal life or relationships.",imageUrl:"QUEENPENTACLES.PNG",descriptionUrl:"77_13QueenofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:78,name:"King of Pentacles",suit:"pentacles",number:"King",keywords:["abundance","prosperity","security","ambition","discipline"],description:"The King of Pentacles symbolizes wealth, abundance, security, and discipline.",reversedDescription:"May indicate being overly focused on material success to the detriment of other areas.",imageUrl:"KINGPENTACLES.PNG",descriptionUrl:"78_14KingofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+];
+
+const CARD_BY_ID = Object.fromEntries(ALL_CARDS.map(c => [c.id, c]));
+function cardImg(c){ return `${BASE_IMG}/${c.imageUrl}`; }
+function descUrl(c){ return `${BASE_TXT}/${c.descriptionUrl}`; }
+
+const SPREADS = [
+  {id:"one-card",name:"One Card",subtitle:"Universally useful",category:"classic",cardCount:1,cw:300,ch:160,positions:[{id:1,label:"The Card",description:"The central message or guidance for your question",x:150,y:80}]},
+  {id:"past-present-future",name:"Past, Present & Future",subtitle:"Metaphors of time",category:"featured",cardCount:3,cw:300,ch:140,positions:[{id:1,label:"Past",description:"What has shaped the situation",x:55,y:70},{id:2,label:"Present",description:"The current energy, what is happening right now",x:150,y:70},{id:3,label:"Future",description:"Where things are heading",x:245,y:70}]},
+  {id:"substance-shadow",name:"Substance & Shadow",subtitle:"Light and dark aspects",category:"featured",cardCount:2,cw:300,ch:140,positions:[{id:1,label:"Substance",description:"The conscious, visible, or manifest aspect",x:90,y:70},{id:2,label:"Shadow",description:"The hidden, unconscious, or shadow aspect",x:210,y:70}]},
+  {id:"what-why-how",name:"What, Why & How",subtitle:"Clarity of purpose",category:"featured",cardCount:3,cw:300,ch:140,positions:[{id:1,label:"What",description:"What is happening — the nature of the situation",x:55,y:70},{id:2,label:"Why",description:"The underlying reason or root cause",x:150,y:70},{id:3,label:"How",description:"How to move forward — the recommended action",x:245,y:70}]},
+  {id:"spirit-spread",name:"The Spirit Spread",subtitle:"Analyze a person or situation",category:"featured",cardCount:5,cw:300,ch:290,positions:[{id:1,label:"Crown",description:"The highest spiritual influence",x:150,y:44},{id:2,label:"Left Path",description:"External influences and obstacles",x:44,y:145},{id:3,label:"Heart",description:"The central truth",x:150,y:145},{id:4,label:"Right Path",description:"Inner resources and strengths",x:256,y:145},{id:5,label:"Foundation",description:"The subconscious foundation",x:150,y:246}]},
+  {id:"mind-body-spirit",name:"Mind, Body & Spirit",subtitle:"Holistic self-awareness",category:"sacred",cardCount:3,cw:300,ch:140,positions:[{id:1,label:"Mind",description:"Your thoughts and mental state",x:55,y:70},{id:2,label:"Body",description:"The physical reality and practical matters",x:150,y:70},{id:3,label:"Spirit",description:"Soul-level guidance and higher purpose",x:245,y:70}]},
+  {id:"celtic-cross",name:"Modern Celtic Cross",subtitle:"For long-term analysis",category:"featured",cardCount:10,cw:300,ch:390,positions:[{id:1,label:"Present",description:"The heart of the matter",x:95,y:155},{id:2,label:"Challenge",description:"What crosses you — the obstacle",x:155,y:155},{id:3,label:"Foundation",description:"The root or subconscious basis",x:95,y:260},{id:4,label:"Recent Past",description:"Events that have recently passed",x:30,y:155},{id:5,label:"Crown",description:"The best outcome you can hope for",x:95,y:50},{id:6,label:"Near Future",description:"What is coming in the near future",x:155,y:50},{id:7,label:"Self",description:"How you see yourself",x:240,y:50},{id:8,label:"Environment",description:"External influences — how others see you",x:240,y:155},{id:9,label:"Hopes & Fears",description:"Your deepest hopes and fears",x:240,y:260},{id:10,label:"Outcome",description:"The likely outcome",x:240,y:350}]},
+  {id:"horseshoe",name:"The Horseshoe Spread",subtitle:"A classic and versatile spread",category:"classic",cardCount:7,cw:300,ch:290,positions:[{id:1,label:"Distant Past",description:"Distant past influences",x:44,y:246},{id:2,label:"Recent Past",description:"Events that have recently passed",x:44,y:145},{id:3,label:"Present",description:"The current state of affairs",x:44,y:44},{id:4,label:"Future",description:"What is coming",x:150,y:44},{id:5,label:"External Influences",description:"Outside forces affecting you",x:256,y:44},{id:6,label:"Recommended Action",description:"The best course of action",x:256,y:145},{id:7,label:"Outcome",description:"The most likely outcome",x:256,y:246}]},
+  {id:"astrological",name:"The Astrological Spread",subtitle:"A description of the next twelve months",category:"classic",cardCount:12,cw:300,ch:320,positions:[{id:1,label:"House I · Self",description:"You, your identity, and beginnings",x:150,y:50},{id:2,label:"House II · Possessions",description:"Finances, material possessions, values",x:205,y:65},{id:3,label:"House III · Communication",description:"Communication, siblings, short journeys",x:245,y:105},{id:4,label:"House IV · Home",description:"Home, family, roots",x:258,y:160},{id:5,label:"House V · Creativity",description:"Creativity, romance, self-expression",x:245,y:215},{id:6,label:"House VI · Health",description:"Health, routines, work environment",x:205,y:255},{id:7,label:"House VII · Relationships",description:"Partnerships, marriage, contracts",x:150,y:270},{id:8,label:"House VIII · Transformation",description:"Transformation, shared resources",x:95,y:255},{id:9,label:"House IX · Philosophy",description:"Higher learning, travel, spirituality",x:55,y:215},{id:10,label:"House X · Career",description:"Career, public reputation, life path",x:42,y:160},{id:11,label:"House XI · Community",description:"Friends, groups, hopes, wishes",x:55,y:105},{id:12,label:"House XII · Hidden Realm",description:"The unconscious, solitude, karma",x:95,y:65}]},
+  {id:"sacred-triangle",name:"Sacred Triangle",subtitle:"Sacred geometry wisdom",category:"sacred",cardCount:3,cw:300,ch:240,positions:[{id:1,label:"Above",description:"Divine guidance — what higher forces say",x:150,y:48},{id:2,label:"Below Left",description:"The earthly foundation",x:66,y:192},{id:3,label:"Below Right",description:"Inner wisdom — the soul's perspective",x:234,y:192}]},
+  {id:"merkaba",name:"Merkaba Spread",subtitle:"Six-pointed star of sacred geometry",category:"sacred",cardCount:7,cw:300,ch:310,positions:[{id:1,label:"Center",description:"The core truth at the heart of your question",x:150,y:155},{id:2,label:"Peak",description:"Aspiration — your highest potential",x:150,y:45},{id:3,label:"Upper Right",description:"Your external actions",x:248,y:100},{id:4,label:"Lower Right",description:"What you need to release",x:248,y:210},{id:5,label:"Base",description:"Your foundation",x:150,y:265},{id:6,label:"Lower Left",description:"What you are manifesting",x:52,y:210},{id:7,label:"Upper Left",description:"Hidden gifts and spiritual resources",x:52,y:100}]},
+];
+const SPREAD_BY_ID = Object.fromEntries(SPREADS.map(s=>[s.id,s]));
+
+// ═══════════════════════════════════════════════════════════════
+// STATE (localStorage)
+// ═══════════════════════════════════════════════════════════════
+function ls(k,d){ try{ const v=localStorage.getItem(k); return v!==null?JSON.parse(v):d; }catch(e){ return d; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+
+let state = {
+  favorites: ls('tarot_favorites',[]),
+  dailyCardId: ls('tarot_daily_card',null),
+  dailyDate: ls('tarot_daily_date',null),
+  dailyReversed: ls('tarot_daily_reversed',false),
+  notes: ls('tarot_notes',{}),
+  onboardingDone: ls('tarot_onboarding_done',false),
+  currentTab: 'deck',
+  deckSearch: '',
+  deckSuit: 'all',
+  spreadsSearch: '',
+  spreadsCategory: 'all',
+  currentSpreadId: null,
+  spreadCards: {},
+};
+
+function isFav(id){ return state.favorites.includes(id); }
+function toggleFav(id){
+  if(isFav(id)){ state.favorites=state.favorites.filter(x=>x!==id); }
+  else{ state.favorites=[...state.favorites,id]; }
+  lsSet('tarot_favorites',state.favorites);
+}
+function saveNote(cardId,text){
+  state.notes={...state.notes,[cardId]:text};
+  lsSet('tarot_notes',state.notes);
+}
+function getDailyCard(){ return state.dailyCardId?CARD_BY_ID[state.dailyCardId]:null; }
+function isToday(){ return state.dailyDate===new Date().toDateString(); }
+
+// ═══════════════════════════════════════════════════════════════
+// ONBOARDING
+// ═══════════════════════════════════════════════════════════════
+let obSlide=0;
+const OB_SLIDES=4;
+
+function obNext(){
+  if(obSlide<OB_SLIDES-1){
+    document.getElementById(`ob-${obSlide}`).classList.remove('active');
+    document.getElementById(`dot-${obSlide}`).classList.remove('active');
+    obSlide++;
+    document.getElementById(`ob-${obSlide}`).classList.add('active');
+    document.getElementById(`dot-${obSlide}`).classList.add('active');
+    if(obSlide===OB_SLIDES-1) document.getElementById('ob-next-btn').textContent='Enter the Oracle';
+  } else {
+    completeOnboarding();
+  }
+}
+
+function completeOnboarding(){
+  state.onboardingDone=true;
+  lsSet('tarot_onboarding_done',true);
+  document.getElementById('onboarding').classList.add('hidden');
+  document.getElementById('app').style.display='flex';
+  initApp();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// APP INIT
+// ═══════════════════════════════════════════════════════════════
+function initApp(){
+  buildSuitFilter();
+  buildSpreadCategoryFilter();
+  renderDeck();
+  renderDrawScreen();
+  renderSpreads();
+  renderFavorites();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// TAB SWITCHING
+// ═══════════════════════════════════════════════════════════════
+function switchTab(tab){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(`view-${tab}`).classList.add('active');
+  document.getElementById(`tab-${tab}`).classList.add('active');
+  state.currentTab=tab;
+  if(tab==='favorites') renderFavorites();
+  if(tab==='draw') renderDrawScreen();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DETAIL PANEL
+// ═══════════════════════════════════════════════════════════════
+function openPanel(html){
+  document.getElementById('detail-panel-inner').innerHTML=html;
+  document.getElementById('detail-panel').classList.add('open');
+  document.getElementById('detail-panel').scrollTop=0;
+}
+function closePanel(){
+  document.getElementById('detail-panel').classList.remove('open');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DECK
+// ═══════════════════════════════════════════════════════════════
+function buildSuitFilter(){
+  const suits=[{key:'all',label:'All'},{key:'major',label:'Major'},{key:'wands',label:'Wands'},{key:'cups',label:'Cups'},{key:'swords',label:'Swords'},{key:'pentacles',label:'Pentacles'}];
+  const wrap=document.getElementById('suit-filter');
+  wrap.innerHTML=suits.map(s=>`
+    <button class="chip${s.key===state.deckSuit?' active':''}" 
+      style="--active-color:${s.key==='all'?'var(--gold)':SUIT_COLORS[s.key]||'var(--gold)'}"
+      onclick="setSuit('${s.key}')">${s.label}</button>
+  `).join('');
+}
+
+function setSuit(suit){
+  state.deckSuit=suit;
+  document.querySelectorAll('#suit-filter .chip').forEach(c=>c.classList.remove('active'));
+  event.target.classList.add('active');
+  renderDeck();
+  updateDeckCount();
+}
+
+function filterDeck(){
+  state.deckSearch=document.getElementById('deck-search').value;
+  document.getElementById('deck-clear').style.display=state.deckSearch?'block':'none';
+  renderDeck();
+  updateDeckCount();
+}
+
+function clearDeckSearch(){
+  state.deckSearch='';
+  document.getElementById('deck-search').value='';
+  document.getElementById('deck-clear').style.display='none';
+  renderDeck();
+  updateDeckCount();
+}
+
+function getFilteredCards(){
+  const q=state.deckSearch.toLowerCase();
+  return ALL_CARDS.filter(c=>{
+    const matchSuit=state.deckSuit==='all'||c.suit===state.deckSuit;
+    const matchSearch=!q||c.name.toLowerCase().includes(q)||c.keywords.some(k=>k.toLowerCase().includes(q));
+    return matchSuit&&matchSearch;
+  });
+}
+
+function updateDeckCount(){
+  const f=getFilteredCards();
+  document.getElementById('deck-count').textContent=`${f.length} of ${ALL_CARDS.length} cards`;
+}
+
+function renderDeck(){
+  const cards=getFilteredCards();
+  const grid=document.getElementById('deck-grid');
+  if(!cards.length){
+    grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><p>No cards found</p></div>`;
+    return;
+  }
+  grid.innerHTML=cards.map(c=>{
+    const color=SUIT_COLORS[c.suit];
+    return `<div class="card-item" onclick="openCardDetail(${c.id})">
+      <div class="card-img-wrap card-glow" style="box-shadow:0 4px 16px rgba(0,0,0,.5)">
+        <img src="${cardImg(c)}" alt="${c.name}" loading="lazy" onerror="this.style.opacity='.3'"/>
+      </div>
+      <div class="card-label-row">
+        <div class="card-dot" style="background:${color}"></div>
+        <span class="card-label">${c.name}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CARD DETAIL
+// ═══════════════════════════════════════════════════════════════
+function openCardDetail(id){
+  const card=CARD_BY_ID[id];
+  if(!card) return;
+  const accent=SUIT_COLORS[card.suit];
+  const noteText=state.notes[id]||'';
+  const fav=isFav(id);
+
+  openPanel(`
+    <div style="position:sticky;top:0;z-index:10;background:var(--midnight)">
+      <div class="detail-header">
+        <button class="back-btn" onclick="closePanel()">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          Back
+        </button>
+        <button class="fav-icon-btn" onclick="toggleFavCard(${id})" id="detail-fav-btn">
+          ${favHeart(fav)}
+        </button>
+      </div>
+    </div>
+    <div id="card-detail-content">
+      <div style="position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden">
+        <div style="position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:300px;height:300px;border-radius:50%;background:${accent};opacity:.07;filter:blur(60px)"></div>
+      </div>
+      <div class="detail-card-wrap">
+        <img class="detail-card-img" src="${cardImg(card)}" alt="${card.name}" style="box-shadow:0 0 40px ${accent}55"/>
+      </div>
+      <div class="detail-title-block">
+        <div class="detail-num" style="color:${accent}">${card.number}</div>
+        <div class="detail-name">${card.name}</div>
+        <div class="suit-badge" style="border-color:${accent}">
+          <span class="suit-badge-text" style="color:${accent}">${SUIT_LABELS[card.suit]}</span>
+        </div>
+        ${renderAttrs(card,accent)}
+        <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:4px">
+          ${card.keywords.map(k=>`<span style="font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid ${accent}60;color:${accent};font-weight:600;letter-spacing:.5px">${k}</span>`).join('')}
+        </div>
+      </div>
+      <div class="desc-box" style="border-color:${accent}35;background:${accent}0D;margin-bottom:8px">
+        <div class="desc-box-label" style="color:${accent}">↑ Upright</div>
+        <div class="desc-box-text">${card.description}</div>
+      </div>
+      <div class="desc-box" style="border-color:#E6394650;background:#E6394610;margin-bottom:0">
+        <div class="desc-box-label" style="color:#E63946">↓ Reversed</div>
+        <div class="desc-box-text">${card.reversedDescription}</div>
+      </div>
+      <div class="divider" style="background:${accent}"></div>
+      <div class="full-desc-header" style="color:${accent}">Full Sacred Interpretation</div>
+      <div id="full-desc-block">
+        <div class="loading-block">
+          ${spinnerSVG(accent)}
+          <div class="loading-txt">Channelling wisdom…</div>
+        </div>
+      </div>
+      <div class="divider" style="background:${accent};margin-top:28px"></div>
+      <div class="full-desc-header" style="color:${accent}">Sacred Journal</div>
+      <div class="journal-box" style="border-color:${accent}40;background:${accent}08">
+        <textarea class="journal-textarea" id="journal-input" placeholder="Write your personal reflection on this card…">${noteText}</textarea>
+        <button class="save-note-btn" style="border-color:${accent}60;color:${accent}" onclick="saveCardNote(${id})">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13"/><polyline points="7 3 7 8 15 8"/></svg>
+          Save Note
+        </button>
+      </div>
+    </div>
+  `);
+
+  // Fetch full description
+  fetch(descUrl(card))
+    .then(r=>r.text())
+    .then(text=>{
+      const el=document.getElementById('full-desc-block');
+      if(el) el.innerHTML=`<div class="full-desc-text">${escapeHtml(text)}</div>`;
+    })
+    .catch(()=>{
+      const el=document.getElementById('full-desc-block');
+      if(el) el.innerHTML=`<div style="font-size:14px;color:var(--muted);font-style:italic;text-align:center;padding:20px">Unable to load the full description. Check your connection.</div>`;
+    });
+}
+
+function toggleFavCard(id){
+  toggleFav(id);
+  const btn=document.getElementById('detail-fav-btn');
+  if(btn) btn.innerHTML=favHeart(isFav(id));
+}
+
+function saveCardNote(id){
+  const text=document.getElementById('journal-input')?.value||'';
+  saveNote(id,text);
+  // Visual feedback
+  const btn=event.target.closest('.save-note-btn');
+  if(btn){ const orig=btn.textContent; btn.textContent='Saved ✓'; setTimeout(()=>{ btn.innerHTML=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13"/><polyline points="7 3 7 8 15 8"/></svg> Save Note`; },1500); }
+}
+
+function renderAttrs(card,accent){
+  const attrs=[];
+  if(card.element) attrs.push({label:'Element',val:card.element});
+  if(card.planet) attrs.push({label:'Planet',val:card.planet});
+  if(card.zodiac) attrs.push({label:'Zodiac',val:card.zodiac});
+  if(!attrs.length) return '';
+  return `<div class="attrs-row" style="justify-content:center;margin-top:4px">
+    ${attrs.map(a=>`<div class="attr-chip">
+      <span class="attr-chip-label">${a.label}</span>
+      <span class="attr-chip-val" style="color:${accent}">${a.val}</span>
+    </div>`).join('')}
+  </div>`;
+}
+
+function favHeart(active){
+  return active
+    ? `<svg width="24" height="24" viewBox="0 0 24 24" fill="#FF6B9D" stroke="#FF6B9D" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`
+    : `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`;
+}
+
+function spinnerSVG(color='#D4AF37'){
+  return `<svg width="72" height="72" viewBox="0 0 72 72" fill="none" style="animation:spin 3s linear infinite">
+    <circle cx="36" cy="36" r="32" stroke="${color}" stroke-width=".8"/>
+    <circle cx="36" cy="36" r="16" stroke="${color}" stroke-width=".6"/>
+    <circle cx="36" cy="20" r="16" stroke="${color}" stroke-width=".5"/>
+    <circle cx="36" cy="52" r="16" stroke="${color}" stroke-width=".5"/>
+    <circle cx="22" cy="28" r="16" stroke="${color}" stroke-width=".5"/>
+    <circle cx="50" cy="28" r="16" stroke="${color}" stroke-width=".5"/>
+    <polygon points="36,16 52,43 20,43" stroke="${color}" stroke-width=".6" fill="none"/>
+    <polygon points="36,56 20,29 52,29" stroke="${color}" stroke-width=".6" fill="none"/>
+    <circle cx="36" cy="36" r="2.5" fill="${color}"/>
+  </svg>`;
+}
+
+function escapeHtml(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DAILY DRAW
+// ═══════════════════════════════════════════════════════════════
+function renderDrawScreen(){
+  const dateEl=document.getElementById('draw-today-date');
+  if(dateEl) dateEl.textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  
+  const card=getDailyCard();
+  const today=isToday();
+  
+  const btn=document.getElementById('draw-btn');
+  if(btn) btn.textContent=(today&&card)?'Draw Again':'Draw Card';
+  
+  if(today&&card){
+    showDrawnCard(card,state.dailyReversed,false);
+  }
+}
+
+let drawIsRevealed=false;
+
+function showDrawnCard(card,reversed,animate){
+  const emptyEl=document.getElementById('draw-empty');
+  const cardWrap=document.getElementById('draw-card-wrap');
+  if(!emptyEl||!cardWrap) return;
+
+  emptyEl.style.display='none';
+  cardWrap.style.display='block';
+
+  const img=document.getElementById('drawn-card-img');
+  if(img){ img.src=cardImg(card); img.style.transform=reversed?'rotate(180deg)':''; }
+
+  const glow=document.getElementById('card-glow-aura');
+  if(glow){ glow.style.background=SUIT_COLORS[card.suit]; glow.style.boxShadow=`0 0 60px 20px ${SUIT_COLORS[card.suit]}55`; }
+
+  const flipInner=document.getElementById('flip-inner');
+  if(animate){
+    drawIsRevealed=false;
+    if(flipInner){ flipInner.classList.remove('flipped'); }
+    setTimeout(()=>{ if(flipInner) flipInner.classList.add('flipped'); drawIsRevealed=true; renderCardInfoPanel(card,reversed); },600);
+  } else {
+    if(flipInner){ flipInner.classList.add('flipped'); }
+    drawIsRevealed=true;
+    renderCardInfoPanel(card,reversed);
+  }
+}
+
+function renderCardInfoPanel(card,reversed){
+  const accent=SUIT_COLORS[card.suit];
+  const fav=isFav(card.id);
+  const panel=document.getElementById('card-info-panel');
+  if(!panel) return;
+  panel.style.display='block';
+  panel.innerHTML=`
+    <div class="card-info-panel">
+      <div class="card-name-row">
+        <div style="flex:1">
+          <div class="card-suit-label" style="color:${accent}">${SUIT_LABELS[card.suit]}</div>
+          <div class="card-big-name">${card.name}</div>
+          ${reversed?`<div class="reversed-tag">Reversed</div>`:''}
+        </div>
+        <button class="fav-btn" onclick="toggleDrawFav(${card.id})" id="draw-fav-btn">${favHeart(fav)}</button>
+      </div>
+      <div class="keywords-row">
+        ${card.keywords.slice(0,4).map(k=>`<span class="kw-chip" style="border-color:${accent}55;color:${accent}">${k}</span>`).join('')}
+      </div>
+      ${renderAttrs(card,accent)}
+      <div class="desc-box" style="border-color:${reversed?'#E6394660':accent+'35'};background:${reversed?'#E6394610':accent+'0D'}">
+        ${reversed?`<div class="desc-box-label" style="color:#E63946">↓ Reversed Reading</div>`:''}
+        <div class="desc-box-text">${reversed?card.reversedDescription:card.description}</div>
+      </div>
+      <button class="read-more-btn" style="border-color:${accent}60;background:${accent}15;color:${accent}" onclick="openCardDetail(${card.id})">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <span>Read Full Sacred Interpretation</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  `;
+}
+
+function toggleDrawFav(id){
+  toggleFav(id);
+  const btn=document.getElementById('draw-fav-btn');
+  if(btn) btn.innerHTML=favHeart(isFav(id));
+}
+
+function openDrawnCard(){
+  const card=getDailyCard();
+  if(card&&drawIsRevealed) openCardDetail(card.id);
+}
+
+function handleDraw(){
+  const idx=Math.floor(Math.random()*ALL_CARDS.length);
+  const card=ALL_CARDS[idx];
+  const reversed=Math.random()>0.6;
+  state.dailyCardId=card.id;
+  state.dailyDate=new Date().toDateString();
+  state.dailyReversed=reversed;
+  lsSet('tarot_daily_card',card.id);
+  lsSet('tarot_daily_date',state.dailyDate);
+  lsSet('tarot_daily_reversed',reversed);
+
+  const btn=document.getElementById('draw-btn');
+  if(btn) btn.textContent='Draw Again';
+
+  // Reset flip
+  const flipInner=document.getElementById('flip-inner');
+  if(flipInner) flipInner.classList.remove('flipped');
+  drawIsRevealed=false;
+  const panel=document.getElementById('card-info-panel');
+  if(panel) panel.style.display='none';
+
+  showDrawnCard(card,reversed,true);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SPREADS LIST
+// ═══════════════════════════════════════════════════════════════
+const SPREAD_CATEGORIES=[{key:'all',label:'All'},{key:'featured',label:'Featured'},{key:'sacred',label:'Sacred Geometry'},{key:'classic',label:'Classic'}];
+const SPREAD_GROUP_LABELS={featured:'Featured Spreads',sacred:'Sacred Geometry Spreads',classic:'Classic Spreads'};
+
+function buildSpreadCategoryFilter(){
+  const wrap=document.getElementById('spread-category-filter');
+  wrap.innerHTML=SPREAD_CATEGORIES.map(c=>`
+    <button class="chip${c.key===state.spreadsCategory?' active':''}" onclick="setSpreadCategory('${c.key}')">${c.label}</button>
+  `).join('');
+}
+
+function setSpreadCategory(cat){
+  state.spreadsCategory=cat;
+  document.querySelectorAll('#spread-category-filter .chip').forEach(c=>c.classList.remove('active'));
+  event.target.classList.add('active');
+  renderSpreads();
+}
+
+function filterSpreads(){
+  state.spreadsSearch=document.getElementById('spreads-search').value;
+  document.getElementById('spreads-clear').style.display=state.spreadsSearch?'block':'none';
+  renderSpreads();
+}
+
+function clearSpreadsSearch(){
+  state.spreadsSearch='';
+  document.getElementById('spreads-search').value='';
+  document.getElementById('spreads-clear').style.display='none';
+  renderSpreads();
+}
+
+function renderSpreads(){
+  const q=state.spreadsSearch.toLowerCase();
+  const filtered=SPREADS.filter(s=>{
+    const matchCat=state.spreadsCategory==='all'||s.category===state.spreadsCategory;
+    const matchSearch=!q||s.name.toLowerCase().includes(q)||s.subtitle.toLowerCase().includes(q);
+    return matchCat&&matchSearch;
+  });
+
+  const groups={featured:[],sacred:[],classic:[]};
+  filtered.forEach(s=>groups[s.category].push(s));
+
+  let html='';
+  for(const [cat,label] of Object.entries(SPREAD_GROUP_LABELS)){
+    if(!groups[cat].length) continue;
+    html+=`<div class="section-header"><div class="section-header-text">${label}</div></div>`;
+    html+=groups[cat].map(s=>`
+      <div class="spread-row" onclick="openSpreadDetail('${s.id}')">
+        <div class="spread-icon-wrap">${spreadIconSVG(s.cardCount,44)}</div>
+        <div class="spread-row-text">
+          <div class="spread-row-name">${s.name}</div>
+          <div class="spread-row-subtitle">${s.subtitle}</div>
+        </div>
+        <div class="spread-badge">${s.cardCount}</div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    `).join('');
+  }
+
+  if(!html) html=`<div class="empty-state"><p>No spreads found</p></div>`;
+  document.getElementById('spreads-list').innerHTML=html;
+}
+
+function spreadIconSVG(count,size){
+  const cardW=size*0.28, cardH=size*0.44, gap=size*0.06;
+  let positions=[];
+  if(count===1){ positions=[{x:size/2-cardW/2,y:size/2-cardH/2}]; }
+  else if(count===2){ const t=cardW*2+gap,sx=(size-t)/2; positions=[{x:sx,y:size/2-cardH/2},{x:sx+cardW+gap,y:size/2-cardH/2}]; }
+  else if(count===3){ const t=cardW*3+gap*2,sx=(size-t)/2; for(let i=0;i<3;i++) positions.push({x:sx+i*(cardW+gap),y:size/2-cardH/2}); }
+  else if(count===5){
+    const t=cardW*3+gap*2,sx=(size-t)/2;
+    positions=[{x:size/2-cardW/2,y:0},{x:sx,y:(size-cardH)/2},{x:sx+cardW+gap,y:(size-cardH)/2},{x:sx+(cardW+gap)*2,y:(size-cardH)/2},{x:size/2-cardW/2,y:size-cardH}];
+  } else {
+    const per=Math.ceil(Math.sqrt(count)),rows=Math.ceil(count/per);
+    const tw=per*cardW+(per-1)*gap,th=rows*cardH+(rows-1)*gap;
+    const sx=(size-tw)/2,sy=(size-th)/2;
+    for(let i=0;i<count;i++) positions.push({x:sx+(i%per)*(cardW+gap),y:sy+Math.floor(i/per)*(cardH+gap)});
+  }
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none">
+    ${positions.map(p=>`<rect x="${p.x}" y="${p.y}" width="${cardW}" height="${cardH}" rx="2" stroke="rgba(212,175,55,.7)" stroke-width="1" fill="rgba(30,18,80,.4)"/>`).join('')}
+  </svg>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SPREAD DETAIL
+// ═══════════════════════════════════════════════════════════════
+function openSpreadDetail(spreadId){
+  const spread=SPREAD_BY_ID[spreadId];
+  if(!spread) return;
+  state.currentSpreadId=spreadId;
+  state.spreadCards={};
+  renderSpreadDetail(spread);
+}
+
+function renderSpreadDetail(spread){
+  const SCALE=Math.min(window.innerWidth-32,340)/spread.cw;
+  const dw=spread.cw*SCALE, dh=spread.ch*SCALE;
+  const CARD_W=48*SCALE, CARD_H=77*SCALE;
+
+  const positions=spread.positions.map(p=>`
+    <div class="spread-pos-card" id="spos-${p.id}"
+      style="left:${p.x*SCALE}px;top:${p.y*SCALE}px;width:${CARD_W}px;height:${CARD_H}px"
+      onclick="revealSpreadCard(${p.id})">
+      <span style="font-family:'Cinzel',serif;font-size:${Math.max(7,9*SCALE)}px;color:rgba(212,175,55,.7);text-align:center;padding:2px">${p.id}</span>
+      <div class="spread-pos-label">${p.label}</div>
+    </div>
+  `).join('');
+
+  openPanel(`
+    <div id="spread-detail-content">
+      <div class="spread-detail-header">
+        <button class="spread-detail-back" onclick="closePanel()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          Spreads
+        </button>
+        <div class="spread-detail-title">${spread.name}</div>
+        <div class="spread-detail-subtitle">${spread.subtitle} · ${spread.cardCount} cards</div>
+      </div>
+      <div class="spread-diagram-wrap">
+        <div class="spread-diagram" style="width:${dw}px;height:${dh}px;position:relative;margin-bottom:30px">
+          ${positions}
+        </div>
+      </div>
+      <div style="display:flex;justify-content:center;margin-bottom:20px">
+        <button class="spread-shuffle-btn" onclick="shuffleSpread('${spread.id}')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+          Shuffle & Reveal All
+        </button>
+      </div>
+      <div class="spread-cards-list" id="spread-cards-list">
+        ${spread.positions.map(p=>`
+          <div class="spread-card-entry" id="sentry-${p.id}" onclick="openCardFromSpread(${p.id})" style="opacity:.4;pointer-events:none">
+            <div class="spread-entry-header">
+              <div style="width:44px;height:70px;border-radius:6px;background:rgba(30,18,80,.6);border:1px solid rgba(212,175,55,.3);flex-shrink:0;display:flex;align-items:center;justify-content:center">
+                <span style="font-size:16px;color:rgba(212,175,55,.4)">${p.id}</span>
+              </div>
+              <div class="spread-entry-info">
+                <div class="spread-entry-pos" style="color:var(--muted)">${p.label}</div>
+                <div class="spread-entry-name" style="color:var(--muted)">Not yet revealed</div>
+              </div>
+            </div>
+            <div class="spread-pos-desc">${p.description}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `);
+}
+
+function revealSpreadCard(posId){
+  const spreadId=state.currentSpreadId;
+  const spread=SPREAD_BY_ID[spreadId];
+  if(!spread) return;
+  if(state.spreadCards[posId]) return;
+  const used=Object.values(state.spreadCards);
+  let card;
+  do{ card=ALL_CARDS[Math.floor(Math.random()*ALL_CARDS.length)]; }
+  while(used.includes(card.id)&&used.length<ALL_CARDS.length);
+  state.spreadCards[posId]=card.id;
+  updateSpreadPosition(posId,card);
+}
+
+function shuffleSpread(spreadId){
+  const spread=SPREAD_BY_ID[spreadId];
+  if(!spread) return;
+  const shuffled=[...ALL_CARDS].sort(()=>Math.random()-.5).slice(0,spread.cardCount);
+  spread.positions.forEach((p,i)=>{
+    state.spreadCards[p.id]=shuffled[i].id;
+    setTimeout(()=>updateSpreadPosition(p.id,shuffled[i]),i*150);
+  });
+}
+
+function updateSpreadPosition(posId,card){
+  const accent=SUIT_COLORS[card.suit];
+  const posEl=document.getElementById(`spos-${posId}`);
+  if(posEl){
+    posEl.innerHTML=`<img src="${cardImg(card)}" style="width:100%;height:100%;object-fit:cover;border-radius:4px"/>`;
+    posEl.classList.add('revealed');
+    posEl.style.borderColor=accent;
+    posEl.style.boxShadow=`0 0 10px ${accent}44`;
+  }
+  const entryEl=document.getElementById(`sentry-${posId}`);
+  if(entryEl){
+    const spread=SPREAD_BY_ID[state.currentSpreadId];
+    const pos=spread.positions.find(p=>p.id===posId);
+    entryEl.style.opacity='1';
+    entryEl.style.pointerEvents='all';
+    entryEl.style.borderColor=`${accent}55`;
+    entryEl.querySelector('.spread-entry-header').innerHTML=`
+      <img class="spread-entry-thumb" src="${cardImg(card)}" alt="${card.name}"/>
+      <div class="spread-entry-info">
+        <div class="spread-entry-pos">${pos.label}</div>
+        <div class="spread-entry-name">${card.name}</div>
+        <div class="spread-entry-suit" style="color:${accent}">${SUIT_LABELS[card.suit]}</div>
+      </div>
+    `;
+  }
+}
+
+function openCardFromSpread(posId){
+  const cardId=state.spreadCards[posId];
+  if(!cardId) return;
+  openCardDetail(cardId);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// FAVORITES
+// ═══════════════════════════════════════════════════════════════
+function renderFavorites(){
+  const wrap=document.getElementById('fav-content');
+  if(!wrap) return;
+  const favCards=state.favorites.map(id=>CARD_BY_ID[id]).filter(Boolean);
+  if(!favCards.length){
+    wrap.innerHTML=`<div class="no-favs">
+      <svg width="100" height="100" viewBox="0 0 100 100" fill="none" style="opacity:.15">
+        <circle cx="50" cy="50" r="46" stroke="#D4AF37" stroke-width=".8"/>
+        <circle cx="50" cy="50" r="23" stroke="#D4AF37" stroke-width=".6"/>
+        <polygon points="50,20 68,52 32,52" stroke="#D4AF37" stroke-width=".6" fill="none"/>
+        <polygon points="50,80 32,48 68,48" stroke="#D4AF37" stroke-width=".6" fill="none"/>
+        <circle cx="50" cy="50" r="2.5" fill="#D4AF37"/>
+      </svg>
+      <p>No favorites yet</p>
+      <p style="font-size:13px;color:var(--muted);margin-top:4px;letter-spacing:.5px">Tap the heart icon on any card to save it here</p>
+      <button class="browse-btn" onclick="switchTab('deck')">Browse the Deck</button>
+    </div>`;
+    return;
+  }
+  wrap.innerHTML=`<div id="fav-grid">${favCards.map(c=>`
+    <div class="fav-card-wrap" onclick="openCardDetail(${c.id})">
+      <button class="fav-remove" onclick="event.stopPropagation();removeFav(${c.id})" title="Remove">✕</button>
+      <img src="${cardImg(c)}" alt="${c.name}" loading="lazy"/>
+      <div class="fav-card-name">${c.name}</div>
+    </div>
+  `).join('')}</div>`;
+}
+
+function removeFav(id){
+  toggleFav(id);
+  renderFavorites();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════════════════════════════
+if(state.onboardingDone){
+  document.getElementById('onboarding').classList.add('hidden');
+  document.getElementById('app').style.display='flex';
+  initApp();
+}
+
+// Handle back gesture / escape key
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closePanel(); });
+</script>
+</body>
+</html>

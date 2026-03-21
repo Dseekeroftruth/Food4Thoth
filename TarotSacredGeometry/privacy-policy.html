@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — FOOD4THOTH Sacred Tarot</title>
+  <meta name="description" content="Privacy Policy for FOOD4THOTH Sacred Tarot on iOS and Android. Available on the App Store and Google Play for $9.99. We collect no personal data." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --midnight: #0A0814;
+      --deep:     #120A2E;
+      --surface:  #1A0F3C;
+      --gold:     #D4AF37;
+      --cream:    #F5F0E8;
+      --muted:    #8A7FA0;
+      --border:   rgba(212,175,55,0.15);
+      --green:    #81C784;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--midnight);
+      color: var(--cream);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: rgba(18,10,46,0.95);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--gold);
+      letter-spacing: 4px;
+      text-decoration: none;
+    }
+
+    .nav-back {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--gold); }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+    }
+
+    /* ── HERO ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--deep) 0%, var(--midnight) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+
+    .page-hero-label {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 5px;
+      color: var(--gold);
+      opacity: 0.7;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .page-hero-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: clamp(28px, 5vw, 44px);
+      color: var(--cream);
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .page-hero-sub {
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── SUMMARY BOX ── */
+    .summary-box {
+      background: rgba(129,199,132,0.08);
+      border: 1px solid rgba(129,199,132,0.25);
+      border-radius: 16px;
+      padding: 32px 36px;
+      margin-bottom: 48px;
+    }
+
+    .summary-box-title {
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      color: var(--green);
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    .summary-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .summary-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: rgba(245,240,232,0.85);
+    }
+
+    .summary-list li::before {
+      content: "✓";
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── CONTENT ── */
+    .content-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 64px 24px 100px;
+    }
+
+    .toc {
+      background: rgba(26,15,60,0.6);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 56px;
+    }
+
+    .toc-title {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--gold);
+      margin-bottom: 16px;
+      opacity: 0.8;
+    }
+
+    .toc ol {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toc li a {
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .toc li a:hover { color: var(--gold); }
+
+    .policy-section {
+      margin-bottom: 56px;
+      scroll-margin-top: 32px;
+    }
+
+    .policy-section-number {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: var(--gold);
+      opacity: 0.6;
+      margin-bottom: 8px;
+    }
+
+    .policy-section-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--cream);
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .policy-section p {
+      color: rgba(245,240,232,0.8);
+      margin-bottom: 16px;
+      font-size: 15px;
+    }
+
+    .policy-section p:last-child { margin-bottom: 0; }
+
+    .policy-section ul, .policy-section ol {
+      padding-left: 20px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .policy-section li {
+      color: rgba(245,240,232,0.8);
+      font-size: 15px;
+    }
+
+    .highlight-box {
+      background: rgba(212,175,55,0.06);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 15px;
+      color: rgba(245,240,232,0.9);
+    }
+
+    strong { color: var(--cream); }
+
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 64px 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--gold);
+      letter-spacing: 5px;
+      margin-bottom: 6px;
+    }
+
+    .footer-tagline {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 3px;
+      margin-bottom: 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-copy {
+      font-size: 11px;
+      color: rgba(138,127,160,0.5);
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://food4thoth.com" class="nav-logo">FOOD4THOTH</a>
+  <a href="marketing-page.html" class="nav-back">← Back to Home</a>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <p class="page-hero-label">Legal</p>
+  <h1 class="page-hero-title">Privacy Policy</h1>
+  <p class="page-hero-sub">FOOD4THOTH Sacred Tarot &nbsp;·&nbsp; App Store & Google Play &nbsp;·&nbsp; $9.99 one-time purchase &nbsp;·&nbsp; Effective Date: March 21, 2026 &nbsp;·&nbsp; Last Updated: March 21, 2026</p>
+</div>
+
+<!-- CONTENT -->
+<div class="content-wrap">
+
+  <!-- SUMMARY -->
+  <div class="summary-box">
+    <div class="summary-box-title">The Short Version</div>
+    <ul class="summary-list">
+      <li>We do not collect any personal information from you.</li>
+      <li>We do not use any analytics, tracking, or advertising SDKs.</li>
+      <li>All your data (journal notes, favorites, daily draws) stays only on your device.</li>
+      <li>We do not require you to create an account.</li>
+      <li>The app is a $9.99 one-time purchase with no subscriptions or in-app purchases.</li>
+      <li>We never sell, share, or monetize any information about you.</li>
+    </ul>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc">
+    <div class="toc-title">Table of Contents</div>
+    <ol>
+      <li><a href="#s1">Who We Are</a></li>
+      <li><a href="#s2">Information We Do Not Collect</a></li>
+      <li><a href="#s3">Information Stored on Your Device</a></li>
+      <li><a href="#s4">Third-Party Services</a></li>
+      <li><a href="#s5">Children's Privacy</a></li>
+      <li><a href="#s6">Data Security</a></li>
+      <li><a href="#s7">Changes to This Policy</a></li>
+      <li><a href="#s8">Your Rights</a></li>
+      <li><a href="#s9">Contact Us</a></li>
+    </ol>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="policy-section" id="s1">
+    <p class="policy-section-number">01</p>
+    <h2 class="policy-section-title">Who We Are</h2>
+    <p>FOOD4THOTH Sacred Tarot ("the App," "we," "our," or "us") is an application for iOS and Android developed and published by FOOD4THOTH, operated by the individual developer at <a href="mailto:dseekeroftruth@gmail.com">dseekeroftruth@gmail.com</a>.</p>
+    <p>The App is a divination and personal reflection tool featuring 78 sacred geometry tarot cards, daily draws, spread readings, and a personal journal. It is available as a $9.99 one-time purchase on the Apple App Store and Google Play.</p>
+    <p>This Privacy Policy explains what information the App does and does not collect, how any on-device data is used, and your rights in relation to your information. By using the App, you agree to the terms of this Privacy Policy.</p>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="policy-section" id="s2">
+    <p class="policy-section-number">02</p>
+    <h2 class="policy-section-title">Information We Do Not Collect</h2>
+    <p>We want to be completely clear: <strong>FOOD4THOTH Sacred Tarot does not collect, transmit, store, or process any personal information from or about you.</strong> Specifically, we do not collect:</p>
+    <ul>
+      <li>Your name, email address, or any contact information</li>
+      <li>Your location or GPS data</li>
+      <li>Your device identifiers (IDFA, IDFV, Android Advertising ID, or similar)</li>
+      <li>Usage data, analytics, or behavioral tracking</li>
+      <li>Crash reports sent to any external service</li>
+      <li>Purchase or payment information beyond standard store processing handled by Apple or Google</li>
+      <li>Biometric data of any kind</li>
+      <li>Your contacts, photos, camera, or microphone</li>
+      <li>Any content you write in the Sacred Journal feature</li>
+    </ul>
+    <div class="highlight-box">
+      The App contains <strong>no analytics SDK</strong>, <strong>no advertising network</strong>, and <strong>no third-party data collection library</strong> of any kind.
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="policy-section" id="s3">
+    <p class="policy-section-number">03</p>
+    <h2 class="policy-section-title">Information Stored on Your Device</h2>
+    <p>The App stores a small amount of data <strong>locally on your device only</strong>, using standard on-device storage. This data never leaves your device and is never sent to us or any third party. The data stored locally includes:</p>
+    <ul>
+      <li><strong>Journal notes:</strong> Any personal reflections you write on individual cards</li>
+      <li><strong>Favorites:</strong> The list of cards you have bookmarked</li>
+      <li><strong>Daily draw history:</strong> Which card was drawn on the current day, and whether it was reversed</li>
+      <li><strong>Onboarding status:</strong> Whether you have completed the first-launch introduction (a simple true/false value)</li>
+    </ul>
+    <p>This data is stored using local device storage APIs and is subject to your device's standard security protections, including encryption and app sandboxing where supported by your platform. If you delete the App, all locally stored data is permanently deleted from your device.</p>
+    <p>You can delete all locally stored data at any time by uninstalling the App from your device.</p>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="policy-section" id="s4">
+    <p class="policy-section-number">04</p>
+    <h2 class="policy-section-title">Third-Party Services</h2>
+    <p>FOOD4THOTH Sacred Tarot does not integrate with any third-party services, SDKs, or APIs that collect personal data. The App does not include:</p>
+    <ul>
+      <li>Google Analytics, Firebase Analytics, Mixpanel, or any analytics platform</li>
+      <li>Facebook SDK, Twitter SDK, or any social media SDK</li>
+      <li>AdMob, Meta Audience Network, or any advertising SDK</li>
+      <li>Sentry, Crashlytics, or any crash reporting service</li>
+      <li>Any payment processing beyond the standard platform-level purchase processing handled by the Apple App Store or Google Play</li>
+    </ul>
+    <p>The App is distributed through the <strong>Apple App Store</strong> and <strong>Google Play</strong>. Apple or Google may collect certain diagnostic, transaction, or usage information as part of their operating systems and store services, independent of this App. Please refer to <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple's Privacy Policy</a> and <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a> for information about what those platforms collect.</p>
+    <p>If the App loads any card description content from <strong>food4thoth.com</strong>, no personal information is intentionally sent in those requests beyond what is normally included in standard web requests handled by your device and platform.</p>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="policy-section" id="s5">
+    <p class="policy-section-number">05</p>
+    <h2 class="policy-section-title">Children's Privacy</h2>
+    <p>FOOD4THOTH Sacred Tarot is designed to be suitable for general audiences. Because the App does not collect any personal information from any user, there are no special provisions required for users under the age of 13 (COPPA) or under the age of 16 (GDPR).</p>
+    <p>We do not knowingly collect personal information from children or any other age group, because we do not collect personal information from anyone.</p>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="policy-section" id="s6">
+    <p class="policy-section-number">06</p>
+    <h2 class="policy-section-title">Data Security</h2>
+    <p>Because we do not collect or transmit personal data to our own servers, there is no personal information stored by us on a remote user database.</p>
+    <p>Data stored locally on your device (journal notes, favorites, and daily draw history) benefits from your device's built-in security features, which may include:</p>
+    <ul>
+      <li>Device-level encryption when your device is locked</li>
+      <li>App sandboxing — data stored by this App cannot ordinarily be accessed by other apps</li>
+      <li>Cloud backup options you may enable through Apple or Google — note that if you use platform backup services, your device's local app data may be backed up to your personal cloud account, which is governed by that platform's privacy policy</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="policy-section" id="s7">
+    <p class="policy-section-number">07</p>
+    <h2 class="policy-section-title">Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. If we make any material changes — particularly if we ever introduce any data collection — we will update the "Last Updated" date at the top of this page and, where required by law, provide a more prominent notice.</p>
+    <p>We encourage you to review this Privacy Policy periodically. Your continued use of the App after any changes are posted constitutes your acceptance of those changes.</p>
+    <p>The current version of this Privacy Policy is always accessible at: <a href="https://food4thoth.com/privacy">food4thoth.com/privacy</a></p>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div class="policy-section" id="s8">
+    <p class="policy-section-number">08</p>
+    <h2 class="policy-section-title">Your Rights</h2>
+    <p>Because we do not collect any personal information, there is no personal data for us to provide, correct, or delete on our end. All data associated with your use of the App exists solely on your device and is entirely under your control.</p>
+    <p>You may exercise the following rights at any time:</p>
+    <ul>
+      <li><strong>Right to erasure:</strong> Delete the App from your device. All locally stored data will be permanently removed.</li>
+      <li><strong>Right to access:</strong> All data the App stores is directly accessible within the App itself (your journal notes, favorites, and daily draw).</li>
+      <li><strong>Right to portability:</strong> Your journal notes are text you have written and remain entirely yours.</li>
+    </ul>
+    <p>If you are located in the European Economic Area (EEA), United Kingdom, or California, you have additional rights under GDPR or CCPA respectively. Because we collect no personal data, these rights are inherently fulfilled — there is no data to access, export, or delete on our servers.</p>
+  </div>
+
+  <!-- SECTION 9 -->
+  <div class="policy-section" id="s9">
+    <p class="policy-section-number">09</p>
+    <h2 class="policy-section-title">Contact Us</h2>
+    <p>If you have any questions, concerns, or feedback about this Privacy Policy or the App's privacy practices, please contact us:</p>
+    <div class="highlight-box">
+      <strong>FOOD4THOTH</strong><br />
+      Email: <a href="mailto:food4thoth@proton.me">food4thoth@proton.me</a><br />
+      Website: <a href="https://food4thoth.com" target="_blank" rel="noopener">food4thoth.com</a>
+    </div>
+    <p>We will respond to all privacy-related inquiries within 30 days.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <p style="font-size:13px; color:var(--muted); text-align:center;">
+    This Privacy Policy was last updated on <strong style="color:var(--cream)">March 21, 2026</strong> and applies to FOOD4THOTH Sacred Tarot version 1.0.0 and all subsequent versions unless a new policy is published.
+  </p>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">FOOD4THOTH</div>
+  <div class="footer-tagline">Sacred Geometry Tarot</div>
+  <div class="footer-links">
+    <a href="marketing-page.html">Home</a>
+    <a href="https://food4thoth.com">food4thoth.com</a>
+    <a href="mailto:food4thoth@proton.me">Contact</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 FOOD4THOTH. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FOOD4THOTH Sacred Tarot — Sacred Geometry Oracle</title>
+  <meta name="description" content="78 sacred geometry tarot cards. Daily draws, spreads, and a personal journal. No ads. No subscriptions. Available on the App Store and Google Play for $9.99." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --midnight: #0A0814;
+      --deep:     #120A2E;
+      --surface:  #1A0F3C;
+      --gold:     #D4AF37;
+      --gold-dim: #B8952A;
+      --cream:    #F5F0E8;
+      --muted:    #8A7FA0;
+      --wands:    #E07C2A;
+      --cups:     #4FC3F7;
+      --swords:   #90CAF9;
+      --pentacles:#81C784;
+      --major:    #CE93D8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--midnight);
+      color: var(--cream);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .geo-bg {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.07;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: linear-gradient(to bottom, rgba(10,8,20,0.95) 0%, transparent 100%);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: 18px;
+      color: var(--gold);
+      letter-spacing: 4px;
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 36px; }
+    .nav-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--midnight);
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 2px;
+      padding: 10px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--gold-dim); transform: translateY(-1px); }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-geo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 700px;
+      opacity: 0.08;
+      animation: spin 60s linear infinite;
+    }
+
+    @keyframes spin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+    @keyframes pulse { 0%, 100% { opacity: 0.08; } 50% { opacity: 0.14; } }
+
+    .hero-geo-2 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 500px;
+      opacity: 0.06;
+      animation: spin 40s linear infinite reverse;
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 720px; }
+
+    .hero-eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 5px;
+      color: var(--gold);
+      opacity: 0.8;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: clamp(42px, 8vw, 84px);
+      color: var(--gold);
+      letter-spacing: 6px;
+      line-height: 1.05;
+      margin-bottom: 16px;
+      text-shadow: 0 0 60px rgba(212,175,55,0.3);
+    }
+
+    .hero-subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(14px, 2vw, 18px);
+      color: var(--muted);
+      letter-spacing: 3px;
+      margin-bottom: 40px;
+    }
+
+    .hero-body {
+      font-size: 18px;
+      color: var(--cream);
+      opacity: 0.85;
+      max-width: 560px;
+      margin: 0 auto 56px;
+      line-height: 1.8;
+    }
+
+    .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gold);
+      color: var(--midnight);
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 2px;
+      padding: 16px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.25s;
+      box-shadow: 0 8px 32px rgba(212,175,55,0.3);
+    }
+    .btn-primary:hover { background: var(--gold-dim); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(212,175,55,0.4); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--cream);
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      letter-spacing: 2px;
+      padding: 16px 40px;
+      border-radius: 50px;
+      border: 1px solid rgba(245,240,232,0.2);
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-note {
+      margin-top: 28px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    section {
+      padding: 100px 24px;
+      position: relative;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 5px;
+      color: var(--gold);
+      opacity: 0.7;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: clamp(26px, 4vw, 42px);
+      color: var(--cream);
+      text-align: center;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 560px;
+      margin: 0 auto 64px;
+      line-height: 1.7;
+    }
+
+    .cards-strip {
+      background: linear-gradient(135deg, var(--deep) 0%, var(--surface) 100%);
+      padding: 80px 0;
+      overflow: hidden;
+    }
+
+    .suits-row {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+
+    .suit-block {
+      flex: 1;
+      min-width: 200px;
+      padding: 48px 32px;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+    }
+    .suit-block:last-child { border-right: none; }
+
+    .suit-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+    }
+
+    .suit-name {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      margin-bottom: 8px;
+    }
+
+    .suit-count {
+      font-size: 36px;
+      font-weight: 700;
+      opacity: 0.9;
+      margin-bottom: 6px;
+    }
+
+    .suit-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 16px;
+    }
+
+    .feature-card {
+      background: linear-gradient(135deg, rgba(26,15,60,0.8), rgba(18,10,46,0.8));
+      border: 1px solid rgba(212,175,55,0.15);
+      border-radius: 20px;
+      padding: 36px 32px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .feature-card:hover { border-color: rgba(212,175,55,0.4); transform: translateY(-4px); }
+
+    .feature-icon {
+      font-size: 32px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .feature-title {
+      font-family: 'Cinzel', serif;
+      font-size: 16px;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .feature-body {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .quote-section {
+      background: linear-gradient(135deg, var(--deep), var(--midnight));
+      text-align: center;
+    }
+
+    .quote-text {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(20px, 3vw, 32px);
+      color: var(--cream);
+      line-height: 1.6;
+      max-width: 780px;
+      margin: 0 auto 24px;
+      font-style: italic;
+      opacity: 0.9;
+    }
+
+    .quote-source {
+      font-size: 12px;
+      color: var(--gold);
+      letter-spacing: 3px;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(212,175,55,0.3), transparent);
+      margin: 0 auto;
+      max-width: 600px;
+    }
+
+    .privacy-strip {
+      background: rgba(26,15,60,0.4);
+      border-top: 1px solid rgba(212,175,55,0.1);
+      border-bottom: 1px solid rgba(212,175,55,0.1);
+    }
+
+    .privacy-strip .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      padding: 48px 24px;
+    }
+
+    .privacy-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .privacy-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(129,199,132,0.15);
+      border: 1px solid rgba(129,199,132,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--pentacles);
+      flex-shrink: 0;
+    }
+
+    .cta-section {
+      text-align: center;
+      padding: 120px 24px;
+      background: radial-gradient(ellipse at center, rgba(212,175,55,0.08) 0%, transparent 70%);
+    }
+
+    .cta-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: clamp(32px, 5vw, 56px);
+      color: var(--gold);
+      letter-spacing: 4px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 40px rgba(212,175,55,0.2);
+    }
+
+    .cta-body {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: 20px;
+      color: var(--gold);
+      letter-spacing: 5px;
+      margin-bottom: 8px;
+    }
+
+    .footer-tagline {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 3px;
+      margin-bottom: 32px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-copy {
+      font-size: 11px;
+      color: rgba(138,127,160,0.5);
+    }
+
+    .store-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #000;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 12px 24px;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .store-badge:hover { border-color: var(--gold); transform: translateY(-2px); }
+    .store-badge-icon { font-size: 28px; }
+    .store-badge-text { text-align: left; }
+    .store-badge-sub { font-size: 10px; color: var(--muted); letter-spacing: 1px; }
+    .store-badge-name { font-size: 16px; color: #fff; font-weight: 600; }
+
+    .store-badges {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+		
+		/* FOOD4THOTH Sacred Tarot - isolated web links block */
+.f4t-sacred-web-links {
+  margin-top: 42px;
+  text-align: center;
+}
+
+.f4t-sacred-web-links__label {
+  margin: 0 0 18px;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  opacity: 0.85;
+  text-transform: uppercase;
+}
+
+.f4t-sacred-web-links__buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.f4t-sacred-web-links__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  background: linear-gradient(135deg, rgba(26, 15, 60, 0.92), rgba(18, 10, 46, 0.92));
+  color: var(--cream);
+  text-decoration: none;
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  line-height: 1.2;
+  transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s, color 0.22s;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+
+.f4t-sacred-web-links__btn:hover {
+  color: var(--gold);
+  border-color: rgba(212, 175, 55, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 34px rgba(212, 175, 55, 0.12);
+  text-decoration: none;
+}
+
+.f4t-sacred-web-links__btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .f4t-sacred-web-links {
+    margin-top: 34px;
+  }
+
+  .f4t-sacred-web-links__buttons {
+    gap: 12px;
+  }
+
+  .f4t-sacred-web-links__btn {
+    width: 100%;
+    max-width: 360px;
+  }
+}
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .suit-block { min-width: 160px; padding: 32px 20px; }
+      .privacy-strip .container { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">FOOD4THOTH</a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#cards">The Deck</a>
+    <a href="#privacy">Privacy</a>
+  </div>
+  <a href="#download" class="nav-cta">Get for $9.99</a>
+</nav>
+
+<section class="hero">
+  <svg class="hero-geo" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="300" cy="300" r="280" stroke="#D4AF37" stroke-width="1"/>
+    <circle cx="300" cy="300" r="160" stroke="#D4AF37" stroke-width="0.8"/>
+    <circle cx="300" cy="140" r="160" stroke="#D4AF37" stroke-width="0.6"/>
+    <circle cx="300" cy="460" r="160" stroke="#D4AF37" stroke-width="0.6"/>
+    <circle cx="161" cy="220" r="160" stroke="#D4AF37" stroke-width="0.6"/>
+    <circle cx="439" cy="220" r="160" stroke="#D4AF37" stroke-width="0.6"/>
+    <circle cx="161" cy="380" r="160" stroke="#D4AF37" stroke-width="0.6"/>
+    <circle cx="439" cy="380" r="160" stroke="#D4AF37" stroke-width="0.6"/>
+    <polygon points="300,80 494,260 206,260" stroke="#D4AF37" stroke-width="0.8" fill="none" opacity="0.6"/>
+    <polygon points="300,520 106,340 394,340" stroke="#D4AF37" stroke-width="0.8" fill="none" opacity="0.6"/>
+    <circle cx="300" cy="300" r="8" fill="#D4AF37" opacity="0.6"/>
+  </svg>
+
+  <svg class="hero-geo-2" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="250" cy="250" r="230" stroke="#CE93D8" stroke-width="0.6"/>
+    <polygon points="250,50 420,370 80,370" stroke="#CE93D8" stroke-width="0.8" fill="none"/>
+    <polygon points="250,450 80,130 420,130" stroke="#CE93D8" stroke-width="0.8" fill="none"/>
+  </svg>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Sacred Geometry Oracle</p>
+    <h1 class="hero-title">FOOD4THOTH</h1>
+    <p class="hero-subtitle">Sacred Geometry Tarot</p>
+    <p class="hero-body">
+      A living oracle of 78 sacred cards — each woven with the geometry of the cosmos.
+      Rooted in the ancient Thoth tradition, reimagined through sacred geometry, alchemy, and universal symbolism.
+    </p>
+    <div class="hero-actions">
+      <a href="#download" class="btn-primary">
+        Get on the App Store & Google Play for $9.99
+      </a>
+      <a href="#features" class="btn-secondary">Explore the App</a>
+    </div>
+    <p class="hero-note">$9.99 &nbsp;·&nbsp; No ads &nbsp;·&nbsp; No subscriptions &nbsp;·&nbsp; iOS & Android</p>
+  </div>
+</section>
+
+<div class="f4t-sacred-web-links">
+  <p class="f4t-sacred-web-links__label">Explore More Tarot Portals</p>
+
+  <div class="f4t-sacred-web-links__buttons">
+    <a
+      href="https://www.food4thoth.com/TarotSacredGeometry/NewSacredTarot.html"
+      class="f4t-sacred-web-links__btn"
+      target="_blank"
+      rel="noopener"
+    >
+      Visit New Web Version
+    </a>
+
+    <a
+      href="https://www.food4thoth.com/TarotSacredGeometry/index.html"
+      class="f4t-sacred-web-links__btn"
+      target="_blank"
+      rel="noopener"
+    >
+      Visit Original Web Version
+    </a>
+
+    <a
+      href="https://www.food4thoth.com/TarotTogetherNoAge4Decks/index.html"
+      class="f4t-sacred-web-links__btn"
+      target="_blank"
+      rel="noopener"
+    >
+      View Original Deck Gallery
+    </a>
+  </div>
+</div>
+
+<div class="cards-strip" id="cards">
+  <div style="text-align:center; margin-bottom:48px;">
+    <p class="section-label">The Complete Deck</p>
+    <h2 class="section-title" style="font-size:28px;">78 Sacred Geometry Cards</h2>
+  </div>
+  <div class="suits-row">
+    <div class="suit-block">
+      <div class="suit-dot" style="background:#CE93D8;"></div>
+      <div class="suit-name" style="color:#CE93D8;">Major Arcana</div>
+      <div class="suit-count" style="color:#CE93D8;">22</div>
+      <div class="suit-desc">The great archetypes. From The Fool to The World — the journey of the soul.</div>
+    </div>
+    <div class="suit-block">
+      <div class="suit-dot" style="background:#E07C2A;"></div>
+      <div class="suit-name" style="color:#E07C2A;">Wands</div>
+      <div class="suit-count" style="color:#E07C2A;">14</div>
+      <div class="suit-desc">Fire. Passion, creativity, will, and the spark of inspiration.</div>
+    </div>
+    <div class="suit-block">
+      <div class="suit-dot" style="background:#4FC3F7;"></div>
+      <div class="suit-name" style="color:#4FC3F7;">Cups</div>
+      <div class="suit-count" style="color:#4FC3F7;">14</div>
+      <div class="suit-desc">Water. Emotion, intuition, the heart, and the realm of dreams.</div>
+    </div>
+    <div class="suit-block">
+      <div class="suit-dot" style="background:#90CAF9;"></div>
+      <div class="suit-name" style="color:#90CAF9;">Swords</div>
+      <div class="suit-count" style="color:#90CAF9;">14</div>
+      <div class="suit-desc">Air. Intellect, truth, conflict, and the clarity of the mind.</div>
+    </div>
+    <div class="suit-block">
+      <div class="suit-dot" style="background:#81C784;"></div>
+      <div class="suit-name" style="color:#81C784;">Pentacles</div>
+      <div class="suit-count" style="color:#81C784;">14</div>
+      <div class="suit-desc">Earth. Material world, body, wealth, and the fruits of labor.</div>
+    </div>
+  </div>
+</div>
+
+<section id="features">
+  <div class="container">
+    <p class="section-label">What's Inside</p>
+    <h2 class="section-title">Everything You Need for Sacred Practice</h2>
+    <p class="section-subtitle">A complete divination toolkit built for depth, beauty, and daily use.</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">🌅</span>
+        <div class="feature-title">Daily Draw</div>
+        <div class="feature-body">Draw one sacred card each day. Watch it dramatically flip to reveal your message — with support for reversed meanings and the wisdom they carry.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">✦</span>
+        <div class="feature-title">Spreads & Readings</div>
+        <div class="feature-body">Choose from Single Card, Three-Card (Past / Present / Future), Celtic Cross, and more. Each card is revealed with a staggered sacred animation.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📖</span>
+        <div class="feature-title">Sacred Journal</div>
+        <div class="feature-body">Write personal reflections on any card. Your notes are saved privately on your device — never uploaded, never shared. A living record of your inner wisdom.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔮</span>
+        <div class="feature-title">Full Card Interpretations</div>
+        <div class="feature-body">Every card carries its upright and reversed meanings, elemental correspondences, planetary rulerships, zodiac associations, and sacred keywords.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">♡</span>
+        <div class="feature-title">Favorites</div>
+        <div class="feature-body">Bookmark the cards that speak most deeply to you. Your favorites persist across sessions for quick access whenever you need them.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">⬡</span>
+        <div class="feature-title">Sacred Geometry Design</div>
+        <div class="feature-body">Every screen breathes with animated Flower of Life, Metatron's Cube, and Star Tetrahedron geometry. The interface itself is a meditation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="quote-section">
+  <div class="container">
+    <div class="divider" style="margin-bottom:80px;"></div>
+    <p class="quote-text">
+      "The cards do not tell you what will happen.<br />They show you what is already written in the geometry of your soul."
+    </p>
+    <p class="quote-source">FOOD4THOTH SACRED TAROT</p>
+    <div class="divider" style="margin-top:80px;"></div>
+  </div>
+</section>
+
+<div class="privacy-strip" id="privacy">
+  <div class="container">
+    <div class="privacy-item">
+      <div class="privacy-check">✓</div>
+      <span>No account required</span>
+    </div>
+    <div class="privacy-item">
+      <div class="privacy-check">✓</div>
+      <span>No data collected or uploaded</span>
+    </div>
+    <div class="privacy-item">
+      <div class="privacy-check">✓</div>
+      <span>No ads, ever</span>
+    </div>
+    <div class="privacy-item">
+      <div class="privacy-check">✓</div>
+      <span>No subscriptions or in-app purchases</span>
+    </div>
+    <div class="privacy-item">
+      <div class="privacy-check">✓</div>
+      <span>Works fully offline</span>
+    </div>
+    <div class="privacy-item">
+      <div class="privacy-check">✓</div>
+      <span>Your journal stays on your device</span>
+    </div>
+  </div>
+</div>
+
+<section class="cta-section" id="download">
+  <div class="container">
+    <h2 class="cta-title">Enter the Oracle</h2>
+    <p class="cta-body">78 sacred cards. Infinite guidance. Available on the App Store and Google Play for $9.99.</p>
+
+    <div class="store-badges">
+      <a href="https://apps.apple.com/app/food4thoth-sacred-tarot" class="store-badge">
+        <span class="store-badge-icon"></span>
+        <div class="store-badge-text">
+          <div class="store-badge-sub">Download on the</div>
+          <div class="store-badge-name">App Store</div>
+        </div>
+      </a>
+
+      <a href="https://play.google.com/store/apps/details?id=com.food4thoth.sacredtarot" class="store-badge">
+        <span class="store-badge-icon"></span>
+        <div class="store-badge-text">
+          <div class="store-badge-sub">Get it on</div>
+          <div class="store-badge-name">Google Play</div>
+        </div>
+      </a>
+    </div>
+		
+		<div class="f4t-sacred-web-links">
+  <p class="f4t-sacred-web-links__label">Explore More Tarot Portals</p>
+
+  <div class="f4t-sacred-web-links__buttons">
+    <a
+      href="https://www.food4thoth.com/TarotSacredGeometry/NewSacredTarot.html"
+      class="f4t-sacred-web-links__btn"
+      target="_blank"
+      rel="noopener"
+    >
+      Visit New Web Version
+    </a>
+
+    <a
+      href="https://www.food4thoth.com/TarotSacredGeometry/index.html"
+      class="f4t-sacred-web-links__btn"
+      target="_blank"
+      rel="noopener"
+    >
+      Visit Original Web Version
+    </a>
+
+    <a
+      href="https://www.food4thoth.com/TarotTogetherNoAge4Decks/index.html"
+      class="f4t-sacred-web-links__btn"
+      target="_blank"
+      rel="noopener"
+    >
+      View Original Deck Gallery
+    </a>
+  </div>
+</div>
+
+    <p style="margin-top:24px; font-size:12px; color:var(--muted);">iOS &nbsp;·&nbsp; Android &nbsp;·&nbsp; $9.99 &nbsp;·&nbsp; No ads &nbsp;·&nbsp; No subscriptions</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">FOOD4THOTH</div>
+  <div class="footer-tagline">Sacred Geometry Tarot</div>
+  <div class="footer-links">
+    <a href="https://food4thoth.com">food4thoth.com</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="mailto:food4thoth@proton.me">Contact</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 FOOD4THOTH. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
