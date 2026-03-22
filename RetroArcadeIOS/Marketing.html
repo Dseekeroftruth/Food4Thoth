@@ -80,6 +80,15 @@
     }
     .btn.pq:hover{border-color:rgba(167,139,250,0.9)}
 
+    /* PRICE TAGS */
+    .price-tag{
+      font-size:0.75rem;font-weight:700;
+      padding:2px 7px;border-radius:6px;
+      margin-left:4px;
+    }
+    .price-free{background:rgba(52,211,153,0.15);color:#34d399;border:1px solid rgba(52,211,153,0.3)}
+    .price-paid{background:rgba(251,191,36,0.12);color:#fbbf24;border:1px solid rgba(251,191,36,0.3)}
+
     /* LAYOUT */
     .hero{
       display:grid;grid-template-columns:1.2fr 0.8fr;
@@ -172,6 +181,25 @@
       background:var(--pq);flex-shrink:0;
     }
 
+    /* PRICING COMPARISON */
+    .pricing-compare{
+      display:grid;grid-template-columns:1fr 1fr;gap:12px;
+      margin:16px 0;
+    }
+    .pricing-card{
+      text-align:center;padding:16px;border-radius:14px;
+      background:rgba(7,10,18,0.4);
+    }
+    .pricing-card.tg{border:1px solid rgba(125,211,252,0.3)}
+    .pricing-card.pq{border:1px solid rgba(167,139,250,0.3)}
+    .pricing-card .p-name{font-weight:700;font-size:0.95rem;margin-bottom:4px}
+    .pricing-card.tg .p-name{color:#7dd3fc}
+    .pricing-card.pq .p-name{color:#a78bfa}
+    .pricing-card .p-price{font-size:1.5rem;font-weight:800;margin:6px 0 4px}
+    .pricing-card.tg .p-price{color:#34d399}
+    .pricing-card.pq .p-price{color:#fbbf24}
+    .pricing-card .p-note{font-size:0.78rem;color:var(--muted)}
+
     /* SUPPORT */
     .support-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
     .support-item strong{display:block;margin-bottom:4px;font-size:0.95rem}
@@ -192,6 +220,7 @@
       .toplinks{justify-content:flex-start}
       .feat-grid{grid-template-columns:1fr}
       .support-grid{grid-template-columns:1fr}
+      .pricing-compare{grid-template-columns:1fr}
     }
     @media(max-width:680px){
       .screens{grid-template-columns:1fr}
@@ -213,8 +242,8 @@
       </div>
       <div class="toplinks">
         <a class="btn primary" href="#download">⬇️ Download Free</a>
-        <a class="btn pq" href="#pixel-quest">🎮 Full Version</a>
-        <a class="btn" href="privacy.html">🔒 Privacy</a>
+        <a class="btn pq" href="#pixel-quest">🎮 Pixel Quest Edition — $1.99</a>
+        <a class="btn" href="./PrivatePolicy.html">🔒 Privacy</a>
         <a class="btn" href="#support">🛟 Support</a>
       </div>
     </header>
@@ -235,7 +264,7 @@
           <span class="chip">🏆 High scores</span>
           <span class="chip">🕹️ D-Pad + swipe controls</span>
           <span class="chip">📱 Offline play</span>
-          <span class="chip">🆓 Free</span>
+          <span class="chip" style="border-color:rgba(52,211,153,0.4);color:#34d399">🆓 Free</span>
         </div>
 
         <div class="feat-grid">
@@ -270,11 +299,25 @@
 
         <!-- Pixel Quest upgrade banner inside main card -->
         <div class="pq-banner" id="pixel-quest">
-          <h3>🎮 Want More? Try Pixel Quest — The Full Version</h3>
+          <h3>🎮 Want More? Try Pixel Quest Edition — $1.99</h3>
           <p>
-            Terminal Game is the free original. <strong style="color:var(--text)">Pixel Quest</strong> is the complete
-            upgrade — three full visual themes, unique sprite art, and every power-up fully included. No ads. No locked content.
+            Terminal Game is the free original. <strong style="color:var(--text)">Pixel Quest Edition</strong> is the complete
+            upgrade for just <strong style="color:#fbbf24">$1.99</strong> — three full visual themes, unique sprite art, and every power-up fully included. No ads. No in-app purchases. No locked content.
           </p>
+
+          <div class="pricing-compare">
+            <div class="pricing-card tg">
+              <div class="p-name">🕹️ Terminal Game</div>
+              <div class="p-price">Free</div>
+              <div class="p-note">Classic arcade experience</div>
+            </div>
+            <div class="pricing-card pq">
+              <div class="p-name">🎮 Pixel Quest Edition</div>
+              <div class="p-price">$1.99</div>
+              <div class="p-note">One-time purchase · No in-app purchases</div>
+            </div>
+          </div>
+
           <div class="pq-features">
             <div class="pq-feature"><span class="pq-dot"></span>3 complete skin themes: Old School Bit, New School Kid, Wizard</div>
             <div class="pq-feature"><span class="pq-dot"></span>Full sprite art — characters, enemies, gems, backgrounds</div>
@@ -285,7 +328,7 @@
             <div class="pq-feature"><span class="pq-dot"></span>Top 5 scores per skin — fully offline</div>
           </div>
           <a class="btn pq" href="https://apps.apple.com/us/app/pixel-quest/id000000000" style="width:100%;justify-content:center;font-size:1rem;padding:14px;">
-            🚀 Get Pixel Quest on the App Store
+            🚀 Get Pixel Quest Edition — $1.99 on the App Store
           </a>
           <p style="font-size:0.8rem;color:var(--muted);text-align:center;margin-top:8px;">Coming soon — by the same developer, FOOD4THOTH</p>
         </div>
@@ -293,14 +336,14 @@
 
       <!-- RIGHT: Download + details sidebar -->
       <aside class="card" id="download">
-        <h2>Get Terminal Game</h2>
+        <h2>Get Terminal Game <span class="price-tag price-free">FREE</span></h2>
 
         <div class="storebox">
           <div class="storebox-label">App Store — Free</div>
           <a href="https://apps.apple.com/us/app/terminal-game/id6757940532" class="btn primary" style="width:100%;justify-content:center;font-size:0.97rem;padding:13px;">
-            🍎 Download on the App Store
+            🍎 Download Free on the App Store
           </a>
-          <div class="status">Status: <span class="ok">Live</span></div>
+          <div class="status">Status: <span class="ok">Live</span> · Price: <span class="ok">Free</span></div>
         </div>
 
         <div class="storebox">
@@ -315,19 +358,20 @@
           <ul>
             <li>Category: Games</li>
             <li>Mode: Single player</li>
-            <li>Pricing: Free</li>
+            <li><strong style="color:var(--good)">Pricing: Free</strong></li>
             <li>Platform: iOS</li>
             <li>Works offline: Yes</li>
           </ul>
         </div>
 
-        <div class="storebox">
+        <div class="storebox" style="border-color:rgba(167,139,250,0.4)">
           <div class="storebox-label" style="margin-bottom:10px">Also by FOOD4THOTH</div>
           <a href="#pixel-quest" class="btn pq" style="width:100%;justify-content:center;font-size:0.92rem;padding:12px;">
-            🎮 Pixel Quest — Full Version
+            🎮 Pixel Quest Edition — $1.99
           </a>
           <p style="font-size:0.82rem;color:var(--muted);margin-top:10px;line-height:1.5">
             Three skins, full sprites, all power-ups. The complete Pixel Quest experience.
+            <strong style="color:#fbbf24">One-time purchase: $1.99</strong> — no ads, no in-app purchases.
           </p>
         </div>
 
@@ -355,15 +399,15 @@
         </div>
         <div class="support-item">
           <strong>Privacy Policy</strong>
-          <span><a href="privacy.html">View Privacy Policy</a></span>
+          <span><a href="./PrivatePolicy.html">View Privacy Policy</a></span>
         </div>
         <div class="support-item">
           <strong>Terminal Game</strong>
-          <span><a href="https://apps.apple.com/us/app/terminal-game/id6757940532">App Store page</a></span>
+          <span><a href="https://apps.apple.com/us/app/terminal-game/id6757940532">App Store — Free</a></span>
         </div>
         <div class="support-item">
-          <strong>Pixel Quest</strong>
-          <span><a href="#pixel-quest">Full version — coming soon</a></span>
+          <strong>Pixel Quest Edition</strong>
+          <span><a href="#pixel-quest">$1.99 — Coming soon</a></span>
         </div>
       </div>
     </section>
@@ -371,7 +415,7 @@
     <footer>
       <div>© <span id="y"></span> FOOD4THOTH. All rights reserved.</div>
       <div>
-        <a href="privacy.html">Privacy Policy</a> ·
+        <a href="./PrivatePolicy.html">Privacy Policy</a> ·
         <a href="mailto:food4thoth@proton.me">Contact</a>
       </div>
     </footer>
