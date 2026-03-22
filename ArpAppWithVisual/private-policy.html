@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Arp Synth Sequencer</title>
+  <meta name="description" content="Privacy Policy for Arp Synth Sequencer. We do not collect, store, or share any personal data." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark:    #0d0d18;
+      --surface: #13131f;
+      --border:  rgba(255,255,255,0.07);
+      --purple:  #7b5ea7;
+      --text:    #e0e0ee;
+      --muted:   #8888aa;
+      --link:    #a07fe0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 1rem;
+      padding: 0;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 24px 24px;
+      text-align: center;
+    }
+
+    header .app-name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 10px;
+    }
+
+    header h1 {
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    header .meta {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* ── Layout ── */
+    .wrapper {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ── Summary banner ── */
+    .summary-banner {
+      background: rgba(123, 94, 167, 0.12);
+      border: 1px solid rgba(123, 94, 167, 0.3);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 48px;
+    }
+
+    .summary-banner h2 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #c5b3f5;
+      margin-bottom: 12px;
+      letter-spacing: 0.3px;
+    }
+
+    .summary-banner ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .summary-banner li {
+      font-size: 0.9rem;
+      color: #ccc;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .summary-banner li::before {
+      content: '✓';
+      color: #7ddf8a;
+      font-weight: 900;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── TOC ── */
+    nav.toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 48px;
+    }
+
+    nav.toc h2 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    nav.toc ol {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    nav.toc a {
+      color: var(--link);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    nav.toc a:hover { text-decoration: underline; }
+
+    /* ── Sections ── */
+    .policy-section {
+      margin-bottom: 44px;
+      scroll-margin-top: 20px;
+    }
+
+    .policy-section h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .policy-section h2 .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px; height: 26px;
+      background: var(--purple);
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .policy-section p {
+      color: #bbbbd0;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .policy-section ul,
+    .policy-section ol {
+      padding-left: 22px;
+      margin-bottom: 12px;
+    }
+
+    .policy-section li {
+      color: #bbbbd0;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .policy-section strong {
+      color: var(--text);
+    }
+
+    /* ── Highlight box ── */
+    .highlight-box {
+      background: rgba(125, 223, 138, 0.07);
+      border-left: 3px solid #7ddf8a;
+      border-radius: 0 8px 8px 0;
+      padding: 14px 18px;
+      margin: 16px 0;
+    }
+
+    .highlight-box p {
+      margin: 0;
+      color: #c5f0c8;
+      font-size: 0.92rem;
+    }
+
+    /* ── Contact card ── */
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 24px;
+      margin-top: 16px;
+    }
+
+    .contact-card p { margin-bottom: 6px; }
+
+    .contact-card a {
+      color: var(--link);
+      text-decoration: none;
+    }
+
+    .contact-card a:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 28px 24px;
+      border-top: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    footer a { color: var(--link); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 500px) {
+      .wrapper { padding: 32px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <p class="app-name">Arp Synth Sequencer</p>
+  <h1>Privacy Policy</h1>
+  <p class="meta">Effective Date: January 1, 2025 &nbsp;·&nbsp; Last Updated: January 1, 2025</p>
+</header>
+
+<div class="wrapper">
+
+  <!-- Summary -->
+  <div class="summary-banner">
+    <h2>The short version</h2>
+    <ul>
+      <li>We do not collect any personal information</li>
+      <li>We do not use analytics, tracking, or advertising SDKs</li>
+      <li>We do not store data on external servers</li>
+      <li>We do not share any data with third parties</li>
+      <li>All audio processing happens entirely on your device</li>
+      <li>No account or sign-up is required</li>
+    </ul>
+  </div>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#s1">Overview</a></li>
+      <li><a href="#s2">Information We Do Not Collect</a></li>
+      <li><a href="#s3">How the App Works</a></li>
+      <li><a href="#s4">Permissions</a></li>
+      <li><a href="#s5">Third-Party Services</a></li>
+      <li><a href="#s6">Children's Privacy</a></li>
+      <li><a href="#s7">Data Security</a></li>
+      <li><a href="#s8">Data Retention</a></li>
+      <li><a href="#s9">Your Rights</a></li>
+      <li><a href="#s10">Changes to This Policy</a></li>
+      <li><a href="#s11">Contact Us</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 -->
+  <div class="policy-section" id="s1">
+    <h2><span class="num">1</span> Overview</h2>
+    <p>
+      This Privacy Policy describes how <strong>Arp Synth Sequencer</strong> ("the App", "we", "us", or "our")
+      handles information when you use our browser-based arpeggiator synthesizer and fractal visualizer application.
+    </p>
+    <p>
+      We are committed to protecting your privacy. This App is designed to work entirely within your browser
+      or device without transmitting any personal data to any server.
+    </p>
+    <div class="highlight-box">
+      <p><strong>Plain language:</strong> We don't know who you are, and we don't try to find out. The App runs on your device only.</p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="policy-section" id="s2">
+    <h2><span class="num">2</span> Information We Do Not Collect</h2>
+    <p>We do <strong>not</strong> collect, store, or process any of the following:</p>
+    <ul>
+      <li>Name, email address, phone number, or any other contact information</li>
+      <li>Device identifiers (UDID, IDFA, IDFV, Android Advertising ID, etc.)</li>
+      <li>IP addresses or location data</li>
+      <li>Microphone recordings or audio input</li>
+      <li>Usage statistics, session duration, or interaction logs</li>
+      <li>Crash reports or diagnostic data sent off-device</li>
+      <li>Payment or financial information</li>
+      <li>Cookies or persistent identifiers of any kind</li>
+    </ul>
+  </div>
+
+  <!-- 3 -->
+  <div class="policy-section" id="s3">
+    <h2><span class="num">3</span> How the App Works</h2>
+    <p>
+      Arp Synth Sequencer is a music creation and visualization tool. All processing occurs entirely
+      on your local device:
+    </p>
+    <ul>
+      <li><strong>Audio synthesis</strong> is generated locally using the Web Audio API (via Tone.js). No audio is recorded or transmitted.</li>
+      <li><strong>Visual animations</strong> are rendered in your browser's canvas element using JavaScript. No images are captured or sent.</li>
+      <li><strong>User settings</strong> (BPM, chord selection, effect parameters) exist only in memory during your session and are not saved or transmitted anywhere.</li>
+      <li>The App does <strong>not</strong> require a user account, login, or any form of registration.</li>
+    </ul>
+  </div>
+
+  <!-- 4 -->
+  <div class="policy-section" id="s4">
+    <h2><span class="num">4</span> Permissions</h2>
+    <p>The App may request the following browser or device permissions:</p>
+    <ul>
+      <li>
+        <strong>Audio Output:</strong> Required to play synthesized music through your device's speakers or headphones.
+        The App does not access your microphone and does not record audio input.
+      </li>
+    </ul>
+    <p>
+      No other permissions — such as camera, microphone, contacts, location, files, or notifications — are
+      requested or required.
+    </p>
+  </div>
+
+  <!-- 5 -->
+  <div class="policy-section" id="s5">
+    <h2><span class="num">5</span> Third-Party Services</h2>
+    <p>The App uses the following open-source library, loaded from a public CDN:</p>
+    <ul>
+      <li>
+        <strong>Tone.js</strong> — a JavaScript audio framework served from
+        <code>cdn.jsdelivr.net</code>. Loading this resource causes a standard HTTPS request
+        to jsDelivr's servers, which may log your IP address as part of normal CDN operation.
+        Please refer to jsDelivr's privacy policy at
+        <a href="https://www.jsdelivr.com/privacy-policy-jsdelivr-net" target="_blank" rel="noopener">jsdelivr.com/privacy-policy</a>
+        for details.
+      </li>
+    </ul>
+    <p>
+      We do not integrate any advertising networks, analytics platforms (such as Google Analytics,
+      Firebase, Mixpanel, Amplitude, etc.), social media SDKs, or crash reporting services.
+    </p>
+  </div>
+
+  <!-- 6 -->
+  <div class="policy-section" id="s6">
+    <h2><span class="num">6</span> Children's Privacy</h2>
+    <p>
+      Arp Synth Sequencer does not knowingly collect personal information from anyone, including
+      children under the age of 13 (or the applicable minimum age in your jurisdiction, such as
+      16 in certain EU member states under GDPR).
+    </p>
+    <p>
+      Because the App does not collect any data whatsoever, it presents no special risk to younger
+      users. However, we encourage parents and guardians to supervise their children's online
+      activities.
+    </p>
+    <p>
+      If you believe we have inadvertently collected information from a child, please contact us
+      immediately at the address below and we will take appropriate steps to delete such information.
+    </p>
+  </div>
+
+  <!-- 7 -->
+  <div class="policy-section" id="s7">
+    <h2><span class="num">7</span> Data Security</h2>
+    <p>
+      Because we do not collect or transmit any personal data, there is no personal data at risk
+      on our end. The App operates entirely within your browser environment.
+    </p>
+    <p>
+      We still encourage you to keep your device, browser, and operating system up to date to
+      benefit from the latest security patches provided by your device manufacturer and browser vendor.
+    </p>
+  </div>
+
+  <!-- 8 -->
+  <div class="policy-section" id="s8">
+    <h2><span class="num">8</span> Data Retention</h2>
+    <p>
+      We retain no data about you because we collect no data about you. Any preferences or
+      settings you configure within the App exist only in your device's active memory and are
+      discarded when you close the App or browser tab.
+    </p>
+  </div>
+
+  <!-- 9 -->
+  <div class="policy-section" id="s9">
+    <h2><span class="num">9</span> Your Rights</h2>
+    <p>
+      Depending on where you live, you may have rights under applicable privacy law, including:
+    </p>
+    <ul>
+      <li><strong>GDPR (EU/EEA/UK):</strong> Right to access, rectification, erasure, restriction, portability, and objection</li>
+      <li><strong>CCPA/CPRA (California):</strong> Right to know, delete, opt-out of sale, and non-discrimination</li>
+      <li><strong>PIPEDA (Canada):</strong> Right to access and correct personal information</li>
+    </ul>
+    <p>
+      Since we do not collect personal data, there is nothing to access, correct, export, or delete
+      on our side. If you have questions or concerns, please contact us using the information below.
+    </p>
+  </div>
+
+  <!-- 10 -->
+  <div class="policy-section" id="s10">
+    <h2><span class="num">10</span> Changes to This Policy</h2>
+    <p>
+      We may update this Privacy Policy from time to time. When we do, we will revise the
+      "Last Updated" date at the top of this page. We encourage you to review this page
+      periodically to stay informed.
+    </p>
+    <p>
+      Continued use of the App after any changes to this policy constitutes your acceptance
+      of the updated policy. If we ever begin collecting personal information, we will update
+      this policy and notify users through appropriate channels before doing so.
+    </p>
+  </div>
+
+  <!-- 11 -->
+  <div class="policy-section" id="s11">
+    <h2><span class="num">11</span> Contact Us</h2>
+    <p>
+      If you have any questions, concerns, or requests regarding this Privacy Policy or the
+      App's data practices, please contact us:
+    </p>
+    <div class="contact-card">
+      <p><strong>App Name:</strong> Arp Synth Sequencer</p>
+      <p><strong>Email:</strong> <a href="mailto:privacy@example.com">privacy@example.com</a></p>
+      <p><strong>Website:</strong> <a href="https://3e221f3f-cffd-47f5-86e2-c9a2d6254f27-00-17u5ob0x8co2g.worf.replit.dev/" target="_blank" rel="noopener">Launch App</a></p>
+      <p style="margin-top:10px; font-size:0.82rem; color: #777;">
+        Please replace the email above with your actual contact email before submitting to
+        app stores. Apple and Google require a valid, monitored contact address.
+      </p>
+    </div>
+  </div>
+
+</div><!-- /wrapper -->
+
+<footer>
+  <p>
+    &copy; 2025 Arp Synth Sequencer &nbsp;·&nbsp;
+    <a href="/marketing.html">Marketing Page</a> &nbsp;·&nbsp;
+    <a href="/">Launch App</a>
+  </p>
+</footer>
+
+</body>
+</html>
