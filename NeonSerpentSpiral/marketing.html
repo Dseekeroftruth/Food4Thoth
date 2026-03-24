@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Neon Serpent Spiral — A Psychedelic Cosmic Adventure</title>
+<meta name="description" content="Ten surreal zones. Ten cosmic NPCs. Twenty-five musical minigames. Six endings. The broadcast continues. Available on iOS for $2.99."/>
+<meta property="og:title" content="The Neon Serpent Spiral"/>
+<meta property="og:description" content="A psychedelic cosmic adventure. By DeJahn of Food4Thoth. Available on iOS."/>
+<meta property="og:type" content="website"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cyan:#00FFFF;--magenta:#FF00FF;--green:#39FF14;
+  --yellow:#FFFF00;--orange:#FF6600;--blue:#0080FF;
+  --bg:#000000;--bg2:#04000a;--bg3:#000814;
+  --mono:'Space Mono',monospace;--vt:'VT323',monospace;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:#fff;font-family:var(--mono);
+  overflow-x:hidden;line-height:1.6;
+}
+
+/* ── STARS ── */
+#stars{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden}
+.star{position:absolute;border-radius:50%;animation:twinkle var(--d,3s) var(--delay,0s) infinite alternate ease-in-out}
+@keyframes twinkle{0%{opacity:.05}100%{opacity:var(--max-op,.9)}}
+
+/* ── SCANLINES ── */
+#scanlines{
+  position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.15) 2px,rgba(0,0,0,.15) 4px);
+}
+
+/* ── LAYOUT ── */
+section{position:relative;z-index:2}
+.container{max-width:960px;margin:0 auto;padding:0 24px}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:80px 24px 60px;
+  background:radial-gradient(ellipse at 50% 40%,rgba(255,0,255,.08) 0%,transparent 65%),
+             radial-gradient(ellipse at 30% 70%,rgba(0,255,255,.06) 0%,transparent 55%);
+}
+.hero-eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:4px;
+  color:rgba(255,255,255,.72);text-transform:uppercase;margin-bottom:32px;
+  text-shadow:0 0 8px rgba(255,255,255,.15);
+}
+.logo-wrap{margin-bottom:32px}
+.logo-wrap svg{filter:drop-shadow(0 0 18px #FF00FF) drop-shadow(0 0 36px #FF00FF88)}
+.hero-title{
+  font-family:var(--mono);font-size:clamp(32px,7vw,72px);font-weight:700;
+  line-height:1.1;letter-spacing:2px;margin-bottom:16px;
+  background:linear-gradient(135deg,var(--cyan) 0%,var(--magenta) 50%,var(--yellow) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 20px rgba(255,0,255,.5));
+  animation:titlePulse 4s ease-in-out infinite;
+}
+@keyframes titlePulse{0%,100%{filter:drop-shadow(0 0 20px rgba(255,0,255,.5))}50%{filter:drop-shadow(0 0 35px rgba(0,255,255,.7))}}
+.hero-sub{
+  font-family:var(--vt);font-size:clamp(22px,4vw,34px);
+  color:rgba(255,255,255,.9);letter-spacing:3px;margin-bottom:48px;
+  text-shadow:0 0 10px rgba(255,255,255,.15);
+}
+.hero-tagline{
+  font-family:var(--mono);font-size:13px;letter-spacing:2px;
+  color:var(--cyan);opacity:.95;margin-bottom:52px;
+  text-shadow:0 0 10px rgba(0,255,255,.25);
+  animation:blink 2.5s step-end infinite;
+}
+@keyframes blink{0%,100%{opacity:.95}50%{opacity:.45}}
+.cta-group{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:60px}
+.btn-primary{
+  font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:2px;
+  padding:16px 36px;border:2px solid var(--magenta);color:var(--magenta);
+  background:rgba(255,0,255,.08);text-decoration:none;cursor:pointer;
+  transition:all .25s ease;position:relative;overflow:hidden;
+  text-transform:uppercase;
+}
+.btn-primary::before{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,0,255,.15),transparent);
+  transition:left .4s ease;
+}
+.btn-primary:hover::before{left:100%}
+.btn-primary:hover{background:rgba(255,0,255,.18);box-shadow:0 0 24px rgba(255,0,255,.4);color:#fff}
+.btn-secondary{
+  font-family:var(--mono);font-size:14px;letter-spacing:2px;
+  padding:16px 36px;border:1px solid rgba(0,255,255,.5);color:rgba(0,255,255,.92);
+  background:transparent;text-decoration:none;cursor:pointer;
+  transition:all .25s ease;text-transform:uppercase;
+  text-shadow:0 0 8px rgba(0,255,255,.18);
+}
+.btn-secondary:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 16px rgba(0,255,255,.25)}
+.price-badge{
+  font-family:var(--mono);font-size:12px;letter-spacing:3px;
+  color:rgba(255,255,255,.62);text-transform:uppercase;
+  text-shadow:0 0 8px rgba(255,255,255,.08);
+}
+.scroll-hint{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.5);
+  text-transform:uppercase;animation:float 2s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+
+/* ── STAT PILLARS ── */
+#pillars{padding:80px 0;background:linear-gradient(180deg,transparent,rgba(255,0,255,.03),transparent)}
+.pillars-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
+}
+.pillar{
+  padding:40px 16px;text-align:center;border:1px solid rgba(255,255,255,.06);
+  background:rgba(0,0,0,.4);position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.pillar::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--p-color,var(--magenta));opacity:.6;
+}
+.pillar:hover{background:rgba(255,0,255,.04)}
+.pillar-num{
+  font-family:var(--mono);font-size:clamp(42px,6vw,72px);font-weight:700;
+  color:var(--p-color,var(--magenta));line-height:1;
+  text-shadow:0 0 24px var(--p-color,var(--magenta));
+  animation:numPulse 3s ease-in-out infinite;
+}
+@keyframes numPulse{0%,100%{text-shadow:0 0 16px currentColor}50%{text-shadow:0 0 32px currentColor,0 0 64px currentColor}}
+.pillar-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:3px;
+  color:rgba(255,255,255,.72);text-transform:uppercase;margin-top:8px;
+}
+
+/* ── SECTION HEADERS ── */
+.section-header{text-align:center;padding:80px 0 48px;position:relative}
+.section-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:4px;
+  color:rgba(255,255,255,.62);text-transform:uppercase;margin-bottom:16px;
+  text-shadow:0 0 8px rgba(255,255,255,.08);
+}
+.section-title{
+  font-family:var(--mono);font-size:clamp(20px,4vw,36px);font-weight:700;
+  letter-spacing:2px;color:#fff;margin-bottom:16px;
+}
+.section-line{
+  width:60px;height:2px;margin:0 auto;
+  background:linear-gradient(90deg,transparent,var(--line-color,var(--magenta)),transparent);
+}
+
+/* ── ZONES ── */
+#zones{padding:0 0 80px}
+.zones-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
+.zone-card{
+  padding:28px 24px;border:1px solid rgba(255,255,255,.06);
+  background:rgba(0,0,0,.5);position:relative;overflow:hidden;
+  transition:all .3s ease;cursor:default;
+}
+.zone-card::before{
+  content:'';position:absolute;top:0;left:0;width:3px;height:100%;
+  background:var(--z-color);box-shadow:0 0 12px var(--z-color);
+}
+.zone-card:hover{transform:translateX(4px);background:rgba(0,0,0,.7)}
+.zone-card:hover .zone-name{color:var(--z-color)}
+.zone-num{
+  font-family:var(--mono);font-size:10px;letter-spacing:3px;
+  color:rgba(255,255,255,.52);margin-bottom:8px;
+}
+.zone-name{
+  font-family:var(--mono);font-size:15px;font-weight:700;
+  color:#fff;letter-spacing:1px;margin-bottom:8px;
+  transition:color .3s;
+}
+.zone-desc{
+  font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.78);line-height:1.7;
+}
+
+/* ── CHARACTERS ── */
+#characters{padding:0 0 80px;background:radial-gradient(ellipse at 50% 50%,rgba(0,128,255,.04) 0%,transparent 70%)}
+.chars-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
+.char-card{
+  padding:24px;border:1px solid rgba(255,255,255,.06);background:rgba(0,0,0,.4);
+  display:flex;align-items:flex-start;gap:16px;transition:all .3s;
+}
+.char-card:hover{background:rgba(0,0,0,.65)}
+.char-icon{
+  width:44px;height:44px;border-radius:50%;border:2px solid var(--c-color);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+  box-shadow:0 0 12px var(--c-color);
+  color:var(--c-color);font-family:var(--mono);font-weight:700;font-size:14px;
+}
+.char-name{
+  font-family:var(--mono);font-size:14px;font-weight:700;color:var(--c-color);letter-spacing:1px;
+  text-shadow:0 0 8px color-mix(in srgb, var(--c-color) 45%, transparent);
+}
+.char-title{
+  font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.76);margin-top:4px;line-height:1.5;
+}
+
+/* ── MINIGAMES ── */
+#minigames{padding:0 0 80px;background:linear-gradient(180deg,transparent,rgba(57,255,20,.03),transparent)}
+.games-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.game-chip{
+  padding:12px 8px;border:1px solid rgba(57,255,20,.15);background:rgba(57,255,20,.03);
+  text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:1px;
+  color:rgba(255,255,255,.78);line-height:1.5;transition:all .25s;cursor:default;
+  position:relative;overflow:hidden;
+}
+.game-chip::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:var(--green);opacity:0;transition:opacity .25s;
+}
+.game-chip:hover{border-color:rgba(57,255,20,.4);background:rgba(57,255,20,.08);color:var(--green);transform:translateY(-2px)}
+.game-chip:hover::before{opacity:.6}
+.game-icon{display:block;font-size:20px;margin-bottom:6px}
+
+/* ── ENDINGS ── */
+#endings{padding:0 0 80px}
+.endings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.ending-card{
+  padding:28px 20px;border:1px solid rgba(255,255,255,.06);
+  background:rgba(0,0,0,.5);text-align:center;position:relative;
+  overflow:hidden;transition:all .3s;
+}
+.ending-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--e-color);opacity:.4;transition:opacity .3s;
+}
+.ending-card:hover::after{opacity:1}
+.ending-card:hover{background:rgba(0,0,0,.7);transform:translateY(-3px)}
+.ending-rank{
+  font-family:var(--mono);font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.5);margin-bottom:12px;
+}
+.ending-glyph{font-size:32px;margin-bottom:12px;display:block}
+.ending-name{
+  font-family:var(--mono);font-size:12px;font-weight:700;
+  color:var(--e-color);letter-spacing:1px;margin-bottom:8px;
+  text-shadow:0 0 10px var(--e-color);
+}
+.ending-sub{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.76)}
+
+/* ── FEATURES ── */
+#features{padding:0 0 80px;background:radial-gradient(ellipse at 50% 50%,rgba(255,102,0,.04) 0%,transparent 70%)}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.feature-card{
+  padding:32px 24px;border:1px solid rgba(255,255,255,.06);
+  background:rgba(0,0,0,.4);
+}
+.feature-icon{font-size:32px;margin-bottom:16px;display:block}
+.feature-title{
+  font-family:var(--mono);font-size:13px;font-weight:700;color:#fff;letter-spacing:1px;margin-bottom:10px;
+  text-shadow:0 0 8px rgba(255,255,255,.08);
+}
+.feature-desc{
+  font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.8);line-height:1.8;
+}
+
+/* ── QUOTE ── */
+#broadcast{
+  padding:100px 24px;text-align:center;
+  background:radial-gradient(ellipse at 50% 50%,rgba(255,0,255,.07) 0%,transparent 70%);
+  position:relative;z-index:2;
+}
+.broadcast-line{
+  font-family:var(--mono);font-size:clamp(18px,3vw,28px);font-weight:700;
+  letter-spacing:3px;line-height:1.5;margin-bottom:12px;
+}
+.broadcast-line span{display:inline-block;animation:colorCycle 6s linear infinite}
+@keyframes colorCycle{
+  0%{color:var(--cyan)}16%{color:var(--magenta)}33%{color:var(--yellow)}
+  50%{color:var(--green)}66%{color:var(--orange)}83%{color:var(--blue)}100%{color:var(--cyan)}
+}
+.broadcast-sub{
+  font-family:var(--mono);font-size:12px;letter-spacing:3px;color:rgba(255,255,255,.56);margin-top:24px;
+}
+
+/* ── CTA SECTION ── */
+#cta{
+  padding:100px 24px;text-align:center;
+  background:linear-gradient(180deg,transparent,rgba(255,0,255,.04),rgba(0,0,0,.8));
+  position:relative;z-index:2;
+}
+.cta-title{
+  font-family:var(--mono);font-size:clamp(20px,4vw,40px);font-weight:700;
+  letter-spacing:2px;margin-bottom:8px;
+  background:linear-gradient(135deg,var(--magenta),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.cta-sub{
+  font-family:var(--mono);font-size:14px;color:rgba(255,255,255,.78);letter-spacing:2px;margin-bottom:48px;
+}
+.app-store-btn{
+  display:inline-flex;align-items:center;gap:12px;
+  padding:18px 40px;border:2px solid var(--magenta);
+  background:rgba(255,0,255,.1);color:#fff;text-decoration:none;
+  font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;transition:all .3s;position:relative;overflow:hidden;
+}
+.app-store-btn::before{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,0,255,.2),transparent);
+  transition:left .5s;
+}
+.app-store-btn:hover::before{left:100%}
+.app-store-btn:hover{background:rgba(255,0,255,.22);box-shadow:0 0 32px rgba(255,0,255,.4),0 0 64px rgba(255,0,255,.2)}
+.app-store-icon{font-size:24px}
+.cta-price{
+  font-family:var(--mono);font-size:12px;letter-spacing:3px;
+  color:rgba(255,255,255,.68);margin-top:24px;text-transform:uppercase;
+}
+.cta-os{
+  font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.52);letter-spacing:2px;margin-top:8px;
+}
+
+/* ── FOOTER ── */
+footer{
+  padding:60px 24px 80px;text-align:center;
+  border-top:1px solid rgba(255,255,255,.06);
+  position:relative;z-index:2;
+  background:rgba(0,0,0,.6);
+}
+.footer-logo{
+  font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.72);margin-bottom:16px;
+}
+.footer-dedication{
+  font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.62);
+  letter-spacing:2px;line-height:2;margin-bottom:24px;
+}
+.footer-dedication strong{color:var(--magenta);text-shadow:0 0 8px var(--magenta)}
+.footer-links{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
+.footer-links a{
+  font-family:var(--mono);font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.66);text-decoration:none;text-transform:uppercase;transition:color .2s;
+}
+.footer-links a:hover{color:var(--cyan)}
+.footer-copy{
+  font-family:var(--mono);font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.38);
+}
+.glyph{display:block;font-size:24px;color:rgba(255,0,255,.5);margin:0 auto 24px;letter-spacing:8px}
+
+/* ── DIVIDER ── */
+.divider{
+  height:1px;background:linear-gradient(90deg,transparent,rgba(255,0,255,.2),rgba(0,255,255,.2),transparent);
+  margin:0;position:relative;z-index:2;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:700px){
+  .pillars-grid{grid-template-columns:repeat(2,1fr)}
+  .zones-grid{grid-template-columns:1fr}
+  .chars-grid{grid-template-columns:1fr}
+  .games-grid{grid-template-columns:repeat(3,1fr)}
+  .endings-grid{grid-template-columns:1fr}
+  .features-grid{grid-template-columns:1fr}
+  .cta-group{flex-direction:column;align-items:center}
+  .btn-primary,.btn-secondary{width:100%;text-align:center}
+}
+@media(max-width:480px){
+  .games-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+</style>
+</head>
+<body>
+
+<!-- Stars -->
+<div id="stars" aria-hidden="true"></div>
+<!-- Scanlines -->
+<div id="scanlines" aria-hidden="true"></div>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section id="hero">
+  <p class="hero-eyebrow">◈ &nbsp; by dejahn of food4thoth &nbsp; ◈</p>
+
+  <div class="logo-wrap" aria-hidden="true">
+    <svg width="96" height="96" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="48" fill="#0a0014" stroke="#FF00FF" stroke-width="2"/>
+      <circle cx="50" cy="50" r="40" fill="none" stroke="#FF00FF" stroke-width=".8" opacity=".4"/>
+      <path d="M50 50 Q62 38 68 50 Q68 68 50 72 Q28 72 22 50 Q22 24 50 20 Q78 20 82 50 Q82 76 50 82"
+            stroke="#FF00FF" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M50 50 Q58 42 62 50 Q62 62 50 66 Q36 66 30 50 Q30 30 50 26 Q70 26 74 50 Q74 72 50 78"
+            stroke="#00FFFF" stroke-width="1.2" fill="none" stroke-linecap="round" opacity=".8"/>
+      <circle cx="50" cy="50" r="5" fill="#FF00FF" opacity=".9"/>
+      <circle cx="50" cy="50" r="2.5" fill="#fff" opacity=".7"/>
+      <circle cx="50" cy="20" r="3" fill="#39FF14" opacity=".8"/>
+      <circle cx="82" cy="50" r="3" fill="#FFFF00" opacity=".8"/>
+      <circle cx="50" cy="82" r="3" fill="#FF6600" opacity=".8"/>
+    </svg>
+  </div>
+
+  <h1 class="hero-title">THE NEON SERPENT SPIRAL</h1>
+  <p class="hero-sub">A Psychedelic Cosmic Adventure</p>
+  <p class="hero-tagline">▌ THE BROADCAST CONTINUES ▌</p>
+
+  <div class="cta-group">
+    <a href="https://apps.apple.com/app/id6760896039" class="btn-primary" target="_blank" rel="noopener">
+       Download on iOS
+    </a>
+    <a href="https://www.food4thoth.com/NeonSerpentSpiral/" class="btn-secondary">
+      Play Web Version
+    </a>
+  </div>
+
+  <p class="price-badge">$2.99 · iOS · No In-App Purchases · Fully Offline</p>
+
+  <p class="scroll-hint" aria-hidden="true">↓ &nbsp; explore &nbsp; ↓</p>
+</section>
+
+<!-- ════════════════════ PILLARS ════════════════════ -->
+<div class="divider"></div>
+<section id="pillars">
+  <div class="container">
+    <div class="pillars-grid">
+      <div class="pillar reveal" style="--p-color:var(--cyan)">
+        <div class="pillar-num">10</div>
+        <div class="pillar-label">Surreal Zones</div>
+      </div>
+      <div class="pillar reveal reveal-delay-1" style="--p-color:var(--magenta)">
+        <div class="pillar-num">10</div>
+        <div class="pillar-label">Cosmic NPCs</div>
+      </div>
+      <div class="pillar reveal reveal-delay-2" style="--p-color:var(--green)">
+        <div class="pillar-num">25</div>
+        <div class="pillar-label">Musical Minigames</div>
+      </div>
+      <div class="pillar reveal reveal-delay-3" style="--p-color:var(--yellow)">
+        <div class="pillar-num">6</div>
+        <div class="pillar-label">Unique Endings</div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ════════════════════ ZONES ════════════════════ -->
+<section id="zones">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Explore</p>
+      <h2 class="section-title">Ten Neon Worlds</h2>
+      <div class="section-line" style="--line-color:var(--cyan)"></div>
+    </div>
+    <div class="zones-grid">
+      <div class="zone-card reveal" style="--z-color:#00FFFF">
+        <div class="zone-num">ZONE 01</div>
+        <div class="zone-name">The Breathing Bus Stop</div>
+        <div class="zone-desc">The pavement inhales and exhales. A sign reads: NEXT BUS: EVENTUALLY.</div>
+      </div>
+      <div class="zone-card reveal reveal-delay-1" style="--z-color:#FF00FF">
+        <div class="zone-num">ZONE 02</div>
+        <div class="zone-name">The Neon Marbled Desert</div>
+        <div class="zone-desc">Geometric sand glows in shifting gradients. Vending monoliths loom like ancient idols.</div>
+      </div>
+      <div class="zone-card reveal reveal-delay-2" style="--z-color:#FF00FF">
+        <div class="zone-num">ZONE 03</div>
+        <div class="zone-name">The Checkerboard Dream Mall</div>
+        <div class="zone-desc">The mall has been open since before malls existed. The storefronts sell emotions.</div>
+      </div>
+      <div class="zone-card reveal reveal-delay-3" style="--z-color:#39FF14">
+        <div class="zone-num">ZONE 04</div>
+        <div class="zone-name">Pirate Public Access TV</div>
+        <div class="zone-desc">Broadcasting from space since before space was invented. Currently airing.</div>
+      </div>
+      <div class="zone-card reveal" style="--z-color:#39FF14">
+        <div class="zone-num">ZONE 05</div>
+        <div class="zone-name">The Ritual Arcade</div>
+        <div class="zone-desc">The machines are alive and judging you. The air smells like ozone and something sacred.</div>
+      </div>
+      <div class="zone-card reveal reveal-delay-1" style="--z-color:#39FF14">
+        <div class="zone-num">ZONE 06</div>
+        <div class="zone-name">The Floating Garden</div>
+        <div class="zone-desc">A garden that exists between frequencies. Things grow here that shouldn't be possible.</div>
+      </div>
+      <div class="zone-card reveal reveal-delay-2" style="--z-color:#FF6600">
+        <div class="zone-num">ZONE 07</div>
+        <div class="zone-name">The Motel of Broken Realities</div>
+        <div class="zone-desc">The corridor goes on longer than the building. The carpet knows things.</div>
+      </div>
+      <div class="zone-card reveal reveal-delay-3" style="--z-color:#0080FF">
+        <div class="zone-num">ZONE 08</div>
+        <div class="zone-name">The Phosphorescent Memory Swamp</div>
+        <div class="zone-desc">The swamp glows blue with accumulated memory. Things float up that you forgot.</div>
+      </div>
+      <div class="zone-card reveal" style="--z-color:#FFFF00">
+        <div class="zone-num">ZONE 09</div>
+        <div class="zone-name">The Digital Temple</div>
+        <div class="zone-desc">Sacred geometry rendered in cascading light. The Oracle resides here.</div>
+      </div>
+      <div class="zone-card reveal reveal-delay-1" style="--z-color:#FF6600">
+        <div class="zone-num">ZONE 10</div>
+        <div class="zone-name">The Diner at the Edge of Everything</div>
+        <div class="zone-desc">The coffee is infinite. The pie is symbolic. This is where it ends, or begins.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ BROADCAST QUOTE ════════════════════ -->
+<div class="divider"></div>
+<section id="broadcast">
+  <div class="broadcast-line"><span>"The cactus hums at A440. It has been tuning itself since the desert formed.</span></div>
+  <div class="broadcast-line"><span>It sounds like patience made audible."</span></div>
+  <div class="broadcast-sub">— LOCO, Desert Philosopher & Occasional Trickster</div>
+</section>
+<div class="divider"></div>
+
+<!-- ════════════════════ CHARACTERS ════════════════════ -->
+<section id="characters">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Meet</p>
+      <h2 class="section-title">Ten Cosmic Characters</h2>
+      <div class="section-line" style="--line-color:var(--blue)"></div>
+    </div>
+    <div class="chars-grid">
+      <div class="char-card reveal" style="--c-color:#00FFFF">
+        <div class="char-icon">Z</div>
+        <div>
+          <div class="char-name">Zephyr</div>
+          <div class="char-title">Cosmic Management (self-appointed)<br>Location: The Breathing Bus Stop</div>
+        </div>
+      </div>
+      <div class="char-card reveal reveal-delay-1" style="--c-color:#FF6600">
+        <div class="char-icon">L</div>
+        <div>
+          <div class="char-name">Loco</div>
+          <div class="char-title">Desert Philosopher & Occasional Trickster<br>Location: The Neon Marbled Desert</div>
+        </div>
+      </div>
+      <div class="char-card reveal reveal-delay-2" style="--c-color:#0080FF">
+        <div class="char-icon">M</div>
+        <div>
+          <div class="char-name">Moxie</div>
+          <div class="char-title">Mall Management (Chaos Division)<br>Location: The Checkerboard Dream Mall</div>
+        </div>
+      </div>
+      <div class="char-card reveal reveal-delay-3" style="--c-color:#39FF14">
+        <div class="char-icon">G</div>
+        <div>
+          <div class="char-name">GLITCH-7</div>
+          <div class="char-title">Pirate Broadcast Entity | Est. 40,000 BCE<br>Location: Pirate Public Access TV</div>
+        </div>
+      </div>
+      <div class="char-card reveal" style="--c-color:#FF00FF">
+        <div class="char-icon">V</div>
+        <div>
+          <div class="char-name">Vyrex</div>
+          <div class="char-title">Keeper of the Ritual Arcade<br>Location: The Ritual Arcade</div>
+        </div>
+      </div>
+      <div class="char-card reveal reveal-delay-1" style="--c-color:#39FF14">
+        <div class="char-icon">B</div>
+        <div>
+          <div class="char-name">Bloom</div>
+          <div class="char-title">Keeper of the Floating Garden<br>Location: The Floating Garden</div>
+        </div>
+      </div>
+      <div class="char-card reveal reveal-delay-2" style="--c-color:#FF6600">
+        <div class="char-icon">C</div>
+        <div>
+          <div class="char-name">Crunch</div>
+          <div class="char-title">Motel Corridor Observer<br>Location: The Motel of Broken Realities</div>
+        </div>
+      </div>
+      <div class="char-card reveal reveal-delay-3" style="--c-color:#0080FF">
+        <div class="char-icon">Z</div>
+        <div>
+          <div class="char-name">Zax</div>
+          <div class="char-title">Memory Keeper of the Swamp<br>Location: The Phosphorescent Memory Swamp</div>
+        </div>
+      </div>
+      <div class="char-card reveal" style="--c-color:#FFFF00">
+        <div class="char-icon">O</div>
+        <div>
+          <div class="char-name">ORACLE-9</div>
+          <div class="char-title">Digital Wisdom System | Query Mode Active<br>Location: The Digital Temple</div>
+        </div>
+      </div>
+      <div class="char-card reveal reveal-delay-1" style="--c-color:#FF6600">
+        <div class="char-icon">N</div>
+        <div>
+          <div class="char-name">Madame Neon</div>
+          <div class="char-title">Proprietor of the Diner at the Edge<br>Location: The Diner at the Edge of Everything</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════ MINIGAMES ════════════════════ -->
+<section id="minigames">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Play</p>
+      <h2 class="section-title">Twenty-Five Musical Minigames</h2>
+      <div class="section-line" style="--line-color:var(--green)"></div>
+    </div>
+    <div class="games-grid">
+      <div class="game-chip reveal"><span class="game-icon">🎵</span>Alien Marimba</div>
+      <div class="game-chip reveal reveal-delay-1"><span class="game-icon">🚀</span>Arcade Blast</div>
+      <div class="game-chip reveal reveal-delay-2"><span class="game-icon">🥁</span>Beat Pad</div>
+      <div class="game-chip reveal reveal-delay-3"><span class="game-icon">🌵</span>Cactus Harp</div>
+      <div class="game-chip reveal reveal-delay-4"><span class="game-icon">🎐</span>Chime Tree</div>
+      <div class="game-chip reveal"><span class="game-icon">⚡</span>Circuit Patcher</div>
+      <div class="game-chip reveal reveal-delay-1"><span class="game-icon">🍽️</span>Diner Jukebox</div>
+      <div class="game-chip reveal reveal-delay-2"><span class="game-icon">🌀</span>Dream Maze</div>
+      <div class="game-chip reveal reveal-delay-3"><span class="game-icon">💜</span>Emotion Mixer</div>
+      <div class="game-chip reveal reveal-delay-4"><span class="game-icon">🔊</span>Feedback Organ</div>
+      <div class="game-chip reveal"><span class="game-icon">🌫️</span>Fog Drum</div>
+      <div class="game-chip reveal reveal-delay-1"><span class="game-icon">📻</span>Frequency Dial</div>
+      <div class="game-chip reveal reveal-delay-2"><span class="game-icon">📺</span>Glitch Mixer</div>
+      <div class="game-chip reveal reveal-delay-3"><span class="game-icon">🌱</span>Growth Puzzle</div>
+      <div class="game-chip reveal reveal-delay-4"><span class="game-icon">🎶</span>Jukebox Console</div>
+      <div class="game-chip reveal"><span class="game-icon">💾</span>Memory Sequencer</div>
+      <div class="game-chip reveal reveal-delay-1"><span class="game-icon">🔮</span>Oracle Arcade</div>
+      <div class="game-chip reveal reveal-delay-2"><span class="game-icon">🥧</span>Pie Oracle</div>
+      <div class="game-chip reveal reveal-delay-3"><span class="game-icon">🌌</span>Portal Alignment</div>
+      <div class="game-chip reveal reveal-delay-4"><span class="game-icon">🔭</span>Portal Oracle</div>
+      <div class="game-chip reveal"><span class="game-icon">🥁</span>Rhythm Ritual</div>
+      <div class="game-chip reveal reveal-delay-1"><span class="game-icon">🎰</span>Slot Machine</div>
+      <div class="game-chip reveal reveal-delay-2"><span class="game-icon">🌠</span>Synth Console</div>
+      <div class="game-chip reveal reveal-delay-3"><span class="game-icon">🃏</span>Tarot Draw</div>
+      <div class="game-chip reveal reveal-delay-4"><span class="game-icon">🏪</span>Vending Machine</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════ ENDINGS ════════════════════ -->
+<section id="endings">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Conclude</p>
+      <h2 class="section-title">Six Unique Endings</h2>
+      <div class="section-line" style="--line-color:var(--yellow)"></div>
+    </div>
+    <div class="endings-grid">
+      <div class="ending-card reveal" style="--e-color:#FFFF00">
+        <div class="ending-rank">◈ BEST ENDING</div>
+        <span class="ending-glyph">◈</span>
+        <div class="ending-name">The Complete Broadcast</div>
+        <div class="ending-sub">All five Memory Fragments. The full signal.</div>
+      </div>
+      <div class="ending-card reveal reveal-delay-1" style="--e-color:#FF00FF">
+        <div class="ending-rank">◈ CREATIVE MASTERY</div>
+        <span class="ending-glyph">⚡</span>
+        <div class="ending-name">The Weird Goes Pro</div>
+        <div class="ending-sub">Unlock the Oracle Key. Open the deeper geometry.</div>
+      </div>
+      <div class="ending-card reveal reveal-delay-2" style="--e-color:#39FF14">
+        <div class="ending-rank">◈ SEEKER ENDING</div>
+        <span class="ending-glyph">🌿</span>
+        <div class="ending-name">The Cosmic Creator</div>
+        <div class="ending-sub">Find the sigils across three zones.</div>
+      </div>
+      <div class="ending-card reveal reveal-delay-3" style="--e-color:#00FFFF">
+        <div class="ending-rank">◈ HONEST ENDING</div>
+        <span class="ending-glyph">☕</span>
+        <div class="ending-name">The Cosmic Comedy</div>
+        <div class="ending-sub">Arrive at the Diner incomplete but present.</div>
+      </div>
+      <div class="ending-card reveal reveal-delay-4" style="--e-color:#FF6600">
+        <div class="ending-rank">◈ CHAOS ENDING</div>
+        <span class="ending-glyph">📡</span>
+        <div class="ending-name">The Anarchic Broadcast</div>
+        <div class="ending-sub">Restructure the Spiral through chaos alone.</div>
+      </div>
+      <div class="ending-card reveal" style="--e-color:#0080FF">
+        <div class="ending-rank">◈ THE BEGINNING</div>
+        <span class="ending-glyph">🚌</span>
+        <div class="ending-name">The Bittersweet Bus Stop</div>
+        <div class="ending-sub">The bus never came. Make something anyway.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════ FEATURES ════════════════════ -->
+<section id="features">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Built For</p>
+      <h2 class="section-title">The Serious Weird</h2>
+      <div class="section-line" style="--line-color:var(--orange)"></div>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <span class="feature-icon">📴</span>
+        <div class="feature-title">Fully Offline</div>
+        <div class="feature-desc">All sound is synthesized directly on your device. No network required. No audio files to download. The broadcast runs entirely on your phone.</div>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <span class="feature-icon">📺</span>
+        <div class="feature-title">CRT & Psychedelic Modes</div>
+        <div class="feature-desc">Adjustable scanline overlay and psychedelic color shift effects. Dial them to your exact visual frequency. Or turn them off. You have the controls.</div>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <span class="feature-icon">💬</span>
+        <div class="feature-title">Real Dialogue</div>
+        <div class="feature-desc">Every NPC has branching conversations with actual opinions, weird philosophies, and things worth thinking about after you've put the phone down.</div>
+      </div>
+      <div class="feature-card reveal">
+        <span class="feature-icon">🎮</span>
+        <div class="feature-title">No In-App Purchases</div>
+        <div class="feature-desc">$2.99. That's it. The entire game. Every zone, every minigame, every ending. One price, nothing locked behind a wall.</div>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <span class="feature-icon">♿</span>
+        <div class="feature-title">Accessibility Settings</div>
+        <div class="feature-desc">Reduced Motion mode freezes all animations instantly. Sound toggle with per-session memory. Effects sliders with persistence across sessions.</div>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <span class="feature-icon">🔄</span>
+        <div class="feature-title">Replayable by Design</div>
+        <div class="feature-desc">Six endings, karma and weirdness tracking, branching NPC dialogue, and randomized dialogue variations. Each run through reveals something the last one didn't.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════ SECOND QUOTE ════════════════════ -->
+<section id="broadcast" style="padding:80px 24px">
+  <div class="broadcast-line" style="font-size:clamp(14px,2.5vw,22px)"><span>"Whatever you're worried about —</span></div>
+  <div class="broadcast-line" style="font-size:clamp(14px,2.5vw,22px)"><span>it works out. Not perfectly. But it works out."</span></div>
+  <div class="broadcast-sub">— ZAX, Memory Keeper of the Swamp (age: 400 years)</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════ CTA ════════════════════ -->
+<section id="cta">
+  <div class="container">
+    <p class="cta-title">THE SPIRAL IS OPEN</p>
+    <p class="cta-sub">The Diner at the Edge of Everything is waiting.</p>
+    <div>
+      <a href="https://apps.apple.com/app/id6760896039" class="app-store-btn" target="_blank" rel="noopener">
+        <span class="app-store-icon"></span>
+        Download on the App Store
+      </a>
+    </div>
+    <p class="cta-price">$2.99 — One Time — No Subscriptions — No Ads</p>
+    <p class="cta-os">Requires iOS 15.1 or later · iPhone & iPad</p>
+  </div>
+</section>
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<footer>
+  <span class="glyph">◈ ◈ ◈</span>
+  <div class="footer-logo">THE NEON SERPENT SPIRAL</div>
+  <div class="footer-dedication">
+    By <strong>DeJahn</strong> of <strong>Food4Thoth</strong><br>
+    The broadcast continues.
+  </div>
+  <div class="footer-links">
+    <a href="https://apps.apple.com/app/id6760896039" target="_blank" rel="noopener">App Store</a>
+    <a href="https://www.food4thoth.com/NeonSerpentSpiral/">Play Web Version</a>
+    <a href="./privacy.html">Privacy Policy</a>
+    <a href="https://www.food4thoth.com/contact.html">Support</a>
+  </div>
+  <div class="footer-copy">© 2025 DeJahn / Food4Thoth · All rights reserved</div>
+</footer>
+
+<script>
+// ── STARS ──────────────────────────────────────────────
+(function(){
+  const c=document.getElementById('stars');
+  const colors=['#00FFFF','#FF00FF','#39FF14','#FFFF00','#FF6600','#0080FF','#ffffff'];
+  for(let i=0;i<120;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    const sz=Math.random()<.15?2.5:Math.random()<.5?1.5:1;
+    const col=colors[Math.floor(Math.random()*colors.length)];
+    const dur=2+Math.random()*4;
+    const delay=Math.random()*6;
+    const maxOp=.3+Math.random()*.65;
+    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;background:${col};--d:${dur}s;--delay:${delay}s;--max-op:${maxOp};box-shadow:0 0 ${sz*2}px ${col};`;
+    c.appendChild(s);
+  }
+})();
+
+// ── SCROLL REVEAL ───────────────────────────────────────
+(function(){
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+    });
+  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+})();
+
+// ── NAV SMOOTH ─────────────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+});
+</script>
+</body>
+</html>

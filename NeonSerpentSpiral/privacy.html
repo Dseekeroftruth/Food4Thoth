@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Privacy Policy — The Neon Serpent Spiral</title>
+<meta name="description" content="Privacy Policy for The Neon Serpent Spiral by DeJahn of Food4Thoth."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cyan:#00FFFF;--magenta:#FF00FF;--green:#39FF14;
+  --yellow:#FFFF00;--mono:'Space Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{
+  background:#000;color:#fff;font-family:var(--mono);
+  overflow-x:hidden;line-height:1.8;min-height:100vh;
+}
+
+#stars{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden}
+.star{position:absolute;border-radius:50%;animation:twinkle var(--d,3s) var(--delay,0s) infinite alternate ease-in-out}
+@keyframes twinkle{0%{opacity:.04}100%{opacity:var(--max-op,.6)}}
+
+#scanlines{
+  position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.12) 2px,rgba(0,0,0,.12) 4px);
+}
+
+.page{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:80px 32px 120px}
+
+/* header */
+.back-link{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.68);
+  text-decoration:none;text-transform:uppercase;
+  transition:color .2s;margin-bottom:60px;
+  text-shadow:0 0 8px rgba(255,255,255,.08);
+}
+.back-link:hover{color:var(--cyan)}
+
+.logo-row{display:flex;align-items:center;gap:16px;margin-bottom:32px}
+.logo-row svg{filter:drop-shadow(0 0 10px #FF00FF88);flex-shrink:0}
+.page-eyebrow{
+  font-size:10px;letter-spacing:4px;color:rgba(255,255,255,.62);
+  text-transform:uppercase;margin-bottom:6px;
+  text-shadow:0 0 8px rgba(255,255,255,.08);
+}
+.page-title{
+  font-size:clamp(20px,4vw,32px);font-weight:700;letter-spacing:2px;
+  background:linear-gradient(135deg,var(--cyan),var(--magenta));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,0,255,.25),rgba(0,255,255,.2),transparent);margin:48px 0}
+
+/* effective date */
+.effective{
+  font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.62);
+  text-transform:uppercase;margin-bottom:48px;
+}
+
+/* sections */
+.policy-section{margin-bottom:48px}
+.section-label{
+  display:inline-block;font-size:10px;letter-spacing:4px;
+  color:var(--cyan);text-transform:uppercase;margin-bottom:16px;
+  border-left:2px solid var(--cyan);padding-left:12px;
+  text-shadow:0 0 10px rgba(0,255,255,.18);
+}
+.section-heading{
+  font-size:clamp(14px,2.5vw,18px);font-weight:700;letter-spacing:1px;
+  color:#fff;margin-bottom:16px;
+}
+.section-body{
+  font-size:13px;color:rgba(255,255,255,.82);line-height:2;margin-bottom:16px;
+}
+.section-body + .section-body{margin-top:8px}
+
+/* key fact boxes */
+.fact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin:24px 0}
+.fact{
+  padding:20px 18px;border:1px solid rgba(255,255,255,.07);
+  background:rgba(0,0,0,.5);position:relative;overflow:hidden;
+}
+.fact::before{
+  content:'';position:absolute;top:0;left:0;width:2px;height:100%;
+  background:var(--f-color,var(--cyan));
+}
+.fact-title{
+  font-size:11px;font-weight:700;letter-spacing:2px;color:var(--f-color,var(--cyan));
+  text-transform:uppercase;margin-bottom:8px;
+  text-shadow:0 0 10px color-mix(in srgb, var(--f-color,var(--cyan)) 35%, transparent);
+}
+.fact-text{font-size:12px;color:rgba(255,255,255,.78);line-height:1.7}
+
+/* summary banner */
+.summary{
+  padding:28px 24px;border:1px solid rgba(0,255,255,.15);
+  background:rgba(0,255,255,.04);margin:32px 0;
+}
+.summary-title{
+  font-size:11px;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin-bottom:12px;
+  text-shadow:0 0 10px rgba(0,255,255,.2);
+}
+.summary-text{font-size:13px;color:rgba(255,255,255,.84);line-height:2}
+.summary-text strong{color:var(--cyan)}
+
+/* contact */
+.contact-box{
+  padding:28px 24px;border:1px solid rgba(255,0,255,.15);
+  background:rgba(255,0,255,.03);margin-top:48px;text-align:center;
+}
+.contact-label{
+  font-size:10px;letter-spacing:4px;color:rgba(255,255,255,.62);
+  text-transform:uppercase;margin-bottom:12px;
+}
+.contact-email{
+  font-size:15px;font-weight:700;letter-spacing:1px;
+  color:var(--magenta);text-decoration:none;
+  text-shadow:0 0 12px rgba(255,0,255,.4);
+  transition:text-shadow .25s;
+}
+.contact-email:hover{text-shadow:0 0 24px rgba(255,0,255,.7)}
+.contact-note{
+  font-size:11px;color:rgba(255,255,255,.5);margin-top:10px;letter-spacing:1px;
+}
+
+/* footer */
+.page-footer{margin-top:80px;text-align:center}
+.footer-glyph{font-size:20px;letter-spacing:8px;color:rgba(255,0,255,.42);margin-bottom:20px}
+.footer-name{font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.52);margin-bottom:8px}
+.footer-dedication{font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.42)}
+.footer-dedication strong{color:rgba(255,0,255,.72)}
+
+@media(max-width:600px){
+  .page{padding:60px 20px 100px}
+  .fact-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="stars" aria-hidden="true"></div>
+<div id="scanlines" aria-hidden="true"></div>
+
+<div class="page">
+
+  <a href="marketing.html" class="back-link">← Back to main page</a>
+
+  <div class="logo-row">
+    <svg width="44" height="44" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="48" fill="#0a0014" stroke="#FF00FF" stroke-width="2"/>
+      <path d="M50 50 Q62 38 68 50 Q68 68 50 72 Q28 72 22 50 Q22 24 50 20 Q78 20 82 50 Q82 76 50 82"
+            stroke="#FF00FF" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M50 50 Q58 42 62 50 Q62 62 50 66 Q36 66 30 50 Q30 30 50 26 Q70 26 74 50 Q74 72 50 78"
+            stroke="#00FFFF" stroke-width="1.2" fill="none" stroke-linecap="round" opacity=".8"/>
+      <circle cx="50" cy="50" r="4" fill="#FF00FF" opacity=".9"/>
+    </svg>
+    <div>
+      <div class="page-eyebrow">The Neon Serpent Spiral</div>
+      <div class="page-title">Privacy Policy</div>
+    </div>
+  </div>
+
+  <div class="effective">Effective date: January 1, 2025 &nbsp;·&nbsp; Last updated: January 1, 2025</div>
+
+  <!-- SUMMARY -->
+  <div class="summary">
+    <div class="summary-title">◈ The Short Version</div>
+    <div class="summary-text">
+      The Neon Serpent Spiral <strong>does not collect any personal data</strong>. It does not track you,
+      connect to the internet, or share anything with anyone. Your game progress lives only on your device.
+      That is the complete summary. Everything below explains this in more detail for those who need it.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- KEY FACTS -->
+  <div class="fact-grid">
+    <div class="fact" style="--f-color:var(--cyan)">
+      <div class="fact-title">No Data Collected</div>
+      <div class="fact-text">We collect zero personal information. No name, email, device ID, or usage statistics.</div>
+    </div>
+    <div class="fact" style="--f-color:var(--green)">
+      <div class="fact-title">No Internet Required</div>
+      <div class="fact-text">The app runs fully offline after download. No network connections are made during gameplay.</div>
+    </div>
+    <div class="fact" style="--f-color:var(--yellow)">
+      <div class="fact-title">No Analytics</div>
+      <div class="fact-text">No third-party analytics, tracking SDKs, or crash reporting tools are included in the app.</div>
+    </div>
+    <div class="fact" style="--f-color:var(--magenta)">
+      <div class="fact-title">No Advertising</div>
+      <div class="fact-text">No ads. No ad networks. No advertising identifiers are accessed or used.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 1 -->
+  <div class="policy-section">
+    <div class="section-label">01</div>
+    <div class="section-heading">Who We Are</div>
+    <div class="section-body">
+      The Neon Serpent Spiral is an iOS game created by DeJahn of Food4Thoth. This privacy policy
+      applies to the iOS application available on the Apple App Store (App ID: 6760896039) and the
+      web version available at this website.
+    </div>
+    <div class="section-body">
+      Contact: <a href="mailto:food4thoth@proton.me" style="color:var(--cyan);text-decoration:none;text-shadow:0 0 8px rgba(0,255,255,.15)">food4thoth@proton.me</a>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="policy-section">
+    <div class="section-label">02</div>
+    <div class="section-heading">Information We Collect</div>
+    <div class="section-body">
+      <strong style="color:#fff">We collect no information.</strong>
+    </div>
+    <div class="section-body">
+      The Neon Serpent Spiral does not collect, transmit, store remotely, or share any personal
+      information or usage data of any kind. This includes but is not limited to:
+    </div>
+    <div class="section-body" style="padding-left:16px;border-left:2px solid rgba(255,255,255,.16)">
+      · Your name, email address, or any contact information<br/>
+      · Your device identifiers (IDFA, IDFV, or similar)<br/>
+      · Your location data<br/>
+      · Your IP address<br/>
+      · Your gameplay behavior, session length, or usage patterns<br/>
+      · Crash reports or diagnostic data<br/>
+      · Any information you type or interact with inside the app
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="policy-section">
+    <div class="section-label">03</div>
+    <div class="section-heading">Local Storage</div>
+    <div class="section-body">
+      The app saves your game progress (current zone, inventory, karma score, weirdness score,
+      and settings preferences) locally on your device using standard iOS storage. This data
+      never leaves your device and is not accessible to us or any third party.
+    </div>
+    <div class="section-body">
+      Uninstalling the app removes all locally stored data.
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="policy-section">
+    <div class="section-label">04</div>
+    <div class="section-heading">Audio & Microphone</div>
+    <div class="section-body">
+      All sound in The Neon Serpent Spiral is generated synthetically on your device using the
+      device's audio output. No microphone access is requested or used. The app does not record,
+      process, or transmit any audio input.
+    </div>
+    <div class="section-body">
+      If the expo-audio module included in the app requests a microphone permission at the system
+      level, this is a requirement of the module framework and does not reflect actual microphone
+      usage — the app does not use the microphone under any circumstances.
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="policy-section">
+    <div class="section-label">05</div>
+    <div class="section-heading">Third-Party Services</div>
+    <div class="section-body">
+      The Neon Serpent Spiral does not integrate with any third-party analytics platforms,
+      advertising networks, social media SDKs, or data brokers.
+    </div>
+    <div class="section-body">
+      The app is built using the Expo / React Native framework. Expo's standard runtime does not
+      collect user data from apps that do not configure data collection services. No such services
+      are configured in The Neon Serpent Spiral.
+    </div>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="policy-section">
+    <div class="section-label">06</div>
+    <div class="section-heading">Children's Privacy</div>
+    <div class="section-body">
+      The Neon Serpent Spiral is rated 4+ on the Apple App Store and is appropriate for all ages.
+      Because the app collects no data from any users, it also collects no data from children.
+      We comply fully with the Children's Online Privacy Protection Act (COPPA) and applicable
+      international children's privacy laws.
+    </div>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="policy-section">
+    <div class="section-label">07</div>
+    <div class="section-heading">Apple App Store</div>
+    <div class="section-body">
+      Downloading the app through the Apple App Store is governed by Apple's own privacy policy
+      and terms of service. Apple may collect certain data related to your App Store account and
+      download activity according to their policies, which are separate from and independent of
+      this policy.
+    </div>
+    <div class="section-body">
+      Apple's Privacy Policy: <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none;text-shadow:0 0 8px rgba(0,255,255,.15)">apple.com/legal/privacy</a>
+    </div>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div class="policy-section">
+    <div class="section-label">08</div>
+    <div class="section-heading">Changes to This Policy</div>
+    <div class="section-body">
+      If this privacy policy is ever updated, the new version will be posted at this URL with
+      an updated effective date. Because we collect no data, any changes are unlikely to
+      affect your privacy in a meaningful way — but we will be transparent about any changes regardless.
+    </div>
+  </div>
+
+  <!-- SECTION 9 -->
+  <div class="policy-section">
+    <div class="section-label">09</div>
+    <div class="section-heading">Your Rights</div>
+    <div class="section-body">
+      Because we collect no personal data, there is nothing to access, correct, export, or delete
+      on our end. Your game data exists solely on your device and is entirely within your control.
+    </div>
+    <div class="section-body">
+      If you have any privacy-related questions or concerns, you are welcome to contact us
+      at the address below and we will respond promptly.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT -->
+  <div class="contact-box">
+    <div class="contact-label">Questions or Concerns</div>
+    <a href="mailto:food4thoth@proton.me" class="contact-email">food4thoth@proton.me</a>
+    <div class="contact-note">DeJahn / Food4Thoth · The Neon Serpent Spiral</div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    <div class="footer-glyph">◈ ◈ ◈</div>
+    <div class="footer-name">THE NEON SERPENT SPIRAL</div>
+    <div class="footer-dedication">By <strong>DeJahn</strong> of <strong>Food4Thoth</strong> · © 2025 · All rights reserved</div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const c=document.getElementById('stars');
+  const colors=['#00FFFF','#FF00FF','#39FF14','#FFFF00','#ffffff'];
+  for(let i=0;i<80;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    const sz=Math.random()<.15?2:1;
+    const col=colors[Math.floor(Math.random()*colors.length)];
+    const dur=2+Math.random()*5;
+    const delay=Math.random()*7;
+    const maxOp=.15+Math.random()*.4;
+    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;background:${col};--d:${dur}s;--delay:${delay}s;--max-op:${maxOp};`;
+    c.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>
