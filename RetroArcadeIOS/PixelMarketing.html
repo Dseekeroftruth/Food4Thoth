@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pixel Quest: Retro Arcade Game — Available on the App Store</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Space+Grotesk:wght@700;900&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #060910;
+      --surface: #0d1117;
+      --surface2: #111827;
+      --border: #1f2937;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --green: #10b981;
+      --magenta: #e879f9;
+      --amber: #f59e0b;
+      --blue: #3b82f6;
+      --purple: #7c3aed;
+      --dpurple: #6d28d9;
+      --cyan: #22d3ee;
+      --red: #ef4444;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Utilities ── */
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 32px;
+      background: rgba(6,9,16,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+    }
+    .nav-logo span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      color: var(--text);
+      letter-spacing: 1px;
+    }
+    .nav-logo span em {
+      font-style: normal;
+      color: var(--green);
+    }
+    .nav-badge {
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      padding: 100px 24px 80px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(16,185,129,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(124,58,237,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 20% 60%, rgba(59,130,246,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .pixel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      margin-bottom: 24px;
+    }
+    .pixel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    .pixel-dot:nth-child(1) { background: #10b981; animation-delay: 0s; }
+    .pixel-dot:nth-child(2) { background: #f59e0b; animation-delay: 0.15s; }
+    .pixel-dot:nth-child(3) { background: #7c3aed; animation-delay: 0.3s; }
+    .pixel-dot:nth-child(4) { background: #22d3ee; animation-delay: 0.45s; }
+    .pixel-dot:nth-child(5) { background: #ef4444; animation-delay: 0.6s; }
+    .pixel-dot:nth-child(6) { background: #a855f7; animation-delay: 0.75s; }
+    .pixel-dot:nth-child(7) { background: #e879f9; animation-delay: 0.9s; }
+    .pixel-dot:nth-child(8) { background: #10b981; animation-delay: 1.05s; }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    .hero-icon {
+      width: 120px;
+      height: 120px;
+      border-radius: 28px;
+      margin: 0 auto 28px;
+      box-shadow: 0 0 60px rgba(16,185,129,0.3), 0 20px 60px rgba(0,0,0,0.6);
+      display: block;
+    }
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 900;
+      font-size: clamp(52px, 10vw, 96px);
+      line-height: 0.95;
+      letter-spacing: -2px;
+    }
+    .hero h1 .line1 { color: var(--text); display: block; }
+    .hero h1 .line2 { color: var(--green); display: block; }
+    .hero-tagline {
+      margin: 20px auto 0;
+      font-size: clamp(15px, 2.5vw, 19px);
+      font-weight: 600;
+      letter-spacing: 4px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .hero-sub {
+      margin: 16px auto 0;
+      max-width: 560px;
+      font-size: clamp(14px, 2vw, 17px);
+      color: #6b7280;
+      line-height: 1.7;
+    }
+    .hero-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      box-shadow: 0 8px 32px rgba(16,185,129,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(16,185,129,0.5); }
+    .price-pill {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 18px;
+      padding: 12px 28px;
+      border-radius: 50px;
+      letter-spacing: 0.5px;
+    }
+    .price-pill em { font-style: normal; color: var(--amber); }
+
+    /* ── Section header ── */
+    .section-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      text-align: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 900;
+      font-size: clamp(28px, 5vw, 44px);
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+    .section-desc {
+      text-align: center;
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 480px;
+      margin: 0 auto 56px;
+      line-height: 1.7;
+    }
+
+    /* ── Skins grid ── */
+    section.skins {
+      padding: 80px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .skins-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    /* ── Skin card ── */
+    .skin-card {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .skin-card:hover {
+      transform: translateY(-4px);
+    }
+
+    /* Glow per skin */
+    .skin-card.s-bit    { box-shadow: 0 0 0 1px rgba(16,185,129,0.2); }
+    .skin-card.s-bit:hover  { box-shadow: 0 16px 48px rgba(16,185,129,0.25), 0 0 0 1px rgba(16,185,129,0.4); }
+    .skin-card.s-bit2   { box-shadow: 0 0 0 1px rgba(232,121,249,0.2); }
+    .skin-card.s-bit2:hover { box-shadow: 0 16px 48px rgba(232,121,249,0.25), 0 0 0 1px rgba(232,121,249,0.4); }
+    .skin-card.s-kid    { box-shadow: 0 0 0 1px rgba(245,158,11,0.2); }
+    .skin-card.s-kid:hover  { box-shadow: 0 16px 48px rgba(245,158,11,0.25), 0 0 0 1px rgba(245,158,11,0.4); }
+    .skin-card.s-kid2   { box-shadow: 0 0 0 1px rgba(59,130,246,0.2); }
+    .skin-card.s-kid2:hover { box-shadow: 0 16px 48px rgba(59,130,246,0.25), 0 0 0 1px rgba(59,130,246,0.4); }
+    .skin-card.s-wiz    { box-shadow: 0 0 0 1px rgba(124,58,237,0.2); }
+    .skin-card.s-wiz:hover  { box-shadow: 0 16px 48px rgba(124,58,237,0.3), 0 0 0 1px rgba(124,58,237,0.5); }
+    .skin-card.s-wiz2   { box-shadow: 0 0 0 1px rgba(109,40,217,0.2); }
+    .skin-card.s-wiz2:hover { box-shadow: 0 16px 48px rgba(109,40,217,0.25), 0 0 0 1px rgba(109,40,217,0.4); }
+
+    .skin-preview {
+      position: relative;
+      height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 20px 16px;
+      gap: 14px;
+      overflow: hidden;
+    }
+    .skin-preview.has-bg {
+      background-size: cover;
+      background-position: center;
+    }
+    .skin-preview.has-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.18);
+      pointer-events: none;
+    }
+
+    /* Pixel grid pattern for bit skins */
+    .bg-bit {
+      background-color: #0a0f0d;
+      background-image:
+        linear-gradient(rgba(16,185,129,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16,185,129,0.06) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .bg-bit2 {
+      background-color: #0a0520;
+      background-image:
+        linear-gradient(rgba(232,121,249,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,121,249,0.07) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .bg-kid2 {
+      background: linear-gradient(180deg, #1e3a5f 0%, #1e3a5f 75%, #2d5a27 75%, #2d5a27 100%);
+    }
+    .bg-wiz2 {
+      background: radial-gradient(ellipse at top, #1a0a2e 0%, #0d0520 60%, #060212 100%);
+    }
+
+    .sprite-row {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+    }
+    .sprite-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .sprite-col img {
+      object-fit: contain;
+      display: block;
+    }
+    .sprite-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #f9fafb;
+      background: rgba(0,0,0,0.7);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .divider-row {
+      position: relative;
+      z-index: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin: 0 8px;
+    }
+
+    .skin-info {
+      padding: 18px 20px 20px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .skin-number {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .skin-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .skin-desc {
+      color: #9ca3af;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .skin-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .skin-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 3px 8px;
+      border-radius: 20px;
+      border: 1px solid currentColor;
+      opacity: 0.7;
+    }
+
+    /* ── SVG sprite helpers ── */
+    .svg-sprite { display: block; }
+
+    /* ── Power-ups section ── */
+    section.powerups {
+      padding: 80px 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .powerups-inner { max-width: 1100px; margin: 0 auto; }
+    .pup-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+    }
+    .pup-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 20px;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .pup-card:hover { transform: translateY(-3px); }
+    .pup-icon-wrap {
+      width: 60px;
+      height: 60px;
+      border-radius: 14px;
+      margin: 0 auto 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pup-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+    .pup-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .pup-rare {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+
+    /* ── Features ── */
+    section.features {
+      padding: 80px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .feat-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+    }
+    .feat-icon {
+      font-size: 32px;
+      margin-bottom: 14px;
+    }
+    .feat-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+    .feat-desc {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* ── CTA banner ── */
+    section.cta-banner {
+      margin: 0 24px 80px;
+      border-radius: 24px;
+      padding: 64px 32px;
+      text-align: center;
+      background: linear-gradient(135deg, #0d2818 0%, #0d1117 40%, #1a0a2e 100%);
+      border: 1px solid rgba(16,185,129,0.2);
+      box-shadow: 0 0 80px rgba(16,185,129,0.08), 0 0 80px rgba(124,58,237,0.08);
+      max-width: 1152px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-banner h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 900;
+      font-size: clamp(28px, 5vw, 48px);
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+    .cta-banner p {
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 32px;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .appstore-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #fff;
+      color: #000;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .appstore-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,255,255,0.15); }
+    .appstore-btn svg { flex-shrink: 0; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+      color: #4b5563;
+      font-size: 13px;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      nav { padding: 12px 16px; }
+      .hero { padding: 70px 16px 60px; }
+      section.skins { padding: 60px 16px; }
+      .skins-grid { grid-template-columns: 1fr; }
+      section.cta-banner { margin: 0 16px 60px; padding: 48px 20px; }
+    }
+  </style>
+	<style>
+  .preview-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+    margin-top: 22px;
+  }
+
+  .world-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 56px;
+    padding: 14px 20px;
+    border-radius: 16px;
+    text-decoration: none;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.14);
+    color: #f9fafb;
+    background: linear-gradient(135deg, #111827, #0d1117);
+    overflow: hidden;
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+  }
+
+  .world-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.12) 45%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 0.6s ease;
+    pointer-events: none;
+  }
+
+  .world-btn:hover {
+    transform: translateY(-3px) scale(1.015);
+  }
+
+  .world-btn:hover::before {
+    transform: translateX(120%);
+  }
+
+  .world-btn:active {
+    transform: translateY(0) scale(0.99);
+  }
+
+  .world-btn .btn-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .world-btn .btn-sub {
+    display: block;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    opacity: 0.72;
+    margin-top: 2px;
+  }
+
+  .btn-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.05;
+  }
+
+  .world-btn.kid {
+    background: linear-gradient(135deg, rgba(245,158,11,0.18), rgba(13,17,23,1));
+    border-color: rgba(245,158,11,0.45);
+    box-shadow: 0 10px 28px rgba(245,158,11,0.18);
+  }
+  .world-btn.kid:hover {
+    box-shadow: 0 16px 36px rgba(245,158,11,0.28), 0 0 0 1px rgba(245,158,11,0.28);
+  }
+
+  .world-btn.wizard {
+    background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(13,1,23,1));
+    border-color: rgba(124,58,237,0.48);
+    box-shadow: 0 10px 28px rgba(124,58,237,0.18);
+  }
+  .world-btn.wizard:hover {
+    box-shadow: 0 16px 36px rgba(124,58,237,0.3), 0 0 0 1px rgba(124,58,237,0.28);
+  }
+
+  .world-btn.bit {
+    background: linear-gradient(135deg, rgba(16,185,129,0.18), rgba(10,15,13,1));
+    border-color: rgba(16,185,129,0.45);
+    box-shadow: 0 10px 28px rgba(16,185,129,0.16);
+  }
+  .world-btn.bit:hover {
+    box-shadow: 0 16px 36px rgba(16,185,129,0.26), 0 0 0 1px rgba(16,185,129,0.24);
+  }
+
+  .world-btn.neonbit {
+    background: linear-gradient(135deg, rgba(232,121,249,0.18), rgba(10,5,32,1));
+    border-color: rgba(232,121,249,0.44);
+    box-shadow: 0 10px 28px rgba(232,121,249,0.16);
+  }
+  .world-btn.neonbit:hover {
+    box-shadow: 0 16px 36px rgba(232,121,249,0.26), 0 0 0 1px rgba(232,121,249,0.24);
+  }
+
+  .world-btn.pixelkid {
+    background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(17,24,39,1));
+    border-color: rgba(59,130,246,0.45);
+    box-shadow: 0 10px 28px rgba(59,130,246,0.16);
+  }
+  .world-btn.pixelkid:hover {
+    box-shadow: 0 16px 36px rgba(59,130,246,0.26), 0 0 0 1px rgba(59,130,246,0.24);
+  }
+
+  .world-btn.shadowwiz {
+    background: linear-gradient(135deg, rgba(168,85,247,0.22), rgba(13,5,32,1));
+    border-color: rgba(168,85,247,0.45);
+    box-shadow: 0 10px 28px rgba(168,85,247,0.17);
+  }
+  .world-btn.shadowwiz:hover {
+    box-shadow: 0 16px 36px rgba(168,85,247,0.28), 0 0 0 1px rgba(168,85,247,0.24);
+  }
+
+  @media (max-width: 600px) {
+    .preview-actions {
+      grid-template-columns: 1fr;
+    }
+
+    .world-btn {
+      min-height: 54px;
+      font-size: 13px;
+      padding: 13px 16px;
+    }
+  }
+	
+	/* ── Terminal Game companion section ── */
+section.free-edition {
+  padding: 80px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.free-edition-wrap {
+  border: 1px solid rgba(34,211,238,0.22);
+  border-radius: 24px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at top left, rgba(34,211,238,0.08), transparent 45%),
+    radial-gradient(ellipse at bottom right, rgba(124,58,237,0.08), transparent 45%),
+    linear-gradient(180deg, #0b1220 0%, #0d1117 100%);
+  box-shadow: 0 0 60px rgba(34,211,238,0.06);
+}
+
+.free-edition-top {
+  padding: 28px 28px 10px;
+  text-align: center;
+}
+
+.free-edition-top p {
+  max-width: 760px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.free-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 28px;
+}
+
+.free-card {
+  border-radius: 20px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  background: rgba(13,17,23,0.72);
+}
+
+.free-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.free-card p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.free-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+
+.free-pill.free {
+  background: rgba(16,185,129,0.14);
+  color: #10b981;
+  border: 1px solid rgba(16,185,129,0.3);
+}
+
+.free-pill.premium {
+  background: rgba(245,158,11,0.14);
+  color: #f59e0b;
+  border: 1px solid rgba(245,158,11,0.3);
+}
+
+.free-list {
+  margin-top: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.free-list div {
+  font-size: 13px;
+  color: #d1d5db;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.free-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.free-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #f9fafb;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: #111827;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.free-link:hover {
+  transform: translateY(-2px);
+}
+
+.free-link.free {
+  background: linear-gradient(135deg, rgba(16,185,129,0.18), rgba(13,17,23,1));
+  border-color: rgba(16,185,129,0.42);
+  box-shadow: 0 10px 30px rgba(16,185,129,0.12);
+}
+
+.free-link.premium {
+  background: linear-gradient(135deg, rgba(245,158,11,0.16), rgba(124,58,237,0.14));
+  border-color: rgba(245,158,11,0.35);
+  box-shadow: 0 10px 30px rgba(245,158,11,0.1);
+}
+
+.free-note {
+  padding: 0 28px 28px;
+  text-align: center;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+@media (max-width: 800px) {
+  .free-compare {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="assets/images/icon.png" alt="Pixel Quest icon" />
+    <span>PIXEL <em>QUEST</em></span>
+  </a>
+  <a href="#download" class="nav-badge">$1.99 · App Store</a>
+</nav>
+
+<!-- ── Hero ── -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="pixel-dots" aria-hidden="true">
+    <div class="pixel-dot"></div><div class="pixel-dot"></div>
+    <div class="pixel-dot"></div><div class="pixel-dot"></div>
+    <div class="pixel-dot"></div><div class="pixel-dot"></div>
+    <div class="pixel-dot"></div><div class="pixel-dot"></div>
+  </div>
+  <img src="assets/images/icon.png" alt="Pixel Quest" class="hero-icon" />
+  <h1>
+    <span class="line1">PIXEL</span>
+    <span class="line2">QUEST</span>
+  </h1>
+  <p class="hero-tagline">Dodge · Collect · Survive</p>
+  <p class="hero-sub">
+    Six handcrafted skins, five power-up types including rare Heart &amp; Eliminator,
+    and ever-escalating enemy patterns. One price. Everything included.
+  </p>
+	<p style="margin-top:14px; font-size:13px; color:#6b7280;">
+  Want the free version first?
+  <a href="#terminal-game" style="color:#22d3ee; font-weight:700; text-decoration:none;">See Terminal Game</a>
+</p>
+  <div class="hero-cta">
+    <a href="#download" class="btn-primary">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      Download on App Store
+    </a>
+    <span class="price-pill">Only <em>$1.99</em></span>
+  </div>
+</header>
+
+<!-- ── All 6 Skins ── -->
+<section class="skins" id="skins">
+  <p class="section-label">All Included</p>
+  <h2 class="section-title">6 Unique Skins</h2>
+  <p class="section-desc">Every skin ships with its own characters, enemies, gems, power-up art, background world, and music.</p>
+
+  <div class="skins-grid">
+
+    <!-- ── 1. Old School Bit ── -->
+    <article class="skin-card s-bit">
+      <div class="skin-preview bg-bit">
+
+        <!-- Row 1: YOU / FOE / GEM -->
+        <div class="sprite-row">
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="44" height="44" viewBox="0 0 44 44" aria-label="Bit player">
+              <rect x="2" y="2" width="40" height="40" fill="#10b981" rx="4"/>
+              <rect x="8" y="8" width="10" height="10" fill="#34d399" rx="1"/>
+              
+            </svg>
+            <span class="sprite-label">YOU</span>
+          </div>
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="36" height="36" viewBox="0 0 36 36" aria-label="Bit enemy">
+              <rect x="2" y="2" width="32" height="32" fill="#ef4444" rx="3"/>
+              <rect x="6" y="6" width="9" height="9" fill="#fca5a5" rx="1"/>
+              <rect x="21" y="6" width="9" height="9" fill="#fca5a5" rx="1"/>
+              <rect x="8" y="22" width="20" height="7" fill="#7f1d1d" rx="1"/>
+            </svg>
+            <span class="sprite-label">FOE</span>
+          </div>
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="34" height="34" viewBox="0 0 34 34" aria-label="Bit gem">
+              <polygon points="17,2 30,17 17,32 4,17" fill="#22d3ee"/>
+              <polygon points="17,8 25,17 17,26 9,17" fill="#67e8f9"/>
+            </svg>
+            <span class="sprite-label">GEM</span>
+          </div>
+        </div>
+
+        <div class="divider-row"></div>
+
+        <!-- Row 2: SPEED / INVINCIBLE / 2X -->
+        <div class="sprite-row">
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="32" height="32" viewBox="0 0 32 32" aria-label="Speed">
+              <circle cx="16" cy="16" r="14" fill="#f59e0b"/>
+              <text x="16" y="21" text-anchor="middle" font-size="14" font-weight="900" fill="#fff">S</text>
+            </svg>
+            <span class="sprite-label">SPEED</span>
+          </div>
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="32" height="32" viewBox="0 0 32 32" aria-label="Invincible">
+              <circle cx="16" cy="16" r="14" fill="#a855f7"/>
+              <text x="16" y="21" text-anchor="middle" font-size="13" font-weight="900" fill="#fff">I</text>
+            </svg>
+            <span class="sprite-label">INVINCIBLE</span>
+          </div>
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="32" height="32" viewBox="0 0 32 32" aria-label="2X">
+              <circle cx="16" cy="16" r="14" fill="#3b82f6"/>
+              <text x="16" y="21" text-anchor="middle" font-size="10" font-weight="900" fill="#fff">2×</text>
+            </svg>
+            <span class="sprite-label">2X</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="skin-info">
+        <p class="skin-number">SKIN 01</p>
+        <h3 class="skin-name" style="color:#10b981">Old School Bit</h3>
+        <p class="skin-desc">Pure retro geometry — crisp pixel squares on a dark terminal grid. The classic arcade feel.</p>
+        <div class="skin-tags">
+          <span class="skin-tag" style="color:#10b981">GEOMETRIC</span>
+          <span class="skin-tag" style="color:#22d3ee">MINIMAL</span>
+          <span class="skin-tag" style="color:#f59e0b">CLASSIC</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- ── 2. Neon Bit ── -->
+    <article class="skin-card s-bit2">
+      <div class="skin-preview bg-bit2">
+
+        <div class="sprite-row">
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="44" height="44" viewBox="0 0 44 44" aria-label="Neon Bit player">
+              <rect x="2" y="2" width="40" height="40" fill="#e879f9" rx="4"/>
+              <rect x="8" y="8" width="10" height="10" fill="#f0abfc" rx="1"/>
+              
+              
+              <!-- neon glow effect -->
+              <rect x="2" y="2" width="40" height="40" fill="none" stroke="#f5d0fe" stroke-width="1" rx="4" opacity="0.4"/>
+            </svg>
+            <span class="sprite-label">YOU</span>
+          </div>
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="36" height="36" viewBox="0 0 36 36" aria-label="Neon Bit enemy">
+              <rect x="2" y="2" width="32" height="32" fill="#22d3ee" rx="3"/>
+              <rect x="6" y="6" width="9" height="9" fill="#a5f3fc" rx="1"/>
+              <rect x="21" y="6" width="9" height="9" fill="#a5f3fc" rx="1"/>
+              <rect x="8" y="22" width="20" height="7" fill="#164e63" rx="1"/>
+              <rect x="2" y="2" width="32" height="32" fill="none" stroke="#cffafe" stroke-width="1" rx="3" opacity="0.4"/>
+            </svg>
+            <span class="sprite-label">FOE</span>
+          </div>
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="34" height="34" viewBox="0 0 34 34" aria-label="Neon Bit gem">
+              <polygon points="17,2 30,17 17,32 4,17" fill="#fbbf24"/>
+              <polygon points="17,8 25,17 17,26 9,17" fill="#fde68a"/>
+            </svg>
+            <span class="sprite-label">GEM</span>
+          </div>
+        </div>
+
+        <div class="divider-row"></div>
+
+        <div class="sprite-row">
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="32" height="32" viewBox="0 0 32 32">
+              <circle cx="16" cy="16" r="14" fill="#f97316"/>
+              <text x="16" y="21" text-anchor="middle" font-size="14" font-weight="900" fill="#fff">S</text>
+            </svg>
+            <span class="sprite-label">SPEED</span>
+          </div>
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="32" height="32" viewBox="0 0 32 32">
+              <circle cx="16" cy="16" r="14" fill="#a3e635"/>
+              <text x="16" y="21" text-anchor="middle" font-size="13" font-weight="900" fill="#1a2e05">I</text>
+            </svg>
+            <span class="sprite-label">INVINCIBLE</span>
+          </div>
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="32" height="32" viewBox="0 0 32 32">
+              <circle cx="16" cy="16" r="14" fill="#e879f9"/>
+              <text x="16" y="21" text-anchor="middle" font-size="10" font-weight="900" fill="#fff">2×</text>
+            </svg>
+            <span class="sprite-label">2X</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="skin-info">
+        <p class="skin-number">SKIN 02</p>
+        <h3 class="skin-name" style="color:#e879f9">Neon Bit</h3>
+        <p class="skin-desc">Cyberpunk geometry — neon magenta player, electric cyan enemies, gold gems blazing on dark.</p>
+        <div class="skin-tags">
+          <span class="skin-tag" style="color:#e879f9">CYBERPUNK</span>
+          <span class="skin-tag" style="color:#22d3ee">NEON</span>
+          <span class="skin-tag" style="color:#a3e635">ELECTRIC</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="skin-card s-kid">
+  <div class="skin-preview has-bg" style="background-image: url('https://www.food4thoth.com/NewSchoolGameKid/images/background.PNG');">
+
+    <div class="sprite-row">
+      <div class="sprite-col">
+        <img src="https://www.food4thoth.com/NewSchoolGameKid/images/player.PNG" width="62" height="62" alt="Kid player" style="object-fit:contain;" />
+        <span class="sprite-label">YOU</span>
+      </div>
+      <div class="sprite-col">
+        <img src="https://www.food4thoth.com/NewSchoolGameKid/images/enemy.PNG" width="62" height="62" alt="Kid enemy" style="object-fit:contain;" />
+        <span class="sprite-label">FOE</span>
+      </div>
+      <div class="sprite-col">
+        <img src="https://www.food4thoth.com/NewSchoolGameKid/images/gem.PNG" width="50" height="50" alt="Kid gem" style="object-fit:contain;" />
+        <span class="sprite-label">GEM</span>
+      </div>
+    </div>
+
+    <div class="divider-row"></div>
+
+    <div class="sprite-row">
+      <div class="sprite-col">
+        <img src="https://www.food4thoth.com/NewSchoolGameKid/images/powerup_speed.PNG" width="48" height="48" alt="Speed power-up" style="object-fit:contain;" />
+        <span class="sprite-label">SPEED</span>
+      </div>
+      <div class="sprite-col">
+        <img src="https://www.food4thoth.com/NewSchoolGameKid/images/powerup_invincible.PNG" width="48" height="48" alt="Invincible power-up" style="object-fit:contain;" />
+        <span class="sprite-label">INVINCIBLE</span>
+      </div>
+      <div class="sprite-col">
+        <img src="https://www.food4thoth.com/NewSchoolGameKid/images/powerup_multiplier.PNG" width="48" height="48" alt="2X power-up" style="object-fit:contain;" />
+        <span class="sprite-label">2X</span>
+      </div>
+    </div>
+
+  </div>
+  <div class="skin-info" style="background:#0d1117;">
+    <p class="skin-number">SKIN 03</p>
+    <h3 class="skin-name" style="color:#f59e0b">New School Kid</h3>
+    <p class="skin-desc">Bright &amp; playful sprites with a colorful world — vivid teal sky, bold characters, vivid power-ups.</p>
+    <div class="skin-tags">
+      <span class="skin-tag" style="color:#f59e0b">SPRITE ART</span>
+      <span class="skin-tag" style="color:#22d3ee">COLORFUL</span>
+      <span class="skin-tag" style="color:#10b981">PLAYFUL</span>
+    </div>
+  </div>
+</article>
+
+    <!-- ── 4. Pixel Kid ── -->
+    <article class="skin-card s-kid2">
+      <div class="skin-preview bg-kid2">
+
+        <!-- YOU: yellow head + blue body canvas art -->
+        <div class="sprite-row">
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="50" height="50" viewBox="0 0 50 50" aria-label="Pixel Kid player">
+              <!-- body -->
+              <rect x="12" y="25" width="26" height="18" fill="#3b82f6"/>
+              <!-- head -->
+              <circle cx="25" cy="18" r="13" fill="#fcd34d"/>
+              <!-- eyes -->
+              <circle cx="20" cy="17" r="2.5" fill="#1e3a5f"/>
+              <circle cx="30" cy="17" r="2.5" fill="#1e3a5f"/>
+              <!-- smile -->
+              <path d="M19 23 Q25 28 31 23" fill="none" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/>
+              <!-- legs -->
+              <rect x="12" y="43" width="10" height="7" fill="#1e40af"/>
+              <rect x="28" y="43" width="10" height="7" fill="#1e40af"/>
+            </svg>
+            <span class="sprite-label">YOU</span>
+          </div>
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="50" height="50" viewBox="0 0 50 50" aria-label="Pixel Kid enemy">
+              <!-- body -->
+              <ellipse cx="25" cy="32" rx="16" ry="12" fill="#7c3aed"/>
+              <!-- head -->
+              <circle cx="25" cy="18" r="13" fill="#8b5cf6"/>
+              <!-- horns -->
+              <polygon points="16,8 10,0 20,12" fill="#ef4444"/>
+              <polygon points="34,8 40,0 30,12" fill="#ef4444"/>
+              <!-- eyes -->
+              <circle cx="20" cy="16" r="4" fill="#fef08a"/>
+              <circle cx="30" cy="16" r="4" fill="#fef08a"/>
+              <circle cx="21" cy="16" r="2" fill="#1a0a2e"/>
+              <circle cx="31" cy="16" r="2" fill="#1a0a2e"/>
+            </svg>
+            <span class="sprite-label">FOE</span>
+          </div>
+          <div class="sprite-col">
+            <!-- 5-pointed gold star -->
+            <svg class="svg-sprite" width="44" height="44" viewBox="0 0 44 44" aria-label="Gold star gem">
+              <polygon points="22,3 27,17 43,17 30,27 35,41 22,32 9,41 14,27 1,17 17,17" fill="#fbbf24"/>
+              <polygon points="22,8 26,18 37,18 29,25 32,36 22,30 12,36 15,25 7,18 18,18" fill="#fde68a"/>
+            </svg>
+            <span class="sprite-label">GEM</span>
+          </div>
+        </div>
+
+        <div class="divider-row"></div>
+
+        <div class="sprite-row">
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="32" height="32" viewBox="0 0 32 32">
+              <rect x="2" y="2" width="28" height="28" fill="#f59e0b" rx="6"/>
+              <text x="16" y="22" text-anchor="middle" font-size="16" fill="#fff">⚡</text>
+            </svg>
+            <span class="sprite-label">SPEED</span>
+          </div>
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="32" height="32" viewBox="0 0 32 32">
+              <rect x="2" y="2" width="28" height="28" fill="#a855f7" rx="6"/>
+              <text x="16" y="22" text-anchor="middle" font-size="14" fill="#fff">★</text>
+            </svg>
+            <span class="sprite-label">INVINCIBLE</span>
+          </div>
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="32" height="32" viewBox="0 0 32 32">
+              <rect x="2" y="2" width="28" height="28" fill="#3b82f6" rx="6"/>
+              <text x="16" y="21" text-anchor="middle" font-size="10" font-weight="900" fill="#fff">×2</text>
+            </svg>
+            <span class="sprite-label">2X</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="skin-info">
+        <p class="skin-number">SKIN 04</p>
+        <h3 class="skin-name" style="color:#3b82f6">Pixel Kid</h3>
+        <p class="skin-desc">Canvas pixel art — cheerful kid hero, horned monster enemies, and golden star gems on a navy world.</p>
+        <div class="skin-tags">
+          <span class="skin-tag" style="color:#3b82f6">PIXEL ART</span>
+          <span class="skin-tag" style="color:#fbbf24">STARS</span>
+          <span class="skin-tag" style="color:#a855f7">MONSTERS</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="skin-card s-wiz">
+  <div class="skin-preview has-bg" style="background-image: url('https://www.food4thoth.com/NewSchoolGameWizard/images/2background.PNG');">
+
+    <div class="sprite-row">
+      <div class="sprite-col">
+        <img src="https://www.food4thoth.com/NewSchoolGameWizard/images/player3.PNG" width="62" height="62" alt="Wizard player" style="object-fit:contain;" />
+        <span class="sprite-label">YOU</span>
+      </div>
+      <div class="sprite-col">
+        <img src="https://www.food4thoth.com/NewSchoolGameWizard/images/enemy6.PNG" width="62" height="62" alt="Wizard enemy" style="object-fit:contain;" />
+        <span class="sprite-label">FOE</span>
+      </div>
+      <div class="sprite-col">
+        <img src="https://www.food4thoth.com/NewSchoolGameWizard/images/gem3.PNG" width="50" height="50" alt="Wizard gem" style="object-fit:contain;" />
+        <span class="sprite-label">GEM</span>
+      </div>
+    </div>
+
+    <div class="divider-row"></div>
+
+    <div class="sprite-row">
+      <div class="sprite-col">
+        <img src="https://www.food4thoth.com/NewSchoolGameWizard/images/powerup_speed5.PNG" width="48" height="48" alt="Speed power-up" style="object-fit:contain;" />
+        <span class="sprite-label">SPEED</span>
+      </div>
+      <div class="sprite-col">
+        <img src="https://www.food4thoth.com/NewSchoolGameWizard/images/powerup_invincible3.PNG" width="48" height="48" alt="Invincible power-up" style="object-fit:contain;" />
+        <span class="sprite-label">INVINCIBLE</span>
+      </div>
+      <div class="sprite-col">
+        <img src="https://www.food4thoth.com/NewSchoolGameWizard/images/powerup_multiplier4.PNG" width="48" height="48" alt="2X power-up" style="object-fit:contain;" />
+        <span class="sprite-label">2X</span>
+      </div>
+    </div>
+
+  </div>
+  <div class="skin-info" style="background:#0d0117;">
+    <p class="skin-number">SKIN 05</p>
+    <h3 class="skin-name" style="color:#7c3aed">Wizard</h3>
+    <p class="skin-desc">Mystical arcane sprites — enchanted power-ups in a dark magical realm of swirling patterns.</p>
+    <div class="skin-tags">
+      <span class="skin-tag" style="color:#7c3aed">ARCANE</span>
+      <span class="skin-tag" style="color:#a855f7">MAGICAL</span>
+      <span class="skin-tag" style="color:#22d3ee">ENCHANTED</span>
+    </div>
+  </div>
+</article>
+
+    <!-- ── 6. Shadow Wizard ── -->
+    <article class="skin-card s-wiz2">
+      <div class="skin-preview bg-wiz2">
+
+        <div class="sprite-row">
+          <!-- Wizard: hat + robed figure -->
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="50" height="54" viewBox="0 0 50 54" aria-label="Shadow Wizard player">
+              <!-- robe -->
+              <polygon points="8,54 16,28 34,28 42,54" fill="#4c1d95"/>
+              <!-- head -->
+              <circle cx="25" cy="22" r="11" fill="#fcd34d"/>
+              <!-- hat brim -->
+              <rect x="10" y="14" width="30" height="4" fill="#1e0a3c" rx="2"/>
+              <!-- hat cone -->
+              <polygon points="25,0 13,14 37,14" fill="#3b0764"/>
+              <!-- eyes -->
+              <circle cx="21" cy="22" r="3" fill="#22d3ee"/>
+              <circle cx="29" cy="22" r="3" fill="#22d3ee"/>
+              <circle cx="22" cy="22" r="1.5" fill="#0a0520"/>
+              <circle cx="30" cy="22" r="1.5" fill="#0a0520"/>
+            </svg>
+            <span class="sprite-label">YOU</span>
+          </div>
+          <!-- Ghost enemy -->
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="46" height="52" viewBox="0 0 46 52" aria-label="Shadow Wizard ghost">
+              <!-- ghost body -->
+              <path d="M6,52 L6,22 A17,17 0 0 1 40,22 L40,52 L32,44 L23,52 L14,44 Z" fill="#1f0a3e"/>
+              <path d="M6,52 L6,22 A17,17 0 0 1 40,22 L40,52 L32,44 L23,52 L14,44 Z" fill="none" stroke="#4c1d95" stroke-width="1.5"/>
+              <!-- eyes -->
+              <circle cx="17" cy="24" r="4.5" fill="#ef4444"/>
+              <circle cx="29" cy="24" r="4.5" fill="#ef4444"/>
+              <circle cx="18" cy="24" r="2" fill="#7f1d1d"/>
+              <circle cx="30" cy="24" r="2" fill="#7f1d1d"/>
+            </svg>
+            <span class="sprite-label">FOE</span>
+          </div>
+          <!-- Purple crystal gem (pentagon) -->
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="42" height="42" viewBox="0 0 42 42" aria-label="Crystal gem">
+              <polygon points="21,2 37,15 31,36 11,36 5,15" fill="#a855f7"/>
+              <polygon points="21,8 32,18 27,32 15,32 10,18" fill="#c084fc"/>
+              <polygon points="21,12 28,20 25,28 17,28 14,20" fill="#e9d5ff"/>
+            </svg>
+            <span class="sprite-label">GEM</span>
+          </div>
+        </div>
+
+        <div class="divider-row"></div>
+
+        <div class="sprite-row">
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="32" height="32" viewBox="0 0 32 32">
+              <circle cx="16" cy="16" r="14" fill="#f59e0b"/>
+              <text x="16" y="22" text-anchor="middle" font-size="14" fill="#fff">⚡</text>
+            </svg>
+            <span class="sprite-label">SPEED</span>
+          </div>
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="32" height="32" viewBox="0 0 32 32">
+              <circle cx="16" cy="16" r="14" fill="#22d3ee"/>
+              <text x="16" y="22" text-anchor="middle" font-size="13" fill="#164e63">◈</text>
+            </svg>
+            <span class="sprite-label">INVINCIBLE</span>
+          </div>
+          <div class="sprite-col">
+            <svg class="svg-sprite" width="32" height="32" viewBox="0 0 32 32">
+              <circle cx="16" cy="16" r="14" fill="#a855f7"/>
+              <text x="16" y="22" text-anchor="middle" font-size="11" fill="#fff">✦</text>
+            </svg>
+            <span class="sprite-label">2X</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="skin-info">
+        <p class="skin-number">SKIN 06</p>
+        <h3 class="skin-name" style="color:#a855f7">Shadow Wizard</h3>
+        <p class="skin-desc">Pixel sorcery — robed wizard hero, ghost enemies, purple crystal gems in a deep arcane void.</p>
+        <div class="skin-tags">
+          <span class="skin-tag" style="color:#a855f7">SORCERY</span>
+          <span class="skin-tag" style="color:#6d28d9">GOTHIC</span>
+          <span class="skin-tag" style="color:#22d3ee">ARCANE</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ── Power-ups ── -->
+<section class="powerups">
+  <div class="powerups-inner">
+    <p class="section-label">Collect &amp; Survive</p>
+    <h2 class="section-title">5 Power-Up Types</h2>
+    <p class="section-desc">Three standard power-ups appear every run — plus two ultra-rare pickups that change the game entirely.</p>
+
+    <div class="pup-grid">
+
+      <!-- Speed -->
+      <div class="pup-card" style="border-color: rgba(245,158,11,0.3);">
+        <div class="pup-icon-wrap" style="background: rgba(245,158,11,0.15);">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="16" fill="#f59e0b"/>
+            <text x="18" y="24" text-anchor="middle" font-size="18" fill="#fff">⚡</text>
+          </svg>
+        </div>
+        <p class="pup-name" style="color:#f59e0b">SPEED</p>
+        <p class="pup-desc">Burst movement — blaze across the arena to dodge or collect</p>
+      </div>
+
+      <!-- Invincible -->
+      <div class="pup-card" style="border-color: rgba(168,85,247,0.3);">
+        <div class="pup-icon-wrap" style="background: rgba(168,85,247,0.15);">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="16" fill="#a855f7"/>
+            <text x="18" y="24" text-anchor="middle" font-size="16" fill="#fff">★</text>
+          </svg>
+        </div>
+        <p class="pup-name" style="color:#a855f7">INVINCIBLE</p>
+        <p class="pup-desc">5 seconds of ghost mode — walk through enemies untouchable</p>
+      </div>
+
+      <!-- 2X Score -->
+      <div class="pup-card" style="border-color: rgba(59,130,246,0.3);">
+        <div class="pup-icon-wrap" style="background: rgba(59,130,246,0.15);">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="16" fill="#3b82f6"/>
+            <text x="18" y="23" text-anchor="middle" font-size="12" font-weight="900" fill="#fff">2×</text>
+          </svg>
+        </div>
+        <p class="pup-name" style="color:#3b82f6">2X SCORE</p>
+        <p class="pup-desc">8 seconds of doubled gem points — maximize your high score</p>
+      </div>
+
+      <!-- Heart (RARE) -->
+      <div class="pup-card" style="border-color: rgba(244,63,94,0.4); box-shadow: 0 0 20px rgba(244,63,94,0.1);">
+        <span class="pup-rare" style="background: rgba(244,63,94,0.15); color: #f43f5e;">★ RARE</span>
+        <div class="pup-icon-wrap" style="background: rgba(244,63,94,0.15); border: 2px solid #f43f5e;">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <path d="M18,30 L5,17 C0,12 0,5 7,3 C11,2 15,5 18,9 C21,5 25,2 29,3 C36,5 36,12 31,17 Z" fill="#ef4444"/>
+            <path d="M18,26 L8,16 C5,12 5,8 9,6 C12,5 15,8 18,12 C21,8 24,5 27,6 C31,8 31,12 28,16 Z" fill="#fca5a5" opacity="0.6"/>
+          </svg>
+        </div>
+        <p class="pup-name" style="color:#f43f5e">HEART</p>
+        <p class="pup-desc">Restore 1 lost life (up to 3). A rare and vital find</p>
+      </div>
+
+      <!-- Eliminator (RARE) -->
+      <div class="pup-card" style="border-color: rgba(245,158,11,0.4); box-shadow: 0 0 20px rgba(245,158,11,0.1);">
+        <span class="pup-rare" style="background: rgba(245,158,11,0.15); color: #f59e0b;">★ RARE</span>
+        <div class="pup-icon-wrap" style="background: rgba(245,158,11,0.12); border: 2px solid #f59e0b;">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <!-- 16-point star -->
+            <polygon points="
+              18,2 20,9 24,4 23,11 28,8 25,14 31,14 27,18 32,21 26,21 29,27 23,25 23,31 18,27 13,31 13,25 7,27 10,21 4,21 9,18 5,14 11,14 8,8 14,11 13,4 18,9
+            " fill="#dc2626"/>
+            <circle cx="18" cy="18" r="7" fill="#fbbf24"/>
+            <!-- skull -->
+            <circle cx="18" cy="17" r="4" fill="#1a0800"/>
+            <circle cx="15.5" cy="16" r="1.4" fill="#fbbf24"/>
+            <circle cx="20.5" cy="16" r="1.4" fill="#fbbf24"/>
+            <rect x="15" y="19.5" width="6" height="2.5" rx="0.6" fill="#1a0800"/>
+            <rect x="15" y="19.5" width="6" height="2.5" rx="0.6" fill="none" stroke="#fbbf24" stroke-width="0.6"/>
+          </svg>
+        </div>
+        <p class="pup-name" style="color:#f59e0b">ELIMINATOR</p>
+        <p class="pup-desc">6 seconds of chase mode — enemies flee and you eliminate them for bonus points</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Features ── -->
+<section class="features">
+  <p class="section-label">What You Get</p>
+  <h2 class="section-title">Everything Included</h2>
+  <p class="section-desc">One purchase. No ads. No subscriptions. No microtransactions.</p>
+
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-icon">🎮</div>
+      <h3 class="feat-title">6 Unique Skins</h3>
+      <p class="feat-desc">From minimal pixel geometry to full sprite art with animated backgrounds — every skin is a completely different visual experience.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📈</div>
+      <h3 class="feat-title">Escalating Difficulty</h3>
+      <p class="feat-desc">Enemy patterns grow faster and smarter as your score climbs. Easy, Normal, and Hard modes with distinct drop rate tuning.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🔊</div>
+      <h3 class="feat-title">Full Audio Design</h3>
+      <p class="feat-desc">Every skin has its own background music, sound effects, and unique audio for each power-up — including an Eliminator chase theme.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📱</div>
+      <h3 class="feat-title">iPhone &amp; iPad</h3>
+      <p class="feat-desc">Fully responsive layout scales beautifully from the smallest iPhone to the largest iPad Pro with adaptive HUD and controls.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🏆</div>
+      <h3 class="feat-title">Per-Skin High Scores</h3>
+      <p class="feat-desc">Each skin tracks its own best score. Switch skins, chase new personal bests, and see all your records on the home screen.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">⚡</div>
+      <h3 class="feat-title">Haptic Feedback</h3>
+      <p class="feat-desc">Every gem collect, power-up pickup, and hit triggers precise haptics — the game feels great in your hands.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Free Edition / Companion Game ── -->
+<section class="free-edition" id="terminal-game">
+  <div class="free-edition-wrap">
+    <div class="free-edition-top">
+      <p class="section-label">Also Available</p>
+      <h2 class="section-title">Start Free with Terminal Game</h2>
+      <p>
+        <strong style="color:#f9fafb;">Terminal Game Retro Arcade</strong> is the free classic edition of this arcade line —
+        a stripped-down, fast, clean version built for quick sessions, retro pixel energy, and one-more-round play.
+        <strong style="color:#f9fafb;">Pixel Quest</strong> is the expanded premium full version for
+        <strong style="color:#f59e0b;">$1.99</strong>, with more skins, more power-ups, more audio, and more variety.
+      </p>
+    </div>
+
+    <div class="free-compare">
+      <div class="free-card">
+        <span class="free-pill free">Free Edition</span>
+        <h3 style="color:#22d3ee;">Terminal Game</h3>
+        <p>
+          The free classic version. Fast arcade gameplay, retro visuals, clean controls, offline play,
+          and a simple score-chasing loop you can jump into anytime.
+        </p>
+
+        <div class="free-list">
+          <div>🆓 Free on the App Store</div>
+          <div>🎮 Classic arcade experience</div>
+          <div>⚡ Quick sessions · smooth controls · offline play</div>
+          <div>🏆 High-score chasing with the original stripped-down feel</div>
+        </div>
+
+        <div class="free-actions">
+          <a href="https://apps.apple.com/us/app/terminal-game/id6757940532" class="free-link free" target="_blank" rel="noopener">
+            Download Terminal Game Free
+          </a>
+          <a href="https://www.food4thoth.com/RetroArcadeIOS/Marketing.html" class="free-link" target="_blank" rel="noopener">
+            View Marketing Page
+          </a>
+        </div>
+      </div>
+
+      <div class="free-card">
+        <span class="free-pill premium">Premium Full Version</span>
+        <h3 style="color:#10b981;">Pixel Quest</h3>
+        <p>
+          The expanded arcade edition. More worlds, more characters, rare pickups, deeper progression,
+          per-skin music, haptics, and the full premium experience in one purchase.
+        </p>
+
+        <div class="free-list">
+          <div>💵 $1.99 one-time purchase</div>
+          <div>🌈 6 handcrafted skins</div>
+          <div>✨ 5 power-up types, including rare Heart & Eliminator</div>
+          <div>🔊 Per-skin music, sound design, haptics, and escalating enemy patterns</div>
+        </div>
+
+        <div class="free-actions">
+          <a href="https://apps.apple.com/app/id6760863454" class="free-link premium" target="_blank" rel="noopener">
+            Get Pixel Quest
+          </a>
+          <a href="#download" class="free-link">
+            Jump to Download
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <p class="free-note">
+      Start with the free edition, then level up to the full version whenever you want.
+      No ads. No subscriptions. Just arcade action.
+    </p>
+  </div>
+</section>
+
+<section style="padding: 0 24px 80px; max-width: 1100px; margin: 0 auto;">
+  <p class="section-label">In-Game Previews</p>
+  <h2 class="section-title">See the Worlds that buit our pixels</h2>
+  <p class="section-desc" style="margin-bottom: 40px;">Jump into each live game world and explore the actual playable pages.</p>
+
+  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px;">
+
+    <!-- New School Kid -->
+    <div style="border-radius:16px; overflow:hidden; border:1px solid rgba(245,158,11,0.3); box-shadow:0 0 40px rgba(245,158,11,0.1); background:#0d1117;">
+      <div style="width:100%; aspect-ratio:16/9; background:#0d1117; display:flex; align-items:center; justify-content:center; padding:10px;">
+        <img
+          src="https://www.food4thoth.com/NewSchoolGameKid/og-preview.jpg"
+          alt="New School Kid preview"
+          style="width:100%; height:100%; display:block; object-fit:contain; object-position:center;"
+        />
+      </div>
+      <div style="padding:14px 16px; background:#0d1117;">
+        <p style="font-size:11px; color:#9ca3af; letter-spacing:2px; font-weight:700;">SKIN 03</p>
+        <p style="font-size:15px; font-weight:700; color:#f59e0b; margin-bottom:12px;">New School Kid</p>
+        <a href="https://www.food4thoth.com/NewSchoolGameKid/index.html" class="world-btn kid" style="width:100%;" target="_blank" rel="noopener">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M12 3l2.6 5.3L20 9l-4 3.9.9 5.6L12 15.8 7.1 18.5 8 12.9 4 9l5.4-.7L12 3z"/>
+          </svg>
+          <span class="btn-stack">
+            Open Webpage
+            <span class="btn-sub">Bright World</span>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Wizard -->
+    <div style="border-radius:16px; overflow:hidden; border:1px solid rgba(124,58,237,0.3); box-shadow:0 0 40px rgba(124,58,237,0.1); background:#0d0117;">
+      <div style="width:100%; aspect-ratio:16/9; background:#0d0117; display:flex; align-items:center; justify-content:center; padding:10px;">
+        <img
+          src="https://www.food4thoth.com/NewSchoolGameWizard/og-preview.jpg"
+          alt="Wizard preview"
+          style="width:100%; height:100%; display:block; object-fit:contain; object-position:center;"
+        />
+      </div>
+      <div style="padding:14px 16px; background:#0d0117;">
+        <p style="font-size:11px; color:#9ca3af; letter-spacing:2px; font-weight:700;">SKIN 05</p>
+        <p style="font-size:15px; font-weight:700; color:#7c3aed; margin-bottom:12px;">Wizard</p>
+        <a href="https://www.food4thoth.com/NewSchoolGameWizard/index.html" class="world-btn wizard" style="width:100%;" target="_blank" rel="noopener">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2 2-6z"/>
+          </svg>
+          <span class="btn-stack">
+            Open Webpage
+            <span class="btn-sub">Arcane Realm</span>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Old School Bit -->
+    <div style="border-radius:16px; overflow:hidden; border:1px solid rgba(16,185,129,0.3); box-shadow:0 0 40px rgba(16,185,129,0.08); background:#0a0f0d;">
+      <div style="width:100%; aspect-ratio:16/9; background:#0a0f0d; display:flex; align-items:center; justify-content:center; padding:10px;">
+        <img
+          src="https://www.food4thoth.com/OldSchoolGameMobile/og-preview.jpg"
+          alt="Old School Bit preview"
+          style="width:100%; height:100%; display:block; object-fit:contain; object-position:center;"
+        />
+      </div>
+      <div style="padding:14px 16px; background:#0a0f0d;">
+        <p style="font-size:11px; color:#9ca3af; letter-spacing:2px; font-weight:700;">SKIN 01</p>
+        <p style="font-size:15px; font-weight:700; color:#10b981; margin-bottom:12px;">Old School Bit</p>
+        <a href="https://www.food4thoth.com/OldSchoolGameMobile/index.html" class="world-btn bit" style="width:100%;" target="_blank" rel="noopener">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M4 7h16M4 12h16M4 17h16"/>
+          </svg>
+          <span class="btn-stack">
+            Open Webpage
+            <span class="btn-sub">Retro Grid</span>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Combined Pixel Quest -->
+    <div style="border-radius:16px; overflow:hidden; border:1px solid rgba(59,130,246,0.3); box-shadow:0 0 40px rgba(59,130,246,0.12); background:#0b1020;">
+      <div style="width:100%; aspect-ratio:16/9; background:#0b1020; display:flex; align-items:center; justify-content:center; padding:10px;">
+        <img
+          src="https://www.food4thoth.com/RetroArcadeIOS/pixelquest.png"
+          alt="Pixel Quest combined game preview"
+          style="width:100%; height:100%; display:block; object-fit:contain; object-position:center;"
+        />
+      </div>
+      <div style="padding:14px 16px; background:#0b1020;">
+        <p style="font-size:11px; color:#9ca3af; letter-spacing:2px; font-weight:700;">FULL GAME</p>
+        <p style="font-size:15px; font-weight:700; color:#3b82f6; margin-bottom:12px;">Pixel Quest</p>
+        <a href="https://www.food4thoth.com/RetroArcadeIOS/PixelQuest.html" class="world-btn pixelkid" style="width:100%;" target="_blank" rel="noopener">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M5 12h14M12 5v14"/>
+          </svg>
+          <span class="btn-stack">
+            Open Full Game
+            <span class="btn-sub">All New Worlds Combined</span>
+          </span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-banner" id="download">
+  <div class="pixel-dots" aria-hidden="true" style="margin-bottom:20px;">
+    <div class="pixel-dot"></div><div class="pixel-dot"></div>
+    <div class="pixel-dot"></div><div class="pixel-dot"></div>
+    <div class="pixel-dot"></div><div class="pixel-dot"></div>
+    <div class="pixel-dot"></div><div class="pixel-dot"></div>
+  </div>
+  <img src="assets/images/icon.png" alt="" style="width:80px; height:80px; border-radius:18px; display:block; margin:0 auto 20px; box-shadow: 0 0 40px rgba(16,185,129,0.3);" />
+  <h2>Ready to Play?</h2>
+  <p>Pixel Quest is $1.99 — no ads, no subscriptions, no extra purchases. Just the game.</p>
+  <a href="https://apps.apple.com/app/id6760863454" class="appstore-btn" target="_blank" rel="noopener">
+    <!-- Apple logo -->
+    <svg width="22" height="26" viewBox="0 0 814 1000" fill="#000">
+      <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-37.3-158.4-97.2C87.3 727 17 567 17 412.7C17 245.5 125.9 155.2 232.1 155.2c61.1 0 112.5 39.5 150.1 39.5 36.2 0 93.3-42.8 165.3-42.8 26.8 0 108.2 2.6 167.1 99.3zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z"/>
+    </svg>
+    Download on the App Store
+  </a>
+  <p style="margin-top: 16px; font-size: 12px; color: #4b5563;">Available for iPhone &amp; iPad · iOS 16+ · $1.99</p>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <p style="margin-bottom: 8px;">
+    <strong style="color: #6b7280;">PIXEL QUEST</strong> &nbsp;·&nbsp;
+    Made with ♥ by <a href="https://www.food4thoth.com">food4thoth</a> &nbsp;·&nbsp;
+    <a href="https://apps.apple.com/app/id6760863454" target="_blank" rel="noopener">App Store</a>
+  </p>
+	<div>
+        <a href="./PrivacyPolicy.html">Privacy Policy</a> ·
+        <a href="https://www.food4thoth.com/contact.html">Contact</a>
+      </div>
+  <p>© 2026 food4thoth · com.food4thoth · All rights reserved</p>
+</footer>
+
+</body>
+</html>

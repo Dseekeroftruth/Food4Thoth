@@ -41,6 +41,102 @@
   .lb-skin-label { font-size: 10px; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; }
   .lb-empty { font-size: 12px; color: #374151; text-align: center; padding: 8px 0; }
 
+  /* ── Navigation Section ── */
+  .nav-section { width: 100%; margin-top: 4px; }
+  .nav-toggle-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    color: #9ca3af;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav-toggle-btn:hover, .nav-toggle-btn:active { background: #1a2236; border-color: #374151; color: #d1d5db; }
+  .nav-toggle-btn .nav-icon { font-size: 16px; transition: transform 0.3s; }
+  .nav-toggle-btn.open .nav-icon { transform: rotate(180deg); }
+
+  .nav-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, opacity 0.25s ease;
+    opacity: 0;
+  }
+  .nav-panel.open {
+    max-height: 600px;
+    opacity: 1;
+  }
+  .nav-panel-inner {
+    padding: 12px 0 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .nav-link-group {
+    background: #0d1120;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .nav-link-group-title {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: #4b5563;
+    text-transform: uppercase;
+    padding: 10px 14px 4px;
+  }
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    color: #d1d5db;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: background 0.15s, color 0.15s;
+    border-top: 1px solid rgba(255,255,255,0.03);
+  }
+  .nav-link:first-child, .nav-link-group-title + .nav-link { border-top: none; }
+  .nav-link:hover, .nav-link:active { background: rgba(34,211,238,0.06); color: #22d3ee; }
+  .nav-link .nav-link-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .nav-link .nav-link-arrow { margin-left: auto; color: #374151; font-size: 12px; }
+
+  .nav-footer {
+    text-align: center;
+    padding: 14px 8px 6px;
+    font-size: 10px;
+    color: #374151;
+    letter-spacing: 1px;
+  }
+  .nav-footer a {
+    color: #4b5563;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .nav-footer a:hover { color: #22d3ee; }
+  .nav-footer .sep { margin: 0 6px; color: #1f2937; }
+
   /* ── Game Screen ── */
   #game { justify-content: flex-start; }
   #hud { width: 100%; padding: 8px 16px; display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.4); border-bottom: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; }
@@ -121,6 +217,66 @@
       <div class="lb-title">Top Scores</div>
       <div id="lb-list"><div class="lb-empty">Play your first game to get on the board!</div></div>
     </div>
+
+    <!-- ══════════════ NAVIGATION ══════════════ -->
+    <div class="nav-section">
+      <button class="nav-toggle-btn" id="navToggle" onclick="toggleNav()">
+        <span>Navigate</span>
+        <span class="nav-icon">▼</span>
+      </button>
+      <div class="nav-panel" id="navPanel">
+        <div class="nav-panel-inner">
+
+          <div class="nav-link-group">
+            <div class="nav-link-group-title">Game Versions</div>
+            <a class="nav-link" href="../OldSchoolGameMobile/index.html">
+              <span class="nav-link-icon" style="background:#1a3a2e;">📱</span>
+              Mobile Version
+              <span class="nav-link-arrow">›</span>
+            </a>
+            <a class="nav-link" href="../OldSchoolGameDesktop/index.html">
+              <span class="nav-link-icon" style="background:#1a2a3e;">🖥</span>
+              Desktop Version
+              <span class="nav-link-arrow">›</span>
+            </a>
+            <a class="nav-link" href="../NewSchoolGameKid/index.html">
+              <span class="nav-link-icon" style="background:#1a2a3e;">👾</span>
+              Kid Sprite Version
+              <span class="nav-link-arrow">›</span>
+            </a>
+            <a class="nav-link" href="../NewSchoolGameWizard/index.html">
+              <span class="nav-link-icon" style="background:#2a1a3e;">🧙</span>
+              Wizard Version
+              <span class="nav-link-arrow">›</span>
+            </a>
+          </div>
+
+          <div class="nav-link-group">
+            <div class="nav-link-group-title">More</div>
+            <a class="nav-link" href="../index.html">
+              <span class="nav-link-icon" style="background:#1e293b;">🏠</span>
+              Visit Our Hub
+              <span class="nav-link-arrow">›</span>
+            </a>
+            <a class="nav-link" href="https://www.food4thoth.com/NewSchoolGameKid/readme/">
+              <span class="nav-link-icon" style="background:#1e293b;">📖</span>
+              ReadMe
+              <span class="nav-link-arrow">›</span>
+            </a>
+          </div>
+
+          <div class="nav-footer">
+            <a href="../index.html">FOOD4THOTH</a>
+            <span class="sep">|</span>
+            © 2025 Food4Thoth
+            <span class="sep">|</span>
+            <a href="https://www.food4thoth.com/NewSchoolGameKid/readme/">ReadMe</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- ══════════════ GAME SCREEN ══════════════ -->
@@ -180,6 +336,22 @@
 
 <script>
 // ══════════════════════════════════════════════════════════
+//  NAVIGATION TOGGLE
+// ══════════════════════════════════════════════════════════
+function toggleNav() {
+  const btn = document.getElementById('navToggle');
+  const panel = document.getElementById('navPanel');
+  const isOpen = panel.classList.contains('open');
+  if (isOpen) {
+    panel.classList.remove('open');
+    btn.classList.remove('open');
+  } else {
+    panel.classList.add('open');
+    btn.classList.add('open');
+  }
+}
+
+// ══════════════════════════════════════════════════════════
 //  CONSTANTS & STATE
 // ══════════════════════════════════════════════════════════
 const DIFFICULTY_SPEED = { easy: 0.65, normal: 1.0, hard: 1.5 };
@@ -191,19 +363,18 @@ const GEMS_PER_LEVEL = 10;
 
 let currentSkin = 'bit';
 let difficulty   = 'normal';
-let highScores   = {}; // { bit:[], kid:[], wizard:[] }
+let highScores   = {};
 let gameState    = null;
 let animId       = null;
 let lastTime     = 0;
 let paused       = false;
-let phase        = 'home'; // home | start | playing | paused | gameover
+let phase        = 'home';
 let dirX = 0, dirY = 0;
 let moveX = 0, moveY = 0;
 let multTimer = 0;
 let invTimer  = 0;
 let levelupTimeout = null;
 
-// Load saved data
 try { highScores = JSON.parse(localStorage.getItem('pq_scores') || '{}'); } catch(e){}
 try { currentSkin = localStorage.getItem('pq_skin') || 'bit'; } catch(e){}
 try { difficulty  = localStorage.getItem('pq_diff')  || 'normal'; } catch(e){}
@@ -212,7 +383,6 @@ try { difficulty  = localStorage.getItem('pq_diff')  || 'normal'; } catch(e){}
 //  PIXEL ART DRAWING
 // ══════════════════════════════════════════════════════════
 
-// ── Bit skin ────────────────────────────────────────────
 function drawBitPlayer(ctx, x, y, s, flash) {
   ctx.globalAlpha = flash ? 0.35 : 1;
   ctx.fillStyle = '#10b981';
@@ -253,24 +423,17 @@ function drawBitBackground(ctx, w, h) {
   ctx.fillStyle = '#0a0e1a';
   ctx.fillRect(0, 0, w, h);
   ctx.fillStyle = 'rgba(34,211,238,0.03)';
-  for (let gx = 0; gx < w; gx += 40) {
-    ctx.fillRect(gx, 0, 1, h);
-  }
-  for (let gy = 0; gy < h; gy += 40) {
-    ctx.fillRect(0, gy, w, 1);
-  }
+  for (let gx = 0; gx < w; gx += 40) ctx.fillRect(gx, 0, 1, h);
+  for (let gy = 0; gy < h; gy += 40) ctx.fillRect(0, gy, w, 1);
 }
 
-// ── Kid skin ────────────────────────────────────────────
 function drawKidBackground(ctx, w, h, t) {
-  // Sky gradient
   const grad = ctx.createLinearGradient(0, 0, 0, h);
   grad.addColorStop(0, '#1e3a5f');
   grad.addColorStop(0.6, '#2d5a27');
   grad.addColorStop(1, '#1a3a17');
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, w, h);
-  // Stars
   ctx.fillStyle = 'rgba(255,255,255,0.6)';
   const stars = [[0.1,0.05],[0.3,0.1],[0.6,0.03],[0.8,0.08],[0.45,0.15],[0.7,0.18],[0.2,0.2],[0.9,0.12]];
   stars.forEach(([sx,sy]) => {
@@ -279,7 +442,6 @@ function drawKidBackground(ctx, w, h, t) {
     ctx.fillRect(sx*w, sy*h, 2, 2);
   });
   ctx.globalAlpha = 1;
-  // Ground
   ctx.fillStyle = '#2d5a27';
   ctx.fillRect(0, h*0.75, w, h*0.25);
   ctx.fillStyle = '#3d7a35';
@@ -287,37 +449,28 @@ function drawKidBackground(ctx, w, h, t) {
 }
 function drawKidPlayer(ctx, x, y, s, flash) {
   ctx.globalAlpha = flash ? 0.3 : 1;
-  // Body
   ctx.fillStyle = '#3b82f6';
   ctx.fillRect(x+s*0.2, y+s*0.45, s*0.6, s*0.45);
-  // Head
   ctx.fillStyle = '#fcd34d';
   ctx.beginPath(); ctx.arc(x+s*0.5, y+s*0.28, s*0.25, 0, Math.PI*2); ctx.fill();
-  // Eyes
   ctx.fillStyle = '#1e3a5f';
   ctx.fillRect(x+s*0.38, y+s*0.22, s*0.1, s*0.1);
   ctx.fillRect(x+s*0.56, y+s*0.22, s*0.1, s*0.1);
-  // Smile
   ctx.strokeStyle = '#1e3a5f'; ctx.lineWidth = 1.5;
   ctx.beginPath(); ctx.arc(x+s*0.5, y+s*0.3, s*0.1, 0.2, Math.PI-0.2); ctx.stroke();
-  // Legs
   ctx.fillStyle = '#1e3a5f';
   ctx.fillRect(x+s*0.22, y+s*0.82, s*0.22, s*0.18);
   ctx.fillRect(x+s*0.56, y+s*0.82, s*0.22, s*0.18);
   ctx.globalAlpha = 1;
 }
 function drawKidEnemy(ctx, x, y, s) {
-  // Monster body
   ctx.fillStyle = '#7c3aed';
   ctx.beginPath(); ctx.ellipse(x+s*0.5, y+s*0.55, s*0.42, s*0.38, 0, 0, Math.PI*2); ctx.fill();
-  // Head
   ctx.fillStyle = '#8b5cf6';
   ctx.beginPath(); ctx.arc(x+s*0.5, y+s*0.32, s*0.28, 0, Math.PI*2); ctx.fill();
-  // Horns
   ctx.fillStyle = '#ef4444';
   ctx.beginPath(); ctx.moveTo(x+s*0.3, y+s*0.12); ctx.lineTo(x+s*0.2, y); ctx.lineTo(x+s*0.4, y+s*0.15); ctx.fill();
   ctx.beginPath(); ctx.moveTo(x+s*0.7, y+s*0.12); ctx.lineTo(x+s*0.8, y); ctx.lineTo(x+s*0.6, y+s*0.15); ctx.fill();
-  // Eyes
   ctx.fillStyle = '#fef08a';
   ctx.beginPath(); ctx.arc(x+s*0.38, y+s*0.28, s*0.1, 0, Math.PI*2); ctx.fill();
   ctx.beginPath(); ctx.arc(x+s*0.62, y+s*0.28, s*0.1, 0, Math.PI*2); ctx.fill();
@@ -326,7 +479,6 @@ function drawKidEnemy(ctx, x, y, s) {
   ctx.beginPath(); ctx.arc(x+s*0.62, y+s*0.28, s*0.05, 0, Math.PI*2); ctx.fill();
 }
 function drawKidGem(ctx, x, y, s) {
-  // Star
   ctx.fillStyle = '#fbbf24';
   ctx.shadowColor = '#fbbf24'; ctx.shadowBlur = 8;
   ctx.beginPath();
@@ -360,7 +512,6 @@ function drawKidPowerup(ctx, x, y, s, type) {
   ctx.fillText(c.icon, x+s/2, y+s/2+1);
 }
 
-// ── Wizard skin ─────────────────────────────────────────
 function drawWizardBackground(ctx, w, h, t) {
   const grad = ctx.createLinearGradient(0, 0, 0, h);
   grad.addColorStop(0, '#0d0520');
@@ -368,7 +519,6 @@ function drawWizardBackground(ctx, w, h, t) {
   grad.addColorStop(1, '#0a1020');
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, w, h);
-  // Magic particles
   const pts = [[0.15,0.12],[0.45,0.08],[0.72,0.2],[0.3,0.3],[0.85,0.15],[0.55,0.4],[0.1,0.5],[0.9,0.45]];
   pts.forEach(([px,py], i) => {
     const pulse = Math.sin(t*3 + i*1.3) * 0.5 + 0.5;
@@ -376,7 +526,6 @@ function drawWizardBackground(ctx, w, h, t) {
     const r = 2 + pulse*2;
     ctx.beginPath(); ctx.arc(px*w, py*h, r, 0, Math.PI*2); ctx.fill();
   });
-  // Floor stones
   ctx.fillStyle = 'rgba(255,255,255,0.04)';
   for (let fx = 0; fx < w; fx += 60) {
     for (let fy = 0; fy < h; fy += 40) {
@@ -386,35 +535,28 @@ function drawWizardBackground(ctx, w, h, t) {
 }
 function drawWizardPlayer(ctx, x, y, s, flash) {
   ctx.globalAlpha = flash ? 0.3 : 1;
-  // Robe
   ctx.fillStyle = '#4c1d95';
   ctx.beginPath();
   ctx.moveTo(x+s*0.15, y+s); ctx.lineTo(x+s*0.35, y+s*0.45); ctx.lineTo(x+s*0.65, y+s*0.45); ctx.lineTo(x+s*0.85, y+s);
   ctx.closePath(); ctx.fill();
-  // Stars on robe
   ctx.fillStyle = '#a855f7';
   ctx.fillRect(x+s*0.3, y+s*0.6, 4, 4);
   ctx.fillRect(x+s*0.55, y+s*0.7, 3, 3);
-  // Body
   ctx.fillStyle = '#5b21b6';
   ctx.fillRect(x+s*0.3, y+s*0.38, s*0.4, s*0.2);
-  // Head
   ctx.fillStyle = '#fcd34d';
   ctx.beginPath(); ctx.arc(x+s*0.5, y+s*0.28, s*0.22, 0, Math.PI*2); ctx.fill();
-  // Hat
   ctx.fillStyle = '#3b0764';
   ctx.beginPath();
   ctx.moveTo(x+s*0.5, y); ctx.lineTo(x+s*0.28, y+s*0.2); ctx.lineTo(x+s*0.72, y+s*0.2);
   ctx.closePath(); ctx.fill();
   ctx.fillRect(x+s*0.22, y+s*0.18, s*0.56, s*0.07);
-  // Eyes
   ctx.fillStyle = '#22d3ee';
   ctx.beginPath(); ctx.arc(x+s*0.4, y+s*0.27, s*0.07, 0, Math.PI*2); ctx.fill();
   ctx.beginPath(); ctx.arc(x+s*0.6, y+s*0.27, s*0.07, 0, Math.PI*2); ctx.fill();
   ctx.globalAlpha = 1;
 }
 function drawWizardEnemy(ctx, x, y, s) {
-  // Ghost/shadow
   ctx.fillStyle = '#1f0a3e';
   ctx.shadowColor = '#ef4444'; ctx.shadowBlur = 12;
   ctx.beginPath();
@@ -422,7 +564,6 @@ function drawWizardEnemy(ctx, x, y, s) {
   ctx.lineTo(x+s*0.15, y+s*0.4);
   ctx.arc(x+s*0.5, y+s*0.35, s*0.36, Math.PI, 0);
   ctx.lineTo(x+s*0.85, y+s);
-  // Wavy bottom
   const segs = 4;
   const sw = s*0.7/segs;
   for (let i=segs; i>=0; i--) {
@@ -432,7 +573,6 @@ function drawWizardEnemy(ctx, x, y, s) {
   }
   ctx.closePath(); ctx.fill();
   ctx.shadowBlur = 0;
-  // Eyes
   ctx.fillStyle = '#ef4444';
   ctx.shadowColor = '#ef4444'; ctx.shadowBlur = 8;
   ctx.beginPath(); ctx.arc(x+s*0.38, y+s*0.32, s*0.1, 0, Math.PI*2); ctx.fill();
@@ -440,7 +580,6 @@ function drawWizardEnemy(ctx, x, y, s) {
   ctx.shadowBlur = 0;
 }
 function drawWizardGem(ctx, x, y, s) {
-  // Crystal
   ctx.fillStyle = '#a855f7';
   ctx.shadowColor = '#a855f7'; ctx.shadowBlur = 12;
   ctx.beginPath();
@@ -506,11 +645,8 @@ function drawPowerup(ctx, x, y, s, type, skin) {
 //  GAME ENGINE
 // ══════════════════════════════════════════════════════════
 const PATTERNS = [
-  // 1: diagonal bounce
   (e) => { e.x += e.speedX; e.y += e.speedY; },
-  // 2: sine wave
   (e) => { e.angle = (e.angle||0)+0.09; e.x += e.speedX; e.y += Math.sin(e.angle)*6; },
-  // 3: gradual homing
   (e,px,py) => {
     const ta = Math.atan2(py-(e.y+e.size/2), px-(e.x+e.size/2));
     const ca = Math.atan2(e.speedY, e.speedX);
@@ -520,15 +656,12 @@ const PATTERNS = [
     e.speedX = Math.cos(na)*sp; e.speedY = Math.sin(na)*sp;
     e.x += e.speedX; e.y += e.speedY;
   },
-  // 4: orbit with drift
   (e) => { e.angle=(e.angle||0)+0.08; e.x+=Math.cos(e.angle)*4+e.speedX*0.45; e.y+=Math.sin(e.angle)*4+e.speedY*0.45; },
-  // 5: erratic burst
   (e) => {
     e.angle=(e.angle||0)+1;
     if(e.angle%18<1){const a=Math.random()*Math.PI*2,sp=Math.hypot(e.speedX,e.speedY);e.speedX=Math.cos(a)*sp;e.speedY=Math.sin(a)*sp;}
     e.x+=e.speedX*1.25; e.y+=e.speedY*1.25;
   },
-  // 6: fast homing
   (e,px,py) => {
     const ta=Math.atan2(py-(e.y+e.size/2),px-(e.x+e.size/2));
     const ca=Math.atan2(e.speedY,e.speedX);
@@ -538,9 +671,7 @@ const PATTERNS = [
     e.speedX=Math.cos(na)*sp; e.speedY=Math.sin(na)*sp;
     e.x+=e.speedX; e.y+=e.speedY;
   },
-  // 7: double sine
   (e) => { e.angle=(e.angle||0)+0.1; e.x+=e.speedX+Math.cos(e.angle*0.6)*4.5; e.y+=e.speedY+Math.sin(e.angle)*5.5; },
-  // 8: spiral hunt
   (e,px,py) => {
     e.angle=(e.angle||0)+0.1;
     const dist=Math.hypot(px-(e.x+e.size/2),py-(e.y+e.size/2))||1;
@@ -671,7 +802,6 @@ function renderGame(gs, skin, canvas) {
   for (const pu of gs.powerUps) drawPowerup(ctx, pu.x, pu.y, pu.size, pu.type, skin);
   for (const e of gs.enemies)  drawEnemy(ctx, e.x, e.y, e.size, skin);
 
-  // Invincible glow
   if (player.invincible) {
     ctx.fillStyle = skin==='bit' ? '#a855f744' : 'rgba(168,85,247,0.2)';
     ctx.beginPath(); ctx.arc(player.x+player.size/2, player.y+player.size/2, player.size*0.8, 0, Math.PI*2); ctx.fill();
@@ -693,9 +823,6 @@ function updateHUD(gs) {
   for (let i=0;i<gs.lives;i++) { const h=document.createElement('span'); h.className='heart'; h.textContent='❤'; livesEl.appendChild(h); }
 }
 
-// ══════════════════════════════════════════════════════════
-//  LEVEL UP BANNER
-// ══════════════════════════════════════════════════════════
 function showLevelUp(level) {
   const el = document.getElementById('levelup-banner');
   el.textContent = `Level ${level}!`;
@@ -891,11 +1018,9 @@ function renderPreview(skin) {
   const ctx    = canvas.getContext('2d');
   const s = 56;
   ctx.clearRect(0,0,s,s);
-  // mini background
   if (skin==='bit') { ctx.fillStyle='#0a0e1a'; ctx.fillRect(0,0,s,s); }
   else if (skin==='kid') { ctx.fillStyle='#1e3a5f'; ctx.fillRect(0,0,s,s); ctx.fillStyle='#2d5a27'; ctx.fillRect(0,s*0.65,s,s*0.35); }
   else { ctx.fillStyle='#0d0520'; ctx.fillRect(0,0,s,s); }
-  // Draw player centered
   const ps = skin==='bit' ? 22 : 36;
   drawPlayer(ctx, (s-ps)/2, (s-ps)/2, ps, skin, false);
 }
@@ -910,7 +1035,6 @@ function updateDirFromKeys() {
   if (keysDown.has('ArrowRight')||keysDown.has('KeyD')) x+=1;
   if (keysDown.has('ArrowUp')||keysDown.has('KeyW')) y-=1;
   if (keysDown.has('ArrowDown')||keysDown.has('KeyS')) y+=1;
-  // Normalize diagonal
   if (x!==0&&y!==0) { x*=0.707; y*=0.707; }
   dirX=x; dirY=y;
 }
@@ -952,14 +1076,14 @@ document.querySelectorAll('.dpad-btn').forEach(btn => {
 });
 
 // ══════════════════════════════════════════════════════════
-//  INPUT — TOUCH ON CANVAS (tap-to-aim)
+//  INPUT — TOUCH ON CANVAS
 // ══════════════════════════════════════════════════════════
-const canvas = document.getElementById('game-canvas');
+const gameCanvas = document.getElementById('game-canvas');
 let touchActive = false;
 
 function handleCanvasPointer(clientX, clientY) {
   if (!gameState || gameState.gameOver || paused) return;
-  const rect  = canvas.getBoundingClientRect();
+  const rect  = gameCanvas.getBoundingClientRect();
   const cx    = clientX - rect.left;
   const cy    = clientY - rect.top;
   const { player } = gameState;
@@ -974,27 +1098,27 @@ function handleCanvasPointer(clientX, clientY) {
   }
 }
 
-canvas.addEventListener('touchstart', e=>{
+gameCanvas.addEventListener('touchstart', e=>{
   e.preventDefault(); touchActive=true;
   handleCanvasPointer(e.touches[0].clientX, e.touches[0].clientY);
 },{passive:false});
-canvas.addEventListener('touchmove', e=>{
+gameCanvas.addEventListener('touchmove', e=>{
   e.preventDefault();
   handleCanvasPointer(e.touches[0].clientX, e.touches[0].clientY);
 },{passive:false});
-canvas.addEventListener('touchend', e=>{
+gameCanvas.addEventListener('touchend', e=>{
   e.preventDefault(); touchActive=false;
   if (!keysDown.size && !dpadActive.size) { dirX=0; dirY=0; }
 },{passive:false});
-canvas.addEventListener('mousedown', e=>{
+gameCanvas.addEventListener('mousedown', e=>{
   touchActive=true;
   handleCanvasPointer(e.clientX, e.clientY);
 });
-canvas.addEventListener('mousemove', e=>{
+gameCanvas.addEventListener('mousemove', e=>{
   if (!touchActive) return;
   handleCanvasPointer(e.clientX, e.clientY);
 });
-canvas.addEventListener('mouseup', ()=>{
+gameCanvas.addEventListener('mouseup', ()=>{
   touchActive=false;
   if (!keysDown.size && !dpadActive.size) { dirX=0; dirY=0; }
 });
