@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-	<meta http-equiv="refresh" content="20; url=https://www.food4thoth.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="20; url=https://www.food4thoth.com">
   <title>404 – Lost in the Aether</title>
   <style>
-	
     html, body {
       margin: 0;
       padding: 0;
@@ -13,81 +13,103 @@
       font-family: 'Georgia', serif;
       color: white;
       height: 100%;
-			
-      background: transparent;
+      background: teal;
     }
 
     #canvas {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-			z-index: -1;
-			background: teal;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      background: teal;
     }
 
-   .container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 90vw;
-  width: 90vw;
-  max-height: 90vh;
-  padding: 2rem;
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: 15px;
-  box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
-  z-index: 2;
-  overflow-y: auto;
-	align-items: center;
-}
+    .container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70vw;
+      max-width: 600px;
+      max-height: 50vh;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+      z-index: 2;
+      overflow-y: auto;
+    }
 
     h1 {
-      font-size: 3rem;
+      font-size: 1.5rem;
       color: #ff66cc;
-      margin-bottom: 1rem;
-			text-align: center;
+      margin-bottom: .2rem;
+      text-align: center;
     }
 
     .drop-cap-wrapper {
-			text-align: center;
-      
-      align-items: center;
-      margin-bottom: 1.5rem;
+      text-align: center;
+      margin-bottom: .5rem;
     }
 
     .drop-cap {
-      font-size: 10rem;
+      font-size: 4rem;
       font-weight: bold;
-      margin-right: 1rem;
       color: #00ffff;
       text-shadow: 0 0 10px #00ffff;
     }
 
     p {
-      font-size: 1.1rem;
-      line-height: 1.6;
+      font-size: .92rem;
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
     }
 
     a {
       color: #00ffff;
       text-decoration: underline;
     }
-		
-		
+
+    .nature-elements {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+			overflow: hidden;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(5deg); }
+    }
+
+    @keyframes grow {
+      to { transform: scale(1.1); color: #4a8c74; }
+    }
+
+    @keyframes shrink {
+      from { transform: scale(1.1); color: #4a8c74; }
+      to { transform: scale(1); color: #2c5e4c; }
+    }
   </style>
 </head>
 <body>
-	
+
   <canvas id="canvas"></canvas>
+
+  <div class="nature-elements"></div>
 
   <div class="container">
     <article class="content">
       <h1>Lost in the Aether</h1>
       <div class="drop-cap-wrapper">
         <span class="drop-cap">404</span>
-			</div>
+      </div>
       <p>
         Food4Thoth, the ancient canopy—a world of wonder unfolds. The forest, a living tapestry of green, whispers secrets to those who listen. Each leaf, each blade of grass, tells a story of resilience and beauty. As we step into this realm of natural poetry, we find ourselves part of a greater narrative—one that has been unfolding for millennia.
       </p>
@@ -97,42 +119,132 @@
       <p><a href="https://www.food4thoth.com">Return to the Temple</a></p>
     </article>
   </div>
-	
-		<div class="nature-elements"></div>
-         </div>
 
-  <!-- Load Perlin noise and main canvas script -->
   <script>
-    function loadMainScript() {
-      const mainScript = document.createElement('script');
-      mainScript.src = 'https://www.food4thoth.com/404Perlin/script.js'; // You can replace this with inline canvas code too
-      document.body.appendChild(mainScript);
+  // === PERLIN NOISE LIBRARY (public domain, Stefan Gustavson / Joseph Gentle) ===
+  (function(global){
+    var module = global.noise = {};
+    function Grad(x, y, z) { this.x = x; this.y = y; this.z = z; }
+    Grad.prototype.dot2 = function(x, y) { return this.x*x + this.y*y; };
+    var grad3 = [new Grad(1,1,0),new Grad(-1,1,0),new Grad(1,-1,0),new Grad(-1,-1,0),
+                 new Grad(1,0,1),new Grad(-1,0,1),new Grad(1,0,-1),new Grad(-1,0,-1),
+                 new Grad(0,1,1),new Grad(0,-1,1),new Grad(0,1,-1),new Grad(0,-1,-1)];
+    var p = [151,160,137,91,90,15,131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,
+    8,99,37,240,21,10,23,190,6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,35,11,32,
+    57,177,33,88,237,149,56,87,174,20,125,136,171,168,68,175,74,165,71,134,139,48,27,166,
+    77,146,158,231,83,111,229,122,60,211,133,230,220,105,92,41,55,46,245,40,244,102,143,54,
+    65,25,63,161,1,216,80,73,209,76,132,187,208,89,18,169,200,196,135,130,116,188,159,86,
+    164,100,109,198,173,186,3,64,52,217,226,250,124,123,5,202,38,147,118,126,255,82,85,212,
+    207,206,59,227,47,16,58,17,182,189,28,42,223,183,170,213,119,248,152,2,44,154,163,70,
+    221,153,101,155,167,43,172,9,129,22,39,253,19,98,108,110,79,113,224,232,178,185,112,104,
+    218,246,97,228,251,34,242,193,238,210,144,12,191,179,162,241,81,51,145,235,249,14,239,
+    107,49,192,214,31,181,199,106,157,184,84,204,176,115,121,50,45,127,4,150,254,138,236,
+    205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180];
+    var perm = new Array(512);
+    var gradP = new Array(512);
+    module.seed = function(seed) {
+      if(seed > 0 && seed < 1) seed *= 65536;
+      seed = Math.floor(seed);
+      if(seed < 256) seed |= seed << 8;
+      for(var i = 0; i < 256; i++) {
+        var v;
+        if (i & 1) { v = p[i] ^ (seed & 255); }
+        else { v = p[i] ^ ((seed>>8) & 255); }
+        perm[i] = perm[i + 256] = v;
+        gradP[i] = gradP[i + 256] = grad3[v % 12];
+      }
+    };
+    module.seed(0);
+    function fade(t) { return t*t*t*(t*(t*6-15)+10); }
+    function lerp(a, b, t) { return (1-t)*a + t*b; }
+    module.perlin2 = function(x, y) {
+      var X = Math.floor(x), Y = Math.floor(y);
+      x = x - X; y = y - Y;
+      X = X & 255; Y = Y & 255;
+      var n00 = gradP[X+perm[Y]].dot2(x, y);
+      var n01 = gradP[X+perm[Y+1]].dot2(x, y-1);
+      var n10 = gradP[X+1+perm[Y]].dot2(x-1, y);
+      var n11 = gradP[X+1+perm[Y+1]].dot2(x-1, y-1);
+      var u = fade(x);
+      return lerp(lerp(n00, n10, u), lerp(n01, n11, u), fade(y));
+    };
+  })(window);
+
+  // === DRAW PERLIN BACKGROUND ===
+  (function() {
+    var canvas = document.getElementById("canvas");
+    if (!canvas) return;
+    var ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    var tileWidth = 3;
+    noise.seed(Math.random());
+
+    function drawPerlin() {
+      var dpr = window.devicePixelRatio || 1;
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.fillStyle = "teal";
+      ctx.fillRect(0, 0, w, h);
+
+      var cols = Math.ceil(w / tileWidth);
+      var rows = Math.ceil(h / tileWidth);
+      ctx.strokeStyle = "#000";
+      ctx.lineWidth = 1;
+
+      for (var ix = 0; ix <= cols; ix++) {
+        for (var iy = 0; iy <= rows; iy++) {
+          var x = ix * tileWidth;
+          var y = iy * tileWidth;
+          var p = noise.perlin2(x * 0.009, y * 0.009) / 0.8;
+          p = Math.pow(p, 2);
+          var ang = p * 2 * Math.PI;
+          var x2 = Math.cos(ang) * tileWidth * 4;
+          var y2 = Math.sin(ang) * tileWidth * 4;
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(x + x2, y + y2);
+          ctx.stroke();
+        }
+      }
     }
 
-    const script = document.createElement('script');
-    script.src = 'https://raw.githack.com/josephg/noisejs/master/perlin.js';
+    window.addEventListener("load", function() {
+      setTimeout(drawPerlin, 100);
+    });
+    if (document.readyState === "complete") {
+      setTimeout(drawPerlin, 100);
+    }
+    window.addEventListener("resize", drawPerlin);
+  })();
 
-    script.onload = () => {
-      console.log('CDN loaded: perlin.js');
-      loadMainScript();
-    };
-
-    script.onerror = () => {
-      console.warn('CDN failed — loading local fallback');
-      const fallback = document.createElement('script');
-      fallback.src = '.404Perlin/libs/perlin.js';
-      fallback.onload = () => {
-        console.log('Local fallback loaded: perlin.js');
-        loadMainScript();
-      };
-      document.body.appendChild(fallback);
-    };
-
-    document.body.appendChild(script);
+  // === FLOATING EMOJIS ===
+  (function() {
+    var el = document.querySelector(".nature-elements");
+    if (!el) return;
+    var emojis = ["\u2728", "\uD83E\uDD16", "\u26A1\uFE0F", "\uD83D\uDC7E", "\uD83C\uDF00", "\uD83D\uDC7D"];
+    for (var i = 0; i < 20; i++) {
+      var span = document.createElement("span");
+      span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      span.style.cssText =
+        "position:absolute;" +
+        "font-size:" + (Math.random() * 60 + 45) + "px;" +
+        "top:" + (Math.random() * 100) + "%;" +
+        "left:" + (Math.random() * 90) + "%;" +
+        "opacity:0.7;" +
+        "transform:rotate(" + (Math.random() * 360) + "deg);" +
+        "animation:float " + (Math.random() * 5 + 3) + "s infinite ease-in-out;";
+      el.appendChild(span);
+    }
+    var dc = document.querySelector(".drop-cap");
+    if (dc) {
+      dc.addEventListener("mouseover", function() { dc.style.animation = "grow 0.5s forwards"; });
+      dc.addEventListener("mouseout", function() { dc.style.animation = "shrink 0.5s forwards"; });
+    }
+  })();
   </script>
-	
-	<!-- partial -->
-  <script  src="https://www.food4thoth.com/404Perlin/script2.js"></script>
 
 </body>
 </html>
