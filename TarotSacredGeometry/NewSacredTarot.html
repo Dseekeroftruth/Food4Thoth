@@ -63,7 +63,7 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
 .card-item{cursor:pointer;transition:transform .15s,opacity .15s}
 .card-item:active{transform:scale(.96);opacity:.75}
 .card-img-wrap{position:relative;border-radius:10px;overflow:hidden;background:var(--card-bg)}
-.card-img-wrap img{width:100%;display:block;aspect-ratio:.625;object-fit:cover}
+.card-img-wrap img{width:100%;display:block;aspect-ratio:0.625;object-fit:contain;background:var(--card-bg)}
 .card-label-row{display:flex;align-items:center;gap:6px;margin-top:7px;padding:0 2px}
 .card-dot{width:5px;height:5px;border-radius:3px;flex-shrink:0}
 .card-label{font-family:'Inter',sans-serif;font-size:11px;color:var(--dim-cream);letter-spacing:.3px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -82,8 +82,8 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
 .card-flip-inner.flipped{transform:rotateY(180deg)}
 .card-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:10px;overflow:hidden}
 .card-back-face{background:var(--card-bg)}
-.card-front-face{transform:rotateY(180deg)}
-.card-front-face img,.card-back-face img{width:100%;height:100%;object-fit:cover;display:block}
+.card-front-face{transform:rotateY(180deg);background:var(--card-bg);display:flex;align-items:center;justify-content:center}
+.card-front-face img{width:100%;height:100%;object-fit:contain;display:block}
 .card-reversed .card-front-face img{transform:rotate(180deg)}
 @keyframes pulseScale{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
 .pulse-anim{animation:pulseScale 3.6s ease-in-out infinite}
@@ -124,7 +124,7 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
 #fav-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:4px 14px 120px;position:relative;z-index:2}
 .fav-card-wrap{position:relative;cursor:pointer}
 .fav-remove{position:absolute;top:4px;right:4px;z-index:5;background:rgba(10,8,20,.7);border:none;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#E63946;font-size:14px;line-height:1}
-.fav-card-wrap img{width:100%;aspect-ratio:.625;object-fit:cover;border-radius:8px;display:block}
+.fav-card-wrap img{width:100%;aspect-ratio:0.625;object-fit:contain;background:var(--card-bg);border-radius:8px;display:block}
 .fav-card-name{font-family:'Cinzel',serif;font-size:9px;color:var(--dim-cream);letter-spacing:.3px;text-align:center;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .no-favs{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:16px;text-align:center}
 .no-favs p{font-family:'Cinzel',serif;font-size:14px;color:var(--muted);letter-spacing:1px}
@@ -136,7 +136,7 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
 .back-btn{display:flex;align-items:center;gap:4px;background:none;border:none;cursor:pointer;color:var(--cream);font-size:16px;padding:8px 4px}
 .fav-icon-btn{background:none;border:none;cursor:pointer;padding:4px;line-height:0}
 .detail-card-wrap{display:flex;justify-content:center;margin:20px 0}
-.detail-card-img{border-radius:12px;box-shadow:0 0 40px rgba(212,175,55,.25);max-width:280px;width:78%;aspect-ratio:.625;object-fit:cover}
+.detail-card-img{border-radius:12px;box-shadow:0 0 40px rgba(212,175,55,.25);max-width:280px;width:78%;object-fit:contain;background:var(--card-bg)}
 .detail-title-block{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:16px}
 .detail-num{font-family:'Cinzel',serif;font-size:15px;letter-spacing:3px;opacity:.8}
 .detail-name{font-family:'Cinzel',serif;font-weight:700;font-size:28px;color:var(--cream);text-align:center;letter-spacing:1px}
@@ -163,7 +163,7 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
 .spread-diagram{position:relative}
 .spread-pos-card{position:absolute;transform:translate(-50%,-50%);border:1px solid rgba(212,175,55,.5);border-radius:5px;background:rgba(30,18,80,.6);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;overflow:hidden}
 .spread-pos-card.revealed{border-color:var(--gold);box-shadow:0 0 12px rgba(212,175,55,.3)}
-.spread-pos-card img{width:100%;height:100%;object-fit:cover;border-radius:4px}
+.spread-pos-card img{width:100%;height:100%;object-fit:contain;border-radius:4px;background:var(--card-bg)}
 .spread-pos-label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--dim-cream);white-space:nowrap;font-family:'Cinzel',serif;letter-spacing:.5px}
 .spread-shuffle-btn{display:flex;align-items:center;gap:8px;align-self:center;margin:10px auto;background:var(--gold);color:var(--midnight);font-family:'Cinzel',serif;font-weight:700;font-size:14px;letter-spacing:1.5px;border:none;border-radius:30px;padding:12px 28px;cursor:pointer;box-shadow:0 4px 20px rgba(212,175,55,.3);transition:transform .15s}
 .spread-shuffle-btn:active{transform:scale(.97)}
@@ -171,7 +171,7 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
 .spread-card-entry{background:rgba(18,10,46,.7);border:1px solid rgba(61,42,125,.35);border-radius:14px;padding:14px;margin-bottom:12px;cursor:pointer;transition:border-color .2s}
 .spread-card-entry:active{border-color:var(--gold)}
 .spread-entry-header{display:flex;align-items:center;gap:12px}
-.spread-entry-thumb{width:44px;height:70px;border-radius:6px;object-fit:cover;flex-shrink:0}
+.spread-entry-thumb{width:44px;height:70px;border-radius:6px;object-fit:contain;background:var(--card-bg);flex-shrink:0}
 .spread-entry-info{flex:1}
 .spread-entry-pos{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
 .spread-entry-name{font-family:'Cinzel',serif;font-size:14px;color:var(--cream);letter-spacing:.3px}
@@ -375,7 +375,7 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
               </div>
             </div>
             <div class="card-face card-front-face" id="flip-front">
-              <img id="drawn-card-img" src="" alt="Daily Card" style="width:100%;height:100%;object-fit:cover"/>
+              <img id="drawn-card-img" src="" alt="Daily Card"/>
             </div>
           </div>
         </div>
@@ -1155,7 +1155,7 @@ function updateSpreadPosition(posId,card){
   const accent=SUIT_COLORS[card.suit];
   const posEl=document.getElementById(`spos-${posId}`);
   if(posEl){
-    posEl.innerHTML=`<img src="${cardImg(card)}" style="width:100%;height:100%;object-fit:cover;border-radius:4px"/>`;
+    posEl.innerHTML=`<img src="${cardImg(card)}"/>`;
     posEl.classList.add('revealed');
     posEl.style.borderColor=accent;
     posEl.style.boxShadow=`0 0 10px ${accent}44`;
