@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>TVDJ - Video/Audio DJ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    :root {
+      --primary: #FF0066;
+      --accent: #00FFCC;
+      --success: #00FF88;
+      --error: #FF3366;
+      --bg-root: #0A0A0F;
+      --bg-default: #1A1A24;
+      --bg-secondary: #252530;
+      --bg-tertiary: #303040;
+      --text: #FFFFFF;
+      --text-sec: #8888A0;
+      --font: 'Montserrat', sans-serif;
+      --radius: 14px;
+    }
+    html, body {
+      height: 100%; height: 100dvh;
+      background: var(--bg-root);
+      color: var(--text);
+      font-family: var(--font);
+      overflow: hidden;
+    }
+    #app {
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--bg-root);
+    }
+
+    /* ── Header ── */
+    #hdr {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 16px;
+      padding-top: calc(env(safe-area-inset-top, 0px) + 14px);
+      background: rgba(10,10,15,.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bg-secondary);
+      position: relative;
+    }
+    #hdr-title { font-size: 20px; font-weight: 700; letter-spacing: 3px; color: var(--primary); }
+    #hdr-action {
+      position: absolute; right: 16px;
+      background: none; border: none; color: var(--primary);
+      font-family: var(--font); font-size: 14px; font-weight: 600; cursor: pointer;
+      display: none;
+    }
+
+    /* ── Content ── */
+    #content { flex: 1; overflow: hidden; position: relative; }
+    .screen { position: absolute; inset: 0; display: none; flex-direction: column; overflow-y: auto; overflow-x: hidden; }
+    .screen.active { display: flex; }
+
+    /* ── Tab Bar ── */
+    #tab-bar {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 6px 0;
+      padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 6px);
+      background: rgba(10,10,15,.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid var(--bg-secondary);
+    }
+    .tab {
+      flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
+      background: none; border: none; color: var(--text-sec); cursor: pointer; padding: 8px 0;
+      transition: color .2s;
+    }
+    .tab.active { color: var(--primary); }
+    .tab span { font-family: var(--font); font-size: 10px; font-weight: 600; }
+    .tab svg { width: 22px; height: 22px; }
+
+    /* ══════════════════════════════ PERFORM ══════════════════════════════ */
+    #screen-perform {
+      padding: 12px;
+      gap: 12px;
+      justify-content: space-between;
+    }
+    #pad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      flex: 1;
+      align-content: center;
+    }
+    .pad {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      border: 2px dashed var(--bg-tertiary);
+      background: rgba(26,26,36,.4);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      cursor: pointer; position: relative; overflow: hidden;
+      transition: transform .1s ease, box-shadow .2s ease;
+      -webkit-user-select: none; user-select: none;
+      touch-action: manipulation;
+    }
+    .pad.filled { border-style: solid; background: var(--bg-default); }
+    .pad:active { transform: scale(.93); }
+    .pad.playing { animation: padPulse .55s ease-in-out infinite alternate; }
+    @keyframes padPulse { from { transform: scale(1); } to { transform: scale(1.04); } }
+    .pad-empty-icon { color: var(--text-sec); margin-bottom: 4px; pointer-events: none; }
+    .pad-empty-txt { font-size: 9px; font-weight: 600; color: var(--text-sec); pointer-events: none; }
+    .pad-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+    .pad-audio-bg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+    .pad-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 3px 5px; background: rgba(0,0,0,.72); pointer-events: none; }
+    .pad-name { font-size: 8px; font-weight: 700; text-align: center; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .pad-dot { position: absolute; top: 5px; right: 5px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+
+    /* ── Transport ── */
+    #transport {
+      background: var(--bg-default);
+      border-radius: 16px;
+      padding: 14px 18px 14px;
+      flex-shrink: 0;
+    }
+    .t-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 12px; }
+    .t-btn {
+      border: none; cursor: pointer; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px;
+      transition: transform .1s, opacity .15s;
+      background: var(--bg-tertiary);
+      color: var(--text);
+    }
+    .t-btn:active { transform: scale(.9); }
+    .t-btn.play { background: var(--primary); width: 58px; height: 58px; }
+    .vol-row { display: flex; align-items: center; gap: 10px; }
+    .vol-lbl { font-size: 10px; font-weight: 700; color: var(--text-sec); min-width: 28px; }
+    .vol-pct { font-size: 12px; font-weight: 700; min-width: 36px; text-align: right; }
+    input[type=range].vol-slider {
+      flex: 1; -webkit-appearance: none; appearance: none;
+      height: 4px; border-radius: 2px; background: var(--bg-tertiary); outline: none;
+    }
+    input[type=range].vol-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--primary); cursor: pointer; }
+    input[type=range].vol-slider::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--primary); cursor: pointer; border: none; }
+
+    /* ══════════════════════════════ LIBRARY ══════════════════════════════ */
+    #screen-library { padding: 12px; }
+    #search-bar {
+      flex-shrink: 0; display: flex; align-items: center;
+      background: var(--bg-default); border-radius: 12px;
+      padding: 0 14px; height: 46px; gap: 10px; margin-bottom: 12px;
+    }
+    #search-bar svg { color: var(--text-sec); width: 17px; height: 17px; flex-shrink: 0; }
+    #search-input {
+      flex: 1; background: none; border: none; color: var(--text);
+      font-family: var(--font); font-size: 15px; outline: none;
+    }
+    #search-input::placeholder { color: var(--text-sec); }
+    #search-clear { cursor: pointer; color: var(--text-sec); display: none; }
+    #sample-list { flex: 1; overflow-y: auto; overflow-x: hidden; }
+    .s-card {
+      display: flex; align-items: center; gap: 13px;
+      background: var(--bg-default); border-radius: 13px;
+      padding: 13px; margin-bottom: 9px; cursor: pointer;
+      border: 1px solid transparent; transition: opacity .15s;
+    }
+    .s-card:active { opacity: .7; }
+    .s-thumb {
+      width: 54px; height: 54px; border-radius: 9px; overflow: hidden;
+      flex-shrink: 0; background: var(--bg-secondary);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .s-thumb video { width: 100%; height: 100%; object-fit: cover; }
+    .s-info { flex: 1; min-width: 0; }
+    .s-title { font-size: 14px; font-weight: 700; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .s-meta { font-size: 11px; color: var(--text-sec); }
+    .s-del { background: none; border: none; color: var(--error); cursor: pointer; padding: 8px; border-radius: 8px; flex-shrink: 0; }
+    .s-del:active { opacity: .6; }
+    #lib-upload-row { flex-shrink: 0; display: flex; justify-content: center; padding: 14px 0 4px; }
+
+    /* ── Empty State ── */
+    .empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; }
+    .empty-icon { width: 76px; height: 76px; border-radius: 38px; background: rgba(255,0,102,.1); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+    .empty-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .empty-msg { font-size: 13px; color: var(--text-sec); line-height: 1.55; margin-bottom: 26px; }
+
+    /* ══════════════════════════════ PROFILE ══════════════════════════════ */
+    #screen-profile { overflow-y: auto; padding: 0 14px 40px; }
+    .avatar-sec { display: flex; flex-direction: column; align-items: center; padding: 28px 0 30px; }
+    .avatar-ring { width: 86px; height: 86px; border-radius: 43px; border: 3px solid var(--primary); overflow: hidden; background: var(--bg-default); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+    .av-name { font-size: 22px; font-weight: 700; margin-bottom: 3px; }
+    .av-sub { font-size: 12px; color: var(--text-sec); }
+    .p-sec { margin-bottom: 22px; }
+    .p-sec-title { font-size: 10px; font-weight: 700; color: var(--text-sec); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 7px; margin-left: 4px; }
+    .p-card { background: var(--bg-default); border-radius: 13px; overflow: hidden; }
+    .p-row { display: flex; align-items: center; padding: 15px; gap: 13px; cursor: pointer; }
+    .p-row:not(:last-child) { border-bottom: 1px solid var(--bg-secondary); }
+    .p-icon { width: 30px; height: 30px; border-radius: 7px; background: rgba(0,255,204,.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .p-icon.danger { background: rgba(255,51,102,.1); }
+    .p-icon svg { width: 15px; height: 15px; color: var(--accent); }
+    .p-icon.danger svg { color: var(--error); }
+    .p-label { flex: 1; font-size: 15px; font-weight: 500; }
+    .p-label.danger { color: var(--error); }
+    .p-value { font-size: 12px; color: var(--text-sec); }
+    .toggle { position: relative; width: 48px; height: 26px; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-track { position: absolute; inset: 0; background: var(--bg-tertiary); border-radius: 13px; cursor: pointer; transition: background .25s; }
+    .toggle-track::before { content: ''; position: absolute; width: 20px; height: 20px; border-radius: 50%; background: #fff; top: 3px; left: 3px; transition: transform .25s; }
+    .toggle input:checked + .toggle-track { background: var(--primary); }
+    .toggle input:checked + .toggle-track::before { transform: translateX(22px); }
+    .p-footer { text-align: center; padding: 28px 0 0; }
+    .p-footer-brand { font-size: 17px; font-weight: 700; color: var(--primary); margin-bottom: 3px; }
+    .p-footer-sub { font-size: 11px; color: var(--text-sec); }
+
+    /* ══════════════════════════════ MODALS ══════════════════════════════ */
+    .overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.72);
+      display: none; align-items: flex-end; justify-content: center;
+      z-index: 100; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+    }
+    .overlay.active { display: flex; }
+    .modal {
+      background: var(--bg-default); border-radius: 22px 22px 0 0;
+      width: 100%; max-width: 480px; max-height: 92dvh;
+      display: flex; flex-direction: column; overflow: hidden;
+      animation: slideUp .28s ease;
+    }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .m-hdr { display: flex; align-items: center; justify-content: space-between; padding: 18px 18px 0; flex-shrink: 0; }
+    .m-title { font-size: 17px; font-weight: 700; }
+    .m-close { background: var(--bg-secondary); border: none; color: var(--text-sec); width: 28px; height: 28px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .m-close svg { width: 13px; height: 13px; }
+    .m-body { flex: 1; overflow-y: auto; padding: 18px; }
+
+    /* ── Upload Zone ── */
+    .upload-zone {
+      border: 2px dashed var(--bg-tertiary); border-radius: 16px;
+      background: rgba(26,26,36,.5); cursor: pointer;
+      margin-bottom: 18px; transition: border-color .2s;
+      position: relative; overflow: hidden;
+    }
+    .upload-zone.filled { border-style: solid; border-color: var(--primary); }
+    .uz-placeholder { padding: 32px 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .uz-icon { width: 62px; height: 62px; border-radius: 31px; background: rgba(255,0,102,.1); display: flex; align-items: center; justify-content: center; }
+    .uz-icon svg { width: 28px; height: 28px; color: var(--primary); }
+    .uz-txt { font-size: 14px; font-weight: 600; }
+    .uz-hint { font-size: 11px; color: var(--text-sec); text-align: center; line-height: 1.4; }
+    .uz-preview { display: none; position: absolute; inset: 0; }
+    .uz-video { width: 100%; height: 100%; object-fit: cover; }
+    .uz-audio { width: 100%; height: 140px; background: var(--bg-secondary); display: flex; align-items: center; justify-content: center; }
+    .uz-audio svg { width: 44px; height: 44px; color: var(--accent); }
+    .uz-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 9px 13px; background: rgba(0,0,0,.82); display: flex; justify-content: space-between; align-items: center; }
+    .uz-fname { font-size: 12px; font-weight: 600; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .uz-dur { font-size: 11px; color: var(--accent); margin-left: 8px; }
+
+    /* ── Form ── */
+    .f-sec { margin-bottom: 18px; }
+    .f-lbl { display: block; font-size: 10px; font-weight: 700; color: var(--text-sec); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 7px; }
+    .f-input { width: 100%; background: var(--bg-secondary); border: none; border-radius: 11px; padding: 0 15px; height: 50px; color: var(--text); font-family: var(--font); font-size: 15px; outline: none; transition: box-shadow .2s; }
+    .f-input:focus { box-shadow: 0 0 0 2px var(--primary); }
+    .f-input::placeholder { color: var(--text-sec); }
+    .s-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+    .s-val { font-size: 12px; font-weight: 700; }
+    input[type=range].f-slider { width: 100%; -webkit-appearance: none; appearance: none; height: 4px; border-radius: 2px; outline: none; cursor: pointer; margin: 4px 0; }
+    input[type=range].f-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; cursor: pointer; }
+    input[type=range].f-slider::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: none; }
+
+    /* ── Buttons ── */
+    .btn-up { display: flex; align-items: center; gap: 8px; background: var(--primary); color: #fff; border: none; border-radius: 999px; padding: 13px 24px; font-family: var(--font); font-size: 14px; font-weight: 700; cursor: pointer; transition: transform .1s, opacity .15s; }
+    .btn-up:active { transform: scale(.96); }
+    .btn { width: 100%; border: none; border-radius: 13px; height: 52px; font-family: var(--font); font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform .1s, opacity .15s; }
+    .btn:active { transform: scale(.97); }
+    .btn:disabled { opacity: .4; cursor: not-allowed; }
+    .btn:disabled:active { transform: none; }
+    .btn-primary { background: var(--primary); color: #fff; margin-bottom: 8px; }
+    .btn-ghost { background: none; color: var(--text-sec); font-size: 13px; height: 44px; }
+    .btn-danger { background: none; color: var(--error); font-size: 13px; height: 44px; }
+    .btn-ghost svg, .btn-danger svg { width: 15px; height: 15px; }
+
+    /* ── Info Row ── */
+    .info-row { display: flex; background: var(--bg-secondary); border-radius: 11px; padding: 13px; margin-bottom: 18px; }
+    .info-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+    .info-lbl { font-size: 9px; color: var(--text-sec); text-transform: uppercase; letter-spacing: .5px; }
+    .info-val { font-size: 14px; font-weight: 700; }
+
+    /* ── Video preview in detail ── */
+    .v-wrap { aspect-ratio: 16/9; background: var(--bg-secondary); border-radius: 13px; overflow: hidden; position: relative; margin-bottom: 18px; }
+    .v-wrap video { width: 100%; height: 100%; object-fit: contain; }
+    .v-wrap-audio { aspect-ratio: 16/9; background: var(--bg-secondary); border-radius: 13px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+    .play-ov { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 52px; height: 52px; border-radius: 50%; background: rgba(0,0,0,.65); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #fff; }
+    .play-ov svg { width: 22px; height: 22px; }
+    .play-ov:active { opacity: .7; }
+
+    /* ── Select Sample Grid ── */
+    .ss-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 9px; }
+    .ss-card { background: var(--bg-secondary); border-radius: 11px; padding: 12px; cursor: pointer; display: flex; align-items: center; gap: 9px; border: 2px solid transparent; transition: border-color .2s, opacity .15s; }
+    .ss-card:active { opacity: .7; }
+    .ss-card.selected { border-color: var(--primary); }
+    .ss-thumb { width: 42px; height: 42px; border-radius: 8px; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+    .ss-thumb video { width: 100%; height: 100%; object-fit: cover; }
+    .ss-thumb svg { width: 20px; height: 20px; }
+    .ss-info { flex: 1; min-width: 0; }
+    .ss-name { font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ss-dur { font-size: 10px; color: var(--text-sec); }
+
+    /* ── Error ── */
+    .err-box { background: rgba(255,51,102,.1); border-radius: 10px; padding: 11px 13px; display: flex; align-items: center; gap: 8px; color: var(--error); font-size: 12px; margin-bottom: 14px; }
+    .err-box svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+    /* ── Confirm ── */
+    #confirm-wrap { position: fixed; inset: 0; background: rgba(0,0,0,.75); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
+    #confirm-wrap.active { display: flex; }
+    #confirm-box { background: var(--bg-default); border-radius: 18px; padding: 22px; width: 100%; max-width: 320px; animation: fadeIn .2s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: scale(.95); } to { opacity: 1; transform: scale(1); } }
+    #confirm-title { font-size: 16px; font-weight: 700; margin-bottom: 7px; }
+    #confirm-msg { font-size: 13px; color: var(--text-sec); margin-bottom: 22px; line-height: 1.5; }
+    .c-btns { display: flex; gap: 9px; }
+    .c-cancel { flex: 1; background: var(--bg-secondary); color: var(--text); border: none; border-radius: 11px; height: 44px; font-family: var(--font); font-size: 14px; font-weight: 600; cursor: pointer; }
+    .c-ok { flex: 1; background: var(--error); color: #fff; border: none; border-radius: 11px; height: 44px; font-family: var(--font); font-size: 14px; font-weight: 700; cursor: pointer; }
+
+    /* ── Toast ── */
+    #toast { position: fixed; bottom: calc(env(safe-area-inset-bottom,0px) + 82px); left: 50%; transform: translateX(-50%) translateY(12px); background: rgba(48,48,64,.95); color: var(--text); padding: 10px 20px; border-radius: 999px; font-size: 12px; font-weight: 600; opacity: 0; transition: opacity .25s, transform .25s; z-index: 300; white-space: nowrap; pointer-events: none; }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── Spinner ── */
+    .spin { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: rot .7s linear infinite; }
+    @keyframes rot { to { transform: rotate(360deg); } }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-thumb { background: var(--bg-tertiary); border-radius: 2px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+  </style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ── Header ── -->
+  <div id="hdr">
+    <div id="hdr-title">TVDJ</div>
+    <button id="hdr-action"></button>
+  </div>
+
+  <!-- ── Screens ── -->
+  <div id="content">
+
+    <!-- PERFORM -->
+    <div class="screen active" id="screen-perform">
+      <div id="pad-grid"></div>
+      <div id="transport">
+        <div class="t-row">
+          <button class="t-btn" id="btn-stop" title="Stop all">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+          </button>
+          <button class="t-btn play" id="btn-play" title="Play / Pause all">
+            <svg id="play-ico" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </button>
+        </div>
+        <div class="vol-row">
+          <span class="vol-lbl">VOL</span>
+          <input type="range" class="vol-slider" id="vol-slider" min="0" max="100" value="80">
+          <span class="vol-pct" id="vol-pct">80%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIBRARY -->
+    <div class="screen" id="screen-library">
+      <div id="search-bar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search-input" placeholder="Search samples...">
+        <svg id="search-clear" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer;display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </div>
+      <div id="sample-list"></div>
+      <div id="lib-upload-row">
+        <button class="btn-up" onclick="openUpload()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+          Upload Sample
+        </button>
+      </div>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="screen" id="screen-profile">
+      <div class="avatar-sec">
+        <div class="avatar-ring">
+          <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        </div>
+        <div class="av-name">DJ Mode</div>
+        <div class="av-sub" id="av-count">0 samples loaded</div>
+      </div>
+
+      <div class="p-sec">
+        <div class="p-sec-title">Performance</div>
+        <div class="p-card">
+          <div class="p-row">
+            <div class="p-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <span class="p-label">Visual Effects</span>
+            <label class="toggle"><input type="checkbox" id="tog-visual" checked onchange="setVisual(this.checked)"><span class="toggle-track"></span></label>
+          </div>
+          <div class="p-row">
+            <div class="p-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+            <span class="p-label">Loop Playback</span>
+            <label class="toggle"><input type="checkbox" id="tog-loop" checked onchange="setLoop(this.checked)"><span class="toggle-track"></span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-sec">
+        <div class="p-sec-title">Storage</div>
+        <div class="p-card">
+          <div class="p-row">
+            <div class="p-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/></svg></div>
+            <span class="p-label">Samples Stored</span>
+            <span class="p-value" id="p-count">0</span>
+          </div>
+          <div class="p-row" onclick="clearAll()">
+            <div class="p-icon danger"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></div>
+            <span class="p-label danger">Clear All Samples</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--text-sec)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-sec">
+        <div class="p-sec-title">About</div>
+        <div class="p-card">
+          <div class="p-row">
+            <div class="p-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+            <span class="p-label">Version</span>
+            <span class="p-value">1.0.0</span>
+          </div>
+          <div class="p-row">
+            <div class="p-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <span class="p-label">All data stored locally on your device</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-footer">
+        <div class="p-footer-brand">TVDJ</div>
+        <div class="p-footer-sub">Video / Audio DJ App</div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- ── Tab Bar ── -->
+  <div id="tab-bar">
+    <button class="tab" id="tab-library" onclick="gotoTab('library')">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      <span>Library</span>
+    </button>
+    <button class="tab active" id="tab-perform" onclick="gotoTab('perform')">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span>Perform</span>
+    </button>
+    <button class="tab" id="tab-profile" onclick="gotoTab('profile')">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profile</span>
+    </button>
+  </div>
+
+</div><!-- /app -->
+
+<!-- ══════ UPLOAD MODAL ══════ -->
+<div class="overlay" id="ov-upload" onclick="if(event.target===this)closeUpload()">
+  <div class="modal">
+    <div class="m-hdr">
+      <span class="m-title">Upload Sample</span>
+      <button class="m-close" onclick="closeUpload()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="m-body">
+      <div class="upload-zone" id="uz" onclick="document.getElementById('file-in').click()">
+        <div class="uz-placeholder" id="uz-ph">
+          <div class="uz-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg></div>
+          <div class="uz-txt">Tap to select video or audio</div>
+          <div class="uz-hint">Supports MP4, MOV, MKV, MP3, WAV, AAC, OGG and more</div>
+        </div>
+        <div class="uz-preview" id="uz-prev">
+          <video id="uz-vid" class="uz-video" style="display:none" muted playsinline preload="metadata"></video>
+          <div id="uz-aud" class="uz-audio" style="display:none">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          </div>
+          <div class="uz-info"><span class="uz-fname" id="uz-fn"></span><span class="uz-dur" id="uz-d"></span></div>
+        </div>
+      </div>
+      <div id="up-form" style="display:none">
+        <div class="f-sec">
+          <label class="f-lbl">Sample Name</label>
+          <input type="text" class="f-input" id="up-name" placeholder="Enter sample name">
+        </div>
+      </div>
+      <div id="up-err" class="err-box" style="display:none">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="up-err-txt"></span>
+      </div>
+      <button class="btn btn-primary" id="up-save" onclick="saveSample()" disabled>Save Sample</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ SELECT SAMPLE MODAL ══════ -->
+<div class="overlay" id="ov-select" onclick="if(event.target===this)closeSelect()">
+  <div class="modal">
+    <div class="m-hdr">
+      <span class="m-title">Select Sample</span>
+      <button class="m-close" onclick="closeSelect()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="m-body" id="select-body"></div>
+  </div>
+</div>
+
+<!-- ══════ DETAIL MODAL ══════ -->
+<div class="overlay" id="ov-detail" onclick="if(event.target===this)closeDetail()">
+  <div class="modal">
+    <div class="m-hdr">
+      <span class="m-title">Edit Sample</span>
+      <button class="m-close" onclick="closeDetail()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="m-body" id="detail-body"></div>
+  </div>
+</div>
+
+<!-- ══════ CONFIRM ══════ -->
+<div id="confirm-wrap">
+  <div id="confirm-box">
+    <div id="confirm-title"></div>
+    <div id="confirm-msg"></div>
+    <div class="c-btns">
+      <button class="c-cancel" onclick="cxlConfirm()">Cancel</button>
+      <button class="c-ok" id="c-ok" onclick="okConfirm()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ TOAST ══════ -->
+<div id="toast"></div>
+
+<!-- Hidden file input -->
+<input type="file" id="file-in" accept="video/*,audio/*" style="display:none" onchange="fileSelected(event)">
+
+<script>
+// ════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════
+const PAD_COLORS = ['#FF0066','#00FFCC','#FF6600','#00FF88','#FF00CC','#FFCC00','#0066FF','#FF3366','#00CCFF','#99FF00','#CC00FF','#FF9900'];
+const TOTAL = 12;
+const VIDEO_EXTS = new Set(['mp4','mov','avi','mkv','webm','m4v','3gp']);
+
+let samples = [];         // {id,name,uri,duration,format,createdAt,volume,startTime,endTime}
+let pads = [];            // {padIndex, sampleId}
+let playing = new Set();  // padIndex
+let masterVol = 0.8;
+let loopOn = true;
+let visualOn = true;
+let currentTab = 'perform';
+let selPad = null;
+let detailId = null;
+let detailPadIdx = null;
+let confirmCb = null;
+let uploadFile = null;
+let uploadDur = 0;
+let padMedia = {};        // padIndex -> HTMLMediaElement
+let detailPlaying = false;
+let toastTimer;
+
+// ════════════════════════════════════════
+// INDEXED DB
+// ════════════════════════════════════════
+let db;
+function dbInit() {
+  return new Promise((res, rej) => {
+    const r = indexedDB.open('TVDJ_v1', 1);
+    r.onupgradeneeded = e => { if (!e.target.result.objectStoreNames.contains('blobs')) e.target.result.createObjectStore('blobs',{keyPath:'id'}); };
+    r.onsuccess = e => { db = e.target.result; res(); };
+    r.onerror = rej;
+  });
+}
+function dbPut(id, blob) {
+  return new Promise((res,rej) => { const t=db.transaction('blobs','readwrite'); t.objectStore('blobs').put({id,blob}); t.oncomplete=res; t.onerror=rej; });
+}
+function dbGet(id) {
+  return new Promise((res,rej) => { const r=db.transaction('blobs','readonly').objectStore('blobs').get(id); r.onsuccess=e=>res(e.target.result?.blob||null); r.onerror=rej; });
+}
+function dbDel(id) {
+  return new Promise((res,rej) => { const t=db.transaction('blobs','readwrite'); t.objectStore('blobs').delete(id); t.oncomplete=res; t.onerror=rej; });
+}
+
+// ════════════════════════════════════════
+// PERSISTENCE
+// ════════════════════════════════════════
+function save() {
+  const meta = { samples: samples.map(s=>({...s,uri:null})), pads, masterVol, loopOn, visualOn };
+  localStorage.setItem('tvdj', JSON.stringify(meta));
+}
+async function load() {
+  const raw = localStorage.getItem('tvdj');
+  if (!raw) return;
+  try {
+    const d = JSON.parse(raw);
+    samples = d.samples || [];
+    pads = d.pads || [];
+    masterVol = d.masterVol ?? 0.8;
+    loopOn = d.loopOn ?? true;
+    visualOn = d.visualOn ?? true;
+    for (const s of samples) {
+      const blob = await dbGet(s.id);
+      if (blob) s.uri = URL.createObjectURL(blob);
+    }
+    samples = samples.filter(s => s.uri);
+    const valid = new Set(samples.map(s=>s.id));
+    pads = pads.filter(p => valid.has(p.sampleId));
+  } catch(e) { console.warn('load error', e); }
+}
+
+// ════════════════════════════════════════
+// BOOT
+// ════════════════════════════════════════
+async function boot() {
+  await dbInit();
+  await load();
+  document.getElementById('vol-slider').value = Math.round(masterVol*100);
+  document.getElementById('vol-pct').textContent = Math.round(masterVol*100)+'%';
+  document.getElementById('tog-loop').checked = loopOn;
+  document.getElementById('tog-visual').checked = visualOn;
+  renderPads();
+  renderLib();
+  syncProfile();
+}
+boot();
+
+// ════════════════════════════════════════
+// TABS
+// ════════════════════════════════════════
+function gotoTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('screen-'+tab).classList.add('active');
+  document.getElementById('tab-'+tab).classList.add('active');
+  const titles = {perform:'TVDJ',library:'Library',profile:'Profile'};
+  document.getElementById('hdr-title').textContent = titles[tab];
+  if (tab==='library') renderLib();
+  if (tab==='profile') syncProfile();
+}
+
+// ════════════════════════════════════════
+// PAD GRID
+// ════════════════════════════════════════
+function isVideo(fmt) { return VIDEO_EXTS.has((fmt||'').toLowerCase()); }
+
+function renderPads() {
+  const grid = document.getElementById('pad-grid');
+  grid.innerHTML = '';
+  for (let i=0; i<TOTAL; i++) {
+    const asgn = pads.find(p=>p.padIndex===i);
+    const s = asgn ? samples.find(x=>x.id===asgn.sampleId) : null;
+    const color = PAD_COLORS[i%PAD_COLORS.length];
+    const isP = playing.has(i);
+    const el = document.createElement('div');
+    el.className = 'pad'+(s?' filled':'')+(isP&&visualOn?' playing':'');
+    el.id = 'pad'+i;
+    if (s) {
+      el.style.borderColor = color;
+      if (isP) el.style.boxShadow = `0 0 18px ${color}77`;
+    }
+    if (s) {
+      const vid = isVideo(s.format);
+      el.innerHTML =
+        (vid ? `<video class="pad-video" src="${s.uri}" muted playsinline preload="metadata"></video>`
+             : `<div class="pad-audio-bg"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>`)
+        + `<div class="pad-overlay"><div class="pad-name">${esc(s.name)}</div></div>`
+        + (isP ? `<div class="pad-dot" style="background:${color}"><svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24" fill="#000"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>` : '');
+    } else {
+      el.innerHTML =
+        `<div class="pad-empty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>`
+        + `<span class="pad-empty-txt">Tap to add</span>`;
+    }
+    el.addEventListener('click', ()=>padTap(i));
+    // Long press
+    let lpt;
+    el.addEventListener('touchstart', ()=>{ lpt=setTimeout(()=>padLong(i),550); },{passive:true});
+    el.addEventListener('touchend', ()=>clearTimeout(lpt));
+    el.addEventListener('touchmove', ()=>clearTimeout(lpt));
+    el.addEventListener('contextmenu', e=>{ e.preventDefault(); padLong(i); });
+    grid.appendChild(el);
+  }
+}
+
+function padTap(i) {
+  const asgn = pads.find(p=>p.padIndex===i);
+  const s = asgn ? samples.find(x=>x.id===asgn.sampleId) : null;
+  if (!s) { openSelect(i); return; }
+  if (playing.has(i)) stopPad(i); else startPad(i,s);
+  updatePlayIco();
+}
+function padLong(i) {
+  const asgn = pads.find(p=>p.padIndex===i);
+  const s = asgn ? samples.find(x=>x.id===asgn.sampleId) : null;
+  if (s) openDetail(s.id, i); else openSelect(i);
+}
+
+function startPad(i, s) {
+  if (!padMedia[i]) {
+    const tag = isVideo(s.format) ? 'video' : 'audio';
+    const el = document.createElement(tag);
+    el.style.display = 'none';
+    el.loop = loopOn;
+    el.volume = clamp(s.volume * masterVol);
+    document.body.appendChild(el);
+    padMedia[i] = el;
+  }
+  const el = padMedia[i];
+  el.src = s.uri;
+  el.currentTime = s.startTime || 0;
+  el.volume = clamp(s.volume * masterVol);
+  el.loop = loopOn;
+  el.play().catch(()=>{});
+  playing.add(i);
+  refreshPadUI(i, s, true);
+}
+
+function stopPad(i) {
+  const el = padMedia[i];
+  if (el) { el.pause(); el.currentTime = 0; }
+  playing.delete(i);
+  const asgn = pads.find(p=>p.padIndex===i);
+  const s = asgn ? samples.find(x=>x.id===asgn.sampleId) : null;
+  refreshPadUI(i, s, false);
+}
+
+function refreshPadUI(i, s, isP) {
+  const el = document.getElementById('pad'+i);
+  if (!el) return;
+  const color = PAD_COLORS[i%PAD_COLORS.length];
+  if (isP && visualOn) { el.classList.add('playing'); el.style.boxShadow=`0 0 20px ${color}88`; }
+  else { el.classList.remove('playing'); el.style.boxShadow=''; }
+  const dot = el.querySelector('.pad-dot');
+  if (isP && !dot) {
+    const d = document.createElement('div'); d.className='pad-dot'; d.style.background=color;
+    d.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24" fill="#000"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+    el.appendChild(d);
+  } else if (!isP && dot) dot.remove();
+}
+
+function updatePlayIco() {
+  document.getElementById('play-ico').outerHTML = playing.size > 0
+    ? `<svg id="play-ico" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>`
+    : `<svg id="play-ico" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+}
+
+// Transport
+document.getElementById('btn-play').addEventListener('click', () => {
+  if (playing.size > 0) { [...playing].forEach(i=>stopPad(i)); }
+  else { toast('Tap pads to trigger samples'); }
+  updatePlayIco();
+});
+document.getElementById('btn-stop').addEventListener('click', () => {
+  [...playing].forEach(i=>stopPad(i)); updatePlayIco();
+});
+document.getElementById('vol-slider').addEventListener('input', e => {
+  masterVol = e.target.value/100;
+  document.getElementById('vol-pct').textContent = e.target.value+'%';
+  Object.entries(padMedia).forEach(([i,el]) => {
+    const asgn = pads.find(p=>p.padIndex===+i);
+    const s = asgn ? samples.find(x=>x.id===asgn.sampleId) : null;
+    if (s) el.volume = clamp(s.volume * masterVol);
+  });
+  save();
+});
+
+// ════════════════════════════════════════
+// LIBRARY
+// ════════════════════════════════════════
+function renderLib() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  const list = document.getElementById('sample-list');
+  const filtered = samples.filter(s=>s.name.toLowerCase().includes(q));
+  if (!filtered.length) {
+    list.innerHTML =
+      `<div class="empty">
+        <div class="empty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+        <div class="empty-title">No samples yet</div>
+        <div class="empty-msg">Upload your first video or audio sample to start creating</div>
+       </div>`;
+    return;
+  }
+  list.innerHTML = filtered.map(s => {
+    const vid = isVideo(s.format);
+    return `<div class="s-card" onclick="openDetail('${s.id}')">
+      <div class="s-thumb">${vid
+        ? `<video src="${s.uri}" muted preload="metadata" playsinline style="width:100%;height:100%;object-fit:cover"></video>`
+        : `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`}</div>
+      <div class="s-info">
+        <div class="s-title">${esc(s.name)}</div>
+        <div class="s-meta">${s.format.toUpperCase()} &middot; ${fmt(s.duration)}</div>
+      </div>
+      <button class="s-del" onclick="event.stopPropagation();delSample('${s.id}')" title="Delete">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+      </button>
+    </div>`;
+  }).join('');
+}
+
+document.getElementById('search-input').addEventListener('input', e => {
+  document.getElementById('search-clear').style.display = e.target.value ? '' : 'none';
+  renderLib();
+});
+document.getElementById('search-clear').addEventListener('click', () => {
+  document.getElementById('search-input').value = '';
+  document.getElementById('search-clear').style.display = 'none';
+  renderLib();
+});
+
+function delSample(id) {
+  const s = samples.find(x=>x.id===id);
+  if (!s) return;
+  confirm_(`Delete "${s.name}"?`, 'This cannot be undone.', 'Delete', async () => {
+    await removeSampleById(id);
+    renderLib(); renderPads(); syncProfile();
+    toast('Sample deleted');
+  });
+}
+
+async function removeSampleById(id) {
+  const s = samples.find(x=>x.id===id);
+  if (!s) return;
+  pads.filter(p=>p.sampleId===id).forEach(p => {
+    if (playing.has(p.padIndex)) stopPad(p.padIndex);
+    if (padMedia[p.padIndex]) { padMedia[p.padIndex].remove(); delete padMedia[p.padIndex]; }
+  });
+  URL.revokeObjectURL(s.uri);
+  await dbDel(id);
+  samples = samples.filter(x=>x.id!==id);
+  pads = pads.filter(p=>p.sampleId!==id);
+  save();
+}
+
+// ════════════════════════════════════════
+// PROFILE
+// ════════════════════════════════════════
+function syncProfile() {
+  const n = samples.length;
+  document.getElementById('av-count').textContent = n+' sample'+(n!==1?'s':'')+' loaded';
+  document.getElementById('p-count').textContent = n;
+}
+function setVisual(v) { visualOn=v; save(); renderPads(); }
+function setLoop(v) { loopOn=v; Object.values(padMedia).forEach(el=>el.loop=v); save(); }
+function clearAll() {
+  if (!samples.length) { toast('No samples to clear'); return; }
+  confirm_('Clear All Samples','This will delete all samples and pad assignments. This cannot be undone.','Clear All', async () => {
+    [...playing].forEach(i=>stopPad(i));
+    Object.values(padMedia).forEach(el=>el.remove()); padMedia={};
+    for (const s of samples) { URL.revokeObjectURL(s.uri); await dbDel(s.id); }
+    samples=[]; pads=[]; save();
+    renderPads(); renderLib(); syncProfile();
+    toast('Cleared');
+  });
+}
+
+// ════════════════════════════════════════
+// UPLOAD MODAL
+// ════════════════════════════════════════
+function openUpload() {
+  uploadFile=null; uploadDur=0;
+  document.getElementById('uz').classList.remove('filled');
+  document.getElementById('uz-ph').style.display='';
+  document.getElementById('uz-prev').style.display='none';
+  document.getElementById('uz-vid').style.display='none';
+  document.getElementById('uz-aud').style.display='none';
+  document.getElementById('up-form').style.display='none';
+  document.getElementById('up-err').style.display='none';
+  document.getElementById('up-name').value='';
+  document.getElementById('up-save').disabled=true;
+  document.getElementById('up-save').innerHTML='Save Sample';
+  document.getElementById('file-in').value='';
+  document.getElementById('ov-upload').classList.add('active');
+}
+function closeUpload() { document.getElementById('ov-upload').classList.remove('active'); }
+
+function fileSelected(e) {
+  const f = e.target.files[0]; if (!f) return;
+  uploadFile = f;
+  const vid = f.type.startsWith('video/');
+  const ext = f.name.split('.').pop()||'mp4';
+  const base = f.name.replace(/\.[^/.]+$/,'');
+  document.getElementById('up-name').value = base;
+  document.getElementById('uz').classList.add('filled');
+  document.getElementById('uz-ph').style.display='none';
+  document.getElementById('uz-prev').style.display='';
+  document.getElementById('up-err').style.display='none';
+  const url = URL.createObjectURL(f);
+  if (vid) {
+    const v = document.getElementById('uz-vid');
+    v.src=url; v.style.display='';
+    document.getElementById('uz-aud').style.display='none';
+    v.onloadedmetadata = ()=>{ uploadDur=v.duration; document.getElementById('uz-d').textContent=fmt(v.duration); };
+  } else {
+    document.getElementById('uz-vid').style.display='none';
+    document.getElementById('uz-aud').style.display='';
+    const a=new Audio(url);
+    a.onloadedmetadata=()=>{ uploadDur=a.duration; document.getElementById('uz-d').textContent=fmt(a.duration); };
+  }
+  document.getElementById('uz-fn').textContent=f.name;
+  document.getElementById('up-form').style.display='';
+  document.getElementById('up-save').disabled=false;
+}
+
+async function saveSample() {
+  if (!uploadFile) return;
+  const name = document.getElementById('up-name').value.trim();
+  if (!name) { showErr('Please enter a sample name.'); return; }
+  const btn = document.getElementById('up-save');
+  btn.innerHTML='<div class="spin"></div>'; btn.disabled=true;
+  try {
+    const id='s_'+Date.now();
+    const ext=uploadFile.name.split('.').pop()||'mp4';
+    const dur=uploadDur||10;
+    await dbPut(id, uploadFile);
+    const uri=URL.createObjectURL(uploadFile);
+    samples.push({id,name,uri,duration:dur,format:ext,createdAt:Date.now(),volume:1,startTime:0,endTime:dur});
+    save(); closeUpload(); renderLib(); syncProfile(); toast('Sample saved!');
+  } catch(ex) {
+    showErr('Failed to save. Please try again.');
+    btn.innerHTML='Save Sample'; btn.disabled=false;
+  }
+}
+function showErr(m) {
+  document.getElementById('up-err-txt').textContent=m;
+  document.getElementById('up-err').style.display='flex';
+}
+
+// ════════════════════════════════════════
+// SELECT SAMPLE MODAL
+// ════════════════════════════════════════
+function openSelect(padIdx) {
+  selPad=padIdx;
+  const body = document.getElementById('select-body');
+  if (!samples.length) {
+    body.innerHTML=`<div class="empty" style="min-height:200px">
+      <div class="empty-title" style="font-size:16px">No samples in library</div>
+      <div class="empty-msg">Upload a sample first, then assign it to this pad.</div>
+      <button class="btn-up" onclick="closeSelect();openUpload()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+        Upload Sample
+      </button></div>`;
+  } else {
+    const cur = pads.find(p=>p.padIndex===padIdx)?.sampleId;
+    body.innerHTML=`<div class="ss-grid">${samples.map(s=>{
+      const vid=isVideo(s.format);
+      return `<div class="ss-card${s.id===cur?' selected':''}" ${s.id===cur?`style="border-color:var(--primary)"`:''}  onclick="assignPad('${s.id}')">
+        <div class="ss-thumb">${vid
+          ? `<video src="${s.uri}" muted preload="metadata" playsinline style="width:100%;height:100%;object-fit:cover"></video>`
+          : `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`}</div>
+        <div class="ss-info"><div class="ss-name">${esc(s.name)}</div><div class="ss-dur">${fmt(s.duration)}</div></div>
+      </div>`;
+    }).join('')}</div>`;
+  }
+  document.getElementById('ov-select').classList.add('active');
+}
+function closeSelect() { document.getElementById('ov-select').classList.remove('active'); selPad=null; }
+function assignPad(sampleId) {
+  if (selPad===null) return;
+  if (playing.has(selPad)) stopPad(selPad);
+  if (padMedia[selPad]) { padMedia[selPad].pause(); delete padMedia[selPad]; }
+  pads = pads.filter(p=>p.padIndex!==selPad);
+  pads.push({padIndex:selPad,sampleId});
+  save(); closeSelect(); renderPads(); toast('Assigned to pad '+(selPad+1));
+}
+
+// ════════════════════════════════════════
+// DETAIL MODAL
+// ════════════════════════════════════════
+function openDetail(sampleId, padIdx) {
+  detailId=sampleId; detailPadIdx=padIdx;
+  if (detailPadIdx===undefined) detailPadIdx=pads.find(p=>p.sampleId===sampleId)?.padIndex;
+  const s=samples.find(x=>x.id===sampleId); if (!s) return;
+  const color = detailPadIdx!==undefined ? PAD_COLORS[detailPadIdx%PAD_COLORS.length] : '#FF0066';
+  const vid = isVideo(s.format);
+  const volPct = Math.round(s.volume*100);
+  const startPct = s.duration ? (s.startTime/s.duration*100) : 0;
+  const endPct = s.duration ? (s.endTime/s.duration*100) : 100;
+  detailPlaying=false;
+
+  document.getElementById('detail-body').innerHTML =
+    (vid
+      ? `<div class="v-wrap"><video id="dv" src="${s.uri}" style="width:100%;height:100%;object-fit:contain" playsinline preload="auto"></video>
+          <button class="play-ov" id="d-play" onclick="toggleDetailPlay()"><svg id="d-play-ico" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg></button></div>`
+      : `<div class="v-wrap-audio"><svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><audio id="dv" src="${s.uri}" style="display:none"></audio>
+          <button class="play-ov" id="d-play" onclick="toggleDetailPlay()" style="position:static;transform:none;margin-left:14px"><svg id="d-play-ico" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg></button></div>`)
+    + `<div class="f-sec"><label class="f-lbl">Sample Name</label>
+        <input type="text" class="f-input" id="d-name" value="${esc(s.name)}" placeholder="Sample name"></div>
+       <div class="f-sec">
+        <div class="s-row"><label class="f-lbl" style="margin:0">Volume</label><span class="s-val" id="d-vl">${volPct}%</span></div>
+        <input type="range" class="f-slider" id="d-vol" min="0" max="100" value="${volPct}" style="background:linear-gradient(to right,${color} 0%,${color} ${volPct}%,var(--bg-tertiary) ${volPct}%,var(--bg-tertiary) 100%);accent-color:${color}" oninput="dSlide('vol',this,${s.duration},'${color}')">
+       </div>
+       <div class="f-sec">
+        <div class="s-row"><label class="f-lbl" style="margin:0">Start Time</label><span class="s-val" id="d-sl">${fmt(s.startTime)}</span></div>
+        <input type="range" class="f-slider" id="d-start" min="0" max="${s.duration}" step="0.1" value="${s.startTime}" style="background:linear-gradient(to right,var(--accent) 0%,var(--accent) ${startPct}%,var(--bg-tertiary) ${startPct}%,var(--bg-tertiary) 100%);accent-color:var(--accent)" oninput="dSlide('start',this,${s.duration},'var(--accent)')">
+       </div>
+       <div class="f-sec">
+        <div class="s-row"><label class="f-lbl" style="margin:0">End Time</label><span class="s-val" id="d-el">${fmt(s.endTime)}</span></div>
+        <input type="range" class="f-slider" id="d-end" min="0" max="${s.duration}" step="0.1" value="${s.endTime}" style="background:linear-gradient(to right,var(--accent) 0%,var(--accent) ${endPct}%,var(--bg-tertiary) ${endPct}%,var(--bg-tertiary) 100%);accent-color:var(--accent)" oninput="dSlide('end',this,${s.duration},'var(--accent)')">
+       </div>
+       <div class="info-row">
+         <div class="info-item"><span class="info-lbl">Duration</span><span class="info-val">${fmt(s.duration)}</span></div>
+         <div class="info-item"><span class="info-lbl">Format</span><span class="info-val" style="color:${color}">${s.format.toUpperCase()}</span></div>
+         <div class="info-item"><span class="info-lbl">Clip</span><span class="info-val" id="d-clip">${fmt(s.endTime-s.startTime)}</span></div>
+       </div>
+       <button class="btn btn-primary" onclick="saveDetail('${sampleId}')">Save Changes</button>
+       ${detailPadIdx!==undefined
+         ? `<button class="btn btn-ghost" onclick="unassign(${detailPadIdx})">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              Unassign from Pad</button>` : ''}
+       <button class="btn btn-danger" onclick="delFromDetail('${sampleId}')">
+         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+         Delete Sample</button>`;
+
+  document.getElementById('ov-detail').classList.add('active');
+}
+
+function toggleDetailPlay() {
+  const el=document.getElementById('dv'); if (!el) return;
+  if (detailPlaying) {
+    el.pause();
+    document.getElementById('d-play-ico').outerHTML=`<svg id="d-play-ico" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+  } else {
+    el.currentTime = parseFloat(document.getElementById('d-start')?.value||0);
+    el.play().catch(()=>{});
+    document.getElementById('d-play-ico').outerHTML=`<svg id="d-play-ico" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white" stroke="none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>`;
+  }
+  detailPlaying=!detailPlaying;
+}
+
+function dSlide(type, el, dur, color) {
+  const v=parseFloat(el.value);
+  const pct = dur ? (v/dur*100) : v;
+  el.style.background=`linear-gradient(to right,${color} 0%,${color} ${pct}%,var(--bg-tertiary) ${pct}%,var(--bg-tertiary) 100%)`;
+  if (type==='vol') { document.getElementById('d-vl').textContent=Math.round(v)+'%'; return; }
+  const startEl=document.getElementById('d-start');
+  const endEl=document.getElementById('d-end');
+  if (type==='start') {
+    const end=parseFloat(endEl.value);
+    if (v>=end-0.5) { el.value=end-0.5; }
+    document.getElementById('d-sl').textContent=fmt(parseFloat(el.value));
+  } else {
+    const start=parseFloat(startEl.value);
+    if (v<=start+0.5) { el.value=start+0.5; }
+    document.getElementById('d-el').textContent=fmt(parseFloat(el.value));
+  }
+  document.getElementById('d-clip').textContent=fmt(parseFloat(endEl.value)-parseFloat(startEl.value));
+}
+
+function closeDetail() {
+  const dv=document.getElementById('dv'); if(dv){dv.pause();dv.src='';}
+  detailPlaying=false;
+  document.getElementById('ov-detail').classList.remove('active');
+}
+
+function saveDetail(id) {
+  const s=samples.find(x=>x.id===id); if (!s) return;
+  s.name=document.getElementById('d-name').value.trim()||s.name;
+  s.volume=parseFloat(document.getElementById('d-vol').value)/100;
+  s.startTime=parseFloat(document.getElementById('d-start').value);
+  s.endTime=parseFloat(document.getElementById('d-end').value);
+  save(); closeDetail(); renderPads(); renderLib(); toast('Saved');
+}
+
+function unassign(padIdx) {
+  confirm_('Unassign Pad','Remove this sample from the pad?','Unassign',()=>{
+    if (playing.has(padIdx)) stopPad(padIdx);
+    pads=pads.filter(p=>p.padIndex!==padIdx);
+    save(); closeDetail(); renderPads(); toast('Pad cleared');
+  });
+}
+
+function delFromDetail(id) {
+  const s=samples.find(x=>x.id===id); if(!s) return;
+  confirm_(`Delete "${s.name}"?`,'This cannot be undone.','Delete',async()=>{
+    closeDetail();
+    await new Promise(r=>setTimeout(r,320));
+    await removeSampleById(id);
+    renderLib(); renderPads(); syncProfile(); toast('Deleted');
+  });
+}
+
+// ════════════════════════════════════════
+// CONFIRM
+// ════════════════════════════════════════
+function confirm_(title,msg,okLbl,cb) {
+  document.getElementById('confirm-title').textContent=title;
+  document.getElementById('confirm-msg').textContent=msg;
+  document.getElementById('c-ok').textContent=okLbl;
+  confirmCb=cb;
+  document.getElementById('confirm-wrap').classList.add('active');
+}
+function okConfirm() { document.getElementById('confirm-wrap').classList.remove('active'); if(confirmCb){confirmCb();confirmCb=null;} }
+function cxlConfirm() { document.getElementById('confirm-wrap').classList.remove('active'); confirmCb=null; }
+
+// ════════════════════════════════════════
+// TOAST
+// ════════════════════════════════════════
+function toast(msg) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+// ════════════════════════════════════════
+// UTILS
+// ════════════════════════════════════════
+function fmt(sec) {
+  if (!sec||isNaN(sec)) return '0:00';
+  return Math.floor(sec/60)+':'+(Math.floor(sec%60)).toString().padStart(2,'0');
+}
+function esc(s) {
+  const d=document.createElement('div'); d.textContent=s; return d.innerHTML;
+}
+function clamp(v) { return Math.max(0,Math.min(1,v)); }
+</script>
+</body>
+</html>
