@@ -29,9 +29,9 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
 .tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0;border:none;background:none;cursor:pointer;color:var(--muted);transition:color .2s}
 .tab-btn.active{color:var(--gold)}
 .tab-btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.tab-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase}
+.tab-label{font-family:'Cinzel',serif;font-size:8px;letter-spacing:1.5px;text-transform:uppercase}
 
-/* ── DETAIL PANEL (Card / Spread) ── */
+/* ── DETAIL PANEL (Card / Spread / Geo) ── */
 #detail-panel{position:absolute;inset:0;z-index:50;background:var(--midnight);overflow-y:auto;transform:translateX(100%);transition:transform .3s cubic-bezier(.25,.46,.45,.94)}
 #detail-panel.open{transform:translateX(0)}
 
@@ -52,7 +52,6 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
 .search-wrap input::placeholder{color:var(--muted)}
 .search-ico{color:var(--muted);flex-shrink:0}
 .clear-btn{color:var(--muted);background:none;border:none;cursor:pointer;padding:0;line-height:1}
-
 .filter-row{display:flex;gap:8px;padding:0 16px 10px;overflow-x:auto;scrollbar-width:none}
 .filter-row::-webkit-scrollbar{display:none}
 .chip{font-family:'Inter',sans-serif;font-size:12px;padding:5px 14px;border-radius:20px;border:1px solid rgba(61,42,125,.35);background:transparent;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .2s;letter-spacing:.5px}
@@ -63,13 +62,11 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
 .card-item{cursor:pointer;transition:transform .15s,opacity .15s}
 .card-item:active{transform:scale(.96);opacity:.75}
 .card-img-wrap{position:relative;border-radius:10px;overflow:hidden;background:var(--card-bg)}
-.card-img-wrap img{width:100%;display:block;aspect-ratio:0.625;object-fit:contain;background:var(--card-bg)}
+.card-img-wrap img{width:100%;display:block;aspect-ratio:.625;object-fit:cover}
 .card-label-row{display:flex;align-items:center;gap:6px;margin-top:7px;padding:0 2px}
 .card-dot{width:5px;height:5px;border-radius:3px;flex-shrink:0}
 .card-label{font-family:'Inter',sans-serif;font-size:11px;color:var(--dim-cream);letter-spacing:.3px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .card-glow{box-shadow:0 4px 20px rgba(0,0,0,.6)}
-
-/* ── EMPTY STATE ── */
 .empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:16px;opacity:.5}
 .empty-state p{font-family:'Cinzel',serif;font-size:14px;color:var(--muted);letter-spacing:1px}
 
@@ -82,8 +79,8 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
 .card-flip-inner.flipped{transform:rotateY(180deg)}
 .card-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:10px;overflow:hidden}
 .card-back-face{background:var(--card-bg)}
-.card-front-face{transform:rotateY(180deg);background:var(--card-bg);display:flex;align-items:center;justify-content:center}
-.card-front-face img{width:100%;height:100%;object-fit:contain;display:block}
+.card-front-face{transform:rotateY(180deg)}
+.card-front-face img,.card-back-face img{width:100%;height:100%;object-fit:cover;display:block}
 .card-reversed .card-front-face img{transform:rotate(180deg)}
 @keyframes pulseScale{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
 .pulse-anim{animation:pulseScale 3.6s ease-in-out infinite}
@@ -124,7 +121,7 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
 #fav-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:4px 14px 120px;position:relative;z-index:2}
 .fav-card-wrap{position:relative;cursor:pointer}
 .fav-remove{position:absolute;top:4px;right:4px;z-index:5;background:rgba(10,8,20,.7);border:none;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#E63946;font-size:14px;line-height:1}
-.fav-card-wrap img{width:100%;aspect-ratio:0.625;object-fit:contain;background:var(--card-bg);border-radius:8px;display:block}
+.fav-card-wrap img{width:100%;aspect-ratio:.625;object-fit:cover;border-radius:8px;display:block}
 .fav-card-name{font-family:'Cinzel',serif;font-size:9px;color:var(--dim-cream);letter-spacing:.3px;text-align:center;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .no-favs{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:16px;text-align:center}
 .no-favs p{font-family:'Cinzel',serif;font-size:14px;color:var(--muted);letter-spacing:1px}
@@ -136,7 +133,7 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
 .back-btn{display:flex;align-items:center;gap:4px;background:none;border:none;cursor:pointer;color:var(--cream);font-size:16px;padding:8px 4px}
 .fav-icon-btn{background:none;border:none;cursor:pointer;padding:4px;line-height:0}
 .detail-card-wrap{display:flex;justify-content:center;margin:20px 0}
-.detail-card-img{border-radius:12px;box-shadow:0 0 40px rgba(212,175,55,.25);max-width:280px;width:78%;object-fit:contain;background:var(--card-bg)}
+.detail-card-img{border-radius:12px;box-shadow:0 0 40px rgba(212,175,55,.25);max-width:280px;width:78%;aspect-ratio:.625;object-fit:cover}
 .detail-title-block{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:16px}
 .detail-num{font-family:'Cinzel',serif;font-size:15px;letter-spacing:3px;opacity:.8}
 .detail-name{font-family:'Cinzel',serif;font-weight:700;font-size:28px;color:var(--cream);text-align:center;letter-spacing:1px}
@@ -163,7 +160,7 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
 .spread-diagram{position:relative}
 .spread-pos-card{position:absolute;transform:translate(-50%,-50%);border:1px solid rgba(212,175,55,.5);border-radius:5px;background:rgba(30,18,80,.6);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;overflow:hidden}
 .spread-pos-card.revealed{border-color:var(--gold);box-shadow:0 0 12px rgba(212,175,55,.3)}
-.spread-pos-card img{width:100%;height:100%;object-fit:contain;border-radius:4px;background:var(--card-bg)}
+.spread-pos-card img{width:100%;height:100%;object-fit:cover;border-radius:4px}
 .spread-pos-label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--dim-cream);white-space:nowrap;font-family:'Cinzel',serif;letter-spacing:.5px}
 .spread-shuffle-btn{display:flex;align-items:center;gap:8px;align-self:center;margin:10px auto;background:var(--gold);color:var(--midnight);font-family:'Cinzel',serif;font-weight:700;font-size:14px;letter-spacing:1.5px;border:none;border-radius:30px;padding:12px 28px;cursor:pointer;box-shadow:0 4px 20px rgba(212,175,55,.3);transition:transform .15s}
 .spread-shuffle-btn:active{transform:scale(.97)}
@@ -171,12 +168,114 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
 .spread-card-entry{background:rgba(18,10,46,.7);border:1px solid rgba(61,42,125,.35);border-radius:14px;padding:14px;margin-bottom:12px;cursor:pointer;transition:border-color .2s}
 .spread-card-entry:active{border-color:var(--gold)}
 .spread-entry-header{display:flex;align-items:center;gap:12px}
-.spread-entry-thumb{width:44px;height:70px;border-radius:6px;object-fit:contain;background:var(--card-bg);flex-shrink:0}
+.spread-entry-thumb{width:44px;height:70px;border-radius:6px;object-fit:cover;flex-shrink:0}
 .spread-entry-info{flex:1}
 .spread-entry-pos{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
 .spread-entry-name{font-family:'Cinzel',serif;font-size:14px;color:var(--cream);letter-spacing:.3px}
 .spread-entry-suit{font-size:11px;letter-spacing:1px;margin-top:2px;text-transform:uppercase}
 .spread-pos-desc{font-size:12px;color:var(--muted);line-height:18px;margin-top:8px;font-style:italic}
+
+/* ── SACRED GEOMETRY VIEW ── */
+.geo-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:4px 14px 120px;position:relative;z-index:2}
+.geo-card{background:rgba(18,10,46,.7);border:1px solid rgba(61,42,125,.35);border-radius:14px;padding:14px 12px;cursor:pointer;transition:border-color .2s,transform .15s;display:flex;flex-direction:column;align-items:center;gap:8px}
+.geo-card:active{transform:scale(.97);border-color:var(--gold)}
+.geo-card-svg{width:72px;height:72px;opacity:.85}
+.geo-card-name{font-family:'Cinzel',serif;font-size:12px;color:var(--cream);letter-spacing:.5px;text-align:center;line-height:1.3}
+.geo-card-hz{font-size:10px;color:var(--gold);letter-spacing:1px;font-weight:600}
+.geo-card-tagline{font-size:10px;color:var(--muted);text-align:center;line-height:1.4;letter-spacing:.2px}
+
+/* ── GEO DETAIL (inside detail panel) ── */
+.geo-detail-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 8px;position:sticky;top:0;z-index:20;background:var(--midnight)}
+.geo-detail-back{display:flex;align-items:center;gap:4px;background:none;border:none;cursor:pointer;color:var(--cream);font-size:16px;padding:8px 4px}
+.geo-sound-btn{display:flex;align-items:center;gap:6px;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.4);border-radius:20px;padding:7px 14px;cursor:pointer;font-family:'Cinzel',serif;font-size:11px;color:var(--gold);letter-spacing:1px;transition:all .2s;white-space:nowrap}
+.geo-sound-btn.playing{background:rgba(212,175,55,.25);border-color:var(--gold)}
+.geo-3d-btn{display:flex;align-items:center;gap:6px;background:rgba(61,42,125,.3);border:1px solid rgba(61,42,125,.6);border-radius:20px;padding:7px 14px;cursor:pointer;font-family:'Cinzel',serif;font-size:11px;color:var(--dim-cream);letter-spacing:1px;transition:all .2s}
+.geo-3d-btn.active{background:rgba(61,42,125,.6);border-color:var(--muted);color:var(--cream)}
+.geo-detail-content{padding:0 16px 80px}
+.geo-svg-wrap{display:flex;justify-content:center;margin:12px 0 4px;position:relative}
+.geo-svg-wrap canvas{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:none;border-radius:50%;cursor:grab}
+.geo-svg-wrap canvas.visible{display:block}
+.geo-name-block{text-align:center;margin-bottom:16px}
+.geo-big-name{font-family:'Cinzel',serif;font-weight:700;font-size:26px;color:var(--cream);letter-spacing:2px}
+.geo-hz-badge{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:5px 16px;border:1px solid rgba(212,175,55,.4);border-radius:20px;font-size:12px;color:var(--gold);letter-spacing:1.5px}
+.geo-tagline{font-size:13px;color:var(--muted);margin-top:6px;letter-spacing:.5px;font-style:italic}
+.geo-section-label{font-family:'Cinzel',serif;font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.geo-desc-box{background:rgba(18,10,46,.6);border:1px solid rgba(61,42,125,.35);border-radius:14px;padding:16px;margin-bottom:16px}
+.geo-desc-text{font-size:14px;color:var(--cream);line-height:24px;opacity:.9}
+.geo-history-text{font-size:12px;color:var(--muted);margin-top:8px;letter-spacing:.3px}
+.geo-notes-box{border:1px solid rgba(212,175,55,.25);border-radius:14px;padding:14px;margin-bottom:16px}
+.geo-notes-box textarea{width:100%;background:none;border:none;outline:none;font-family:'Inter',sans-serif;font-size:14px;color:var(--cream);line-height:22px;min-height:80px;resize:none}
+.geo-notes-box textarea::placeholder{color:var(--muted)}
+.geo-save-note-btn{display:flex;align-items:center;justify-content:center;gap:6px;border:1px solid rgba(212,175,55,.35);border-radius:10px;padding:9px;cursor:pointer;background:transparent;font-size:12px;color:var(--gold);letter-spacing:.5px;transition:opacity .15s;width:100%}
+
+/* ── SACRED TAB (Pathworking / Breathwork / Journal) ── */
+.sacred-subnav{display:flex;margin:12px 16px 0;background:rgba(18,10,46,.6);border:1px solid rgba(61,42,125,.4);border-radius:12px;padding:3px;gap:3px}
+.sacred-tab{flex:1;padding:8px 4px;background:none;border:none;cursor:pointer;font-family:'Cinzel',serif;font-size:10px;color:var(--muted);letter-spacing:1.5px;border-radius:9px;transition:all .2s;text-transform:uppercase}
+.sacred-tab.active{background:rgba(212,175,55,.18);color:var(--gold)}
+.sacred-section{display:none;padding:16px 16px 120px}
+.sacred-section.active{display:block}
+
+/* ── JOURNEYS ── */
+.journey-card{background:rgba(18,10,46,.7);border:1px solid rgba(61,42,125,.35);border-radius:16px;padding:18px;margin-bottom:14px;cursor:pointer;transition:border-color .2s,transform .15s;display:flex;gap:14px;align-items:flex-start}
+.journey-card:active{transform:scale(.98);border-color:rgba(212,175,55,.5)}
+.journey-num{width:36px;height:36px;border-radius:50%;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.4);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:14px;color:var(--gold);flex-shrink:0;font-weight:700}
+.journey-info{flex:1}
+.journey-title{font-family:'Cinzel',serif;font-size:15px;color:var(--cream);letter-spacing:.5px;margin-bottom:3px}
+.journey-subtitle{font-size:12px;color:var(--muted);letter-spacing:.3px;margin-bottom:8px}
+.journey-pills{display:flex;gap:6px;flex-wrap:wrap}
+.journey-pill{font-size:10px;padding:3px 10px;border-radius:20px;letter-spacing:.5px}
+.pill-level{background:rgba(107,95,138,.2);border:1px solid rgba(107,95,138,.4);color:var(--muted)}
+.pill-time{background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.3);color:var(--gold)}
+
+/* ── JOURNEY READER (in detail panel) ── */
+.journey-reader{padding:0 0 80px}
+.journey-step-header{padding:14px 16px;position:sticky;top:0;background:var(--midnight);z-index:10;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(61,42,125,.3)}
+.journey-step-header button{background:none;border:none;cursor:pointer;color:var(--cream);padding:6px}
+.journey-step-progress{font-family:'Cinzel',serif;font-size:11px;color:var(--gold);letter-spacing:2px}
+.journey-step-body{padding:16px}
+.journey-step-geo{display:flex;justify-content:center;margin:4px 0 16px}
+.journey-step-title{font-family:'Cinzel',serif;font-weight:700;font-size:20px;color:var(--cream);letter-spacing:1px;margin-bottom:16px;text-align:center}
+.journey-narrative{font-size:14px;color:var(--cream);line-height:26px;opacity:.88;white-space:pre-line;background:rgba(18,10,46,.5);border-left:2px solid rgba(212,175,55,.4);padding:16px;border-radius:0 12px 12px 0;margin-bottom:16px}
+.journey-draw-btn{display:flex;align-items:center;gap:8px;width:100%;justify-content:center;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.4);border-radius:12px;padding:14px;cursor:pointer;font-family:'Cinzel',serif;font-size:13px;color:var(--gold);letter-spacing:1px;margin-bottom:16px;transition:all .2s}
+.journey-draw-btn:active{background:rgba(212,175,55,.2)}
+.journey-drawn-card{background:rgba(18,10,46,.7);border:1px solid rgba(212,175,55,.3);border-radius:12px;padding:14px;display:flex;gap:12px;align-items:center;margin-bottom:16px;cursor:pointer}
+.journey-drawn-card img{width:48px;height:77px;border-radius:6px;object-fit:cover}
+.journey-nav{display:flex;gap:12px;padding:0 16px}
+.journey-nav button{flex:1;padding:14px;border-radius:12px;font-family:'Cinzel',serif;font-size:13px;letter-spacing:1px;cursor:pointer;border:1px solid;transition:all .2s}
+.journey-nav .prev-btn{background:transparent;border-color:rgba(61,42,125,.5);color:var(--muted)}
+.journey-nav .next-btn{background:var(--gold);border-color:var(--gold);color:var(--midnight);font-weight:700}
+.journey-nav .done-btn{background:rgba(212,175,55,.15);border-color:rgba(212,175,55,.4);color:var(--gold)}
+
+/* ── BREATHWORK ── */
+.breath-modes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.breath-mode-btn{background:rgba(18,10,46,.7);border:1px solid rgba(61,42,125,.35);border-radius:12px;padding:14px;cursor:pointer;text-align:left;transition:all .2s}
+.breath-mode-btn.active{border-color:rgba(212,175,55,.6);background:rgba(212,175,55,.08)}
+.breath-mode-name{font-family:'Cinzel',serif;font-size:13px;color:var(--cream);letter-spacing:.3px;margin-bottom:4px}
+.breath-mode-pattern{font-size:11px;color:var(--gold);letter-spacing:.5px}
+#breath-arena{display:flex;flex-direction:column;align-items:center;gap:20px;padding:20px 0}
+.breath-circle-wrap{position:relative;width:200px;height:200px;display:flex;align-items:center;justify-content:center}
+.breath-ring{position:absolute;width:200px;height:200px;border-radius:50%;border:2px solid rgba(212,175,55,.15)}
+.breath-ring-inner{width:160px;height:160px;border-radius:50%;background:rgba(212,175,55,.04);border:1.5px solid rgba(212,175,55,.2);display:flex;align-items:center;justify-content:center;transition:transform 0s linear}
+.breath-phase-text{font-family:'Cinzel',serif;font-size:16px;color:var(--gold);letter-spacing:2px;text-align:center;line-height:1.4}
+.breath-phase-sub{font-size:12px;color:var(--muted);margin-top:4px;text-align:center}
+.breath-count-display{font-family:'Cinzel',serif;font-size:32px;color:var(--cream);min-width:50px;text-align:center}
+.breath-control-btn{display:flex;align-items:center;gap:8px;background:var(--gold);color:var(--midnight);border:none;border-radius:30px;padding:14px 36px;font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:1.5px;cursor:pointer;transition:opacity .15s}
+.breath-control-btn:active{opacity:.85}
+.breath-desc{font-size:13px;color:var(--muted);text-align:center;max-width:280px;line-height:1.6}
+@keyframes breatheExpand{to{transform:scale(1.35)}}
+@keyframes breatheContract{to{transform:scale(1)}}
+
+/* ── JOURNAL ── */
+.journal-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.stat-card{background:rgba(18,10,46,.7);border:1px solid rgba(61,42,125,.35);border-radius:12px;padding:14px;text-align:center}
+.stat-number{font-family:'Cinzel',serif;font-size:26px;color:var(--gold);font-weight:700}
+.stat-label{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:4px}
+.pattern-frequency{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.pattern-freq-row{display:flex;align-items:center;gap:10px}
+.pattern-freq-name{font-family:'Cinzel',serif;font-size:12px;color:var(--cream);letter-spacing:.3px;width:120px;flex-shrink:0}
+.pattern-freq-bar-wrap{flex:1;height:6px;background:rgba(61,42,125,.4);border-radius:3px;overflow:hidden}
+.pattern-freq-bar{height:100%;background:var(--gold);border-radius:3px;transition:width .6s}
+.pattern-freq-count{font-size:11px;color:var(--muted);width:28px;text-align:right}
 
 /* ── ONBOARDING ── */
 #onboarding{position:fixed;inset:0;z-index:200;background:var(--midnight);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:60px 32px 50px}
@@ -208,10 +307,13 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
 @media(min-width:480px){
   #deck-grid{grid-template-columns:1fr 1fr 1fr}
   #fav-grid{grid-template-columns:1fr 1fr 1fr 1fr}
+  .geo-grid{grid-template-columns:1fr 1fr 1fr}
+  .breath-modes{grid-template-columns:repeat(4,1fr)}
 }
 @media(min-width:768px){
   #deck-grid{grid-template-columns:repeat(4,1fr)}
   #fav-grid{grid-template-columns:repeat(5,1fr)}
+  .geo-grid{grid-template-columns:repeat(4,1fr)}
   .draw-area{padding:40px}
 }
 </style>
@@ -253,19 +355,19 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
       <div class="ob-body">A living oracle of 78 sacred cards — each woven with the geometry of the cosmos.</div>
     </div>
     <div class="ob-slide" id="ob-1">
-      <div style="font-size:64px">🌅</div>
-      <div class="ob-title" style="font-size:22px">Daily Draw</div>
-      <div class="ob-body">Draw one sacred card each morning. Watch it flip to reveal your message. Upright or reversed — the cosmos speaks both ways.</div>
+      <div style="font-size:64px">✦</div>
+      <div class="ob-title" style="font-size:22px">Sacred Geometry</div>
+      <div class="ob-body">Explore 12 animated sacred patterns with binaural sound healing, 3D viewing, and geometry notes. From the Seed of Life to Metatron's Cube.</div>
     </div>
     <div class="ob-slide" id="ob-2">
-      <div style="font-size:64px">✦</div>
-      <div class="ob-title" style="font-size:22px">Spreads</div>
-      <div class="ob-body">Single card, three-card, Celtic Cross, Merkaba, and more. Each position holds a sacred meaning for your reading.</div>
+      <div style="font-size:64px">🌀</div>
+      <div class="ob-title" style="font-size:22px">Pathworking</div>
+      <div class="ob-body">Five narrative meditation journeys guide you through sacred geometry step-by-step with breathwork, optional card draws, and reflection.</div>
     </div>
     <div class="ob-slide" id="ob-3">
       <div style="font-size:64px">📖</div>
       <div class="ob-title" style="font-size:22px">Sacred Journal</div>
-      <div class="ob-body">Write personal reflections on any card. Your notes are saved privately in your browser — never shared, never uploaded.</div>
+      <div class="ob-body">Every reading, ritual, and note is saved privately in your browser. Track your practice, streaks, and most-used patterns over time.</div>
     </div>
   </div>
   <div class="ob-dots">
@@ -375,7 +477,7 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
               </div>
             </div>
             <div class="card-face card-front-face" id="flip-front">
-              <img id="drawn-card-img" src="" alt="Daily Card"/>
+              <img id="drawn-card-img" src="" alt="Daily Card" style="width:100%;height:100%;object-fit:cover"/>
             </div>
           </div>
         </div>
@@ -390,6 +492,21 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
     </div>
     <div id="card-info-panel" style="display:none"></div>
     <div style="height:40px"></div>
+  </div>
+
+  <!-- GEOMETRY VIEW -->
+  <div class="view" id="view-geo">
+    <svg class="sg-bg slow rev" style="width:300px;height:300px;position:absolute;top:-30px;left:-60px" viewBox="0 0 300 300" fill="none">
+      <circle cx="150" cy="150" r="138" stroke="#D4AF37" stroke-width=".6"/>
+      <circle cx="150" cy="150" r="69" stroke="#D4AF37" stroke-width=".5"/>
+      <polygon points="150,50 237,196 63,196" stroke="#D4AF37" stroke-width=".5" fill="none"/>
+      <polygon points="150,250 63,104 237,104" stroke="#D4AF37" stroke-width=".5" fill="none"/>
+    </svg>
+    <div class="screen-header">
+      <div class="screen-title">Sacred Geometry</div>
+      <div class="screen-subtitle">12 Animated Patterns</div>
+    </div>
+    <div class="geo-grid" id="geo-grid"></div>
   </div>
 
   <!-- SPREADS VIEW -->
@@ -414,6 +531,58 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
     <div id="spreads-list" class="spread-list-content" style="position:relative;z-index:2"></div>
   </div>
 
+  <!-- SACRED VIEW (Pathworking + Breathwork + Journal) -->
+  <div class="view" id="view-sacred">
+    <div class="screen-header">
+      <div class="screen-title">Sacred Practice</div>
+      <div class="screen-subtitle">Journey · Breathe · Journal</div>
+    </div>
+    <div class="sacred-subnav">
+      <button class="sacred-tab active" onclick="setSacredSection('journeys')">Journeys</button>
+      <button class="sacred-tab" onclick="setSacredSection('breathwork')">Breathwork</button>
+      <button class="sacred-tab" onclick="setSacredSection('journal')">Journal</button>
+    </div>
+
+    <!-- Journeys -->
+    <div class="sacred-section active" id="section-journeys">
+      <div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px">Five Narrative Meditations</div>
+      <div id="journeys-list"></div>
+    </div>
+
+    <!-- Breathwork -->
+    <div class="sacred-section" id="section-breathwork">
+      <div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px">Choose a Pattern</div>
+      <div class="breath-modes" id="breath-modes"></div>
+      <div id="breath-arena">
+        <div class="breath-circle-wrap">
+          <div class="breath-ring"></div>
+          <div class="breath-ring-inner" id="breath-ring-inner">
+            <div>
+              <div class="breath-phase-text" id="breath-phase-text">—</div>
+              <div class="breath-phase-sub" id="breath-phase-sub">Choose a pattern above</div>
+            </div>
+          </div>
+        </div>
+        <div class="breath-count-display" id="breath-count">—</div>
+        <p class="breath-desc" id="breath-desc">Four scientifically-grounded breathing patterns with animated visual guidance.</p>
+        <button class="breath-control-btn" id="breath-control-btn" onclick="toggleBreath()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Begin
+        </button>
+      </div>
+    </div>
+
+    <!-- Journal -->
+    <div class="sacred-section" id="section-journal">
+      <div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px">Practice Overview</div>
+      <div class="journal-stats" id="journal-stats"></div>
+      <div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin:16px 0 10px">Most Visited Patterns</div>
+      <div class="pattern-frequency" id="pattern-frequency"></div>
+      <div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin:16px 0 10px">Recent Readings</div>
+      <div id="recent-readings"></div>
+    </div>
+  </div>
+
   <!-- FAVORITES VIEW -->
   <div class="view" id="view-favorites">
     <div class="screen-header">
@@ -433,19 +602,27 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2m-3.22-6.78-1.42 1.42M6.64 17.36l-1.42 1.42m12.72 0-1.42-1.42M6.64 6.64 5.22 5.22"/></svg>
       <span class="tab-label">Draw</span>
     </button>
+    <button class="tab-btn" id="tab-geo" onclick="switchTab('geo')">
+      <svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/><circle cx="12" cy="12" r="3"/></svg>
+      <span class="tab-label">Geometry</span>
+    </button>
     <button class="tab-btn" id="tab-spreads" onclick="switchTab('spreads')">
       <svg viewBox="0 0 24 24"><rect x="2" y="7" width="6" height="10" rx="1"/><rect x="9" y="4" width="6" height="13" rx="1"/><rect x="16" y="7" width="6" height="10" rx="1"/></svg>
       <span class="tab-label">Spreads</span>
     </button>
+    <button class="tab-btn" id="tab-sacred" onclick="switchTab('sacred')">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      <span class="tab-label">Sacred</span>
+    </button>
     <button class="tab-btn" id="tab-favorites" onclick="switchTab('favorites')">
       <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-      <span class="tab-label">Favorites</span>
+      <span class="tab-label">Saved</span>
     </button>
   </div>
 
 </div>
 
-<!-- DETAIL PANEL (shared for card + spread detail) -->
+<!-- DETAIL PANEL -->
 <div id="detail-panel">
   <div id="detail-panel-inner"></div>
 </div>
@@ -461,42 +638,42 @@ const SUIT_COLORS = { major:"#CE93D8", wands:"#E07C2A", cups:"#4FC3F7", swords:"
 const SUIT_LABELS = { major:"Major Arcana", wands:"Wands", cups:"Cups", swords:"Swords", pentacles:"Pentacles" };
 
 const ALL_CARDS = [
-  {id:1,name:"The Fool",suit:"major",number:"0",keywords:["beginnings","innocence","spontaneity","free spirit"],description:"The Fool is a card of new beginnings, opportunities, and adventures.",reversedDescription:"The reversed Fool may indicate recklessness or impulsiveness without considering consequences. Themes: reckless, careless, distracted, naive, foolish, gullible.",imageUrl:"FOOL.PNG",descriptionUrl:"1_0TheFoolMajorArcana.txt",element:"Air",planet:"Uranus",zodiac:null},
-  {id:2,name:"The Magician",suit:"major",number:"I",keywords:["manifestation","power","skill","willpower"],description:"The Magician represents power, skill, and creativity.",reversedDescription:"When reversed, energy is blocked or misdirected. Themes: manipulation, cunning, trickery, wasted talent, illusion, deception.",imageUrl:"MAGICIAN.PNG",descriptionUrl:"2_1TheMagicianMajorArcana.txt",element:"Air",planet:"Mercury",zodiac:null},
-  {id:3,name:"The High Priestess",suit:"major",number:"II",keywords:["intuition","mystery","subconscious","inner knowledge"],description:"The High Priestess symbolizes intuition, mystery, and inner knowledge.",reversedDescription:"When reversed, energies are blocked or misaligned. Themes: repressed intuition, hidden motives, superficiality, confusion.",imageUrl:"HIGHPRIESTESS.PNG",descriptionUrl:"3_2TheHighPriestessMajorArcana.txt",element:"Water",planet:"Moon",zodiac:null},
-  {id:4,name:"The Empress",suit:"major",number:"III",keywords:["femininity","beauty","nature","abundance"],description:"The Empress represents femininity, beauty, nature, and abundance.",reversedDescription:"May indicate creative blocks or dependence. Themes: dependence, smothering, disharmony, negligence, insecurity.",imageUrl:"EMPRESS.PNG",descriptionUrl:"4_3TheEmpressMajorArcana.txt",element:"Earth",planet:"Venus",zodiac:null},
-  {id:5,name:"The Emperor",suit:"major",number:"IV",keywords:["authority","structure","control","fatherhood"],description:"The Emperor symbolizes authority, structure, and control.",reversedDescription:"When reversed, energy may be blocked or imbalanced. Themes: tyrant, domineering, rigid, stubborn, lack of discipline.",imageUrl:"EMPEROR.PNG",descriptionUrl:"5_4TheEmperorMajorArcana.txt",element:"Fire",planet:null,zodiac:"Aries"},
-  {id:6,name:"The Hierophant",suit:"major",number:"V",keywords:["tradition","conformity","spiritual wisdom","institutions"],description:"The Hierophant stands for tradition, conformity, and spiritual wisdom.",reversedDescription:"When reversed, energy may be misapplied. Themes: rebellion, unconventionality, non-conformity, new methods, ignorance.",imageUrl:"HIEROPHANT.PNG",descriptionUrl:"6_5TheHierophantMajorArcana.txt",element:"Earth",planet:null,zodiac:"Taurus"},
-  {id:7,name:"The Lovers",suit:"major",number:"VI",keywords:["love","harmony","relationships","values alignment"],description:"The Lovers card represents love, harmony, and relationships.",reversedDescription:"When reversed, energy may be misaligned. Themes: disharmony, imbalance, conflict, detachment, bad choices.",imageUrl:"LOVERS.PNG",descriptionUrl:"7_6TheLoversMajorArcana.txt",element:"Air",planet:null,zodiac:"Gemini"},
-  {id:8,name:"The Chariot",suit:"major",number:"VII",keywords:["willpower","determination","victory","control"],description:"The Chariot symbolizes willpower, determination, and success through control.",reversedDescription:"Themes: forceful, no direction, no control, powerless, aggression, obstacles.",imageUrl:"CHARIOT.PNG",descriptionUrl:"8_7TheChariotMajorArcana.txt",element:"Water",planet:null,zodiac:"Cancer"},
-  {id:9,name:"Strength",suit:"major",number:"VIII",keywords:["courage","persuasion","influence","compassion"],description:"Strength represents courage, persuasion, and influence.",reversedDescription:"Themes: self-doubt, weakness, low confidence, inadequacy, cowardice, forcefulness.",imageUrl:"STRENGTH.PNG",descriptionUrl:"9_8StrengthMajorArcana.txt",element:"Fire",planet:null,zodiac:"Leo"},
-  {id:10,name:"The Hermit",suit:"major",number:"IX",keywords:["introspection","solitude","inner guidance","wisdom"],description:"The Hermit symbolizes introspection, solitude, and inner guidance.",reversedDescription:"Themes: loneliness, isolation, recluse, being anti-social, rejection, returning to society.",imageUrl:"HERMIT.PNG",descriptionUrl:"10_9TheHermitMajorArcana.txt",element:"Earth",planet:null,zodiac:"Virgo"},
-  {id:11,name:"Wheel of Fortune",suit:"major",number:"X",keywords:["good luck","karma","life cycles","destiny","turning point"],description:"The Wheel of Fortune represents cycles, change, and destiny.",reversedDescription:"Themes: bad luck, lack of control, clinging to control, unwelcome changes, delays.",imageUrl:"WHEEL_OF_FORTUNE.PNG",descriptionUrl:"11_10TheWheelofFortuneMajorArcana.txt",element:"Fire",planet:"Jupiter",zodiac:null},
-  {id:12,name:"Justice",suit:"major",number:"XI",keywords:["fairness","truth","cause and effect","law"],description:"Justice stands for fairness, truth, and the law.",reversedDescription:"Themes: injustice, retribution, dishonesty, corruption, unfairness, avoiding accountability.",imageUrl:"JUSTICE.PNG",descriptionUrl:"12_11JusticeMajorArcana.txt",element:"Air",planet:null,zodiac:"Libra"},
-  {id:13,name:"The Hanged Man",suit:"major",number:"XII",keywords:["suspension","letting go","new perspectives","sacrifice"],description:"The Hanged Man represents suspension, letting go, and new perspectives.",reversedDescription:"Themes: stalling, disinterest, stagnation, avoiding sacrifice, standstill, apathy.",imageUrl:"HANGEDMAN.PNG",descriptionUrl:"13_12TheHangedManMajorArcana.txt",element:"Water",planet:"Neptune",zodiac:null},
-  {id:14,name:"Death",suit:"major",number:"XIII",keywords:["endings","change","transformation","transition"],description:"Death is a powerful symbol of transformation, endings, and transition.",reversedDescription:"Themes: fear of change, repeating negative patterns, resisting change, stagnancy, decay.",imageUrl:"DEATH.PNG",descriptionUrl:"14_13DeathMajorArcana.txt",element:"Water",planet:"Pluto",zodiac:"Scorpio"},
-  {id:15,name:"Temperance",suit:"major",number:"XIV",keywords:["balance","moderation","patience","purpose"],description:"Temperance represents balance, moderation, patience, and purpose.",reversedDescription:"Themes: imbalance, excess, extremes, discord, recklessness, hastiness.",imageUrl:"TEMPERANCE.PNG",descriptionUrl:"15_14TemperanceMajorArcana.txt",element:"Fire",planet:null,zodiac:"Sagittarius"},
-  {id:16,name:"The Devil",suit:"major",number:"XV",keywords:["shadow self","attachment","addiction","restriction"],description:"The Devil represents the shadow self, bondage, and materialism.",reversedDescription:"Themes: independence, freedom, revelation, release, reclaiming power.",imageUrl:"DEVIL.PNG",descriptionUrl:"16_15TheDevilMajorArcana.txt",element:"Earth",planet:"Saturn",zodiac:"Capricorn"},
-  {id:17,name:"The Tower",suit:"major",number:"XVI",keywords:["sudden change","upheaval","chaos","revelation"],description:"The Tower symbolizes sudden change, upheaval, chaos, and revelation.",reversedDescription:"Themes: averting disaster, delaying the inevitable, resisting change.",imageUrl:"TOWER.PNG",descriptionUrl:"17_16TheTowerMajorArcana.txt",element:"Fire",planet:"Mars",zodiac:null},
-  {id:18,name:"The Star",suit:"major",number:"XVII",keywords:["hope","faith","purpose","renewal","spirituality"],description:"The Star represents hope, faith, renewal, and spiritual inspiration.",reversedDescription:"Themes: hopelessness, despair, negativity, lack of faith, despondent.",imageUrl:"STAR.PNG",descriptionUrl:"18_17TheStarMajorArcana.txt",element:"Air",planet:null,zodiac:"Aquarius"},
-  {id:19,name:"The Moon",suit:"major",number:"XVIII",keywords:["illusion","fear","the unconscious","subconscious"],description:"The Moon symbolizes illusion, fear, and the mysteries of the unconscious.",reversedDescription:"Themes: fear, deception, anxiety, misunderstanding, clarity, understanding.",imageUrl:"MOON.PNG",descriptionUrl:"19_18TheMoonMajorArcana.txt",element:"Water",planet:"Moon",zodiac:"Pisces"},
-  {id:20,name:"The Sun",suit:"major",number:"XIX",keywords:["joy","success","positivity","vitality","celebration"],description:"The Sun represents joy, success, positivity, and vitality.",reversedDescription:"Themes: blocked happiness, excessive enthusiasm, pessimism, unrealistic expectations.",imageUrl:"SUN.PNG",descriptionUrl:"20_19TheSunMajorArcana.txt",element:"Fire",planet:"Sun",zodiac:null},
-  {id:21,name:"Judgement",suit:"major",number:"XX",keywords:["reflection","reckoning","awakening","absolution"],description:"Judgement represents reflection, reckoning, awakening, and absolution.",reversedDescription:"Themes: self-doubt, lack of self-awareness, failure to learn lessons, self-loathing.",imageUrl:"JUDGEMENT.PNG",descriptionUrl:"21_20JudgementMajorArcana.txt",element:"Fire",planet:"Pluto",zodiac:null},
-  {id:22,name:"The World",suit:"major",number:"XXI",keywords:["completion","integration","accomplishment","travel"],description:"The World symbolizes completion, integration, accomplishment, and wholeness.",reversedDescription:"Themes: lack of closure, lack of achievement, feeling incomplete, emptiness.",imageUrl:"WORLD.PNG",descriptionUrl:"22_21TheWorldMajorArcana.txt",element:"Earth",planet:"Saturn",zodiac:null},
-  {id:23,name:"Ace of Wands",suit:"wands",number:"Ace",keywords:["inspiration","new opportunities","growth","potential"],description:"The Ace of Wands represents new beginnings, inspiration, and creative potential.",reversedDescription:"Themes: delays, blocks, lack of passion, lack of energy, hesitancy, creative blocks.",imageUrl:"ACEWANDS.PNG",descriptionUrl:"23_1AceofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
-  {id:24,name:"2 of Wands",suit:"wands",number:"2",keywords:["future planning","progress","decisions","discovery"],description:"The 2 of Wands symbolizes future planning, progress, and decisions.",reversedDescription:"Themes: bad planning, overanalyzing, not taking action, playing it safe, avoiding risk.",imageUrl:"2WANDS.PNG",descriptionUrl:"24_2ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
-  {id:25,name:"3 of Wands",suit:"wands",number:"3",keywords:["progress","expansion","foresight","overseas"],description:"The 3 of Wands represents progress, expansion, and foresight.",reversedDescription:"Themes: restriction, limitations, lack of progress, obstacles, delays, frustration.",imageUrl:"3WANDS.PNG",descriptionUrl:"25_3ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
-  {id:26,name:"4 of Wands",suit:"wands",number:"4",keywords:["celebration","joy","harmony","relaxation","homecoming"],description:"The 4 of Wands represents celebration, joy, harmony, and homecoming.",reversedDescription:"Themes: lack of support, instability, feeling unwelcome, transience, home conflict.",imageUrl:"4WANDS.PNG",descriptionUrl:"26_4ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
-  {id:27,name:"5 of Wands",suit:"wands",number:"5",keywords:["conflict","disagreements","competition","tension"],description:"The 5 of Wands represents conflict, disagreements, and competition.",reversedDescription:"Themes: end of conflict, cooperation, agreements, truces, harmony, peace.",imageUrl:"5WANDS.PNG",descriptionUrl:"27_5ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
-  {id:28,name:"6 of Wands",suit:"wands",number:"6",keywords:["success","public recognition","victory","progress"],description:"The 6 of Wands symbolizes success, public recognition, and victory.",reversedDescription:"Themes: failure, lack of recognition, no rewards, lack of achievement.",imageUrl:"6WANDS.PNG",descriptionUrl:"28_6ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
-  {id:29,name:"7 of Wands",suit:"wands",number:"7",keywords:["challenge","competition","protection","perseverance"],description:"The 7 of Wands represents challenge, competition, and perseverance.",reversedDescription:"Themes: giving up, admitting defeat, yielding, lack of self belief, surrender.",imageUrl:"7WANDS.PNG",descriptionUrl:"29_7ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
-  {id:30,name:"8 of Wands",suit:"wands",number:"8",keywords:["movement","fast-paced change","action","alignment"],description:"The 8 of Wands symbolizes movement, fast-paced change, and alignment.",reversedDescription:"Themes: waiting, slowness, chaos, delays, losing momentum, hastiness.",imageUrl:"8WANDS.PNG",descriptionUrl:"30_8ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
-  {id:31,name:"9 of Wands",suit:"wands",number:"9",keywords:["resilience","persistence","test of faith","boundaries"],description:"The 9 of Wands represents resilience, persistence, and testing of faith.",reversedDescription:"Themes: stubbornness, rigidity, defensiveness, refusing compromise, giving up.",imageUrl:"9WANDS.PNG",descriptionUrl:"31_9ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
-  {id:32,name:"10 of Wands",suit:"wands",number:"10",keywords:["burden","extra responsibility","hard work","completion"],description:"The 10 of Wands represents burden, extra responsibility, and completion.",reversedDescription:"Themes: failure to delegate, shouldering too much responsibility, collapse, breakdown.",imageUrl:"10WANDS.PNG",descriptionUrl:"32_10ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
-  {id:33,name:"Page of Wands",suit:"wands",number:"Page",keywords:["exploration","excitement","freedom","adventure"],description:"The Page of Wands symbolizes exploration, excitement, freedom, and adventure.",reversedDescription:"Themes: hasty, impatient, lacking ideas, tantrums, laziness, boring, unreliable.",imageUrl:"PAGEWANDS.PNG",descriptionUrl:"33_11PageofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
-  {id:34,name:"Knight of Wands",suit:"wands",number:"Knight",keywords:["energy","passion","inspired action","adventure"],description:"The Knight of Wands symbolizes action, adventure, and impulsiveness.",reversedDescription:"Themes: arrogant, reckless, impatient, lack of self control, passive, volatile.",imageUrl:"KNIGHTWANDS.PNG",descriptionUrl:"34_12KnightofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
-  {id:35,name:"Queen of Wands",suit:"wands",number:"Queen",keywords:["courage","confidence","independence","determination"],description:"The Queen of Wands represents confidence, determination, and charisma.",reversedDescription:"Themes: demanding, vengeful, low confidence, jealous, selfish, temperamental.",imageUrl:"QUEENWANDS.PNG",descriptionUrl:"35_13QueenofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
-  {id:36,name:"King of Wands",suit:"wands",number:"King",keywords:["natural leader","vision","entrepreneur","honour"],description:"The King of Wands symbolizes leadership, vision, and entrepreneurship.",reversedDescription:"Themes: forceful, domineering, tyrant, vicious, powerless, ineffective.",imageUrl:"KINGWANDS.PNG",descriptionUrl:"36_14KingofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:1,name:"The Fool",suit:"major",number:"0",keywords:["beginnings","innocence","spontaneity","free spirit"],description:"The Fool is a card of new beginnings, opportunities, and adventures.",reversedDescription:"The reversed Fool may indicate recklessness or impulsiveness without considering consequences.",imageUrl:"FOOL.PNG",descriptionUrl:"1_0TheFoolMajorArcana.txt",element:"Air",planet:"Uranus",zodiac:null},
+  {id:2,name:"The Magician",suit:"major",number:"I",keywords:["manifestation","power","skill","willpower"],description:"The Magician represents power, skill, and creativity.",reversedDescription:"When The Magician appears reversed, its energy is blocked or misdirected.",imageUrl:"MAGICIAN.PNG",descriptionUrl:"2_1TheMagicianMajorArcana.txt",element:"Air",planet:"Mercury",zodiac:null},
+  {id:3,name:"The High Priestess",suit:"major",number:"II",keywords:["intuition","mystery","subconscious","inner knowledge"],description:"The High Priestess symbolizes intuition, mystery, and inner knowledge.",reversedDescription:"When reversed, her energies are blocked or misaligned.",imageUrl:"HIGHPRIESTESS.PNG",descriptionUrl:"3_2TheHighPriestessMajorArcana.txt",element:"Water",planet:"Moon",zodiac:null},
+  {id:4,name:"The Empress",suit:"major",number:"III",keywords:["femininity","beauty","nature","abundance"],description:"The Empress represents femininity, beauty, nature, and abundance.",reversedDescription:"May indicate creative blocks or dependence.",imageUrl:"EMPRESS.PNG",descriptionUrl:"4_3TheEmpressMajorArcana.txt",element:"Earth",planet:"Venus",zodiac:null},
+  {id:5,name:"The Emperor",suit:"major",number:"IV",keywords:["authority","structure","control","fatherhood"],description:"The Emperor symbolizes authority, structure, and control.",reversedDescription:"May indicate tyranny, rigidity, or lack of discipline.",imageUrl:"EMPEROR.PNG",descriptionUrl:"5_4TheEmperorMajorArcana.txt",element:"Fire",planet:null,zodiac:"Aries"},
+  {id:6,name:"The Hierophant",suit:"major",number:"V",keywords:["tradition","conformity","morality","ethics"],description:"The Hierophant represents tradition, conformity, and moral authority.",reversedDescription:"May indicate rebellion against tradition or personal belief systems.",imageUrl:"HIEROPHANT.PNG",descriptionUrl:"6_5TheHierophantMajorArcana.txt",element:"Earth",planet:null,zodiac:"Taurus"},
+  {id:7,name:"The Lovers",suit:"major",number:"VI",keywords:["love","harmony","relationships","values"],description:"The Lovers represents love, harmony, and important choices.",reversedDescription:"May indicate disharmony, imbalance, or misalignment of values.",imageUrl:"LOVERS.PNG",descriptionUrl:"7_6TheLoverssMajorArcana.txt",element:"Air",planet:null,zodiac:"Gemini"},
+  {id:8,name:"The Chariot",suit:"major",number:"VII",keywords:["control","willpower","victory","assertion"],description:"The Chariot represents control, willpower, and victory.",reversedDescription:"May indicate lack of control or direction.",imageUrl:"CHARIOT.PNG",descriptionUrl:"8_7TheChariotMajorArcana.txt",element:"Water",planet:null,zodiac:"Cancer"},
+  {id:9,name:"Strength",suit:"major",number:"VIII",keywords:["strength","courage","patience","control"],description:"Strength represents courage, patience, control, and compassion.",reversedDescription:"May indicate weakness, self-doubt, or lack of confidence.",imageUrl:"STRENGTH.PNG",descriptionUrl:"9_8StrengthMajorArcana.txt",element:"Fire",planet:null,zodiac:"Leo"},
+  {id:10,name:"The Hermit",suit:"major",number:"IX",keywords:["soul-searching","introspection","guidance","inner knowing"],description:"The Hermit represents introspection, soul-searching, and inner guidance.",reversedDescription:"May indicate isolation, loneliness, or withdrawal.",imageUrl:"HERMIT.PNG",descriptionUrl:"10_9TheHermitMajorArcana.txt",element:"Earth",planet:null,zodiac:"Virgo"},
+  {id:11,name:"Wheel of Fortune",suit:"major",number:"X",keywords:["good luck","karma","life cycles","destiny"],description:"The Wheel of Fortune represents good luck, karma, and life cycles.",reversedDescription:"May indicate bad luck, resistance to change, or breaking cycles.",imageUrl:"WHEEL_OF_FORTUNE.PNG",descriptionUrl:"11_10TheWheelofFortuneMajorArcana.txt",element:"Fire",planet:"Jupiter",zodiac:null},
+  {id:12,name:"Justice",suit:"major",number:"XI",keywords:["justice","fairness","truth","cause and effect"],description:"Justice represents fairness, truth, cause and effect, and law.",reversedDescription:"May indicate unfairness, lack of accountability, or dishonesty.",imageUrl:"JUSTICE.PNG",descriptionUrl:"12_11JusticeMajorArcana.txt",element:"Air",planet:null,zodiac:"Libra"},
+  {id:13,name:"The Hanged Man",suit:"major",number:"XII",keywords:["pause","surrender","letting go","new perspectives"],description:"The Hanged Man represents suspension, letting go, and new perspectives.",reversedDescription:"May indicate stalling, needless sacrifice, or resistance to change.",imageUrl:"HANGEDMAN.PNG",descriptionUrl:"13_12TheHangedManMajorArcana.txt",element:"Water",planet:"Neptune",zodiac:null},
+  {id:14,name:"Death",suit:"major",number:"XIII",keywords:["endings","change","transformation","transition"],description:"Death represents endings, change, and transformation.",reversedDescription:"May indicate resistance to change or inability to move on.",imageUrl:"DEATH.PNG",descriptionUrl:"14_13DeathMajorArcana.txt",element:"Water",planet:null,zodiac:"Scorpio"},
+  {id:15,name:"Temperance",suit:"major",number:"XIV",keywords:["balance","moderation","patience","purpose"],description:"Temperance represents balance, moderation, and patience.",reversedDescription:"May indicate imbalance, excess, or self-healing needed.",imageUrl:"TEMPERANCE.PNG",descriptionUrl:"15_14TemperanceMajorArcana.txt",element:"Fire",planet:null,zodiac:"Sagittarius"},
+  {id:16,name:"The Devil",suit:"major",number:"XV",keywords:["shadow self","attachment","addiction","restriction"],description:"The Devil represents the shadow self, attachment, and restriction.",reversedDescription:"May indicate releasing limiting beliefs or detachment from negativity.",imageUrl:"DEVIL.PNG",descriptionUrl:"16_15TheDevilMajorArcana.txt",element:"Earth",planet:null,zodiac:"Capricorn"},
+  {id:17,name:"The Tower",suit:"major",number:"XVI",keywords:["sudden change","upheaval","chaos","revelation"],description:"The Tower represents sudden change, upheaval, and revelation.",reversedDescription:"May indicate avoiding disaster, delaying the inevitable, or internal upheaval.",imageUrl:"TOWER.PNG",descriptionUrl:"17_16TheTowerMajorArcana.txt",element:"Fire",planet:"Mars",zodiac:null},
+  {id:18,name:"The Star",suit:"major",number:"XVII",keywords:["hope","faith","purpose","renewal","spirituality"],description:"The Star represents hope, faith, purpose, and renewal.",reversedDescription:"May indicate lack of faith, despair, or feeling disconnected.",imageUrl:"STAR.PNG",descriptionUrl:"18_17TheStarMajorArcana.txt",element:"Air",planet:null,zodiac:"Aquarius"},
+  {id:19,name:"The Moon",suit:"major",number:"XVIII",keywords:["illusion","fear","the subconscious","confusion"],description:"The Moon represents illusion, fear, and the subconscious.",reversedDescription:"May indicate release of fear, repressed emotions, or inner confusion.",imageUrl:"MOON.PNG",descriptionUrl:"19_18TheMoonMajorArcana.txt",element:"Water",planet:null,zodiac:"Pisces"},
+  {id:20,name:"The Sun",suit:"major",number:"XIX",keywords:["positivity","fun","warmth","success","vitality"],description:"The Sun represents positivity, fun, warmth, success, and vitality.",reversedDescription:"May indicate temporary depression, sadness, or feeling uninspired.",imageUrl:"SUN.PNG",descriptionUrl:"20_19TheSunMajorArcana.txt",element:"Fire",planet:"Sun",zodiac:null},
+  {id:21,name:"Judgement",suit:"major",number:"XX",keywords:["judgement","rebirth","inner calling","absolution"],description:"Judgement represents rebirth, inner calling, and absolution.",reversedDescription:"May indicate self-doubt, failure to learn lessons, or being too hard on yourself.",imageUrl:"JUDGEMENT.PNG",descriptionUrl:"21_20JudgementMajorArcana.txt",element:"Fire",planet:"Pluto",zodiac:null},
+  {id:22,name:"The World",suit:"major",number:"XXI",keywords:["completion","integration","accomplishment","travel"],description:"The World represents completion, integration, and accomplishment.",reversedDescription:"May indicate seeking personal closure or incompletion.",imageUrl:"WORLD.PNG",descriptionUrl:"22_21TheWorldMajorArcana.txt",element:"Earth",planet:"Saturn",zodiac:null},
+  {id:23,name:"Ace of Wands",suit:"wands",number:"Ace",keywords:["inspiration","new opportunities","growth","potential"],description:"The Ace of Wands represents inspiration, new opportunities, and growth.",reversedDescription:"May indicate delays, lack of motivation, or creative blocks.",imageUrl:"ACEWANDS.PNG",descriptionUrl:"23_1AceofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:24,name:"2 of Wands",suit:"wands",number:"2",keywords:["future planning","progress","decisions","discovery"],description:"The 2 of Wands represents future planning, progress, and discovery.",reversedDescription:"May indicate fear of change, playing it safe, or poor planning.",imageUrl:"2WANDS.PNG",descriptionUrl:"24_2ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:25,name:"3 of Wands",suit:"wands",number:"3",keywords:["progress","expansion","foresight","overseas opportunities"],description:"The 3 of Wands symbolizes progress, expansion, and foresight.",reversedDescription:"May indicate obstacles, delays, or lack of foresight.",imageUrl:"3WANDS.PNG",descriptionUrl:"25_3ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:26,name:"4 of Wands",suit:"wands",number:"4",keywords:["celebration","joy","harmony","homecoming"],description:"The 4 of Wands represents celebration, joy, and harmony.",reversedDescription:"May indicate lack of support or delayed celebration.",imageUrl:"4WANDS.PNG",descriptionUrl:"26_4ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:27,name:"5 of Wands",suit:"wands",number:"5",keywords:["conflict","disagreements","competition","tension"],description:"The 5 of Wands represents conflict, competition, and tension.",reversedDescription:"May indicate avoiding conflict or inner tension.",imageUrl:"5WANDS.PNG",descriptionUrl:"27_5ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:28,name:"6 of Wands",suit:"wands",number:"6",keywords:["success","public recognition","progress","self-confidence"],description:"The 6 of Wands represents success, public recognition, and self-confidence.",reversedDescription:"May indicate lack of recognition or fall from grace.",imageUrl:"6WANDS.PNG",descriptionUrl:"28_6ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:29,name:"7 of Wands",suit:"wands",number:"7",keywords:["challenge","competition","perseverance","defense"],description:"The 7 of Wands represents challenge, perseverance, and defense.",reversedDescription:"May indicate overwhelm, giving up, or excessive compromise.",imageUrl:"7WANDS.PNG",descriptionUrl:"29_7ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:30,name:"8 of Wands",suit:"wands",number:"8",keywords:["movement","fast paced change","action","alignment"],description:"The 8 of Wands represents movement, fast change, and alignment.",reversedDescription:"May indicate delays, frustration, or miscommunication.",imageUrl:"8WANDS.PNG",descriptionUrl:"30_8ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:31,name:"9 of Wands",suit:"wands",number:"9",keywords:["resilience","grit","last stand","persistence"],description:"The 9 of Wands represents resilience, grit, and persistence.",reversedDescription:"May indicate exhaustion, giving up, or chronic struggle.",imageUrl:"9WANDS.PNG",descriptionUrl:"31_9ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:32,name:"10 of Wands",suit:"wands",number:"10",keywords:["burden","extra responsibility","hard work","completion"],description:"The 10 of Wands represents burden, extra responsibility, and completion.",reversedDescription:"May indicate inability to delegate or collapsing under pressure.",imageUrl:"10WANDS.PNG",descriptionUrl:"32_10ofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:33,name:"Page of Wands",suit:"wands",number:"Page",keywords:["inspiration","ideas","discovery","limitless potential"],description:"The Page of Wands represents inspiration, ideas, and limitless potential.",reversedDescription:"May indicate immaturity, lack of direction, or creative blocks.",imageUrl:"PAGEWANDS.PNG",descriptionUrl:"33_11PageofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:34,name:"Knight of Wands",suit:"wands",number:"Knight",keywords:["energy","passion","inspired action","adventure"],description:"The Knight of Wands represents energy, passion, and adventure.",reversedDescription:"May indicate recklessness, scattered energy, or delays.",imageUrl:"KNIGHTWANDS.PNG",descriptionUrl:"34_12KnightofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:35,name:"Queen of Wands",suit:"wands",number:"Queen",keywords:["courage","confidence","independence","social butterfly"],description:"The Queen of Wands represents courage, confidence, and independence.",reversedDescription:"May indicate jealousy, insecurity, or selfishness.",imageUrl:"QUEENWANDS.PNG",descriptionUrl:"35_13QueenofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
+  {id:36,name:"King of Wands",suit:"wands",number:"King",keywords:["natural-born leader","vision","entrepreneur","honour"],description:"The King of Wands represents natural-born leadership, vision, and honour.",reversedDescription:"May indicate impulsiveness, ruthlessness, or high expectations.",imageUrl:"KINGWANDS.PNG",descriptionUrl:"36_14KingofWandsMinorArcana.txt",element:"Fire",planet:null,zodiac:null},
   {id:37,name:"Ace of Cups",suit:"cups",number:"Ace",keywords:["love","new relationships","compassion","creativity"],description:"The Ace of Cups represents new beginnings in love, compassion, and emotional fulfillment.",reversedDescription:"May indicate blocked emotions or difficulty expressing love.",imageUrl:"ACECUPS.PNG",descriptionUrl:"37_1AceofCupsMinorArcana.txt",element:"Water",planet:null,zodiac:null},
   {id:38,name:"2 of Cups",suit:"cups",number:"2",keywords:["unified love","partnership","mutual attraction"],description:"The 2 of Cups symbolizes partnership, unity, and mutual attraction.",reversedDescription:"May indicate disharmony or challenges in a relationship.",imageUrl:"2CUPS.PNG",descriptionUrl:"38_2ofCupsMinorArcana.txt",element:"Water",planet:null,zodiac:null},
   {id:39,name:"3 of Cups",suit:"cups",number:"3",keywords:["celebration","friendship","creativity","collaborations"],description:"The 3 of Cups represents celebration, friendship, and social gatherings.",reversedDescription:"May indicate isolation, overindulgence, or conflicts within a group.",imageUrl:"3CUPS.PNG",descriptionUrl:"39_3ofCupsMinorArcana.txt",element:"Water",planet:null,zodiac:null},
@@ -531,14 +708,14 @@ const ALL_CARDS = [
   {id:68,name:"4 of Pentacles",suit:"pentacles",number:"4",keywords:["conservation","frugality","security","scarcity","control"],description:"The 4 of Pentacles signifies control, stability, and material security.",reversedDescription:"May indicate a period of letting go and releasing control.",imageUrl:"4PENTACLES.PNG",descriptionUrl:"68_4ofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
   {id:69,name:"5 of Pentacles",suit:"pentacles",number:"5",keywords:["financial loss","poverty","lack mindset","isolation"],description:"The 5 of Pentacles represents financial loss, poverty, and feeling isolated.",reversedDescription:"May indicate beginning to recover from hardship.",imageUrl:"5PENTACLES.PNG",descriptionUrl:"69_5ofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
   {id:70,name:"6 of Pentacles",suit:"pentacles",number:"6",keywords:["generosity","charity","giving","receiving","sharing wealth"],description:"The 6 of Pentacles symbolizes generosity, sharing wealth, and helping others.",reversedDescription:"May indicate an imbalance in relationships or interactions.",imageUrl:"6PENTACLES.PNG",descriptionUrl:"70_6ofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
-  {id:71,name:"7 of Pentacles",suit:"pentacles",number:"7",keywords:["long-term view","sustainable results","perseverance"],description:"The 7 of Pentacles represents long-term investment, patience, and reward for hard work.",reversedDescription:"May indicate frustration or impatience with lack of progress.",imageUrl:"7PENTACLES.PNG",descriptionUrl:"71_7ofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:71,name:"7 of Pentacles",suit:"pentacles",number:"7",keywords:["long-term view","sustainable results","perseverance"],description:"The 7 of Pentacles represents long-term investment, patience, and reward.",reversedDescription:"May indicate frustration or impatience with lack of progress.",imageUrl:"7PENTACLES.PNG",descriptionUrl:"71_7ofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
   {id:72,name:"8 of Pentacles",suit:"pentacles",number:"8",keywords:["apprenticeship","repetitive tasks","mastery","skill"],description:"The 8 of Pentacles signifies diligence, skill development, and craftsmanship.",reversedDescription:"May indicate struggling with lack of focus or commitment.",imageUrl:"8PENTACLES.PNG",descriptionUrl:"72_8ofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
   {id:73,name:"9 of Pentacles",suit:"pentacles",number:"9",keywords:["abundance","luxury","self-sufficiency","financial independence"],description:"The 9 of Pentacles represents luxury, self-sufficiency, and financial independence.",reversedDescription:"May indicate feelings of insecurity or lack of self-worth.",imageUrl:"9PENTACLES.PNG",descriptionUrl:"73_9ofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
   {id:74,name:"10 of Pentacles",suit:"pentacles",number:"10",keywords:["wealth","financial security","family","long-term success"],description:"The 10 of Pentacles symbolizes wealth, legacy, and family traditions.",reversedDescription:"May indicate financial insecurity or challenges related to material wealth.",imageUrl:"10PENTACLES.PNG",descriptionUrl:"74_10ofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
-  {id:75,name:"Page of Pentacles",suit:"pentacles",number:"Page",keywords:["manifestation","financial opportunity","skill development"],description:"The Page of Pentacles represents ambition, diligence, and a new opportunity in the material world.",reversedDescription:"May indicate struggling to find focus or direction.",imageUrl:"PAGEPENTACLES.PNG",descriptionUrl:"75_11PageofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
-  {id:76,name:"Knight of Pentacles",suit:"pentacles",number:"Knight",keywords:["hard work","productivity","routine","conservatism"],description:"The Knight of Pentacles symbolizes hard work, responsibility, and perseverance.",reversedDescription:"May indicate feeling stuck or that progress has slowed to a halt.",imageUrl:"KNIGHTPENTACLES.PNG",descriptionUrl:"76_12KnightofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
-  {id:77,name:"Queen of Pentacles",suit:"pentacles",number:"Queen",keywords:["practicality","creature comforts","financial security","nurturing"],description:"The Queen of Pentacles represents a nurturing, practical, and financially savvy individual.",reversedDescription:"May indicate prioritizing work over personal life or relationships.",imageUrl:"QUEENPENTACLES.PNG",descriptionUrl:"77_13QueenofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
-  {id:78,name:"King of Pentacles",suit:"pentacles",number:"King",keywords:["abundance","prosperity","security","ambition","discipline"],description:"The King of Pentacles symbolizes wealth, abundance, security, and discipline.",reversedDescription:"May indicate being overly focused on material success to the detriment of other areas.",imageUrl:"KINGPENTACLES.PNG",descriptionUrl:"78_14KingofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:75,name:"Page of Pentacles",suit:"pentacles",number:"Page",keywords:["manifestation","financial opportunity","skill development"],description:"The Page of Pentacles represents ambition, diligence, and a new opportunity.",reversedDescription:"May indicate struggling to find focus or direction.",imageUrl:"PAGEPENTACLES.PNG",descriptionUrl:"75_11PageofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:76,name:"Knight of Pentacles",suit:"pentacles",number:"Knight",keywords:["hard work","productivity","routine","conservatism"],description:"The Knight of Pentacles symbolizes hard work, responsibility, and perseverance.",reversedDescription:"May indicate feeling stuck or that progress has slowed.",imageUrl:"KNIGHTPENTACLES.PNG",descriptionUrl:"76_12KnightofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:77,name:"Queen of Pentacles",suit:"pentacles",number:"Queen",keywords:["practical","creature comforts","financial security","nurturing"],description:"The Queen of Pentacles represents nurturing, practicality, and financial security.",reversedDescription:"May indicate neglecting your own needs in favor of others.",imageUrl:"QUEENPENTACLES.PNG",descriptionUrl:"77_13QueenofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
+  {id:78,name:"King of Pentacles",suit:"pentacles",number:"King",keywords:["abundance","prosperity","security","ambition","discipline"],description:"The King of Pentacles symbolizes wealth, abundance, security, and discipline.",reversedDescription:"May indicate being overly focused on material success.",imageUrl:"KINGPENTACLES.PNG",descriptionUrl:"78_14KingofPentaclesMinorArcana.txt",element:"Earth",planet:null,zodiac:null},
 ];
 
 const CARD_BY_ID = Object.fromEntries(ALL_CARDS.map(c => [c.id, c]));
@@ -560,8 +737,74 @@ const SPREADS = [
 ];
 const SPREAD_BY_ID = Object.fromEntries(SPREADS.map(s=>[s.id,s]));
 
+// ── GEOMETRY PATTERNS ──
+const GEOMETRY_PATTERNS = [
+  {id:'seed-of-life',name:'Seed of Life',symbol:'⊙',hz:396,tagline:'Origin of all creation',description:'The Seed of Life is formed from seven circles — a central circle surrounded by six others, each positioned at the circumference of the first. Together they encode the seven days of Genesis and the building blocks of all sacred geometry.',history:'396 Hz · Liberating guilt and fear',has3D:false},
+  {id:'flower-of-life',name:'Flower of Life',symbol:'✿',hz:528,tagline:'The interconnected web of all existence',description:'The Flower of Life contains 19 overlapping circles arranged in a perfect hexagonal grid. It appears across thousands of years of sacred art from Egypt to Japan, encoding the fundamental forms of space and time.',history:'528 Hz · DNA repair and miracles',has3D:true},
+  {id:'metatrons-cube',name:"Metatron's Cube",symbol:'✦',hz:432,tagline:'The blueprint of all physical reality — 78 sacred lines',description:"Metatron's Cube contains the 13 circles of the Fruit of Life connected by 78 lines. Within it hide all five Platonic Solids: Tetrahedron, Cube, Octahedron, Dodecahedron, and Icosahedron.",history:'432 Hz · Universal harmony',has3D:true},
+  {id:'vesica-piscis',name:'Vesica Piscis',symbol:'⬡',hz:417,tagline:'The gateway between worlds',description:'Two circles of the same radius, each positioned so its center lies on the circumference of the other. The almond-shaped vesica encodes the square roots of 2, 3, and 5 — the foundations of all sacred proportion.',history:'417 Hz · Facilitating change',has3D:false},
+  {id:'merkaba',name:'Merkaba',symbol:'✡',hz:741,tagline:'The light body — geometry of ascension',description:'The Merkaba (light, spirit, body) is a star tetrahedron — two interlocked tetrahedra rotating in opposite directions. It represents the human energy field in activated form and serves as the vehicle for multidimensional ascension.',history:'741 Hz · Awakening intuition',has3D:true},
+  {id:'sri-yantra',name:'Sri Yantra',symbol:'◈',hz:963,tagline:'The geometry of consciousness itself',description:'The Sri Yantra contains nine interlocking triangles — four pointing up and five pointing down — creating 43 smaller triangles. It is the geometric representation of the union of Shiva and Shakti, encoding the cosmos in a single diagram.',history:'963 Hz · Divine consciousness',has3D:true},
+  {id:'torus',name:'Torus',symbol:'◎',hz:174,tagline:'The self-sustaining shape of all living energy fields',description:'The Torus is the fundamental shape of all self-organizing systems — from the electromagnetic field of the Earth to the human heart. Energy flows in, along the central axis, out the other pole, and wraps around to return.',history:'174 Hz · Foundation and safety',has3D:true},
+  {id:'golden-spiral',name:'Golden Spiral',symbol:'φ',hz:528,tagline:'The ratio of growth',description:"The Golden Spiral expands outward by the Golden Ratio (φ ≈ 1.618) with each quarter turn. It appears in nautilus shells, hurricanes, galaxies, and sunflowers — the universe's preferred path of least resistance.",history:'528 Hz · Harmony and growth',has3D:false},
+  {id:'tree-of-life',name:'Tree of Life',symbol:'⟁',hz:639,tagline:'The map of existence — 10 spheres, 22 paths',description:'The Kabbalistic Tree of Life maps the structure of creation through 10 Sephiroth connected by 22 paths. Each Sephirah represents a different attribute of the divine, from Kether (Crown) to Malkuth (Kingdom).',history:'639 Hz · Connection and relationships',has3D:false},
+  {id:'mandala',name:'Mandala',symbol:'❃',hz:285,tagline:'The integration of the self',description:'The Mandala (Sanskrit for "circle") appears in Hindu, Buddhist, and indigenous traditions worldwide as a tool for meditation, cosmology, and the mapping of consciousness.',history:'285 Hz · Healing and rejuvenation',has3D:false},
+  {id:'pentagram',name:'Pentagram',symbol:'⛤',hz:852,tagline:'The human form in sacred proportion',description:"The Pentagram's five points encode the Golden Ratio at every intersection. The five points represent Earth, Water, Fire, Air, and Spirit — the elements of the manifest world.",history:'852 Hz · Returning to spiritual order',has3D:false},
+  {id:'hexagram',name:'Hexagram',symbol:'✶',hz:396,tagline:'As above, so below — the union of opposites',description:'The Hexagram forms when two equilateral triangles interlock — one pointing up (divine masculine, fire) and one pointing down (divine feminine, water). Together they encode the hermetic axiom: as above, so below.',history:'396 Hz · Liberation and unity',has3D:false},
+];
+const GEO_BY_ID = Object.fromEntries(GEOMETRY_PATTERNS.map(g=>[g.id,g]));
+
+// ── PATHWORKING JOURNEYS ──
+const PATHWORKING_JOURNEYS = [
+  {id:'genesis',title:'The Genesis Path',subtitle:'From singularity to blueprint',level:'Beginner',duration:'15 min',
+   intro:'You are about to journey from the single point of all creation outward into the cosmic blueprint. Breathe deeply.',
+   steps:[
+    {title:'The Void Before Form',geometry:'seed-of-life',narrative:'In the beginning, there was stillness. You stand at the threshold of creation — nothing yet exists but pure potential. Feel this emptiness not as absence, but as infinite possibility.\n\nThe Seed of Life appears before you — seven circles born from a single center. This is the first movement of the Creator: one becomes seven, mirroring the seven days of Genesis.\n\nGaze into the pattern. Where do you feel this origin within your own body?',drawCard:false},
+    {title:'The Web of Connection',geometry:'flower-of-life',narrative:'The Seed expands. More circles emerge, each one touching its neighbors with perfect precision. The Flower of Life blooms before you — 19 circles, 528 Hz, the frequency of DNA repair.\n\nThis pattern appears carved in granite in the Osiris Temple at Abydos, Egypt, dating to at least 10,500 BCE. It appears in Phoenicia, China, India — every culture that reached for the sacred arrived here.\n\nSit within this field. What within you desires to bloom?',drawCard:true},
+    {title:'The Blueprint Revealed',geometry:'metatrons-cube',narrative:"You have arrived at the fullness of creation's template. Metatron's Cube contains all five Platonic Solids — the building blocks of every physical form in this universe.\n\n78 lines connect 13 circles. The same number as the Tarot. Hold this image in your mind's eye. You are looking at the genetic code of reality itself.\n\nWhat are you here to build?",drawCard:true},
+  ]},
+  {id:'consciousness',title:'The Consciousness Path',subtitle:'Mapping the structure of awareness',level:'Intermediate',duration:'20 min',
+   intro:'This journey moves through the architecture of consciousness — from the unified field of the Sri Yantra through the map of emanation to the sacred integration of the Mandala.',
+   steps:[
+    {title:'The Field of Pure Awareness',geometry:'sri-yantra',narrative:'Before you shimmers the Sri Yantra — the geometry of consciousness itself. Nine triangles interlock in perfect mathematical precision, creating 43 smaller triangles.\n\n963 Hz resonates here — the frequency of divine consciousness. This same pattern, when intoned aloud, spontaneously forms in sand and water.\n\nPlace your awareness at the center point — the bindu. This is where you exist before you become anything.',drawCard:false},
+    {title:'The Map of Becoming',geometry:'tree-of-life',narrative:'The Tree of Life descends before you — ten spheres of light connected by 22 luminous paths. From Kether (Crown) at the apex to Malkuth (Kingdom) at the base, you see the full journey of consciousness.\n\n639 Hz — the frequency of connection. You have traveled this tree many times before. Each life navigates between its spheres.\n\nWhich Sephirah calls to you now? Where on this map do you currently stand?',drawCard:true},
+    {title:'Integration of Self',geometry:'mandala',narrative:"The journey completes in the Mandala — the full integration of the self into a unified whole. All the fragments, all the journeys, all the contradictions find their place in the perfect circle.\n\n285 Hz pulsates through this pattern — healing and rejuvenation at the cellular level.\n\nYou are the mandala. You are already whole. What part of yourself have you forgotten was sacred?",drawCard:true},
+  ]},
+  {id:'healing',title:'The Healing Path',subtitle:'Restoring energetic balance and flow',level:'Beginner',duration:'18 min',
+   intro:'This journey moves through the geometry of healing — opening portals, restoring flow, and expanding into the infinite unfolding of your own growth.',
+   steps:[
+    {title:'The Portal Opens',geometry:'vesica-piscis',narrative:'Two worlds overlap before you. The Vesica Piscis — the almond-shaped gateway formed where two circles of equal size intersect — is the oldest symbol of the threshold between dimensions.\n\n417 Hz resonates here, facilitating change and the gentle dissolution of what no longer serves.\n\nStand in the gateway. What are you crossing between?',drawCard:false},
+    {title:'The Energy Restores',geometry:'torus',narrative:"Feel the Torus pulsing before you — the self-sustaining toroidal field that envelops every living thing. Your heart generates a toroidal magnetic field extending several feet beyond your body. The Earth is a torus.\n\n174 Hz — the foundation frequency. Safety. Grounding. Your body knows this shape.\n\nVisualize your own energy field as a perfect torus: flowing in through your crown, down through your core, out through your root, spiraling around your body to return.",drawCard:true},
+    {title:'The Spiral of Growth',geometry:'golden-spiral',narrative:"The Golden Spiral unfolds before you — nature's most efficient path of growth. φ = 1.618. You find it in the nautilus shell, the sunflower, the hurricane, the DNA helix.\n\n528 Hz pulses through this spiral — the frequency of transformation and miracles.\n\nYou are not damaged. You are growing. Even pain is a spiral leading somewhere more whole. What is growing in you right now?",drawCard:true},
+  ]},
+  {id:'ascension',title:'The Ascension Path',subtitle:'Bridging spirit and matter',level:'Advanced',duration:'22 min',
+   intro:'This advanced journey activates the light body, bridges polarities, and anchors the human form in sacred proportion.',
+   steps:[
+    {title:'Activate the Light Body',geometry:'merkaba',narrative:"The Merkaba activates before you — a star tetrahedron, two interlocking pyramids rotating in opposite directions. Mer = light. Ka = spirit. Ba = body.\n\n741 Hz resonates through your cells — awakening intuition, dissolving limitation, expanding beyond what you believed was possible.\n\nThe upper tetrahedron spins clockwise. The lower spins counter-clockwise. You are the still point at their intersection.",drawCard:false},
+    {title:'As Above, So Below',geometry:'hexagram',narrative:'The Hexagram stands before you — two triangles perfectly interlocked, one reaching up, one reaching down. This is the Hermetic axiom made visible.\n\n396 Hz moves through you — liberation from whatever has kept you small, whatever guilt has anchored you to limitation.\n\nWhere in your life are you refusing to honor one of the two triangles?',drawCard:true},
+    {title:'The Sacred Human Form',geometry:'pentagram',narrative:"The Pentagram — the five-pointed star — encodes the human body in sacred proportion. Each intersection divides the sides in the Golden Ratio. Da Vinci saw this and drew his Vitruvian Man.\n\n852 Hz activates here — the return to spiritual order.\n\nYou are not a spiritual being having a human experience. You are the living geometry itself.",drawCard:true},
+  ]},
+  {id:'mystery',title:'The Mystery Path',subtitle:'Into the womb of space and the infinite return',level:'Advanced',duration:'25 min',
+   intro:'This journey is for the seasoned practitioner ready to dissolve the self and re-emerge through pure geometry.',
+   steps:[
+    {title:'The Womb of Space',geometry:'vesica-piscis',narrative:"You are not entering the Vesica Piscis. You ARE the Vesica Piscis.\n\nYou are the overlap between what has been and what will be. Between the life you've lived and the life that calls to you.\n\n417 Hz. Everything you believe about yourself was built in order to be dismantled at this moment.\n\nStay in the discomfort. Do not reach for resolution yet.",drawCard:false},
+    {title:'The Cosmic Pulse',geometry:'torus',narrative:"Breathe as if you ARE the torus. As you inhale, you are the inward flow. As you exhale, the outward. Between breaths — the still point at the center, where nothing exists.\n\nGo there. To the nothing. To the still point.\n\nFrom that stillness — what wants to exist through you?",drawCard:true},
+    {title:'The Infinite Return',geometry:'golden-spiral',narrative:"You thought the journey was a line — a progress from ignorance to enlightenment.\n\nThe Golden Spiral reveals: there is no destination. There is only the spiral — the same truth revisited at higher octaves, deeper understanding, wider circles.\n\nYou have been here before. You will be here again. That is not failure — it is the nature of sacred geometry applied to a life.",drawCard:true},
+    {title:'The Blueprint You Carry',geometry:'metatrons-cube',narrative:"Metatron's Cube: all 78 lines. All five Platonic Solids. Every form that can exist.\n\nYou are not limited to one of them. You are not even all of them. You are the intelligence that GENERATES them — the awareness from which all possible forms arise.\n\nSit with this. You are not a person who studies sacred geometry. Sacred geometry is the pattern of your own awareness studying itself.",drawCard:true},
+  ]},
+];
+const JOURNEY_BY_ID = Object.fromEntries(PATHWORKING_JOURNEYS.map(j=>[j.id,j]));
+
+// ── BREATHWORK MODES ──
+const BREATHWORK_MODES = [
+  {id:'box',name:'Box Breathing',pattern:[4,4,4,4],phases:['Inhale','Hold','Exhale','Hold'],description:'Used for acute stress regulation. Activates the parasympathetic nervous system through equal-phase breathing.'},
+  {id:'478',name:'4-7-8 Relaxing',pattern:[4,7,8,0],phases:['Inhale','Hold','Exhale',''],description:"Dr. Andrew Weil's natural tranquilizer. Extended exhale triggers the relaxation response."},
+  {id:'calm',name:'Deep Calm',pattern:[5,2,7,2],phases:['Inhale','Hold','Exhale','Hold'],description:'Extended exhale activates the vagus nerve. Ideal for meditation entry or before sleep.'},
+  {id:'energy',name:'Energizing',pattern:[6,0,2,0],phases:['Inhale','','Exhale',''],description:'Long inhale builds energy. Use for morning practice, ritual opening, or creative work.'},
+];
+
 // ═══════════════════════════════════════════════════════════════
-// STATE (localStorage)
+// STATE
 // ═══════════════════════════════════════════════════════════════
 function ls(k,d){ try{ const v=localStorage.getItem(k); return v!==null?JSON.parse(v):d; }catch(e){ return d; } }
 function lsSet(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
@@ -572,6 +815,12 @@ let state = {
   dailyDate: ls('tarot_daily_date',null),
   dailyReversed: ls('tarot_daily_reversed',false),
   notes: ls('tarot_notes',{}),
+  geoNotes: ls('tarot_geo_notes',{}),
+  geoViews: ls('tarot_geo_views',{}),
+  ritualCount: ls('tarot_ritual_count',0),
+  drawHistory: ls('tarot_draw_history',[]),
+  streakDate: ls('tarot_streak_date',null),
+  streakCount: ls('tarot_streak_count',0),
   onboardingDone: ls('tarot_onboarding_done',false),
   currentTab: 'deck',
   deckSearch: '',
@@ -580,6 +829,12 @@ let state = {
   spreadsCategory: 'all',
   currentSpreadId: null,
   spreadCards: {},
+  sacredSection: 'journeys',
+  selectedBreathMode: null,
+  breathRunning: false,
+  currentJourneyId: null,
+  currentStepIdx: 0,
+  journeyDrawnCards: {},
 };
 
 function isFav(id){ return state.favorites.includes(id); }
@@ -588,9 +843,24 @@ function toggleFav(id){
   else{ state.favorites=[...state.favorites,id]; }
   lsSet('tarot_favorites',state.favorites);
 }
-function saveNote(cardId,text){
-  state.notes={...state.notes,[cardId]:text};
-  lsSet('tarot_notes',state.notes);
+function saveNote(cardId,text){ state.notes={...state.notes,[cardId]:text}; lsSet('tarot_notes',state.notes); }
+function saveGeoNote(geoId,text){ state.geoNotes={...state.geoNotes,[geoId]:text}; lsSet('tarot_geo_notes',state.geoNotes); }
+function trackGeoView(id){ state.geoViews[id]=(state.geoViews[id]||0)+1; lsSet('tarot_geo_views',state.geoViews); }
+function trackDraw(cardId,geoId){
+  const entry={date:new Date().toISOString(),cardId,geoId:geoId||null};
+  state.drawHistory=[entry,...state.drawHistory].slice(0,100);
+  lsSet('tarot_draw_history',state.drawHistory);
+  updateStreak();
+}
+function updateStreak(){
+  const today=new Date().toDateString();
+  const yesterday=new Date(Date.now()-86400000).toDateString();
+  if(state.streakDate===today) return;
+  if(state.streakDate===yesterday){ state.streakCount++; }
+  else{ state.streakCount=1; }
+  state.streakDate=today;
+  lsSet('tarot_streak_date',state.streakDate);
+  lsSet('tarot_streak_count',state.streakCount);
 }
 function getDailyCard(){ return state.dailyCardId?CARD_BY_ID[state.dailyCardId]:null; }
 function isToday(){ return state.dailyDate===new Date().toDateString(); }
@@ -600,7 +870,6 @@ function isToday(){ return state.dailyDate===new Date().toDateString(); }
 // ═══════════════════════════════════════════════════════════════
 let obSlide=0;
 const OB_SLIDES=4;
-
 function obNext(){
   if(obSlide<OB_SLIDES-1){
     document.getElementById(`ob-${obSlide}`).classList.remove('active');
@@ -609,11 +878,8 @@ function obNext(){
     document.getElementById(`ob-${obSlide}`).classList.add('active');
     document.getElementById(`dot-${obSlide}`).classList.add('active');
     if(obSlide===OB_SLIDES-1) document.getElementById('ob-next-btn').textContent='Enter the Oracle';
-  } else {
-    completeOnboarding();
-  }
+  } else { completeOnboarding(); }
 }
-
 function completeOnboarding(){
   state.onboardingDone=true;
   lsSet('tarot_onboarding_done',true);
@@ -623,68 +889,719 @@ function completeOnboarding(){
 }
 
 // ═══════════════════════════════════════════════════════════════
-// APP INIT
+// APP INIT & TAB SWITCHING
 // ═══════════════════════════════════════════════════════════════
 function initApp(){
-  buildSuitFilter();
-  buildSpreadCategoryFilter();
   renderDeck();
-  renderDrawScreen();
+  renderSuitFilter();
+  renderDrawView();
+  renderGeoGrid();
+  buildSpreadCategoryFilter();
   renderSpreads();
+  renderJourneysTab();
+  renderBreathModes();
+  renderJournal();
   renderFavorites();
 }
 
-// ═══════════════════════════════════════════════════════════════
-// TAB SWITCHING
-// ═══════════════════════════════════════════════════════════════
 function switchTab(tab){
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById(`view-${tab}`).classList.add('active');
-  document.getElementById(`tab-${tab}`).classList.add('active');
+  const tabs=['deck','draw','geo','spreads','sacred','favorites'];
+  tabs.forEach(t=>{
+    const v=document.getElementById(`view-${t}`);
+    const b=document.getElementById(`tab-${t}`);
+    if(v){ v.classList.toggle('active',t===tab); }
+    if(b){ b.classList.toggle('active',t===tab); }
+  });
   state.currentTab=tab;
-  if(tab==='favorites') renderFavorites();
-  if(tab==='draw') renderDrawScreen();
+  stopSound();
+  if(tab==='geo') renderGeoGrid();
+  if(tab==='sacred') renderJournal();
+}
+
+function setSacredSection(sec){
+  state.sacredSection=sec;
+  document.querySelectorAll('.sacred-tab').forEach(b=>{
+    b.classList.toggle('active',b.textContent.toLowerCase().includes(sec.toLowerCase()));
+  });
+  document.querySelectorAll('.sacred-section').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById(`section-${sec}`);
+  if(el) el.classList.add('active');
 }
 
 // ═══════════════════════════════════════════════════════════════
-// DETAIL PANEL
+// GEOMETRY SVG RENDERER
 // ═══════════════════════════════════════════════════════════════
-function openPanel(html){
-  document.getElementById('detail-panel-inner').innerHTML=html;
-  document.getElementById('detail-panel').classList.add('open');
-  document.getElementById('detail-panel').scrollTop=0;
+function geoSVG(id, sz){
+  const C=sz/2, g='#D4AF37';
+  const PHI=1.6180339887;
+  const f=n=>parseFloat(n.toFixed(2));
+  const ci=(cx,cy,r,sw,op)=>`<circle cx="${f(cx)}" cy="${f(cy)}" r="${f(r)}" stroke="${g}" stroke-width="${sw||1}" fill="none" opacity="${op||1}"/>`;
+  const li=(x1,y1,x2,y2,sw,op)=>`<line x1="${f(x1)}" y1="${f(y1)}" x2="${f(x2)}" y2="${f(y2)}" stroke="${g}" stroke-width="${sw||0.7}" opacity="${op||0.4}"/>`;
+  const po=(pts,sw,op)=>`<polygon points="${pts.map(p=>`${f(p[0])},${f(p[1])}`).join(' ')}" stroke="${g}" stroke-width="${sw||1.5}" fill="none" opacity="${op||1}"/>`;
+  let s='';
+
+  if(id==='seed-of-life'){
+    const R=sz*.18;
+    s+=ci(C,C,R,2,1);
+    for(let i=0;i<6;i++){const a=i*Math.PI/3;s+=ci(C+R*Math.cos(a),C+R*Math.sin(a),R,1,.7);}
+    s+=ci(C,C,R*1.97,.8,.3);
+  }
+  else if(id==='flower-of-life'){
+    const R=sz*.13;
+    const cens=[[C,C]];
+    for(let i=0;i<6;i++){const a=i*Math.PI/3;cens.push([C+R*Math.cos(a),C+R*Math.sin(a)]);}
+    for(let i=0;i<6;i++){const a=i*Math.PI/3;cens.push([C+2*R*Math.cos(a),C+2*R*Math.sin(a)]);}
+    for(let i=0;i<6;i++){const a=i*Math.PI/3+Math.PI/6;cens.push([C+Math.sqrt(3)*R*Math.cos(a),C+Math.sqrt(3)*R*Math.sin(a)]);}
+    const clip=`cl${sz}`;
+    s=`<defs><clipPath id="${clip}"><circle cx="${C}" cy="${C}" r="${R*2.55}"/></clipPath></defs><g clip-path="url(#${clip})">`;
+    cens.forEach(([x,y])=>{s+=ci(x,y,R,.9,.7);});
+    s+=`</g>`+ci(C,C,R*2.55,.8,.35)+ci(C,C,R*3,.5,.15);
+    return `<svg viewBox="0 0 ${sz} ${sz}" fill="none">${s}</svg>`;
+  }
+  else if(id==='metatrons-cube'){
+    const R=sz*.14;
+    const ctrs=[[C,C]];
+    for(let i=0;i<6;i++){const a=i*Math.PI/3;ctrs.push([C+2*R*Math.cos(a),C+2*R*Math.sin(a)]);}
+    for(let i=0;i<6;i++){const a=i*Math.PI/3+Math.PI/6;ctrs.push([C+2*Math.sqrt(3)*R*Math.cos(a),C+2*Math.sqrt(3)*R*Math.sin(a)]);}
+    for(let i=0;i<ctrs.length;i++)for(let j=i+1;j<ctrs.length;j++)s+=li(ctrs[i][0],ctrs[i][1],ctrs[j][0],ctrs[j][1],.6,.25);
+    ctrs.forEach(([x,y],k)=>s+=ci(x,y,R*(k===0?1.1:.9),.9+(.2)*(k===0?.5:0),.75+(k===0?.25:0)));
+  }
+  else if(id==='vesica-piscis'){
+    const R=sz*.3,off=sz*.15;
+    s+=ci(C-off,C,R,1,.6)+ci(C+off,C,R,1,.6);
+    // Vesica fill arc
+    const h=Math.sqrt(R*R-off*off);
+    s+=`<path d="M ${f(C)} ${f(C-h)} A ${R} ${R} 0 0 1 ${f(C)} ${f(C+h)} A ${R} ${R} 0 0 1 ${f(C)} ${f(C-h)}" stroke="${g}" stroke-width="1.5" fill="rgba(212,175,55,.08)" opacity=".85"/>`;
+    s+=li(C-off,C-h,C+off,C+h,.8,.4)+li(C-off,C+h,C+off,C-h,.8,.4);
+    s+=ci(C,C,.04*sz,2,.9);
+  }
+  else if(id==='merkaba'){
+    const R=sz*.37;
+    const t1=[[C,C-R],[C+R*.866,C+R*.5],[C-R*.866,C+R*.5]];
+    const t2=[[C,C+R],[C+R*.866,C-R*.5],[C-R*.866,C-R*.5]];
+    s+=ci(C,C,R,.8,.3);
+    s+=po(t1,1.5,.9)+po(t2,1.5,.9);
+    [...t1,...t2].forEach(([x,y])=>s+=ci(x,y,sz*.03,1,.7));
+    s+=ci(C,C,sz*.04,1.5,1);
+  }
+  else if(id==='sri-yantra'){
+    const triU=(cx,cy,r)=>[[cx,cy-r],[cx+r*.866,cy+r*.5],[cx-r*.866,cy+r*.5]];
+    const triD=(cx,cy,r)=>[[cx,cy+r],[cx+r*.866,cy-r*.5],[cx-r*.866,cy-r*.5]];
+    [.38,.5,.6,.7,.8].forEach(r=>s+=po(triU(C,C,sz*r),1,.75));
+    [.28,.2,.14,.1].forEach(r=>s+=po(triD(C,C,sz*r),1,.75));
+    [.28,.5,.7].forEach(r=>s+=po(triD(C,C,sz*r),1.2,.85));
+    [.38,.6,.8].forEach(r=>s+=po(triU(C,C,sz*r),1.2,.85));
+    for(let i=0;i<8;i++){const a=i*Math.PI/4;s+=ci(C+sz*.38*Math.cos(a),C+sz*.38*Math.sin(a),sz*.05,.8,.5);}
+    s+=ci(C,C,sz*.04,1.5,1);
+  }
+  else if(id==='torus'){
+    const rx=sz*.38,ry=sz*.12;
+    for(let i=0;i<12;i++){const a=i*Math.PI/6,ca=Math.cos(a),sa=Math.sin(a);s+=`<ellipse cx="${f(C)}" cy="${f(C)}" rx="${f(rx)}" ry="${f(ry*(0.3+0.7*Math.abs(sa)))}" stroke="${g}" stroke-width=".8" fill="none" opacity=".6" transform="rotate(${f(i*15)},${C},${C})"/>`;}
+    for(let i=0;i<6;i++)s+=`<ellipse cx="${f(C)}" cy="${f(C)}" rx="${f(rx*.55)}" ry="${f(ry*.55*(0.3+0.7*Math.abs(Math.sin(i*Math.PI/3))))}" stroke="${g}" stroke-width=".7" fill="none" opacity=".35" transform="rotate(${f(i*30)},${C},${C})"/>`;
+    s+=ci(C,C,sz*.06,1.5,1);
+  }
+  else if(id==='golden-spiral'){
+    let pts=[],r=sz*.04,a=0;
+    for(let i=0;i<720;i++){r*=Math.pow(PHI,1/90);a+=Math.PI/90;pts.push([f(C+r*Math.cos(a)),f(C+r*Math.sin(a))]);}
+    s+=`<path d="M ${pts.map(p=>p.join(' ')).join(' L ')}" stroke="${g}" stroke-width="1.5" fill="none" opacity=".9"/>`;
+    const clip2=`gc${sz}`;
+    s=`<defs><clipPath id="${clip2}"><circle cx="${C}" cy="${C}" r="${sz*.46}"/></clipPath></defs><g clip-path="url(#${clip2})">${s}</g>`;
+    s+=ci(C,C,sz*.46,.6,.2);
+    return `<svg viewBox="0 0 ${sz} ${sz}" fill="none">${s}</svg>`;
+  }
+  else if(id==='tree-of-life'){
+    const R=sz*.085;
+    // 10 Sephiroth positions (normalized to sz)
+    const SP=[
+      [C,C-sz*.42],[C,C-sz*.22],[C-sz*.22,C-sz*.12],[C+sz*.22,C-sz*.12],
+      [C,C],[C-sz*.22,C+sz*.1],[C+sz*.22,C+sz*.1],[C-sz*.22,C+sz*.3],
+      [C+sz*.22,C+sz*.3],[C,C+sz*.42],
+    ];
+    const paths=[[0,1],[0,2],[0,3],[1,2],[1,3],[1,4],[2,4],[3,4],[2,5],[3,6],[4,5],[4,6],[5,7],[6,8],[5,9],[6,9],[7,9],[8,9],[4,9],[2,7],[3,8]];
+    paths.forEach(([a,b])=>s+=li(SP[a][0],SP[a][1],SP[b][0],SP[b][1],.8,.4));
+    s+=li(C,C-sz*.42,C,C+sz*.42,.5,.2);
+    SP.forEach(([x,y])=>s+=ci(x,y,R,1,.8));
+    s+=ci(C,C-sz*.42,R,1.5,.95)+ci(C,C+sz*.42,R,1.5,.95);
+  }
+  else if(id==='mandala'){
+    for(let ring=1;ring<=4;ring++){
+      const n=ring*6,r2=ring*sz*.1;
+      for(let i=0;i<n;i++){const a=i*2*Math.PI/n+ring*Math.PI/n;const x=C+r2*Math.cos(a),y=C+r2*Math.sin(a);s+=ci(x,y,sz*.04,1,.6);s+=li(C,C,x,y,.5,.25);}
+      s+=ci(C,C,r2,.5,.2);
+    }
+    s+=ci(C,C,sz*.06,2,1);
+    for(let i=0;i<8;i++){const a=i*Math.PI/4;s+=li(C,C,C+sz*.42*Math.cos(a),C+sz*.42*Math.sin(a),.8,.25);}
+  }
+  else if(id==='pentagram'){
+    const R=sz*.42,ri=R/PHI/PHI;
+    const outer=[],inner=[];
+    for(let i=0;i<5;i++){const a=i*2*Math.PI/5-Math.PI/2;outer.push([C+R*Math.cos(a),C+R*Math.sin(a)]);}
+    for(let i=0;i<5;i++){const a=i*2*Math.PI/5+Math.PI/10;inner.push([C+ri*Math.cos(a),C+ri*Math.sin(a)]);}
+    const star=outer.flatMap((_,i)=>[outer[i],inner[(i+1)%5]]);
+    // Draw pentagram as interlaced star
+    const order=[0,2,4,1,3];
+    s+=`<polygon points="${order.map(i=>`${f(outer[i][0])},${f(outer[i][1])}`).join(' ')}" stroke="${g}" stroke-width="1.5" fill="none" opacity=".9"/>`;
+    s+=`<polygon points="${inner.map(p=>`${f(p[0])},${f(p[1])}`).join(' ')}" stroke="${g}" stroke-width=".8" fill="none" opacity=".5"/>`;
+    outer.forEach(([x,y])=>s+=ci(x,y,sz*.03,1,.7));
+    s+=ci(C,C,R,.7,.3)+ci(C,C,sz*.04,1.5,1);
+  }
+  else if(id==='hexagram'){
+    const R=sz*.38;
+    const t1=[[C,C-R],[C+R*.866,C+R*.5],[C-R*.866,C+R*.5]];
+    const t2=[[C,C+R],[C+R*.866,C-R*.5],[C-R*.866,C-R*.5]];
+    s+=po(t1,1.5,.9)+po(t2,1.5,.9);
+    s+=ci(C,C,R*.5,.8,.4);
+    [...t1,...t2].forEach(([x,y])=>s+=ci(x,y,sz*.03,1,.7));
+    s+=ci(C,C,R,.7,.3)+ci(C,C,sz*.04,1.5,1);
+  }
+
+  return `<svg viewBox="0 0 ${sz} ${sz}" fill="none">${s}</svg>`;
 }
-function closePanel(){
-  document.getElementById('detail-panel').classList.remove('open');
+
+// ═══════════════════════════════════════════════════════════════
+// GEOMETRY TAB
+// ═══════════════════════════════════════════════════════════════
+function renderGeoGrid(){
+  const grid=document.getElementById('geo-grid');
+  if(!grid) return;
+  grid.innerHTML=GEOMETRY_PATTERNS.map(g=>`
+    <div class="geo-card" onclick="openGeoDetail('${g.id}')">
+      <div class="geo-card-svg">${geoSVG(g.id,72)}</div>
+      <div class="geo-card-name">${g.name}</div>
+      <div class="geo-card-hz">${g.hz} Hz</div>
+      <div class="geo-card-tagline">${g.tagline}</div>
+    </div>
+  `).join('');
+}
+
+let geoSoundCtx=null,geoSoundGain=null,geoSoundPlaying=false;
+let geo3DCanvas=null,geo3DAnim=null,geo3DActive=false;
+let geo3DRotX=0.4,geo3DRotY=0,geo3DDragging=false,geo3DLastDrag=null;
+let currentGeoId=null;
+
+function openGeoDetail(id){
+  const geo=GEO_BY_ID[id];
+  if(!geo) return;
+  currentGeoId=id;
+  trackGeoView(id);
+  const note=state.geoNotes[id]||'';
+  openPanel(`
+    <div>
+      <div class="geo-detail-header">
+        <button class="geo-detail-back" onclick="closeGeoPanel()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          Geometry
+        </button>
+        <div style="display:flex;gap:8px;align-items:center">
+          ${geo.has3D?`<button class="geo-3d-btn" id="geo-3d-btn" onclick="toggle3D('${id}')">◈ 3D</button>`:''}
+          <button class="geo-sound-btn" id="geo-sound-btn" onclick="toggleGeoSound(${geo.hz})">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            ♪ Sound
+          </button>
+        </div>
+      </div>
+      <div class="geo-detail-content">
+        <div class="geo-svg-wrap" id="geo-svg-wrap">
+          <div id="geo-svg-2d">${geoSVG(id,240)}</div>
+          <canvas id="canvas-3d" width="240" height="240" style="display:none;border-radius:50%;cursor:grab"></canvas>
+        </div>
+        <div class="geo-name-block">
+          <div class="geo-big-name">${geo.name}</div>
+          <div class="geo-hz-badge">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/></svg>
+            ${geo.hz} Hz · ${geo.history.split('·')[1]||''}
+          </div>
+          <div class="geo-tagline">${geo.tagline}</div>
+        </div>
+        <div class="geo-desc-box">
+          <div class="geo-section-label">About this Pattern</div>
+          <div class="geo-desc-text">${geo.description}</div>
+        </div>
+        <div class="geo-notes-box">
+          <div class="geo-section-label" style="margin-bottom:8px">Your Notes</div>
+          <textarea id="geo-note-${id}" placeholder="Write your reflections on this pattern…" class="journal-textarea">${note}</textarea>
+          <button class="geo-save-note-btn" onclick="saveGeoNoteUI('${id}')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Save Note
+          </button>
+        </div>
+      </div>
+    </div>
+  `);
+  geo3DActive=false;
+  geo3DRotX=0.4; geo3DRotY=0;
+  setup3DEvents();
+}
+
+function closeGeoPanel(){
+  stopSound();
+  stop3D();
+  closePanel();
+}
+
+function saveGeoNoteUI(id){
+  const ta=document.getElementById(`geo-note-${id}`);
+  if(ta){ saveGeoNote(id,ta.value); showToast('Note saved'); }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// BINAURAL SOUND ENGINE (Web Audio API — no WebView needed)
+// ═══════════════════════════════════════════════════════════════
+function toggleGeoSound(hz){
+  if(geoSoundPlaying){ stopSound(); }
+  else{ startSound(hz); }
+}
+
+function startSound(hz){
+  try{
+    stopSound();
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC) return;
+    geoSoundCtx=new AC();
+    geoSoundCtx.resume();
+    geoSoundGain=geoSoundCtx.createGain();
+    geoSoundGain.gain.setValueAtTime(0,geoSoundCtx.currentTime);
+    geoSoundGain.gain.linearRampToValueAtTime(0.28,geoSoundCtx.currentTime+1.5);
+    geoSoundGain.connect(geoSoundCtx.destination);
+    const merger=geoSoundCtx.createChannelMerger(2);
+    merger.connect(geoSoundGain);
+    const lg=geoSoundCtx.createGain();lg.connect(merger,0,0);
+    const rg=geoSoundCtx.createGain();rg.connect(merger,0,1);
+    const lo=geoSoundCtx.createOscillator();lo.type='sine';lo.frequency.value=hz;lo.connect(lg);lo.start();
+    const ro=geoSoundCtx.createOscillator();ro.type='sine';ro.frequency.value=hz+10;ro.connect(rg);ro.start();
+    const ao=geoSoundCtx.createOscillator();ao.type='sine';ao.frequency.value=hz*.5;
+    const ag=geoSoundCtx.createGain();ag.gain.value=0.07;ao.connect(ag);ag.connect(geoSoundGain);ao.start();
+    geoSoundPlaying=true;
+    const btn=document.getElementById('geo-sound-btn');
+    if(btn){ btn.classList.add('playing'); btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg> ♪ On · '+hz+'Hz'; }
+  }catch(e){}
+}
+
+function stopSound(){
+  if(!geoSoundCtx) return;
+  try{
+    if(geoSoundGain) geoSoundGain.gain.setTargetAtTime(0,geoSoundCtx.currentTime,0.4);
+    const c=geoSoundCtx;geoSoundCtx=null;geoSoundGain=null;
+    setTimeout(()=>{try{c.close();}catch(e){}},700);
+  }catch(e){}
+  geoSoundPlaying=false;
+  const btn=document.getElementById('geo-sound-btn');
+  if(btn){ btn.classList.remove('playing'); btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> ♪ Sound'; }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// 3D CANVAS RENDERER
+// ═══════════════════════════════════════════════════════════════
+function get3DEdges(id){
+  if(id==='torus'){
+    const R=1,r=0.36,M=24,N=16,verts=[],edges=[];
+    for(let i=0;i<M;i++)for(let j=0;j<N;j++){
+      const u=i*2*Math.PI/M,v=j*2*Math.PI/N;
+      verts.push([(R+r*Math.cos(v))*Math.cos(u),(R+r*Math.cos(v))*Math.sin(u),r*Math.sin(v)]);
+    }
+    for(let i=0;i<M;i++)for(let j=0;j<N;j++){
+      const a=i*N+j,b=i*N+(j+1)%N,c=((i+1)%M)*N+j;
+      edges.push([verts[a],verts[b]],[verts[a],verts[c]]);
+    }
+    return edges;
+  }
+  if(id==='merkaba'||id==='merkaba'){
+    const h=Math.sqrt(2/3),b=Math.sqrt(1/3);
+    const t1=[[0,1,0],[2*b,-1/3,0],[-b,-1/3,h],[-b,-1/3,-h]];
+    const t2=t1.map(v=>[v[0],-v[1],v[2]]);
+    const edges=[];
+    const addTet=(t)=>{for(let i=0;i<4;i++)for(let j=i+1;j<4;j++)edges.push([t[i],t[j]]);};
+    addTet(t1);addTet(t2);
+    return edges;
+  }
+  if(id==='metatrons-cube'){
+    const ctrs=[[0,0,0]];
+    for(let i=0;i<6;i++){const a=i*Math.PI/3;ctrs.push([Math.cos(a),Math.sin(a),0]);}
+    for(let i=0;i<6;i++){const a=i*Math.PI/3+Math.PI/6;ctrs.push([Math.sqrt(3)*Math.cos(a),Math.sqrt(3)*Math.sin(a),0]);}
+    const sc=0.55;const c2=ctrs.map(v=>[v[0]*sc,v[1]*sc,v[2]]);
+    const edges=[];
+    for(let i=0;i<c2.length;i++)for(let j=i+1;j<c2.length;j++)edges.push([c2[i],c2[j]]);
+    return edges;
+  }
+  if(id==='flower-of-life'){
+    const R=0.36,segs=32;
+    const edges=[];
+    const cens=[[0,0,0]];
+    for(let i=0;i<6;i++){const a=i*Math.PI/3;cens.push([R*Math.cos(a),R*Math.sin(a),0]);}
+    for(let i=0;i<6;i++){const a=i*Math.PI/3;cens.push([2*R*Math.cos(a),2*R*Math.sin(a),0]);}
+    for(let i=0;i<6;i++){const a=i*Math.PI/3+Math.PI/6;cens.push([Math.sqrt(3)*R*Math.cos(a),Math.sqrt(3)*R*Math.sin(a),0]);}
+    cens.forEach(([cx,cy])=>{
+      const pts=[];for(let i=0;i<=segs;i++){const a=i*2*Math.PI/segs;pts.push([cx+R*Math.cos(a),cy+R*Math.sin(a),0]);}
+      for(let i=0;i<segs;i++)edges.push([pts[i],pts[i+1]]);
+    });
+    return edges;
+  }
+  if(id==='sri-yantra'){
+    const edges=[];
+    const triU=(r)=>{const s=r*.866;return[[0,r,0],[s,-r*.5,0],[-s,-r*.5,0]];};
+    const triD=(r)=>{const s=r*.866;return[[0,-r,0],[s,r*.5,0],[-s,r*.5,0]];};
+    const addTri=(t,z)=>{for(let i=0;i<3;i++){const a=t[i],b=t[(i+1)%3];edges.push([[a[0],a[1],z],[b[0],b[1],z]]);}};
+    [.38,.5,.6,.7,.8].forEach((r,i)=>addTri(triU(r),i*0.04));
+    [.28,.2,.14,.1].forEach((r,i)=>addTri(triD(r),i*0.04));
+    return edges;
+  }
+  return [];
+}
+
+function proj3D(v,W,H){
+  let[x,y,z]=v;
+  let t=x*Math.cos(geo3DRotY)-z*Math.sin(geo3DRotY);
+  z=x*Math.sin(geo3DRotY)+z*Math.cos(geo3DRotY);x=t;
+  t=y*Math.cos(geo3DRotX)-z*Math.sin(geo3DRotX);
+  z=y*Math.sin(geo3DRotX)+z*Math.cos(geo3DRotX);y=t;
+  const fov=3.8,sc=fov/(fov+z)*W*.42;
+  return[W/2+x*sc,H/2+y*sc,z];
+}
+
+function draw3DFrame(){
+  const cvs=document.getElementById('canvas-3d');
+  if(!cvs||!geo3DActive) return;
+  const ctx=cvs.getContext('2d');
+  const W=cvs.width,H=cvs.height;
+  ctx.clearRect(0,0,W,H);
+  const grad=ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,W*.5);
+  grad.addColorStop(0,'rgba(30,18,80,.35)');grad.addColorStop(1,'rgba(10,8,20,0)');
+  ctx.fillStyle=grad;ctx.fillRect(0,0,W,H);
+  const edges=get3DEdges(currentGeoId);
+  const mapped=edges.map(([a,b])=>{const pa=proj3D(a,W,H),pb=proj3D(b,W,H);return{pa,pb,z:(pa[2]+pb[2])/2};});
+  mapped.sort((a,b)=>b.z-a.z);
+  mapped.forEach(({pa,pb,z})=>{
+    const d=Math.max(0,Math.min(1,(z+2)/4));
+    ctx.beginPath();ctx.moveTo(pa[0],pa[1]);ctx.lineTo(pb[0],pb[1]);
+    ctx.strokeStyle=`rgba(212,175,55,${0.15+d*.75})`;ctx.lineWidth=0.6+d*.8;ctx.stroke();
+  });
+}
+
+function toggle3D(id){
+  geo3DActive=!geo3DActive;
+  const cvs=document.getElementById('canvas-3d');
+  const svg2d=document.getElementById('geo-svg-2d');
+  const btn=document.getElementById('geo-3d-btn');
+  if(!cvs) return;
+  if(geo3DActive){
+    cvs.style.display='block';if(svg2d) svg2d.style.opacity='.0';
+    if(btn) btn.classList.add('active');
+    const size=Math.min(cvs.offsetWidth||240,240);cvs.width=size;cvs.height=size;
+    if(geo3DAnim) cancelAnimationFrame(geo3DAnim);
+    const loop=()=>{if(!geo3DDragging) geo3DRotY+=0.008;draw3DFrame();if(geo3DActive) geo3DAnim=requestAnimationFrame(loop);};loop();
+  } else { stop3D(); if(svg2d) svg2d.style.opacity='1'; if(btn) btn.classList.remove('active'); }
+}
+
+function stop3D(){
+  geo3DActive=false;
+  if(geo3DAnim){cancelAnimationFrame(geo3DAnim);geo3DAnim=null;}
+  const cvs=document.getElementById('canvas-3d');
+  if(cvs) cvs.style.display='none';
+  const svg2d=document.getElementById('geo-svg-2d');
+  if(svg2d) svg2d.style.opacity='1';
+}
+
+function setup3DEvents(){
+  setTimeout(()=>{
+    const cvs=document.getElementById('canvas-3d');
+    if(!cvs) return;
+    let lx=0,ly=0;
+    cvs.addEventListener('mousedown',e=>{geo3DDragging=true;lx=e.clientX;ly=e.clientY;},false);
+    document.addEventListener('mousemove',e=>{if(!geo3DDragging)return;geo3DRotY+=(e.clientX-lx)*.01;geo3DRotX+=(e.clientY-ly)*.01;lx=e.clientX;ly=e.clientY;},false);
+    document.addEventListener('mouseup',()=>geo3DDragging=false,false);
+    cvs.addEventListener('touchstart',e=>{geo3DDragging=true;lx=e.touches[0].clientX;ly=e.touches[0].clientY;e.preventDefault();},{passive:false});
+    document.addEventListener('touchmove',e=>{if(!geo3DDragging)return;geo3DRotY+=(e.touches[0].clientX-lx)*.01;geo3DRotX+=(e.touches[0].clientY-ly)*.01;lx=e.touches[0].clientX;ly=e.touches[0].clientY;},{passive:true});
+    document.addEventListener('touchend',()=>geo3DDragging=false,false);
+  },200);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PATHWORKING
+// ═══════════════════════════════════════════════════════════════
+function renderJourneysTab(){
+  const el=document.getElementById('journeys-list');
+  if(!el) return;
+  el.innerHTML=PATHWORKING_JOURNEYS.map((j,n)=>`
+    <div class="journey-card" onclick="openJourney('${j.id}')">
+      <div class="journey-num">${['I','II','III','IV','V'][n]}</div>
+      <div class="journey-info">
+        <div class="journey-title">${j.title}</div>
+        <div class="journey-subtitle">${j.subtitle}</div>
+        <div class="journey-pills">
+          <span class="journey-pill pill-level">${j.level}</span>
+          <span class="journey-pill pill-time">${j.duration}</span>
+          <span class="journey-pill pill-level">${j.steps.length} steps</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openJourney(id){
+  const j=JOURNEY_BY_ID[id];
+  if(!j) return;
+  state.currentJourneyId=id;
+  state.currentStepIdx=0;
+  state.journeyDrawnCards={};
+  renderJourneyStep();
+}
+
+function renderJourneyStep(){
+  const j=JOURNEY_BY_ID[state.currentJourneyId];
+  if(!j) return;
+  const step=j.steps[state.currentStepIdx];
+  const total=j.steps.length;
+  const drawn=state.journeyDrawnCards[state.currentStepIdx];
+  const drawnCard=drawn?CARD_BY_ID[drawn]:null;
+  const isLast=state.currentStepIdx===total-1;
+
+  openPanel(`
+    <div class="journey-reader">
+      <div class="journey-step-header">
+        <button onclick="closeJourneyPanel()" style="background:none;border:none;cursor:pointer;color:var(--cream);padding:6px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:1px;display:flex;align-items:center;gap:4px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          Journeys
+        </button>
+        <div class="journey-step-progress">Step ${state.currentStepIdx+1} of ${total}</div>
+        <div style="width:60px"></div>
+      </div>
+      <div style="height:4px;background:rgba(61,42,125,.3);margin:0"><div style="height:4px;background:var(--gold);width:${((state.currentStepIdx+1)/total*100).toFixed(0)}%;transition:width .4s"></div></div>
+      <div class="journey-step-body">
+        <div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold);letter-spacing:2px;text-align:center;margin-bottom:8px">${j.title.toUpperCase()}</div>
+        <div class="journey-step-title">${step.title}</div>
+        <div class="journey-step-geo">${geoSVG(step.geometry,160)}</div>
+        <div style="text-align:center;font-size:11px;color:var(--muted);letter-spacing:1px;margin-bottom:14px">${GEO_BY_ID[step.geometry]?.name||''} · ${GEO_BY_ID[step.geometry]?.hz||''}Hz</div>
+        <div class="journey-narrative">${step.narrative}</div>
+        ${step.drawCard&&!drawnCard?`
+          <button class="journey-draw-btn" onclick="journeyDrawCard()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Draw a Card for this Step
+          </button>` : ''}
+        ${drawnCard?`
+          <div class="journey-drawn-card" onclick="openCardDetail(${drawnCard.id})">
+            <img src="${cardImg(drawnCard)}" alt="${drawnCard.name}"/>
+            <div>
+              <div style="font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">Card Drawn</div>
+              <div style="font-family:'Cinzel',serif;font-size:14px;color:var(--cream)">${drawnCard.name}</div>
+              <div style="font-size:11px;color:${SUIT_COLORS[drawnCard.suit]};margin-top:2px">${SUIT_LABELS[drawnCard.suit]}</div>
+            </div>
+          </div>` : ''}
+      </div>
+      <div class="journey-nav">
+        ${state.currentStepIdx>0?`<button class="journey-nav prev-btn" onclick="journeyPrev()">← Previous</button>`:'<div></div>'}
+        <button class="journey-nav ${isLast?'done-btn':'next-btn'}" onclick="${isLast?'closeJourneyPanel()':'journeyNext()'}">${isLast?'Complete Journey ✦':'Next Step →'}</button>
+      </div>
+    </div>
+  `);
+}
+
+function journeyNext(){ state.currentStepIdx++; renderJourneyStep(); }
+function journeyPrev(){ state.currentStepIdx--; renderJourneyStep(); }
+function journeyDrawCard(){
+  const idx=Math.floor(Math.random()*ALL_CARDS.length);
+  state.journeyDrawnCards[state.currentStepIdx]=ALL_CARDS[idx].id;
+  renderJourneyStep();
+}
+function closeJourneyPanel(){
+  state.ritualCount++;
+  lsSet('tarot_ritual_count',state.ritualCount);
+  updateStreak();
+  closePanel();
+  renderJournal();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// BREATHWORK
+// ═══════════════════════════════════════════════════════════════
+let breathInterval=null,breathPhaseTimer=null;
+let breathModeId=null,breathPhaseIdx=0,breathCount=0,breathSecond=0;
+
+function renderBreathModes(){
+  const el=document.getElementById('breath-modes');
+  if(!el) return;
+  el.innerHTML=BREATHWORK_MODES.map(m=>`
+    <button class="breath-mode-btn${breathModeId===m.id?' active':''}" onclick="selectBreathMode('${m.id}')">
+      <div class="breath-mode-name">${m.name}</div>
+      <div class="breath-mode-pattern">${m.pattern.filter(x=>x>0).join('·')}s</div>
+    </button>
+  `).join('');
+}
+
+function selectBreathMode(id){
+  stopBreath();
+  breathModeId=id;
+  renderBreathModes();
+  const mode=BREATHWORK_MODES.find(m=>m.id===id);
+  document.getElementById('breath-desc').textContent=mode.description;
+  document.getElementById('breath-phase-text').textContent=mode.phases[0]||'—';
+  document.getElementById('breath-phase-sub').textContent='Ready when you are';
+  document.getElementById('breath-count').textContent='—';
+}
+
+function toggleBreath(){
+  if(state.breathRunning){ stopBreath(); }
+  else if(breathModeId){ startBreath(); }
+}
+
+function startBreath(){
+  const mode=BREATHWORK_MODES.find(m=>m.id===breathModeId);
+  if(!mode) return;
+  state.breathRunning=true;
+  breathPhaseIdx=0;breathCount=0;breathSecond=0;
+  const btn=document.getElementById('breath-control-btn');
+  if(btn){ btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Stop'; }
+  runBreathPhase(mode);
+}
+
+function runBreathPhase(mode){
+  let phaseIdx=0;
+  function nextPhase(){
+    if(!state.breathRunning) return;
+    while(phaseIdx<mode.pattern.length && mode.pattern[phaseIdx]===0) phaseIdx++;
+    if(phaseIdx>=mode.pattern.length){ phaseIdx=0;breathCount++;document.getElementById('breath-count').textContent=breathCount;}
+    const dur=mode.pattern[phaseIdx];
+    const phase=mode.phases[phaseIdx];
+    const ring=document.getElementById('breath-ring-inner');
+    document.getElementById('breath-phase-text').textContent=phase||'—';
+    document.getElementById('breath-phase-sub').textContent=`${dur} seconds`;
+    // Animate circle
+    if(ring){
+      ring.style.transition=`transform ${dur}s linear`;
+      if(phase==='Inhale') ring.style.transform='scale(1.35)';
+      else if(phase==='Exhale') ring.style.transform='scale(1)';
+    }
+    let secs=dur;
+    clearInterval(breathInterval);
+    breathInterval=setInterval(()=>{
+      secs--;document.getElementById('breath-phase-sub').textContent=`${secs} seconds`;
+      if(secs<=0){clearInterval(breathInterval);phaseIdx++;nextPhase();}
+    },1000);
+  }
+  nextPhase();
+}
+
+function stopBreath(){
+  state.breathRunning=false;
+  clearInterval(breathInterval);
+  breathInterval=null;
+  const ring=document.getElementById('breath-ring-inner');
+  if(ring){ ring.style.transition=''; ring.style.transform='scale(1)'; }
+  const btn=document.getElementById('breath-control-btn');
+  if(btn){ btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg> Begin'; }
+  const pt=document.getElementById('breath-phase-text');
+  const ps=document.getElementById('breath-phase-sub');
+  if(pt) pt.textContent='—';
+  if(ps) ps.textContent='Choose a pattern above';
+  document.getElementById('breath-count').textContent='—';
+}
+
+// ═══════════════════════════════════════════════════════════════
+// JOURNAL
+// ═══════════════════════════════════════════════════════════════
+function renderJournal(){
+  renderJournalStats();
+  renderPatternFrequency();
+  renderRecentReadings();
+}
+
+function renderJournalStats(){
+  const el=document.getElementById('journal-stats');
+  if(!el) return;
+  const totalDraws=state.drawHistory.length;
+  const streak=state.streakCount;
+  const rituals=state.ritualCount;
+  const geoTotal=Object.values(state.geoViews).reduce((a,b)=>a+b,0);
+  el.innerHTML=`
+    <div class="stat-card"><div class="stat-number">${totalDraws}</div><div class="stat-label">Cards Drawn</div></div>
+    <div class="stat-card"><div class="stat-number">${streak}🔥</div><div class="stat-label">Day Streak</div></div>
+    <div class="stat-card"><div class="stat-number">${rituals}</div><div class="stat-label">Journeys</div></div>
+    <div class="stat-card"><div class="stat-number">${geoTotal}</div><div class="stat-label">Pattern Views</div></div>
+  `;
+}
+
+function renderPatternFrequency(){
+  const el=document.getElementById('pattern-frequency');
+  if(!el) return;
+  const sorted=GEOMETRY_PATTERNS.map(g=>({id:g.id,name:g.name,count:state.geoViews[g.id]||0})).sort((a,b)=>b.count-a.count).slice(0,6);
+  const max=Math.max(1,...sorted.map(x=>x.count));
+  el.innerHTML=sorted.map(item=>`
+    <div class="pattern-freq-row">
+      <div class="pattern-freq-name">${item.name}</div>
+      <div class="pattern-freq-bar-wrap"><div class="pattern-freq-bar" style="width:${(item.count/max*100).toFixed(0)}%"></div></div>
+      <div class="pattern-freq-count">${item.count}</div>
+    </div>
+  `).join('');
+}
+
+function renderRecentReadings(){
+  const el=document.getElementById('recent-readings');
+  if(!el) return;
+  const recent=state.drawHistory.slice(0,10);
+  if(!recent.length){ el.innerHTML='<div class="empty-state" style="opacity:.4;padding:20px"><p>No readings yet</p></div>'; return; }
+  el.innerHTML=recent.map(r=>{
+    const card=CARD_BY_ID[r.cardId];
+    if(!card) return '';
+    const date=new Date(r.date).toLocaleDateString('en-US',{month:'short',day:'numeric'});
+    return `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(61,42,125,.2);cursor:pointer" onclick="openCardDetail(${card.id})">
+      <img src="${cardImg(card)}" style="width:32px;height:51px;border-radius:4px;object-fit:cover;flex-shrink:0"/>
+      <div style="flex:1">
+        <div style="font-family:'Cinzel',serif;font-size:13px;color:var(--cream)">${card.name}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px">${SUIT_LABELS[card.suit]}</div>
+      </div>
+      <div style="font-size:11px;color:var(--muted)">${date}</div>
+    </div>`;
+  }).join('');
 }
 
 // ═══════════════════════════════════════════════════════════════
 // DECK
 // ═══════════════════════════════════════════════════════════════
-function buildSuitFilter(){
-  const suits=[{key:'all',label:'All'},{key:'major',label:'Major'},{key:'wands',label:'Wands'},{key:'cups',label:'Cups'},{key:'swords',label:'Swords'},{key:'pentacles',label:'Pentacles'}];
-  const wrap=document.getElementById('suit-filter');
-  wrap.innerHTML=suits.map(s=>`
-    <button class="chip${s.key===state.deckSuit?' active':''}" 
-      style="--active-color:${s.key==='all'?'var(--gold)':SUIT_COLORS[s.key]||'var(--gold)'}"
-      onclick="setSuit('${s.key}')">${s.label}</button>
+function renderDeck(){
+  const grid=document.getElementById('deck-grid');
+  if(!grid) return;
+  const filtered=getFilteredDeck();
+  document.getElementById('deck-count').textContent=`${filtered.length} of 78 cards`;
+  if(!filtered.length){ grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><p>No cards found</p></div>`; return; }
+  grid.innerHTML=filtered.map(c=>`
+    <div class="card-item" onclick="openCardDetail(${c.id})">
+      <div class="card-img-wrap card-glow">
+        <img src="${cardImg(c)}" alt="${c.name}" loading="lazy"/>
+      </div>
+      <div class="card-label-row">
+        <div class="card-dot" style="background:${SUIT_COLORS[c.suit]}"></div>
+        <div class="card-label">${c.name}</div>
+      </div>
+    </div>
   `).join('');
 }
 
-function setSuit(suit){
+function getFilteredDeck(){
+  const q=state.deckSearch.toLowerCase();
+  return ALL_CARDS.filter(c=>{
+    const matchSuit=state.deckSuit==='all'||c.suit===state.deckSuit;
+    const matchQ=!q||c.name.toLowerCase().includes(q)||c.keywords.some(k=>k.toLowerCase().includes(q));
+    return matchSuit&&matchQ;
+  });
+}
+
+function renderSuitFilter(){
+  const suits=[{key:'all',label:'All'},{key:'major',label:'Major Arcana'},{key:'wands',label:'Wands'},{key:'cups',label:'Cups'},{key:'swords',label:'Swords'},{key:'pentacles',label:'Pentacles'}];
+  document.getElementById('suit-filter').innerHTML=suits.map(s=>`
+    <button class="chip${s.key===state.deckSuit?' active':''}" style="${s.key!=='all'?`--active-color:${SUIT_COLORS[s.key]||'var(--gold)'}`:''}" onclick="setSuitFilter('${s.key}')">${s.label}</button>
+  `).join('');
+}
+
+function setSuitFilter(suit){
   state.deckSuit=suit;
-  document.querySelectorAll('#suit-filter .chip').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('#suit-filter .chip').forEach(b=>b.classList.remove('active'));
   event.target.classList.add('active');
   renderDeck();
-  updateDeckCount();
 }
 
 function filterDeck(){
   state.deckSearch=document.getElementById('deck-search').value;
   document.getElementById('deck-clear').style.display=state.deckSearch?'block':'none';
   renderDeck();
-  updateDeckCount();
 }
 
 function clearDeckSearch(){
@@ -692,218 +1609,41 @@ function clearDeckSearch(){
   document.getElementById('deck-search').value='';
   document.getElementById('deck-clear').style.display='none';
   renderDeck();
-  updateDeckCount();
-}
-
-function getFilteredCards(){
-  const q=state.deckSearch.toLowerCase();
-  return ALL_CARDS.filter(c=>{
-    const matchSuit=state.deckSuit==='all'||c.suit===state.deckSuit;
-    const matchSearch=!q||c.name.toLowerCase().includes(q)||c.keywords.some(k=>k.toLowerCase().includes(q));
-    return matchSuit&&matchSearch;
-  });
-}
-
-function updateDeckCount(){
-  const f=getFilteredCards();
-  document.getElementById('deck-count').textContent=`${f.length} of ${ALL_CARDS.length} cards`;
-}
-
-function renderDeck(){
-  const cards=getFilteredCards();
-  const grid=document.getElementById('deck-grid');
-  if(!cards.length){
-    grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><p>No cards found</p></div>`;
-    return;
-  }
-  grid.innerHTML=cards.map(c=>{
-    const color=SUIT_COLORS[c.suit];
-    return `<div class="card-item" onclick="openCardDetail(${c.id})">
-      <div class="card-img-wrap card-glow" style="box-shadow:0 4px 16px rgba(0,0,0,.5)">
-        <img src="${cardImg(c)}" alt="${c.name}" loading="lazy" onerror="this.style.opacity='.3'"/>
-      </div>
-      <div class="card-label-row">
-        <div class="card-dot" style="background:${color}"></div>
-        <span class="card-label">${c.name}</span>
-      </div>
-    </div>`;
-  }).join('');
 }
 
 // ═══════════════════════════════════════════════════════════════
-// CARD DETAIL
+// DRAW VIEW
 // ═══════════════════════════════════════════════════════════════
-function openCardDetail(id){
-  const card=CARD_BY_ID[id];
-  if(!card) return;
-  const accent=SUIT_COLORS[card.suit];
-  const noteText=state.notes[id]||'';
-  const fav=isFav(id);
-
-  openPanel(`
-    <div style="position:sticky;top:0;z-index:10;background:var(--midnight)">
-      <div class="detail-header">
-        <button class="back-btn" onclick="closePanel()">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-          Back
-        </button>
-        <button class="fav-icon-btn" onclick="toggleFavCard(${id})" id="detail-fav-btn">
-          ${favHeart(fav)}
-        </button>
-      </div>
-    </div>
-    <div id="card-detail-content">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden">
-        <div style="position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:300px;height:300px;border-radius:50%;background:${accent};opacity:.07;filter:blur(60px)"></div>
-      </div>
-      <div class="detail-card-wrap">
-        <img class="detail-card-img" src="${cardImg(card)}" alt="${card.name}" style="box-shadow:0 0 40px ${accent}55"/>
-      </div>
-      <div class="detail-title-block">
-        <div class="detail-num" style="color:${accent}">${card.number}</div>
-        <div class="detail-name">${card.name}</div>
-        <div class="suit-badge" style="border-color:${accent}">
-          <span class="suit-badge-text" style="color:${accent}">${SUIT_LABELS[card.suit]}</span>
-        </div>
-        ${renderAttrs(card,accent)}
-        <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:4px">
-          ${card.keywords.map(k=>`<span style="font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid ${accent}60;color:${accent};font-weight:600;letter-spacing:.5px">${k}</span>`).join('')}
-        </div>
-      </div>
-      <div class="desc-box" style="border-color:${accent}35;background:${accent}0D;margin-bottom:8px">
-        <div class="desc-box-label" style="color:${accent}">↑ Upright</div>
-        <div class="desc-box-text">${card.description}</div>
-      </div>
-      <div class="desc-box" style="border-color:#E6394650;background:#E6394610;margin-bottom:0">
-        <div class="desc-box-label" style="color:#E63946">↓ Reversed</div>
-        <div class="desc-box-text">${card.reversedDescription}</div>
-      </div>
-      <div class="divider" style="background:${accent}"></div>
-      <div class="full-desc-header" style="color:${accent}">Full Sacred Interpretation</div>
-      <div id="full-desc-block">
-        <div class="loading-block">
-          ${spinnerSVG(accent)}
-          <div class="loading-txt">Channelling wisdom…</div>
-        </div>
-      </div>
-      <div class="divider" style="background:${accent};margin-top:28px"></div>
-      <div class="full-desc-header" style="color:${accent}">Sacred Journal</div>
-      <div class="journal-box" style="border-color:${accent}40;background:${accent}08">
-        <textarea class="journal-textarea" id="journal-input" placeholder="Write your personal reflection on this card…">${noteText}</textarea>
-        <button class="save-note-btn" style="border-color:${accent}60;color:${accent}" onclick="saveCardNote(${id})">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13"/><polyline points="7 3 7 8 15 8"/></svg>
-          Save Note
-        </button>
-      </div>
-    </div>
-  `);
-
-  // Fetch full description
-  fetch(descUrl(card))
-    .then(r=>r.text())
-    .then(text=>{
-      const el=document.getElementById('full-desc-block');
-      if(el) el.innerHTML=`<div class="full-desc-text">${escapeHtml(text)}</div>`;
-    })
-    .catch(()=>{
-      const el=document.getElementById('full-desc-block');
-      if(el) el.innerHTML=`<div style="font-size:14px;color:var(--muted);font-style:italic;text-align:center;padding:20px">Unable to load the full description. Check your connection.</div>`;
-    });
-}
-
-function toggleFavCard(id){
-  toggleFav(id);
-  const btn=document.getElementById('detail-fav-btn');
-  if(btn) btn.innerHTML=favHeart(isFav(id));
-}
-
-function saveCardNote(id){
-  const text=document.getElementById('journal-input')?.value||'';
-  saveNote(id,text);
-  // Visual feedback
-  const btn=event.target.closest('.save-note-btn');
-  if(btn){ const orig=btn.textContent; btn.textContent='Saved ✓'; setTimeout(()=>{ btn.innerHTML=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13"/><polyline points="7 3 7 8 15 8"/></svg> Save Note`; },1500); }
-}
-
-function renderAttrs(card,accent){
-  const attrs=[];
-  if(card.element) attrs.push({label:'Element',val:card.element});
-  if(card.planet) attrs.push({label:'Planet',val:card.planet});
-  if(card.zodiac) attrs.push({label:'Zodiac',val:card.zodiac});
-  if(!attrs.length) return '';
-  return `<div class="attrs-row" style="justify-content:center;margin-top:4px">
-    ${attrs.map(a=>`<div class="attr-chip">
-      <span class="attr-chip-label">${a.label}</span>
-      <span class="attr-chip-val" style="color:${accent}">${a.val}</span>
-    </div>`).join('')}
-  </div>`;
-}
-
-function favHeart(active){
-  return active
-    ? `<svg width="24" height="24" viewBox="0 0 24 24" fill="#FF6B9D" stroke="#FF6B9D" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`
-    : `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`;
-}
-
-function spinnerSVG(color='#D4AF37'){
-  return `<svg width="72" height="72" viewBox="0 0 72 72" fill="none" style="animation:spin 3s linear infinite">
-    <circle cx="36" cy="36" r="32" stroke="${color}" stroke-width=".8"/>
-    <circle cx="36" cy="36" r="16" stroke="${color}" stroke-width=".6"/>
-    <circle cx="36" cy="20" r="16" stroke="${color}" stroke-width=".5"/>
-    <circle cx="36" cy="52" r="16" stroke="${color}" stroke-width=".5"/>
-    <circle cx="22" cy="28" r="16" stroke="${color}" stroke-width=".5"/>
-    <circle cx="50" cy="28" r="16" stroke="${color}" stroke-width=".5"/>
-    <polygon points="36,16 52,43 20,43" stroke="${color}" stroke-width=".6" fill="none"/>
-    <polygon points="36,56 20,29 52,29" stroke="${color}" stroke-width=".6" fill="none"/>
-    <circle cx="36" cy="36" r="2.5" fill="${color}"/>
-  </svg>`;
-}
-
-function escapeHtml(s){
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-// ═══════════════════════════════════════════════════════════════
-// DAILY DRAW
-// ═══════════════════════════════════════════════════════════════
-function renderDrawScreen(){
-  const dateEl=document.getElementById('draw-today-date');
-  if(dateEl) dateEl.textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-  
-  const card=getDailyCard();
-  const today=isToday();
-  
-  const btn=document.getElementById('draw-btn');
-  if(btn) btn.textContent=(today&&card)?'Draw Again':'Draw Card';
-  
-  if(today&&card){
-    showDrawnCard(card,state.dailyReversed,false);
-  }
-}
-
 let drawIsRevealed=false;
 
+function renderDrawView(){
+  document.getElementById('draw-today-date').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  const card=getDailyCard();
+  if(card&&isToday()){
+    document.getElementById('draw-empty').style.display='none';
+    document.getElementById('draw-card-wrap').style.display='block';
+    document.getElementById('draw-btn').textContent='Draw Again';
+    showDrawnCard(card,state.dailyReversed,false);
+    drawIsRevealed=true;
+  }
+}
+
 function showDrawnCard(card,reversed,animate){
-  const emptyEl=document.getElementById('draw-empty');
-  const cardWrap=document.getElementById('draw-card-wrap');
-  if(!emptyEl||!cardWrap) return;
-
-  emptyEl.style.display='none';
-  cardWrap.style.display='block';
-
+  document.getElementById('draw-empty').style.display='none';
+  document.getElementById('draw-card-wrap').style.display='block';
   const img=document.getElementById('drawn-card-img');
-  if(img){ img.src=cardImg(card); img.style.transform=reversed?'rotate(180deg)':''; }
-
+  if(img) img.src=cardImg(card);
+  const scene=document.getElementById('flip-scene');
+  if(reversed) scene.classList.add('card-reversed'); else scene.classList.remove('card-reversed');
   const glow=document.getElementById('card-glow-aura');
-  if(glow){ glow.style.background=SUIT_COLORS[card.suit]; glow.style.boxShadow=`0 0 60px 20px ${SUIT_COLORS[card.suit]}55`; }
-
+  if(glow) glow.style.background=`radial-gradient(ellipse,${SUIT_COLORS[card.suit]}22 0%,transparent 70%)`;
   const flipInner=document.getElementById('flip-inner');
   if(animate){
     drawIsRevealed=false;
-    if(flipInner){ flipInner.classList.remove('flipped'); }
-    setTimeout(()=>{ if(flipInner) flipInner.classList.add('flipped'); drawIsRevealed=true; renderCardInfoPanel(card,reversed); },600);
+    if(flipInner) flipInner.classList.remove('flipped');
+    setTimeout(()=>{if(flipInner) flipInner.classList.add('flipped');drawIsRevealed=true;renderCardInfoPanel(card,reversed);},600);
   } else {
-    if(flipInner){ flipInner.classList.add('flipped'); }
+    if(flipInner) flipInner.classList.add('flipped');
     drawIsRevealed=true;
     renderCardInfoPanel(card,reversed);
   }
@@ -925,9 +1665,7 @@ function renderCardInfoPanel(card,reversed){
         </div>
         <button class="fav-btn" onclick="toggleDrawFav(${card.id})" id="draw-fav-btn">${favHeart(fav)}</button>
       </div>
-      <div class="keywords-row">
-        ${card.keywords.slice(0,4).map(k=>`<span class="kw-chip" style="border-color:${accent}55;color:${accent}">${k}</span>`).join('')}
-      </div>
+      <div class="keywords-row">${card.keywords.slice(0,4).map(k=>`<span class="kw-chip" style="border-color:${accent}55;color:${accent}">${k}</span>`).join('')}</div>
       ${renderAttrs(card,accent)}
       <div class="desc-box" style="border-color:${reversed?'#E6394660':accent+'35'};background:${reversed?'#E6394610':accent+'0D'}">
         ${reversed?`<div class="desc-box-label" style="color:#E63946">↓ Reversed Reading</div>`:''}
@@ -947,12 +1685,10 @@ function toggleDrawFav(id){
   const btn=document.getElementById('draw-fav-btn');
   if(btn) btn.innerHTML=favHeart(isFav(id));
 }
-
 function openDrawnCard(){
   const card=getDailyCard();
   if(card&&drawIsRevealed) openCardDetail(card.id);
 }
-
 function handleDraw(){
   const idx=Math.floor(Math.random()*ALL_CARDS.length);
   const card=ALL_CARDS[idx];
@@ -963,18 +1699,106 @@ function handleDraw(){
   lsSet('tarot_daily_card',card.id);
   lsSet('tarot_daily_date',state.dailyDate);
   lsSet('tarot_daily_reversed',reversed);
-
+  trackDraw(card.id,null);
   const btn=document.getElementById('draw-btn');
   if(btn) btn.textContent='Draw Again';
-
-  // Reset flip
   const flipInner=document.getElementById('flip-inner');
   if(flipInner) flipInner.classList.remove('flipped');
   drawIsRevealed=false;
   const panel=document.getElementById('card-info-panel');
   if(panel) panel.style.display='none';
-
   showDrawnCard(card,reversed,true);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CARD DETAIL
+// ═══════════════════════════════════════════════════════════════
+function favHeart(fav){
+  return `<svg width="22" height="22" viewBox="0 0 24 24" fill="${fav?'#E63946':'none'}" stroke="${fav?'#E63946':'var(--muted)'}" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`;
+}
+
+function renderAttrs(card,accent){
+  const attrs=[];
+  if(card.element) attrs.push({label:'Element',val:card.element});
+  if(card.planet) attrs.push({label:'Planet',val:card.planet});
+  if(card.zodiac) attrs.push({label:'Zodiac',val:card.zodiac});
+  if(!attrs.length) return '';
+  return `<div class="attrs-row">${attrs.map(a=>`<div class="attr-chip"><div class="attr-chip-label">${a.label}</div><div class="attr-chip-val" style="color:${accent}">${a.val}</div></div>`).join('')}</div>`;
+}
+
+function openCardDetail(cardId){
+  const card=CARD_BY_ID[cardId];
+  if(!card) return;
+  const accent=SUIT_COLORS[card.suit];
+  const fav=isFav(card.id);
+  const note=state.notes[card.id]||'';
+  openPanel(`
+    <div id="card-detail-content">
+      <div class="detail-header">
+        <button class="back-btn" onclick="closePanel()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          Back
+        </button>
+        <button class="fav-icon-btn" onclick="toggleDetailFav(${card.id})" id="detail-fav-btn">${favHeart(fav)}</button>
+      </div>
+      <div class="detail-card-wrap">
+        <img class="detail-card-img" src="${cardImg(card)}" alt="${card.name}"/>
+      </div>
+      <div class="detail-title-block">
+        <div class="detail-num" style="color:${accent}">${card.number}</div>
+        <div class="detail-name">${card.name}</div>
+        <div class="suit-badge" style="border-color:${accent}60;background:${accent}15"><span class="suit-badge-text" style="color:${accent}">${SUIT_LABELS[card.suit]}</span></div>
+      </div>
+      <div class="keywords-row" style="justify-content:center;margin-bottom:12px">${card.keywords.map(k=>`<span class="kw-chip" style="border-color:${accent}55;color:${accent}">${k}</span>`).join('')}</div>
+      ${renderAttrs(card,accent)}
+      <div class="divider" style="background:${accent}"></div>
+      <div class="full-desc-header" style="color:${accent}">Upright Meaning</div>
+      <div class="full-desc-text">${card.description}</div>
+      <div class="divider" style="background:#E6394650;margin-top:20px"></div>
+      <div class="full-desc-header" style="color:#E63946">Reversed Meaning</div>
+      <div class="full-desc-text">${card.reversedDescription}</div>
+      <div class="divider" style="background:${accent}"></div>
+      <div id="full-desc-section">
+        <div class="loading-block">
+          <div class="loading-txt">Loading full interpretation…</div>
+          <button style="font-family:'Cinzel',serif;font-size:12px;color:${accent};background:none;border:1px solid ${accent}40;border-radius:20px;padding:8px 20px;cursor:pointer;letter-spacing:1px" onclick="loadFullDesc(${card.id})">Load Sacred Text</button>
+        </div>
+      </div>
+      <div class="divider" style="background:${accent}"></div>
+      <div class="full-desc-header" style="color:${accent}">Sacred Journal</div>
+      <div class="journal-box" style="border-color:${accent}30">
+        <textarea class="journal-textarea" id="note-${card.id}" placeholder="Your personal reflection on ${card.name}…">${note}</textarea>
+        <button class="save-note-btn" style="border-color:${accent}50;color:${accent}" onclick="saveCardNote(${card.id})">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Save Note
+        </button>
+      </div>
+      <div style="height:40px"></div>
+    </div>
+  `);
+}
+
+function toggleDetailFav(id){
+  toggleFav(id);
+  const btn=document.getElementById('detail-fav-btn');
+  if(btn) btn.innerHTML=favHeart(isFav(id));
+  renderFavorites();
+}
+function saveCardNote(id){
+  const ta=document.getElementById(`note-${id}`);
+  if(ta){ saveNote(id,ta.value); showToast('Note saved'); }
+}
+function loadFullDesc(id){
+  const card=CARD_BY_ID[id];
+  if(!card) return;
+  const accent=SUIT_COLORS[card.suit];
+  const sec=document.getElementById('full-desc-section');
+  if(sec) sec.innerHTML=`<div class="loading-block"><div class="loading-txt">Loading…</div></div>`;
+  fetch(descUrl(card)).then(r=>r.text()).then(txt=>{
+    if(sec) sec.innerHTML=`<div class="full-desc-header" style="color:${accent}">Full Sacred Interpretation</div><div class="full-desc-text">${txt}</div>`;
+  }).catch(()=>{
+    if(sec) sec.innerHTML=`<div class="loading-block"><div class="loading-txt" style="color:#E63946">Could not load text</div></div>`;
+  });
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -985,31 +1809,25 @@ const SPREAD_GROUP_LABELS={featured:'Featured Spreads',sacred:'Sacred Geometry S
 
 function buildSpreadCategoryFilter(){
   const wrap=document.getElementById('spread-category-filter');
-  wrap.innerHTML=SPREAD_CATEGORIES.map(c=>`
-    <button class="chip${c.key===state.spreadsCategory?' active':''}" onclick="setSpreadCategory('${c.key}')">${c.label}</button>
-  `).join('');
+  wrap.innerHTML=SPREAD_CATEGORIES.map(c=>`<button class="chip${c.key===state.spreadsCategory?' active':''}" onclick="setSpreadCategory('${c.key}')">${c.label}</button>`).join('');
 }
-
 function setSpreadCategory(cat){
   state.spreadsCategory=cat;
   document.querySelectorAll('#spread-category-filter .chip').forEach(c=>c.classList.remove('active'));
   event.target.classList.add('active');
   renderSpreads();
 }
-
 function filterSpreads(){
   state.spreadsSearch=document.getElementById('spreads-search').value;
   document.getElementById('spreads-clear').style.display=state.spreadsSearch?'block':'none';
   renderSpreads();
 }
-
 function clearSpreadsSearch(){
   state.spreadsSearch='';
   document.getElementById('spreads-search').value='';
   document.getElementById('spreads-clear').style.display='none';
   renderSpreads();
 }
-
 function renderSpreads(){
   const q=state.spreadsSearch.toLowerCase();
   const filtered=SPREADS.filter(s=>{
@@ -1017,10 +1835,8 @@ function renderSpreads(){
     const matchSearch=!q||s.name.toLowerCase().includes(q)||s.subtitle.toLowerCase().includes(q);
     return matchCat&&matchSearch;
   });
-
   const groups={featured:[],sacred:[],classic:[]};
   filtered.forEach(s=>groups[s.category].push(s));
-
   let html='';
   for(const [cat,label] of Object.entries(SPREAD_GROUP_LABELS)){
     if(!groups[cat].length) continue;
@@ -1028,26 +1844,21 @@ function renderSpreads(){
     html+=groups[cat].map(s=>`
       <div class="spread-row" onclick="openSpreadDetail('${s.id}')">
         <div class="spread-icon-wrap">${spreadIconSVG(s.cardCount,44)}</div>
-        <div class="spread-row-text">
-          <div class="spread-row-name">${s.name}</div>
-          <div class="spread-row-subtitle">${s.subtitle}</div>
-        </div>
+        <div class="spread-row-text"><div class="spread-row-name">${s.name}</div><div class="spread-row-subtitle">${s.subtitle}</div></div>
         <div class="spread-badge">${s.cardCount}</div>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
     `).join('');
   }
-
   if(!html) html=`<div class="empty-state"><p>No spreads found</p></div>`;
   document.getElementById('spreads-list').innerHTML=html;
 }
-
 function spreadIconSVG(count,size){
-  const cardW=size*0.28, cardH=size*0.44, gap=size*0.06;
+  const cardW=size*.28,cardH=size*.44,gap=size*.06;
   let positions=[];
   if(count===1){ positions=[{x:size/2-cardW/2,y:size/2-cardH/2}]; }
-  else if(count===2){ const t=cardW*2+gap,sx=(size-t)/2; positions=[{x:sx,y:size/2-cardH/2},{x:sx+cardW+gap,y:size/2-cardH/2}]; }
-  else if(count===3){ const t=cardW*3+gap*2,sx=(size-t)/2; for(let i=0;i<3;i++) positions.push({x:sx+i*(cardW+gap),y:size/2-cardH/2}); }
+  else if(count===2){ const t=cardW*2+gap,sx=(size-t)/2;positions=[{x:sx,y:size/2-cardH/2},{x:sx+cardW+gap,y:size/2-cardH/2}]; }
+  else if(count===3){ const t=cardW*3+gap*2,sx=(size-t)/2;for(let i=0;i<3;i++) positions.push({x:sx+i*(cardW+gap),y:size/2-cardH/2}); }
   else if(count===5){
     const t=cardW*3+gap*2,sx=(size-t)/2;
     positions=[{x:size/2-cardW/2,y:0},{x:sx,y:(size-cardH)/2},{x:sx+cardW+gap,y:(size-cardH)/2},{x:sx+(cardW+gap)*2,y:(size-cardH)/2},{x:size/2-cardW/2,y:size-cardH}];
@@ -1057,9 +1868,7 @@ function spreadIconSVG(count,size){
     const sx=(size-tw)/2,sy=(size-th)/2;
     for(let i=0;i<count;i++) positions.push({x:sx+(i%per)*(cardW+gap),y:sy+Math.floor(i/per)*(cardH+gap)});
   }
-  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none">
-    ${positions.map(p=>`<rect x="${p.x}" y="${p.y}" width="${cardW}" height="${cardH}" rx="2" stroke="rgba(212,175,55,.7)" stroke-width="1" fill="rgba(30,18,80,.4)"/>`).join('')}
-  </svg>`;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none">${positions.map(p=>`<rect x="${p.x.toFixed(1)}" y="${p.y.toFixed(1)}" width="${cardW.toFixed(1)}" height="${cardH.toFixed(1)}" rx="2" stroke="rgba(212,175,55,.7)" stroke-width="1" fill="rgba(30,18,80,.4)"/>`).join('')}</svg>`;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -1072,21 +1881,16 @@ function openSpreadDetail(spreadId){
   state.spreadCards={};
   renderSpreadDetail(spread);
 }
-
 function renderSpreadDetail(spread){
   const SCALE=Math.min(window.innerWidth-32,340)/spread.cw;
-  const dw=spread.cw*SCALE, dh=spread.ch*SCALE;
-  const CARD_W=48*SCALE, CARD_H=77*SCALE;
-
+  const dw=spread.cw*SCALE,dh=spread.ch*SCALE;
+  const CARD_W=48*SCALE,CARD_H=77*SCALE;
   const positions=spread.positions.map(p=>`
-    <div class="spread-pos-card" id="spos-${p.id}"
-      style="left:${p.x*SCALE}px;top:${p.y*SCALE}px;width:${CARD_W}px;height:${CARD_H}px"
-      onclick="revealSpreadCard(${p.id})">
-      <span style="font-family:'Cinzel',serif;font-size:${Math.max(7,9*SCALE)}px;color:rgba(212,175,55,.7);text-align:center;padding:2px">${p.id}</span>
+    <div class="spread-pos-card" id="spos-${p.id}" style="left:${(p.x*SCALE).toFixed(1)}px;top:${(p.y*SCALE).toFixed(1)}px;width:${CARD_W.toFixed(1)}px;height:${CARD_H.toFixed(1)}px" onclick="revealSpreadCard(${p.id})">
+      <span style="font-family:'Cinzel',serif;font-size:${Math.max(7,9*SCALE).toFixed(1)}px;color:rgba(212,175,55,.7);text-align:center;padding:2px">${p.id}</span>
       <div class="spread-pos-label">${p.label}</div>
     </div>
   `).join('');
-
   openPanel(`
     <div id="spread-detail-content">
       <div class="spread-detail-header">
@@ -1098,9 +1902,7 @@ function renderSpreadDetail(spread){
         <div class="spread-detail-subtitle">${spread.subtitle} · ${spread.cardCount} cards</div>
       </div>
       <div class="spread-diagram-wrap">
-        <div class="spread-diagram" style="width:${dw}px;height:${dh}px;position:relative;margin-bottom:30px">
-          ${positions}
-        </div>
+        <div class="spread-diagram" style="width:${dw.toFixed(1)}px;height:${dh.toFixed(1)}px;position:relative;margin-bottom:30px">${positions}</div>
       </div>
       <div style="display:flex;justify-content:center;margin-bottom:20px">
         <button class="spread-shuffle-btn" onclick="shuffleSpread('${spread.id}')">
@@ -1112,13 +1914,8 @@ function renderSpreadDetail(spread){
         ${spread.positions.map(p=>`
           <div class="spread-card-entry" id="sentry-${p.id}" onclick="openCardFromSpread(${p.id})" style="opacity:.4;pointer-events:none">
             <div class="spread-entry-header">
-              <div style="width:44px;height:70px;border-radius:6px;background:rgba(30,18,80,.6);border:1px solid rgba(212,175,55,.3);flex-shrink:0;display:flex;align-items:center;justify-content:center">
-                <span style="font-size:16px;color:rgba(212,175,55,.4)">${p.id}</span>
-              </div>
-              <div class="spread-entry-info">
-                <div class="spread-entry-pos" style="color:var(--muted)">${p.label}</div>
-                <div class="spread-entry-name" style="color:var(--muted)">Not yet revealed</div>
-              </div>
+              <div style="width:44px;height:70px;border-radius:6px;background:rgba(30,18,80,.6);border:1px solid rgba(212,175,55,.3);flex-shrink:0;display:flex;align-items:center;justify-content:center"><span style="font-size:16px;color:rgba(212,175,55,.4)">${p.id}</span></div>
+              <div class="spread-entry-info"><div class="spread-entry-pos">${p.label}</div><div class="spread-entry-name" style="color:var(--muted)">Not yet revealed</div></div>
             </div>
             <div class="spread-pos-desc">${p.description}</div>
           </div>
@@ -1127,57 +1924,36 @@ function renderSpreadDetail(spread){
     </div>
   `);
 }
-
 function revealSpreadCard(posId){
-  const spreadId=state.currentSpreadId;
-  const spread=SPREAD_BY_ID[spreadId];
-  if(!spread) return;
-  if(state.spreadCards[posId]) return;
+  const spread=SPREAD_BY_ID[state.currentSpreadId];
+  if(!spread||state.spreadCards[posId]) return;
   const used=Object.values(state.spreadCards);
   let card;
-  do{ card=ALL_CARDS[Math.floor(Math.random()*ALL_CARDS.length)]; }
-  while(used.includes(card.id)&&used.length<ALL_CARDS.length);
+  do{ card=ALL_CARDS[Math.floor(Math.random()*ALL_CARDS.length)]; }while(used.includes(card.id)&&used.length<ALL_CARDS.length);
   state.spreadCards[posId]=card.id;
   updateSpreadPosition(posId,card);
 }
-
 function shuffleSpread(spreadId){
   const spread=SPREAD_BY_ID[spreadId];
   if(!spread) return;
   const shuffled=[...ALL_CARDS].sort(()=>Math.random()-.5).slice(0,spread.cardCount);
-  spread.positions.forEach((p,i)=>{
-    state.spreadCards[p.id]=shuffled[i].id;
-    setTimeout(()=>updateSpreadPosition(p.id,shuffled[i]),i*150);
-  });
+  spread.positions.forEach((p,i)=>{ state.spreadCards[p.id]=shuffled[i].id; setTimeout(()=>updateSpreadPosition(p.id,shuffled[i]),i*150); });
 }
-
 function updateSpreadPosition(posId,card){
   const accent=SUIT_COLORS[card.suit];
   const posEl=document.getElementById(`spos-${posId}`);
-  if(posEl){
-    posEl.innerHTML=`<img src="${cardImg(card)}"/>`;
-    posEl.classList.add('revealed');
-    posEl.style.borderColor=accent;
-    posEl.style.boxShadow=`0 0 10px ${accent}44`;
-  }
+  if(posEl){ posEl.innerHTML=`<img src="${cardImg(card)}" style="width:100%;height:100%;object-fit:cover;border-radius:4px"/>`;posEl.classList.add('revealed');posEl.style.borderColor=accent;posEl.style.boxShadow=`0 0 10px ${accent}44`; }
   const entryEl=document.getElementById(`sentry-${posId}`);
   if(entryEl){
     const spread=SPREAD_BY_ID[state.currentSpreadId];
     const pos=spread.positions.find(p=>p.id===posId);
-    entryEl.style.opacity='1';
-    entryEl.style.pointerEvents='all';
-    entryEl.style.borderColor=`${accent}55`;
+    entryEl.style.opacity='1';entryEl.style.pointerEvents='all';entryEl.style.borderColor=`${accent}55`;
     entryEl.querySelector('.spread-entry-header').innerHTML=`
       <img class="spread-entry-thumb" src="${cardImg(card)}" alt="${card.name}"/>
-      <div class="spread-entry-info">
-        <div class="spread-entry-pos">${pos.label}</div>
-        <div class="spread-entry-name">${card.name}</div>
-        <div class="spread-entry-suit" style="color:${accent}">${SUIT_LABELS[card.suit]}</div>
-      </div>
+      <div class="spread-entry-info"><div class="spread-entry-pos">${pos.label}</div><div class="spread-entry-name">${card.name}</div><div class="spread-entry-suit" style="color:${accent}">${SUIT_LABELS[card.suit]}</div></div>
     `;
   }
 }
-
 function openCardFromSpread(posId){
   const cardId=state.spreadCards[posId];
   if(!cardId) return;
@@ -1193,13 +1969,7 @@ function renderFavorites(){
   const favCards=state.favorites.map(id=>CARD_BY_ID[id]).filter(Boolean);
   if(!favCards.length){
     wrap.innerHTML=`<div class="no-favs">
-      <svg width="100" height="100" viewBox="0 0 100 100" fill="none" style="opacity:.15">
-        <circle cx="50" cy="50" r="46" stroke="#D4AF37" stroke-width=".8"/>
-        <circle cx="50" cy="50" r="23" stroke="#D4AF37" stroke-width=".6"/>
-        <polygon points="50,20 68,52 32,52" stroke="#D4AF37" stroke-width=".6" fill="none"/>
-        <polygon points="50,80 32,48 68,48" stroke="#D4AF37" stroke-width=".6" fill="none"/>
-        <circle cx="50" cy="50" r="2.5" fill="#D4AF37"/>
-      </svg>
+      <svg width="100" height="100" viewBox="0 0 100 100" fill="none" style="opacity:.15"><circle cx="50" cy="50" r="46" stroke="#D4AF37" stroke-width=".8"/><circle cx="50" cy="50" r="23" stroke="#D4AF37" stroke-width=".6"/><polygon points="50,20 68,52 32,52" stroke="#D4AF37" stroke-width=".6" fill="none"/><polygon points="50,80 32,48 68,48" stroke="#D4AF37" stroke-width=".6" fill="none"/><circle cx="50" cy="50" r="2.5" fill="#D4AF37"/></svg>
       <p>No favorites yet</p>
       <p style="font-size:13px;color:var(--muted);margin-top:4px;letter-spacing:.5px">Tap the heart icon on any card to save it here</p>
       <button class="browse-btn" onclick="switchTab('deck')">Browse the Deck</button>
@@ -1214,10 +1984,31 @@ function renderFavorites(){
     </div>
   `).join('')}</div>`;
 }
+function removeFav(id){ toggleFav(id); renderFavorites(); }
 
-function removeFav(id){
-  toggleFav(id);
-  renderFavorites();
+// ═══════════════════════════════════════════════════════════════
+// PANEL HELPERS
+// ═══════════════════════════════════════════════════════════════
+function openPanel(html){
+  const panel=document.getElementById('detail-panel');
+  const inner=document.getElementById('detail-panel-inner');
+  inner.innerHTML=html;
+  panel.classList.add('open');
+  panel.scrollTop=0;
+}
+function closePanel(){
+  stopSound();stop3D();
+  document.getElementById('detail-panel').classList.remove('close');
+  document.getElementById('detail-panel').classList.remove('open');
+}
+
+// ── TOAST ──
+let toastTimer=null;
+function showToast(msg){
+  let t=document.getElementById('app-toast');
+  if(!t){ t=document.createElement('div');t.id='app-toast';t.style.cssText='position:fixed;bottom:calc(var(--tab-h)+16px);left:50%;transform:translateX(-50%);background:rgba(212,175,55,.9);color:#0A0814;font-family:Cinzel,serif;font-size:12px;letter-spacing:1px;padding:8px 20px;border-radius:20px;z-index:999;transition:opacity .3s';document.body.appendChild(t); }
+  t.textContent=msg;t.style.opacity='1';
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.style.opacity='0',2000);
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -1228,8 +2019,6 @@ if(state.onboardingDone){
   document.getElementById('app').style.display='flex';
   initApp();
 }
-
-// Handle back gesture / escape key
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closePanel(); });
 </script>
 </body>
