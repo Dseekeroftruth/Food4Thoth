@@ -558,54 +558,6 @@ input[type=range]::-moz-range-thumb{
 .aud-default{
   background:linear-gradient(90deg,rgba(255,0,102,.1),rgba(0,255,204,.1));
 }
-
-/* ── Perf-lite mode: kicks in when many pads play simultaneously ────────── */
-/* Animated box-shadow is the single heaviest paint in this UI; replacing it
-   with a static border + lightweight outline frees the compositor to keep up
-   with multiple <video> decoders on iOS Safari and low-end Android. */
-body.perf-lite .pad.playing{
-  animation:none !important;
-  box-shadow:none !important;
-  outline:2px solid var(--pc,var(--pink));
-  outline-offset:-2px;
-}
-body.perf-lite .pad.paused{
-  box-shadow:none !important;
-  outline:2px dashed var(--pc,var(--pink));
-  outline-offset:-2px;
-}
-body.perf-lite .pad-bg{transition:none !important}
-body.perf-lite .dot.pulse{animation:none !important}
-/* Indicator on the BPM strip so the user knows lite mode is active */
-#perf-flag{
-  display:none;font-size:8px;font-weight:800;letter-spacing:.5px;
-  color:var(--cyan);background:rgba(0,255,204,.12);
-  padding:2px 6px;border-radius:5px;margin-left:6px;
-}
-body.perf-lite #perf-flag{display:inline-block}
-
-/* ── Pad picker overlay (tap empty pad) ─────────────────────────────────── */
-#pp-overlay .sheet{max-height:78vh}
-.pp-upload{
-  display:flex;align-items:center;gap:10px;width:100%;padding:11px 13px;
-  background:linear-gradient(135deg,var(--pink),var(--cyan));
-  color:var(--bg0);border:none;border-radius:10px;cursor:pointer;
-  font-family:var(--font);font-size:12px;font-weight:900;letter-spacing:.4px;
-  margin-top:6px;-webkit-tap-highlight-color:transparent;transition:transform .1s;
-}
-.pp-upload:active{transform:scale(.97)}
-.pp-upload svg{width:16px;height:16px;stroke:var(--bg0);flex-shrink:0}
-.pp-divider{
-  display:flex;align-items:center;gap:8px;margin:14px 0 6px;
-  font-size:9px;font-weight:800;color:var(--txt2);letter-spacing:1px;
-}
-.pp-divider::before,.pp-divider::after{
-  content:'';flex:1;height:1px;background:var(--bg3);
-}
-.pp-empty{
-  font-size:11px;color:var(--txt2);text-align:center;
-  padding:14px;font-weight:600;
-}
 </style>
 </head>
 <body>
@@ -649,7 +601,6 @@ body.perf-lite #perf-flag{display:inline-block}
           <span class="bpm-lbl">BPM</span>
           <button id="bpm-src" onclick="resetTap()"></button>
         </div>
-        <span id="perf-flag" title="Visual effects reduced to keep playback smooth">LITE</span>
       </div>
       <div class="beat-row" id="beat-row">
         <div class="dot db" id="d0"></div>
@@ -825,26 +776,6 @@ body.perf-lite #perf-flag{display:inline-block}
     <div class="aud-list" id="aud-list"></div>
     <div class="m-acts">
       <button class="m-btn grey" onclick="closeAudPickerModal()" style="flex:1">Done</button>
-    </div>
-  </div>
-</div>
-
-<!-- Pad sample picker overlay (when tapping an empty pad) -->
-<div class="overlay" id="pp-overlay" onclick="closePadPicker(event)">
-  <div class="sheet" onclick="void 0">
-    <div class="handle"></div>
-    <div class="sheet-title" id="pp-title">Add to Pad</div>
-    <button class="pp-upload" onclick="ppUploadNew()">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-        <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
-      </svg>
-      Upload from device
-    </button>
-    <div class="pp-divider" id="pp-divider">FROM LIBRARY</div>
-    <div class="aud-list" id="pp-list"></div>
-    <div class="m-acts">
-      <button class="m-btn grey" onclick="closePadPickerModal()" style="flex:1">Cancel</button>
     </div>
   </div>
 </div>
@@ -1527,7 +1458,7 @@ async function onFileChange(e){
 // ── Pad interaction ───────────────────────────────────────────────────────────
 function padPress(i){
   const s=getSample(i);
-  if(!s){ openPadPicker(i); return; }
+  if(!s){ triggerUpload(i); return; }
   const pad=pads[i];
   if(pad.mode==='retrigger'){
     if(playing.has(i)) retrigPad(i);
@@ -1799,7 +1730,6 @@ function clearAll(){
 }
 
 function updateTransport(){
-  updatePerfMode();
   const any=playing.size>0;
   const btn=document.getElementById('btn-play');
   const ico=document.getElementById('play-ico');
@@ -2120,87 +2050,6 @@ function closeAudPicker(e){
   closeAudPickerModal();
 }
 function closeAudPickerModal(){ document.getElementById('aud-overlay').classList.remove('on'); }
-
-// ── Pad sample picker (tap empty pad → choose from library or upload) ────
-let pickerPad = null;
-
-function openPadPicker(i){
-  pickerPad = i;
-  document.getElementById('pp-title').textContent = `Add to Pad ${i+1}`;
-  renderPadPickerList();
-  document.getElementById('pp-overlay').classList.add('on');
-}
-
-function renderPadPickerList(){
-  const list = document.getElementById('pp-list');
-  const div  = document.getElementById('pp-divider');
-  if(!list) return;
-  list.innerHTML='';
-  if(samples.length===0){
-    div.style.display='none';
-    const e=document.createElement('div');
-    e.className='pp-empty';
-    e.textContent='Library is empty. Upload to get started.';
-    list.appendChild(e);
-    return;
-  }
-  div.style.display='';
-  // List all library samples — tapping one assigns it to this pad
-  samples.forEach(s=>{
-    const asgn=pads.find(p=>p.sampleId===s.id);
-    const row=document.createElement('div');
-    row.className='aud-row';
-    const thumb=s.type==='video'&&s.uri
-      ?`<video src="${s.uri}" muted playsinline webkit-playsinline disablepictureinpicture preload="metadata"></video>`
-      :`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`;
-    const meta = `${s.type.toUpperCase()} · ${fmtDur(s.duration)}${asgn?' · on Pad '+(asgn.i+1):''}`;
-    row.innerHTML=`
-      <div class="aud-thumb">${thumb}</div>
-      <div class="aud-info">
-        <div class="aud-name">${escapeHtml(s.name)}</div>
-        <div class="aud-meta">${meta}</div>
-      </div>`;
-    const v=row.querySelector('video');
-    if(v) configInlineVideo(v);
-    row.onclick=()=>ppPickSample(s.id);
-    list.appendChild(row);
-  });
-}
-
-function ppPickSample(sampleId){
-  if(pickerPad===null) return;
-  // If sample already on another pad, the user gets a duplicate — fine, they
-  // explicitly chose it. We just assign and close.
-  assignToPad(pickerPad, sampleId);
-  closePadPickerModal();
-}
-
-function ppUploadNew(){
-  if(pickerPad===null) return;
-  const target = pickerPad;
-  closePadPickerModal();
-  // Trigger the file input wired for THIS pad
-  triggerUpload(target);
-}
-
-function closePadPicker(e){
-  if(e && e.target!==document.getElementById('pp-overlay')) return;
-  closePadPickerModal();
-}
-function closePadPickerModal(){
-  document.getElementById('pp-overlay').classList.remove('on');
-  pickerPad=null;
-}
-
-// ── Performance mode ─────────────────────────────────────────────────────
-// Past a threshold of simultaneously-playing pads, drop the heavy box-shadow
-// glow animation so the GPU and main thread can keep up with multiple
-// <video> decoders. Engages automatically — no user setting needed.
-const PERF_THRESHOLD = 6;
-function updatePerfMode(){
-  const lite = playing.size >= PERF_THRESHOLD;
-  document.body.classList.toggle('perf-lite', lite);
-}
 
 function closeSheet(e){
   if(e&&e.target!==document.getElementById('sh-overlay')) return;
