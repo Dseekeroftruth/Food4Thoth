@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>✿ Kawaii Claw Catcher ✿</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=M+PLUS+Rounded+1c:wght@400;700;800&family=Caveat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Animated background layer -->
+<div class="bg-layer">
+  <div class="bg-gradient"></div>
+  <div class="bg-grid"></div>
+  <div class="bg-petals" id="petals"></div>
+  <div class="bg-sparkles" id="bgSparkles"></div>
+</div>
+
+<!-- Top HUD bar -->
+<header class="hud">
+  <button id="btnSound" class="sound-toggle" aria-label="Toggle sound">
+    <span class="ico-on">♪</span>
+    <span class="ico-off">✕</span>
+  </button>
+  <h1 class="game-title">
+    <span class="title-jp">かわいい</span>
+    <span class="title-en">Claw Catcher</span>
+    <span class="title-deco left">✿</span>
+    <span class="title-deco right">✿</span>
+  </h1>
+  <div class="hud-stats">
+    <div class="stat-pill" id="counterPill">
+      <span class="stat-icon">★</span>
+      <span class="stat-value"><span id="counterNum">0</span>/<span id="counterMax">11</span></span>
+    </div>
+    <div class="stat-pill mode-pill" id="modePill">
+      <span class="stat-icon">♡</span>
+      <span class="stat-value" id="modeLabel">Free Play</span>
+    </div>
+  </div>
+</header>
+
+<!-- Floating timer -->
+<div class="timer-wrapper hidden" id="timerWrapper">
+  <div class="timer-inner">
+    <span class="timer-icon">⏱</span>
+    <span id="timer-display">00:00</span>
+  </div>
+</div>
+
+<!-- Main game area -->
+<main class="stage">
+  <!-- Side mascot speech bubble -->
+  <div class="mascot-bubble" id="mascotBubble">
+    <p id="mascotText">Tap the buttons to grab a friend! ♡</p>
+    <div class="bubble-tail"></div>
+  </div>
+
+  <!-- The cabinet wrapping the original machine -->
+  <div class="cabinet">
+    <!-- Marquee header -->
+    <div class="marquee">
+      <div class="marquee-bulbs">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="marquee-text">
+        <span class="m-jp">うふふ</span>
+        <span class="m-en">CATCH ME!</span>
+        <span class="m-jp">♡</span>
+      </div>
+    </div>
+
+    <!-- Star decorations on cabinet sides -->
+    <div class="cabinet-deco left">
+      <span class="deco-star">✦</span>
+      <span class="deco-heart">♡</span>
+      <span class="deco-star">✦</span>
+    </div>
+    <div class="cabinet-deco right">
+      <span class="deco-star">✦</span>
+      <span class="deco-heart">♡</span>
+      <span class="deco-star">✦</span>
+    </div>
+
+    <!-- ORIGINAL CLAW MACHINE STRUCTURE (preserved for physics) -->
+    <div class="wrapper">
+      <div class="collection-box pix"></div>
+      <div class="claw-machine">
+        <div class="box pix">
+          <div class="machine-top pix">
+            <div class="arm-joint pix">
+              <div class="arm pix">
+                <div class="claws pix"></div>
+              </div>
+            </div>
+            <div class="rail hori pix"></div>
+            <div class="rail vert pix"></div>
+          </div>
+          <div class="machine-bottom pix">
+            <div class="collection-point pix"></div>
+          </div>
+          <!-- Particle emitter overlay -->
+          <div class="particle-layer" id="particleLayer"></div>
+        </div>
+
+        <div class="control pix">
+          <div class="cover left"></div>
+          <button class="hori-btn pix" aria-label="Move horizontally"></button>
+          <button class="vert-btn pix" aria-label="Move down"></button>
+          <div class="cover right">
+            <div class="instruction pix"></div>
+          </div>
+          <div class="cover bottom"></div>
+          <div class="cover top">
+            <div class="collection-arrow pix"></div>
+          </div>
+          <div class="collection-point pix"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coin slot decoration -->
+    <div class="coin-slot">
+      <div class="coin-mouth"></div>
+      <span class="coin-label">INSERT ♡</span>
+    </div>
+  </div>
+
+  <!-- Mode selection -->
+  <div class="mode-buttons">
+    <button id="btnFree" class="mode-btn active" data-mode="free">
+      <span class="mb-emoji">🌸</span>
+      <span class="mb-label">Free Play</span>
+      <span class="mb-sub">relax & collect</span>
+    </button>
+    <button id="btnChallenge" class="mode-btn" data-mode="challenge">
+      <span class="mb-emoji">⏱</span>
+      <span class="mb-label">Time Trial</span>
+      <span class="mb-sub">go fast!</span>
+    </button>
+    <button id="btnExtraChallenge" class="mode-btn" data-mode="extra">
+      <span class="mb-emoji">💢</span>
+      <span class="mb-label">Hard Mode</span>
+      <span class="mb-sub">misses cost you</span>
+    </button>
+  </div>
+</main>
+
+<!-- Scoreboard (revealed on win) -->
+<div id="scoreboard" class="hidden">
+  <h3>♡ Top 3 Fastest ♡</h3>
+  <ol id="score-list"></ol>
+</div>
+
+<!-- Win celebration overlay -->
+<div id="winOverlay" class="hidden">
+  <div class="win-content">
+    <div class="win-burst"></div>
+    <h2 class="win-title">
+      <span>P</span><span>E</span><span>R</span><span>F</span><span>E</span><span>C</span><span>T</span><span>!</span>
+    </h2>
+    <p class="win-jp">完璧 ♡ かんぺき</p>
+    <div class="win-stats">
+      <p>You collected <strong id="winCount">11</strong> friends in <strong id="winTime">--:--</strong></p>
+    </div>
+    <button id="winReplay" class="replay-btn">▶ Play Again</button>
+  </div>
+</div>
+
+<script src="./script.js"></script>
+</body>
+</html>

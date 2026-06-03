@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="mobile-web-app-capable" content="yes" />
+<title>NEON NYMPHS :: a cyberfae misadventure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hot-pink: #ff2bd6;
+    --acid-cyan: #00f0ff;
+    --laser-lime: #b6ff00;
+    --violet: #8a2be2;
+    --tangerine: #ff6a00;
+    --void: #07020d;
+    --void-2: #110620;
+    --paper: #fff7ff;
+    --display: 'Audiowide', sans-serif;
+    --serif: 'Cormorant Garamond', serif;
+    --mono: 'Share Tech Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: var(--void);
+    color: var(--paper);
+    font-family: var(--mono);
+    overflow: hidden;
+    cursor: crosshair;
+    margin: 0;
+    padding: 0;
+    overscroll-behavior: none;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* ====================== ATMOSPHERE ====================== */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(255,43,214,.35), transparent 50%),
+      radial-gradient(ellipse at 80% 30%, rgba(0,240,255,.25), transparent 55%),
+      radial-gradient(ellipse at 50% 90%, rgba(138,43,226,.4), transparent 60%),
+      radial-gradient(ellipse at 90% 80%, rgba(182,255,0,.18), transparent 50%);
+    animation: drift 18s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.18'/></svg>");
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    opacity: .6;
+    z-index: 1;
+  }
+
+  @keyframes drift {
+    0%   { transform: translate(0, 0) scale(1); filter: hue-rotate(0deg); }
+    50%  { transform: translate(-3%, 2%) scale(1.05); filter: hue-rotate(40deg); }
+    100% { transform: translate(2%, -2%) scale(1.02); filter: hue-rotate(-30deg); }
+  }
+
+  /* ====================== LAYOUT ====================== */
+  #stage {
+    position: relative; z-index: 2;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100vh;
+    height: 100dvh;
+    padding: calc(14px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(14px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));
+    gap: 10px;
+  }
+
+  /* ====================== TOP BAR ====================== */
+  header.hud {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 18px;
+    border: 1px solid rgba(255,255,255,.15);
+    background: linear-gradient(90deg, rgba(255,43,214,.1), rgba(0,240,255,.1), rgba(138,43,226,.15));
+    backdrop-filter: blur(8px);
+    border-radius: 4px;
+    box-shadow: 0 0 30px rgba(255,43,214,.2), inset 0 0 30px rgba(0,240,255,.05);
+  }
+
+  .logo {
+    font-family: var(--display);
+    font-size: clamp(16px, 2.2vw, 26px);
+    letter-spacing: .15em;
+    background: linear-gradient(90deg, var(--hot-pink), var(--acid-cyan), var(--laser-lime), var(--hot-pink));
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: irid 6s linear infinite;
+    text-shadow: 0 0 20px rgba(255,43,214,.4);
+  }
+  .logo small {
+    display: block;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: .2em;
+    color: rgba(255,255,255,.6);
+    margin-top: 2px;
+    -webkit-text-fill-color: rgba(255,255,255,.6);
+  }
+
+  @keyframes irid {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+  }
+
+  .meters {
+    display: flex; gap: 18px; justify-content: center; align-items: center;
+  }
+  .meter {
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: .2em;
+    color: rgba(255,255,255,.7);
+    text-transform: uppercase;
+  }
+  .bar {
+    position: relative;
+    width: clamp(80px, 18vw, 200px);
+    height: 10px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.2);
+    overflow: hidden;
+  }
+  .bar > i {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--hot-pink), var(--acid-cyan), var(--laser-lime));
+    background-size: 200% 100%;
+    animation: irid 4s linear infinite;
+    transition: width .6s cubic-bezier(.2,.8,.2,1);
+    box-shadow: 0 0 10px var(--hot-pink);
+  }
+  .meter b {
+    color: var(--paper);
+    font-weight: normal;
+    min-width: 32px;
+    text-align: right;
+  }
+
+  .room-name {
+    font-family: var(--display);
+    font-size: 12px;
+    letter-spacing: .3em;
+    color: var(--acid-cyan);
+    text-shadow: 0 0 10px var(--acid-cyan);
+    padding: 6px 12px;
+    border: 1px dashed rgba(0,240,255,.4);
+  }
+
+  /* ====================== SCENE ====================== */
+  .scene-wrap {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 4px;
+    background: var(--void-2);
+  }
+
+  .scene {
+    position: absolute; inset: 0;
+    overflow: hidden;
+    transition: opacity .4s ease;
+    perspective: 1200px;
+    perspective-origin: 50% 60%;
+  }
+  .scene.hidden { opacity: 0; pointer-events: none; }
+
+  /* perspective floor */
+  .grid-floor {
+    position: absolute;
+    bottom: 0; left: 50%;
+    width: 250%; height: 70%;
+    transform: translateX(-50%) rotateX(70deg);
+    transform-origin: 50% 100%;
+    background-image:
+      linear-gradient(var(--grid-color, rgba(255,43,214,.5)) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color, rgba(255,43,214,.5)) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: floorMove 4s linear infinite;
+    mask-image: linear-gradient(to top, black 30%, transparent 95%);
+    -webkit-mask-image: linear-gradient(to top, black 30%, transparent 95%);
+  }
+  @keyframes floorMove {
+    from { background-position: 0 0; }
+    to   { background-position: 0 60px; }
+  }
+
+  /* sun/moon disc */
+  .sun {
+    position: absolute;
+    left: 50%; top: 25%;
+    width: 360px; height: 360px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle, rgba(255,255,255,.25) 0%, transparent 60%),
+      conic-gradient(from 0deg, var(--hot-pink), var(--violet), var(--acid-cyan), var(--laser-lime), var(--tangerine), var(--hot-pink));
+    filter: blur(.5px);
+    opacity: .55;
+    animation: spinSun 30s linear infinite;
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 80%);
+    mask-image: linear-gradient(to bottom, black 60%, transparent 80%);
+  }
+  @keyframes spinSun {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  /* skyline silhouettes per room */
+  .skyline {
+    position: absolute; bottom: 28%; left: 0; width: 100%; height: 28%;
+    background-repeat: repeat-x;
+    opacity: .85;
+    pointer-events: none;
+  }
+
+  /* Floating sparkles */
+  .sparkles {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .sparkles span {
+    position: absolute;
+    width: 4px; height: 4px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 8px white, 0 0 14px var(--acid-cyan);
+    animation: floatUp linear infinite;
+    opacity: 0;
+  }
+  @keyframes floatUp {
+    0%   { transform: translateY(20px) scale(.5); opacity: 0; }
+    20%  { opacity: 1; }
+    100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+  }
+
+  /* ====================== HOTSPOTS (NPCs / items) ====================== */
+  .hotspot {
+    position: absolute;
+    cursor: pointer;
+    transition: transform .3s ease, filter .3s ease;
+    z-index: 5;
+  }
+  .hotspot:hover { transform: scale(1.05) translateY(-4px); filter: brightness(1.3); }
+  .hotspot:hover .label { opacity: 1; transform: translate(-50%, 0); }
+
+  .label {
+    position: absolute;
+    bottom: -28px; left: 50%;
+    transform: translate(-50%, 8px);
+    background: rgba(7,2,13,.85);
+    border: 1px solid var(--acid-cyan);
+    padding: 4px 10px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--acid-cyan);
+    white-space: nowrap;
+    opacity: 0;
+    transition: all .25s ease;
+    pointer-events: none;
+    text-shadow: 0 0 6px var(--acid-cyan);
+  }
+
+  /* item shimmer */
+  .item-spot {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,.95), rgba(255,43,214,.6) 40%, transparent 70%);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px var(--hot-pink)); }
+    50% { transform: scale(1.3); filter: drop-shadow(0 0 18px var(--laser-lime)); }
+  }
+
+  /* door hotspots */
+  .door {
+    width: 80px; height: 140px;
+    background: linear-gradient(180deg, rgba(0,240,255,.15), rgba(138,43,226,.4));
+    border: 2px solid var(--acid-cyan);
+    border-bottom: none;
+    border-radius: 40px 40px 0 0;
+    box-shadow: 0 0 20px var(--acid-cyan), inset 0 0 30px rgba(0,240,255,.2);
+    animation: doorPulse 3s ease-in-out infinite;
+  }
+  @keyframes doorPulse {
+    50% { box-shadow: 0 0 35px var(--hot-pink), inset 0 0 40px rgba(255,43,214,.3); border-color: var(--hot-pink); }
+  }
+
+  /* ====================== CHARACTER SVG SLOT ====================== */
+  .npc {
+    width: 180px; height: 280px;
+    filter: drop-shadow(0 0 25px rgba(255,43,214,.5)) drop-shadow(0 0 40px rgba(0,240,255,.3));
+    animation: hover 4s ease-in-out infinite;
+  }
+  @keyframes hover {
+    50% { transform: translateY(-8px); }
+  }
+
+  /* ====================== BOTTOM PANEL ====================== */
+  .panel {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 10px;
+    min-height: 180px;
+  }
+
+  .dialogue {
+    border: 1px solid rgba(255,255,255,.18);
+    background: linear-gradient(135deg, rgba(7,2,13,.88), rgba(17,6,32,.88));
+    backdrop-filter: blur(6px);
+    padding: 16px 20px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .dialogue::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, var(--hot-pink), var(--acid-cyan), var(--laser-lime));
+    background-size: 200% 100%;
+    animation: irid 6s linear infinite;
+    height: 2px;
+    bottom: auto;
+  }
+
+  .speaker {
+    font-family: var(--display);
+    font-size: 14px;
+    letter-spacing: .25em;
+    color: var(--hot-pink);
+    text-shadow: 0 0 8px var(--hot-pink);
+  }
+  .speaker em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: .1em;
+    color: rgba(255,255,255,.5);
+    margin-left: 8px;
+    text-shadow: none;
+  }
+
+  .line {
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--paper);
+    min-height: 60px;
+    font-style: italic;
+  }
+  .line .you { color: var(--laser-lime); font-style: normal; font-family: var(--mono); font-size: 14px; letter-spacing: .05em; }
+
+  .choices {
+    display: flex; flex-direction: column; gap: 6px;
+    margin-top: auto;
+  }
+  .choice {
+    text-align: left;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.15);
+    color: var(--paper);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: all .2s ease;
+    letter-spacing: .03em;
+  }
+  .choice:hover {
+    background: linear-gradient(90deg, rgba(255,43,214,.2), rgba(0,240,255,.2));
+    border-color: var(--acid-cyan);
+    color: var(--acid-cyan);
+    text-shadow: 0 0 8px var(--acid-cyan);
+    transform: translateX(4px);
+  }
+  .choice::before { content: '> '; opacity: .5; }
+
+  /* ====================== INVENTORY ====================== */
+  .inventory {
+    border: 1px solid rgba(255,255,255,.18);
+    background: linear-gradient(135deg, rgba(17,6,32,.88), rgba(7,2,13,.88));
+    backdrop-filter: blur(6px);
+    border-radius: 4px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .inv-title {
+    font-family: var(--display);
+    font-size: 11px;
+    letter-spacing: .3em;
+    color: var(--laser-lime);
+    text-shadow: 0 0 6px var(--laser-lime);
+    text-align: center;
+    border-bottom: 1px dashed rgba(182,255,0,.4);
+    padding-bottom: 6px;
+  }
+  .inv-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    flex: 1;
+  }
+  .slot {
+    aspect-ratio: 1;
+    border: 1px solid rgba(255,255,255,.1);
+    background: rgba(255,255,255,.02);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    cursor: default;
+    position: relative;
+    transition: all .2s ease;
+  }
+  .slot.has-item {
+    cursor: pointer;
+    background: radial-gradient(circle, rgba(255,43,214,.2), transparent);
+    border-color: var(--hot-pink);
+  }
+  .slot.has-item:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 14px var(--hot-pink);
+  }
+  .slot.has-item.selected {
+    border-color: var(--laser-lime);
+    box-shadow: 0 0 18px var(--laser-lime);
+    animation: selected 1s ease-in-out infinite;
+  }
+  @keyframes selected {
+    50% { transform: scale(1.05); }
+  }
+  .slot .tip {
+    position: absolute;
+    bottom: calc(100% + 6px); left: 50%;
+    transform: translateX(-50%);
+    background: var(--void);
+    border: 1px solid var(--hot-pink);
+    color: var(--paper);
+    padding: 4px 8px;
+    font-family: var(--mono);
+    font-size: 10px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease;
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+  }
+  .slot.has-item:hover .tip { opacity: 1; }
+
+  .inv-hint {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: rgba(255,255,255,.4);
+    text-align: center;
+    letter-spacing: .1em;
+    line-height: 1.4;
+  }
+
+  /* ====================== FLASH MESSAGE ====================== */
+  .flash {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(.8);
+    background: linear-gradient(135deg, rgba(255,43,214,.95), rgba(138,43,226,.95));
+    border: 2px solid var(--paper);
+    color: var(--paper);
+    padding: 18px 32px;
+    font-family: var(--display);
+    font-size: 18px;
+    letter-spacing: .15em;
+    z-index: 100;
+    box-shadow: 0 0 60px var(--hot-pink);
+    pointer-events: none;
+    opacity: 0;
+    transition: all .4s cubic-bezier(.2,.8,.2,1);
+    text-align: center;
+  }
+  .flash.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  .flash small { display: block; font-family: var(--serif); font-style: italic; font-size: 14px; letter-spacing: .05em; margin-top: 4px; opacity: .9; }
+
+  /* ====================== END SCREEN ====================== */
+  .ending {
+    position: fixed; inset: 0;
+    z-index: 200;
+    display: none;
+    background: var(--void);
+    align-items: center; justify-content: center;
+    flex-direction: column;
+    padding: calc(40px + env(safe-area-inset-top)) calc(40px + env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) calc(40px + env(safe-area-inset-left));
+    text-align: center;
+  }
+  .ending.show { display: flex; }
+  .ending h1 {
+    font-family: var(--display);
+    font-size: clamp(36px, 8vw, 80px);
+    letter-spacing: .2em;
+    background: linear-gradient(90deg, var(--hot-pink), var(--acid-cyan), var(--laser-lime), var(--hot-pink));
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: irid 4s linear infinite;
+    margin-bottom: 20px;
+  }
+  .ending p {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(16px, 2.5vw, 22px);
+    max-width: 700px;
+    line-height: 1.6;
+    color: rgba(255,255,255,.85);
+    margin-bottom: 30px;
+  }
+  .ending button {
+    background: transparent;
+    border: 2px solid var(--acid-cyan);
+    color: var(--acid-cyan);
+    font-family: var(--display);
+    font-size: 14px;
+    letter-spacing: .25em;
+    padding: 12px 28px;
+    cursor: pointer;
+    transition: all .2s ease;
+    text-shadow: 0 0 8px var(--acid-cyan);
+  }
+  .ending button:hover {
+    background: var(--acid-cyan);
+    color: var(--void);
+  }
+
+  /* ====================== TITLE SCREEN ====================== */
+  .title-screen {
+    position: fixed; inset: 0;
+    z-index: 300;
+    background:
+      radial-gradient(ellipse at center, rgba(138,43,226,.3), transparent 60%),
+      var(--void);
+    display: flex;
+    align-items: center; justify-content: center;
+    flex-direction: column;
+    padding: 40px;
+    text-align: center;
+  }
+  .title-screen.hidden { display: none; }
+  .title-screen {
+    padding: calc(40px + env(safe-area-inset-top)) calc(40px + env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) calc(40px + env(safe-area-inset-left));
+  }
+  .title-screen h1 {
+    font-family: var(--display);
+    font-size: clamp(48px, 12vw, 140px);
+    letter-spacing: .15em;
+    background: linear-gradient(90deg, var(--hot-pink), var(--acid-cyan), var(--laser-lime), var(--tangerine), var(--hot-pink));
+    background-size: 400% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: irid 5s linear infinite;
+    line-height: 1;
+    margin-bottom: 4px;
+    text-shadow: 0 0 60px rgba(255,43,214,.4);
+  }
+  .title-screen .sub {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(14px, 2vw, 22px);
+    color: rgba(255,255,255,.7);
+    letter-spacing: .25em;
+    margin-bottom: 50px;
+  }
+  .title-screen .blurb {
+    font-family: var(--serif);
+    font-size: 16px;
+    max-width: 540px;
+    line-height: 1.6;
+    color: rgba(255,255,255,.6);
+    margin-bottom: 40px;
+  }
+  .title-screen button {
+    background: transparent;
+    border: 2px solid var(--hot-pink);
+    color: var(--hot-pink);
+    font-family: var(--display);
+    font-size: 16px;
+    letter-spacing: .3em;
+    padding: 16px 40px;
+    cursor: pointer;
+    transition: all .25s ease;
+    text-shadow: 0 0 12px var(--hot-pink);
+    box-shadow: 0 0 20px rgba(255,43,214,.3), inset 0 0 20px rgba(255,43,214,.1);
+  }
+  .title-screen button:hover {
+    background: var(--hot-pink);
+    color: var(--void);
+    text-shadow: none;
+    transform: scale(1.05);
+    box-shadow: 0 0 40px var(--hot-pink);
+  }
+
+  .title-screen .credits {
+    position: absolute;
+    bottom: 20px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .3em;
+    color: rgba(255,255,255,.3);
+  }
+
+  /* responsive tweaks */
+  @media (max-width: 800px) {
+    .panel { grid-template-columns: 1fr; }
+    .inventory { min-height: 120px; }
+    .npc { width: 130px; height: 200px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============== TITLE SCREEN ============== -->
+<div class="title-screen" id="titleScreen">
+  <h1>NEON<br>NYMPHS</h1>
+  <div class="sub">~ a cyberfae misadventure ~</div>
+  <p class="blurb">
+    The year is 2087. Welcome to <b style="color:var(--acid-cyan)">Iridia City</b> &mdash; where holograms wear lipgloss and the wifi has wings.
+    You are <b style="color:var(--hot-pink)">Vance Lustig</b>, freshly downloaded into a borrowed body, with one mission:
+    schmooze your way up to the rooftop Spire and crash the most exclusive after-party in the megagrid.
+    Charm the fae, raid the inventory, and try not to embarrass yourself.
+    <br><br>
+    <span style="color:var(--laser-lime)">Click around. Talk to everyone. Pick up shiny things.</span>
+  </p>
+  <button onclick="startGame()">JACK IN</button>
+  <div class="credits">v1.0 :: drink water :: tip your barista</div>
+</div>
+
+<!-- ============== GAME STAGE ============== -->
+<div id="stage">
+  <header class="hud">
+    <div class="logo">
+      NEON NYMPHS
+      <small>~ a cyberfae misadventure ~</small>
+    </div>
+    <div class="meters">
+      <div class="meter">
+        <span>CHARM</span>
+        <div class="bar"><i id="charmBar"></i></div>
+        <b id="charmVal">0</b>
+      </div>
+    </div>
+    <div class="room-name" id="roomName">~ LOADING ~</div>
+  </header>
+
+  <div class="scene-wrap">
+    <!-- scenes are dynamically swapped -->
+    <div class="scene hidden" id="scene-alley">
+      <div class="grid-floor" style="--grid-color: rgba(255,43,214,.55)"></div>
+      <div class="sun" style="background: conic-gradient(from 0deg, var(--hot-pink), var(--violet), var(--acid-cyan), var(--hot-pink)); opacity:.5"></div>
+      <div class="sparkles" data-density="20"></div>
+
+      <!-- VEX the hacker fae -->
+      <div class="hotspot" style="left: 18%; top: 35%;" data-npc="vex">
+        <svg class="npc" viewBox="0 0 180 280" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="vexHair" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#ff2bd6"/>
+              <stop offset="50%" stop-color="#8a2be2"/>
+              <stop offset="100%" stop-color="#00f0ff"/>
+            </linearGradient>
+            <linearGradient id="vexBody" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#1a0030"/>
+              <stop offset="100%" stop-color="#0a0014"/>
+            </linearGradient>
+            <radialGradient id="vexWing" cx=".5" cy=".3">
+              <stop offset="0%" stop-color="#00f0ff" stop-opacity=".8"/>
+              <stop offset="60%" stop-color="#ff2bd6" stop-opacity=".4"/>
+              <stop offset="100%" stop-color="#8a2be2" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <!-- wings -->
+          <ellipse cx="55" cy="130" rx="50" ry="80" fill="url(#vexWing)" transform="rotate(-25 55 130)"/>
+          <ellipse cx="125" cy="130" rx="50" ry="80" fill="url(#vexWing)" transform="rotate(25 125 130)"/>
+          <!-- body silhouette: hooded hacker -->
+          <path d="M 90 60 Q 60 80 60 130 L 50 220 Q 50 260 90 270 Q 130 260 130 220 L 120 130 Q 120 80 90 60 Z" fill="url(#vexBody)"/>
+          <!-- hair flowing -->
+          <path d="M 90 50 Q 50 50 45 110 Q 40 90 55 70 Q 65 60 90 55 Q 115 60 125 70 Q 140 90 135 110 Q 130 50 90 50 Z" fill="url(#vexHair)"/>
+          <!-- face oval -->
+          <ellipse cx="90" cy="90" rx="22" ry="28" fill="#1a0030"/>
+          <!-- glowing eyes -->
+          <circle cx="82" cy="88" r="3" fill="#00f0ff"/>
+          <circle cx="98" cy="88" r="3" fill="#00f0ff"/>
+          <circle cx="82" cy="88" r="6" fill="#00f0ff" opacity=".3"/>
+          <circle cx="98" cy="88" r="6" fill="#00f0ff" opacity=".3"/>
+          <!-- smirk -->
+          <path d="M 84 102 Q 90 107 96 102" stroke="#ff2bd6" stroke-width="1.5" fill="none"/>
+          <!-- circuits on body -->
+          <path d="M 70 160 L 90 170 L 110 160 M 90 170 L 90 200" stroke="#00f0ff" stroke-width=".8" opacity=".6" fill="none"/>
+        </svg>
+        <div class="label">VEX :: HACKER</div>
+      </div>
+
+      <!-- Door to grotto -->
+      <div class="hotspot" style="right: 12%; top: 40%;" data-room="grotto">
+        <div class="door"></div>
+        <div class="label">→ GLITTER GROTTO</div>
+      </div>
+
+      <!-- pickupable: data shard -->
+      <div class="hotspot" style="left: 50%; bottom: 20%;" data-item="shard">
+        <div class="item-spot"></div>
+        <div class="label">DATA SHARD</div>
+      </div>
+    </div>
+
+    <div class="scene hidden" id="scene-grotto">
+      <div class="grid-floor" style="--grid-color: rgba(0,240,255,.5)"></div>
+      <div class="sun" style="background: conic-gradient(from 0deg, var(--acid-cyan), var(--laser-lime), var(--hot-pink), var(--acid-cyan)); top: 30%"></div>
+      <div class="sparkles" data-density="25"></div>
+
+      <!-- LUMI the bartender fae -->
+      <div class="hotspot" style="right: 20%; top: 30%;" data-npc="lumi">
+        <svg class="npc" viewBox="0 0 180 280" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lumiHair" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#00f0ff"/>
+              <stop offset="50%" stop-color="#b6ff00"/>
+              <stop offset="100%" stop-color="#fff7ff"/>
+            </linearGradient>
+            <linearGradient id="lumiBody" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#ff2bd6"/>
+              <stop offset="100%" stop-color="#8a2be2"/>
+            </linearGradient>
+            <radialGradient id="lumiWing" cx=".5" cy=".3">
+              <stop offset="0%" stop-color="#b6ff00" stop-opacity=".7"/>
+              <stop offset="60%" stop-color="#00f0ff" stop-opacity=".4"/>
+              <stop offset="100%" stop-color="#ff2bd6" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="50" cy="140" rx="55" ry="90" fill="url(#lumiWing)" transform="rotate(-15 50 140)"/>
+          <ellipse cx="130" cy="140" rx="55" ry="90" fill="url(#lumiWing)" transform="rotate(15 130 140)"/>
+          <path d="M 90 60 Q 65 75 65 130 L 55 220 Q 55 265 90 270 Q 125 265 125 220 L 115 130 Q 115 75 90 60 Z" fill="url(#lumiBody)"/>
+          <!-- big wavy hair -->
+          <path d="M 90 50 Q 40 60 35 130 Q 50 100 60 90 Q 50 130 70 120 Q 90 60 90 55 Q 90 60 110 120 Q 130 130 120 90 Q 130 100 145 130 Q 140 60 90 50 Z" fill="url(#lumiHair)"/>
+          <ellipse cx="90" cy="95" rx="22" ry="28" fill="#3a0050"/>
+          <!-- starry eyes -->
+          <circle cx="82" cy="92" r="3" fill="#fff7ff"/>
+          <circle cx="98" cy="92" r="3" fill="#fff7ff"/>
+          <circle cx="82" cy="92" r="7" fill="#b6ff00" opacity=".4"/>
+          <circle cx="98" cy="92" r="7" fill="#b6ff00" opacity=".4"/>
+          <!-- smile -->
+          <path d="M 80 108 Q 90 116 100 108" stroke="#fff7ff" stroke-width="1.8" fill="none"/>
+          <!-- holding a glass -->
+          <rect x="40" y="170" width="18" height="28" fill="#00f0ff" opacity=".5" rx="2"/>
+          <ellipse cx="49" cy="170" rx="12" ry="3" fill="#b6ff00" opacity=".8"/>
+        </svg>
+        <div class="label">LUMI :: MIXOLOGIST</div>
+      </div>
+
+      <!-- doors -->
+      <div class="hotspot" style="left: 8%; top: 45%;" data-room="alley">
+        <div class="door"></div>
+        <div class="label">← NEON ALLEY</div>
+      </div>
+      <div class="hotspot" style="left: 50%; top: 55%; transform: translateX(-50%);" data-room="garden">
+        <div class="door"></div>
+        <div class="label">↓ DATA GARDEN</div>
+      </div>
+      <div class="hotspot" style="right: 8%; top: 60%;" data-room="boudoir">
+        <div class="door"></div>
+        <div class="label">→ CHROME BOUDOIR</div>
+      </div>
+
+      <div class="hotspot" style="left: 30%; bottom: 18%;" data-item="cocktail-empty">
+        <div class="item-spot" style="background: radial-gradient(circle, rgba(255,255,255,.95), rgba(0,240,255,.6) 40%, transparent 70%);"></div>
+        <div class="label">EMPTY GLASS</div>
+      </div>
+    </div>
+
+    <div class="scene hidden" id="scene-boudoir">
+      <div class="grid-floor" style="--grid-color: rgba(255,106,0,.5)"></div>
+      <div class="sun" style="background: conic-gradient(from 0deg, var(--tangerine), var(--hot-pink), var(--violet), var(--tangerine)); top: 25%"></div>
+      <div class="sparkles" data-density="22"></div>
+
+      <!-- IRIDIA the fashion fae -->
+      <div class="hotspot" style="left: 25%; top: 30%;" data-npc="iridia">
+        <svg class="npc" viewBox="0 0 180 280" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="irHair" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#ff6a00"/>
+              <stop offset="50%" stop-color="#ff2bd6"/>
+              <stop offset="100%" stop-color="#8a2be2"/>
+            </linearGradient>
+            <linearGradient id="irBody" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#ff6a00"/>
+              <stop offset="50%" stop-color="#ff2bd6"/>
+              <stop offset="100%" stop-color="#8a2be2"/>
+            </linearGradient>
+            <radialGradient id="irWing" cx=".5" cy=".3">
+              <stop offset="0%" stop-color="#ff6a00" stop-opacity=".7"/>
+              <stop offset="60%" stop-color="#ff2bd6" stop-opacity=".4"/>
+              <stop offset="100%" stop-color="#8a2be2" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <!-- huge dramatic wings -->
+          <ellipse cx="40" cy="120" rx="60" ry="100" fill="url(#irWing)" transform="rotate(-30 40 120)"/>
+          <ellipse cx="140" cy="120" rx="60" ry="100" fill="url(#irWing)" transform="rotate(30 140 120)"/>
+          <path d="M 90 60 Q 60 80 60 140 L 55 220 Q 55 265 90 270 Q 125 265 125 220 L 120 140 Q 120 80 90 60 Z" fill="url(#irBody)"/>
+          <!-- tall flowing hair -->
+          <path d="M 90 50 Q 35 30 30 130 Q 45 50 60 60 Q 70 40 90 45 Q 110 40 120 60 Q 135 50 150 130 Q 145 30 90 50 Z" fill="url(#irHair)"/>
+          <ellipse cx="90" cy="95" rx="22" ry="28" fill="#3a0030"/>
+          <!-- dramatic eyes -->
+          <ellipse cx="82" cy="92" rx="4" ry="3" fill="#fff7ff"/>
+          <ellipse cx="98" cy="92" rx="4" ry="3" fill="#fff7ff"/>
+          <path d="M 76 88 Q 82 85 88 88" stroke="#000" stroke-width="1.5" fill="none"/>
+          <path d="M 92 88 Q 98 85 104 88" stroke="#000" stroke-width="1.5" fill="none"/>
+          <!-- pursed lips -->
+          <ellipse cx="90" cy="108" rx="6" ry="3" fill="#ff2bd6"/>
+          <!-- iridescent dress shimmer -->
+          <path d="M 70 180 Q 90 170 110 180 Q 105 220 90 230 Q 75 220 70 180 Z" fill="#fff7ff" opacity=".25"/>
+        </svg>
+        <div class="label">IRIDIA :: COUTURE</div>
+      </div>
+
+      <!-- door back -->
+      <div class="hotspot" style="left: 8%; top: 50%;" data-room="grotto">
+        <div class="door"></div>
+        <div class="label">← GROTTO</div>
+      </div>
+
+      <!-- chrome lipstick -->
+      <div class="hotspot" style="right: 25%; bottom: 25%;" data-item="lipstick">
+        <div class="item-spot" style="background: radial-gradient(circle, rgba(255,255,255,.95), rgba(255,106,0,.7) 40%, transparent 70%);"></div>
+        <div class="label">CHROME LIPSTICK</div>
+      </div>
+    </div>
+
+    <div class="scene hidden" id="scene-garden">
+      <div class="grid-floor" style="--grid-color: rgba(182,255,0,.45)"></div>
+      <div class="sun" style="background: conic-gradient(from 0deg, var(--laser-lime), var(--acid-cyan), var(--violet), var(--laser-lime)); top: 28%"></div>
+      <div class="sparkles" data-density="30"></div>
+
+      <!-- FLORA the botanist nymph -->
+      <div class="hotspot" style="right: 22%; top: 30%;" data-npc="flora">
+        <svg class="npc" viewBox="0 0 180 280" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="flHair" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#b6ff00"/>
+              <stop offset="50%" stop-color="#00f0ff"/>
+              <stop offset="100%" stop-color="#8a2be2"/>
+            </linearGradient>
+            <linearGradient id="flBody" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#005530"/>
+              <stop offset="100%" stop-color="#001a14"/>
+            </linearGradient>
+            <radialGradient id="flWing" cx=".5" cy=".3">
+              <stop offset="0%" stop-color="#b6ff00" stop-opacity=".8"/>
+              <stop offset="60%" stop-color="#00f0ff" stop-opacity=".4"/>
+              <stop offset="100%" stop-color="#005530" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <!-- leafy wings -->
+          <ellipse cx="50" cy="125" rx="45" ry="75" fill="url(#flWing)" transform="rotate(-20 50 125)"/>
+          <ellipse cx="130" cy="125" rx="45" ry="75" fill="url(#flWing)" transform="rotate(20 130 125)"/>
+          <ellipse cx="55" cy="100" rx="20" ry="40" fill="url(#flWing)" transform="rotate(-40 55 100)" opacity=".6"/>
+          <ellipse cx="125" cy="100" rx="20" ry="40" fill="url(#flWing)" transform="rotate(40 125 100)" opacity=".6"/>
+          <path d="M 90 65 Q 65 80 65 135 L 60 220 Q 60 265 90 270 Q 120 265 120 220 L 115 135 Q 115 80 90 65 Z" fill="url(#flBody)"/>
+          <!-- vine hair with flowers -->
+          <path d="M 90 55 Q 50 60 50 130 Q 60 90 75 75 Q 70 50 90 50 Q 110 50 105 75 Q 120 90 130 130 Q 130 60 90 55 Z" fill="url(#flHair)"/>
+          <!-- flower accents -->
+          <circle cx="55" cy="100" r="6" fill="#ff2bd6" opacity=".9"/>
+          <circle cx="125" cy="105" r="5" fill="#ff6a00" opacity=".9"/>
+          <circle cx="60" cy="135" r="4" fill="#fff7ff" opacity=".9"/>
+          <ellipse cx="90" cy="95" rx="22" ry="28" fill="#001a14"/>
+          <!-- gentle eyes -->
+          <ellipse cx="82" cy="93" rx="3" ry="2" fill="#b6ff00"/>
+          <ellipse cx="98" cy="93" rx="3" ry="2" fill="#b6ff00"/>
+          <circle cx="82" cy="93" r="6" fill="#b6ff00" opacity=".3"/>
+          <circle cx="98" cy="93" r="6" fill="#b6ff00" opacity=".3"/>
+          <!-- soft smile -->
+          <path d="M 84 106 Q 90 110 96 106" stroke="#b6ff00" stroke-width="1.3" fill="none"/>
+        </svg>
+        <div class="label">FLORA :: BOTANIST</div>
+      </div>
+
+      <div class="hotspot" style="left: 10%; top: 50%;" data-room="grotto">
+        <div class="door"></div>
+        <div class="label">↑ GROTTO</div>
+      </div>
+
+      <!-- holo-rose -->
+      <div class="hotspot" style="left: 35%; bottom: 20%;" data-item="rose">
+        <div class="item-spot" style="background: radial-gradient(circle, rgba(255,255,255,.95), rgba(182,255,0,.6) 40%, transparent 70%);"></div>
+        <div class="label">HOLO-ROSE</div>
+      </div>
+
+      <!-- way to spire (only after charm threshold) -->
+      <div class="hotspot" style="right: 8%; top: 30%; display:none;" data-room="spire" id="spireDoor">
+        <div class="door" style="border-color: var(--laser-lime); box-shadow: 0 0 30px var(--laser-lime), inset 0 0 30px rgba(182,255,0,.3);"></div>
+        <div class="label">↑ THE SPIRE</div>
+      </div>
+    </div>
+
+    <div class="scene hidden" id="scene-spire">
+      <div class="grid-floor" style="--grid-color: rgba(255,255,255,.6)"></div>
+      <div class="sun" style="background: conic-gradient(from 0deg, var(--hot-pink), var(--acid-cyan), var(--laser-lime), var(--tangerine), var(--violet), var(--hot-pink)); width: 500px; height: 500px; opacity:.7"></div>
+      <div class="sparkles" data-density="40"></div>
+
+      <div style="position:absolute; top: 40%; left: 50%; transform: translate(-50%,-50%); text-align:center;">
+        <div style="font-family: var(--display); font-size: clamp(24px, 4vw, 40px); letter-spacing: .2em; background: linear-gradient(90deg, var(--hot-pink), var(--acid-cyan), var(--laser-lime), var(--hot-pink)); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: irid 4s linear infinite;">
+          THE SPIRE PENTHOUSE
+        </div>
+        <div style="font-family: var(--serif); font-style:italic; font-size: 18px; color: var(--paper); opacity:.8; margin-top:12px;">
+          You made it. The whole skyline is purring at your feet.
+        </div>
+      </div>
+
+      <div class="hotspot" style="left: 50%; bottom: 18%; transform: translateX(-50%);" id="finishBtn">
+        <div class="door" style="border-color: var(--hot-pink); box-shadow: 0 0 40px var(--hot-pink);"></div>
+        <div class="label" style="opacity:1;">✨ ENTER THE PARTY ✨</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="dialogue" id="dialogueBox">
+      <div class="speaker" id="dlgSpeaker">SYSTEM <em>~ welcome to iridia city ~</em></div>
+      <div class="line" id="dlgLine">Click around. Talk to the fae. Pick up shimmering things. The Spire opens once you've charmed your way in.</div>
+      <div class="choices" id="dlgChoices"></div>
+    </div>
+
+    <div class="inventory">
+      <div class="inv-title">~ INVENTORY ~</div>
+      <div class="inv-grid" id="invGrid">
+        <!-- 8 slots -->
+      </div>
+      <div class="inv-hint">Click an item to select. Click an NPC to give it.</div>
+    </div>
+  </div>
+</div>
+
+<div class="flash" id="flash"></div>
+
+<!-- ============== ENDING ============== -->
+<div class="ending" id="endScreen">
+  <h1 id="endTitle">~ FIN ~</h1>
+  <p id="endText"></p>
+  <button onclick="location.reload()">JACK OUT &amp; RETRY</button>
+</div>
+
+<script>
+/* ========================================================
+   GAME STATE
+======================================================== */
+const state = {
+  charm: 0,
+  room: 'alley',
+  inventory: [],          // {id, emoji, name}
+  selectedItem: null,
+  flags: {},              // booleans for NPC progression
+  npcStage: {},           // per-NPC dialogue stage
+};
+
+const ITEMS = {
+  'shard':         { emoji: '💾', name: 'Data Shard',     desc: 'A glowing shard of stolen vibes.' },
+  'cocktail-empty':{ emoji: '🥃', name: 'Empty Glass',    desc: 'Smells like regret and lime.' },
+  'cocktail-full': { emoji: '🍹', name: 'Iridescent Fizz',desc: 'Lumi made you something dangerous.' },
+  'rose':          { emoji: '🌹', name: 'Holo-Rose',      desc: 'A rose that refracts your intentions.' },
+  'lipstick':      { emoji: '💄', name: 'Chrome Lipstick',desc: 'Color: "Late Night Subnet". Smells like ozone.' },
+};
+
+/* ========================================================
+   DIALOGUE TREES
+   each NPC: stages -> lines + choices
+   choices: { text, charm, next, action? }
+======================================================== */
+const DIALOGUE = {
+  vex: {
+    name: 'VEX',
+    title: 'hacker fae of the back alley',
+    stages: {
+      0: {
+        line: "*She's leaning against a flickering vending machine, wings folded like a leather jacket.* Well, well. Fresh meat in a borrowed body. You here to gawk, or you here to BUY something, sweetheart?",
+        choices: [
+          { text: "I'm here for the rooftop party at the Spire.",
+            charm: +5, next: 1 },
+          { text: "Are those wings... rentable?",
+            charm: -5, next: 'badpickup' },
+          { text: "What's a beautiful cypherpunk like you doing in a back alley like this?",
+            charm: +8, next: 1 },
+        ]
+      },
+      1: {
+        line: "*She smirks, eyes glowing cyan.* The Spire? Ambitious. Bouncer up there only takes payment in encrypted favors. You'd need a Data Shard at minimum. *Lucky for you, I dropped one around here somewhere.*",
+        choices: [
+          { text: "[Look around for the shard]", next: 2,
+            action: () => flash("Look around for something glowing on the ground.") },
+          { text: "How much for one of YOUR shards?", charm: -3, next: 'flirty' },
+        ]
+      },
+      2: {
+        line: "*She tilts her head, watching you.* You found it? Cute. Now &mdash; bring me back something interesting and maybe I'll give you the override codes. Lumi at the Grotto owes me a drink. Get her to actually MAKE it, and we're talking.",
+        choices: [
+          { text: "What kind of drink?", next: 3 },
+          { text: "On it. Don't go anywhere.", charm: +3, next: 'wait' },
+        ]
+      },
+      3: {
+        line: "Something with a kick. Something that makes me feel things I'm legally not supposed to feel about a courier. You'll know it when you taste it.",
+        choices: [
+          { text: "[Head to the Grotto]", next: 'wait', charm: +2 }
+        ]
+      },
+      'wait': {
+        line: "*She's tapping her boot, watching you with one glowing eye.* Tick tock, sugar. The night isn't getting any younger. Neither am I &mdash; well, technically I am, immortality bug.",
+        choices: [
+          { text: "[Leave her be]", next: 'wait' }
+        ]
+      },
+      'flirty': {
+        line: "*She laughs, low and electric.* Honey, my shards aren't on the menu. But I appreciate the audacity. Try that line on someone with worse opsec.",
+        choices: [
+          { text: "Noted. About that drink...", next: 2 }
+        ]
+      },
+      'badpickup': {
+        line: "*Her wings snap open with a sound like static.* Rentable. RENT. ABLE. Get out of my alley before I overclock your kneecaps.",
+        choices: [
+          { text: "Sorry, sorry &mdash; bad opener. Let me start over.", next: 0 }
+        ]
+      },
+      'gotdrink': {
+        line: "*She takes the glass, sips, raises an eyebrow.* ...Damn. Lumi outdid herself. Okay sugar, you've earned this. *She tosses you the override key.* Use it on the Spire door. And hey &mdash; if you survive the party, come find me. I owe you a real conversation.",
+        choices: [
+          { text: "I'll hold you to that.", charm: +10, next: 'done' }
+        ]
+      },
+      'done': {
+        line: "*She winks, all circuits and confidence.* Go on then. Try not to die on the way up.",
+        choices: [
+          { text: "[Leave]", next: 'done' }
+        ]
+      }
+    },
+    // item triggers
+    accepts: {
+      'cocktail-full': 'gotdrink'
+    }
+  },
+
+  lumi: {
+    name: 'LUMI',
+    title: 'mixologist of the glitter grotto',
+    stages: {
+      0: {
+        line: "*She's polishing a glass with one wing while pouring something that glitters into another. She grins.* Well hello there, stranger. You look like you've got a story and a low tolerance. What can I pour you?",
+        choices: [
+          { text: "Surprise me.", charm: +5, next: 1 },
+          { text: "Vex sent me. Said you owe her something with a 'kick'.", charm: +8, next: 'forVex' },
+          { text: "Just water. I'm driving my consciousness later.", charm: +2, next: 1 },
+        ]
+      },
+      1: {
+        line: "*She leans on the bar, chin in hand.* Surprises are my specialty. But the good ones cost more than credits, sweetie. Tell me something true and I'll pour you something true.",
+        choices: [
+          { text: "I'm trying to crash the Spire party but I have no idea what I'm doing.", charm: +6, next: 2 },
+          { text: "I think your wings might be the prettiest thing in this borough.", charm: +4, next: 2 },
+          { text: "I bench-press my own ego.", charm: -8, next: 'cringe' },
+        ]
+      },
+      2: {
+        line: "*She slides a shimmering drink toward you. It's purple. It's blue. It's possibly sentient.* On the house. Welcome to the Grotto. Don't drink it all at once unless you want to apologize to your liver in three different languages.",
+        choices: [
+          { text: "[Take the empty glass to her later]", charm: +3, next: 'idle',
+            action: () => { flash("You sip it. The room blushes."); } },
+        ]
+      },
+      'forVex': {
+        line: "*Her face lights up.* Oh THAT one. The 'Cyanide Sparkle'. Vex orders it when she's plotting something. *She slides you an empty glass.* Bring me an empty vessel and I'll fill it. Otherwise I'd be pouring this nuclear flirt-juice on the floor.",
+        choices: [
+          { text: "[I think I saw an empty glass nearby]", next: 'wait',
+            action: () => flash("Look for an empty glass on the bar.") }
+        ]
+      },
+      'cringe': {
+        line: "*She blinks. Then laughs. A real one, sharp as broken glass.* Oh sweetie. That was so bad I'm legally obligated to pour you ANOTHER drink, just to dull the secondhand embarrassment.",
+        choices: [
+          { text: "Let me start over...", next: 0 }
+        ]
+      },
+      'mixed': {
+        line: "*She pours something molten and gorgeous into the glass, snaps her fingers, and it ignites in iridescent foam.* There. The Cyanide Sparkle. Tell Vex I expect interest.",
+        choices: [
+          { text: "I owe you one.", charm: +6, next: 'idle' },
+          { text: "What if I'm the one collecting interest?", charm: +5, next: 'idle' }
+        ]
+      },
+      'idle': {
+        line: "*She's already mixing for someone else, but flashes you a wink over her shoulder.* Go on, hot stuff. Don't be a stranger.",
+        choices: [
+          { text: "[Move along]", next: 'idle' }
+        ]
+      },
+      'wait': {
+        line: "*Tap tap tap go her painted nails on the bar.* Empty glass. Hand it over. Magic happens.",
+        choices: [
+          { text: "[Looking...]", next: 'wait' }
+        ]
+      }
+    },
+    accepts: {
+      'cocktail-empty': 'mixed',
+      'rose':           'rose-gift',
+    },
+    extraStages: {
+      'rose-gift': {
+        line: "*She presses the holo-rose to her cheek and giggles.* Smooth. SMOOTH. You can absolutely come back here any time, courier.",
+        choices: [
+          { text: "I plan to.", charm: +8, next: 'idle' }
+        ]
+      }
+    }
+  },
+
+  iridia: {
+    name: 'IRIDIA',
+    title: 'couture witch of the chrome boudoir',
+    stages: {
+      0: {
+        line: "*She's draped over a glowing chaise, ten feet of iridescent dress pooling around her. She does not look up.* Mm. Another one. Let me guess: you want me to make you look 'effortless' for the Spire. Darling, effortless is the most expensive look in the city.",
+        choices: [
+          { text: "I can pay. What's the price?", charm: +3, next: 1 },
+          { text: "Honestly? I just wanted to see you up close.", charm: +6, next: 1 },
+          { text: "Do you make outfits for personalities, or just bodies?", charm: +9, next: 1 },
+        ]
+      },
+      1: {
+        line: "*She finally looks at you. Her eyes are two different colors and both of them judge you.* Mm. The price is... a token of taste. Bring me something pretty. Something with INTENTION. Then we'll talk about your silhouette, beautiful.",
+        choices: [
+          { text: "Define 'pretty.'", next: 2 },
+          { text: "I'll be right back.", charm: +2, next: 'wait' },
+        ]
+      },
+      2: {
+        line: "Oh, sweetheart. If I have to define it for you, you can't afford it. ...But fine. Something that catches light. Something that came from someone who CARES. Surprise me.",
+        choices: [
+          { text: "[Go find something pretty]", next: 'wait' }
+        ]
+      },
+      'wait': {
+        line: "*She's gone back to ignoring you. The chaise hums.*",
+        choices: [
+          { text: "[Step away]", next: 'wait' }
+        ]
+      },
+      'gotrose': {
+        line: "*She accepts the holo-rose. Holds it up. Her dress shifts color to match.* Oh. OH. You absolute menace. This is the right answer. *She stands, somehow towering, and circles you.* You'll need lipstick. I have one in chrome. Take it, with my blessing. And tell the Spire bouncer Iridia sent you. He'll behave.",
+        choices: [
+          { text: "*low bow*", charm: +12, next: 'done' }
+        ]
+      },
+      'gotlipstick': {
+        line: "*She frowns, then laughs.* Darling, that lipstick was MINE. You're trying to bribe me with my own merchandise. I respect the hustle. Keep it. You'll need it more than I do.",
+        choices: [
+          { text: "Worth a shot.", charm: +3, next: 1 }
+        ]
+      },
+      'done': {
+        line: "*She's already glowing, three fashion drones orbiting her like moons.* Go on then. Be seen. I'll know if you embarrass me.",
+        choices: [
+          { text: "[Leave]", next: 'done' }
+        ]
+      }
+    },
+    accepts: {
+      'rose': 'gotrose',
+      'lipstick': 'gotlipstick'
+    }
+  },
+
+  flora: {
+    name: 'FLORA',
+    title: 'botanist nymph of the data garden',
+    stages: {
+      0: {
+        line: "*She's kneeling among glowing data-vines, coaxing a petal open with a fingertip. Her wings flicker like leaves.* Oh! Hello. The vines told me you were coming. They lie sometimes, but never about beautiful strangers.",
+        choices: [
+          { text: "The vines have great taste.", charm: +6, next: 1 },
+          { text: "Are those plants... sentient?", charm: +4, next: 1 },
+          { text: "What does a girl have to do to get a holo-rose around here?", charm: +2, next: 1 },
+        ]
+      },
+      1: {
+        line: "*She giggles softly, dirt-glitter on her cheek.* The roses bloom on their own schedule. They like to be ASKED nicely. I'm not the gatekeeper &mdash; they are. But I might know what they like to drink.",
+        choices: [
+          { text: "What DO they like to drink?", next: 2 },
+          { text: "Anything I can offer YOU?", charm: +5, next: 'cute' },
+        ]
+      },
+      2: {
+        line: "Something fizzy. Something with bubbles like little promises. They're terrible flirts, my roses.",
+        choices: [
+          { text: "[Got it. Find something fizzy.]", next: 'wait' }
+        ]
+      },
+      'cute': {
+        line: "*She blushes a soft chartreuse.* Oh. Well. I do love conversation. And shimmery things. Mostly shimmery things. I'm a simple nymph.",
+        choices: [
+          { text: "I'll keep that in mind.", charm: +3, next: 2 }
+        ]
+      },
+      'wait': {
+        line: "*She hums a tune to her vines. They sway.*",
+        choices: [
+          { text: "[Step away]", next: 'wait' }
+        ]
+      },
+      'gotdrink': {
+        line: "*She takes the glass, pours it carefully at the base of a vine. The whole patch BLOOMS instantly &mdash; pink, gold, electric.* Oh, look at them showing off. Here. *She plucks a perfect holo-rose and presses it into your hand.* It's yours. Don't waste it on someone undeserving.",
+        choices: [
+          { text: "I'll give it to someone with great taste.", charm: +10, next: 'done',
+            action: () => { addItem('rose'); } }
+        ]
+      },
+      'done': {
+        line: "*She waves shyly.* Come back anytime. The garden remembers visitors.",
+        choices: [
+          { text: "[Leave]", next: 'done' }
+        ]
+      }
+    },
+    accepts: {
+      'cocktail-full': 'gotdrink'
+    }
+  }
+};
+
+/* ========================================================
+   RENDERING
+======================================================== */
+const $ = sel => document.querySelector(sel);
+const $$ = sel => document.querySelectorAll(sel);
+
+function showRoom(roomId) {
+  state.room = roomId;
+  $$('.scene').forEach(s => s.classList.add('hidden'));
+  $('#scene-' + roomId).classList.remove('hidden');
+  const names = {
+    alley: 'NEON ALLEY',
+    grotto: 'GLITTER GROTTO',
+    boudoir: 'CHROME BOUDOIR',
+    garden: 'DATA GARDEN',
+    spire: 'THE SPIRE'
+  };
+  $('#roomName').textContent = '~ ' + names[roomId] + ' ~';
+}
+
+function updateCharm(delta) {
+  state.charm = Math.max(0, Math.min(100, state.charm + delta));
+  $('#charmBar').style.width = state.charm + '%';
+  $('#charmVal').textContent = state.charm;
+
+  // unlock the spire door once charm is high enough AND key items collected
+  if (state.charm >= 50 && state.flags.hasOverride) {
+    const door = $('#spireDoor');
+    if (door && door.style.display === 'none') {
+      door.style.display = '';
+      flash("✨ A new path opens in the Data Garden ✨");
+    }
+  }
+}
+
+function flash(msg, sub) {
+  const el = $('#flash');
+  el.innerHTML = msg + (sub ? '<small>' + sub + '</small>' : '');
+  el.classList.add('show');
+  clearTimeout(flash._t);
+  flash._t = setTimeout(() => el.classList.remove('show'), 1800);
+}
+
+function renderInventory() {
+  const grid = $('#invGrid');
+  grid.innerHTML = '';
+  for (let i = 0; i < 8; i++) {
+    const slot = document.createElement('div');
+    slot.className = 'slot';
+    const item = state.inventory[i];
+    if (item) {
+      slot.classList.add('has-item');
+      if (state.selectedItem === item.id) slot.classList.add('selected');
+      slot.innerHTML = item.emoji + '<span class="tip">' + item.name + '</span>';
+      slot.onclick = () => {
+        state.selectedItem = state.selectedItem === item.id ? null : item.id;
+        renderInventory();
+        if (state.selectedItem) {
+          flash(item.name + ' selected', 'click an NPC to use it');
+        }
+      };
+    }
+    grid.appendChild(slot);
+  }
+}
+
+function addItem(id) {
+  if (state.inventory.find(i => i.id === id)) return;
+  const def = ITEMS[id];
+  state.inventory.push({ id, emoji: def.emoji, name: def.name });
+  renderInventory();
+  flash('+ ' + def.name, def.desc);
+}
+
+function removeItem(id) {
+  state.inventory = state.inventory.filter(i => i.id !== id);
+  renderInventory();
+}
+
+/* ========================================================
+   DIALOGUE ENGINE
+======================================================== */
+let activeNpc = null;
+
+function openDialogue(npcId) {
+  activeNpc = npcId;
+  const npc = DIALOGUE[npcId];
+
+  // if an item is selected, try to give it
+  if (state.selectedItem) {
+    const stageKey = npc.accepts && npc.accepts[state.selectedItem];
+    if (stageKey) {
+      // consume the item
+      const used = state.selectedItem;
+      removeItem(used);
+      state.selectedItem = null;
+      // route to special stage (could be in extraStages)
+      const stage = (npc.extraStages && npc.extraStages[stageKey]) || npc.stages[stageKey];
+      if (stage) {
+        renderStage(npc, stage, stageKey);
+        // if we're using the cocktail-full to vex, mark override
+        if (npcId === 'vex' && used === 'cocktail-full') {
+          state.flags.hasOverride = true;
+          updateCharm(0); // trigger spire-unlock check
+        }
+        // when Lumi mixes the empty glass, give back the full cocktail
+        if (npcId === 'lumi' && used === 'cocktail-empty') {
+          addItem('cocktail-full');
+        }
+        // if iridia gets the rose, also drop a lipstick AND unlock charm boost
+        if (npcId === 'iridia' && used === 'rose') {
+          addItem('lipstick');
+        }
+        return;
+      }
+    } else {
+      // they don't want it
+      const npcName = npc.name;
+      flash(npcName + " doesn't want that.", "try giving it to someone else");
+      state.selectedItem = null;
+      renderInventory();
+      // continue with normal stage
+    }
+  }
+
+  const stageKey = state.npcStage[npcId] ?? 0;
+  const stage = npc.stages[stageKey];
+  renderStage(npc, stage, stageKey);
+}
+
+function renderStage(npc, stage, stageKey) {
+  $('#dlgSpeaker').innerHTML = npc.name + ' <em>~ ' + npc.title + ' ~</em>';
+  $('#dlgLine').innerHTML = stage.line;
+  const ch = $('#dlgChoices');
+  ch.innerHTML = '';
+  (stage.choices || []).forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'choice';
+    btn.innerHTML = c.text;
+    btn.onclick = () => {
+      if (c.charm) updateCharm(c.charm);
+      if (c.action) c.action();
+      // advance stage
+      const next = c.next;
+      // check if it's in extraStages
+      const nextStage = (npc.extraStages && npc.extraStages[next]) || npc.stages[next];
+      if (nextStage) {
+        state.npcStage[activeNpc] = next;
+        renderStage(npc, nextStage, next);
+      }
+    };
+    ch.appendChild(btn);
+  });
+}
+
+/* ========================================================
+   SPARKLES
+======================================================== */
+function generateSparkles() {
+  $$('.sparkles').forEach(container => {
+    const n = +container.dataset.density || 15;
+    container.innerHTML = '';
+    for (let i = 0; i < n; i++) {
+      const s = document.createElement('span');
+      s.style.left = Math.random() * 100 + '%';
+      s.style.bottom = Math.random() * 100 + '%';
+      s.style.animationDuration = (4 + Math.random() * 8) + 's';
+      s.style.animationDelay = (Math.random() * 8) + 's';
+      const c = ['#ff2bd6','#00f0ff','#b6ff00','#ff6a00','#fff7ff'][Math.floor(Math.random()*5)];
+      s.style.background = c;
+      s.style.boxShadow = `0 0 8px ${c}, 0 0 14px ${c}`;
+      container.appendChild(s);
+    }
+  });
+}
+
+/* ========================================================
+   EVENT WIRING
+======================================================== */
+function wireHotspots() {
+  document.body.addEventListener('click', (e) => {
+    const spot = e.target.closest('.hotspot');
+    if (!spot) return;
+
+    if (spot.dataset.npc) {
+      openDialogue(spot.dataset.npc);
+    } else if (spot.dataset.room) {
+      // clear any selected item indicator? keep selected.
+      showRoom(spot.dataset.room);
+    } else if (spot.dataset.item) {
+      const id = spot.dataset.item;
+      addItem(id);
+      // remove from scene
+      spot.remove();
+    } else if (spot.id === 'finishBtn') {
+      endGame();
+    }
+  });
+}
+
+/* ========================================================
+   ENDING
+======================================================== */
+function endGame() {
+  const end = $('#endScreen');
+  let title, text;
+  if (state.charm >= 80) {
+    title = '~ STAR OF THE SPIRE ~';
+    text = `You glide through the party like you OWN the rooftop. Vex slides up beside you with two glasses, Lumi's tending bar with one wing on you all night, Iridia compliments your silhouette in three different languages, and Flora has saved you a seat in the moon-garden.<br><br>Charm rating: <b style="color:var(--laser-lime)">${state.charm}</b> &mdash; the city loves you. You've earned the night, Vance. Don't let it end.`;
+  } else if (state.charm >= 50) {
+    title = '~ A RESPECTABLE NIGHT ~';
+    text = `You make it into the party, get hit on twice, accidentally dance with a senator, and leave with a pocket full of business cards and exactly one phone number that's going to matter.<br><br>Charm rating: <b style="color:var(--acid-cyan)">${state.charm}</b>. Not bad for a borrowed body.`;
+  } else {
+    title = '~ SO CLOSE ~';
+    text = `You got in. Barely. You spilled a drink on a politician, called Iridia by the wrong name, and tried to high-five Vex (she did not return it). But hey &mdash; you're at the Spire. The night is young. So are you. Sort of.<br><br>Charm rating: <b style="color:var(--hot-pink)">${state.charm}</b>. Try again, smoother.`;
+  }
+  $('#endTitle').innerHTML = title;
+  $('#endText').innerHTML = text;
+  end.classList.add('show');
+}
+
+/* ========================================================
+   BOOT
+======================================================== */
+function startGame() {
+  $('#titleScreen').classList.add('hidden');
+  showRoom('alley');
+  generateSparkles();
+  renderInventory();
+  updateCharm(0);
+}
+
+wireHotspots();
+</script>
+</body>
+</html>

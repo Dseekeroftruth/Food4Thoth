@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<title>◉ THE TRIP — Hub of the Dreamer ◉</title>
+<link rel="stylesheet" href="assets/shared.css">
+<style>
+  /* PAGE-SPECIFIC: the big hero title & rotating spiral behind menu */
+  .hero {
+    position: relative;
+    padding: 48px 20px 20px;
+    text-align: center;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 12vw, 7rem);
+    margin: 0;
+    line-height: .85;
+    letter-spacing: .02em;
+  }
+  .hero .titlerow {
+    display: flex; justify-content: center; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    transform: rotate(-1.5deg);
+  }
+  .hero .sub {
+    font-family: var(--font-body); font-style: italic;
+    color: #e0d090;
+    font-size: clamp(14px, 3vw, 20px);
+    max-width: 640px; margin: 18px auto 0;
+    line-height: 1.5;
+    text-shadow: 1px 1px 0 #000;
+  }
+  .hero .ring {
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(92vw, 780px);
+    aspect-ratio: 1;
+    z-index: -1;
+    pointer-events: none;
+    opacity: .35;
+    background:
+      conic-gradient(from 0deg,
+        transparent 0deg, var(--neon-pink) 30deg, transparent 60deg,
+        var(--neon-cyan) 120deg, transparent 150deg,
+        var(--neon-yellow) 210deg, transparent 240deg,
+        var(--neon-lime) 300deg, transparent 330deg, transparent 360deg);
+    border-radius: 50%;
+    filter: blur(22px);
+    animation: ringSpin 22s linear infinite;
+  }
+  .hero .ring2 {
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(60vw, 520px);
+    aspect-ratio: 1;
+    border: 3px dashed rgba(255,255,255,.3);
+    border-radius: 50%;
+    z-index: -1; pointer-events: none;
+    animation: ringSpin 40s linear infinite reverse;
+  }
+  @keyframes ringSpin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+  /* call-to-action for first-time dreamers */
+  .firstvisit {
+    margin: 20px auto; max-width: 640px; padding: 22px;
+    border: 3px solid var(--neon-yellow);
+    background: rgba(255,230,0,.06);
+    box-shadow: 0 0 40px rgba(255,230,0,.25), inset 0 0 20px rgba(255,230,0,.1);
+    text-align: center;
+  }
+  .firstvisit h3 {
+    font-family: var(--font-display); color: var(--neon-yellow);
+    margin: 0 0 10px; letter-spacing: .1em;
+    text-shadow: 0 0 12px currentColor;
+  }
+  .firstvisit p { color: #e0d090; font-style: italic; margin: 6px 0; }
+
+  /* progress ring / meter for dreamer progression */
+  .progress-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 18px;
+  }
+  @media (min-width: 820px) {
+    .progress-section { grid-template-columns: 1fr 1fr; }
+  }
+
+  .big-quote {
+    font-family: var(--font-paint);
+    font-size: clamp(20px, 3.5vw, 28px);
+    color: var(--neon-pink);
+    text-shadow: 0 0 20px currentColor, 3px 3px 0 #000;
+    margin: 40px auto; max-width: 680px; text-align: center;
+    line-height: 1.3;
+    transform: rotate(-1deg);
+  }
+
+  .dream-map {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; font-family: var(--font-mono); font-size: 16px;
+  }
+  .dream-map .pill {
+    border: 1px solid var(--neon-cyan);
+    padding: 2px 8px; color: var(--neon-cyan);
+    background: rgba(0,247,255,.08);
+    opacity: .5;
+  }
+  .dream-map .pill.visited {
+    opacity: 1; border-color: var(--neon-acid); color: var(--neon-acid);
+    background: rgba(184,255,46,.1); box-shadow: 0 0 8px rgba(184,255,46,.4);
+  }
+
+  /* flavor log */
+  .logstream {
+    max-height: 160px; overflow-y: auto;
+    font-family: var(--font-mono); font-size: 17px;
+    line-height: 1.45; padding-right: 6px;
+  }
+  .logstream div { border-left: 2px solid var(--neon-pink); padding-left: 10px; margin: 6px 0; color: var(--cream); }
+  .logstream div.flav { border-left-color: var(--neon-acid); color: #b8ff2e; font-style: italic; }
+  .logstream div.warn { border-left-color: var(--blood); color: #ffb3b8; }
+
+  /* reset button */
+  .dangerzone {
+    text-align: center; margin-top: 40px;
+    color: #887;
+  }
+  .dangerzone button {
+    font-family: var(--font-mono); font-size: 14px;
+    background: transparent; color: #776;
+    border: 1px dashed #443;
+    padding: 6px 14px; cursor: pointer; letter-spacing: .1em;
+  }
+  .dangerzone button:hover { color: var(--blood); border-color: var(--blood); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="ring"></div>
+  <div class="ring2"></div>
+  <div class="titlerow">
+    <h1 class="glitchType" data-t="THE">THE</h1>
+    <h1 class="glitchType" data-t="TRIP" style="font-size:clamp(3.4rem,14vw,8rem);color:var(--neon-pink);-webkit-text-fill-color:initial;background:none">TRIP</h1>
+  </div>
+  <div class="sub" id="heroSub">
+    You swallowed the paper square. The walls learned how to breathe.<br>
+    A collaborated collection of dreams — find the throbbing door before the geometry finds <em>you</em>.
+  </div>
+</div>
+
+<!-- First-time welcome (shown only if dreamer has no name) -->
+<div class="wrap" id="welcomeWrap" style="display:none;">
+  <div class="firstvisit fade-in">
+    <h3>◈ FIRST INCURSION ◈</h3>
+    <p>The paper square hasn't dissolved yet. Before the fractals become non-negotiable,</p>
+    <p>tell us who you are on the other side.</p>
+    <div class="mt2">
+      <a href="prologue.html" class="trip-btn">▶ BEGIN THE TRIP</a>
+    </div>
+  </div>
+</div>
+
+<!-- Returning dreamer layout -->
+<div class="wrap" id="mainWrap" style="display:none;">
+
+  <div class="progress-section">
+    <div class="panel accent-cyan">
+      <h3>◉ DREAMER SIGNAL</h3>
+      <div id="dreamerPanel"></div>
+      <div class="mt2 dream-map" id="dreamMap"></div>
+    </div>
+
+    <div class="panel accent-yellow">
+      <h3>✦ NEWSFEED FROM THE VOID</h3>
+      <div class="logstream" id="logstream"></div>
+    </div>
+  </div>
+
+  <div class="big-quote">
+    "We were somewhere around the Tulgey Wood, on the edge of the chessboard,<br>
+    when the caterpillars began to take hold."
+  </div>
+
+  <h2 class="glitchType" data-t="PORTAL ROOM" style="display:inline-block;font-size:clamp(1.8rem,6vw,3rem)">PORTAL ROOM</h2>
+  <p style="color:#b8a090;font-style:italic;margin:6px 0 8px;">
+    Each doorway leads somewhere you won't return from exactly the same. Tap a portal.
+  </p>
+
+  <div class="portal-grid" id="portals"></div>
+
+  <div class="dangerzone">
+    <p style="font-family:var(--font-mono);font-size:14px">
+      If the dream becomes intolerable, you may start over. Nothing will forgive you, but the void will forget.
+    </p>
+    <button onclick="wakeUp()">🝢 WAKE UP (reset state)</button>
+  </div>
+</div>
+
+<script src="assets/shared.js"></script>
+<script>
+(function(){
+  TRIP.mountAtmosphere({ floaterCount: 18 });
+
+  const s = TRIP.state;
+
+  // brand-new dreamer?
+  const isNew = !s.name;
+
+  if (isNew) {
+    document.getElementById('welcomeWrap').style.display = '';
+    document.getElementById('heroSub').innerHTML =
+      `You swallowed the paper square. The walls learned how to breathe.<br>` +
+      `Something with too many teeth is humming your name.`;
+    return;
+  }
+
+  // Returning dreamer
+  document.getElementById('mainWrap').style.display = '';
+  TRIP.mountHUD();
+  TRIP.mountTopNav('hub');
+
+  // dreamer signal panel
+  const dp = document.getElementById('dreamerPanel');
+  const tonicMap = {
+    blue: 'BLUE BOTTLE — DRINK ME (shrinks your paranoia)',
+    red: 'RED PILL — uncut jaw-grit (raises lucidity at cost of heat)',
+    yellow: 'YELLOW SUGAR — the sweet stuff (raises threads per trip)'
+  };
+  dp.innerHTML = `
+    <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+      <div style="font-size:64px;filter:drop-shadow(0 0 18px var(--neon-pink))">${s.avatar||'◉'}</div>
+      <div>
+        <div style="font-family:var(--font-display);font-size:22px;color:var(--neon-yellow);text-shadow:0 0 8px currentColor">${TRIP.escapeHtml(s.name)}</div>
+        <div style="color:var(--neon-cyan);font-family:var(--font-mono);font-size:16px;margin-top:4px">
+          Tonic: <span style="color:var(--cream)">${tonicMap[s.tonic] || 'unchosen'}</span>
+        </div>
+        <div style="color:#b8a090;font-family:var(--font-mono);font-size:15px;margin-top:2px;font-style:italic">
+          Visits to the hub: ${s.visitCount}. Last door: ${s.lastVisit||'—'}
+        </div>
+      </div>
+    </div>
+  `;
+
+  // dream map pills — which portals you've been through
+  const dm = document.getElementById('dreamMap');
+  TRIP.PORTALS.forEach(p => {
+    const vis = s.visited[p.key];
+    dm.insertAdjacentHTML('beforeend',
+      `<span class="pill${vis?' visited':''}">${p.icon} ${p.name}</span>`);
+  });
+
+  // newsfeed — a generated log based on progress
+  const log = [];
+  log.push({c:'flav', t:`You stand at the lip of the dream. ${s.visitCount} prior incursions.`});
+  if (s.completed.prologue) log.push({c:'', t:'▣ Paper square consumed. No refunds.'});
+  if (s.completed.character) log.push({c:'', t:`▣ Signed the register as "${s.name}".`});
+  if (s.completed.oracle) log.push({c:'', t:'▣ The Caterpillar spoke. You remember some of it.'});
+  if (s.completed.tea) log.push({c:'', t:'▣ You drank the cups in the right order. The Hatter saluted.'});
+  if (s.completed.whimsy) log.push({c:'', t:'▣ The Jabberwock has been paid.'});
+  if (s.completed.doom) log.push({c:'', t:'▣ You found the throbbing door.'});
+  if (s.completed.spiral) log.push({c:'', t:'▣ You walked the spiral. Or it walked you.'});
+  if (s.paranoia >= 80) log.push({c:'warn', t:'⚠ The walls breathing in cycles of three. That is not a good rhythm.'});
+  if (s.lucidity >= 80) log.push({c:'flav', t:'◎ Clarity. You are almost here.'});
+  if (s.threads > 500) log.push({c:'flav', t:`◎ ${s.threads} threads of dream-silk in your back pocket.`});
+  if (Object.values(s.completed).filter(Boolean).length >= 5) log.push({c:'flav', t:'◎ The dream thins at the corners. Something under the floor is listening.'});
+  if (!s.completed.character) log.push({c:'warn', t:'⚠ You have not named yourself. The dream will supply one. You will not like it.'});
+  const canEnd = s.completed.whimsy && s.completed.doom;
+  if (canEnd) log.push({c:'flav', t:'✴ The throbbing door is unlocked. Walk through it when ready.'});
+
+  const lsEl = document.getElementById('logstream');
+  log.forEach(e => lsEl.insertAdjacentHTML('beforeend', `<div class="${e.c}">${e.t}</div>`));
+
+  // portals — render with lock state
+  const pg = document.getElementById('portals');
+  TRIP.PORTALS.forEach(p => {
+    const done = s.completed[p.key];
+    let locked = false;
+    let reason = '';
+    if (p.key === 'ending' && !canEnd) {
+      locked = true;
+      reason = 'SEALED';
+    }
+    // visual status
+    let status = '';
+    if (locked) status = reason;
+    else if (done) status = '✓ DONE';
+    else if (s.visited[p.key]) status = '◎ SEEN';
+    else status = 'OPEN';
+
+    const classes = ['portal', p.variant || ''];
+    if (locked) classes.push('locked');
+    if (done) classes.push('completed');
+
+    pg.insertAdjacentHTML('beforeend', `
+      <a class="${classes.join(' ')}" ${locked?'':`href="${p.href}"`}>
+        <span class="p-status">${status}</span>
+        <span class="p-icon">${p.icon}</span>
+        <div class="p-name">${p.name}</div>
+        <div class="p-desc">${p.desc}</div>
+      </a>
+    `);
+  });
+
+  // Tick visit count, save
+  s.visitCount = (s.visitCount||0) + 1;
+  TRIP.save();
+})();
+
+function wakeUp() {
+  if (!confirm('This will erase every trace of the dream. The Jabberwock will not remember you. The Caterpillar will ask new questions. Proceed?')) return;
+  TRIP.reset();
+  location.reload();
+}
+</script>
+</body>
+</html>

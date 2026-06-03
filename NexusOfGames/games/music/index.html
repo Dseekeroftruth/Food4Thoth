@@ -1,0 +1,1355 @@
+Save this as index.html and open it in a browser. It uses Tone.js from CDN, so it needs internet the first time unless you download Tone locally.
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="mobile-web-app-capable" content="yes" />
+<title>FOOD4THOTH — Experimental HTML Synth Instrument</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+<style>
+:root{
+  --bg:#030006;
+  --panel:rgba(10,0,24,.76);
+  --panel2:rgba(255,255,255,.06);
+  --text:#fff7ff;
+  --muted:#cdb7ff;
+  --hot:#ff2bd6;
+  --cyan:#25f7ff;
+  --lime:#80ff00;
+  --gold:#ffd166;
+  --violet:#8c4dff;
+  --danger:#ff3355;
+  --ok:#5dffab;
+  --shadow:0 0 18px rgba(255,43,214,.55),0 0 38px rgba(37,247,255,.3);
+}
+*{box-sizing:border-box}
+html,body{
+  -webkit-text-size-adjust:100%;
+  overscroll-behavior:none;
+  -webkit-tap-highlight-color:transparent;
+}
+body{
+  margin:0;
+  min-height:100vh;
+  min-height:100dvh;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255,43,214,.28), transparent 30%),
+    radial-gradient(circle at 85% 20%, rgba(37,247,255,.22), transparent 28%),
+    radial-gradient(circle at 50% 90%, rgba(128,255,0,.14), transparent 35%),
+    linear-gradient(135deg,#030006,#12001f 50%,#00151b);
+  overflow-x:hidden;
+  -webkit-user-select:none;
+  user-select:none;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.035) 0px,
+      rgba(255,255,255,.035) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  mix-blend-mode:screen;
+  opacity:.35;
+  z-index:3;
+}
+canvas#scope{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  z-index:-1;
+  opacity:.9;
+}
+header{
+  padding:calc(18px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) 8px calc(16px + env(safe-area-inset-left));
+  text-align:center;
+}
+h1{
+  margin:0;
+  font-size:clamp(2rem,7vw,5.2rem);
+  line-height:.9;
+  letter-spacing:-.07em;
+  text-transform:uppercase;
+  background:linear-gradient(90deg,#fff,#ff2bd6,#25f7ff,#80ff00,#ffd166,#fff);
+  background-size:300% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:rainbow 5s linear infinite;
+  filter:drop-shadow(0 0 20px rgba(255,255,255,.35));
+}
+@keyframes rainbow{
+  to{background-position:300% center}
+}
+.subtitle{
+  max-width:900px;
+  margin:12px auto 0;
+  color:var(--muted);
+  font-size:.98rem;
+  line-height:1.45;
+}
+.main{
+  width:min(1500px,100%);
+  margin:0 auto;
+  padding:12px calc(12px + env(safe-area-inset-right)) 12px calc(12px + env(safe-area-inset-left));
+  display:grid;
+  gap:12px;
+}
+.topbar{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:10px;
+}
+.panel{
+  background:var(--panel);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:22px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(16px);
+  padding:14px;
+  overflow:hidden;
+  position:relative;
+}
+.panel:before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:linear-gradient(120deg,transparent,rgba(255,43,214,.16),rgba(37,247,255,.14),transparent);
+  pointer-events:none;
+  opacity:.6;
+}
+.panel > *{position:relative}
+.big-btn,
+button{
+  border:0;
+  color:white;
+  cursor:pointer;
+  border-radius:16px;
+  background:
+    linear-gradient(135deg,rgba(255,43,214,.95),rgba(37,247,255,.75)),
+    rgba(255,255,255,.1);
+  box-shadow:0 0 18px rgba(255,43,214,.45);
+  padding:12px 14px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  touch-action:manipulation;
+}
+button.alt{
+  background:linear-gradient(135deg,rgba(128,255,0,.8),rgba(255,209,102,.9));
+  color:#15001e;
+}
+button.dark{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.18);
+  color:#fff;
+  box-shadow:none;
+}
+button.danger{
+  background:linear-gradient(135deg,#ff3355,#ff8a00);
+}
+button.active{
+  outline:2px solid #fff;
+  box-shadow:0 0 25px rgba(255,255,255,.85);
+}
+.status{
+  grid-column:span 2;
+  color:var(--muted);
+  font-size:.85rem;
+  line-height:1.4;
+}
+.transport{
+  grid-column:span 4;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  justify-content:flex-end;
+}
+.grid{
+  display:grid;
+  grid-template-columns:1.1fr 1.1fr 1fr;
+  gap:12px;
+}
+.section-title{
+  margin:0 0 10px;
+  font-size:1rem;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:#fff;
+  text-shadow:0 0 12px rgba(37,247,255,.8);
+}
+.control-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.control{
+  background:var(--panel2);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;
+  padding:10px;
+}
+.control label{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  color:var(--muted);
+  font-size:.78rem;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+input[type="range"]{
+  width:100%;
+  accent-color:var(--hot);
+}
+select,
+input[type="number"],
+input[type="text"]{
+  width:100%;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:12px;
+  padding:10px;
+  color:white;
+  background:rgba(0,0,0,.35);
+}
+.keyboard{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:5px;
+  min-height:170px;
+  align-items:stretch;
+}
+.key{
+  min-height:120px;
+  border-radius:12px;
+  background:linear-gradient(180deg,#fff,#d9d5ff);
+  color:#160020;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding-bottom:12px;
+  font-weight:900;
+  box-shadow:0 8px 0 rgba(0,0,0,.3),0 0 15px rgba(255,255,255,.35);
+  user-select:none;
+  touch-action:none;
+}
+.key.black{
+  min-height:82px;
+  background:linear-gradient(180deg,#0d0020,#31004a);
+  color:white;
+  margin-left:-50%;
+  margin-right:-50%;
+  z-index:2;
+  transform:translateY(-5px);
+}
+.key.playing{
+  background:linear-gradient(180deg,#ff2bd6,#25f7ff,#80ff00);
+  color:white;
+  transform:translateY(4px) scale(.98);
+}
+.sequencer{
+  display:grid;
+  gap:6px;
+}
+.seq-row{
+  display:grid;
+  grid-template-columns:80px repeat(16,1fr);
+  gap:4px;
+  align-items:center;
+}
+.row-label{
+  color:var(--muted);
+  font-size:.72rem;
+  text-transform:uppercase;
+}
+.step{
+  aspect-ratio:1/1;
+  min-height:26px;
+  border-radius:7px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.1);
+  cursor:pointer;
+}
+.step.on{
+  background:linear-gradient(135deg,var(--hot),var(--cyan));
+  box-shadow:0 0 12px rgba(255,43,214,.8);
+}
+.step.current{
+  outline:2px solid var(--gold);
+  transform:scale(1.12);
+}
+.sample-pads{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+.pad{
+  aspect-ratio:1/1;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-size:.78rem;
+  padding:8px;
+  background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.35),transparent 32%),
+    linear-gradient(135deg,rgba(255,43,214,.8),rgba(140,77,255,.7),rgba(37,247,255,.65));
+}
+.xy{
+  height:250px;
+  border-radius:22px;
+  border:1px solid rgba(255,255,255,.2);
+  background:
+    radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(255,255,255,.8), transparent 7%),
+    radial-gradient(circle at 20% 30%,rgba(255,43,214,.5),transparent 28%),
+    radial-gradient(circle at 80% 70%,rgba(37,247,255,.45),transparent 28%),
+    linear-gradient(135deg,rgba(128,255,0,.2),rgba(0,0,0,.3));
+  position:relative;
+  touch-action:none;
+}
+.xy:after{
+  content:"XY ETHEREAL PORTAL";
+  position:absolute;
+  inset:auto 12px 12px;
+  color:white;
+  font-weight:900;
+  font-size:.8rem;
+  opacity:.7;
+}
+.pattern-tools{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+.readout{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,monospace;
+  color:var(--ok);
+  background:rgba(0,0,0,.35);
+  border-radius:14px;
+  padding:10px;
+  min-height:70px;
+  font-size:.78rem;
+  overflow:auto;
+}
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:20px 12px calc(40px + env(safe-area-inset-bottom));
+  font-size:.82rem;
+}
+@media(max-width:1050px){
+  .grid{grid-template-columns:1fr}
+  .topbar{grid-template-columns:1fr}
+  .transport,.status{grid-column:auto}
+}
+@media(max-width:700px){
+  .keyboard{grid-template-columns:repeat(7,1fr)}
+  .key{min-height:90px}
+  .key.black{min-height:62px}
+  .seq-row{grid-template-columns:64px repeat(16,1fr)}
+  .step{min-height:18px;border-radius:5px}
+  .control-grid{grid-template-columns:1fr}
+  .sample-pads{grid-template-columns:repeat(2,1fr)}
+  .pattern-tools{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<canvas id="scope"></canvas>
+<header>
+  <h1>Alien Bit Oracle Synth</h1>
+  <p class="subtitle">
+    A full HTML experimental instrument: poly synth, mono acid voice, chiptune arpeggiator,
+    drum machine, loop sequencer, sample/noise pads, ethereal drone portal, FX matrix,
+    randomizer, and pattern memory.
+  </p>
+</header>
+<main class="main">
+  <section class="panel topbar">
+    <div class="status">
+      <strong>Status:</strong>
+      <span id="status">Audio sleeping. Press START AUDIO.</span><br>
+      <strong>Step:</strong> <span id="stepRead">0</span> /
+      <strong>BPM:</strong> <span id="bpmRead">120</span>
+    </div>
+    <div class="transport">
+      <button id="startBtn" class="big-btn">Start Audio</button>
+      <button id="playBtn" class="alt">Play Loop</button>
+      <button id="stopBtn" class="danger">Stop</button>
+      <button id="panicBtn" class="dark">Panic</button>
+      <button id="randomBtn" class="dark">Randomize</button>
+      <button id="clearBtn" class="dark">Clear Seq</button>
+    </div>
+  </section>
+  <section class="grid">
+    <div class="panel">
+      <h2 class="section-title">Main Synth / Chord Organ</h2>
+      <div class="control-grid">
+        <div class="control">
+          <label>Voice <span id="voiceRead">poly</span></label>
+          <select id="voice">
+            <option value="poly">Poly Dream</option>
+            <option value="fm">FM Glass</option>
+            <option value="am">AM Ghost</option>
+            <option value="mono">Mono Acid</option>
+            <option value="chip">8-Bit Pulse</option>
+          </select>
+        </div>
+        <div class="control">
+          <label>Scale <span id="scaleRead">minor</span></label>
+          <select id="scale">
+            <option value="minor">Minor</option>
+            <option value="major">Major</option>
+            <option value="dorian">Dorian</option>
+            <option value="phrygian">Phrygian</option>
+            <option value="lydian">Lydian</option>
+            <option value="whole">Whole Tone</option>
+            <option value="weird">Alien Hex</option>
+          </select>
+        </div>
+        <div class="control">
+          <label>Root <span id="rootRead">C</span></label>
+          <select id="root">
+            <option>C</option><option>C#</option><option>D</option><option>D#</option>
+            <option>E</option><option>F</option><option>F#</option><option>G</option>
+            <option>G#</option><option>A</option><option>A#</option><option>B</option>
+          </select>
+        </div>
+        <div class="control">
+          <label>Octave <span id="octRead">4</span></label>
+          <input id="octave" type="range" min="2" max="6" value="4" />
+        </div>
+        <div class="control">
+          <label>Attack <span id="attackRead">0.02</span></label>
+          <input id="attack" type="range" min="0.001" max="2" step="0.001" value="0.02" />
+        </div>
+        <div class="control">
+          <label>Release <span id="releaseRead">0.8</span></label>
+          <input id="release" type="range" min="0.02" max="6" step="0.01" value="0.8" />
+        </div>
+      </div>
+      <br>
+      <div class="keyboard" id="keyboard"></div>
+    </div>
+    <div class="panel">
+      <h2 class="section-title">16-Step Loop Sequencer</h2>
+      <div class="control-grid">
+        <div class="control">
+          <label>BPM <span id="bpmMini">120</span></label>
+          <input id="bpm" type="range" min="40" max="240" value="120" />
+        </div>
+        <div class="control">
+          <label>Swing <span id="swingRead">0</span></label>
+          <input id="swing" type="range" min="0" max="0.8" step="0.01" value="0" />
+        </div>
+        <div class="control">
+          <label>Arp Rate <span id="arpRateRead">8n</span></label>
+          <select id="arpRate">
+            <option>16n</option>
+            <option selected>8n</option>
+            <option>4n</option>
+            <option>2n</option>
+          </select>
+        </div>
+        <div class="control">
+          <label>Arp Mode <span id="arpModeRead">up</span></label>
+          <select id="arpMode">
+            <option>up</option>
+            <option>down</option>
+            <option>bounce</option>
+            <option>random</option>
+          </select>
+        </div>
+      </div>
+      <br>
+      <div id="sequencer" class="sequencer"></div>
+      <br>
+      <div class="pattern-tools">
+        <button id="savePattern" class="dark">Save</button>
+        <button id="loadPattern" class="dark">Load</button>
+        <button id="mutatePattern" class="dark">Mutate</button>
+      </div>
+      <br>
+      <div class="readout" id="patternReadout">Pattern data appears here.</div>
+    </div>
+    <div class="panel">
+      <h2 class="section-title">Samples / Noise / Drums</h2>
+      <div class="sample-pads">
+        <button class="pad" data-pad="kick">KICK<br>void thump</button>
+        <button class="pad" data-pad="snare">SNARE<br>glass crack</button>
+        <button class="pad" data-pad="hat">HAT<br>spark dust</button>
+        <button class="pad" data-pad="tom">TOM<br>rubber cave</button>
+        <button class="pad" data-pad="zap">ZAP<br>laser bug</button>
+        <button class="pad" data-pad="coin">COIN<br>bit charm</button>
+        <button class="pad" data-pad="noise">NOISE<br>storm gate</button>
+        <button class="pad" data-pad="choir">CHOIR<br>angel pixel</button>
+      </div>
+      <br>
+      <div class="control-grid">
+        <div class="control">
+          <label>Noise Type <span id="noiseTypeRead">pink</span></label>
+          <select id="noiseType">
+            <option>white</option>
+            <option selected>pink</option>
+            <option>brown</option>
+          </select>
+        </div>
+        <div class="control">
+          <label>Noise Amount <span id="noiseAmountRead">0.2</span></label>
+          <input id="noiseAmount" type="range" min="0" max="1" step="0.01" value="0.2" />
+        </div>
+        <div class="control">
+          <label>Bit Crush <span id="bitRead">4</span></label>
+          <input id="bitDepth" type="range" min="1" max="8" step="1" value="4" />
+        </div>
+        <div class="control">
+          <label>Sample Pitch <span id="samplePitchRead">1</span></label>
+          <input id="samplePitch" type="range" min="0.25" max="4" step="0.01" value="1" />
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="grid">
+    <div class="panel">
+      <h2 class="section-title">Ethereal Sound Creator</h2>
+      <div id="xy" class="xy"></div>
+      <br>
+      <div class="control-grid">
+        <div class="control">
+          <label>Drone Root <span id="droneRootRead">C2</span></label>
+          <select id="droneRoot">
+            <option>C2</option><option>D2</option><option>E2</option><option>F2</option>
+            <option>G2</option><option>A2</option><option>B2</option><option>C3</option>
+          </select>
+        </div>
+        <div class="control">
+          <label>Drone Volume <span id="droneVolRead">-24</span></label>
+          <input id="droneVol" type="range" min="-60" max="-4" value="-24" />
+        </div>
+        <div class="control">
+          <label>Shimmer <span id="shimmerRead">0.35</span></label>
+          <input id="shimmer" type="range" min="0" max="1" step="0.01" value="0.35" />
+        </div>
+        <div class="control">
+          <label>Chaos LFO <span id="chaosRead">0.2</span></label>
+          <input id="chaos" type="range" min="0" max="1" step="0.01" value="0.2" />
+        </div>
+      </div>
+      <br>
+      <button id="droneToggle" class="alt">Toggle Drone</button>
+    </div>
+    <div class="panel">
+      <h2 class="section-title">FX Matrix</h2>
+      <div class="control-grid">
+        <div class="control">
+          <label>Delay <span id="delayRead">0.35</span></label>
+          <input id="delay" type="range" min="0" max="1" step="0.01" value="0.35" />
+        </div>
+        <div class="control">
+          <label>Delay Time <span id="delayTimeRead">8n</span></label>
+          <select id="delayTime">
+            <option>32n</option>
+            <option>16n</option>
+            <option selected>8n</option>
+            <option>4n</option>
+            <option>2n</option>
+          </select>
+        </div>
+        <div class="control">
+          <label>Reverb <span id="reverbRead">0.55</span></label>
+          <input id="reverb" type="range" min="0" max="1" step="0.01" value="0.55" />
+        </div>
+        <div class="control">
+          <label>Filter <span id="filterRead">4000</span></label>
+          <input id="filter" type="range" min="120" max="12000" value="4000" />
+        </div>
+        <div class="control">
+          <label>Distortion <span id="distRead">0.08</span></label>
+          <input id="distortion" type="range" min="0" max="1" step="0.01" value="0.08" />
+        </div>
+        <div class="control">
+          <label>Master Volume <span id="masterRead">-8</span></label>
+          <input id="master" type="range" min="-60" max="0" value="-8" />
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h2 class="section-title">Live Text Spell</h2>
+      <p class="subtitle" style="margin-top:0;text-align:left">
+        Type words. Each letter becomes pitch, rhythm, and noise. Great for alien language melodies.
+      </p>
+      <input id="spellText" type="text" value="FOOD4THOTH ALIEN SYNTH ORACLE" />
+      <br><br>
+      <div class="pattern-tools">
+        <button id="playSpell" class="alt">Play Spell</button>
+        <button id="spellToSeq" class="dark">Spell → Seq</button>
+        <button id="copyPattern" class="dark">Copy JSON</button>
+      </div>
+      <br>
+      <div class="readout" id="log">
+        Ready. Touch START AUDIO first.
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  FOOD4THOTH experimental browser instrument. Press keys, draw in the portal, mutate patterns, and summon strange bit music.
+</footer>
+<script>
+/* ============================================================
+   FOOD4THOTH ALIEN BIT ORACLE SYNTH
+   Single-file experimental HTML instrument using Tone.js.
+   ============================================================ */
+const $ = id => document.getElementById(id);
+const statusEl = $("status");
+const logEl = $("log");
+let audioReady = false;
+let isPlaying = false;
+let currentStep = 0;
+let seqLoop = null;
+let arpLoop = null;
+let arpIndex = 0;
+let heldNotes = new Set();
+let droneOn = false;
+let visualEnergy = 0;
+const roots = {
+  "C":0,"C#":1,"D":2,"D#":3,"E":4,"F":5,
+  "F#":6,"G":7,"G#":8,"A":9,"A#":10,"B":11
+};
+const noteNames = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+const scales = {
+  minor:[0,2,3,5,7,8,10,12],
+  major:[0,2,4,5,7,9,11,12],
+  dorian:[0,2,3,5,7,9,10,12],
+  phrygian:[0,1,3,5,7,8,10,12],
+  lydian:[0,2,4,6,7,9,11,12],
+  whole:[0,2,4,6,8,10,12,14],
+  weird:[0,1,5,6,8,11,13,17]
+};
+const seqRows = [
+  { id:"kick", label:"Kick" },
+  { id:"snare", label:"Snare" },
+  { id:"hat", label:"Hat" },
+  { id:"tom", label:"Tom" },
+  { id:"bass", label:"Bass" },
+  { id:"lead", label:"Lead" },
+  { id:"chord", label:"Chord" },
+  { id:"noise", label:"Noise" }
+];
+let pattern = {};
+seqRows.forEach(r => pattern[r.id] = Array(16).fill(false));
+let fx = {};
+let instruments = {};
+let lfos = {};
+let analyser;
+/* ========================
+   UI Helpers
+   ======================== */
+function setStatus(msg){ statusEl.textContent = msg; }
+function log(msg){ logEl.textContent = msg + "\n\n" + logEl.textContent.slice(0, 900); }
+function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
+function midiToNote(midi){
+  const n = noteNames[midi % 12];
+  const o = Math.floor(midi / 12) - 1;
+  return n + o;
+}
+function getScaleNotes(oct = Number($("octave").value)){
+  const root = roots[$("root").value];
+  const scale = scales[$("scale").value];
+  const base = 12 * (oct + 1) + root;
+  return scale.map(x => midiToNote(base + x));
+}
+function getChord(){
+  const notes = getScaleNotes();
+  return [notes[0], notes[2] || notes[0], notes[4] || notes[0], notes[6] || notes[0]];
+}
+function updateReadouts(){
+  [
+    ["voiceRead","voice"],["scaleRead","scale"],["rootRead","root"],
+    ["octRead","octave"],["attackRead","attack"],["releaseRead","release"],
+    ["bpmRead","bpm"],["bpmMini","bpm"],["swingRead","swing"],
+    ["arpRateRead","arpRate"],["arpModeRead","arpMode"],["noiseTypeRead","noiseType"],
+    ["noiseAmountRead","noiseAmount"],["bitRead","bitDepth"],
+    ["samplePitchRead","samplePitch"],["droneRootRead","droneRoot"],
+    ["droneVolRead","droneVol"],["shimmerRead","shimmer"],
+    ["chaosRead","chaos"],["delayRead","delay"],["delayTimeRead","delayTime"],
+    ["reverbRead","reverb"],["filterRead","filter"],
+    ["distRead","distortion"],["masterRead","master"]
+  ].forEach(([read,id]) => {
+    if($(read) && $(id)) $(read).textContent = $(id).value;
+  });
+}
+/* ========================
+   Audio Setup
+   ======================== */
+async function initAudio(){
+  if(audioReady) return;
+  await Tone.start();
+  Tone.Transport.bpm.value = Number($("bpm").value);
+  Tone.Transport.swing = Number($("swing").value);
+  fx.master = new Tone.Volume(Number($("master").value)).toDestination();
+  analyser = new Tone.Analyser("waveform", 512);
+  fx.master.connect(analyser);
+  fx.filter = new Tone.Filter(Number($("filter").value), "lowpass");
+  fx.distortion = new Tone.Distortion(Number($("distortion").value));
+  fx.bit = new Tone.BitCrusher(Number($("bitDepth").value));
+  fx.delay = new Tone.FeedbackDelay($("delayTime").value, Number($("delay").value));
+  fx.reverb = new Tone.Reverb({ decay: 7, wet: Number($("reverb").value), preDelay: .03 });
+  fx.filter.chain(fx.distortion, fx.bit, fx.delay, fx.reverb, fx.master);
+  instruments.poly = new Tone.PolySynth(Tone.Synth, {
+    oscillator:{ type:"sawtooth" },
+    envelope:{ attack:.02, decay:.2, sustain:.42, release:.8 }
+  }).connect(fx.filter);
+  instruments.fm = new Tone.PolySynth(Tone.FMSynth, {
+    harmonicity: 2.1,
+    modulationIndex: 8,
+    envelope:{ attack:.02, decay:.3, sustain:.3, release:1.2 },
+    modulationEnvelope:{ attack:.01, decay:.2, sustain:.1, release:.8 }
+  }).connect(fx.filter);
+  instruments.am = new Tone.PolySynth(Tone.AMSynth, {
+    harmonicity: 1.5,
+    envelope:{ attack:.04, decay:.4, sustain:.5, release:1.8 },
+    modulationEnvelope:{ attack:.05, decay:.2, sustain:.4, release:1.3 }
+  }).connect(fx.filter);
+  instruments.mono = new Tone.MonoSynth({
+    oscillator:{ type:"sawtooth" },
+    filter:{ Q:6, type:"lowpass", rolloff:-24 },
+    envelope:{ attack:.01, decay:.15, sustain:.45, release:.35 },
+    filterEnvelope:{ attack:.01, decay:.2, sustain:.2, release:.4, baseFrequency:120, octaves:4 }
+  }).connect(fx.filter);
+  instruments.chip = new Tone.PolySynth(Tone.Synth, {
+    oscillator:{ type:"pulse", width:.18 },
+    envelope:{ attack:.001, decay:.08, sustain:.18, release:.08 }
+  }).connect(fx.filter);
+  instruments.bass = new Tone.MonoSynth({
+    oscillator:{ type:"square" },
+    filter:{ Q:3, type:"lowpass", rolloff:-24 },
+    envelope:{ attack:.005, decay:.12, sustain:.25, release:.18 },
+    filterEnvelope:{ attack:.001, decay:.15, sustain:.05, release:.2, baseFrequency:80, octaves:3 }
+  }).connect(fx.filter);
+  instruments.kick = new Tone.MembraneSynth({
+    pitchDecay:.04,
+    octaves:8,
+    oscillator:{ type:"sine" },
+    envelope:{ attack:.001, decay:.45, sustain:.01, release:.2 }
+  }).connect(fx.filter);
+  instruments.snareNoise = new Tone.NoiseSynth({
+    noise:{ type:"white" },
+    envelope:{ attack:.001, decay:.16, sustain:0, release:.08 }
+  }).connect(fx.filter);
+  instruments.snareTone = new Tone.MembraneSynth({
+    pitchDecay:.02,
+    octaves:2,
+    envelope:{ attack:.001, decay:.18, sustain:0, release:.06 }
+  }).connect(fx.filter);
+  instruments.hat = new Tone.MetalSynth({
+    frequency:320,
+    envelope:{ attack:.001, decay:.08, release:.02 },
+    harmonicity:5.1,
+    modulationIndex:32,
+    resonance:4000,
+    octaves:1.5
+  }).connect(fx.filter);
+  instruments.tom = new Tone.MembraneSynth({
+    pitchDecay:.08,
+    octaves:4,
+    envelope:{ attack:.001, decay:.3, sustain:.02, release:.1 }
+  }).connect(fx.filter);
+  instruments.noise = new Tone.NoiseSynth({
+    noise:{ type:$("noiseType").value },
+    envelope:{ attack:.02, decay:.25, sustain:.08, release:.8 },
+    volume: -18
+  }).connect(fx.filter);
+  instruments.choir = new Tone.PolySynth(Tone.Synth, {
+    oscillator:{ type:"sine" },
+    envelope:{ attack:1.5, decay:1, sustain:.7, release:4 }
+  }).connect(fx.reverb);
+  instruments.drone = new Tone.PolySynth(Tone.Synth, {
+    oscillator:{ type:"sine" },
+    envelope:{ attack:4, decay:1, sustain:1, release:5 },
+    volume: Number($("droneVol").value)
+  }).connect(fx.reverb);
+  instruments.zap = new Tone.Synth({
+    oscillator:{ type:"sawtooth" },
+    envelope:{ attack:.001, decay:.05, sustain:0, release:.04 }
+  }).connect(fx.filter);
+  instruments.coin = new Tone.Synth({
+    oscillator:{ type:"triangle" },
+    envelope:{ attack:.001, decay:.08, sustain:.1, release:.18 }
+  }).connect(fx.filter);
+  lfos.filter = new Tone.LFO(.08, 600, 6000).start();
+  lfos.filter.connect(fx.filter.frequency);
+  audioReady = true;
+  setStatus("Audio awake. Make weird music.");
+  log("Audio engine initialized.");
+}
+/* ========================
+   Instrument Playing
+   ======================== */
+function currentInstrument(){
+  const v = $("voice").value;
+  return instruments[v] || instruments.poly;
+}
+function applyEnvelope(){
+  const inst = currentInstrument();
+  const attack = Number($("attack").value);
+  const release = Number($("release").value);
+  try{
+    if(inst.set){
+      inst.set({
+        envelope:{ attack, release }
+      });
+    }
+  }catch(e){}
+}
+function playNote(note, dur="8n", time=Tone.now(), vel=.75){
+  if(!audioReady) return;
+  applyEnvelope();
+  const inst = currentInstrument();
+  visualEnergy = 1;
+  if($("voice").value === "mono"){
+    inst.triggerAttackRelease(note, dur, time, vel);
+  } else {
+    inst.triggerAttackRelease(note, dur, time, vel);
+  }
+}
+function playChord(notes=getChord(), dur="2n", time=Tone.now(), vel=.45){
+  if(!audioReady) return;
+  applyEnvelope();
+  currentInstrument().triggerAttackRelease(notes, dur, time, vel);
+  visualEnergy = 1;
+}
+function playPad(type, time=Tone.now()){
+  if(!audioReady) return;
+  const pitch = Number($("samplePitch").value);
+  visualEnergy = 1;
+  switch(type){
+    case "kick":
+      instruments.kick.triggerAttackRelease(55 * pitch, "8n", time, .95);
+      break;
+    case "snare":
+      instruments.snareNoise.triggerAttackRelease("16n", time, .8);
+      instruments.snareTone.triggerAttackRelease(180 * pitch, "16n", time, .35);
+      break;
+    case "hat":
+      instruments.hat.triggerAttackRelease("32n", time, .45);
+      break;
+    case "tom":
+      instruments.tom.triggerAttackRelease(120 * pitch, "8n", time, .7);
+      break;
+    case "zap":
+      instruments.zap.frequency.setValueAtTime(1200 * pitch, time);
+      instruments.zap.frequency.exponentialRampToValueAtTime(80, time + .11);
+      instruments.zap.triggerAttackRelease("C5", "16n", time, .8);
+      break;
+    case "coin":
+      instruments.coin.triggerAttackRelease("C6", "32n", time, .55);
+      instruments.coin.triggerAttackRelease("G6", "32n", time + .07, .35);
+      break;
+    case "noise":
+      instruments.noise.noise.type = $("noiseType").value;
+      instruments.noise.volume.value = -34 + Number($("noiseAmount").value) * 30;
+      instruments.noise.triggerAttackRelease("4n", time, .9);
+      break;
+    case "choir":
+      instruments.choir.triggerAttackRelease(getChord().map(n => Tone.Frequency(n).transpose(-12).toNote()), "1m", time, .22);
+      break;
+  }
+}
+/* ========================
+   Keyboard
+   ======================== */
+function buildKeyboard(){
+  const kb = $("keyboard");
+  kb.innerHTML = "";
+  const notes = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+  notes.forEach(n => {
+    const div = document.createElement("div");
+    div.className = "key" + (n.includes("#") ? " black" : "");
+    div.textContent = n;
+    div.dataset.note = n;
+    kb.appendChild(div);
+    const start = async e => {
+      e.preventDefault();
+      await initAudio();
+      const note = n + $("octave").value;
+      div.classList.add("playing");
+      heldNotes.add(note);
+      playNote(note, "4n");
+    };
+    const end = e => {
+      e.preventDefault();
+      div.classList.remove("playing");
+    };
+    div.addEventListener("pointerdown", start);
+    div.addEventListener("pointerup", end);
+    div.addEventListener("pointercancel", end);
+    div.addEventListener("pointerleave", end);
+  });
+}
+/* ========================
+   Sequencer
+   ======================== */
+function buildSequencer(){
+  const seq = $("sequencer");
+  seq.innerHTML = "";
+  seqRows.forEach(row => {
+    const r = document.createElement("div");
+    r.className = "seq-row";
+    const label = document.createElement("div");
+    label.className = "row-label";
+    label.textContent = row.label;
+    r.appendChild(label);
+    for(let i=0;i<16;i++){
+      const step = document.createElement("div");
+      step.className = "step";
+      step.dataset.row = row.id;
+      step.dataset.step = i;
+      step.addEventListener("click", () => {
+        pattern[row.id][i] = !pattern[row.id][i];
+        step.classList.toggle("on", pattern[row.id][i]);
+        showPattern();
+      });
+      r.appendChild(step);
+    }
+    seq.appendChild(r);
+  });
+}
+function refreshSteps(){
+  document.querySelectorAll(".step").forEach(el => {
+    const row = el.dataset.row;
+    const st = Number(el.dataset.step);
+    el.classList.toggle("on", pattern[row][st]);
+    el.classList.toggle("current", st === currentStep && isPlaying);
+  });
+}
+function triggerSequencerStep(step, time){
+  const scaleNotes = getScaleNotes();
+  const bassNote = Tone.Frequency(scaleNotes[step % scaleNotes.length]).transpose(-24).toNote();
+  const leadNote = scaleNotes[(step * 3 + 2) % scaleNotes.length];
+  if(pattern.kick[step]) playPad("kick", time);
+  if(pattern.snare[step]) playPad("snare", time);
+  if(pattern.hat[step]) playPad("hat", time);
+  if(pattern.tom[step]) playPad("tom", time);
+  if(pattern.noise[step]) playPad("noise", time);
+  if(pattern.bass[step]){
+    instruments.bass.triggerAttackRelease(bassNote, "16n", time, .75);
+    visualEnergy = 1;
+  }
+  if(pattern.lead[step]){
+    instruments.chip.triggerAttackRelease(leadNote, "16n", time, .52);
+    visualEnergy = 1;
+  }
+  if(pattern.chord[step]){
+    instruments.fm.triggerAttackRelease(getChord(), "8n", time, .25);
+    visualEnergy = 1;
+  }
+}
+function startLoop(){
+  if(!audioReady) return;
+  stopLoop(false);
+  isPlaying = true;
+  currentStep = 0;
+  seqLoop = new Tone.Sequence((time, step) => {
+    currentStep = step;
+    triggerSequencerStep(step, time);
+    Tone.Draw.schedule(() => {
+      $("stepRead").textContent = step + 1;
+      refreshSteps();
+    }, time);
+  }, [...Array(16).keys()], "16n").start(0);
+  startArp();
+  Tone.Transport.start();
+  setStatus("Loop playing.");
+}
+function startArp(){
+  if(arpLoop) arpLoop.dispose();
+  arpLoop = new Tone.Loop(time => {
+    const notes = getScaleNotes();
+    const mode = $("arpMode").value;
+    let idx = arpIndex % notes.length;
+    if(mode === "down") idx = notes.length - 1 - idx;
+    if(mode === "random") idx = Math.floor(Math.random() * notes.length);
+    if(mode === "bounce"){
+      const cycle = notes.length * 2 - 2;
+      const p = arpIndex % cycle;
+      idx = p < notes.length ? p : cycle - p;
+    }
+    if(isPlaying && Math.random() < .72){
+      instruments.chip.triggerAttackRelease(notes[idx], "32n", time, .22);
+      visualEnergy = Math.max(visualEnergy, .5);
+    }
+    arpIndex++;
+  }, $("arpRate").value).start(0);
+}
+function stopLoop(stopTransport=true){
+  isPlaying = false;
+  if(seqLoop){ seqLoop.dispose(); seqLoop = null; }
+  if(arpLoop){ arpLoop.dispose(); arpLoop = null; }
+  if(stopTransport) Tone.Transport.stop();
+  refreshSteps();
+  setStatus("Stopped.");
+}
+/* ========================
+   Pattern Tools
+   ======================== */
+function showPattern(){
+  const txt = JSON.stringify(pattern);
+  $("patternReadout").textContent = txt.slice(0, 1800);
+}
+function clearPattern(){
+  seqRows.forEach(r => pattern[r.id] = Array(16).fill(false));
+  refreshSteps();
+  showPattern();
+}
+function randomPattern(){
+  seqRows.forEach(r => {
+    pattern[r.id] = pattern[r.id].map((_,i) => {
+      if(r.id === "kick") return i % 4 === 0 || Math.random() < .08;
+      if(r.id === "snare") return i === 4 || i === 12 || Math.random() < .05;
+      if(r.id === "hat") return Math.random() < .45;
+      if(r.id === "bass") return Math.random() < .28;
+      if(r.id === "lead") return Math.random() < .22;
+      if(r.id === "chord") return i % 8 === 0 || Math.random() < .08;
+      return Math.random() < .12;
+    });
+  });
+  refreshSteps();
+  showPattern();
+  log("Generated a new alien loop.");
+}
+function mutatePattern(){
+  seqRows.forEach(r => {
+    for(let i=0;i<16;i++){
+      if(Math.random() < .12) pattern[r.id][i] = !pattern[r.id][i];
+    }
+  });
+  refreshSteps();
+  showPattern();
+  log("Pattern mutated.");
+}
+/* ========================
+   Drone / Ethereal Portal
+   ======================== */
+function droneNotes(){
+  const root = $("droneRoot").value;
+  return [
+    root,
+    Tone.Frequency(root).transpose(7).toNote(),
+    Tone.Frequency(root).transpose(12).toNote(),
+    Tone.Frequency(root).transpose(19).toNote()
+  ];
+}
+function toggleDrone(){
+  if(!audioReady) return;
+  if(!droneOn){
+    instruments.drone.volume.value = Number($("droneVol").value);
+    instruments.drone.triggerAttack(droneNotes(), Tone.now(), .3);
+    droneOn = true;
+    $("droneToggle").classList.add("active");
+    log("Drone portal opened.");
+  } else {
+    instruments.drone.releaseAll();
+    droneOn = false;
+    $("droneToggle").classList.remove("active");
+    log("Drone portal closed.");
+  }
+}
+function setupXY(){
+  const xy = $("xy");
+  const move = async e => {
+    e.preventDefault();
+    await initAudio();
+    const rect = xy.getBoundingClientRect();
+    const x = clamp((e.clientX - rect.left) / rect.width, 0, 1);
+    const y = clamp((e.clientY - rect.top) / rect.height, 0, 1);
+    xy.style.setProperty("--x", `${x*100}%`);
+    xy.style.setProperty("--y", `${y*100}%`);
+    const cutoff = 200 + x * 10000;
+    const rev = .15 + (1-y) * .85;
+    const delay = x * .85;
+    const chaos = Number($("chaos").value);
+    fx.filter.frequency.rampTo(cutoff, .05);
+    fx.reverb.wet.rampTo(rev, .08);
+    fx.delay.feedback.rampTo(delay, .08);
+    if(Math.random() < .2 + chaos * .5){
+      const notes = getScaleNotes();
+      const note = notes[Math.floor(x * notes.length)] || notes[0];
+      instruments.fm.triggerAttackRelease(
+        Tone.Frequency(note).transpose(Math.floor((1-y)*24)-12).toNote(),
+        "16n",
+        Tone.now(),
+        .18 + chaos * .22
+      );
+      visualEnergy = 1;
+    }
+  };
+  xy.addEventListener("pointerdown", move);
+  xy.addEventListener("pointermove", e => {
+    if(e.buttons) move(e);
+  });
+}
+/* ========================
+   Text Spell
+   ======================== */
+async function playSpell(){
+  await initAudio();
+  const text = $("spellText").value || "VOID";
+  const notes = getScaleNotes();
+  let t = Tone.now();
+  [...text].forEach((ch, i) => {
+    const code = ch.charCodeAt(0);
+    const note = notes[code % notes.length];
+    const octShift = (code % 3) * 12 - 12;
+    const finalNote = Tone.Frequency(note).transpose(octShift).toNote();
+    const dur = code % 5 === 0 ? "8n" : "16n";
+    Tone.Transport.scheduleOnce(time => {
+      if(/[aeiou]/i.test(ch)) playPad("choir", time);
+      else if(/\s/.test(ch)) playPad("noise", time);
+      else playNote(finalNote, dur, time, .45);
+    }, `+${i * .12}`);
+    t += .12;
+  });
+  log("Played text spell: " + text);
+}
+function spellToSeq(){
+  const text = $("spellText").value || "FOOD4THOTH";
+  clearPattern();
+  [...text].forEach((ch,i) => {
+    const pos = i % 16;
+    const code = ch.charCodeAt(0);
+    if(/\s/.test(ch)) pattern.noise[pos] = true;
+    else {
+      if(code % 2 === 0) pattern.kick[pos] = true;
+      if(code % 3 === 0) pattern.snare[pos] = true;
+      if(code % 5 === 0) pattern.hat[pos] = true;
+      if(code % 7 === 0) pattern.bass[pos] = true;
+      if(code % 4 === 0) pattern.lead[pos] = true;
+      if(/[aeiou]/i.test(ch)) pattern.chord[pos] = true;
+    }
+  });
+  refreshSteps();
+  showPattern();
+  log("Converted spell to sequencer pattern.");
+}
+/* ========================
+   FX Updates
+   ======================== */
+function bindControls(){
+  document.querySelectorAll("input,select").forEach(el => {
+    el.addEventListener("input", () => {
+      updateReadouts();
+      if(!audioReady) return;
+      Tone.Transport.bpm.rampTo(Number($("bpm").value), .1);
+      Tone.Transport.swing = Number($("swing").value);
+      fx.master.volume.rampTo(Number($("master").value), .05);
+      fx.filter.frequency.rampTo(Number($("filter").value), .08);
+      fx.distortion.distortion = Number($("distortion").value);
+      fx.bit.bits = Number($("bitDepth").value);
+      fx.delay.wet.rampTo(Number($("delay").value), .08);
+      fx.delay.delayTime.value = $("delayTime").value;
+      fx.reverb.wet.rampTo(Number($("reverb").value), .1);
+      if(instruments.drone){
+        instruments.drone.volume.rampTo(Number($("droneVol").value), .1);
+      }
+      if(instruments.noise){
+        instruments.noise.noise.type = $("noiseType").value;
+      }
+      if(arpLoop && el.id === "arpRate") startArp();
+    });
+  });
+}
+/* ========================
+   Visualizer
+   ======================== */
+const canvas = $("scope");
+const ctx = canvas.getContext("2d");
+function resize(){
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = innerWidth * dpr;
+  canvas.height = innerHeight * dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+addEventListener("resize", resize);
+addEventListener("orientationchange", resize);
+resize();
+let phase = 0;
+function draw(){
+  requestAnimationFrame(draw);
+  const w = innerWidth;
+  const h = innerHeight;
+  phase += .008 + visualEnergy * .025;
+  visualEnergy *= .94;
+  ctx.clearRect(0,0,w,h);
+  const data = analyser && audioReady ? analyser.getValue() : null;
+  const amp = data ? data.reduce((a,b)=>a+Math.abs(b),0)/data.length : .02;
+  ctx.save();
+  ctx.globalCompositeOperation = "lighter";
+  for(let ring=0; ring<7; ring++){
+    const radius = 80 + ring * 65 + Math.sin(phase*2 + ring) * 30 + amp * 420;
+    ctx.beginPath();
+    for(let i=0;i<=360;i+=3){
+      const a = i * Math.PI / 180;
+      const warp = Math.sin(a*5 + phase*3 + ring) * (20 + visualEnergy*80);
+      const r = radius + warp + Math.sin(a*11 + phase*4) * 12;
+      const x = w/2 + Math.cos(a) * r;
+      const y = h/2 + Math.sin(a) * r;
+      if(i===0) ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    }
+    const hue = (phase*80 + ring*48) % 360;
+    ctx.strokeStyle = `hsla(${hue},100%,65%,${.16 + amp * 1.2})`;
+    ctx.lineWidth = 2 + visualEnergy * 4;
+    ctx.stroke();
+  }
+  if(data){
+    ctx.beginPath();
+    data.forEach((v,i) => {
+      const x = i / data.length * w;
+      const y = h*.5 + v * h*.28;
+      if(i===0) ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    });
+    ctx.strokeStyle = `hsla(${(phase*120)%360},100%,75%,.65)`;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+  for(let i=0;i<80;i++){
+    const x = (Math.sin(phase + i*19.19) * .5 + .5) * w;
+    const y = (Math.cos(phase*1.3 + i*7.31) * .5 + .5) * h;
+    const s = 1 + ((i % 7) * .4) + visualEnergy * 4;
+    ctx.fillStyle = `hsla(${(i*17+phase*200)%360},100%,70%,.22)`;
+    ctx.beginPath();
+    ctx.arc(x,y,s,0,Math.PI*2);
+    ctx.fill();
+  }
+  ctx.restore();
+}
+draw();
+/* ========================
+   Events
+   ======================== */
+$("startBtn").addEventListener("click", initAudio);
+$("playBtn").addEventListener("click", async () => {
+  await initAudio();
+  startLoop();
+});
+$("stopBtn").addEventListener("click", () => stopLoop(true));
+$("panicBtn").addEventListener("click", () => {
+  if(!audioReady) return;
+  Tone.Transport.stop();
+  stopLoop(false);
+  Object.values(instruments).forEach(inst => {
+    try{ inst.releaseAll && inst.releaseAll(); }catch(e){}
+    try{ inst.triggerRelease && inst.triggerRelease(); }catch(e){}
+  });
+  setStatus("Panic: all notes released.");
+});
+$("randomBtn").addEventListener("click", randomPattern);
+$("clearBtn").addEventListener("click", clearPattern);
+$("mutatePattern").addEventListener("click", mutatePattern);
+$("savePattern").addEventListener("click", () => {
+  localStorage.setItem("alienBitPattern", JSON.stringify(pattern));
+  log("Pattern saved to browser memory.");
+});
+$("loadPattern").addEventListener("click", () => {
+  const saved = localStorage.getItem("alienBitPattern");
+  if(saved){
+    pattern = JSON.parse(saved);
+    refreshSteps();
+    showPattern();
+    log("Pattern loaded.");
+  } else {
+    log("No saved pattern found.");
+  }
+});
+$("copyPattern").addEventListener("click", async () => {
+  const txt = JSON.stringify(pattern);
+  try{
+    await navigator.clipboard.writeText(txt);
+    log("Pattern JSON copied.");
+  }catch(e){
+    log("Could not copy. Pattern JSON: " + txt);
+  }
+});
+$("droneToggle").addEventListener("click", async () => {
+  await initAudio();
+  toggleDrone();
+});
+$("playSpell").addEventListener("click", playSpell);
+$("spellToSeq").addEventListener("click", spellToSeq);
+document.querySelectorAll(".pad").forEach(btn => {
+  btn.addEventListener("pointerdown", async e => {
+    e.preventDefault();
+    await initAudio();
+    playPad(btn.dataset.pad);
+    btn.classList.add("active");
+  });
+  btn.addEventListener("pointerup", () => btn.classList.remove("active"));
+  btn.addEventListener("pointercancel", () => btn.classList.remove("active"));
+});
+/* Computer keyboard playing */
+window.addEventListener("keydown", async e => {
+  const map = {
+    a:"C", w:"C#", s:"D", e:"D#", d:"E", f:"F",
+    t:"F#", g:"G", y:"G#", h:"A", u:"A#", j:"B"
+  };
+  if(map[e.key] && !e.repeat){
+    await initAudio();
+    playNote(map[e.key] + $("octave").value, "8n");
+    document.querySelectorAll(".key").forEach(k => {
+      if(k.dataset.note === map[e.key]) k.classList.add("playing");
+    });
+  }
+  if(e.key === " "){
+    e.preventDefault();
+    if(isPlaying) stopLoop(true);
+    else {
+      await initAudio();
+      startLoop();
+    }
+  }
+});
+window.addEventListener("keyup", e => {
+  const map = {
+    a:"C", w:"C#", s:"D", e:"D#", d:"E", f:"F",
+    t:"F#", g:"G", y:"G#", h:"A", u:"A#", j:"B"
+  };
+  if(map[e.key]){
+    document.querySelectorAll(".key").forEach(k => {
+      if(k.dataset.note === map[e.key]) k.classList.remove("playing");
+    });
+  }
+});
+/* Boot UI */
+buildKeyboard();
+buildSequencer();
+setupXY();
+bindControls();
+updateReadouts();
+showPattern();
+/* Starter rhythm */
+pattern.kick = [1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0].map(Boolean);
+pattern.snare = [0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0].map(Boolean);
+pattern.hat = [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0].map(Boolean);
+pattern.bass = [1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0].map(Boolean);
+pattern.lead = [0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0].map(Boolean);
+pattern.chord = [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0].map(Boolean);
+refreshSteps();
+showPattern();
+</script>
+</body>
+</html>

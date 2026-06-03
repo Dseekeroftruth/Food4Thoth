@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<title>◉ THE MAP — Eight Boroughs of a Broken Wonderland ◉</title>
+<link rel="stylesheet" href="assets/shared.css">
+<style>
+  .mapwrap {
+    max-width: 980px; margin: 0 auto; padding: 18px;
+  }
+  .maphead {
+    text-align: center; margin: 10px 0 22px;
+  }
+  .maphead h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin: 0;
+    background: linear-gradient(90deg, var(--neon-lime), var(--neon-cyan), var(--neon-pink));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    background-size: 200% auto;
+    animation: hueSlide 5s linear infinite;
+    letter-spacing: .05em;
+  }
+  .maphead p { color: #c0b098; font-style: italic; margin: 8px 0 0; }
+
+  /* map itself */
+  .mapcanvas {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border: 2px solid var(--neon-cyan);
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(58,10,107,.5), transparent 55%),
+      radial-gradient(ellipse at 80% 70%, rgba(0,52,30,.6), transparent 60%),
+      radial-gradient(ellipse at 50% 50%, rgba(72,0,58,.5), transparent 70%),
+      #05020e;
+    box-shadow: inset 0 0 60px rgba(0,0,0,.7), 0 0 40px rgba(0,247,255,.25);
+    overflow: hidden;
+  }
+  .mapcanvas::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(circle, transparent 0%, transparent 60%, rgba(0,0,0,.8) 100%);
+    pointer-events: none;
+  }
+  /* crosshairs */
+  .mapcanvas::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(0deg,   transparent 0 39px, rgba(255,255,255,.04) 39px 40px),
+      repeating-linear-gradient(90deg,  transparent 0 39px, rgba(255,255,255,.04) 39px 40px);
+    pointer-events: none;
+  }
+
+  .pin {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: center;
+    cursor: pointer; text-decoration: none;
+    z-index: 2;
+    transition: transform .2s;
+  }
+  .pin:hover { transform: translate(-50%, -50%) scale(1.12); z-index: 3; }
+  .pin .icon {
+    width: 58px; height: 58px;
+    display: grid; place-items: center;
+    font-size: 30px;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), rgba(0,0,0,.8));
+    border: 2px solid var(--neon-pink);
+    box-shadow: 0 0 18px var(--neon-pink);
+    animation: pinpulse 2.8s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(0,0,0,.7));
+  }
+  .pin.visited .icon { border-color: var(--neon-acid); box-shadow: 0 0 24px var(--neon-acid); }
+  .pin.completed .icon { border-color: var(--neon-lime); box-shadow: 0 0 30px var(--neon-lime); background: radial-gradient(circle at 30% 30%, rgba(162,255,0,.5), rgba(0,0,0,.8)); }
+
+  @keyframes pinpulse {
+    0%,100% { box-shadow: 0 0 18px var(--neon-pink); }
+    50%     { box-shadow: 0 0 30px var(--neon-pink), 0 0 60px var(--neon-pink); }
+  }
+
+  .pin .label {
+    margin-top: 6px;
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: .08em;
+    color: var(--cream);
+    text-shadow: 0 0 6px #000, 0 0 10px #000, 1px 1px 0 #000;
+    white-space: nowrap;
+    background: rgba(0,0,0,.45);
+    padding: 1px 6px;
+    border-radius: 1px;
+  }
+
+  /* connecting lines between pins — drawn as absolute SVG */
+  .lines { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+
+  .legend {
+    margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+    font-family: var(--font-mono); font-size: 16px; color: #b8a090;
+  }
+  .legend .dot {
+    display: inline-block; width: 12px; height: 12px; vertical-align: middle; margin-right: 4px;
+    border: 2px solid;
+  }
+
+  .flavor-card {
+    margin-top: 20px; padding: 18px;
+    background: rgba(12,3,32,.7);
+    border-left: 4px solid var(--neon-yellow);
+    min-height: 110px;
+    font-family: var(--font-mono); font-size: 18px; line-height: 1.5;
+  }
+  .flavor-card .loc-name {
+    font-family: var(--font-display); font-size: 22px;
+    color: var(--neon-yellow); text-shadow: 0 0 10px currentColor;
+    letter-spacing: .08em; margin-bottom: 4px;
+  }
+  .flavor-card .loc-desc { color: #e0d090; font-style: italic; }
+  .flavor-card .loc-actions { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .flavor-card .loc-actions a {
+    font-family: var(--font-display); font-size: 14px; letter-spacing: .1em;
+    color: var(--neon-cyan); text-decoration: none;
+    border: 1.5px solid var(--neon-cyan); padding: 4px 12px;
+  }
+  .flavor-card .loc-actions a:hover { background: rgba(0,247,255,.1); }
+</style>
+</head>
+<body>
+
+<div class="mapwrap">
+  <div class="maphead">
+    <h1>◈ THE MAP ◈</h1>
+    <p>Eight boroughs of a shattered Wonderland. Tap a pin to travel.<br>
+       <span style="color:var(--neon-acid)">Green pins</span> are places you've walked. <span style="color:var(--neon-lime)">Bright green</span> are places you've conquered.</p>
+  </div>
+
+  <div class="mapcanvas" id="mapCanvas">
+    <svg class="lines" id="mapLines" viewBox="0 0 1000 750" preserveAspectRatio="none"></svg>
+  </div>
+
+  <div class="legend">
+    <span><span class="dot" style="border-color:var(--neon-pink)"></span>Unvisited</span>
+    <span><span class="dot" style="border-color:var(--neon-acid)"></span>Visited</span>
+    <span><span class="dot" style="border-color:var(--neon-lime);background:var(--neon-lime)"></span>Conquered</span>
+  </div>
+
+  <div class="flavor-card" id="flavor">
+    <div class="loc-name">HOVER OR TAP A PIN</div>
+    <div class="loc-desc">The dream hasn't decided where you are yet.</div>
+  </div>
+</div>
+
+<script src="assets/shared.js"></script>
+<script>
+TRIP.mountAtmosphere();
+TRIP.mountHUD();
+TRIP.mountTopNav('map');
+TRIP.visit('map');
+
+const PLACES = [
+  { key:'tulgey',    name:'TULGEY WOOD',        icon:'🌳', x:12, y:70, portalKey:'whimsy',
+    desc:'Moss hums. The trees may be listening. Caterpillar Smoke cheap here, Jabberwock Scales expensive.' },
+  { key:'bat',       name:'BAT COUNTRY',        icon:'🦇', x:28, y:25, portalKey:'whimsy',
+    desc:'The air tastes of ether and bad decisions. A long Nevada road behind you grows teeth.' },
+  { key:'whoville',  name:'WHOVILLE HEIGHTS',   icon:'🎁', x:50, y:14, portalKey:'whimsy',
+    desc:'Everyone is very small and very loud. Premium buyers of Queen\'s Tears and Geodesic Gems.' },
+  { key:'chess',     name:'CHESSBOARD PLAINS',  icon:'♖',  x:78, y:28, portalKey:'whimsy',
+    desc:'The ground rearranges itself on odd turns. Card Soldiers patrol the rooks.' },
+  { key:'dome',      name:'FULLER\'S DOME',     icon:'⬡', x:88, y:58, portalKey:'whimsy',
+    desc:'Triangles and triangles and triangles. R. Buckminster Vulture buys gems cheap.' },
+  { key:'beach',     name:'MOCK TURTLE\'S BEACH', icon:'🌊', x:68, y:82, portalKey:'whimsy',
+    desc:'The waves recite minor poetry. Jabberwock Scales wash up daily. Cheap from the tide.' },
+  { key:'tea',       name:'MAD TEA PARTY',       icon:'🫖', x:42, y:62, portalKey:'tea',
+    desc:'It is always 6 o\'clock. It is never 6 o\'clock. Drink in the right order and receive a weapon.' },
+  { key:'mush',      name:'MUSHROOM FOREST',    icon:'🍄', x:20, y:52, portalKey:'oracle',
+    desc:'Stalks wider than lighthouses. Puffs of dream. The Caterpillar holds court on a cap here.' },
+  // special extras
+  { key:'wonder',    name:'WONDER / DOOM',      icon:'🕳', x:55, y:44, portalKey:'doom',
+    desc:'A maze that has been built to catch you. The throbbing door is somewhere inside. So is the humming.' },
+  { key:'spiral',    name:'NEON SPIRAL',        icon:'🌀', x:86, y:10, portalKey:'spiral',
+    desc:'Under every other dreamscape. Beneath the floorboards of this page. The serpent coils.' }
+];
+
+// The right portal to navigate to when a pin is confirmed
+const PORTAL_HREF = Object.fromEntries(TRIP.PORTALS.map(p => [p.key, p.href]));
+
+const mc = document.getElementById('mapCanvas');
+const lines = document.getElementById('mapLines');
+
+// connect a few places with dashed lines for visual pathways
+const EDGES = [
+  ['tulgey','bat'],['bat','whoville'],['whoville','chess'],['chess','dome'],
+  ['dome','beach'],['beach','tea'],['tea','mush'],['mush','tulgey'],
+  ['tea','wonder'],['wonder','whoville'],['wonder','beach'],
+  ['spiral','whoville'],['spiral','dome']
+];
+
+// render edges
+EDGES.forEach(([a,b]) => {
+  const A = PLACES.find(p=>p.key===a), B = PLACES.find(p=>p.key===b);
+  if (!A || !B) return;
+  const x1 = A.x*10, y1 = A.y*7.5, x2 = B.x*10, y2 = B.y*7.5;
+  const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  // curve slightly
+  const mx = (x1+x2)/2 + (Math.random()*60-30);
+  const my = (y1+y2)/2 + (Math.random()*60-30);
+  line.setAttribute('d', `M ${x1} ${y1} Q ${mx} ${my} ${x2} ${y2}`);
+  line.setAttribute('fill','none');
+  line.setAttribute('stroke','rgba(184,255,46,.35)');
+  line.setAttribute('stroke-width','1.5');
+  line.setAttribute('stroke-dasharray','6 8');
+  lines.appendChild(line);
+});
+
+PLACES.forEach(p => {
+  const a = document.createElement('a');
+  a.className = 'pin';
+  a.href = PORTAL_HREF[p.portalKey] || '#';
+  a.style.left = p.x + '%';
+  a.style.top = p.y + '%';
+  const vis = TRIP.state.visited[p.portalKey];
+  const done = TRIP.state.completed[p.portalKey];
+  if (vis) a.classList.add('visited');
+  if (done) a.classList.add('completed');
+  a.innerHTML = `<div class="icon">${p.icon}</div><div class="label">${p.name}</div>`;
+  a.addEventListener('mouseenter', () => showFlavor(p));
+  a.addEventListener('focus',       () => showFlavor(p));
+  a.addEventListener('touchstart',  e => { showFlavor(p); /* don't preventDefault so navigation still works */ }, {passive:true});
+  mc.appendChild(a);
+});
+
+function showFlavor(p) {
+  const href = PORTAL_HREF[p.portalKey];
+  document.getElementById('flavor').innerHTML = `
+    <div class="loc-name">${p.icon} ${p.name}</div>
+    <div class="loc-desc">${p.desc}</div>
+    <div class="loc-actions">
+      <a href="${href}">▶ TRAVEL (opens ${p.portalKey})</a>
+    </div>
+  `;
+}
+</script>
+</body>
+</html>
