@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>★ WONDER / DOOM — The Electric Trip ★</title>
+<script src="../assets/shared.js"></script>
+<style>
+  /* Hub integration button */
+  .hub-home {
+    position: fixed; top: 8px; left: 8px; z-index: 99;
+    display: inline-block; text-decoration: none;
+    font-family: 'Bungee Shade', cursive; font-size: 13px; letter-spacing: .12em;
+    color: #ffe600; background: rgba(0,0,0,.8);
+    border: 2px solid #ffe600; padding: 5px 10px;
+    box-shadow: 0 0 16px rgba(255,230,0,.5);
+  }
+  .hub-home:hover { color: #fff; border-color: #fff; transform: scale(1.05); }
+  .hub-bonus {
+    color:#a2ff00; font-family:'Special Elite',monospace; font-size:14px;
+    margin-top:10px; padding:6px 10px; border:1px dashed #a2ff00;
+    display:inline-block; max-width:440px;
+  }
+</style>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Special+Elite&display=swap');
+
+  :root {
+    --neon-pink: #ff0099;
+    --neon-cyan: #00f7ff;
+    --neon-yellow: #ffe600;
+    --neon-lime: #a2ff00;
+    --blood: #c1121f;
+  }
+
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: #000;
+    font-family: 'Special Elite', 'Courier New', monospace;
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  #stage {
+    position: fixed; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background:
+      radial-gradient(ellipse at 30% 20%, #2a0040 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 80%, #400020 0%, transparent 60%),
+      #000;
+  }
+
+  #gameCanvas {
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    width: 100%; height: 100%;
+    max-width: 100vw; max-height: 100vh;
+    object-fit: contain;
+    filter: saturate(1.3) contrast(1.1);
+  }
+
+  /* vignette + crt scanlines over everything */
+  #fx {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.25) 3px, rgba(0,0,0,0) 4px),
+      radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.75) 100%);
+    mix-blend-mode: multiply;
+    z-index: 3;
+  }
+  #fx::after{
+    content:""; position:absolute; inset:0;
+    background: radial-gradient(circle at 50% 50%, rgba(255,0,200,0.05), transparent 70%);
+    mix-blend-mode: screen;
+    animation: breath 6s ease-in-out infinite;
+  }
+  @keyframes breath { 0%,100%{opacity:.4} 50%{opacity:.9} }
+
+  /* ---------- START SCREEN ---------- */
+  #start {
+    position: fixed; inset: 0;
+    z-index: 20;
+    background:
+      radial-gradient(ellipse at 20% 30%, #5a00a8 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 70%, #a80040 0%, transparent 55%),
+      repeating-conic-gradient(from 0deg at 50% 50%, #000 0deg 10deg, #1a001f 10deg 20deg);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+    text-align: center; padding: 24px;
+    animation: spinbg 40s linear infinite;
+  }
+  @keyframes spinbg { to { background-position: 1000px 0, 0 1000px, 0 0; } }
+
+  #start h1 {
+    font-family: 'Bungee Shade', cursive;
+    font-size: clamp(2.4rem, 9vw, 5.5rem);
+    margin: 0;
+    background: linear-gradient(90deg, #ff0099, #ffe600, #00f7ff, #a2ff00, #ff0099);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: hueslide 4s linear infinite;
+    text-shadow: 0 0 40px rgba(255,0,153,0.6);
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+    transform: rotate(-2deg);
+  }
+  @keyframes hueslide { to { background-position: 300% 50%; } }
+
+  #start .sub {
+    font-family: 'Special Elite', serif;
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+    max-width: 560px;
+    color: #f0e0a0;
+    font-style: italic;
+    margin: 18px 6px 28px;
+    line-height: 1.5;
+    text-shadow: 1px 1px 0 #000;
+  }
+
+  #start button {
+    font-family: 'Bungee Shade', cursive;
+    background: linear-gradient(45deg, var(--neon-pink), var(--neon-yellow));
+    color: #120022;
+    border: 4px solid #fff;
+    padding: 16px 34px;
+    font-size: clamp(1.1rem, 4vw, 1.6rem);
+    cursor: pointer;
+    letter-spacing: 0.15em;
+    box-shadow: 0 0 40px var(--neon-pink), inset 0 0 12px rgba(255,255,255,0.4);
+    transform: rotate(-1deg);
+    transition: transform .15s;
+  }
+  #start button:hover, #start button:active { transform: rotate(1deg) scale(1.05); }
+
+  #start .controls {
+    color: #aaa;
+    font-size: 0.85rem;
+    margin-top: 26px;
+    line-height: 1.7;
+  }
+
+  /* ---------- TOUCH CONTROLS ---------- */
+  .touch-pad, #fireBtn { display: none; }
+  .touch-visible .touch-pad, .touch-visible #fireBtn { display: block; }
+
+  .touch-pad {
+    position: fixed; bottom: 24px;
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle, rgba(255,0,200,0.25) 0%, rgba(0,247,255,0.1) 60%, transparent 100%);
+    border: 2px dashed rgba(255,255,255,0.6);
+    z-index: 10;
+    touch-action: none;
+  }
+  #padLeft { left: 20px; }
+  #padRight { right: 20px; }
+  .touch-pad .stick {
+    position: absolute; top: 50%; left: 50%;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff, var(--neon-pink) 60%, #3a0030);
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 25px var(--neon-pink);
+    pointer-events: none;
+  }
+  #fireBtn {
+    position: fixed;
+    right: 165px; bottom: 55px;
+    width: 78px; height: 78px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fffa70, #ff0000 60%, #600);
+    border: 4px solid #fff;
+    color: #220000; font-weight: bold; font-size: 18px;
+    font-family: 'Bungee Shade', cursive;
+    box-shadow: 0 0 35px #ff2200;
+    z-index: 10;
+    touch-action: none;
+  }
+  #fireBtn:active { transform: scale(0.92); }
+
+  /* ---------- ENDINGS ---------- */
+  #msg {
+    position: fixed; inset: 0;
+    display: none;
+    align-items: center; justify-content: center;
+    flex-direction: column;
+    z-index: 15;
+    background: rgba(0,0,0,0.75);
+    color: #fff; text-align: center; padding: 24px;
+  }
+  #msg.show { display: flex; }
+  #msg h2 {
+    font-family: 'Bungee Shade', cursive;
+    font-size: clamp(2rem, 8vw, 4rem);
+    margin: 0;
+    background: linear-gradient(90deg, #ff0099, #ffe600, #00f7ff);
+    background-size: 200% auto;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: hueslide 3s linear infinite;
+  }
+  #msg p { font-style: italic; max-width: 480px; color: #e0d090; }
+  #msg button {
+    font-family: 'Bungee Shade', cursive;
+    background: #000; color: #fff; border: 2px solid #fff;
+    padding: 10px 24px; font-size: 1.1rem; cursor: pointer; margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<a href="../index.html" class="hub-home" title="Return to the Trip hub">◉ HUB</a>
+
+<div id="stage">
+  <canvas id="gameCanvas"></canvas>
+</div>
+<div id="fx"></div>
+
+<div id="padLeft" class="touch-pad"><div class="stick"></div></div>
+<div id="padRight" class="touch-pad"><div class="stick"></div></div>
+<button id="fireBtn">FIRE</button>
+
+<div id="start">
+  <h1>WONDER<br>&#x2726;&nbsp;DOOM&nbsp;&#x2726;</h1>
+  <div class="sub">
+    You swallowed the paper square. The walls learned how to breathe.
+    Something with too many teeth is humming your name. Find the throbbing door before the geometry finds <em>you</em>.
+  </div>
+  <button id="startBtn">BEGIN THE TRIP</button>
+  <div id="hubBonus"></div>
+  <div class="controls">
+    <b>WASD / Arrows</b> — move &nbsp; · &nbsp; <b>mouse / ← →</b> — turn &nbsp; · &nbsp; <b>SPACE / click</b> — fire<br>
+    Mobile: dual touch pads + FIRE
+  </div>
+</div>
+
+<div id="msg">
+  <h2 id="msgTitle">—</h2>
+  <p id="msgBody">—</p>
+  <button id="msgBtn">Again</button>
+</div>
+
+<script>
+"use strict";
+
+// ============================================================
+// ░█ CONFIG ░█
+// ============================================================
+const W = 420, H = 260;
+const FOV = Math.PI / 3;
+const HALF_FOV = FOV / 2;
+const MAX_DEPTH = 24;
+const TEX = 64;
+const MOVE_SPEED = 2.6;      // tiles / sec
+const TURN_SPEED = 2.2;      // rad / sec
+const MOUSE_SENS = 0.003;
+
+// ============================================================
+// ░█ MAP (16x16)  1-4 wall types, E = exit portal ░█
+// ============================================================
+const MAP_RAW = [
+  "1111111111111111",
+  "1..............1",
+  "1..2222...3333.1",
+  "1..2...........1",
+  "1..2...........1",
+  "1.....4...3333.1",
+  "1..222444......1",
+  "1............2.1",
+  "1.E...33333..2.1",
+  "1............2.1",
+  "1..44..2222....1",
+  "1..4...........1",
+  "1..4....3333...1",
+  "1..............1",
+  "1..............1",
+  "1111111111111111",
+];
+const MAP = MAP_RAW.map(r => r.split('').map(c => /[1-4]/.test(c) ? parseInt(c) : 0));
+const MAP_W = MAP[0].length, MAP_H = MAP.length;
+
+// find exit tile
+let EXIT = { x: 0, y: 0 };
+for (let y = 0; y < MAP_H; y++) for (let x = 0; x < MAP_W; x++) {
+  if (MAP_RAW[y][x] === 'E') EXIT = { x: x + 0.5, y: y + 0.5 };
+}
+
+// ============================================================
+// ░█ PROCEDURAL TEXTURES ░█
+// ============================================================
+function makeCanvas(w, h){ const c = document.createElement('canvas'); c.width=w; c.height=h; return c; }
+
+function tex_seussStripes() {
+  const c = makeCanvas(TEX, TEX); const g = c.getContext('2d');
+  // Hot psychedelic stripes with dot-polka overlay
+  const cols = ['#ff0099','#ffe600','#00f7ff','#a2ff00','#ff3300'];
+  for (let y = 0; y < TEX; y++) {
+    const warp = Math.sin(y * 0.5) * 3;
+    const idx = Math.floor((y/6 + warp) % cols.length + cols.length) % cols.length;
+    g.fillStyle = cols[idx];
+    g.fillRect(0, y, TEX, 1);
+  }
+  // polka dots
+  g.fillStyle = '#120022';
+  for (let i = 0; i < 14; i++) {
+    const x = (i * 13 + 7) % TEX, y = (i * 19 + 3) % TEX, r = 2 + (i%3);
+    g.beginPath(); g.arc(x, y, r, 0, Math.PI*2); g.fill();
+  }
+  g.fillStyle = '#fff';
+  for (let i = 0; i < 8; i++) {
+    g.beginPath(); g.arc((i*11+5)%TEX, (i*7+11)%TEX, 1, 0, Math.PI*2); g.fill();
+  }
+  return c;
+}
+
+function tex_geodesic() {
+  // Buckminster Fuller triangle lattice in violent colors
+  const c = makeCanvas(TEX, TEX); const g = c.getContext('2d');
+  const grd = g.createLinearGradient(0,0,TEX,TEX);
+  grd.addColorStop(0, '#003366'); grd.addColorStop(1, '#660033');
+  g.fillStyle = grd; g.fillRect(0,0,TEX,TEX);
+  const step = 10;
+  for (let y = 0; y < TEX; y += step) {
+    for (let x = 0; x < TEX; x += step) {
+      const up = ((x+y)/step) % 2 === 0;
+      g.strokeStyle = up ? '#00f7ff' : '#ffe600';
+      g.lineWidth = 1;
+      g.beginPath();
+      if (up) { g.moveTo(x,y+step); g.lineTo(x+step/2,y); g.lineTo(x+step,y+step); g.closePath(); }
+      else { g.moveTo(x,y); g.lineTo(x+step,y); g.lineTo(x+step/2,y+step); g.closePath(); }
+      g.stroke();
+      g.fillStyle = up ? 'rgba(255,0,153,0.25)' : 'rgba(162,255,0,0.18)';
+      g.fill();
+    }
+  }
+  // bright node dots
+  g.fillStyle = '#fff';
+  for (let y = 0; y <= TEX; y += step) for (let x = 0; x <= TEX; x += step) {
+    g.beginPath(); g.arc(x,y,1.2,0,Math.PI*2); g.fill();
+  }
+  return c;
+}
+
+function tex_spiral() {
+  const c = makeCanvas(TEX, TEX); const g = c.getContext('2d');
+  const img = g.createImageData(TEX, TEX);
+  for (let y = 0; y < TEX; y++) {
+    for (let x = 0; x < TEX; x++) {
+      const dx = x - TEX/2, dy = y - TEX/2;
+      const r = Math.sqrt(dx*dx + dy*dy);
+      const ang = Math.atan2(dy, dx);
+      const v = Math.sin(r*0.9 - ang*5) * 0.5 + 0.5;
+      const hue = (v * 360 + r * 4) % 360;
+      const [rr,gg,bb] = hsl(hue, 95, 40 + v*25);
+      const i = (y*TEX + x) * 4;
+      img.data[i] = rr; img.data[i+1] = gg; img.data[i+2] = bb; img.data[i+3] = 255;
+    }
+  }
+  g.putImageData(img, 0, 0);
+  return c;
+}
+
+function tex_meltChecker() {
+  const c = makeCanvas(TEX, TEX); const g = c.getContext('2d');
+  const img = g.createImageData(TEX, TEX);
+  for (let y = 0; y < TEX; y++) {
+    for (let x = 0; x < TEX; x++) {
+      const wx = x + Math.sin(y * 0.3) * 4;
+      const wy = y + Math.cos(x * 0.3) * 4;
+      const on = (Math.floor(wx/8) + Math.floor(wy/8)) & 1;
+      const i = (y*TEX + x) * 4;
+      if (on) { img.data[i]=255; img.data[i+1]=0; img.data[i+2]=150; }
+      else    { img.data[i]=20;  img.data[i+1]=10; img.data[i+2]=40;  }
+      // glowing crack lines
+      if (Math.abs(Math.sin(x*0.8 + y*0.4)) > 0.97) { img.data[i]=255; img.data[i+1]=230; img.data[i+2]=0; }
+      img.data[i+3] = 255;
+    }
+  }
+  g.putImageData(img, 0, 0);
+  return c;
+}
+
+function hsl(h, s, l) {
+  s /= 100; l /= 100;
+  const k = n => (n + h/30) % 12;
+  const a = s * Math.min(l, 1 - l);
+  const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+  return [Math.round(f(0)*255), Math.round(f(8)*255), Math.round(f(4)*255)];
+}
+
+const TEXTURES = [null, tex_seussStripes(), tex_geodesic(), tex_spiral(), tex_meltChecker()];
+
+// ============================================================
+// ░█ PROCEDURAL ENEMY SPRITES (64x64) ░█
+// ============================================================
+function spr_eyeball() {
+  // Heavy Metal Magazine tentacle eyeball
+  const S = 96; const c = makeCanvas(S, S); const g = c.getContext('2d');
+  // drippy tendrils
+  g.strokeStyle = '#5a003a'; g.lineWidth = 4; g.lineCap = 'round';
+  for (let i = 0; i < 7; i++) {
+    const ang = (i / 7) * Math.PI * 2 + 0.2;
+    const x0 = S/2 + Math.cos(ang) * 18;
+    const y0 = S/2 + Math.sin(ang) * 18;
+    const x1 = S/2 + Math.cos(ang) * 40;
+    const y1 = S/2 + Math.sin(ang) * 40 + 5;
+    g.beginPath(); g.moveTo(x0,y0); g.quadraticCurveTo(S/2 + Math.cos(ang)*32, S/2+Math.sin(ang)*32+10, x1, y1); g.stroke();
+  }
+  // outer blob
+  const grad = g.createRadialGradient(S/2, S/2, 6, S/2, S/2, 34);
+  grad.addColorStop(0, '#ffe0ec'); grad.addColorStop(0.4, '#ff2e88'); grad.addColorStop(1, '#3a0020');
+  g.fillStyle = grad;
+  g.beginPath(); g.arc(S/2, S/2, 30, 0, Math.PI*2); g.fill();
+  // iris
+  g.fillStyle = '#ffe600'; g.beginPath(); g.arc(S/2, S/2, 18, 0, Math.PI*2); g.fill();
+  g.fillStyle = '#00f7ff'; g.beginPath(); g.arc(S/2, S/2, 12, 0, Math.PI*2); g.fill();
+  // pupil
+  g.fillStyle = '#000'; g.beginPath(); g.arc(S/2+2, S/2, 6, 0, Math.PI*2); g.fill();
+  // bloodshot veins
+  g.strokeStyle = '#c1121f'; g.lineWidth = 1;
+  for (let i = 0; i < 10; i++) {
+    const a = Math.random()*Math.PI*2;
+    g.beginPath();
+    g.moveTo(S/2 + Math.cos(a)*18, S/2 + Math.sin(a)*18);
+    g.lineTo(S/2 + Math.cos(a)*28 + (Math.random()-.5)*4, S/2 + Math.sin(a)*28 + (Math.random()-.5)*4);
+    g.stroke();
+  }
+  // teeth below
+  g.fillStyle = '#fff';
+  for (let i = 0; i < 5; i++) {
+    const x = S/2 - 14 + i*7;
+    g.beginPath(); g.moveTo(x, S/2+22); g.lineTo(x+3, S/2+32); g.lineTo(x+6, S/2+22); g.closePath(); g.fill();
+  }
+  return c;
+}
+
+function spr_grin() {
+  // Cheshire / Alice grin
+  const S = 96; const c = makeCanvas(S, S); const g = c.getContext('2d');
+  // purple fur halo
+  for (let r = 40; r > 20; r -= 2) {
+    g.fillStyle = `rgba(120, 0, 180, ${(40-r)/40 * 0.4})`;
+    g.beginPath(); g.arc(S/2, S/2, r, 0, Math.PI*2); g.fill();
+  }
+  // stripes
+  g.strokeStyle = '#ff00aa'; g.lineWidth = 3;
+  for (let i = 0; i < 6; i++) {
+    g.beginPath();
+    g.arc(S/2, S/2, 26 - i*3, Math.PI*0.15, Math.PI*0.35);
+    g.stroke();
+    g.beginPath();
+    g.arc(S/2, S/2, 26 - i*3, Math.PI*0.65, Math.PI*0.85);
+    g.stroke();
+  }
+  // mouth
+  g.fillStyle = '#000';
+  g.beginPath();
+  g.moveTo(S/2-24, S/2+4);
+  g.quadraticCurveTo(S/2, S/2+32, S/2+24, S/2+4);
+  g.quadraticCurveTo(S/2, S/2+14, S/2-24, S/2+4);
+  g.fill();
+  // teeth
+  g.fillStyle = '#fffacd';
+  for (let i = 0; i < 8; i++) {
+    const x = S/2 - 20 + i*6;
+    const h = 6 + (i%2)*3;
+    g.beginPath(); g.moveTo(x, S/2+5); g.lineTo(x+3, S/2+5+h); g.lineTo(x+6, S/2+5); g.closePath(); g.fill();
+  }
+  // eyes (big cartoon)
+  for (const ex of [-14, 14]) {
+    g.fillStyle = '#fff'; g.beginPath(); g.arc(S/2+ex, S/2-14, 8, 0, Math.PI*2); g.fill();
+    g.fillStyle = '#a2ff00'; g.beginPath(); g.arc(S/2+ex, S/2-14, 5, 0, Math.PI*2); g.fill();
+    g.fillStyle = '#000'; g.beginPath(); g.arc(S/2+ex+1, S/2-14, 2.2, 0, Math.PI*2); g.fill();
+  }
+  return c;
+}
+
+function spr_orb() {
+  // Buckyball geodesic orb
+  const S = 96; const c = makeCanvas(S, S); const g = c.getContext('2d');
+  const cx = S/2, cy = S/2;
+  const rad = 32;
+  // base glow
+  const grd = g.createRadialGradient(cx, cy, 4, cx, cy, rad);
+  grd.addColorStop(0, '#00f7ff'); grd.addColorStop(0.5, '#005580'); grd.addColorStop(1, '#001020');
+  g.fillStyle = grd; g.beginPath(); g.arc(cx, cy, rad, 0, Math.PI*2); g.fill();
+  // lattice lines
+  g.strokeStyle = '#ffe600'; g.lineWidth = 1;
+  for (let i = 0; i < 12; i++) {
+    const a = (i / 12) * Math.PI * 2;
+    g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + Math.cos(a)*rad, cy + Math.sin(a)*rad); g.stroke();
+  }
+  // nested hexes
+  for (let r = rad; r > 6; r -= 8) {
+    g.strokeStyle = r % 16 === 0 ? '#ff0099' : '#a2ff00';
+    g.beginPath();
+    for (let i = 0; i <= 6; i++) {
+      const a = (i/6)*Math.PI*2 + 0.3;
+      const x = cx + Math.cos(a)*r, y = cy + Math.sin(a)*r;
+      if (i===0) g.moveTo(x,y); else g.lineTo(x,y);
+    }
+    g.closePath(); g.stroke();
+  }
+  // hot core
+  g.fillStyle = '#fff';
+  g.beginPath(); g.arc(cx, cy, 4, 0, Math.PI*2); g.fill();
+  return c;
+}
+
+const SPRITES = {
+  eye: spr_eyeball(),
+  grin: spr_grin(),
+  orb: spr_orb(),
+};
+
+// weapon sprite - a Seussian hand-cannon
+function spr_weapon() {
+  const S = 256; const c = makeCanvas(S, S); const g = c.getContext('2d');
+  // stripey barrel
+  const cols = ['#ff0099','#ffe600','#00f7ff','#a2ff00'];
+  g.save();
+  g.translate(S/2, S*0.85);
+  g.rotate(-0.15);
+  for (let i = 0; i < 16; i++) {
+    g.fillStyle = cols[i % cols.length];
+    g.fillRect(-20, -i*10, 40, 10);
+  }
+  // muzzle
+  g.fillStyle = '#222';
+  g.fillRect(-26, -170, 52, 20);
+  g.fillStyle = '#000';
+  g.beginPath(); g.arc(0, -160, 10, 0, Math.PI*2); g.fill();
+  // handle grip
+  g.fillStyle = '#3a0020';
+  g.fillRect(-30, 0, 60, 40);
+  // spiral decal
+  g.strokeStyle = '#fff'; g.lineWidth = 2;
+  g.beginPath();
+  for (let t = 0; t < 20; t++) {
+    const a = t * 0.6, r = t * 1.5;
+    const x = Math.cos(a)*r, y = -60 + Math.sin(a)*r;
+    if (t===0) g.moveTo(x,y); else g.lineTo(x,y);
+  }
+  g.stroke();
+  g.restore();
+  // hand (glove) holding it
+  g.fillStyle = '#ffcc99';
+  g.beginPath();
+  g.ellipse(S/2 - 10, S - 20, 70, 40, 0, 0, Math.PI*2);
+  g.fill();
+  g.fillStyle = '#c1121f';
+  g.fillRect(S/2 - 80, S - 20, 140, 30);
+  return c;
+}
+const WEAPON = spr_weapon();
+
+// muzzle flash sprite
+function spr_flash() {
+  const S = 128; const c = makeCanvas(S, S); const g = c.getContext('2d');
+  const grd = g.createRadialGradient(S/2, S/2, 2, S/2, S/2, S/2);
+  grd.addColorStop(0, 'rgba(255,255,255,1)');
+  grd.addColorStop(0.3, 'rgba(255,230,0,0.9)');
+  grd.addColorStop(0.6, 'rgba(255,0,153,0.6)');
+  grd.addColorStop(1, 'rgba(0,0,0,0)');
+  g.fillStyle = grd; g.beginPath(); g.arc(S/2, S/2, S/2, 0, Math.PI*2); g.fill();
+  // starburst
+  g.strokeStyle = '#fff'; g.lineWidth = 3;
+  for (let i = 0; i < 8; i++) {
+    const a = (i/8)*Math.PI*2;
+    g.beginPath(); g.moveTo(S/2, S/2);
+    g.lineTo(S/2 + Math.cos(a)*S/2*0.9, S/2 + Math.sin(a)*S/2*0.9);
+    g.stroke();
+  }
+  return c;
+}
+const FLASH = spr_flash();
+
+// ============================================================
+// ░█ GAME STATE ░█
+// ============================================================
+
+// Hub-integration: read dreamer bonuses BEFORE spawning player
+(function applyHubBonuses(){
+  const T = (typeof TRIP !== 'undefined') ? TRIP : null;
+  window.__HUB = {
+    hpBonus: 0,
+    ammoBonus: 0,
+    dmgMult: 1,
+    messages: []
+  };
+  if (!T || !T.state.name) return;
+  // tonic
+  if (T.state.tonic === 'blue')   { __HUB.hpBonus += 25; __HUB.messages.push('BLUE BOTTLE: +25 HP'); }
+  if (T.state.tonic === 'red')    { __HUB.dmgMult = 1.3; __HUB.ammoBonus += 8; __HUB.messages.push('RED PILL: +30% dmg, +8 ammo'); }
+  if (T.state.tonic === 'yellow') { __HUB.ammoBonus += 20; __HUB.messages.push('YELLOW SUGAR: +20 ammo'); }
+  // tea weapon — Vorpal Paring Knife
+  if (T.state.flags && T.state.flags.teaWeapon) {
+    __HUB.dmgMult *= 1.5;
+    __HUB.messages.push('VORPAL KNIFE (from Tea Party): +50% damage');
+  }
+  // paranoia makes enemies louder / HP lower (tactical tradeoff)
+  if (T.state.paranoia >= 70) { __HUB.hpBonus -= 15; __HUB.messages.push('HIGH PARANOIA: -15 HP (the walls want you)'); }
+  // lucidity grants extra ammo
+  if (T.state.lucidity >= 70) { __HUB.ammoBonus += 10; __HUB.messages.push('HIGH LUCIDITY: +10 ammo (clear shots)'); }
+
+  // show banner
+  const bonusEl = document.getElementById('hubBonus');
+  if (bonusEl) {
+    const lines = __HUB.messages;
+    if (lines.length) {
+      bonusEl.innerHTML = `<div class="hub-bonus">
+        ✦ HUB BONUSES for ${T.state.avatar||'◯'} ${T.state.name}:<br>
+        ${lines.join('<br>')}
+      </div>`;
+    } else {
+      bonusEl.innerHTML = `<div class="hub-bonus">${T.state.avatar||'◯'} ${T.state.name} — the dream remembers you.</div>`;
+    }
+  }
+  if (T) T.visit('doom');
+})();
+
+const player = {
+  x: 7.5, y: 4.5,
+  angle: Math.PI / 2,
+  hp: 100 + (window.__HUB ? __HUB.hpBonus : 0),
+  maxHp: 100 + (window.__HUB ? __HUB.hpBonus : 0),
+  score: 0,
+  ammo: 42 + (window.__HUB ? __HUB.ammoBonus : 0),
+  dmgMult: (window.__HUB ? __HUB.dmgMult : 1),
+  flash: 0,
+  bobT: 0,
+  hurt: 0,
+};
+
+const enemies = [
+  { x: 5.5, y: 7.5, type: 'eye',  hp: 3, alive: true, t: Math.random()*10 },
+  { x: 11.5,y: 3.5, type: 'grin', hp: 2, alive: true, t: Math.random()*10 },
+  { x: 12.5,y: 11.5,type: 'orb',  hp: 2, alive: true, t: Math.random()*10 },
+  { x: 3.5, y: 12.5,type: 'eye',  hp: 3, alive: true, t: Math.random()*10 },
+  { x: 8.5, y: 10.5,type: 'grin', hp: 2, alive: true, t: Math.random()*10 },
+  { x: 6.5, y: 2.5, type: 'orb',  hp: 2, alive: true, t: Math.random()*10 },
+];
+
+const zBuffer = new Float32Array(W);
+
+// ============================================================
+// ░█ INPUT ░█
+// ============================================================
+const keys = {};
+window.addEventListener('keydown', e => {
+  keys[e.key.toLowerCase()] = true;
+  if (e.key === ' ') { e.preventDefault(); tryFire(); }
+});
+window.addEventListener('keyup', e => { keys[e.key.toLowerCase()] = false; });
+
+// Mouse look (pointer lock)
+let pointerLocked = false;
+const canvas = document.getElementById('gameCanvas');
+canvas.width = W; canvas.height = H;
+const ctx = canvas.getContext('2d');
+ctx.imageSmoothingEnabled = false;
+
+canvas.addEventListener('click', () => {
+  if (!gameStarted) return;
+  if (!pointerLocked && !isTouch) canvas.requestPointerLock?.();
+  tryFire();
+});
+document.addEventListener('pointerlockchange', () => {
+  pointerLocked = document.pointerLockElement === canvas;
+});
+document.addEventListener('mousemove', e => {
+  if (pointerLocked) player.angle += e.movementX * MOUSE_SENS;
+});
+
+// Touch controls
+const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+if (isTouch) document.body.classList.add('touch-visible');
+
+const touchState = { left: {active:false, dx:0, dy:0, id:null}, right: {active:false, dx:0, dy:0, id:null} };
+function bindPad(padId, side) {
+  const pad = document.getElementById(padId);
+  const stick = pad.querySelector('.stick');
+  const max = 50;
+  pad.addEventListener('touchstart', e => {
+    e.preventDefault();
+    const t = e.changedTouches[0];
+    touchState[side].active = true; touchState[side].id = t.identifier;
+    const rect = pad.getBoundingClientRect();
+    touchState[side].cx = rect.left + rect.width/2;
+    touchState[side].cy = rect.top + rect.height/2;
+  }, {passive:false});
+  pad.addEventListener('touchmove', e => {
+    e.preventDefault();
+    for (const t of e.changedTouches) {
+      if (t.identifier !== touchState[side].id) continue;
+      let dx = t.clientX - touchState[side].cx;
+      let dy = t.clientY - touchState[side].cy;
+      const d = Math.hypot(dx, dy);
+      if (d > max) { dx = dx/d*max; dy = dy/d*max; }
+      touchState[side].dx = dx / max;
+      touchState[side].dy = dy / max;
+      stick.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
+    }
+  }, {passive:false});
+  const end = e => {
+    for (const t of e.changedTouches) {
+      if (t.identifier === touchState[side].id) {
+        touchState[side].active = false; touchState[side].id = null;
+        touchState[side].dx = 0; touchState[side].dy = 0;
+        stick.style.transform = 'translate(-50%, -50%)';
+      }
+    }
+  };
+  pad.addEventListener('touchend', end);
+  pad.addEventListener('touchcancel', end);
+}
+bindPad('padLeft', 'left');
+bindPad('padRight', 'right');
+
+document.getElementById('fireBtn').addEventListener('touchstart', e => {
+  e.preventDefault(); tryFire();
+}, {passive:false});
+
+// ============================================================
+// ░█ RAYCASTING ░█
+// ============================================================
+function castRay(angle) {
+  const sinA = Math.sin(angle), cosA = Math.cos(angle);
+  let mapX = Math.floor(player.x), mapY = Math.floor(player.y);
+  const deltaX = Math.abs(1 / cosA), deltaY = Math.abs(1 / sinA);
+  let stepX, stepY, sideX, sideY;
+  if (cosA < 0) { stepX = -1; sideX = (player.x - mapX) * deltaX; }
+  else          { stepX =  1; sideX = (mapX + 1 - player.x) * deltaX; }
+  if (sinA < 0) { stepY = -1; sideY = (player.y - mapY) * deltaY; }
+  else          { stepY =  1; sideY = (mapY + 1 - player.y) * deltaY; }
+
+  let hit = 0, side = 0, iter = 0;
+  while (!hit && iter < 64) {
+    if (sideX < sideY) { sideX += deltaX; mapX += stepX; side = 0; }
+    else { sideY += deltaY; mapY += stepY; side = 1; }
+    if (mapX < 0 || mapX >= MAP_W || mapY < 0 || mapY >= MAP_H) { hit = 1; break; }
+    if (MAP[mapY][mapX] > 0) hit = MAP[mapY][mapX];
+    iter++;
+  }
+  let perp;
+  if (side === 0) perp = (mapX - player.x + (1 - stepX)/2) / cosA;
+  else            perp = (mapY - player.y + (1 - stepY)/2) / sinA;
+
+  let wallX;
+  if (side === 0) wallX = player.y + perp * sinA;
+  else            wallX = player.x + perp * cosA;
+  wallX -= Math.floor(wallX);
+  let texX = Math.floor(wallX * TEX);
+  if ((side === 0 && cosA > 0) || (side === 1 && sinA < 0)) texX = TEX - texX - 1;
+
+  return { dist: Math.max(0.01, perp), type: hit, texX, side };
+}
+
+// ============================================================
+// ░█ RENDER ░█
+// ============================================================
+let frame = 0;
+function render(dt) {
+  frame++;
+  const t = performance.now() / 1000;
+
+  // ---- throbbing floor/ceiling (psychedelic sky + ground) ----
+  // Do this in one full-screen fill via per-row gradient — cheaper than per-pixel.
+  // Ceiling
+  const ceilGrad = ctx.createLinearGradient(0, 0, 0, H/2);
+  const h1 = (t*40) % 360, h2 = (t*40 + 180) % 360;
+  ceilGrad.addColorStop(0, `hsl(${h1}, 80%, 10%)`);
+  ceilGrad.addColorStop(0.6, `hsl(${(h1+60)%360}, 90%, 22%)`);
+  ceilGrad.addColorStop(1, `hsl(${(h1+120)%360}, 80%, 6%)`);
+  ctx.fillStyle = ceilGrad;
+  ctx.fillRect(0, 0, W, H/2);
+  // Floor
+  const floorGrad = ctx.createLinearGradient(0, H/2, 0, H);
+  floorGrad.addColorStop(0, `hsl(${(h2+40)%360}, 70%, 4%)`);
+  floorGrad.addColorStop(0.5, `hsl(${h2}, 80%, 14%)`);
+  floorGrad.addColorStop(1, `hsl(${(h2+60)%360}, 90%, 30%)`);
+  ctx.fillStyle = floorGrad;
+  ctx.fillRect(0, H/2, W, H/2);
+
+  // Eyeball sky decorations - swirling horizon lines
+  ctx.save();
+  ctx.globalAlpha = 0.3;
+  ctx.strokeStyle = `hsl(${(t*60)%360}, 100%, 70%)`;
+  ctx.lineWidth = 1;
+  for (let i = 0; i < 4; i++) {
+    ctx.beginPath();
+    const yBase = H/2 - 8 - i*12;
+    for (let x = 0; x < W; x += 4) {
+      const wy = yBase + Math.sin(x*0.04 + t*1.2 + i) * 4;
+      if (x===0) ctx.moveTo(x, wy); else ctx.lineTo(x, wy);
+    }
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  // ---- walls ----
+  for (let col = 0; col < W; col++) {
+    const rayAngle = player.angle - HALF_FOV + (col / W) * FOV;
+    const r = castRay(rayAngle);
+    // fix fisheye
+    const dist = r.dist * Math.cos(rayAngle - player.angle);
+    zBuffer[col] = dist;
+
+    const wallH = Math.min(H * 3, (H / dist) | 0);
+    const wallTop = ((H - wallH) >> 1);
+    const tex = TEXTURES[r.type] || TEXTURES[1];
+
+    // draw textured column via drawImage
+    ctx.drawImage(tex, r.texX, 0, 1, TEX, col, wallTop, 1, wallH);
+
+    // shade overlay for depth + side
+    const shade = Math.min(0.82, dist / MAX_DEPTH);
+    // side darkening
+    const sideDim = r.side === 1 ? 0.25 : 0;
+    ctx.fillStyle = `rgba(0,0,0,${Math.min(0.9, shade + sideDim)})`;
+    ctx.fillRect(col, wallTop, 1, wallH);
+
+    // acid rim light - trippy accent
+    const rim = 0.5 + 0.5 * Math.sin(t*2 + col*0.05);
+    ctx.fillStyle = `hsla(${(t*80 + col*0.7) % 360}, 100%, 60%, ${0.08 * rim * (1 - shade)})`;
+    ctx.fillRect(col, wallTop, 1, wallH);
+  }
+
+  // ---- exit portal (drawn as a special sprite-like thing) ----
+  drawPortal(t);
+
+  // ---- enemies as billboarded sprites (painter's: furthest first) ----
+  const sorted = enemies.filter(e => e.alive).map(e => {
+    const dx = e.x - player.x, dy = e.y - player.y;
+    return { e, d2: dx*dx + dy*dy, dx, dy };
+  }).sort((a,b) => b.d2 - a.d2);
+
+  for (const s of sorted) drawEnemy(s, t);
+
+  // ---- weapon + muzzle flash ----
+  drawWeapon(t);
+
+  // ---- HUD ----
+  drawHUD(t);
+
+  // ---- hurt vignette ----
+  if (player.hurt > 0) {
+    ctx.fillStyle = `rgba(193,18,31,${Math.min(0.5, player.hurt)})`;
+    ctx.fillRect(0, 0, W, H);
+    player.hurt -= dt * 2;
+  }
+}
+
+function drawPortal(t) {
+  const dx = EXIT.x - player.x, dy = EXIT.y - player.y;
+  const dist = Math.hypot(dx, dy);
+  if (dist < 0.1) return;
+  const ang = Math.atan2(dy, dx) - player.angle;
+  let a = ang;
+  while (a >  Math.PI) a -= Math.PI*2;
+  while (a < -Math.PI) a += Math.PI*2;
+  if (Math.abs(a) > HALF_FOV + 0.3) return;
+  const perp = dist * Math.cos(a);
+  if (perp <= 0.1) return;
+  const size = Math.min(H*2, (H / perp) | 0);
+  const sx = ((0.5 + a / FOV) * W) | 0;
+  const top = ((H - size) >> 1);
+
+  // draw rings
+  ctx.save();
+  const cx = sx, cy = H/2;
+  for (let i = 6; i >= 0; i--) {
+    const rr = size * 0.5 * (0.3 + i*0.1);
+    ctx.strokeStyle = `hsl(${(t*200 + i*40) % 360}, 100%, 60%)`;
+    ctx.lineWidth = Math.max(1, size * 0.05);
+    ctx.beginPath();
+    // z-buffer check via center column
+    if (sx >=0 && sx < W && zBuffer[sx] < perp) { ctx.restore(); return; }
+    ctx.arc(cx, cy, rr, 0, Math.PI*2);
+    ctx.stroke();
+  }
+  ctx.fillStyle = `hsla(${(t*300)%360}, 100%, 70%, 0.6)`;
+  ctx.beginPath(); ctx.arc(cx, cy, size*0.1, 0, Math.PI*2); ctx.fill();
+  ctx.restore();
+}
+
+function drawEnemy(s, t) {
+  const { e, dx, dy } = s;
+  // Camera space: forward along player.angle, lateral perpendicular.
+  const cosA = Math.cos(player.angle), sinA = Math.sin(player.angle);
+  const forward = dx * cosA + dy * sinA;
+  const lateral = -dx * sinA + dy * cosA;
+  if (forward <= 0.15) return;
+
+  // Screen X from tan(angle) = lateral/forward, mapped to FOV
+  const screenX = ((W / 2) + (lateral / forward) / Math.tan(HALF_FOV) * (W / 2)) | 0;
+  const size = Math.min(H * 2, Math.abs((H / forward) | 0));
+  const bob = Math.sin(t * 4 + e.t) * size * 0.04;
+  const top = ((H - size) >> 1) + bob;
+  const left = screenX - (size >> 1);
+
+  const sprite = SPRITES[e.type];
+  const step = sprite.width / size;
+  for (let x = 0; x < size; x++) {
+    const sx = left + x;
+    if (sx < 0 || sx >= W) continue;
+    if (zBuffer[sx] <= forward) continue;
+    const tx = Math.floor(x * step);
+    ctx.drawImage(sprite, tx, 0, 1, sprite.height, sx, top, 1, size);
+  }
+
+  // psychedelic outline halo
+  if (size > 20) {
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    ctx.globalAlpha = 0.35 + 0.25 * Math.sin(t * 3 + e.t);
+    ctx.fillStyle = `hsl(${(t * 120 + e.t * 30) % 360}, 100%, 60%)`;
+    if (screenX >= 0 && screenX < W && zBuffer[screenX] > forward) {
+      ctx.beginPath();
+      ctx.arc(screenX, top + size / 2, size * 0.55, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+}
+
+function drawWeapon(t) {
+  const bob = Math.sin(player.bobT) * 6;
+  const sway = Math.cos(player.bobT * 0.5) * 3;
+  const scale = 0.8;
+  const sw = WEAPON.width * scale;
+  const sh = WEAPON.height * scale;
+  const x = (W - sw)/2 + sway;
+  const y = H - sh + 20 + bob;
+  ctx.drawImage(WEAPON, x, y, sw, sh);
+
+  // muzzle flash
+  if (player.flash > 0) {
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    const s = 80 + player.flash * 40;
+    const fx = W/2 + sway - 4;
+    const fy = y + 6;
+    ctx.globalAlpha = Math.min(1, player.flash);
+    ctx.drawImage(FLASH, fx - s/2, fy - s/2, s, s);
+    ctx.restore();
+    // screen-wide flash tint
+    ctx.fillStyle = `rgba(255, 230, 100, ${player.flash * 0.18})`;
+    ctx.fillRect(0, 0, W, H);
+  }
+}
+
+function drawHUD(t) {
+  // bottom bar — comic strip / Heavy Metal Magazine feel
+  const barH = 28;
+  ctx.save();
+  // jagged stripe strip
+  const grd = ctx.createLinearGradient(0, H-barH, 0, H);
+  grd.addColorStop(0, 'rgba(0,0,0,0.0)');
+  grd.addColorStop(0.3, 'rgba(30,0,20,0.7)');
+  grd.addColorStop(1, 'rgba(0,0,0,0.9)');
+  ctx.fillStyle = grd;
+  ctx.fillRect(0, H-barH, W, barH);
+
+  // inner card
+  ctx.fillStyle = '#120022';
+  ctx.fillRect(6, H - barH + 4, W - 12, barH - 8);
+  ctx.strokeStyle = '#ff0099';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(6, H - barH + 4, W - 12, barH - 8);
+
+  // HP bar
+  const barX = 14, barY = H - barH + 10, barW = 120, barBH = 10;
+  ctx.fillStyle = '#000';
+  ctx.fillRect(barX, barY, barW, barBH);
+  const hpFrac = Math.max(0, player.hp / 100);
+  const hpGrd = ctx.createLinearGradient(barX, 0, barX+barW, 0);
+  hpGrd.addColorStop(0, '#ff0099');
+  hpGrd.addColorStop(0.5, '#ffe600');
+  hpGrd.addColorStop(1, '#a2ff00');
+  ctx.fillStyle = hpGrd;
+  ctx.fillRect(barX+1, barY+1, (barW-2)*hpFrac, barBH-2);
+
+  // text
+  ctx.font = 'bold 9px monospace';
+  ctx.fillStyle = '#fff';
+  ctx.fillText('HP', barX, barY - 2);
+  ctx.fillText(`AMMO ${player.ammo}`, 150, barY + 8);
+  ctx.fillText(`SOULS ${player.score}`, 220, barY + 8);
+
+  // tiny radar dot thing — hovering eyeball icon that blinks
+  const bx = W - 60, by = H - 16;
+  ctx.fillStyle = '#fff';
+  ctx.beginPath(); ctx.arc(bx, by, 6, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = Math.sin(t*3) > 0 ? '#00f7ff' : '#ff0099';
+  ctx.beginPath(); ctx.arc(bx + Math.sin(t*2)*2, by + Math.cos(t*2.5)*2, 3, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#000';
+  ctx.beginPath(); ctx.arc(bx + Math.sin(t*2)*2, by + Math.cos(t*2.5)*2, 1.2, 0, Math.PI*2); ctx.fill();
+
+  // crosshair (center)
+  ctx.strokeStyle = `hsl(${(t*180)%360}, 100%, 70%)`;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(W/2 - 5, H/2); ctx.lineTo(W/2 + 5, H/2);
+  ctx.moveTo(W/2, H/2 - 5); ctx.lineTo(W/2, H/2 + 5);
+  ctx.stroke();
+
+  ctx.restore();
+}
+
+// ============================================================
+// ░█ UPDATE ░█
+// ============================================================
+function moveWithCollision(nx, ny) {
+  const r = 0.2;
+  // X axis
+  if (MAP[Math.floor(player.y)]?.[Math.floor(nx + Math.sign(nx - player.x)*r)] === 0 ||
+      (nx - player.x) === 0) {
+    player.x = nx;
+  }
+  if (MAP[Math.floor(ny + Math.sign(ny - player.y)*r)]?.[Math.floor(player.x)] === 0 ||
+      (ny - player.y) === 0) {
+    player.y = ny;
+  }
+}
+
+function update(dt) {
+  // input -> intentions
+  let forward = 0, strafe = 0, turn = 0;
+  if (keys['w'] || keys['arrowup'])    forward += 1;
+  if (keys['s'] || keys['arrowdown'])  forward -= 1;
+  if (keys['a']) strafe -= 1;
+  if (keys['d']) strafe += 1;
+  if (keys['arrowleft'])  turn -= 1;
+  if (keys['arrowright']) turn += 1;
+
+  // touch
+  if (touchState.left.active) {
+    forward -= touchState.left.dy; // up is negative
+    strafe  += touchState.left.dx;
+  }
+  if (touchState.right.active) {
+    turn   += touchState.right.dx;
+  }
+
+  // clamp magnitudes
+  const mag = Math.hypot(forward, strafe);
+  if (mag > 1) { forward /= mag; strafe /= mag; }
+
+  player.angle += turn * TURN_SPEED * dt;
+
+  const mvx = (Math.cos(player.angle) * forward + Math.cos(player.angle + Math.PI/2) * strafe) * MOVE_SPEED * dt;
+  const mvy = (Math.sin(player.angle) * forward + Math.sin(player.angle + Math.PI/2) * strafe) * MOVE_SPEED * dt;
+  moveWithCollision(player.x + mvx, player.y + mvy);
+
+  if (forward || strafe) player.bobT += dt * 10;
+  else player.bobT *= 0.9;
+
+  // muzzle flash decay
+  if (player.flash > 0) player.flash = Math.max(0, player.flash - dt * 4);
+
+  // enemies wander + home toward player
+  for (const e of enemies) {
+    if (!e.alive) continue;
+    e.t += dt;
+    const dx = player.x - e.x, dy = player.y - e.y;
+    const d = Math.hypot(dx, dy);
+    if (d < 8) {
+      // drift toward player with some wobble
+      const wobble = Math.sin(e.t*2) * 0.4;
+      const ang = Math.atan2(dy, dx) + wobble;
+      const sp = 0.6;
+      const nx = e.x + Math.cos(ang) * sp * dt;
+      const ny = e.y + Math.sin(ang) * sp * dt;
+      if (MAP[Math.floor(ny)]?.[Math.floor(nx)] === 0) {
+        e.x = nx; e.y = ny;
+      } else {
+        // try axis-aligned
+        if (MAP[Math.floor(e.y)]?.[Math.floor(nx)] === 0) e.x = nx;
+        else if (MAP[Math.floor(ny)]?.[Math.floor(e.x)] === 0) e.y = ny;
+      }
+      // attack if close
+      if (d < 0.7) {
+        if (!e.atkCd || e.atkCd <= 0) {
+          player.hp -= 8;
+          player.hurt = 0.8;
+          e.atkCd = 1.2;
+          playHit();
+          if (player.hp <= 0) endGame(false);
+        }
+      }
+    }
+    if (e.atkCd > 0) e.atkCd -= dt;
+  }
+
+  // exit check
+  const ex = EXIT.x - player.x, ey = EXIT.y - player.y;
+  if (Math.hypot(ex, ey) < 0.6) endGame(true);
+}
+
+// ============================================================
+// ░█ FIRING ░█
+// ============================================================
+function tryFire() {
+  if (!gameStarted || gameOver) return;
+  if (player.ammo <= 0) { playClick(); return; }
+  player.ammo--;
+  player.flash = 1;
+  playShoot();
+  // hitscan — find closest enemy within narrow cone in front
+  let best = null, bestD = 999;
+  for (const e of enemies) {
+    if (!e.alive) continue;
+    const dx = e.x - player.x, dy = e.y - player.y;
+    const d = Math.hypot(dx, dy);
+    if (d > 10) continue;
+    const ang = Math.atan2(dy, dx);
+    let diff = ang - player.angle;
+    while (diff >  Math.PI) diff -= Math.PI*2;
+    while (diff < -Math.PI) diff += Math.PI*2;
+    // cone narrows with distance
+    const tol = Math.atan2(0.45, d);
+    if (Math.abs(diff) < tol && d < bestD) {
+      // check LOS via raycast
+      const r = castRay(ang);
+      if (r.dist > d) { best = e; bestD = d; }
+    }
+  }
+  if (best) {
+    best.hp -= (player.dmgMult || 1);
+    if (best.hp <= 0) {
+      best.alive = false;
+      player.score += 13;
+      player.ammo += 3;
+      playKill();
+    } else {
+      playHit();
+    }
+  }
+}
+
+// ============================================================
+// ░█ AUDIO (web-synth, chaos not required) ░█
+// ============================================================
+let audio = null;
+function initAudio() {
+  try { audio = new (window.AudioContext || window.webkitAudioContext)(); } catch {}
+}
+function blip(freq, dur, type='square', vol=0.15) {
+  if (!audio) return;
+  const t = audio.currentTime;
+  const o = audio.createOscillator();
+  const g = audio.createGain();
+  o.type = type; o.frequency.setValueAtTime(freq, t);
+  o.frequency.exponentialRampToValueAtTime(Math.max(40, freq*0.3), t + dur);
+  g.gain.setValueAtTime(vol, t);
+  g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+  o.connect(g).connect(audio.destination);
+  o.start(t); o.stop(t + dur);
+}
+function playShoot() { blip(420, 0.12, 'square', 0.18); blip(120, 0.2, 'sawtooth', 0.1); }
+function playHit()   { blip(180, 0.09, 'triangle', 0.15); }
+function playKill()  { blip(700, 0.1); blip(1000, 0.1); setTimeout(() => blip(1500, 0.15), 80); }
+function playClick() { blip(90, 0.04, 'square', 0.08); }
+
+// ============================================================
+// ░█ GAME LOOP ░█
+// ============================================================
+let gameStarted = false, gameOver = false, lastT = 0;
+function loop(ts) {
+  if (!lastT) lastT = ts;
+  const dt = Math.min(0.05, (ts - lastT) / 1000);
+  lastT = ts;
+  if (gameStarted && !gameOver) {
+    update(dt);
+    render(dt);
+  }
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+// ============================================================
+// ░█ UI ░█
+// ============================================================
+function resizeCanvas() {
+  // CSS handles scaling; nothing to do here, but refresh texture smoothing
+  ctx.imageSmoothingEnabled = false;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+function startGame() {
+  document.getElementById('start').style.display = 'none';
+  gameStarted = true; gameOver = false;
+  initAudio();
+  if (!isTouch) canvas.requestPointerLock?.();
+}
+document.getElementById('startBtn').addEventListener('click', startGame);
+
+function endGame(won) {
+  gameOver = true;
+  const titles = won
+    ? ['YOU ESCAPED', 'THE DOOR ATE YOU', 'OUTSIDE IS ALSO INSIDE']
+    : ['THE GEOMETRY WON', 'YOU MELTED', 'SWALLOWED BY THE GRIN'];
+  const bodies = won
+    ? [`You stumbled through the throbbing door with ${player.score} souls in your pocket and one shoe. Somewhere a trombone stops playing.`,
+       `The walls kept the taste of you. You keep the rest. ${player.score} souls — generous tip.`,
+       `Sunlight tastes like copper now. ${player.score} souls to show for it. Respectable.`]
+    : [`Reality did not return your call. ${player.score} souls scattered in the maze.`,
+       `The teeth had better rhythm than you did. ${player.score} souls, a cautionary tale.`,
+       `You joined the wallpaper. The wallpaper is pleased.`];
+  const pick = a => a[Math.floor(Math.random()*a.length)];
+  const msg = document.getElementById('msg');
+  document.getElementById('msgTitle').textContent = pick(titles);
+  let bodyText = pick(bodies);
+
+  // === HUB INTEGRATION ===
+  if (typeof TRIP !== 'undefined' && TRIP.state.name) {
+    if (won) {
+      const threads = 300 + player.score * 8;
+      TRIP.adjust('threads', threads);
+      TRIP.adjust('lucidity', 10);
+      TRIP.adjust('paranoia', -10);
+      TRIP.adjust('days', 1);
+      TRIP.complete('doom');
+      TRIP.unlockCodex('throbbing-door');
+      TRIP.unlockCodex('bat');
+      bodyText += `\n\n✦ THE DREAM REWARDS YOU: +${threads.toLocaleString()} threads, +10 lucidity, -10 paranoia.`;
+    } else {
+      const threads = Math.floor(player.score * 2);
+      TRIP.adjust('threads', threads);
+      TRIP.adjust('paranoia', 20);
+      TRIP.adjust('days', 1);
+      bodyText += `\n\nThe dream scatters ${threads} threads from your pockets as you fall. +20 paranoia.`;
+    }
+  }
+
+  document.getElementById('msgBody').textContent = bodyText;
+
+  // Change button to return-to-hub + retry
+  const msgBtn = document.getElementById('msgBtn');
+  msgBtn.textContent = 'Again';
+  // add a second button for hub
+  if (!document.getElementById('hubReturnBtn')) {
+    const hubBtn = document.createElement('button');
+    hubBtn.id = 'hubReturnBtn';
+    hubBtn.textContent = '◉ Return to Hub';
+    hubBtn.style.marginLeft = '8px';
+    hubBtn.onclick = () => location.href = '../index.html';
+    msgBtn.after(hubBtn);
+  }
+
+  msg.classList.add('show');
+}
+document.getElementById('msgBtn').addEventListener('click', () => location.reload());
+
+</script>
+</body>
+</html>

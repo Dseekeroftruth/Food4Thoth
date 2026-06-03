@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>WHIMSY WARS — A Dealer's Descent Through the Looking Glass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&family=Rubik+Glitch&family=Nabla:EGRD,EHLT@20,20&family=VT323&family=Creepster&family=Major+Mono+Display&display=swap" rel="stylesheet">
+<style>
+/* ───────────────────────────── BASE ───────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;min-height:100%;overflow-x:hidden;}
+:root{
+  --acid:#b8ff2e;
+  --pink:#ff2bd6;
+  --magenta:#ff0f7b;
+  --teal:#22f0d2;
+  --yellow:#ffe400;
+  --purple:#6a00ff;
+  --deep:#0c0320;
+  --blood:#ff2a2a;
+  --cream:#ffe9c4;
+  --ink:#120826;
+}
+body{
+  background:var(--deep);
+  color:var(--cream);
+  font-family:'VT323',monospace;
+  font-size:20px;
+  line-height:1.3;
+  letter-spacing:.5px;
+  overflow-x:hidden;
+  cursor:crosshair;
+}
+
+/* ─────────── BACKGROUND: the swirling bad trip ─────────── */
+.trip-bg{
+  position:fixed;inset:0;z-index:-3;
+  background:
+    radial-gradient(ellipse at 20% 30%, #3a0a6b 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 70%, #00352e 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 50%, #48003a 0%, transparent 70%),
+    conic-gradient(from 0deg at 50% 50%, #1a0033, #2d004a, #00252a, #500022, #1a0033);
+  animation:spinBg 60s linear infinite;
+  filter:saturate(1.2);
+}
+@keyframes spinBg{to{transform:rotate(360deg) scale(1.3);}}
+
+.noise{
+  position:fixed;inset:-50%;z-index:-2;pointer-events:none;
+  opacity:.12;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 2 -1'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  animation:jitter .15s steps(4) infinite;
+}
+@keyframes jitter{
+  0%{transform:translate(0,0)}
+  25%{transform:translate(-8px,4px)}
+  50%{transform:translate(6px,-7px)}
+  75%{transform:translate(-3px,-2px)}
+  100%{transform:translate(5px,6px)}
+}
+
+.scanlines{
+  position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:repeating-linear-gradient(to bottom, rgba(0,0,0,.25) 0 2px, transparent 2px 4px);
+  mix-blend-mode:multiply;opacity:.5;
+}
+
+/* Floating Bucky Fuller geodesics & Alice chess pieces */
+.floaters{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;}
+.floater{
+  position:absolute;font-size:60px;opacity:.25;
+  animation:drift 40s linear infinite;
+  filter:drop-shadow(0 0 14px currentColor);
+}
+.floater.eye{color:var(--acid);}
+.floater.dome{color:var(--teal);}
+.floater.rose{color:var(--magenta);}
+.floater.bat{color:var(--cream);}
+.floater.mush{color:var(--pink);}
+@keyframes drift{
+  0%{transform:translate(0,0) rotate(0deg);}
+  25%{transform:translate(40vw,-20vh) rotate(120deg);}
+  50%{transform:translate(70vw,30vh) rotate(240deg);}
+  75%{transform:translate(20vw,50vh) rotate(330deg);}
+  100%{transform:translate(0,0) rotate(360deg);}
+}
+
+/* Chromatic-aberration wobble on big headers */
+.glitchType{
+  position:relative;display:inline-block;
+}
+.glitchType::before,.glitchType::after{
+  content:attr(data-t);position:absolute;inset:0;
+  mix-blend-mode:screen;pointer-events:none;
+}
+.glitchType::before{color:var(--pink);transform:translate(-2px,0);animation:shake 2.5s infinite;}
+.glitchType::after{color:var(--teal);transform:translate(2px,0);animation:shake 3.1s infinite reverse;}
+@keyframes shake{
+  0%,100%{transform:translate(-2px,0);}
+  50%{transform:translate(2px,1px);}
+}
+
+/* ───────────────────────────── LAYOUT ───────────────────────────── */
+#app{
+  max-width:1200px;margin:0 auto;padding:20px 24px 80px;
+  position:relative;z-index:1;
+}
+
+/* TITLE SCREEN */
+#title{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;gap:28px;padding:40px 10px;
+}
+#title h1{
+  font-family:'Rubik Wet Paint',serif;
+  font-size:clamp(48px,11vw,140px);
+  line-height:.85;margin:0;
+  color:var(--acid);
+  text-shadow:
+    0 0 30px var(--pink),
+    6px 6px 0 var(--magenta),
+    -6px -6px 0 var(--teal),
+    12px 12px 40px rgba(0,0,0,.8);
+  transform:rotate(-3deg);
+  animation:wobble 6s ease-in-out infinite;
+}
+@keyframes wobble{
+  0%,100%{transform:rotate(-3deg) skew(-2deg,0);}
+  50%{transform:rotate(2deg) skew(2deg,1deg);}
+}
+#title h2{
+  font-family:'Rubik Glitch',serif;
+  font-size:clamp(20px,3vw,34px);
+  color:var(--yellow);
+  margin:0;max-width:900px;
+  text-shadow:0 0 20px var(--magenta);
+  letter-spacing:2px;
+}
+#title .blurb{
+  max-width:720px;color:var(--cream);font-size:22px;
+  padding:16px 24px;
+  border:3px dashed var(--teal);
+  background:rgba(0,0,0,.45);
+  transform:rotate(.6deg);
+  box-shadow:6px 6px 0 var(--magenta);
+}
+.startBtn{
+  font-family:'Rubik Wet Paint',serif;
+  background:var(--pink);color:var(--ink);
+  border:4px solid var(--yellow);
+  padding:16px 40px;font-size:36px;cursor:pointer;
+  box-shadow:8px 8px 0 var(--acid),0 0 30px var(--pink);
+  transform:rotate(-1.5deg);
+  transition:transform .15s;
+  letter-spacing:3px;
+}
+.startBtn:hover{transform:rotate(1deg) scale(1.04);background:var(--yellow);color:var(--magenta);}
+.tiny{font-size:16px;color:#a89;max-width:600px;font-style:italic;}
+
+/* ─────────── GAME HUD ─────────── */
+#game{display:none;}
+.hud{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:10px;
+  padding:14px;
+  border:3px solid var(--acid);
+  background:
+    repeating-linear-gradient(45deg,rgba(255,0,214,.08) 0 10px,rgba(34,240,210,.08) 10px 20px),
+    rgba(0,0,0,.55);
+  box-shadow:0 0 30px rgba(184,255,46,.3),inset 0 0 30px rgba(255,43,214,.15);
+  margin-bottom:18px;
+  position:relative;
+}
+.hud::before{
+  content:"";position:absolute;inset:-8px;pointer-events:none;
+  border:1px dashed var(--magenta);opacity:.7;
+}
+.stat{
+  text-align:center;padding:6px 8px;
+  background:rgba(0,0,0,.4);
+  border:1px solid rgba(184,255,46,.3);
+}
+.stat .lbl{
+  font-family:'Creepster',cursive;color:var(--magenta);font-size:14px;
+  letter-spacing:2px;text-transform:uppercase;
+}
+.stat .val{
+  font-family:'Major Mono Display',monospace;color:var(--acid);font-size:22px;
+  text-shadow:0 0 10px var(--acid);
+}
+.stat.debt .val{color:var(--blood);text-shadow:0 0 10px var(--blood);}
+.stat.cash .val{color:var(--acid);}
+.stat.bank .val{color:var(--teal);text-shadow:0 0 10px var(--teal);}
+.stat.heat .val{color:var(--yellow);text-shadow:0 0 10px var(--yellow);}
+
+.grid{
+  display:grid;grid-template-columns:2fr 1fr;gap:18px;
+}
+@media(max-width:800px){.grid{grid-template-columns:1fr;}}
+
+.panel{
+  background:rgba(0,0,0,.6);
+  border:3px solid var(--teal);
+  padding:14px;
+  position:relative;
+  box-shadow:6px 6px 0 var(--magenta);
+}
+.panel.accent-pink{border-color:var(--pink);box-shadow:6px 6px 0 var(--acid);}
+.panel.accent-yellow{border-color:var(--yellow);box-shadow:6px 6px 0 var(--purple);}
+.panel h3{
+  font-family:'Rubik Glitch',serif;margin:0 0 12px;
+  color:var(--yellow);font-size:28px;letter-spacing:3px;
+  display:flex;align-items:center;gap:10px;
+}
+.panel h3::after{content:"";flex:1;height:3px;background:linear-gradient(90deg,var(--yellow),transparent);}
+
+/* Market table */
+.market{display:grid;gap:8px;}
+.itemRow{
+  display:grid;grid-template-columns:minmax(0,1.4fr) 90px 70px 1fr;gap:10px;
+  align-items:center;
+  padding:8px 10px;
+  background:rgba(255,255,255,.04);
+  border-left:4px solid var(--pink);
+  transition:background .15s;
+}
+.itemRow:hover{background:rgba(255,43,214,.12);}
+.itemRow.hot{border-left-color:var(--yellow);animation:hotPulse 1.2s infinite;}
+.itemRow.cold{border-left-color:var(--teal);}
+@keyframes hotPulse{
+  0%,100%{box-shadow:inset 0 0 0 rgba(255,228,0,0);}
+  50%{box-shadow:inset 0 0 40px rgba(255,228,0,.35);}
+}
+.itemName{font-family:'Creepster',cursive;font-size:22px;color:var(--cream);letter-spacing:1.5px;}
+.itemPrice{font-family:'Major Mono Display',monospace;color:var(--acid);font-size:20px;text-align:right;}
+.itemOwn{font-family:'Major Mono Display',monospace;color:var(--teal);font-size:18px;text-align:right;}
+.itemBtns{display:flex;gap:6px;justify-content:flex-end;}
+
+/* Buttons */
+button.mini{
+  font-family:'VT323',monospace;font-size:18px;
+  background:var(--ink);color:var(--acid);
+  border:2px solid var(--acid);padding:4px 12px;cursor:pointer;
+  letter-spacing:1px;transition:all .12s;
+}
+button.mini:hover{background:var(--acid);color:var(--ink);}
+button.mini.sell{border-color:var(--pink);color:var(--pink);}
+button.mini.sell:hover{background:var(--pink);color:var(--ink);}
+button.mini:disabled{opacity:.3;cursor:not-allowed;}
+
+/* Travel map */
+.travel-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.travel-btn{
+  font-family:'Creepster',cursive;font-size:20px;letter-spacing:2px;
+  padding:10px 8px;
+  background:rgba(106,0,255,.25);
+  color:var(--cream);
+  border:2px solid var(--purple);
+  cursor:pointer;
+  transition:all .15s;
+  text-align:left;
+  position:relative;
+}
+.travel-btn::before{content:"➤ ";color:var(--acid);}
+.travel-btn:hover:not(:disabled){background:var(--purple);color:var(--yellow);transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--magenta);}
+.travel-btn:disabled{opacity:.35;cursor:not-allowed;text-decoration:line-through;}
+.travel-btn.current{border-color:var(--yellow);background:rgba(255,228,0,.15);}
+.travel-btn.current::before{content:"◉ ";color:var(--yellow);}
+
+/* Actions rail */
+.actions{display:flex;flex-direction:column;gap:8px;}
+.actions button{
+  font-family:'Rubik Glitch',serif;font-size:18px;letter-spacing:2px;
+  padding:10px 14px;cursor:pointer;
+  background:var(--ink);color:var(--yellow);
+  border:2px solid var(--yellow);
+  transition:all .12s;
+  text-align:left;
+}
+.actions button:hover{background:var(--yellow);color:var(--ink);transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--pink);}
+
+/* Log / news ticker */
+.log{
+  max-height:180px;overflow-y:auto;
+  font-size:17px;
+  border:2px dashed var(--acid);
+  padding:10px;background:rgba(0,0,0,.55);
+}
+.log div{margin-bottom:4px;}
+.log .good{color:var(--acid);}
+.log .bad{color:var(--blood);}
+.log .event{color:var(--yellow);}
+.log .flavor{color:#c9a;font-style:italic;}
+
+/* ─────────── MODAL / EVENTS ─────────── */
+.modalWrap{
+  position:fixed;inset:0;z-index:50;display:none;
+  align-items:center;justify-content:center;
+  background:radial-gradient(circle at center,rgba(106,0,255,.35),rgba(0,0,0,.92));
+  backdrop-filter:blur(6px);
+}
+.modalWrap.show{display:flex;animation:modalIn .3s ease-out;}
+@keyframes modalIn{from{opacity:0;transform:scale(.8);}to{opacity:1;transform:scale(1);}}
+.modal{
+  max-width:600px;width:90%;
+  background:var(--ink);
+  border:5px solid var(--pink);
+  box-shadow:0 0 80px var(--pink),12px 12px 0 var(--acid);
+  padding:28px;
+  position:relative;
+  transform:rotate(-1deg);
+}
+.modal::before{
+  content:"";position:absolute;inset:-12px;
+  border:2px dashed var(--teal);pointer-events:none;
+}
+.modal h3{
+  font-family:'Rubik Wet Paint',serif;
+  font-size:38px;margin:0 0 14px;
+  color:var(--yellow);text-shadow:4px 4px 0 var(--magenta);
+  line-height:1;
+}
+.modal p{font-size:22px;margin:0 0 18px;color:var(--cream);}
+.modal .flavor{font-style:italic;color:#fba;font-size:18px;}
+.modalBtns{display:flex;gap:10px;flex-wrap:wrap;}
+.modalBtns button{
+  font-family:'Rubik Glitch',serif;font-size:20px;
+  padding:10px 20px;cursor:pointer;
+  background:var(--acid);color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:4px 4px 0 var(--magenta);
+}
+.modalBtns button:hover{background:var(--yellow);}
+.modalBtns button.danger{background:var(--blood);color:var(--cream);}
+.modalBtns button.danger:hover{background:var(--pink);}
+
+/* Buy quantity input */
+.qtyPad{
+  display:flex;gap:6px;align-items:center;margin:12px 0;
+  font-size:22px;
+}
+.qtyPad input{
+  font-family:'Major Mono Display',monospace;font-size:26px;
+  width:120px;padding:4px 8px;
+  background:var(--ink);color:var(--acid);
+  border:2px solid var(--acid);
+}
+.qtyPad button{
+  font-family:'VT323',monospace;font-size:16px;
+  padding:4px 10px;background:var(--pink);color:var(--ink);border:2px solid var(--ink);cursor:pointer;
+}
+
+/* Game over */
+.over h3{color:var(--blood);}
+.scoreBox{
+  font-family:'Major Mono Display',monospace;font-size:34px;
+  color:var(--acid);text-shadow:0 0 20px var(--acid);
+  text-align:center;margin:16px 0;
+}
+
+/* Intro subtitle strip */
+.titlestrip{
+  border-top:4px double var(--pink);border-bottom:4px double var(--pink);
+  background:rgba(0,0,0,.6);padding:8px 16px;
+  font-family:'Creepster',cursive;letter-spacing:4px;
+  color:var(--teal);font-size:22px;
+  transform:rotate(.4deg);
+  margin:4px 0 16px;
+  text-align:center;
+}
+
+/* Loading bar psychedelic */
+.capBar{
+  height:14px;border:2px solid var(--teal);background:rgba(0,0,0,.6);
+  position:relative;overflow:hidden;margin-top:4px;
+}
+.capBar>div{
+  height:100%;background:linear-gradient(90deg,var(--acid),var(--pink),var(--teal));
+  background-size:300% 100%;animation:hueShift 4s linear infinite;
+  transition:width .3s ease;
+}
+@keyframes hueShift{to{background-position:300% 0;}}
+
+/* Flash effect for busts */
+@keyframes redFlash{0%,100%{background:transparent;}50%{background:rgba(255,42,42,.35);}}
+.flash{animation:redFlash .4s 3;}
+
+/* Scroll bar flavor */
+::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar-track{background:var(--ink);}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--pink),var(--purple));border:1px solid var(--acid);}
+
+/* Footer */
+footer{
+  text-align:center;margin-top:30px;font-size:14px;color:#987;
+  font-style:italic;letter-spacing:1px;
+}
+</style>
+</head>
+<body>
+
+<div class="trip-bg"></div>
+<div class="noise"></div>
+<div class="scanlines"></div>
+<div class="floaters" id="floaters"></div>
+
+<div id="app">
+
+  <!-- ─── TITLE ─── -->
+  <section id="title">
+    <h1 class="glitchType" data-t="WHIMSY WARS">WHIMSY WARS</h1>
+    <div class="titlestrip">❂ A DEALER'S DESCENT THROUGH THE LOOKING GLASS ❂</div>
+    <h2>30 DAYS · 8 DREAMSCAPES · 1 JABBERWOCK LOAN SHARK</h2>
+    <div class="blurb">
+      You owe the <b style="color:var(--blood)">JABBERWOCK</b> <b>$5,500</b>. The interest is obscene.<br>
+      You have a suitcase, <b style="color:var(--acid)">$2,000</b>, and a nose for commerce.<br>
+      Ferry exotic contraband between the warped boroughs of a shattered Wonderland.<br>
+      Buy low in <i>Bat Country</i>. Sell high in <i>Whoville</i>. Don't get pinched by the <i>Card Soldiers</i>.<br>
+      <span style="color:var(--yellow)">Survive thirty dreams. Become magnificently solvent.</span>
+    </div>
+    <button class="startBtn" onclick="startGame()">◈ ENTER THE TRIP ◈</button>
+    <div class="tiny">
+      “We were somewhere around the Tulgey Wood, on the edge of the chessboard,<br>
+      when the caterpillars began to take hold.”
+    </div>
+  </section>
+
+  <!-- ─── GAME ─── -->
+  <section id="game">
+    <div class="hud" id="hud"></div>
+
+    <div class="grid">
+      <div>
+        <div class="panel">
+          <h3>◉ MARKET · <span id="locName" style="color:var(--acid)">—</span></h3>
+          <div class="market" id="market"></div>
+        </div>
+
+        <div class="panel accent-yellow" style="margin-top:18px;">
+          <h3>✦ NEWSFEED FROM THE VOID</h3>
+          <div class="log" id="log"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel accent-pink">
+          <h3>➤ TRAVEL</h3>
+          <div class="travel-list" id="travelList"></div>
+          <p style="color:#a98;margin:8px 0 0;font-size:16px;">
+            Each journey burns a day. The Void watches.
+          </p>
+        </div>
+
+        <div class="panel" style="margin-top:18px;">
+          <h3>⚙ ACTIONS</h3>
+          <div class="actions">
+            <button onclick="openBank()">🜁 Dormouse Teapot (Bank)</button>
+            <button onclick="openLoan()">🜃 Visit the Jabberwock (Loan)</button>
+            <button onclick="dumpInventory()">🜂 Dump Inventory</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Press nothing. The game will press you. · <span style="color:var(--pink)">build v1.0 · the end is thirty dreams away</span>
+    </footer>
+  </section>
+
+</div>
+
+<!-- ─── MODAL ─── -->
+<div class="modalWrap" id="modal">
+  <div class="modal" id="modalBody"></div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════════
+   WHIMSY WARS  —  game logic
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ---- decorative floaters in background ---- */
+(function(){
+  const host = document.getElementById('floaters');
+  const glyphs = [
+    {c:'eye', g:'👁'},
+    {c:'dome',g:'⛶'},
+    {c:'rose',g:'✾'},
+    {c:'bat', g:'☾'},
+    {c:'mush',g:'❦'},
+    {c:'eye', g:'◉'},
+    {c:'dome',g:'⬡'},
+    {c:'rose',g:'✿'},
+    {c:'bat', g:'𖦹'},
+    {c:'mush',g:'❋'},
+  ];
+  for(let i=0;i<14;i++){
+    const g = glyphs[i%glyphs.length];
+    const el = document.createElement('div');
+    el.className='floater '+g.c;
+    el.textContent=g.g;
+    el.style.left = (Math.random()*100)+'%';
+    el.style.top  = (Math.random()*100)+'%';
+    el.style.animationDuration = (30+Math.random()*40)+'s';
+    el.style.animationDelay = (-Math.random()*40)+'s';
+    el.style.fontSize = (30+Math.random()*70)+'px';
+    host.appendChild(el);
+  }
+})();
+
+/* ---------------- DATA ---------------- */
+const ITEMS = [
+  { key:'ches',  name:'Cheshire Smiles',     min:15,   max:90,    bulk:1,  volatile:false, flavor:'grin-shaped contraband, evaporates in sunlight' },
+  { key:'cater', name:'Caterpillar Smoke',   min:60,   max:320,   bulk:2,  volatile:false, flavor:'hookah residue, mildly prophetic' },
+  { key:'shroom',name:'Mad Hatter Mushrooms',min:180,  max:1200,  bulk:2,  volatile:true,  flavor:'they whisper instructions when no one is listening' },
+  { key:'bat',   name:'Bat Country Essence', min:280,  max:980,   bulk:3,  volatile:false, flavor:'bottled in Nevada, corked with dread' },
+  { key:'jabb',  name:'Jabberwock Scales',   min:520,  max:2600,  bulk:4,  volatile:true,  flavor:'slough from the beast — iridescent, unlawful' },
+  { key:'tess',  name:'Tesseract Dust',      min:980,  max:4400,  bulk:2,  volatile:true,  flavor:'4-dimensional sand; pours upward in a full moon' },
+  { key:'queen', name:'Red Queens Tears',    min:1600, max:5600,  bulk:1,  volatile:true,  flavor:'weaponized sorrow — one drop starts revolutions' },
+  { key:'geo',   name:'Geodesic Gems',       min:4800, max:14200, bulk:5,  volatile:true,  flavor:'Bucky Fullers finest — fits together like the cosmos' },
+];
+
+const LOCATIONS = [
+  { key:'tulgey',  name:'Tulgey Wood',         color:'#00352e', flavor:'moss hums. the trees may be listening.' },
+  { key:'bat',     name:'Bat Country',         color:'#4a001a', flavor:'the air tastes of ether and bad decisions.' },
+  { key:'whoville',name:'Whoville Heights',    color:'#3a0a6b', flavor:'everyone is very small and very loud.' },
+  { key:'chess',   name:'Chessboard Plains',   color:'#1a1a1a', flavor:'the ground rearranges itself on odd turns.' },
+  { key:'dome',    name:'Fullers Geodesic Dome',color:'#004a4a',flavor:'triangles and triangles and triangles and triangles.' },
+  { key:'beach',   name:"Mock Turtles Beach",  color:'#20005c', flavor:'the waves recite minor poetry.' },
+  { key:'tea',     name:'Mad Tea Party',       color:'#661a00', flavor:'it is always 6 oclock. it is never 6 oclock.' },
+  { key:'mush',    name:'Mushroom Forest',     color:'#2d004a', flavor:'stalks wider than lighthouses. puffs of dream.' },
+];
+
+/* which items each location specializes in (bias toward cheap or expensive) */
+const LOC_BIAS = {
+  tulgey:   { ches:.6, cater:.5, shroom:1.2, bat:1.0, jabb:1.3, tess:1.1, queen:1.2, geo:1.3 },
+  bat:      { ches:1.1, cater:.5, shroom:1.0, bat:.45,jabb:1.0, tess:1.3, queen:1.2, geo:1.2 },
+  whoville: { ches:.8, cater:1.0, shroom:1.2, bat:1.2, jabb:1.3, tess:.55,queen:1.4, geo:1.5 },
+  chess:    { ches:1.2, cater:1.3, shroom:.6, bat:1.0, jabb:1.0, tess:1.1, queen:1.2, geo:.65 },
+  dome:     { ches:1.2, cater:1.1, shroom:1.1,bat:1.3, jabb:1.1, tess:1.0, queen:1.3, geo:.5  },
+  beach:    { ches:.7, cater:1.1, shroom:.95, bat:1.0, jabb:.55, tess:1.2, queen:.7,  geo:1.3 },
+  tea:      { ches:.95, cater:.6, shroom:.5,  bat:1.0, jabb:1.0, tess:1.2, queen:.95, geo:1.4 },
+  mush:     { ches:1.0, cater:.7, shroom:.45, bat:1.2, jabb:.95, tess:1.0, queen:1.1, geo:1.2 },
+};
+
+/* ---------------- STATE ---------------- */
+let state;
+function newGame(){
+  state = {
+    day:1,
+    maxDay:30,
+    cash:2000,
+    debt:5500,
+    bank:0,
+    cap:100,
+    inventory:{},        // key -> qty
+    avgCost:{},          // key -> weighted avg cost
+    location:'tulgey',
+    market:{},           // current prices at current location
+    heat:0,              // cops suspicion 0-100
+    weapon:null,         // 'paring','jabber','vorpal' etc.
+    log:[],
+    ended:false,
+  };
+  ITEMS.forEach(i=>{state.inventory[i.key]=0;state.avgCost[i.key]=0;});
+  refreshMarket();
+  pushLog('flavor', `The Jabberwock scrawls a number in blood: $${state.debt}. "You have thirty dreams," it hisses.`);
+  pushLog('event', `You arrive in ${locName(state.location)}.`);
+  pushLog('flavor', LOCATIONS.find(l=>l.key===state.location).flavor);
+}
+
+function locName(key){ return LOCATIONS.find(l=>l.key===key).name; }
+function itemByKey(k){ return ITEMS.find(i=>i.key===k); }
+
+function used(){
+  let u=0;
+  for(const k in state.inventory) u += state.inventory[k] * itemByKey(k).bulk;
+  return u;
+}
+
+/* ---------------- MARKET GENERATION ---------------- */
+function refreshMarket(){
+  const bias = LOC_BIAS[state.location];
+  const m = {};
+  // 4-6 items appear each visit
+  const count = 4 + Math.floor(Math.random()*3);
+  // always start with a random sampling
+  const pool = [...ITEMS].sort(()=>Math.random()-.5);
+  const selected = pool.slice(0,count);
+  selected.forEach(it=>{
+    const b = bias[it.key] || 1;
+    let basePrice = it.min + Math.random() * (it.max - it.min);
+    basePrice *= b;
+    // occasional "shock" prices
+    let shock = 'normal';
+    const r = Math.random();
+    if(r < .08){ basePrice *= 0.35; shock='cold'; }
+    else if(r < .18){ basePrice *= 2.2; shock='hot'; }
+    m[it.key] = { price: Math.max(5, Math.round(basePrice)), shock };
+  });
+  state.market = m;
+}
+
+/* ---------------- RENDER ---------------- */
+function render(){
+  renderHud();
+  renderMarket();
+  renderTravel();
+  renderLog();
+}
+function renderHud(){
+  const hud = document.getElementById('hud');
+  const u = used();
+  hud.innerHTML = `
+    <div class="stat cash"><div class="lbl">Cash</div><div class="val">$${state.cash.toLocaleString()}</div></div>
+    <div class="stat debt"><div class="lbl">Jabberwock</div><div class="val">$${state.debt.toLocaleString()}</div></div>
+    <div class="stat bank"><div class="lbl">Teapot</div><div class="val">$${state.bank.toLocaleString()}</div></div>
+    <div class="stat"><div class="lbl">Dream</div><div class="val">${state.day}/${state.maxDay}</div></div>
+    <div class="stat heat"><div class="lbl">Heat</div><div class="val">${state.heat}%</div></div>
+    <div class="stat">
+      <div class="lbl">Suitcase</div>
+      <div class="val">${u}/${state.cap}</div>
+      <div class="capBar"><div style="width:${Math.min(100,u/state.cap*100)}%"></div></div>
+    </div>
+    <div class="stat"><div class="lbl">Piece</div><div class="val" style="color:var(--pink);text-shadow:0 0 10px var(--pink);font-size:18px">${state.weapon?state.weapon:'—'}</div></div>
+  `;
+  document.getElementById('locName').textContent = locName(state.location);
+}
+function renderMarket(){
+  const m = document.getElementById('market');
+  const rows = [];
+  ITEMS.forEach(it=>{
+    const entry = state.market[it.key];
+    if(!entry) return;
+    const own = state.inventory[it.key]||0;
+    const rowClass = entry.shock==='hot'?'hot':entry.shock==='cold'?'cold':'';
+    rows.push(`
+      <div class="itemRow ${rowClass}">
+        <div>
+          <div class="itemName">${it.name}</div>
+          <div style="font-size:14px;color:#a97;font-style:italic;">${it.flavor}</div>
+        </div>
+        <div class="itemPrice">$${entry.price.toLocaleString()}</div>
+        <div class="itemOwn">× ${own}</div>
+        <div class="itemBtns">
+          <button class="mini" onclick="openBuy('${it.key}')">BUY</button>
+          <button class="mini sell" onclick="openSell('${it.key}')" ${own<=0?'disabled':''}>SELL</button>
+        </div>
+      </div>
+    `);
+  });
+  if(rows.length===0) rows.push('<div style="color:#a98;font-style:italic;">The market is empty. A crow laughs somewhere.</div>');
+  m.innerHTML = rows.join('');
+}
+function renderTravel(){
+  const host = document.getElementById('travelList');
+  host.innerHTML = LOCATIONS.map(l=>{
+    const cur = l.key===state.location;
+    return `<button class="travel-btn ${cur?'current':''}" onclick="travel('${l.key}')" ${cur?'disabled':''}>${l.name}</button>`;
+  }).join('');
+}
+function renderLog(){
+  const l = document.getElementById('log');
+  l.innerHTML = state.log.slice(-20).map(e=>`<div class="${e.t}">Day ${e.d} · ${e.msg}</div>`).reverse().join('');
+}
+function pushLog(t,msg){
+  state.log.push({t,msg,d:state.day});
+  renderLog();
+}
+
+/* ---------------- BUY / SELL ---------------- */
+function openBuy(key){
+  const it = itemByKey(key);
+  const price = state.market[key].price;
+  const maxByCash = Math.floor(state.cash / price);
+  const freeSpace = state.cap - used();
+  const maxBySpace = Math.floor(freeSpace / it.bulk);
+  const maxQty = Math.max(0, Math.min(maxByCash, maxBySpace));
+  openModal(`
+    <h3>BUY · ${it.name}</h3>
+    <p>Price per unit: <b style="color:var(--acid)">$${price.toLocaleString()}</b><br>
+    Cash on hand: $${state.cash.toLocaleString()}<br>
+    Space available: ${freeSpace} (this item weighs ${it.bulk}/unit)<br>
+    Max you can afford & fit: <b>${maxQty}</b></p>
+    <div class="qtyPad">
+      <button onclick="setQty(1)">1</button>
+      <button onclick="setQty(5)">5</button>
+      <button onclick="setQty(10)">10</button>
+      <button onclick="setQty(${maxQty})">MAX</button>
+      <input id="qty" type="number" min="0" max="${maxQty}" value="${Math.min(1,maxQty)}">
+    </div>
+    <div class="modalBtns">
+      <button onclick="doBuy('${key}')">CONFIRM PURCHASE</button>
+      <button class="danger" onclick="closeModal()">CANCEL</button>
+    </div>
+    <p class="flavor">${it.flavor}</p>
+  `);
+}
+function setQty(n){ const el=document.getElementById('qty'); if(el){el.value=n;} }
+function doBuy(key){
+  const q = parseInt(document.getElementById('qty').value,10);
+  if(!q||q<=0){ closeModal(); return; }
+  const it = itemByKey(key);
+  const price = state.market[key].price;
+  const cost = q * price;
+  if(cost > state.cash){ alert('Not enough cash.'); return; }
+  if(q * it.bulk > state.cap - used()){ alert('Suitcase overflows. Won\'t fit.'); return; }
+  state.cash -= cost;
+  // weighted average cost
+  const oldQ = state.inventory[key]||0;
+  const oldAvg = state.avgCost[key]||0;
+  state.avgCost[key] = (oldAvg*oldQ + cost) / (oldQ + q);
+  state.inventory[key] = oldQ + q;
+  pushLog('good', `Bought ${q} × ${it.name} for $${cost.toLocaleString()}.`);
+  closeModal();
+  render();
+}
+function openSell(key){
+  const it = itemByKey(key);
+  const price = state.market[key].price;
+  const own = state.inventory[key];
+  if(own<=0){ return; }
+  openModal(`
+    <h3>SELL · ${it.name}</h3>
+    <p>They'll pay: <b style="color:var(--acid)">$${price.toLocaleString()}</b> per unit<br>
+    You have: <b>${own}</b> (bought @ avg $${Math.round(state.avgCost[key]).toLocaleString()})<br>
+    Potential take: <b style="color:var(--yellow)">$${(own*price).toLocaleString()}</b>
+    </p>
+    <div class="qtyPad">
+      <button onclick="setQty(1)">1</button>
+      <button onclick="setQty(5)">5</button>
+      <button onclick="setQty(${own})">ALL</button>
+      <input id="qty" type="number" min="0" max="${own}" value="${own}">
+    </div>
+    <div class="modalBtns">
+      <button onclick="doSell('${key}')">CONFIRM SALE</button>
+      <button class="danger" onclick="closeModal()">CANCEL</button>
+    </div>
+  `);
+}
+function doSell(key){
+  const q = parseInt(document.getElementById('qty').value,10);
+  if(!q||q<=0){ closeModal(); return; }
+  const own = state.inventory[key];
+  if(q>own){ alert('You don\'t have that many.'); return; }
+  const price = state.market[key].price;
+  const take = q * price;
+  state.cash += take;
+  state.inventory[key] = own - q;
+  const it = itemByKey(key);
+  pushLog('good', `Sold ${q} × ${it.name} for $${take.toLocaleString()}.`);
+  closeModal();
+  render();
+}
+function dumpInventory(){
+  let total=0;
+  for(const k in state.inventory) total+=state.inventory[k];
+  if(total===0){ pushLog('flavor','Your suitcase was already a vacuum.'); renderLog(); return; }
+  confirmModal('DUMP EVERYTHING?',
+    `You'll toss ${total} units into the nearest ravine. No refunds.`,
+    ()=>{
+      ITEMS.forEach(i=>{state.inventory[i.key]=0;state.avgCost[i.key]=0;});
+      pushLog('bad','You dumped your entire load into a chasm. A caterpillar weeps.');
+      render();
+    });
+}
+
+/* ---------------- TRAVEL ---------------- */
+function travel(loc){
+  if(loc===state.location) return;
+  if(state.ended) return;
+  state.location = loc;
+  state.day++;
+  // interest
+  state.debt = Math.round(state.debt * 1.10);
+  state.bank = Math.round(state.bank * 1.05);
+  // heat decays a bit
+  state.heat = Math.max(0, state.heat - 5);
+  // volatile item slight random drift even in inventory value (handled via market)
+  pushLog('event', `🜸 You travel to ${locName(loc)}. The Jabberwock's debt swells to $${state.debt.toLocaleString()}.`);
+  pushLog('flavor', LOCATIONS.find(l=>l.key===loc).flavor);
+  refreshMarket();
+
+  // random event rolls
+  rollEvents();
+
+  if(state.day > state.maxDay){ endGame('time'); return; }
+  render();
+}
+
+/* ---------------- EVENTS ---------------- */
+const WEAPONS = [
+  {k:'paring', n:'Paring Knife', pow:1},
+  {k:'jabber', n:'Jabber Shiv',  pow:2},
+  {k:'vorpal', n:'Vorpal Blade', pow:4},
+];
+
+function rollEvents(){
+  // higher heat -> more chance of cops
+  const r = Math.random();
+  let chance = .55; // base event chance
+  if(r > chance) return;
+
+  // weighted table
+  const roll = Math.random()*100;
+  let copChance = 15 + state.heat*0.5; // up to ~65%
+  if(roll < copChance){ eventCops(); return; }
+  if(roll < copChance + 12){ eventBargain(); return; }
+  if(roll < copChance + 24){ eventPriceShock(); return; }
+  if(roll < copChance + 33){ eventMugging(); return; }
+  if(roll < copChance + 42){ eventFreeLoot(); return; }
+  if(roll < copChance + 50){ eventWeapon(); return; }
+  if(roll < copChance + 58){ eventSuitcase(); return; }
+  eventVision();
+}
+
+function eventCops(){
+  const thug = pick([
+    'A squadron of White Rabbit Inquisitors materializes out of a pocket watch!',
+    'The Red Queen\'s CARD SOLDIERS drop from a folded sky!',
+    'The BANDERSNATCH has your scent.',
+    'Fear and Loathing — DEA bats descending from the desert moon.',
+  ]);
+  openModal(`
+    <h3>⚠ BUSTED?</h3>
+    <p>${thug}</p>
+    <div class="modalBtns">
+      ${state.weapon?`<button onclick="resolveCops('fight')">FIGHT (${state.weapon})</button>`:''}
+      <button onclick="resolveCops('run')">RUN</button>
+      <button onclick="resolveCops('bribe')">BRIBE ($${Math.round(200+state.heat*20)})</button>
+    </div>
+    <p class="flavor">The heat meter smells you from miles away.</p>
+  `);
+  document.getElementById('app').classList.add('flash');
+  setTimeout(()=>document.getElementById('app').classList.remove('flash'),1500);
+}
+function resolveCops(choice){
+  closeModal();
+  if(choice==='run'){
+    const weight = used();
+    const escape = Math.random() > (0.25 + weight/state.cap * 0.45);
+    if(escape){
+      pushLog('good','You vanish into a rabbit hole. The soldiers bark at fog.');
+      state.heat = Math.min(100, state.heat + 8);
+    } else {
+      const loss = Math.round(state.cash*0.25) + 150;
+      state.cash = Math.max(0, state.cash - loss);
+      // drop half of largest stack
+      let biggest=null, bq=0;
+      for(const k in state.inventory){
+        if(state.inventory[k]>bq){bq=state.inventory[k];biggest=k;}
+      }
+      const drop = Math.ceil(bq/2);
+      if(biggest) state.inventory[biggest]-=drop;
+      pushLog('bad',`Caught mid-stride! Fined $${loss.toLocaleString()} and lost ${drop} × ${biggest?itemByKey(biggest).name:'contraband'}.`);
+      state.heat = Math.min(100, state.heat + 15);
+    }
+  } else if(choice==='fight'){
+    const w = WEAPONS.find(x=>x.k===state.weapon);
+    const win = Math.random() < (0.35 + (w?w.pow:0)*0.12);
+    if(win){
+      const loot = 200 + Math.floor(Math.random()*500);
+      state.cash += loot;
+      pushLog('good',`You swing the ${w.n}. They scatter like paper. You pocket $${loot}.`);
+      state.heat = Math.min(100, state.heat + 25);
+    } else {
+      const loss = Math.round(state.cash*0.4) + 300;
+      state.cash = Math.max(0, state.cash - loss);
+      pushLog('bad',`The ${w.n} was not enough. You lose $${loss.toLocaleString()} and some pride.`);
+      state.heat = Math.min(100, state.heat + 20);
+      if(Math.random()<.25){ state.weapon=null; pushLog('bad','Your weapon was broken in the scuffle.'); }
+    }
+  } else if(choice==='bribe'){
+    const cost = Math.round(200+state.heat*20);
+    if(state.cash < cost){ pushLog('bad','You can\'t afford the bribe! They search you anyway.'); resolveCops('run'); return; }
+    state.cash -= cost;
+    state.heat = Math.max(0, state.heat - 20);
+    pushLog('good',`You palm $${cost.toLocaleString()} to the captain. He blinks three times and forgets you exist.`);
+  }
+  render();
+}
+
+function eventBargain(){
+  const it = pick(ITEMS);
+  const normal = (it.min+it.max)/2;
+  const price = Math.round(normal*0.25);
+  openModal(`
+    <h3>✦ A STRANGER OFFERS</h3>
+    <p>A vendor with six eyes slides beside you. "Psst — <b>${it.name}</b>, $${price.toLocaleString()} per unit. Won't last."</p>
+    <div class="modalBtns">
+      <button onclick="bargainTake('${it.key}',${price})">INVESTIGATE</button>
+      <button class="danger" onclick="closeModal()">DECLINE</button>
+    </div>
+    <p class="flavor">${it.flavor}</p>
+  `);
+}
+function bargainTake(key,price){
+  closeModal();
+  const it = itemByKey(key);
+  const freeSpace = state.cap - used();
+  const maxBySpace = Math.floor(freeSpace/it.bulk);
+  const maxByCash = Math.floor(state.cash/price);
+  const max = Math.min(maxBySpace, maxByCash);
+  openModal(`
+    <h3>✦ STEAL ${it.name}</h3>
+    <p>Price: $${price.toLocaleString()} — that's <b>${Math.round((it.min+it.max)/2/price*100)/100}×</b> below market.<br>
+    You can fit <b>${max}</b> of them in your case right now.</p>
+    <div class="qtyPad">
+      <button onclick="setQty(1)">1</button>
+      <button onclick="setQty(${Math.floor(max/2)})">HALF</button>
+      <button onclick="setQty(${max})">MAX</button>
+      <input id="qty" type="number" min="0" max="${max}" value="${max}">
+    </div>
+    <div class="modalBtns">
+      <button onclick="bargainBuy('${key}',${price})">TAKE THE DEAL</button>
+      <button class="danger" onclick="closeModal()">WALK AWAY</button>
+    </div>
+  `);
+}
+function bargainBuy(key,price){
+  const q = parseInt(document.getElementById('qty').value,10);
+  if(!q||q<=0){ closeModal(); return; }
+  const it = itemByKey(key);
+  const cost = q*price;
+  if(cost > state.cash){ alert('Not enough cash.'); return; }
+  if(q*it.bulk > state.cap-used()){ alert('Won\'t fit.'); return; }
+  state.cash -= cost;
+  const oldQ = state.inventory[key]||0;
+  const oldAvg = state.avgCost[key]||0;
+  state.avgCost[key] = (oldAvg*oldQ + cost)/(oldQ+q);
+  state.inventory[key] = oldQ+q;
+  pushLog('good',`Back-alley deal: ${q} × ${it.name} for $${cost.toLocaleString()}.`);
+  closeModal(); render();
+}
+
+function eventPriceShock(){
+  const it = pick(ITEMS);
+  const spike = Math.random()<.5;
+  if(spike && state.market[it.key]){
+    state.market[it.key].price = Math.round(state.market[it.key].price * (2+Math.random()*2));
+    state.market[it.key].shock = 'hot';
+    pushLog('event',`📰 NEWS: ${it.name} prices SURGE across ${locName(state.location)}! (${it.flavor.split(';')[0]})`);
+  } else if(state.market[it.key]){
+    state.market[it.key].price = Math.round(state.market[it.key].price * 0.3);
+    state.market[it.key].shock = 'cold';
+    pushLog('event',`📰 NEWS: ${it.name} glut! Prices CRASH in ${locName(state.location)}.`);
+  } else {
+    pushLog('flavor',`A newspaper blows past: "${it.name} is the talk of the dream."`);
+  }
+  render();
+}
+
+function eventMugging(){
+  const loss = Math.min(state.cash, Math.round(state.cash*0.15)+80);
+  state.cash -= loss;
+  pushLog('bad', `🜃 A Tweedle jumped you in an alley of infinite mirrors. You're down $${loss.toLocaleString()}.`);
+}
+
+function eventFreeLoot(){
+  const it = pick(ITEMS);
+  const q = 1 + Math.floor(Math.random()*5);
+  const freeSpace = state.cap - used();
+  const actual = Math.min(q, Math.floor(freeSpace/it.bulk));
+  if(actual<=0){
+    pushLog('flavor',`You spot a discarded briefcase of ${it.name} but your suitcase is stuffed. A Cheshire cat winks.`);
+    return;
+  }
+  state.inventory[it.key] = (state.inventory[it.key]||0)+actual;
+  pushLog('good',`🎁 You find ${actual} × ${it.name} abandoned beneath a toadstool. Finders keepers.`);
+}
+
+function eventWeapon(){
+  if(state.weapon === 'vorpal'){
+    pushLog('flavor','A rusted knife in the road — yours is sharper. You walk on.');
+    return;
+  }
+  const tiers = ['paring','jabber','vorpal'];
+  const currentIdx = tiers.indexOf(state.weapon);
+  const next = tiers[Math.min(tiers.length-1, currentIdx+1)] || 'paring';
+  const w = WEAPONS.find(x=>x.k===next);
+  const price = 400 + w.pow*400;
+  openModal(`
+    <h3>🗡 A GLINT IN THE GUTTER</h3>
+    <p>You find a <b>${w.n}</b>. A ragged vendor offers it for <b>$${price.toLocaleString()}</b>.</p>
+    <div class="modalBtns">
+      <button onclick="buyWeapon('${next}',${price})">BUY IT</button>
+      <button class="danger" onclick="closeModal()">LEAVE IT</button>
+    </div>
+    <p class="flavor">Weapons improve your odds against the Queen's soldiers.</p>
+  `);
+}
+function buyWeapon(k,price){
+  if(state.cash<price){ alert('Not enough cash.'); return; }
+  state.cash -= price;
+  state.weapon = k;
+  pushLog('good',`You pocket the ${WEAPONS.find(w=>w.k===k).n}. It hums faintly.`);
+  closeModal(); render();
+}
+
+function eventSuitcase(){
+  const price = 500 + Math.floor(Math.random()*400);
+  const bonus = 20 + Math.floor(Math.random()*30);
+  openModal(`
+    <h3>🧳 A BIGGER CASE</h3>
+    <p>A luggage merchant offers a <b>+${bonus} slot</b> suitcase for <b>$${price.toLocaleString()}</b>.</p>
+    <div class="modalBtns">
+      <button onclick="buyCase(${bonus},${price})">BUY</button>
+      <button class="danger" onclick="closeModal()">PASS</button>
+    </div>
+  `);
+}
+function buyCase(b,p){
+  if(state.cash<p){ alert('Not enough cash.'); return; }
+  state.cash -= p;
+  state.cap += b;
+  pushLog('good',`Suitcase upgraded. Capacity now ${state.cap}.`);
+  closeModal(); render();
+}
+
+function eventVision(){
+  const visions = [
+    'A geodesic dome splits the clouds; Buckminster Fuller winks at you in Morse code.',
+    'The Cheshire Cat\'s grin floats above the skyline, grinning a stock tip in reverse.',
+    'Time puddles on the pavement. You step over it.',
+    'Your shadow signs a different name in the ledger.',
+    'The mushrooms are taller this year. Or you are shorter.',
+    'Fear and Loathing. Somewhere, a bat the size of a Cadillac circles.',
+    'The Red Queen\'s laughter scalps the moon.',
+    'A caterpillar politely asks you to pay its invoice. You pretend not to see it.',
+  ];
+  pushLog('flavor', `✧ Vision: ${pick(visions)}`);
+}
+
+/* ---------------- BANK / LOAN ---------------- */
+function openBank(){
+  openModal(`
+    <h3>🜁 THE DORMOUSE TEAPOT</h3>
+    <p>A tiny bank run by a sleeping rodent.<br>
+    Bank balance: <b style="color:var(--teal)">$${state.bank.toLocaleString()}</b> (grows 5%/day)<br>
+    Cash on hand: <b style="color:var(--acid)">$${state.cash.toLocaleString()}</b></p>
+    <div class="qtyPad">
+      <input id="qty" type="number" min="0" placeholder="amount" value="100">
+    </div>
+    <div class="modalBtns">
+      <button onclick="bankDeposit()">DEPOSIT</button>
+      <button onclick="bankWithdraw()">WITHDRAW</button>
+      <button class="danger" onclick="closeModal()">LEAVE</button>
+    </div>
+    <p class="flavor">The dormouse snores in a precise rhythm of compound interest.</p>
+  `);
+}
+function bankDeposit(){
+  const q = parseInt(document.getElementById('qty').value,10);
+  if(!q||q<=0) return;
+  if(q>state.cash){ alert('Not that much cash.'); return; }
+  state.cash -= q; state.bank += q;
+  pushLog('good',`Deposited $${q.toLocaleString()} with the Dormouse.`);
+  closeModal(); render();
+}
+function bankWithdraw(){
+  const q = parseInt(document.getElementById('qty').value,10);
+  if(!q||q<=0) return;
+  if(q>state.bank){ alert('Not that much banked.'); return; }
+  state.bank -= q; state.cash += q;
+  pushLog('good',`Withdrew $${q.toLocaleString()} from the Teapot.`);
+  closeModal(); render();
+}
+function openLoan(){
+  openModal(`
+    <h3>🜃 THE JABBERWOCK</h3>
+    <p>The beast rattles its ledger. Debt: <b style="color:var(--blood)">$${state.debt.toLocaleString()}</b> (10% daily).<br>
+    You may pay any amount. It may laugh anyway.</p>
+    <div class="qtyPad">
+      <input id="qty" type="number" min="0" value="${Math.min(state.cash,state.debt)}">
+    </div>
+    <div class="modalBtns">
+      <button onclick="payLoan()">PAY</button>
+      <button onclick="borrowLoan()">BORROW MORE</button>
+      <button class="danger" onclick="closeModal()">FLEE</button>
+    </div>
+    <p class="flavor">"Beware its jaws, beware its claws..." you mutter.</p>
+  `);
+}
+function payLoan(){
+  const q = parseInt(document.getElementById('qty').value,10);
+  if(!q||q<=0) return;
+  if(q>state.cash){ alert('Not enough cash.'); return; }
+  const pay = Math.min(q, state.debt);
+  state.cash -= pay; state.debt -= pay;
+  pushLog('good',`Paid the Jabberwock $${pay.toLocaleString()}. It wheezes greedily.`);
+  closeModal(); render();
+}
+function borrowLoan(){
+  const q = parseInt(document.getElementById('qty').value,10);
+  if(!q||q<=0) return;
+  state.cash += q; state.debt += q;
+  pushLog('bad',`Borrowed $${q.toLocaleString()}. The debt now sharpens its teeth.`);
+  closeModal(); render();
+}
+
+/* ---------------- MODAL ---------------- */
+function openModal(html){
+  document.getElementById('modalBody').innerHTML = html;
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal(){
+  document.getElementById('modal').classList.remove('show');
+}
+function confirmModal(title,msg,fn){
+  openModal(`
+    <h3>${title}</h3>
+    <p>${msg}</p>
+    <div class="modalBtns">
+      <button onclick="_confirmYes()">YES</button>
+      <button class="danger" onclick="closeModal()">NO</button>
+    </div>
+  `);
+  window._pendingConfirm = fn;
+}
+function _confirmYes(){
+  closeModal();
+  if(window._pendingConfirm){window._pendingConfirm();window._pendingConfirm=null;}
+}
+
+/* ---------------- END GAME ---------------- */
+function endGame(reason){
+  state.ended = true;
+  const net = state.cash + state.bank - state.debt;
+  const rating = net > 500000 ? '☆ GODHEAD DEALER ☆' :
+                 net > 150000 ? '◉ ACID MAGNATE' :
+                 net > 40000  ? '✦ RESPECTABLE CROOK' :
+                 net > 5000   ? '⚡ SCRAPED BY' :
+                 net > 0      ? '✕ BARELY' :
+                                '☠ EATEN BY DEBT';
+  const msg = reason==='time' ?
+    'Thirty dreams elapse. The Jabberwock\'s ledger closes with a thunderclap.' :
+    'The game folds shut like a chessboard mid-move.';
+  openModal(`
+    <div class="over">
+      <h3>✦ THE DREAM ENDS ✦</h3>
+      <p>${msg}</p>
+      <div class="scoreBox">NET WORTH<br>$${net.toLocaleString()}</div>
+      <p style="text-align:center;font-size:26px;color:var(--yellow);">${rating}</p>
+      <div style="font-size:16px;color:#c9a;text-align:center">
+        Cash $${state.cash.toLocaleString()} · Bank $${state.bank.toLocaleString()} · Debt $${state.debt.toLocaleString()}
+      </div>
+      <div class="modalBtns" style="justify-content:center;margin-top:14px;">
+        <button onclick="restart()">AGAIN, FASTER</button>
+      </div>
+      <p class="flavor" style="text-align:center;">“Buy the ticket, take the ride.”</p>
+    </div>
+  `);
+}
+function restart(){
+  closeModal();
+  newGame();
+  render();
+}
+
+/* ---------------- START ---------------- */
+function startGame(){
+  document.getElementById('title').style.display='none';
+  document.getElementById('game').style.display='block';
+  newGame();
+  render();
+}
+
+/* utility */
+function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+</script>
+
+</body>
+</html>

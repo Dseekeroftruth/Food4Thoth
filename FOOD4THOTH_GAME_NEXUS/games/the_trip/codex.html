@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>◉ THE CODEX — Catalog of Things That Saw You First ◉</title>
+<link rel="stylesheet" href="assets/shared.css">
+<style>
+  .codexWrap { max-width: 960px; margin: 0 auto; padding: 22px 18px 80px; }
+  .codexHead { text-align: center; margin-bottom: 22px; }
+  .codexHead h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 6vw, 3rem); margin: 0;
+    background: linear-gradient(90deg, var(--neon-lime), var(--neon-cyan), var(--neon-pink));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    background-size: 200% auto; animation: hueSlide 4s linear infinite;
+  }
+  .codexHead p { color: #c0b098; font-style: italic; margin: 8px 0 0; }
+
+  .codexMeter {
+    display: inline-block; margin-top: 12px;
+    padding: 6px 14px;
+    border: 1px solid var(--neon-cyan);
+    font-family: var(--font-mono); font-size: 16px; color: var(--neon-cyan);
+    background: rgba(0,0,0,.5);
+    letter-spacing: .08em;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+    margin-top: 22px;
+  }
+
+  .entry {
+    position: relative;
+    padding: 20px;
+    background: rgba(10,3,24,.82);
+    border: 2px solid var(--neon-pink);
+    box-shadow: 0 0 20px rgba(255,0,153,.25), inset 0 0 14px rgba(255,0,153,.08);
+    min-height: 240px;
+    transition: transform .18s, box-shadow .18s;
+  }
+  .entry:hover { transform: translateY(-3px); box-shadow: 0 0 28px rgba(255,0,153,.5); }
+
+  .entry .etag {
+    position: absolute; top: -10px; left: 10px;
+    background: var(--deep); color: var(--neon-yellow);
+    font-family: var(--font-display); font-size: 11px;
+    letter-spacing: .2em; padding: 2px 10px;
+    border: 1px solid var(--neon-yellow);
+  }
+  .entry h3 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    margin: 0 0 4px;
+    color: var(--cream);
+    letter-spacing: .05em;
+    text-shadow: 0 0 10px rgba(255,233,196,.35);
+  }
+  .entry .sub {
+    font-family: var(--font-mono); font-size: 13px; letter-spacing: .15em;
+    color: var(--neon-cyan); text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .entry .body {
+    font-family: var(--font-body);
+    font-size: 15px; line-height: 1.5;
+    color: #d0c0a0; font-style: italic;
+  }
+
+  .entry.locked {
+    border-color: rgba(255,255,255,.15);
+    box-shadow: none;
+    background: rgba(20,10,40,.4);
+    filter: saturate(.3);
+  }
+  .entry.locked .body { color: #776; }
+  .entry.locked .etag { color: #776; border-color: #554; }
+  .entry.locked::after {
+    content: "⎯ UNDISCOVERED ⎯";
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    font-family: var(--font-display); letter-spacing: .3em;
+    color: #665; font-size: 14px;
+    background: rgba(0,0,0,.6);
+    backdrop-filter: blur(2px);
+  }
+
+  /* subtle accent color rotation per entry index */
+  .entry:nth-child(3n+1) { border-color: var(--neon-pink);   box-shadow: 0 0 20px rgba(255,0,153,.25); }
+  .entry:nth-child(3n+2) { border-color: var(--neon-cyan);   box-shadow: 0 0 20px rgba(0,247,255,.25); }
+  .entry:nth-child(3n+3) { border-color: var(--neon-yellow); box-shadow: 0 0 20px rgba(255,230,0,.25); }
+
+  .entry .quote {
+    margin-top: 12px;
+    border-left: 2px solid currentColor;
+    padding-left: 10px; opacity: .75;
+    font-size: 13px;
+  }
+
+  .hint {
+    font-family: var(--font-mono); font-size: 14px; color: #998; margin-top: 20px; text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="codexWrap">
+  <div class="codexHead">
+    <h1>◈ THE CODEX ◈</h1>
+    <p>The dream remembers every face it's shown you. You may only recall the ones it's willing to name.</p>
+    <div class="codexMeter" id="meter">UNLOCKED 0 / 0</div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <p class="hint">Entries unlock through riddles answered, cups drunk, doors found, debts paid.</p>
+</div>
+
+<script src="assets/shared.js"></script>
+<script>
+TRIP.mountAtmosphere();
+TRIP.mountHUD();
+TRIP.mountTopNav('codex');
+TRIP.visit('codex');
+
+// some auto-unlocks
+if (TRIP.state.completed.character) TRIP.unlockCodex('jabberwock');
+if (TRIP.state.completed.oracle)    TRIP.unlockCodex('caterpillar');
+if (TRIP.state.completed.tea)       TRIP.unlockCodex('mad-hatter');
+if (TRIP.state.completed.whimsy)    { TRIP.unlockCodex('teapot'); TRIP.unlockCodex('card-soldiers'); TRIP.unlockCodex('cheshire'); }
+if (TRIP.state.completed.doom)      { TRIP.unlockCodex('throbbing-door'); TRIP.unlockCodex('bat'); }
+if (TRIP.state.completed.spiral)    TRIP.unlockCodex('neon-serpent');
+// visiting the map hints at the Red Queen and Bucky
+if (TRIP.state.visited.map)         { TRIP.unlockCodex('red-queen'); TRIP.unlockCodex('bucky'); }
+
+const grid = document.getElementById('grid');
+const meter = document.getElementById('meter');
+const unlocked = TRIP.state.codex;
+const all = TRIP.CODEX;
+
+all.forEach((c, i) => {
+  const open = unlocked.includes(c.id);
+  const el = document.createElement('div');
+  el.className = 'entry' + (open ? '' : ' locked');
+  el.innerHTML = `
+    <div class="etag">ENTRY № ${String(i+1).padStart(2,'0')}</div>
+    <h3>${open ? c.title : '— — — — —'}</h3>
+    <div class="sub">${open ? c.sub : 'CLASSIFIED BY THE DREAM'}</div>
+    <div class="body">${open ? c.body : 'You have not met this one yet. The dream is being polite about it.'}</div>
+  `;
+  grid.appendChild(el);
+});
+
+meter.textContent = `UNLOCKED ${unlocked.length} / ${all.length}`;
+if (unlocked.length === all.length) {
+  meter.style.color = 'var(--neon-lime)';
+  meter.style.borderColor = 'var(--neon-lime)';
+  meter.textContent = `FULL CODEX — ${all.length} / ${all.length} — THE DREAM HAS NO MORE SECRETS FROM YOU`;
+}
+</script>
+</body>
+</html>

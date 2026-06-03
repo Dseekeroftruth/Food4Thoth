@@ -1,0 +1,362 @@
+/* =========================================================================
+   THE TRIP — shared psychedelic framework
+   used by every hub/bridge page. keeps aesthetic consistent across the dream.
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Special+Elite&family=VT323&family=Major+Mono+Display&family=Creepster&family=Rubik+Wet+Paint&family=Rubik+Glitch&display=swap');
+
+:root {
+  --neon-pink:    #ff0099;
+  --neon-cyan:    #00f7ff;
+  --neon-yellow:  #ffe600;
+  --neon-lime:    #a2ff00;
+  --neon-magenta: #ff0f7b;
+  --neon-acid:    #b8ff2e;
+  --neon-teal:    #22f0d2;
+  --neon-purple:  #6a00ff;
+  --blood:        #c1121f;
+  --cream:        #ffe9c4;
+  --deep:         #0c0320;
+  --ink:          #120826;
+
+  --font-display: 'Bungee Shade', cursive;
+  --font-body:    'Special Elite', 'Courier New', monospace;
+  --font-mono:    'VT323', monospace;
+  --font-mondo:   'Major Mono Display', monospace;
+  --font-horror:  'Creepster', cursive;
+  --font-paint:   'Rubik Wet Paint', cursive;
+  --font-glitch:  'Rubik Glitch', cursive;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0; min-height: 100%;
+  background: var(--deep);
+  color: var(--cream);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* ─────────── THE SWIRLING BAD TRIP BACKGROUND ─────────── */
+.trip-bg {
+  position: fixed; inset: 0; z-index: -3;
+  background:
+    radial-gradient(ellipse at 20% 30%, #3a0a6b 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 70%, #00352e 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 50%, #48003a 0%, transparent 70%),
+    conic-gradient(from 0deg at 50% 50%, #1a0033, #2d004a, #00252a, #500022, #1a0033);
+  animation: spinBg 60s linear infinite;
+  filter: saturate(1.2);
+}
+@keyframes spinBg { to { transform: rotate(360deg) scale(1.3); } }
+
+.noise {
+  position: fixed; inset: -50%; z-index: -2; pointer-events: none;
+  opacity: .12; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 2 -1'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  animation: jitter .15s steps(4) infinite;
+}
+@keyframes jitter {
+  0%{transform:translate(0,0)} 25%{transform:translate(-8px,4px)}
+  50%{transform:translate(6px,-7px)} 75%{transform:translate(-3px,-2px)}
+  100%{transform:translate(5px,6px)}
+}
+
+.scanlines {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(0,0,0,.25) 0 2px, transparent 2px 4px);
+  mix-blend-mode: multiply; opacity: .5;
+}
+
+.vignette {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.75) 100%);
+  mix-blend-mode: multiply;
+}
+
+/* ─────────── FLOATING GLYPHS ─────────── */
+.floaters {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
+}
+.floater {
+  position: absolute; font-size: 60px; opacity: .22;
+  animation: drift 40s linear infinite;
+  filter: drop-shadow(0 0 14px currentColor);
+}
+.floater.eye    { color: var(--neon-acid); }
+.floater.dome   { color: var(--neon-teal); }
+.floater.rose   { color: var(--neon-magenta); }
+.floater.bat    { color: var(--cream); }
+.floater.mush   { color: var(--neon-pink); }
+.floater.spiral { color: var(--neon-cyan); }
+@keyframes drift {
+  0%  { transform: translate(0,0)    rotate(0deg);   }
+  25% { transform: translate(40vw,-20vh) rotate(120deg); }
+  50% { transform: translate(70vw, 30vh) rotate(240deg); }
+  75% { transform: translate(20vw, 50vh) rotate(330deg); }
+  100%{ transform: translate(0,0)    rotate(360deg); }
+}
+
+/* ─────────── GLITCHY HEADLINE TYPE ─────────── */
+.glitchType {
+  position: relative; display: inline-block;
+  font-family: var(--font-display);
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-yellow), var(--neon-cyan), var(--neon-lime), var(--neon-pink));
+  background-size: 300% 300%;
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+  animation: hueSlide 4s linear infinite;
+  text-shadow: 0 0 40px rgba(255,0,153,0.4);
+  letter-spacing: .04em;
+  line-height: .95;
+}
+@keyframes hueSlide { to { background-position: 300% 50%; } }
+
+.glitchType::before, .glitchType::after {
+  content: attr(data-t); position: absolute; inset: 0;
+  mix-blend-mode: screen; pointer-events: none; color: transparent;
+  -webkit-text-fill-color: initial;
+}
+.glitchType::before { color: var(--neon-pink); transform: translate(-2px,0); animation: shake 2.5s infinite; }
+.glitchType::after  { color: var(--neon-teal); transform: translate( 2px,0); animation: shake 3.1s infinite reverse; }
+@keyframes shake {
+  0%,100%{transform:translate(-2px,0)} 20%{transform:translate(2px,-1px)}
+  40%{transform:translate(-1px,2px)} 60%{transform:translate(2px,1px)} 80%{transform:translate(-2px,-2px)}
+}
+
+/* ─────────── PANELS / CARDS ─────────── */
+.panel {
+  position: relative;
+  background: rgba(10,3,24,.7);
+  border: 2px solid var(--neon-pink);
+  box-shadow: 0 0 24px rgba(255,0,153,.35), inset 0 0 12px rgba(255,0,153,.12);
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+.panel.accent-cyan   { border-color: var(--neon-cyan);   box-shadow: 0 0 24px rgba(0,247,255,.35),  inset 0 0 12px rgba(0,247,255,.12); }
+.panel.accent-yellow { border-color: var(--neon-yellow); box-shadow: 0 0 24px rgba(255,230,0,.35),  inset 0 0 12px rgba(255,230,0,.12); }
+.panel.accent-lime   { border-color: var(--neon-lime);   box-shadow: 0 0 24px rgba(162,255,0,.35),  inset 0 0 12px rgba(162,255,0,.12); }
+.panel.accent-acid   { border-color: var(--neon-acid);   box-shadow: 0 0 24px rgba(184,255,46,.35), inset 0 0 12px rgba(184,255,46,.12); }
+
+.panel h2, .panel h3 {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  letter-spacing: .08em;
+  color: var(--neon-yellow);
+  text-shadow: 0 0 10px currentColor;
+}
+
+/* ─────────── BUTTONS ─────────── */
+.trip-btn {
+  font-family: var(--font-display);
+  background: linear-gradient(45deg, var(--neon-pink), var(--neon-yellow));
+  color: #120022;
+  border: 3px solid #fff;
+  padding: 14px 28px;
+  font-size: clamp(1rem, 3.5vw, 1.4rem);
+  cursor: pointer;
+  letter-spacing: .15em;
+  box-shadow: 0 0 30px var(--neon-pink), inset 0 0 10px rgba(255,255,255,.4);
+  transform: rotate(-1deg);
+  transition: transform .15s, filter .15s;
+  text-transform: uppercase;
+}
+.trip-btn:hover, .trip-btn:active { transform: rotate(1deg) scale(1.04); filter: brightness(1.15); }
+.trip-btn.cyan   { background: linear-gradient(45deg, var(--neon-cyan),   var(--neon-lime));   box-shadow: 0 0 30px var(--neon-cyan); }
+.trip-btn.yellow { background: linear-gradient(45deg, var(--neon-yellow), var(--neon-pink));   box-shadow: 0 0 30px var(--neon-yellow); }
+.trip-btn.green  { background: linear-gradient(45deg, var(--neon-lime),   var(--neon-cyan));   box-shadow: 0 0 30px var(--neon-lime); }
+.trip-btn.ghost  { background: transparent; color: var(--cream); border-color: var(--cream); box-shadow: 0 0 12px rgba(255,233,196,.4); }
+
+.trip-btn:disabled {
+  filter: grayscale(.6) brightness(.6); cursor: not-allowed; transform: none;
+}
+
+/* ─────────── HUD ─────────── */
+.hud {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 10px 14px;
+  background: linear-gradient(180deg, rgba(12,3,32,.95), rgba(12,3,32,.6));
+  border-bottom: 2px solid var(--neon-pink);
+  backdrop-filter: blur(8px);
+  font-family: var(--font-mono);
+  font-size: 18px;
+}
+.hud .stat {
+  border: 1.5px solid var(--neon-cyan);
+  padding: 4px 10px;
+  background: rgba(0,0,0,.5);
+  box-shadow: inset 0 0 8px rgba(0,247,255,.2);
+  min-width: 80px;
+}
+.hud .stat .lbl {
+  font-family: var(--font-body);
+  font-size: 11px; letter-spacing: .15em;
+  color: var(--neon-cyan); text-transform: uppercase;
+}
+.hud .stat .val {
+  font-size: 20px; color: var(--neon-yellow); text-shadow: 0 0 8px currentColor;
+}
+.hud .stat.pink  { border-color: var(--neon-pink);   box-shadow: inset 0 0 8px rgba(255,0,153,.25); }
+.hud .stat.pink  .lbl { color: var(--neon-pink); }
+.hud .stat.acid  { border-color: var(--neon-acid);   box-shadow: inset 0 0 8px rgba(184,255,46,.25); }
+.hud .stat.acid  .lbl { color: var(--neon-acid); }
+.hud .stat.blood { border-color: var(--blood);       box-shadow: inset 0 0 8px rgba(193,18,31,.25); }
+.hud .stat.blood .lbl { color: var(--blood); }
+.hud .stat.blood .val { color: var(--blood); }
+
+.hud .hud-bar {
+  position: relative; width: 80px; height: 6px; background: #000; margin-top: 4px;
+  border: 1px solid currentColor;
+}
+.hud .hud-bar i {
+  position: absolute; inset: 0; background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+}
+
+/* ─────────── NAV LINKS ─────────── */
+.topnav {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  padding: 6px 14px;
+  background: rgba(0,0,0,.5);
+  border-bottom: 1px solid rgba(255,0,153,.3);
+  font-family: var(--font-mono);
+}
+.topnav a {
+  color: var(--neon-cyan); text-decoration: none;
+  padding: 2px 8px; border: 1px solid transparent;
+  font-size: 16px; letter-spacing: .08em;
+}
+.topnav a:hover { border-color: var(--neon-cyan); color: var(--cream); background: rgba(0,247,255,.1); }
+.topnav a.home { color: var(--neon-yellow); }
+
+/* ─────────── TYPEWRITER ─────────── */
+.typer {
+  font-family: var(--font-mono);
+  font-size: clamp(18px, 3.2vw, 24px);
+  color: var(--cream);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  max-width: 720px;
+  text-shadow: 0 0 8px rgba(255,233,196,.25);
+}
+.typer .caret { display: inline-block; width: .5em; background: var(--neon-yellow); animation: blink 0.8s steps(2) infinite; }
+@keyframes blink { to { opacity: 0; } }
+
+/* ─────────── LAYOUT WRAPPERS ─────────── */
+.wrap {
+  max-width: 1100px; margin: 0 auto; padding: 24px 18px 80px;
+}
+.centered {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center; padding: 24px;
+}
+
+/* ─────────── PORTAL GRID (hub menu) ─────────── */
+.portal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+.portal {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1.05;
+  border: 2px solid var(--neon-cyan);
+  background: linear-gradient(160deg, rgba(255,0,153,.15), rgba(0,247,255,.1));
+  padding: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--cream);
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 0 24px rgba(0,247,255,.3), inset 0 0 18px rgba(255,0,153,.1);
+}
+.portal:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 0 40px var(--neon-pink), inset 0 0 30px rgba(255,0,153,.25); }
+.portal .p-icon {
+  font-size: clamp(48px, 10vw, 80px); display: block; line-height: 1;
+  filter: drop-shadow(0 0 12px currentColor);
+}
+.portal .p-name {
+  font-family: var(--font-display); letter-spacing: .08em;
+  font-size: clamp(14px, 2.6vw, 20px);
+  margin-top: 10px;
+  color: var(--neon-yellow);
+  text-shadow: 0 0 8px currentColor;
+}
+.portal .p-desc {
+  font-family: var(--font-body);
+  font-size: 14px; color: #d0c0a0; font-style: italic;
+  margin-top: 6px;
+}
+.portal .p-status {
+  position: absolute; top: 8px; right: 8px;
+  font-family: var(--font-mono); font-size: 14px; letter-spacing: .1em;
+  padding: 2px 6px; border: 1px solid var(--neon-acid); color: var(--neon-acid);
+  background: rgba(0,0,0,.6);
+}
+.portal.locked { filter: saturate(.3) brightness(.5); }
+.portal.locked .p-status { border-color: var(--blood); color: var(--blood); }
+.portal.completed { border-color: var(--neon-lime); box-shadow: 0 0 30px var(--neon-lime); }
+.portal.completed .p-status { border-color: var(--neon-lime); color: var(--neon-lime); }
+
+/* portal color variants — gives each its own vibe */
+.portal.v-pink   { border-color: var(--neon-pink);    background: linear-gradient(160deg, rgba(255,0,153,.25), rgba(106,0,255,.15)); }
+.portal.v-yellow { border-color: var(--neon-yellow);  background: linear-gradient(160deg, rgba(255,230,0,.2),  rgba(193,18,31,.12)); }
+.portal.v-lime   { border-color: var(--neon-lime);    background: linear-gradient(160deg, rgba(162,255,0,.18), rgba(0,247,255,.1)); }
+.portal.v-blood  { border-color: var(--blood);        background: linear-gradient(160deg, rgba(193,18,31,.3),  rgba(0,0,0,.5)); }
+.portal.v-purple { border-color: var(--neon-purple);  background: linear-gradient(160deg, rgba(106,0,255,.3),  rgba(255,0,153,.15)); }
+.portal.v-teal   { border-color: var(--neon-teal);    background: linear-gradient(160deg, rgba(34,240,210,.2), rgba(72,0,58,.2)); }
+
+/* ─────────── FLASH / TOAST ─────────── */
+.toast {
+  position: fixed; left: 50%; top: 80px; transform: translateX(-50%);
+  background: var(--ink); color: var(--neon-yellow);
+  border: 2px solid var(--neon-yellow); padding: 12px 20px;
+  font-family: var(--font-mono); font-size: 18px; letter-spacing: .08em;
+  box-shadow: 0 0 30px var(--neon-yellow);
+  z-index: 100;
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s, transform .3s;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(6px); }
+
+/* ─────────── HOME BUTTON (sticky back-to-hub) ─────────── */
+.home-btn {
+  position: fixed; top: 12px; left: 12px; z-index: 50;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-display); font-size: 14px; letter-spacing: .1em;
+  color: var(--neon-yellow); background: rgba(0,0,0,.75);
+  border: 2px solid var(--neon-yellow);
+  padding: 6px 12px; text-decoration: none;
+  box-shadow: 0 0 20px rgba(255,230,0,.5);
+}
+.home-btn:hover { filter: brightness(1.3); transform: scale(1.05); }
+
+/* ─────────── UTILITY ─────────── */
+.flex { display: flex; gap: 12px; flex-wrap: wrap; }
+.mt  { margin-top: 12px; }
+.mt2 { margin-top: 24px; }
+.mt3 { margin-top: 40px; }
+.grow { flex: 1; }
+.tc { text-align: center; }
+.fade-in { animation: fadeIn .8s both; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } }
+
+.acid    { color: var(--neon-acid); }
+.pink    { color: var(--neon-pink); }
+.yellow  { color: var(--neon-yellow); }
+.cyan    { color: var(--neon-cyan); }
+.lime    { color: var(--neon-lime); }
+.blood   { color: var(--blood); }
+.cream   { color: var(--cream); }
+
+/* ─────────── RESPONSIVE ─────────── */
+@media (max-width: 640px) {
+  .hud { font-size: 16px; gap: 6px; padding: 8px 10px; }
+  .hud .stat { min-width: 64px; padding: 3px 8px; }
+  .wrap { padding: 16px 12px 60px; }
+}

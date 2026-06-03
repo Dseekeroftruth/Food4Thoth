@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>◉ THE THROBBING DOOR — Exit, Hypothetically ◉</title>
+<link rel="stylesheet" href="assets/shared.css">
+<style>
+  .endWrap {
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-start; padding: 40px 18px 80px; position: relative;
+  }
+
+  /* the throbbing door itself */
+  .doorStage {
+    position: relative;
+    width: min(80vw, 420px);
+    aspect-ratio: 2/3;
+    margin: 30px auto;
+    filter: drop-shadow(0 0 40px var(--neon-pink));
+  }
+  .door {
+    position: absolute; inset: 0;
+    border-radius: 50% 50% 8px 8px / 30% 30% 2% 2%;
+    background:
+      radial-gradient(ellipse at 50% 40%, var(--neon-yellow) 0%, var(--neon-pink) 25%, var(--neon-purple) 65%, #1a002b 95%);
+    animation: throb 1.6s ease-in-out infinite;
+    overflow: hidden;
+  }
+  .door::before {
+    content: "";
+    position: absolute; inset: 10% 14%;
+    border: 4px solid rgba(255,255,255,.4);
+    border-radius: 50% 50% 4px 4px / 30% 30% 1% 1%;
+    animation: glow 1.6s ease-in-out infinite;
+  }
+  .door::after {
+    content: "👁";
+    position: absolute; top: 44%; left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: clamp(60px, 12vw, 100px);
+    filter: drop-shadow(0 0 18px #fff);
+    animation: iris 1.6s ease-in-out infinite;
+  }
+  @keyframes throb {
+    0%,100% { transform: scale(1);     filter: hue-rotate(0deg); }
+    50%     { transform: scale(1.06); filter: hue-rotate(30deg); }
+  }
+  @keyframes glow  { 0%,100%{opacity:.5} 50%{opacity:1} }
+  @keyframes iris  {
+    0%,100% { transform: translate(-50%,-50%) scale(1); }
+    50%     { transform: translate(-50%,-50%) scale(1.14); }
+  }
+  .doorknob {
+    position: absolute; right: 20%; top: 55%;
+    width: 8%; aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff, #ffe600 60%, #6a3a00);
+    box-shadow: 0 0 20px var(--neon-yellow);
+  }
+
+  /* sealed door (if you haven't finished both) */
+  .sealed .door {
+    filter: grayscale(.75) brightness(.4);
+    animation: none;
+  }
+  .sealed .door::after { opacity: .3; }
+
+  .seal {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    font-family: var(--font-horror);
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    color: var(--blood);
+    text-shadow: 0 0 18px var(--blood);
+    letter-spacing: .1em;
+    background: radial-gradient(circle, rgba(0,0,0,.6) 40%, transparent 70%);
+    text-align: center;
+    transform: rotate(-6deg);
+  }
+
+  .endText {
+    max-width: 680px; padding: 22px;
+    background: rgba(10,3,24,.7);
+    border-left: 4px solid var(--neon-yellow);
+    font-family: var(--font-mono); font-size: 20px;
+    color: var(--cream); line-height: 1.5;
+    margin: 20px auto;
+    min-height: 140px;
+  }
+  .endText em { color: var(--neon-cyan); font-style: italic; }
+  .endText b { color: var(--neon-yellow); }
+
+  .scorecard {
+    max-width: 680px; margin: 20px auto; padding: 18px;
+    background: rgba(0,0,0,.65);
+    border: 2px solid var(--neon-cyan);
+    box-shadow: 0 0 24px rgba(0,247,255,.3);
+  }
+  .scorecard h3 {
+    font-family: var(--font-display); color: var(--neon-yellow);
+    letter-spacing: .1em; margin: 0 0 10px;
+  }
+  .scorerow {
+    display: flex; justify-content: space-between; padding: 6px 0;
+    border-bottom: 1px dashed rgba(255,255,255,.15);
+    font-family: var(--font-mono); font-size: 18px;
+  }
+  .scorerow:last-child { border-bottom: 0; }
+  .scorerow .lbl { color: var(--neon-cyan); letter-spacing: .08em; }
+  .scorerow .val { color: var(--cream); }
+
+  .creditbox {
+    max-width: 680px; margin: 24px auto; text-align: center;
+    font-family: var(--font-mono); font-size: 16px; color: #998;
+  }
+  .creditbox h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    color: var(--neon-pink); letter-spacing: .08em;
+    text-shadow: 0 0 12px currentColor;
+  }
+
+  .verdict {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 7vw, 3.5rem);
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-yellow), var(--neon-cyan), var(--neon-lime), var(--neon-pink));
+    background-size: 300% auto;
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+    animation: hueSlide 3s linear infinite;
+    text-align: center;
+    margin: 28px 0 10px;
+    letter-spacing: .03em;
+    line-height: 1.05;
+  }
+</style>
+</head>
+<body>
+
+<div class="endWrap">
+
+  <div class="verdict" id="verdict">— — —</div>
+
+  <div class="doorStage" id="doorStage">
+    <div class="door">
+      <div class="doorknob"></div>
+    </div>
+    <div class="seal" id="sealText" style="display:none">◉ SEALED ◉<br><span style="font-family:var(--font-mono);font-size:.5em;letter-spacing:.2em;color:#b88">PAY THE DEBT. FIND THE DOOR.</span></div>
+  </div>
+
+  <div class="endText" id="endText">Reading the dream's final pages...</div>
+
+  <div class="scorecard" id="scorecard">
+    <h3>FINAL TALLY</h3>
+    <div id="rows"></div>
+  </div>
+
+  <div class="creditbox">
+    <h2>THE TRIP — CREDITS</h2>
+    <p>A collaboration of three dreams:<br>
+    <span style="color:var(--neon-pink)">WHIMSY WARS</span> · <span style="color:var(--neon-cyan)">WONDER / DOOM</span> · <span style="color:var(--neon-lime)">THE NEON SERPENT SPIRAL</span></p>
+    <p style="font-style:italic;color:#776;margin-top:10px">
+    "One pill makes you larger, and one pill makes you small,<br>
+    and the ones that mother gives you don't do anything at all..."
+    </p>
+  </div>
+
+  <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:20px">
+    <a href="index.html" class="trip-btn cyan">◉ RETURN TO HUB</a>
+    <a href="codex.html" class="trip-btn ghost">📖 VIEW CODEX</a>
+    <button class="trip-btn" onclick="anotherDream()">⟲ ANOTHER DREAM</button>
+  </div>
+
+</div>
+
+<script src="assets/shared.js"></script>
+<script>
+TRIP.mountAtmosphere({ floaterCount: 22 });
+TRIP.mountHomeButton();
+
+const s = TRIP.state;
+const canEnd = s.completed.whimsy && s.completed.doom;
+
+if (!canEnd) {
+  document.getElementById('doorStage').classList.add('sealed');
+  document.getElementById('sealText').style.display = 'grid';
+
+  document.getElementById('verdict').textContent = 'THE DOOR WILL NOT OPEN';
+  const missing = [];
+  if (!s.completed.whimsy) missing.push('clear the debt in <b>Whimsy Wars</b>');
+  if (!s.completed.doom)   missing.push('find the throbbing door in <b>Wonder / Doom</b>');
+  document.getElementById('endText').innerHTML = `
+    The door throbs for other dreamers tonight. It does not throb for you.<br><br>
+    To walk through, you must first: <em>${missing.join(', and ')}</em>.<br><br>
+    The Jabberwock is unsatisfied. The Cheshire is <em>amused</em>.
+  `;
+
+  document.getElementById('scorecard').style.display = 'none';
+} else {
+  // verdict based on stats
+  let verdict = 'YOU WOKE UP';
+  const lu = s.lucidity, pa = s.paranoia, codex = s.codex.length;
+  if (lu >= 80 && pa <= 30) verdict = 'LUCID DEPARTURE';
+  else if (pa >= 75)        verdict = 'YOU ESCAPED, BARELY';
+  else if (codex >= 10)     verdict = 'THE DREAM COMPENDIUM';
+  else if (s.threads >= 5000) verdict = 'MAGNIFICENTLY SOLVENT';
+  else if (s.threads >= 1000) verdict = 'YOU MADE IT OUT';
+
+  document.getElementById('verdict').textContent = verdict;
+
+  // choose an ending vignette
+  let text = '';
+  if (lu >= 80 && pa <= 30) {
+    text = `The throbbing door opens without ceremony. On the other side is your own bedroom, at 3:14 AM. The blanket is still warm. You hear a cat grin in the kitchen, but when you look, there is only a smile on the counter, gently dissolving. You keep <em>${s.threads}</em> threads of dream-silk. They will buy strange things in the world.`;
+  } else if (pa >= 75) {
+    text = `You shove through the door with both hands. It resists. It is <em>offended</em>. Something with too many teeth is half a corridor behind you, humming your name in seven keys. You make it out. You lose a year of your memory as a toll. You carry <em>${s.threads}</em> threads, and a ringing in your left ear that sounds, if you listen, like the Jabberwock counting.`;
+  } else if (codex >= 10) {
+    text = `You step through and the door closes behind you like a library does at closing time — politely, finally, for good. In your pockets, the full ledger of the dream's residents. Every face, every name. The Caterpillar sent regards. Bucky Fuller sent a single gemstone. You will write about this for the rest of your life.`;
+  } else {
+    text = `You walk through the door. The dream lets you. It was never, in the end, the geometry that wanted you — it was only the debt, and you have paid. You keep <em>${s.threads}</em> threads. You keep <em>${s.visitCount}</em> memories of the hub. You keep, quietly, a suspicion that the Cheshire is still grinning somewhere inside you.`;
+  }
+  document.getElementById('endText').innerHTML = text;
+
+  // scorecard
+  const rows = document.getElementById('rows');
+  const tonicMap = { blue:'Blue Bottle', red:'Red Pill', yellow:'Yellow Sugar' };
+  const entries = [
+    ['Dreamer', `${s.avatar} ${TRIP.escapeHtml(s.name||'—')}`],
+    ['Starting Tonic', tonicMap[s.tonic] || '—'],
+    ['Final Threads', s.threads.toLocaleString()],
+    ['Lucidity', `${s.lucidity}/100`],
+    ['Paranoia', `${s.paranoia}/100`],
+    ['Dream-days Lived', s.days],
+    ['Hub Visits', s.visitCount],
+    ['Codex Entries', `${s.codex.length}/${TRIP.CODEX.length}`],
+    ['Whimsy Wars', s.completed.whimsy ? '✓ DEBT PAID' : '—'],
+    ['Wonder / Doom', s.completed.doom ? '✓ DOOR FOUND' : '—'],
+    ['Neon Spiral', s.completed.spiral ? '✓ WALKED' : '—'],
+    ['Oracle Solved', s.completed.oracle ? '✓' : '—'],
+    ['Tea Party Won', s.completed.tea ? '✓' : '—']
+  ];
+  entries.forEach(([k,v]) => {
+    rows.insertAdjacentHTML('beforeend', `<div class="scorerow"><span class="lbl">${k}</span><span class="val">${v}</span></div>`);
+  });
+
+  // unlock everything in codex on ending
+  TRIP.unlockCodex('throbbing-door');
+}
+
+TRIP.visit('ending');
+
+function anotherDream() {
+  if (!confirm('Start a fresh trip? Your current dreamer will dissolve.')) return;
+  TRIP.reset();
+  location.href = 'prologue.html';
+}
+</script>
+</body>
+</html>

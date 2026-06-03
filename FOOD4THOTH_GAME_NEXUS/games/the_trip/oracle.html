@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>◉ THE CATERPILLAR — Three Riddles, One Smoke ◉</title>
+<link rel="stylesheet" href="assets/shared.css">
+<style>
+  .oracleWrap {
+    max-width: 760px; margin: 0 auto; padding: 24px 18px 80px;
+  }
+
+  .caterpillar {
+    position: relative;
+    margin: 12px auto 24px;
+    display: flex; justify-content: center;
+  }
+  .caterpillar .body {
+    display: flex; gap: 2px;
+    filter: drop-shadow(0 0 18px var(--neon-lime));
+  }
+  .caterpillar .seg {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #e1ff00, #5a8a00);
+    border: 2px solid #2a4500;
+    animation: squirm 2s ease-in-out infinite;
+  }
+  .caterpillar .seg.head {
+    background: radial-gradient(circle at 30% 30%, #d0ff00, #406a00);
+    position: relative;
+  }
+  .caterpillar .seg.head::after {
+    content: "👀"; position: absolute; inset: 0;
+    display: grid; place-items: center; font-size: 22px;
+  }
+  .caterpillar .smoke {
+    position: absolute; top: -40px; right: -10px;
+    font-size: 40px; animation: smoke 4s linear infinite;
+    opacity: 0;
+  }
+  @keyframes smoke {
+    0% { opacity: 0; transform: translateY(0) rotate(0deg); }
+    25% { opacity: .9; }
+    100% { opacity: 0; transform: translateY(-80px) rotate(180deg); }
+  }
+  @keyframes squirm {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-6px); }
+  }
+  .caterpillar .seg:nth-child(1) { animation-delay: 0s; }
+  .caterpillar .seg:nth-child(2) { animation-delay: .12s; }
+  .caterpillar .seg:nth-child(3) { animation-delay: .24s; }
+  .caterpillar .seg:nth-child(4) { animation-delay: .36s; }
+  .caterpillar .seg:nth-child(5) { animation-delay: .48s; }
+  .caterpillar .seg:nth-child(6) { animation-delay: .60s; }
+
+  .voice {
+    padding: 18px 20px;
+    background: rgba(20,5,0,.6);
+    border: 2px solid var(--neon-lime);
+    border-radius: 2px;
+    box-shadow: 0 0 24px rgba(162,255,0,.3), inset 0 0 16px rgba(162,255,0,.1);
+    font-family: var(--font-mono);
+    font-size: clamp(18px, 3.2vw, 22px);
+    line-height: 1.5;
+    color: var(--neon-acid);
+    min-height: 110px;
+    position: relative;
+  }
+  .voice::before {
+    content: "— THE CATERPILLAR, speaking through its smoke —";
+    position: absolute; top: -10px; left: 14px;
+    background: var(--deep); padding: 0 8px;
+    font-family: var(--font-display); font-size: 12px;
+    color: var(--neon-lime); letter-spacing: .1em;
+    text-shadow: 0 0 8px currentColor;
+  }
+
+  .choices { display: grid; gap: 12px; margin-top: 24px; }
+  .choice {
+    font-family: var(--font-mono); font-size: 19px;
+    background: linear-gradient(90deg, rgba(0,0,0,.7), rgba(0,0,0,.5));
+    color: var(--cream);
+    border: 2px solid var(--neon-cyan);
+    padding: 12px 16px;
+    text-align: left;
+    cursor: pointer;
+    transition: transform .12s, background .15s, border-color .15s;
+    letter-spacing: .03em;
+    position: relative;
+  }
+  .choice::before {
+    content: attr(data-letter);
+    display: inline-block; margin-right: 10px;
+    font-family: var(--font-display); color: var(--neon-yellow);
+    letter-spacing: 0;
+  }
+  .choice:hover { background: rgba(0,247,255,.08); transform: translateX(4px); }
+
+  .choice.correct   { border-color: var(--neon-lime); background: rgba(162,255,0,.15); color: var(--neon-lime); box-shadow: 0 0 20px var(--neon-lime); }
+  .choice.wrong     { border-color: var(--blood);    background: rgba(193,18,31,.18); color: #ffb8b8; }
+  .choice.disabled { pointer-events: none; opacity: .55; }
+
+  .progress {
+    display: flex; justify-content: center; gap: 8px; margin: 20px 0 10px;
+    font-family: var(--font-mono); font-size: 16px; color: #b8a890;
+    letter-spacing: .2em;
+  }
+  .progress .p {
+    width: 18px; height: 18px; border: 2px solid var(--neon-cyan); display: inline-block;
+  }
+  .progress .p.on { background: var(--neon-yellow); border-color: var(--neon-yellow); box-shadow: 0 0 10px var(--neon-yellow); }
+  .progress .p.miss { background: var(--blood); border-color: var(--blood); }
+
+  .finale-card {
+    text-align: center; margin-top: 30px; padding: 24px;
+    background: rgba(0,0,0,.6);
+    border: 2px solid var(--neon-pink);
+    box-shadow: 0 0 30px rgba(255,0,153,.4);
+    display: none;
+  }
+  .finale-card.show { display: block; }
+  .finale-card h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 5vw, 2.4rem); margin: 0 0 10px;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-yellow), var(--neon-lime));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    background-size: 200% auto; animation: hueSlide 3s linear infinite;
+  }
+  .reward {
+    margin-top: 18px; display: grid; gap: 8px; max-width: 320px; margin-left: auto; margin-right: auto;
+    font-family: var(--font-mono); font-size: 20px; text-align: left;
+  }
+  .reward div { border-left: 3px solid var(--neon-acid); padding-left: 10px; }
+</style>
+</head>
+<body>
+
+<div class="oracleWrap">
+
+  <div class="tc" style="padding:8px 0">
+    <h1 class="glitchType" data-t="THE CATERPILLAR" style="font-size:clamp(1.8rem,6vw,3rem);display:inline-block">THE CATERPILLAR</h1>
+    <p style="color:#b8c098;font-style:italic;margin:6px 0 0">
+      It perches on a mushroom the size of a hotel lobby. It is smoking something you are not allowed to know about. It asks three things.
+    </p>
+  </div>
+
+  <div class="caterpillar">
+    <div class="body">
+      <div class="seg"></div>
+      <div class="seg"></div>
+      <div class="seg"></div>
+      <div class="seg"></div>
+      <div class="seg"></div>
+      <div class="seg head"></div>
+    </div>
+    <div class="smoke">💨</div>
+  </div>
+
+  <div class="progress" id="prog">
+    <span class="p" data-i="0"></span>
+    <span class="p" data-i="1"></span>
+    <span class="p" data-i="2"></span>
+  </div>
+
+  <div class="voice" id="voice">The Caterpillar draws on the hookah. A lung's worth of color rises. It regards you with six-tenths of its eyes.</div>
+
+  <div class="choices" id="choices"></div>
+
+  <div class="finale-card" id="finale">
+    <h2 id="finaleTitle">—</h2>
+    <div id="finaleBody" style="color:#c0b098;font-style:italic;max-width:520px;margin:0 auto"></div>
+    <div class="reward" id="rewardList"></div>
+    <div class="mt2" style="text-align:center">
+      <a href="index.html" class="trip-btn cyan">◉ RETURN TO HUB</a>
+    </div>
+  </div>
+
+</div>
+
+<script src="assets/shared.js"></script>
+<script>
+TRIP.mountAtmosphere();
+TRIP.mountHUD();
+TRIP.mountTopNav('oracle');
+TRIP.visit('oracle');
+
+/* Three riddles — not the classics. Each has one "true" answer (gives most threads),
+   one "clever" answer (gives half), and one "wrong" answer (costs lucidity).
+   The Caterpillar judges you for all three paths, which is why this is fun. */
+
+const RIDDLES = [
+  {
+    q: '"I have a thousand doors and not one of them hinges. I open when you sleep and close when you notice. Walk me and you will forget the way you came. What am I?"',
+    choices: [
+      { text: 'A hallway.',        score: 0,  reply: '"A hallway. You are not serious. Please be serious. The smoke is not cheap."' },
+      { text: 'A memory.',         score: 50, reply: '"Warm, but memory at least pretends to have corners. Closer."' },
+      { text: 'A dream.',          score: 100, reply: '"Yes. You recognize me because you are inside me. That is usually the last thing anyone admits."' },
+      { text: 'The internet.',     score: 30, reply: '"Structurally correct. Philosophically boring. Half marks, out of pity."' }
+    ]
+  },
+  {
+    q: '"I come in every color but the one you\'re about to need. I pay all my debts with other people\'s debts. Children invent me at four and forget me at twenty. Name me."',
+    choices: [
+      { text: 'Money.',            score: 40, reply: '"Money is far stupider than me. But I understand the confusion. Partial credit."' },
+      { text: 'An imaginary friend.', score: 100, reply: '"Yes. And I am, for the record, very hurt about the forgetting. Have some smoke."' },
+      { text: 'A lie.',            score: 50, reply: '"Warm. A lie has worse taste in clothing than I do, though. Half marks."' },
+      { text: 'Language.',         score: 70, reply: '"Uncomfortably near. The smoke likes you. 70."' }
+    ]
+  },
+  {
+    q: '"I am the only thing in this dream that is demonstrably real. I am also the reason you are here. The Jabberwock knows my name but will not say it aloud. Say it, and the riddle ends."',
+    choices: [
+      { text: 'Debt.',             score: 100, reply: '"Debt. Yes. A word the dream pretends it doesn\'t understand, but listens to every night. Go. Carry the smoke with you."' },
+      { text: 'Fear.',             score: 30, reply: '"Fear is debt\'s courier, not its boss. 30."' },
+      { text: 'Love.',             score: 0,  reply: '"Oh, child. Love is not real in this dream. It is a decoy. Minus marks for sincerity."' },
+      { text: 'God.',              score: 40, reply: '"Interesting theology, but the Jabberwock is several pay grades above God in this zip code. 40."' }
+    ]
+  }
+];
+
+let idx = 0;
+let totalScore = 0;
+let correctCount = 0;
+
+function showRiddle() {
+  const r = RIDDLES[idx];
+  document.getElementById('voice').textContent = r.q;
+  const c = document.getElementById('choices');
+  c.innerHTML = '';
+  const letters = 'ABCD';
+  r.choices.forEach((ch, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice';
+    btn.dataset.letter = letters[i];
+    btn.textContent = ch.text;
+    btn.onclick = () => pick(i);
+    c.appendChild(btn);
+  });
+}
+
+function pick(i) {
+  const r = RIDDLES[idx];
+  const ch = r.choices[i];
+  const buttons = [...document.querySelectorAll('.choice')];
+  buttons.forEach(b => b.classList.add('disabled'));
+  const chosen = buttons[i];
+
+  if (ch.score >= 100) {
+    chosen.classList.add('correct');
+    document.querySelector(`#prog .p[data-i="${idx}"]`).classList.add('on');
+    correctCount++;
+  } else if (ch.score <= 0) {
+    chosen.classList.add('wrong');
+    document.querySelector(`#prog .p[data-i="${idx}"]`).classList.add('miss');
+  } else {
+    chosen.style.borderColor = 'var(--neon-yellow)';
+    chosen.style.background = 'rgba(255,230,0,.12)';
+    document.querySelector(`#prog .p[data-i="${idx}"]`).style.background = 'var(--neon-yellow)';
+    document.querySelector(`#prog .p[data-i="${idx}"]`).style.borderColor = 'var(--neon-yellow)';
+  }
+  document.getElementById('voice').textContent = ch.reply;
+  totalScore += ch.score;
+  setTimeout(() => {
+    idx++;
+    if (idx >= RIDDLES.length) {
+      finish();
+    } else {
+      showRiddle();
+    }
+  }, 2200);
+}
+
+function finish() {
+  document.getElementById('choices').innerHTML = '';
+  document.getElementById('voice').innerHTML =
+    '<i>The Caterpillar taps the hookah twice. The dream blinks.</i>';
+
+  const card = document.getElementById('finale');
+  const title = document.getElementById('finaleTitle');
+  const body = document.getElementById('finaleBody');
+  const rew = document.getElementById('rewardList');
+
+  // compute rewards
+  let threads = Math.round(totalScore * 2);     // up to 600
+  let lucidity = Math.round(totalScore * 0.1);  // up to 30
+  let paranoia = 0;
+  let verdict = 'EMPTY-HEADED BUT HONEST';
+  if (totalScore >= 280) verdict = 'SHARP AS A PINCUSHION';
+  else if (totalScore >= 180) verdict = 'TOLERABLE';
+  else if (totalScore < 80) { verdict = 'A DISAPPOINTMENT'; paranoia = 10; threads += 50; }
+
+  title.textContent = `${verdict}`;
+  if (correctCount === 3) {
+    body.innerHTML = "Three for three. The Caterpillar blows a smoke ring in the shape of your name. You have earned the full smoke.";
+    TRIP.complete('oracle');
+    TRIP.unlockCodex('caterpillar');
+  } else if (correctCount >= 1) {
+    body.innerHTML = `You got ${correctCount} answer${correctCount>1?'s':''} right. The Caterpillar gives you what the smoke allows.`;
+    TRIP.complete('oracle');
+    TRIP.unlockCodex('caterpillar');
+  } else {
+    body.innerHTML = "You got none of them. The Caterpillar sighs in an ancient language. Take the consolation threads and do better next life.";
+  }
+
+  TRIP.adjust('threads', threads);
+  TRIP.adjust('lucidity', lucidity);
+  if (paranoia) TRIP.adjust('paranoia', paranoia);
+  TRIP.adjust('days', 1);
+
+  rew.innerHTML = '';
+  rew.insertAdjacentHTML('beforeend', `<div>+${threads} THREADS</div>`);
+  rew.insertAdjacentHTML('beforeend', `<div>+${lucidity} LUCIDITY</div>`);
+  if (paranoia) rew.insertAdjacentHTML('beforeend', `<div class="blood">+${paranoia} PARANOIA</div>`);
+  if (correctCount === 3) rew.insertAdjacentHTML('beforeend', `<div class="pink">CODEX UNLOCKED: The Caterpillar</div>`);
+
+  card.classList.add('show');
+  card.scrollIntoView({ behavior:'smooth' });
+}
+
+// pull open the first riddle after a brief pause for atmosphere
+setTimeout(showRiddle, 1200);
+
+// smoke animation trigger
+setInterval(() => {
+  const s = document.querySelector('.caterpillar .smoke');
+  s.style.animation = 'none'; s.offsetHeight;
+  s.style.animation = 'smoke 4s linear';
+}, 4200);
+</script>
+</body>
+</html>

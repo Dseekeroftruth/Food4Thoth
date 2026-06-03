@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#06060c">
+  <meta name="format-detection" content="telephone=no">
+  <title>CELLBOUND — A Roguevania</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-wrap">
+    <div id="game-container">
+      <canvas id="game" width="960" height="540"></canvas>
+
+      <!-- Touch controls (shown on touch devices) -->
+      <div id="touch-controls">
+        <!-- D-pad cluster (left side) -->
+        <div class="touch-cluster touch-left">
+          <div class="dpad">
+            <button class="tbtn dpad-up"    data-key="w"          aria-label="Up"></button>
+            <button class="tbtn dpad-left"  data-key="ArrowLeft"  aria-label="Left"></button>
+            <button class="tbtn dpad-right" data-key="ArrowRight" aria-label="Right"></button>
+            <button class="tbtn dpad-down"  data-key="s"          aria-label="Down"></button>
+            <div class="dpad-center"></div>
+          </div>
+        </div>
+
+        <!-- Action buttons (right side) -->
+        <div class="touch-cluster touch-right">
+          <div class="action-pad">
+            <button class="tbtn act act-jump"  data-key=" "  aria-label="Jump"><span>JUMP</span></button>
+            <button class="tbtn act act-atk"   data-key="j"  aria-label="Attack"><span>ATK</span></button>
+            <button class="tbtn act act-heavy" data-key="k"  aria-label="Heavy"><span>HVY</span></button>
+            <button class="tbtn act act-roll"  data-key="l"  aria-label="Roll"><span>ROLL</span></button>
+          </div>
+          <button class="tbtn act-use" data-key="e" aria-label="Use"><span>USE</span></button>
+        </div>
+
+        <!-- Pause / menu -->
+        <button class="tbtn pause-btn" data-key="Escape" aria-label="Pause"><span>≡</span></button>
+      </div>
+
+      <!-- Title overlay -->
+      <div id="overlay">
+        <div class="overlay-inner">
+          <div id="title">CELLBOUND</div>
+          <div id="subtitle">A ROGUEVANIA</div>
+          <div id="hint">TAP OR PRESS ANY KEY TO BEGIN</div>
+
+          <div id="controls-desktop">
+            <div class="ctrl-row"><span>MOVE</span><span class="key">A</span><span class="key">D</span><span class="dim">/</span><span class="key">←</span><span class="key">→</span></div>
+            <div class="ctrl-row"><span>JUMP</span><span class="key">W</span><span class="dim">/</span><span class="key">SPACE</span><span class="dim">(double)</span></div>
+            <div class="ctrl-row"><span>ATTACK</span><span class="key">J</span></div>
+            <div class="ctrl-row"><span>HEAVY</span><span class="key">K</span></div>
+            <div class="ctrl-row"><span>ROLL</span><span class="key">L</span><span class="dim">(i-frames)</span></div>
+            <div class="ctrl-row"><span>USE</span><span class="key">E</span></div>
+          </div>
+
+          <div id="controls-mobile">
+            <div class="mctrl">D-PAD MOVES · JUMP / ROLL / ATTACK ON RIGHT</div>
+            <div class="mctrl-dim">DOUBLE-TAP JUMP FOR DOUBLE JUMP · USE FOR DOORS</div>
+            <div class="mctrl-dim rotate-hint">⟲ ROTATE TO LANDSCAPE FOR BEST EXPERIENCE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="footer">CELLBOUND v1.0</div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Ember Below: Sunroot Descent</title>
+<meta name="description" content="A psychedelic 4x4 luck-grid roguelite with handcrafted animation, row odds, sun powers, shops, stone teeth, coin deposits, and permanent surface upgrades." />
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&display=swap');
+
+:root{
+  --ink:#170b19;
+  --deep:#080511;
+  --night:#17102b;
+  --night2:#271d45;
+  --gold:#ffc86b;
+  --gold2:#ffea9d;
+  --ember:#ff6d35;
+  --ember2:#ff2ca3;
+  --cyan:#4bf3ff;
+  --green:#82ff73;
+  --violet:#9a5cff;
+  --bone:#f8e9bf;
+  --paper:#ead49b;
+  --blood:#bb253c;
+  --shadow:rgba(0,0,0,.44);
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body,#game{margin:0;width:100%;height:100%;background:var(--deep);overflow:hidden;touch-action:manipulation;overscroll-behavior:none}
+body{font-family:"Cormorant Garamond",serif;color:var(--bone)}
+button{font-family:inherit;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+#game{
+  width:100vw;height:100dvh;max-width:980px;margin:0 auto;position:relative;
+  background:linear-gradient(180deg,#10061b,#06030c);
+  isolation:isolate;
+}
+#ambient-layer{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;will-change:transform,opacity;transform:translateZ(0)}
+#screen-root{position:absolute;inset:0;z-index:4}
+.ambient-wash{
+  position:absolute;inset:-18%;opacity:.62;filter:blur(28px) saturate(1.18);
+  animation:ambientDrift 24s ease-in-out infinite alternate, ambientHue 18s linear infinite;
+  will-change:transform,opacity;transform:translateZ(0);backface-visibility:hidden;
+}
+.ambient-flow{
+  position:absolute;inset:-30%;opacity:.18;mix-blend-mode:screen;
+  animation:slowSpin 70s linear infinite, ambientPulse 12s ease-in-out infinite;
+  will-change:transform,opacity;transform:translateZ(0);backface-visibility:hidden;
+}
+#game:before{
+  content:"";position:absolute;inset:-40%;z-index:0;opacity:.16;pointer-events:none;
+  background:conic-gradient(from 20deg,var(--ember),transparent 20deg,var(--cyan) 55deg,transparent 80deg,var(--gold) 130deg,transparent 160deg,var(--ember2) 215deg,transparent 255deg,var(--green) 310deg,transparent 350deg);
+  animation:slowSpin 44s linear infinite;
+}
+#game:after{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    repeating-linear-gradient(35deg,rgba(255,255,255,.035) 0 1px,transparent 1px 18px),
+    radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,.72) 100%);
+  mix-blend-mode:screen;
+}
+
+.screen{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px}
+.story-layer,.dungeon-layer{background:linear-gradient(180deg,rgba(10,7,18,.28),rgba(5,3,10,.14));backdrop-filter:blur(1.5px)}
+.scrollable{overflow:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch}
+h1,h2,h3,.fell{font-family:"IM Fell DW Pica",serif;font-weight:400}
+h1{font-size:clamp(44px,12vw,86px);line-height:.88;margin:0;text-align:center;letter-spacing:.05em;text-shadow:0 3px 0 #000,0 0 28px var(--ember),0 0 60px var(--ember2)}
+h2{font-size:clamp(30px,8vw,54px);margin:0;text-align:center;line-height:1}
+h3{font-size:24px;margin:0 0 6px}
+p{font-size:18px;line-height:1.45;max-width:640px}
+.small{font-size:14px}
+.muted{opacity:.78;color:#e7cf9b}
+.overline{font-family:"IM Fell DW Pica",serif;letter-spacing:.22em;font-size:13px;color:var(--gold2);text-align:center}
+.btn{
+  border:2px solid #120914;border-radius:6px;background:linear-gradient(180deg,var(--gold2),var(--ember));
+  color:#170b19;padding:11px 18px;box-shadow:4px 4px 0 #000;cursor:pointer;
+  font-family:"IM Fell DW Pica",serif;font-size:16px;letter-spacing:.07em;transition:transform .12s,filter .12s,opacity .12s;
+}
+.btn:active{transform:translateY(2px);box-shadow:2px 2px 0 #000}
+.btn:disabled{opacity:.42;filter:grayscale(.6);cursor:not-allowed}
+.btn.ghost{background:rgba(0,0,0,.15);color:var(--bone);border-color:var(--bone);box-shadow:none}
+.btn.pink{background:linear-gradient(180deg,#ffdbf1,var(--ember2))}
+.btn.cyan{background:linear-gradient(180deg,#e0feff,var(--cyan))}
+.btn.green{background:linear-gradient(180deg,#e9ffe3,var(--green))}
+.row{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
+
+.card{
+  width:min(680px,100%);border:2px solid #0d0610;border-radius:14px;padding:16px;
+  background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(0,0,0,.22)),rgba(32,19,54,.78);
+  box-shadow:0 10px 0 rgba(0,0,0,.42),0 0 30px rgba(255,109,53,.2);
+  backdrop-filter:blur(8px);
+}
+.sunface{
+  width:150px;height:150px;border-radius:50%;display:grid;place-items:center;font-size:72px;position:relative;margin-bottom:12px;
+  background:radial-gradient(circle,var(--gold2),var(--gold) 45%,var(--ember) 68%,var(--ember2));
+  box-shadow:0 0 30px var(--gold),0 0 70px var(--ember2),inset 0 0 20px rgba(255,255,255,.5);
+  animation:bob 2.7s ease-in-out infinite;
+}
+.sunface:before,.sunface:after{content:"";position:absolute;inset:-20px;border:4px dotted var(--cyan);border-radius:50%;animation:slowSpin 12s linear infinite}
+.sunface:after{inset:-34px;border-style:dashed;border-color:var(--green);animation-direction:reverse;opacity:.65}
+.mask-art{font-size:110px;filter:drop-shadow(0 7px 0 #000) drop-shadow(0 0 22px var(--ember));animation:wobble 3s ease-in-out infinite}
+.bg-symbols{position:absolute;inset:0;pointer-events:none;z-index:2;opacity:.55;overflow:hidden}
+.bg-symbols span{position:absolute;font-size:clamp(30px,8vw,90px);animation:floaty linear infinite;filter:drop-shadow(0 0 12px currentColor)}
+.hud{
+  width:100%;display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:calc(8px + env(safe-area-inset-top)) 8px 7px;
+  position:relative;z-index:20;background:rgba(8,5,17,.9);border-bottom:2px solid rgba(255,234,157,.3);
+  font-family:"IM Fell DW Pica",serif;box-shadow:0 4px 0 rgba(0,0,0,.35);
+}
+.stat{display:inline-flex;align-items:center;gap:3px;white-space:nowrap;font-size:13px;border:1px solid rgba(255,255,255,.14);padding:3px 5px;border-radius:999px;background:rgba(255,255,255,.06)}
+.heart{color:var(--blood);text-shadow:0 1px 0 #000}.empty{color:#07050b;text-shadow:0 0 4px rgba(255,255,255,.2)}
+.bar{width:54px;height:10px;background:#05030a;border:1px solid #000;border-radius:10px;overflow:hidden}
+.fill{height:100%;display:block;background:linear-gradient(90deg,var(--ember2),var(--gold),var(--cyan));transition:width .25s}
+.floor-title{margin-left:auto;opacity:.85;white-space:nowrap}
+.dungeon{padding:0;align-items:stretch;justify-content:flex-start}
+.dungeon-main{position:relative;z-index:5;flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px}
+.message{min-height:40px;display:flex;align-items:center;justify-content:center;text-align:center;font-style:italic;font-size:16px;padding:0 8px;color:#fff2cc;text-shadow:0 1px 0 #000}
+.board-wrap{position:relative}
+.board{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:10px;border:3px solid #0b0610;border-radius:18px;
+  background:
+    linear-gradient(45deg,rgba(255,200,107,.12),rgba(75,243,255,.08)),
+    repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 5px,transparent 5px 16px),
+    rgba(0,0,0,.42);
+  box-shadow:0 9px 0 #000,0 0 45px rgba(75,243,255,.15);
+}
+.tile{
+  width:clamp(56px,18vw,78px);height:clamp(56px,18vw,78px);position:relative;display:grid;place-items:center;
+  border:2px solid #120914;border-radius:16px;background:var(--night2);color:white;cursor:pointer;overflow:hidden;
+  box-shadow:inset 0 0 16px rgba(255,255,255,.08),0 4px 0 rgba(0,0,0,.45);
+}
+.tile:before{
+  content:"";position:absolute;inset:4px;border-radius:12px;border:1px dashed rgba(255,255,255,.28);opacity:.6;pointer-events:none
+}
+.tile:active{transform:none;filter:brightness(1.06);box-shadow:inset 0 0 16px rgba(255,255,255,.08),0 4px 0 rgba(0,0,0,.45)}
+.tile.row-preview{outline:3px solid var(--gold);animation:tilePulse 1.1s ease-in-out infinite}
+.tile.sun-ready{outline:3px solid var(--cyan);animation:sunReady 1s ease-in-out infinite}
+.tile.visited{opacity:.5;filter:saturate(.5);cursor:default}
+.glyph{font-size:clamp(30px,9vw,47px);z-index:2;filter:drop-shadow(0 3px 0 #000)}
+.prob{position:absolute;top:0;right:0;background:var(--gold);color:#180b10;font-family:"IM Fell DW Pica",serif;font-size:10px;padding:2px 4px;border-left:1px solid #000;border-bottom:1px solid #000;z-index:4}
+.hero-token{position:absolute;z-index:5;top:-8px;left:50%;transform:translateX(-50%);font-size:30px;filter:drop-shadow(0 0 12px var(--gold));animation:land .28s ease}
+.controls{margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.bottom{
+  width:100%;position:relative;z-index:20;padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  background:rgba(8,5,17,.92);border-top:2px solid rgba(255,234,157,.25);font-family:"IM Fell DW Pica",serif
+}
+.inv,.tooth{display:inline-flex;min-width:38px;min-height:34px;align-items:center;justify-content:center;border:1px solid #000;border-radius:10px;background:var(--paper);color:#160a18;font-size:19px;cursor:pointer;box-shadow:0 3px 0 #000}
+.tooth{background:rgba(255,255,255,.1);color:var(--bone);cursor:default}
+.overlay{position:absolute;inset:0;z-index:50;background:radial-gradient(circle,rgba(42,23,65,.96),rgba(6,3,12,.98));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px;animation:fadeIn .22s}
+.enemy{font-size:clamp(90px,28vw,170px);filter:drop-shadow(0 10px 0 #000) drop-shadow(0 0 20px var(--ember));animation:enemyIdle 1.8s ease-in-out infinite;position:relative}
+.enemy.strong{animation:enemyOverpower .9s ease-in-out infinite}
+.enemy.easy{animation:enemyEasy .9s ease-in-out infinite}
+.enemy.die{animation:enemyDie .85s ease forwards}
+.speech{
+  max-width:480px;margin:10px auto;padding:10px 14px;border-radius:16px;background:var(--bone);color:#190b1a;border:2px solid #000;
+  box-shadow:4px 4px 0 #000;font-size:18px;position:relative
+}
+.speech:after{content:"";position:absolute;bottom:-13px;left:42%;border-width:13px 9px 0 9px;border-style:solid;border-color:#000 transparent transparent transparent}
+.offers{display:grid;gap:10px;width:min(680px,100%);margin-top:12px}
+.offer{
+  display:grid;grid-template-columns:54px 1fr auto;gap:10px;align-items:center;text-align:left;width:100%;
+  border:2px solid #000;border-radius:14px;background:linear-gradient(180deg,#f9e9bd,#d8b770);color:#170b19;padding:10px;box-shadow:4px 4px 0 #000;cursor:pointer
+}
+.offer:disabled{opacity:.45;filter:grayscale(.5);cursor:not-allowed}
+.offer-icon{font-size:32px;border:1px solid #000;border-radius:10px;background:rgba(0,0,0,.12);display:grid;place-items:center;min-height:48px}
+.offer-title{font-family:"IM Fell DW Pica",serif;font-size:20px}.offer-desc{font-size:14px;opacity:.82}.price{font-family:"IM Fell DW Pica",serif;color:#9e260b;font-size:20px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;width:min(760px,100%);margin-top:12px}
+.char-card{border:2px solid #000;border-radius:16px;background:rgba(255,255,255,.12);padding:12px;box-shadow:5px 5px 0 #000;text-align:center}
+.char-icon{font-size:56px;filter:drop-shadow(0 4px 0 #000)}
+.locked{filter:grayscale(1);opacity:.52}
+.log{max-height:130px;overflow:auto;font-size:14px;line-height:1.25;color:#ffe9b6;text-align:left;width:min(580px,100%);padding:8px;border-radius:10px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.12)}
+.boss-hp{display:flex;gap:5px;justify-content:center;margin:8px 0}.boss-dot{width:18px;height:18px;border-radius:50%;background:var(--blood);border:1px solid #000;box-shadow:0 0 10px var(--blood)}.boss-dot.off{background:#100812;box-shadow:none}
+
+@keyframes fadeIn{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
+@keyframes ambientDrift{0%{transform:translate3d(-3%,-2%,0) scale(1)}100%{transform:translate3d(3%,2%,0) scale(1.08)}}
+@keyframes ambientPulse{0%,100%{opacity:.12;transform:translate3d(0,0,0) scale(1)}50%{opacity:.24;transform:translate3d(0,0,0) scale(1.03)}}
+@keyframes ambientHue{0%{filter:blur(28px) saturate(1.12) hue-rotate(0deg)}50%{filter:blur(28px) saturate(1.22) hue-rotate(18deg)}100%{filter:blur(28px) saturate(1.12) hue-rotate(0deg)}}
+@keyframes slowSpin{to{transform:translate3d(0,0,0) rotate(360deg)}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-8px) rotate(2deg)}}
+@keyframes wobble{0%,100%{transform:rotate(-2deg) scale(1)}50%{transform:rotate(2deg) scale(1.03)}}
+@keyframes floaty{from{transform:translateY(110vh) rotate(0)}to{transform:translateY(-20vh) rotate(360deg)}}
+@keyframes tilePulse{0%,100%{box-shadow:inset 0 0 12px rgba(255,255,255,.08),0 4px 0 #000}50%{box-shadow:inset 0 0 22px rgba(255,200,107,.7),0 0 18px var(--gold),0 4px 0 #000}}
+@keyframes sunReady{0%,100%{filter:brightness(1)}50%{filter:brightness(1.35) hue-rotate(40deg)}}
+@keyframes land{0%{transform:translate(-50%,-28px) scale(.82);opacity:0}70%{transform:translate(-50%,-6px) scale(1.06);opacity:1}100%{transform:translate(-50%,-8px) scale(1)}}
+@keyframes enemyIdle{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1deg)}}
+@keyframes enemyOverpower{0%,100%{transform:scale(1) translateY(0)}45%{transform:scale(1.16) translateY(-13px) rotate(-3deg)}70%{transform:scale(1.05) translateY(4px) rotate(3deg)}}
+@keyframes enemyEasy{0%,100%{transform:translateX(0) scale(.95)}25%{transform:translateX(-7px) rotate(-6deg)}50%{transform:translateX(7px) rotate(6deg)}75%{transform:translateX(-3px) rotate(-3deg)}}
+@keyframes enemyDie{0%{transform:scale(1);opacity:1;filter:drop-shadow(0 0 20px var(--ember))}45%{transform:scale(1.22) rotate(18deg);opacity:.8;filter:hue-rotate(120deg) drop-shadow(0 0 30px var(--cyan))}100%{transform:scale(.1) translateY(120px) rotate(240deg);opacity:0}}
+@media(max-height:720px){
+  h1{font-size:44px}.sunface{width:105px;height:105px;font-size:52px}.mask-art{font-size:76px}p{font-size:16px}.message{min-height:30px;font-size:14px}
+  .tile{width:clamp(48px,17vw,64px);height:clamp(48px,17vw,64px)}.glyph{font-size:32px}.controls{margin-top:8px}.hud{gap:4px}.stat{font-size:12px;padding:2px 4px}.bottom{padding-top:5px}
+}
+</style>
+</head>
+<body>
+<main id="game" aria-live="polite"><div id="ambient-layer" aria-hidden="true"></div><div id="screen-root"></div></main>
+<script>
+"use strict";
+
+const game = document.getElementById("game");
+const ambientLayer = document.getElementById("ambient-layer");
+const screenRoot = document.getElementById("screen-root");
+let ambientKey = "";
+
+const LS_KEY = "emberBelowSunrootSave_v1";
+
+const TILE_ICONS = {
+  chest:"🧰", heal:"🍓", trap:"⚠️", enemy:"☠️", statue:"🗿", shop:"🛒", fish:"🐟", bucket:"🪣", ember:"🔥"
+};
+
+const FLOORS = [
+  {id:1,name:"The Singing Roots",sub:"A jungle below the cellar door.",need:6,palette:["#17102b","#263f2a"],trap:1,enemies:["bat","mole"],intro:"The surface sun has gone quiet. You enter the root-mouth with a lantern, a pouch, and a very suspicious optimism."},
+  {id:2,name:"The Strawberry Underworld",sub:"Sweet fruit grows where bones do not.",need:7,palette:["#20123d","#4b1741"],trap:1,enemies:["mask","wisp"],intro:"Huge painted fruits sway in the dark. They whisper that healing is real, but never free."},
+  {id:3,name:"The Glass Serpent Causeway",sub:"Bridges of teeth and neon rain.",need:8,palette:["#0e2c35","#3d1449"],trap:2,enemies:["serpent","imp"],intro:"The causeway ripples like a cartoon dream. Your footsteps make xylophone sounds. This is probably bad."},
+  {id:4,name:"The Volcano Library",sub:"Every book is a burning animal.",need:9,palette:["#35100f","#4f2c0e"],trap:2,enemies:["slag","owl"],intro:"Pages flap around you like moths. A librarian made of lava politely asks you to stop being alive."},
+  {id:5,name:"The Hollow Sun Throne",sub:"Where the morning was buried.",need:0,palette:["#07040c","#1b0d2f"],trap:2,enemies:["king"],boss:true,intro:"The Hollow King waits in a throne of swallowed stars. He has practiced his villain laugh. It is honestly pretty good."}
+];
+
+const ENEMIES = {
+  bat:{name:"Cave Bat Choir",atk:"str",dmg:1,gold:2,icon:"🦇",taunt:"The bats sing one rude note at you."},
+  mole:{name:"Stone Mole",atk:"str",dmg:2,gold:3,icon:"🪨",taunt:"It flexes in complete silence."},
+  mask:{name:"Laughing Death Mask",atk:"mag",dmg:2,gold:4,icon:"🎭",taunt:"It laughs with someone else's teeth."},
+  wisp:{name:"Pale Wisp",atk:"mag",dmg:1,gold:3,icon:"👻",taunt:"It tries to haunt your pocket change."},
+  serpent:{name:"Glass Serpent",atk:"mag",dmg:3,gold:5,icon:"🐍",taunt:"It coils into a question mark."},
+  imp:{name:"Furnace Imp",atk:"str",dmg:3,gold:5,icon:"😈",taunt:"It does a tiny victory dance too early."},
+  slag:{name:"Slag Beast",atk:"str",dmg:4,gold:7,icon:"🔥",taunt:"It smells like old thunder."},
+  owl:{name:"Obsidian Owl",atk:"mag",dmg:4,gold:7,icon:"🦉",taunt:"It knows a secret. It is not sharing."},
+  king:{name:"The Hollow King",atk:"mag",dmg:5,gold:0,icon:"👑",boss:true,taunt:"The King opens his mouth. A tiny kazoo solo comes out."}
+};
+
+const ITEMS = {
+  flask:{name:"Lantern Flask",desc:"Heal 3 HP.",price:5,icon:"🧪"},
+  bread:{name:"Iron Ration",desc:"Heal 1 HP and charge sun.",price:3,icon:"🍞"},
+  bomb:{name:"Salt Bomb",desc:"Clear the row with the most enemies.",price:7,icon:"💣"},
+  die:{name:"Loaded Die",desc:"Reroll all unvisited enemies into safer tiles.",price:5,icon:"🎲"},
+  broom:{name:"Bone Broom",desc:"Clear the column with the most traps.",price:6,icon:"🧹"},
+  mirror:{name:"Obsidian Mirror",desc:"Reveal row odds and turn one trap into a chest.",price:6,icon:"🪞"}
+};
+
+const TEETH = {
+  crow:{name:"Crow Tooth",desc:"More chests, fewer traps.",price:9,icon:"🪶",weights:{chest:1.45,trap:.8}},
+  jaguar:{name:"Jaguar Tooth",desc:"+1 STR, more enemies.",price:10,icon:"🐆",stat:{str:1},weights:{enemy:1.25}},
+  moon:{name:"Moon Tooth",desc:"+1 MAG, more strawberries.",price:10,icon:"🌙",stat:{mag:1},weights:{heal:1.25}},
+  wax:{name:"Wax Tooth",desc:"First trap each floor is harmless.",price:8,icon:"🔴",mod:"firstTrapSafe"},
+  lucky:{name:"Gold Tooth",desc:"Chests and bucket deposits are worth more.",price:12,icon:"🦷",mod:"goldBoost"},
+  sun:{name:"Sun Tooth",desc:"Sun ability charges faster.",price:12,icon:"☀️",mod:"fastSun"}
+};
+
+const CHARS = {
+  ember:{name:"Ember Bearer",icon:"🧙‍♂️",desc:"Balanced wanderer. Starts with a flask.",unlock:0,hp:6,str:1,mag:1,items:["flask"],sun:"Pick any tile once charged."},
+  jaguar:{name:"Jaguar Runner",icon:"🐆",desc:"Strong and fast. Starts with a bomb.",unlock:25,hp:6,str:2,mag:0,items:["bomb"],sun:"Pick any tile and heal 1."},
+  moon:{name:"Moon Weaver",icon:"🌙",desc:"Magical and strange. Starts with a mirror.",unlock:40,hp:5,str:0,mag:2,items:["mirror"],sun:"Pick any tile and convert a trap to a strawberry."},
+  frog:{name:"Bucket Frog",icon:"🐸",desc:"Coin goblin. Deposits are better.",unlock:70,hp:7,str:1,mag:1,items:["bread"],sun:"Pick any tile and double next chest."}
+};
+
+const BASE_WEIGHTS = {enemy:1.05,chest:.9,heal:.75,trap:.92,statue:.18,shop:.16,fish:.16,bucket:.14,ember:.28};
+
+const state = {
+  screen:"title",
+  floor:1,
+  tiles:[],
+  visited:0,
+  hero:"ember",
+  player:null,
+  teeth:[],
+  surface:0,
+  bankedRun:0,
+  lifetime:0,
+  unlocks:["ember"],
+  upgrades:{maxHp:0,str:0,mag:0,startGold:0},
+  message:"",
+  combat:null,
+  rowPreview:null,
+  pending:null,
+  sunMode:false,
+  log:[],
+  trapHits:0,
+  shopOffers:[],
+  statueChoice:null,
+  lastTapAt:0,
+  resolving:false,
+  bossHp:4,
+  doubleChest:false
+};
+
+load();
+render();
+
+function save(){
+  localStorage.setItem(LS_KEY, JSON.stringify({
+    surface:state.surface,lifetime:state.lifetime,unlocks:state.unlocks,upgrades:state.upgrades
+  }));
+}
+function load(){
+  try{
+    const data=JSON.parse(localStorage.getItem(LS_KEY)||"{}");
+    state.surface=data.surface||0;
+    state.lifetime=data.lifetime||0;
+    state.unlocks=data.unlocks||["ember"];
+    state.upgrades=Object.assign({maxHp:0,str:0,mag:0,startGold:0}, data.upgrades||{});
+  }catch(e){}
+}
+function resetSave(){
+  localStorage.removeItem(LS_KEY);
+  state.surface=0;state.lifetime=0;state.unlocks=["ember"];state.upgrades={maxHp:0,str:0,mag:0,startGold:0};
+  render();
+}
+function rand(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function clamp(n,a,b){return Math.max(a,Math.min(b,n))}
+function esc(s){return String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
+function addLog(s){state.log.unshift(s);state.log=state.log.slice(0,10)}
+
+function newPlayer(){
+  const c=CHARS[state.hero];
+  return {hp:c.hp+state.upgrades.maxHp,maxHp:c.hp+state.upgrades.maxHp,str:c.str+state.upgrades.str,mag:c.mag+state.upgrades.mag,gold:state.upgrades.startGold,items:[...c.items],sun:0};
+}
+function startRun(hero=state.hero){
+  state.hero=hero;
+  state.player=newPlayer();
+  state.floor=1;state.teeth=[];state.bankedRun=0;state.log=[];state.bossHp=4;state.doubleChest=false;
+  beginFloor();
+  state.screen="story";
+  save();
+  render();
+}
+function beginFloor(){
+  const f=FLOORS[state.floor-1];
+  state.tiles=makeGrid(f);
+  state.visited=0;state.message="";state.pending=null;state.sunMode=false;state.rowPreview=null;state.trapHits=0;state.resolving=false;state.statueChoice=null;
+}
+function makeGrid(f){
+  if(f.boss){
+    return Array.from({length:16},(_,i)=>{
+      let type="trap",enemy=null;
+      if(i===5||i===10){type="enemy";enemy="king"}
+      else if([0,3,12,15].includes(i)) type="heal";
+      else if([6,9].includes(i)) type="ember";
+      else if([1,14].includes(i)) type="bucket";
+      return {id:i,type,enemy,visited:false};
+    });
+  }
+  const w={...BASE_WEIGHTS};
+  for(const id of state.teeth){
+    const t=TEETH[id];
+    if(t.weights) for(const k in t.weights) w[k]=(w[k]||1)*t.weights[k];
+  }
+  const total=Object.values(w).reduce((a,b)=>a+b,0);
+  const keys=Object.keys(w);
+  const tiles=Array.from({length:16},(_,id)=>{
+    let r=Math.random()*total,type=keys[0];
+    for(const k of keys){r-=w[k];if(r<=0){type=k;break}}
+    return {id,type,enemy:type==="enemy"?rand(f.enemies):null,visited:false};
+  });
+  ensure(tiles,"chest",2); ensure(tiles,"heal",1); ensure(tiles,"bucket",1);
+  return tiles;
+}
+function ensure(tiles,type,count){
+  let have=tiles.filter(t=>t.type===type).length,guard=0;
+  while(have<count&&guard++<99){
+    const i=Math.floor(Math.random()*tiles.length);
+    if(!["chest","heal","bucket"].includes(tiles[i].type)){tiles[i]={...tiles[i],type,enemy:null};have++}
+  }
+}
+function continueStory(){
+  state.screen="dungeon";
+  render();
+}
+function rowProbs(row){
+  const arr=[0,1,2,3].map(c=>state.tiles[row*4+c]);
+  const open=arr.filter(t=>!t.visited);
+  if(!open.length)return [0,0,0,0];
+  const p=1/open.length;
+  return arr.map(t=>t.visited?0:p);
+}
+function rollRow(row){
+  const p=rowProbs(row);
+  let total=p.reduce((a,b)=>a+b,0);
+  if(!total)return null;
+  let r=Math.random()*total;
+  for(let c=0;c<4;c++){r-=p[c];if(r<=0)return row*4+c}
+  return row*4+3;
+}
+function chooseRow(row){
+  if(state.resolving||state.combat)return;
+  const idx=rollRow(row);
+  if(idx==null)return;
+  state.resolving=true;state.pending=idx;state.message="your feet obey the dice...";
+  render();
+  setTimeout(()=>resolveTile(idx),460);
+}
+function chooseSun(idx){
+  if(state.resolving||state.combat||state.tiles[idx].visited)return;
+  state.sunMode=false;state.player.sun=0;state.pending=idx;state.resolving=true;
+  if(state.hero==="jaguar")state.player.hp=clamp(state.player.hp+1,0,state.player.maxHp);
+  if(state.hero==="moon")turnTrapToHeal();
+  if(state.hero==="frog")state.doubleChest=true;
+  state.message="the sun in your ribs chooses its own road.";
+  render();
+  setTimeout(()=>resolveTile(idx),460);
+}
+function turnTrapToHeal(){
+  const traps=state.tiles.filter(t=>!t.visited&&t.type==="trap");
+  if(traps.length){const t=rand(traps);t.type="heal";}
+}
+function markVisited(idx){
+  const t=state.tiles[idx];
+  if(!t.visited){t.visited=true;state.visited++}
+}
+function needMet(){
+  const f=FLOORS[state.floor-1];
+  return f.boss?false:state.visited>=f.need;
+}
+function resolveTile(idx){
+  const t=state.tiles[idx];
+  if(!t||t.visited){state.resolving=false;state.pending=null;render();return}
+  const f=FLOORS[state.floor-1];
+  markVisited(idx);
+  if(t.type==="enemy")return resolveEnemy(t.enemy,idx);
+  if(t.type==="chest"){
+    let g=3+Math.floor(Math.random()*5);
+    if(hasTooth("lucky"))g=Math.ceil(g*1.5);
+    if(state.doubleChest){g*=2;state.doubleChest=false}
+    state.player.gold+=g; state.message=`a painted chest coughs up ${g} coins.`;
+    addLog(`Chest +${g} coins.`);
+  }
+  if(t.type==="heal"){
+    state.player.hp=clamp(state.player.hp+1,0,state.player.maxHp);
+    state.message="a strawberry glows under the dirt. +1 HP.";
+    addLog("Strawberry +1 HP.");
+  }
+  if(t.type==="trap"){
+    const safe=hasTooth("wax")&&state.trapHits===0;
+    state.trapHits++;
+    if(safe){state.message="the wax tooth melts; the trap apologizes and leaves."}
+    else{state.player.hp=Math.max(0,state.player.hp-f.trap);state.message=`a slapstick spike snaps upward. -${f.trap} HP.`;shake();}
+    addLog(safe?"Trap blocked.":`Trap -${f.trap} HP.`);
+  }
+  if(t.type==="ember"){
+    state.player.sun=clamp(state.player.sun+(hasTooth("sun")?2:1),0,3);
+    state.message="emberflies spiral into your chest. Sun charges.";
+    addLog("Sun charged.");
+  }
+  if(t.type==="bucket"){
+    const deposit=Math.floor(state.player.gold/2);
+    if(deposit>0){
+      let sent=deposit;
+      if(hasTooth("lucky"))sent=Math.ceil(sent*1.25);
+      state.player.gold-=deposit;state.surface+=sent;state.bankedRun+=sent;state.lifetime+=sent;save();
+      state.message=`the winch-bucket squeaks upward. ${sent} surface coins saved.`;
+      addLog(`Deposited ${sent} surface coins.`);
+      checkUnlocks();
+    }else state.message="the bucket looks into your empty purse and sighs.";
+  }
+  if(t.type==="fish"){
+    const prize=Math.random();
+    if(prize<.45){state.player.gold+=4;state.message="you fish up 4 coins and a judgmental tadpole."}
+    else if(prize<.75){state.player.hp=clamp(state.player.hp+2,0,state.player.maxHp);state.message="you fish up soup. somehow. +2 HP."}
+    else{state.player.items.push(rand(Object.keys(ITEMS)));state.message="you fish up a useful object. Best not to ask."}
+    addLog("Fishing pool reward.");
+  }
+  if(t.type==="statue"){
+    state.statueChoice=true;
+    state.message="a toothy statue offers to bend the floor.";
+    render();
+    return;
+  }
+  if(t.type==="shop"){
+    openMiniShop();
+    return;
+  }
+  endResolution();
+}
+function endResolution(){
+  if(state.player.hp<=0){state.resolving=false;state.pending=null;state.screen="gameover";render();return}
+  if(needMet()) state.message += " The exit mouth opens.";
+  setTimeout(()=>{state.resolving=false;state.pending=null;render()},500);
+  render();
+}
+function resolveEnemy(id,idx){
+  const e=ENEMIES[id];
+  const stat=e.atk==="str"?state.player.str:state.player.mag;
+  let dmg=Math.max(0,e.dmg-stat);
+  let won=true;
+  if(e.boss){
+    state.bossHp--;
+    won=state.bossHp<=0;
+    dmg=Math.max(1,dmg);
+  }
+  state.player.hp=Math.max(0,state.player.hp+dmg*-1);
+  const gold=e.boss?0:e.gold;
+  if(!e.boss)state.player.gold+=gold;
+  state.player.sun=clamp(state.player.sun+(hasTooth("sun")?2:1),0,3);
+  state.combat={id,phase:"intro",dmg,won,stat,over:dmg>0};
+  addLog(`${e.name}: ${dmg?`-${dmg} HP`:"no damage"}${gold?`, +${gold}g`:""}.`);
+  render();
+  setTimeout(()=>{if(state.combat){state.combat.phase=state.combat.over?"strong":"easy";render()}},650);
+  setTimeout(()=>{if(state.combat){state.combat.phase="die";render()}},1450);
+  setTimeout(()=>{if(state.combat){state.combat.phase="result";render()}},2200);
+}
+function closeCombat(){
+  const c=state.combat;
+  const enemy=c?.id;
+  state.combat=null;state.resolving=false;state.pending=null;
+  if(state.player.hp<=0){state.screen="gameover";render();return}
+  if(enemy==="king"&&state.bossHp<=0){state.screen="victory";state.surface+=25;state.lifetime+=25;save();checkUnlocks();render();return}
+  if(needMet())state.message="the exit mouth opens, humming through its teeth.";
+  render();
+}
+function hasTooth(id){return state.teeth.includes(id)}
+function useItem(i){
+  if(state.resolving||state.combat)return;
+  const id=state.player.items[i]; if(!id)return;
+  const remove=()=>state.player.items.splice(i,1);
+  if(id==="flask"){state.player.hp=clamp(state.player.hp+3,0,state.player.maxHp);state.message="lantern flask: +3 HP.";remove();}
+  if(id==="bread"){state.player.hp=clamp(state.player.hp+1,0,state.player.maxHp);state.player.sun=clamp(state.player.sun+1,0,3);state.message="iron ration: +1 HP, +sun.";remove();}
+  if(id==="die"){state.tiles.forEach(t=>{if(!t.visited&&t.type==="enemy"){t.type=rand(["chest","heal","trap","ember"]);t.enemy=null}});state.message="loaded die: monsters become stranger opportunities.";remove();}
+  if(id==="bomb"){clearBest("enemy","row");state.message="salt bomb: the meanest row goes still.";remove();}
+  if(id==="broom"){clearBest("trap","col");state.message="bone broom: traps swept from a column.";remove();}
+  if(id==="mirror"){turnTrapToChest();state.message="obsidian mirror: one trap becomes a chest.";remove();}
+  render();
+}
+function clearBest(type,mode){
+  let best=0,bestCount=-1;
+  for(let n=0;n<4;n++){
+    const arr=state.tiles.filter((t,i)=>mode==="row"?Math.floor(i/4)===n:i%4===n);
+    const c=arr.filter(t=>!t.visited&&t.type===type).length;
+    if(c>bestCount){bestCount=c;best=n}
+  }
+  state.tiles.forEach((t,i)=>{
+    const match=mode==="row"?Math.floor(i/4)===best:i%4===best;
+    if(match&&!t.visited){t.visited=true;state.visited++}
+  });
+}
+function turnTrapToChest(){
+  const traps=state.tiles.filter(t=>!t.visited&&t.type==="trap");
+  if(traps.length){const t=rand(traps);t.type="chest";}
+}
+function openMiniShop(){
+  state.shopOffers=[
+    {kind:"item",id:rand(Object.keys(ITEMS))},
+    {kind:"tooth",id:rand(Object.keys(TEETH).filter(id=>!state.teeth.includes(id))||["crow"])},
+  ];
+  state.screen="shop";
+  render();
+}
+function openFloorShop(){
+  state.shopOffers=[
+    {kind:"item",id:rand(Object.keys(ITEMS))},
+    {kind:"item",id:rand(Object.keys(ITEMS))},
+    {kind:"tooth",id:rand(Object.keys(TEETH).filter(id=>!state.teeth.includes(id)))}
+  ];
+  state.screen="shop";
+  render();
+}
+function buyOffer(i){
+  const o=state.shopOffers[i]; if(!o||o.bought)return;
+  const data=o.kind==="item"?ITEMS[o.id]:TEETH[o.id];
+  if(!data||state.player.gold<data.price)return;
+  if(o.kind==="item"&&state.player.items.length>=5)return;
+  state.player.gold-=data.price;
+  if(o.kind==="item")state.player.items.push(o.id);
+  if(o.kind==="tooth"){
+    state.teeth.push(o.id);
+    if(data.stat){
+      if(data.stat.str)state.player.str+=data.stat.str;
+      if(data.stat.mag)state.player.mag+=data.stat.mag;
+      if(data.stat.maxHp){state.player.maxHp+=data.stat.maxHp;state.player.hp=state.player.maxHp}
+    }
+  }
+  o.bought=true; render();
+}
+function leaveShop(){
+  if(needMet()){} 
+  state.screen="dungeon";
+  state.resolving=false;state.pending=null;
+  render();
+}
+function descend(){
+  if(!needMet())return;
+  if(state.floor>=FLOORS.length)return;
+  state.floor++;
+  beginFloor();
+  state.screen="story";
+  render();
+}
+function statue(type){
+  if(type==="safer"){
+    state.tiles.forEach(t=>{if(!t.visited&&t.type==="enemy"&&Math.random()<.45){t.type="heal";t.enemy=null}});
+    state.message="the statue chews danger into strawberries.";
+  }else{
+    state.tiles.forEach(t=>{if(!t.visited&&t.type==="chest"&&Math.random()<.6)t.type="enemy",t.enemy=rand(FLOORS[state.floor-1].enemies)});
+    state.player.gold+=8;
+    state.message="the statue spits coins, then invites more monsters.";
+  }
+  state.statueChoice=null;state.resolving=false;state.pending=null;render();
+}
+function checkUnlocks(){
+  for(const id in CHARS){
+    if(!state.unlocks.includes(id)&&state.surface>=CHARS[id].unlock)state.unlocks.push(id);
+  }
+  save();
+}
+function buyUpgrade(type,cost){
+  if(state.surface<cost)return;
+  state.surface-=cost;
+  state.upgrades[type]++;
+  save();render();
+}
+function shake(){
+  screenRoot.classList.add("shake");
+  setTimeout(()=>screenRoot.classList.remove("shake"),500);
+}
+function bgSymbols(){
+  return "";
+}
+function ambientConfig(){
+  const f = FLOORS[Math.max(0, state.floor - 1)] || FLOORS[0];
+  const base = {
+    title:{key:"title",wash:`radial-gradient(circle at 18% 15%,rgba(255,44,163,.36),transparent 24%),radial-gradient(circle at 82% 20%,rgba(75,243,255,.28),transparent 26%),radial-gradient(circle at 50% 95%,rgba(255,109,53,.32),transparent 33%),linear-gradient(180deg,#10061b,#06030c)`,flow:`conic-gradient(from 20deg,rgba(255,109,53,.9),transparent 16%,rgba(75,243,255,.85) 32%,transparent 46%,rgba(255,200,107,.85) 60%,transparent 74%,rgba(255,44,163,.8) 86%,transparent)`},
+    select:{key:"select",wash:`radial-gradient(circle at 18% 20%,rgba(154,92,255,.34),transparent 25%),radial-gradient(circle at 82% 22%,rgba(75,243,255,.22),transparent 24%),radial-gradient(circle at 50% 90%,rgba(255,109,53,.24),transparent 31%),linear-gradient(180deg,#11091d,#09040f)` ,flow:`conic-gradient(from 10deg,rgba(154,92,255,.8),transparent 18%,rgba(75,243,255,.82) 34%,transparent 48%,rgba(255,200,107,.76) 62%,transparent 78%,rgba(130,255,115,.6) 90%,transparent)`},
+    surface:{key:"surface",wash:`radial-gradient(circle at 18% 15%,rgba(255,200,107,.26),transparent 22%),radial-gradient(circle at 82% 20%,rgba(75,243,255,.18),transparent 24%),radial-gradient(circle at 50% 95%,rgba(130,255,115,.18),transparent 28%),linear-gradient(180deg,#120814,#08040b)`,flow:`conic-gradient(from 0deg,rgba(255,200,107,.8),transparent 15%,rgba(75,243,255,.7) 32%,transparent 50%,rgba(130,255,115,.58) 68%,transparent 82%,rgba(255,44,163,.6) 92%,transparent)`},
+    shop:{key:`shop-${state.floor}`,wash:`radial-gradient(circle at 18% 18%,rgba(255,200,107,.32),transparent 25%),radial-gradient(circle at 82% 20%,rgba(255,44,163,.24),transparent 24%),radial-gradient(circle at 50% 92%,rgba(75,243,255,.18),transparent 30%),linear-gradient(180deg,#1a1028,#0b0611)`,flow:`conic-gradient(from 25deg,rgba(255,200,107,.84),transparent 17%,rgba(255,44,163,.75) 34%,transparent 50%,rgba(75,243,255,.7) 64%,transparent 80%,rgba(130,255,115,.56) 92%,transparent)`},
+    gameover:{key:"gameover",wash:`radial-gradient(circle at 22% 18%,rgba(187,37,60,.32),transparent 24%),radial-gradient(circle at 78% 20%,rgba(154,92,255,.18),transparent 24%),radial-gradient(circle at 50% 94%,rgba(255,109,53,.18),transparent 28%),linear-gradient(180deg,#14070f,#050206)`,flow:`conic-gradient(from 15deg,rgba(187,37,60,.78),transparent 18%,rgba(255,109,53,.6) 36%,transparent 52%,rgba(154,92,255,.42) 70%,transparent 88%)`},
+    victory:{key:"victory",wash:`radial-gradient(circle at 18% 15%,rgba(255,200,107,.36),transparent 24%),radial-gradient(circle at 82% 18%,rgba(75,243,255,.28),transparent 24%),radial-gradient(circle at 50% 95%,rgba(255,109,53,.32),transparent 34%),linear-gradient(180deg,#120713,#050206)`,flow:`conic-gradient(from 0deg,rgba(255,200,107,.9),transparent 16%,rgba(75,243,255,.82) 34%,transparent 48%,rgba(255,109,53,.86) 62%,transparent 76%,rgba(255,44,163,.76) 88%,transparent)`}
+  };
+  if(state.screen === "story" || state.screen === "dungeon"){
+    return {
+      key:`floor-${state.floor}`,
+      wash:`radial-gradient(circle at 18% 14%,rgba(255,44,163,.18),transparent 24%),radial-gradient(circle at 82% 18%,rgba(75,243,255,.16),transparent 24%),radial-gradient(circle at 50% 92%,rgba(255,200,107,.16),transparent 30%),linear-gradient(180deg,${f.palette[0]},${f.palette[1]})`,
+      flow:`conic-gradient(from 20deg,rgba(255,200,107,.65),transparent 16%,rgba(75,243,255,.55) 33%,transparent 48%,rgba(255,44,163,.5) 64%,transparent 78%,rgba(130,255,115,.48) 90%,transparent)`
+    };
+  }
+  return base[state.screen] || base.title;
+}
+function buildAmbientSymbols(){
+  const sy=["☀️","🌽","🐍","🌀","🍓","🦷","👁️","🌈","🔥","🗿"];
+  return `<div class="bg-symbols">${Array.from({length:16},(_,i)=>`<span style="left:${(i*19+7)%100}%;color:${["var(--gold)","var(--cyan)","var(--ember2)","var(--green)"][i%4]};animation-duration:${18+i*2}s;animation-delay:${-i*1.7}s">${sy[i%sy.length]}</span>`).join("")}</div>`;
+}
+function updateAmbient(force=false){
+  const conf = ambientConfig();
+  if(!force && ambientKey === conf.key) return;
+  ambientKey = conf.key;
+  game.style.background = conf.wash.includes('linear-gradient') ? conf.wash.split(/,(?=linear-gradient)/).pop() : 'linear-gradient(180deg,#10061b,#06030c)';
+  ambientLayer.innerHTML = `<div class="ambient-wash" style="background:${conf.wash}"></div><div class="ambient-flow" style="background:${conf.flow}"></div>${buildAmbientSymbols()}`;
+}
+function render(){
+  updateAmbient();
+  if(state.screen==="title")return title();
+  if(state.screen==="select")return selectHero();
+  if(state.screen==="surface")return surface();
+  if(state.screen==="story")return story();
+  if(state.screen==="dungeon")return dungeon();
+  if(state.screen==="shop")return shop();
+  if(state.screen==="gameover")return gameover();
+  if(state.screen==="victory")return victory();
+}
+function title(){
+  screenRoot.innerHTML=`<section class="screen">${bgSymbols()}<div class="sunface">😵‍💫</div><h1>Ember Below:<br>Sunroot Descent</h1><p class="muted" style="text-align:center">A psychedelic handcrafted 4×4 luck-grid roguelite of teeth, strawberries, traps, sun powers, shops, buckets, and wonderfully rude monsters.</p><div class="row"><button class="btn" id="play">PLAY</button><button class="btn ghost" id="surface">SURFACE UPGRADES</button></div><p class="small muted">Surface coins: ${state.surface} · Lifetime saved: ${state.lifetime}</p></section>`;
+  q("#play").onclick=()=>{state.screen="select";render()};
+  q("#surface").onclick=()=>{state.screen="surface";render()};
+}
+function selectHero(){
+  screenRoot.innerHTML=`<section class="screen scrollable">${bgSymbols()}<div class="overline">CHOOSE A DESCENDER</div><h2>Who carries the sun?</h2><div class="grid2">${Object.entries(CHARS).map(([id,c])=>{
+    const unlocked=state.unlocks.includes(id)||state.surface>=c.unlock;
+    if(!state.unlocks.includes(id)&&state.surface>=c.unlock){state.unlocks.push(id);save()}
+    return `<div class="char-card ${unlocked?"":"locked"}"><div class="char-icon">${c.icon}</div><h3>${c.name}</h3><p class="small">${c.desc}</p><p class="small muted">${c.sun}</p>${unlocked?`<button class="btn small" data-hero="${id}">DESCEND</button>`:`<button class="btn small" disabled>Unlock at ${c.unlock} surface coins</button>`}</div>`;
+  }).join("")}</div><button class="btn ghost" id="back">back</button></section>`;
+  qa("[data-hero]").forEach(b=>b.onclick=()=>startRun(b.dataset.hero));
+  q("#back").onclick=()=>{state.screen="title";render()};
+}
+function surface(){
+  const ups=[
+    ["maxHp","Root Heart +1 max HP",18],
+    ["str","Jaguar Arm +1 STR",24],
+    ["mag","Moon Eye +1 MAG",24],
+    ["startGold","Lucky Pocket +1 starting gold",12]
+  ];
+  screenRoot.innerHTML=`<section class="screen scrollable">${bgSymbols()}<div class="overline">SURFACE CAMP</div><h2>Permanent Progress</h2><p class="muted" style="text-align:center">Coins sent up by winch-bucket survive death. Coins in your pocket do not.</p><div class="card"><h3>Surface coins: ${state.surface}</h3>${ups.map(([id,name,cost])=>`<div class="row" style="justify-content:space-between;border-top:1px solid rgba(255,255,255,.14);padding:8px 0"><span>${name} <span class="muted">lvl ${state.upgrades[id]}</span></span><button class="btn small" data-up="${id}" data-cost="${cost}" ${state.surface<cost?"disabled":""}>${cost} coins</button></div>`).join("")}</div><div class="row" style="margin-top:12px"><button class="btn" id="choose">choose hero</button><button class="btn ghost" id="back">title</button><button class="btn ghost" id="reset">reset save</button></div></section>`;
+  qa("[data-up]").forEach(b=>b.onclick=()=>buyUpgrade(b.dataset.up,Number(b.dataset.cost)));
+  q("#choose").onclick=()=>{state.screen="select";render()};
+  q("#back").onclick=()=>{state.screen="title";render()};
+  q("#reset").onclick=()=>{if(confirm("Reset permanent progress?"))resetSave()};
+}
+function story(){
+  const f=FLOORS[state.floor-1];
+  screenRoot.innerHTML=`<section class="screen story-layer">${bgSymbols()}<div class="mask-art">${state.player?CHARS[state.hero].icon:"🧙‍♂️"}</div><div class="overline">FLOOR ${f.id}</div><h2>${esc(f.name)}</h2><p class="muted" style="text-align:center">${esc(f.sub)}</p><p style="text-align:center">${esc(f.intro)}</p><button class="btn" id="go">STEP INTO THE PAINTED DARK</button></section>`;
+  q("#go").onclick=continueStory;
+}
+function hud(f){
+  const hearts=Array.from({length:state.player.maxHp},(_,i)=>`<span class="${i<state.player.hp?"heart":"heart empty"}">♥</span>`).join("");
+  const boss=f.boss?`<span class="stat">KING ${state.bossHp}/4</span>`:"";
+  return `<div class="hud"><span class="stat">${hearts}</span><span class="stat">HP ${state.player.hp}/${state.player.maxHp}</span><span class="stat">⚔ ${state.player.str}</span><span class="stat">✦ ${state.player.mag}</span><span class="stat">🪙 ${state.player.gold}</span><span class="stat">⬆ ${state.surface}</span><span class="stat">☀ <span class="bar"><span class="fill" style="width:${state.player.sun/3*100}%"></span></span></span>${boss}<span class="floor-title">${esc(f.name)}</span></div>`;
+}
+function dungeon(){
+  const f=FLOORS[state.floor-1];
+  const msg=state.sunMode?"☀ SUN MODE: tap any tile.":state.statueChoice?"The statue grins. Choose a bargain.":state.message||(f.boss?"Find the King's masks and break the buried sun.":needMet()?"The exit mouth opens.":`Clear ${Math.max(0,f.need-state.visited)} more tiles to open the exit.`);
+  const probs=state.rowPreview!=null?rowProbs(state.rowPreview):null;
+  const tiles=state.tiles.map((t,i)=>{
+    const row=Math.floor(i/4),col=i%4;
+    const preview=state.rowPreview===row&&!state.sunMode&&!t.visited;
+    const p=preview&&probs?Math.round(probs[col]*100):null;
+    const icon=t.visited?"✕":t.type==="enemy"&&t.enemy?ENEMIES[t.enemy].icon:TILE_ICONS[t.type];
+    const bg=tileBg(t);
+    return `<button class="tile ${t.visited&&!state.sunMode?"visited":""} ${preview?"row-preview":""} ${state.sunMode&&!t.visited?"sun-ready":""}" data-i="${i}" data-r="${row}" style="background:${bg}" ${t.visited&&!state.sunMode?"disabled":""}><span class="glyph">${icon}</span>${p?`<span class="prob">${p}%</span>`:""}${state.pending===i?`<span class="hero-token">${CHARS[state.hero].icon}</span>`:""}</button>`;
+  }).join("");
+  const inv=state.player.items.map((id,i)=>`<button class="inv" data-item="${i}" title="${esc(ITEMS[id].name+": "+ITEMS[id].desc)}">${ITEMS[id].icon}</button>`).join("")||`<span class="muted small">no items</span>`;
+  const teeth=state.teeth.map(id=>`<span class="tooth" title="${esc(TEETH[id].name+": "+TEETH[id].desc)}">${TEETH[id].icon}</span>`).join("");
+  screenRoot.innerHTML=`<section class="screen dungeon dungeon-layer">${hud(f)}${bgSymbols()}<div class="dungeon-main"><div class="message">${esc(msg)}</div><div class="board-wrap"><div class="board">${tiles}</div></div><div class="controls"><button class="btn small" id="exit" ${needMet()?"":"disabled"}>DESCEND</button><button class="btn small cyan" id="sun" ${state.player.sun>=3&&!state.sunMode?"":"disabled"}>☀ SUN POWER</button>${state.sunMode?`<button class="btn ghost small" id="cancelSun">cancel</button>`:""}<button class="btn ghost small" id="logBtn">log</button></div>${state.statueChoice?`<div class="row" style="margin-top:10px"><button class="btn green" id="safe">chew danger</button><button class="btn pink" id="greed">spit coins</button></div>`:""}<div class="log" id="logBox" style="display:none">${state.log.map(esc).join("<br>")||"No omens yet."}</div></div><div class="bottom"><span class="small muted">items</span>${inv}<span class="small muted" style="margin-left:8px">stone teeth</span>${teeth||`<span class="muted small">none</span>`}</div>${state.combat?combat():''}</section>`;
+  bindTiles();
+  qa("[data-item]").forEach(b=>b.onclick=()=>useItem(Number(b.dataset.item)));
+  q("#exit").onclick=descend;
+  q("#sun").onclick=()=>{state.sunMode=true;render()};
+  const cancel=q("#cancelSun"); if(cancel)cancel.onclick=()=>{state.sunMode=false;render()};
+  q("#logBtn").onclick=()=>{const l=q("#logBox");l.style.display=l.style.display==="none"?"block":"none"};
+  const safe=q("#safe"); if(safe)safe.onclick=()=>statue("safer");
+  const greed=q("#greed"); if(greed)greed.onclick=()=>statue("greed");
+}
+function tileBg(t){
+  if(t.visited)return "rgba(5,3,10,.85)";
+  const map={
+    chest:"linear-gradient(135deg,#6f3f1e,#d49a57)",
+    heal:"linear-gradient(135deg,#244d20,#ff4f6d)",
+    trap:"linear-gradient(135deg,#27252e,#777)",
+    enemy:"linear-gradient(135deg,#4e1020,#bb253c)",
+    statue:"linear-gradient(135deg,#153b35,#55a78a)",
+    shop:"linear-gradient(135deg,#2c2240,#ffc86b)",
+    fish:"linear-gradient(135deg,#123a55,#4bf3ff)",
+    bucket:"linear-gradient(135deg,#33251a,#b37b3a)",
+    ember:"linear-gradient(135deg,#8f220e,#ffc86b)"
+  };
+  return map[t.type]||"var(--night2)";
+}
+function bindTiles(){
+  const fine=matchMedia("(hover:hover) and (pointer:fine)").matches;
+  qa(".tile").forEach(btn=>{
+    if(fine){
+      btn.onmouseenter=()=>{if(!state.sunMode){state.rowPreview=Number(btn.dataset.r);dungeon()}};
+      btn.onmouseleave=()=>{if(!state.sunMode){state.rowPreview=null;dungeon()}};
+    }
+    const act=(ev)=>{
+      ev.preventDefault();ev.stopPropagation();
+      const now=Date.now(); if(now-state.lastTapAt<260)return; state.lastTapAt=now;
+      const i=Number(btn.dataset.i),r=Number(btn.dataset.r);
+      if(state.sunMode)chooseSun(i); else chooseRow(r);
+    };
+    btn.addEventListener("pointerup",act,{passive:false});
+    btn.addEventListener("touchend",act,{passive:false});
+    btn.addEventListener("click",act,{passive:false});
+  });
+}
+function combat(){
+  const c=state.combat,e=ENEMIES[c.id];
+  const cls=c.phase==="die"?"die":c.phase==="strong"?"strong":c.phase==="easy"?"easy":"";
+  const dots=e.boss?`<div class="boss-hp">${[0,1,2,3].map(i=>`<span class="boss-dot ${i<state.bossHp?"":"off"}"></span>`).join("")}</div>`:"";
+  const result=c.phase==="result"?`<div class="speech">${c.dmg?`Oof. ${e.name} hits for ${c.dmg}.`:`You bonk ${e.name} so cleanly it questions its career.`}</div><button class="btn" id="done">continue</button>`:`<div class="speech">${esc(e.taunt)}</div>`;
+  setTimeout(()=>{const d=q("#done");if(d)d.onclick=closeCombat},0);
+  return `<div class="overlay"><div class="overline">ENCOUNTER</div><h2>${esc(e.name)}</h2><p class="muted small">${e.atk==="str"?"physical":"magical"} attack · damage ${e.dmg}</p>${dots}<div class="enemy ${cls}">${e.icon}</div>${result}</div>`;
+}
+function shop(){
+  const offers=state.shopOffers.map((o,i)=>{
+    const data=o.kind==="item"?ITEMS[o.id]:TEETH[o.id];
+    const disabled=o.bought||!data||state.player.gold<data.price||(o.kind==="item"&&state.player.items.length>=5);
+    return `<button class="offer" data-offer="${i}" ${disabled?"disabled":""}><span class="offer-icon">${data.icon}</span><span><span class="offer-title">${esc(data.name)} ${o.kind==="tooth"?"(stone tooth)":""}</span><br><span class="offer-desc">${esc(data.desc)}</span></span><span class="price">${data.price}g</span></button>`;
+  }).join("");
+  screenRoot.innerHTML=`<section class="screen scrollable">${bgSymbols()}<div class="overline">WANDERING MARKET</div><h2>The peddler has too many eyes.</h2><p class="muted">Run coins: ${state.player.gold}. Inventory max: 5 items. Teeth bend the odds but may bite back.</p><div class="offers">${offers}</div><button class="btn ghost" id="leave">return to grid</button></section>`;
+  qa("[data-offer]").forEach(b=>b.onclick=()=>buyOffer(Number(b.dataset.offer)));
+  q("#leave").onclick=leaveShop;
+}
+function gameover(){
+  const lost=state.player?state.player.gold:0;
+  screenRoot.innerHTML=`<section class="screen">${bgSymbols()}<div class="mask-art">💀</div><h2 style="color:var(--blood)">The Lantern Falls</h2><p style="text-align:center">Your pocket coins scatter into the painted dark. The surface keeps only what the bucket carried upward.</p><p class="muted">Lost run coins: ${lost}. Surface coins saved this run: ${state.bankedRun}.</p><div class="row"><button class="btn" id="again">another descends</button><button class="btn ghost" id="camp">surface camp</button></div></section>`;
+  q("#again").onclick=()=>{state.screen="select";render()};
+  q("#camp").onclick=()=>{state.screen="surface";render()};
+}
+function victory(){
+  screenRoot.innerHTML=`<section class="screen">${bgSymbols()}<div class="sunface">☀️</div><h2>The Sun Rises Laughing</h2><p style="text-align:center">The Hollow King dissolves into confetti, coughs once, and says, “Well, that was visually overwhelming.” You carry the Heart-Ember upward. +25 surface coins.</p><p class="muted">Surface coins: ${state.surface}</p><div class="row"><button class="btn" id="again">descend again</button><button class="btn ghost" id="camp">surface camp</button></div></section>`;
+  q("#again").onclick=()=>{state.screen="select";render()};
+  q("#camp").onclick=()=>{state.screen="surface";render()};
+}
+function q(s){return document.querySelector(s)}
+function qa(s){return Array.from(document.querySelectorAll(s))}
+window.addEventListener("keydown",e=>{
+  if(state.screen!=="dungeon"||state.resolving||state.combat)return;
+  const n=Number(e.key); if(n>=1&&n<=4)chooseRow(n-1);
+});
+</script>
+</body>
+</html>

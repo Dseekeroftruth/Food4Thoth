@@ -1,0 +1,17 @@
+{
+  "name": "FOOD4THOTH NEXUS",
+  "short_name": "NEXUS",
+  "description": "16 psychedelic games across 6 realms",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030006",
+  "theme_color": "#030006",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

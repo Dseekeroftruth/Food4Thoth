@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>◉ THE NEON SPIRAL — Descend ◉</title>
+<link rel="stylesheet" href="../assets/shared.css">
+<style>
+  html, body { height: 100%; overflow: hidden; background: #000; }
+  .spiral-frame {
+    position: fixed; inset: 40px 0 0 0;
+    width: 100%; height: calc(100% - 40px);
+    border: 0;
+    background: #000;
+  }
+  .spiral-bar {
+    position: fixed; top: 0; left: 0; right: 0; height: 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; padding: 0 14px;
+    background: linear-gradient(90deg, rgba(0,0,0,.95), rgba(20,0,40,.9), rgba(0,0,0,.95));
+    border-bottom: 2px solid var(--neon-cyan);
+    z-index: 10;
+    font-family: var(--font-mono);
+    font-size: 16px;
+  }
+  .spiral-bar a {
+    color: var(--neon-yellow);
+    text-decoration: none;
+    border: 1px solid var(--neon-yellow);
+    padding: 3px 10px;
+    letter-spacing: .1em;
+    font-family: var(--font-display);
+    font-size: 13px;
+  }
+  .spiral-bar a:hover { background: rgba(255,230,0,.15); }
+  .spiral-bar .title {
+    color: var(--neon-cyan); letter-spacing: .15em;
+    text-shadow: 0 0 10px currentColor;
+    font-family: var(--font-display);
+  }
+  .spiral-bar .meter {
+    color: var(--neon-lime);
+    letter-spacing: .1em;
+  }
+  .spiral-bar .meter.done {
+    color: var(--neon-pink);
+    animation: donepulse 1.5s ease-in-out infinite;
+  }
+  @keyframes donepulse {
+    0%,100% { text-shadow: 0 0 10px var(--neon-pink); }
+    50%     { text-shadow: 0 0 24px var(--neon-pink); }
+  }
+
+  .initial {
+    position: fixed; inset: 0; z-index: 20;
+    display: grid; place-items: center;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(106,0,255,.6), transparent 65%),
+      radial-gradient(ellipse at 20% 80%, rgba(255,0,153,.5), transparent 55%),
+      #05020e;
+    text-align: center;
+    padding: 24px;
+  }
+  .initial h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 8vw, 4.5rem);
+    margin: 0; line-height: .95;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink), var(--neon-yellow), var(--neon-cyan));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    background-size: 300% auto;
+    animation: hueSlide 4s linear infinite;
+    text-shadow: 0 0 40px rgba(0,247,255,.5);
+  }
+  .initial p {
+    color: #c0b098; font-style: italic; max-width: 540px; line-height: 1.5;
+    margin: 14px auto;
+    font-family: var(--font-body);
+  }
+  .spiral-icon {
+    font-size: clamp(80px, 18vw, 160px);
+    animation: spinin 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px var(--neon-cyan));
+  }
+  @keyframes spinin {
+    0%,100% { transform: rotate(0deg) scale(1);   filter: hue-rotate(0deg) drop-shadow(0 0 30px var(--neon-cyan)); }
+    50%     { transform: rotate(720deg) scale(1.1); filter: hue-rotate(180deg) drop-shadow(0 0 60px var(--neon-pink)); }
+  }
+
+  .bigbtn {
+    font-family: var(--font-display); font-size: clamp(1rem, 3.5vw, 1.4rem);
+    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink));
+    color: #05020e; border: 3px solid #fff;
+    padding: 14px 28px; cursor: pointer;
+    letter-spacing: .15em;
+    box-shadow: 0 0 30px var(--neon-cyan), inset 0 0 10px rgba(255,255,255,.3);
+    transform: rotate(-1deg);
+    margin-top: 10px;
+  }
+  .bigbtn:hover { filter: brightness(1.2); }
+</style>
+</head>
+<body>
+
+<div class="initial" id="initial">
+  <div class="spiral-icon">🌀</div>
+  <h1>THE NEON SERPENT SPIRAL</h1>
+  <p>
+    It has no face but it knows yours.<br>
+    It coils under every dreamscape in this trip.<br>
+    To walk it is to be held in the coil for as long as the coil will have you.
+  </p>
+  <p style="color:var(--neon-cyan);font-size:14px;font-family:var(--font-mono);letter-spacing:.1em">
+    YOU CANNOT LOSE HERE. YOU CAN ONLY LEAVE.<br>
+    DESCEND FOR AT LEAST 60 SECONDS TO EARN THE DREAM-WALK.
+  </p>
+  <button class="bigbtn" onclick="enterSpiral()">▼ DESCEND ▼</button>
+  <div style="margin-top:14px">
+    <a href="../index.html" style="color:#776;font-family:var(--font-mono);font-size:14px">or return to the hub</a>
+  </div>
+</div>
+
+<div class="spiral-bar" id="bar" style="display:none">
+  <a href="../index.html" title="Return to the Trip hub">◉ HUB</a>
+  <span class="title">🌀 THE SPIRAL</span>
+  <span class="meter" id="meter">DESCENDING · 00:00</span>
+</div>
+
+<iframe class="spiral-frame" id="spiral" style="display:none" title="The Neon Serpent Spiral"></iframe>
+
+<script src="../assets/shared.js"></script>
+<script>
+TRIP.visit('spiral');
+
+function enterSpiral() {
+  document.getElementById('initial').style.display = 'none';
+  document.getElementById('bar').style.display = 'flex';
+  const frame = document.getElementById('spiral');
+  frame.style.display = 'block';
+  frame.src = 'neon-spiral-raw.html';
+
+  // meter — counts seconds descended. At 60s we mark spiral complete.
+  const start = Date.now();
+  const meter = document.getElementById('meter');
+  let completedMarked = false;
+  const tick = () => {
+    const elapsed = Math.floor((Date.now() - start) / 1000);
+    const mm = String(Math.floor(elapsed/60)).padStart(2,'0');
+    const ss = String(elapsed % 60).padStart(2,'0');
+
+    if (elapsed < 60) {
+      meter.textContent = `DESCENDING · ${mm}:${ss}`;
+    } else {
+      meter.textContent = `◎ WALKED · ${mm}:${ss}`;
+      meter.classList.add('done');
+      if (!completedMarked) {
+        completedMarked = true;
+        const threads = 250 + Math.min(elapsed, 600); // up to 10 min counts
+        TRIP.adjust('threads', threads);
+        TRIP.adjust('lucidity', 20);
+        TRIP.adjust('paranoia', -15);
+        TRIP.adjust('days', 1);
+        TRIP.complete('spiral');
+        TRIP.unlockCodex('neon-serpent');
+        TRIP.toast(`+${threads} threads · You walked the spiral.`, 3600);
+      }
+    }
+  };
+  setInterval(tick, 1000);
+  tick();
+}
+</script>
+</body>
+</html>

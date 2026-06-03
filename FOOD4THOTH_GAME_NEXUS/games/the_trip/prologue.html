@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>◉ Prologue — The Paper Square</title>
+<link rel="stylesheet" href="assets/shared.css">
+<style>
+  .scroll {
+    max-width: 760px; margin: 0 auto; padding: 80px 22px 160px;
+    position: relative; z-index: 1;
+  }
+  .chapter {
+    margin-bottom: 48px;
+    opacity: 0; transform: translateY(10px);
+    transition: opacity .6s, transform .6s;
+  }
+  .chapter.on { opacity: 1; transform: none; }
+
+  .ch-num {
+    font-family: var(--font-mondo);
+    color: var(--neon-cyan); letter-spacing: .4em;
+    font-size: 14px; margin-bottom: 4px;
+  }
+  .ch-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-yellow), var(--neon-cyan));
+    background-size: 200% auto;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: hueSlide 4s linear infinite;
+    line-height: 1;
+    margin: 0 0 18px;
+  }
+
+  .paperSquare {
+    display: inline-block; width: 46px; height: 46px;
+    background: linear-gradient(135deg, #ffe600, #ff9900);
+    border: 1px solid #000;
+    transform: rotate(12deg);
+    filter: drop-shadow(0 0 18px var(--neon-yellow));
+    margin: 0 8px;
+    vertical-align: middle;
+    position: relative;
+  }
+  .paperSquare::before {
+    content: "👁"; position: absolute; inset: 0;
+    display: grid; place-items: center;
+    font-size: 26px;
+    transform: rotate(-12deg);
+  }
+
+  .bigword {
+    font-family: var(--font-paint);
+    font-size: clamp(2rem, 7vw, 3.4rem);
+    color: var(--neon-pink);
+    text-shadow: 0 0 30px currentColor, 3px 3px 0 #000;
+    display: inline-block;
+    transform: rotate(-2deg);
+    letter-spacing: .02em;
+  }
+
+  .horror {
+    font-family: var(--font-horror);
+    color: var(--blood);
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    text-shadow: 0 0 20px var(--blood), 0 0 40px rgba(193,18,31,.5);
+    letter-spacing: .05em;
+  }
+
+  .finale {
+    text-align: center; margin: 80px 0 40px;
+  }
+  .finale .trip-btn { margin-top: 14px; }
+
+  .skipLink {
+    position: fixed; top: 12px; right: 12px; z-index: 50;
+    font-family: var(--font-mono); font-size: 15px;
+    color: #998; text-decoration: none;
+    border: 1px dashed #554;
+    padding: 4px 10px;
+  }
+  .skipLink:hover { color: var(--neon-cyan); border-color: var(--neon-cyan); }
+
+  .walls {
+    display: block; text-align: center; margin: 18px 0;
+    font-family: var(--font-mono);
+    font-size: 28px;
+    letter-spacing: .2em;
+    color: var(--neon-lime);
+    animation: breathe 3s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%,100% { letter-spacing: .2em; filter: hue-rotate(0deg); }
+    50%     { letter-spacing: .45em; filter: hue-rotate(60deg); }
+  }
+
+  .jabberwock {
+    font-family: var(--font-horror);
+    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    color: var(--blood);
+    background: rgba(0,0,0,.6);
+    padding: 14px 18px;
+    border-left: 4px solid var(--blood);
+    margin: 18px 0;
+    text-shadow: 0 0 12px rgba(193,18,31,.7);
+    letter-spacing: .04em;
+  }
+</style>
+</head>
+<body>
+
+<a class="skipLink" href="character.html">skip ▶</a>
+
+<div class="scroll">
+
+  <section class="chapter" data-ch>
+    <div class="ch-num">CHAPTER ONE ▸ YOU</div>
+    <h1 class="ch-title">The Paper Square</h1>
+    <div class="typer" id="t1"></div>
+  </section>
+
+  <section class="chapter" data-ch>
+    <div class="ch-num">CHAPTER TWO ▸ THE ROOM</div>
+    <h1 class="ch-title">The Walls Learn to Breathe</h1>
+    <div class="walls">▓ ▒ ░ &nbsp; ░ ▒ ▓ &nbsp; ▓ ▒ ░ &nbsp; ░ ▒ ▓</div>
+    <div class="typer" id="t2"></div>
+  </section>
+
+  <section class="chapter" data-ch>
+    <div class="ch-num">CHAPTER THREE ▸ THE DEBT</div>
+    <h1 class="ch-title">Something with Too Many Teeth</h1>
+    <div class="jabberwock">
+      "YOU OWE ME FIVE THOUSAND FIVE HUNDRED DOLLARS,<br>
+      IN WHATEVER CURRENCY THE DREAM WILL HONOR.<br>
+      YOU HAVE THIRTY DREAMS. DO NOT BE LATE."<br>
+      <span style="font-size:.8em;opacity:.8">— THE JABBERWOCK, signed in your blood, witnessed by the Cheshire</span>
+    </div>
+    <div class="typer" id="t3"></div>
+  </section>
+
+  <section class="chapter" data-ch>
+    <div class="ch-num">CHAPTER FOUR ▸ THE RULES</div>
+    <h1 class="ch-title">Eight Dreamscapes, One Exit</h1>
+    <div class="typer" id="t4"></div>
+  </section>
+
+  <div class="finale chapter" data-ch>
+    <div style="font-family:var(--font-display);font-size:clamp(1.6rem,5vw,2.4rem);color:var(--neon-yellow);text-shadow:0 0 14px currentColor;">SIGN THE REGISTER</div>
+    <p class="cream" style="font-style:italic;max-width:520px;margin:10px auto;">
+      Before the dream becomes non-negotiable. Before the geometry learns your weight.
+    </p>
+    <a href="character.html" class="trip-btn">◈ NAME YOURSELF ◈</a>
+    <div style="margin-top:14px"><a href="index.html" style="color:#888;font-family:var(--font-mono);font-size:14px;">or return to the hub</a></div>
+  </div>
+
+</div>
+
+<script src="assets/shared.js"></script>
+<script>
+TRIP.mountAtmosphere({ floaterCount: 12 });
+TRIP.mountHomeButton();
+
+// Mark as seen when player reaches this page
+TRIP.visit('prologue');
+
+(async function run(){
+  const chapters = [...document.querySelectorAll('[data-ch]')];
+
+  const paperSquare = `<span class="paperSquare"></span>`;
+  const bigword = t => `<span class="bigword">${t}</span>`;
+  const horror = t => `<span class="horror">${t}</span>`;
+
+  async function playCh(i, html, speed=30) {
+    const ch = chapters[i];
+    ch.classList.add('on');
+    ch.scrollIntoView({ behavior:'smooth', block:'start' });
+    const el = ch.querySelector('.typer');
+    if (!el) return;
+    // We need to parse HTML — but typewriter does text chars only.
+    // Strategy: render once invisibly, then reveal char-by-char by splicing innerHTML.
+    await typewriteHTML(el, html, speed);
+    await sleep(400);
+  }
+
+  function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+  // Simple HTML-aware typewriter: walks the text nodes
+  async function typewriteHTML(target, html, speed=30) {
+    // Put html in a sandbox, extract visible sequence of nodes
+    const sandbox = document.createElement('div');
+    sandbox.innerHTML = html;
+    target.textContent = '';
+    // caret element
+    const caret = document.createElement('span');
+    caret.className = 'caret'; caret.textContent = ' ';
+    target.appendChild(caret);
+
+    // walker: traverse sandbox and stream into target
+    async function walk(srcParent, destParent) {
+      for (const node of [...srcParent.childNodes]) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          for (const ch of node.textContent) {
+            destParent.insertBefore(document.createTextNode(ch), (destParent === target ? caret : null));
+            const d = /[.!?]/.test(ch) ? speed*8 : /[,;:]/.test(ch) ? speed*3 : speed;
+            await sleep(d);
+          }
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          // clone element (without children) into destination
+          const clone = node.cloneNode(false);
+          // inline elements that are self-contained (no text children): insert whole
+          if (!node.childNodes.length) {
+            destParent.insertBefore(clone, (destParent === target ? caret : null));
+            await sleep(speed*4);
+          } else {
+            destParent.insertBefore(clone, (destParent === target ? caret : null));
+            await walk(node, clone);
+          }
+        }
+      }
+    }
+    await walk(sandbox, target);
+    caret.remove();
+  }
+
+  // --- Chapter 1
+  await playCh(0,
+    `You were at a party someone else was throwing. A stranger with very orange eyes offered you a ${paperSquare} and said: "this is a door." You ate the door.`);
+
+  // --- Chapter 2
+  await playCh(1,
+    `The ceiling began to ${bigword('inhale')}. The wallpaper rearranged itself into a polite opinion about you. A ${bigword('Cheshire')} grin floated past without its cat and mouthed the word <em>congratulations</em>.`);
+
+  // --- Chapter 3
+  await playCh(2,
+    `A shape folded itself out of a nearby corner. It had ${horror('too many teeth')} for any known geometry. It said your balance aloud. It signed a contract using a vein it did not ask to borrow.`);
+
+  // --- Chapter 4
+  await playCh(3,
+    `There are eight boroughs in the shattered Wonderland beneath your tongue. The Tulgey Wood. Bat Country. Whoville Heights. Chessboard Plains. Fuller's Dome. Mock Turtle's Beach. The Mad Tea Party. The Mushroom Forest.\n\nYou will ferry contraband between them. You will answer the Caterpillar's riddles. You will drink six teacups in the correct order. You will fight through the Wonder/Doom maze and find the <span style="color:var(--neon-yellow)">throbbing door</span>.\n\nYou will do this in thirty dreams.\n\nYou will not be the same on the other side.`, 32);
+
+  // reveal the finale CTA
+  chapters[chapters.length-1].classList.add('on');
+  chapters[chapters.length-1].scrollIntoView({behavior:'smooth', block:'start'});
+
+  TRIP.complete('prologue');
+})();
+</script>
+</body>
+</html>
