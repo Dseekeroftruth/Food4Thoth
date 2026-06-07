@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeJahn Bell — Creative Technologist · Portfolio</title>
+<meta name="description" content="DeJahn Bell of Food4Thoth — creator of four published Apple App Store apps. Creative technologist specializing in interactive web, games, audio tools, and creative software systems."/>
+<meta name="theme-color" content="#ede7d9"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,700;9..144,900&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+
+:root{
+  --bg:#ede7d9;
+  --bg-warm:#e8e0cf;
+  --surface:#f5f0e3;
+  --surface-2:#fbf7eb;
+  --ink:#1a1814;
+  --ink-2:#3a342a;
+  --secondary:#5a5448;
+  --muted:#8a8478;
+  --rule:rgba(26,24,20,0.14);
+  --rule-soft:rgba(26,24,20,0.08);
+  --accent:#b8472b;
+  --accent-2:#9b3a23;
+  --teal:#2e5c52;
+  --teal-soft:rgba(46,92,82,0.08);
+  --gold:#a87f1e;
+  --shadow-sm:0 1px 2px rgba(26,24,20,0.04),0 2px 6px rgba(26,24,20,0.04);
+  --shadow-md:0 4px 14px rgba(26,24,20,0.06),0 8px 24px rgba(26,24,20,0.05);
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Inter Tight','Helvetica Neue',sans-serif;
+  --mono:'JetBrains Mono','SF Mono',monospace;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  font-weight:400;
+  letter-spacing:-0.005em;
+  background-image:
+    radial-gradient(ellipse at 20% 10%, rgba(184,71,43,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 90%, rgba(46,92,82,0.04) 0%, transparent 50%);
+  min-height:100vh;
+}
+
+/* paper-grain overlay for editorial feel */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:1;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.09 0 0 0 0 0.08 0 0 0 0.04 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  opacity:0.5;mix-blend-mode:multiply;
+}
+
+/* ─────────── TYPOGRAPHY ─────────── */
+.serif{font-family:var(--serif)}
+.mono{font-family:var(--mono);font-weight:400;letter-spacing:0}
+
+h1,h2,h3,h4{font-family:var(--serif);font-weight:500;line-height:1.15;letter-spacing:-0.02em}
+h1{font-size:clamp(48px,7vw,88px);font-weight:400;letter-spacing:-0.035em;font-variation-settings:'opsz' 144}
+h2{font-size:clamp(32px,4.5vw,52px);font-weight:400;font-variation-settings:'opsz' 96}
+h3{font-size:clamp(20px,2.4vw,28px);font-weight:500;font-variation-settings:'opsz' 36}
+h4{font-size:17px;font-weight:600;letter-spacing:-0.01em;font-family:var(--sans)}
+
+p{color:var(--ink-2);font-size:16px;line-height:1.65}
+.lead{font-size:18px;line-height:1.6;color:var(--ink-2);font-weight:400}
+
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(184,71,43,0.25);transition:all .2s}
+a:hover{border-bottom-color:var(--accent);background:rgba(184,71,43,0.06)}
+
+.label{
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--muted);
+}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--accent);
+}
+.eyebrow::before{
+  content:'';width:24px;height:1px;background:var(--accent);
+}
+
+/* ─────────── LAYOUT ─────────── */
+.wrap{
+  max-width:1180px;
+  margin:0 auto;
+  padding:0 40px;
+  position:relative;
+  z-index:2;
+}
+
+section{padding:96px 0;border-top:1px solid var(--rule)}
+section:first-of-type{border-top:none}
+
+.rule{height:1px;background:var(--rule);margin:48px 0;border:0}
+.rule-soft{height:1px;background:var(--rule-soft);margin:24px 0;border:0}
+
+/* ─────────── TOP BAR ─────────── */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(237,231,217,0.85);
+  backdrop-filter:saturate(140%) blur(10px);
+  -webkit-backdrop-filter:saturate(140%) blur(10px);
+  border-bottom:1px solid var(--rule);
+}
+.topbar-inner{
+  max-width:1180px;margin:0 auto;padding:14px 40px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+.brand{
+  font-family:var(--serif);font-size:20px;font-weight:500;
+  letter-spacing:-0.015em;color:var(--ink);
+  border:0;background:none;
+  font-variation-settings:'opsz' 36;
+}
+.brand span{color:var(--accent)}
+.brand:hover{background:none}
+.nav-links{display:flex;gap:28px;font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase}
+.nav-links a{color:var(--secondary);border:0}
+.nav-links a:hover{color:var(--accent);background:none}
+@media(max-width:760px){.nav-links{display:none}}
+
+/* ─────────── HERO ─────────── */
+.hero{padding-top:80px;padding-bottom:60px;border-top:0}
+.hero-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:80px;align-items:end}
+@media(max-width:880px){.hero-grid{grid-template-columns:1fr;gap:36px}}
+
+.hero h1{margin:24px 0 20px}
+.hero .role{
+  font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:clamp(20px,2.2vw,26px);color:var(--ink-2);
+  font-variation-settings:'opsz' 36,'wght' 300;
+}
+.hero .lead{margin-top:24px;max-width:580px}
+
+.identity-card{
+  border:1px solid var(--rule);
+  background:var(--surface);
+  padding:28px 28px 24px;
+  border-radius:2px;
+  position:relative;
+}
+.identity-card::before{
+  content:'';position:absolute;top:-1px;left:-1px;width:18px;height:18px;
+  border-top:2px solid var(--accent);border-left:2px solid var(--accent);
+}
+.identity-card::after{
+  content:'';position:absolute;bottom:-1px;right:-1px;width:18px;height:18px;
+  border-bottom:2px solid var(--accent);border-right:2px solid var(--accent);
+}
+.identity-card .label{margin-bottom:14px}
+.identity-card .meta-row{
+  display:flex;justify-content:space-between;padding:9px 0;
+  border-bottom:1px dotted var(--rule-soft);
+  font-size:13.5px;
+}
+.identity-card .meta-row:last-of-type{border-bottom:0}
+.identity-card .meta-row .k{color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:0.06em}
+.identity-card .meta-row .v{color:var(--ink);text-align:right;font-weight:500}
+.identity-card .meta-row .v.accent{color:var(--accent)}
+.identity-card a{border:0;font-weight:500}
+
+/* status counters */
+.proof-strip{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  margin-top:48px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+}
+.proof-cell{
+  padding:24px 16px 20px;
+  border-right:1px solid var(--rule);
+  position:relative;
+}
+.proof-cell:last-child{border-right:0}
+.proof-num{
+  font-family:var(--serif);font-size:42px;font-weight:400;
+  color:var(--ink);letter-spacing:-0.03em;line-height:1;
+  font-variation-settings:'opsz' 96;
+}
+.proof-num .accent{color:var(--accent)}
+.proof-label{
+  margin-top:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);
+}
+@media(max-width:760px){
+  .proof-strip{grid-template-columns:repeat(2,1fr)}
+  .proof-cell:nth-child(2){border-right:0}
+  .proof-cell:nth-child(1),.proof-cell:nth-child(2){border-bottom:1px solid var(--rule)}
+  .proof-num{font-size:32px}
+}
+
+/* ─────────── SECTION HEADERS ─────────── */
+.section-head{margin-bottom:56px;max-width:780px}
+.section-head .eyebrow{margin-bottom:18px}
+.section-head h2{margin-bottom:14px}
+.section-head p{font-size:17px;color:var(--ink-2);line-height:1.6;max-width:620px}
+
+/* ─────────── APPS SECTION ─────────── */
+.apps-list{display:flex;flex-direction:column;gap:0}
+.app-row{
+  display:grid;grid-template-columns:90px 1fr 280px;gap:36px;
+  padding:36px 0;border-top:1px solid var(--rule);
+  align-items:start;
+  transition:background .25s;
+}
+.app-row:last-child{border-bottom:1px solid var(--rule)}
+.app-row:hover{background:rgba(255,255,255,0.35)}
+
+.app-glyph{
+  font-family:var(--serif);font-size:62px;line-height:0.9;color:var(--accent);
+  font-weight:300;font-variation-settings:'opsz' 144;
+  letter-spacing:-0.05em;
+}
+.app-glyph .small{font-size:14px;display:block;font-family:var(--mono);font-weight:500;color:var(--muted);letter-spacing:0.14em;margin-top:6px;text-transform:uppercase}
+
+.app-body h3{margin-bottom:6px}
+.app-tagline{font-family:var(--serif);font-style:italic;font-weight:300;color:var(--secondary);font-size:16px;margin-bottom:14px;font-variation-settings:'opsz' 36,'wght' 300}
+.app-meta-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.tag{
+  display:inline-flex;align-items:center;
+  padding:3px 10px;border-radius:2px;
+  font-family:var(--mono);font-size:10px;font-weight:500;
+  letter-spacing:0.1em;text-transform:uppercase;
+  border:1px solid var(--rule);background:var(--surface);color:var(--secondary);
+}
+.tag.paid{border-color:rgba(184,71,43,0.3);background:rgba(184,71,43,0.06);color:var(--accent)}
+.tag.free{border-color:rgba(46,92,82,0.3);background:var(--teal-soft);color:var(--teal)}
+.tag.utility{border-color:rgba(168,127,30,0.35);background:rgba(168,127,30,0.06);color:var(--gold)}
+.tag.platform{border-color:var(--rule);background:transparent;color:var(--muted)}
+
+.app-desc{font-size:15px;line-height:1.65;color:var(--ink-2);margin-bottom:14px}
+.app-features{font-size:13.5px;color:var(--secondary);line-height:1.6}
+.app-features strong{color:var(--ink);font-weight:600}
+
+.app-links{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.app-link{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 14px;border:1px solid var(--rule);border-radius:2px;
+  background:var(--surface-2);font-family:var(--mono);font-size:11px;
+  letter-spacing:0.05em;color:var(--ink);
+  border-bottom:1px solid var(--rule);transition:all .2s;
+}
+.app-link:hover{border-color:var(--accent);background:rgba(184,71,43,0.04);color:var(--accent)}
+.app-link .arrow{color:var(--muted);font-family:var(--sans);font-size:14px;transition:transform .2s}
+.app-link:hover .arrow{transform:translateX(3px);color:var(--accent)}
+.app-link.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.app-link.primary:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.app-link.primary .arrow{color:rgba(237,231,217,0.6)}
+.app-link.primary:hover .arrow{color:#fff}
+
+@media(max-width:880px){
+  .app-row{grid-template-columns:1fr;gap:18px;padding:32px 0}
+  .app-glyph{font-size:42px}
+  .app-glyph .small{margin-top:2px}
+  .app-links{flex-direction:row;flex-wrap:wrap}
+  .app-link{flex:1;min-width:120px}
+}
+
+/* ─────────── ARCS ─────────── */
+.arc{
+  display:grid;grid-template-columns:200px 1fr;gap:48px;
+  padding:56px 0;border-top:1px solid var(--rule);
+}
+.arc:last-child{border-bottom:1px solid var(--rule)}
+.arc-meta{position:sticky;top:80px}
+.arc-num{
+  font-family:var(--serif);font-size:64px;font-weight:300;color:var(--accent);
+  line-height:1;letter-spacing:-0.04em;
+  font-variation-settings:'opsz' 144;
+}
+.arc-meta .label{margin-top:10px;display:block}
+.arc-content h3{margin-bottom:10px}
+.arc-content .arc-tagline{
+  font-family:var(--serif);font-style:italic;font-weight:300;
+  color:var(--secondary);font-size:18px;margin-bottom:24px;
+  font-variation-settings:'opsz' 48,'wght' 300;
+}
+.arc-content > p{margin-bottom:20px;font-size:15.5px}
+
+.timeline{
+  list-style:none;margin:24px 0;
+  border-left:1px dashed var(--rule);padding-left:0;
+}
+.timeline li{
+  position:relative;padding:14px 0 14px 32px;
+  border-bottom:1px solid var(--rule-soft);
+}
+.timeline li:last-child{border-bottom:0}
+.timeline li::before{
+  content:'';position:absolute;left:-5px;top:22px;
+  width:9px;height:9px;border-radius:50%;
+  background:var(--bg);border:1.5px solid var(--rule);
+}
+.timeline li.peak::before{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 4px rgba(184,71,43,0.12)}
+.timeline li.current::before{background:var(--teal);border-color:var(--teal);box-shadow:0 0 0 4px rgba(46,92,82,0.12)}
+.timeline-step{font-family:var(--mono);font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.timeline-title{font-size:15px;color:var(--ink);font-weight:500;line-height:1.45}
+.timeline-detail{font-size:13.5px;color:var(--secondary);margin-top:3px;line-height:1.55}
+.timeline li.peak .timeline-step{color:var(--accent)}
+.timeline li.current .timeline-step{color:var(--teal)}
+
+.arc-result{
+  margin-top:28px;padding:20px 24px;
+  background:var(--surface);border-left:3px solid var(--accent);
+  border-radius:0 2px 2px 0;
+}
+.arc-result .label{margin-bottom:6px;color:var(--accent)}
+.arc-result p{font-size:15px;color:var(--ink);margin:0}
+
+@media(max-width:760px){
+  .arc{grid-template-columns:1fr;gap:24px;padding:44px 0}
+  .arc-meta{position:static}
+  .arc-num{font-size:48px}
+}
+
+/* ─────────── CAPABILITIES ─────────── */
+.cap-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  border-top:1px solid var(--rule);
+}
+.cap-cell{
+  padding:24px 22px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);
+}
+.cap-cell:nth-child(4n){border-right:0}
+.cap-cell h4{margin-bottom:6px;font-size:14px}
+.cap-cell p{font-size:13px;color:var(--secondary);line-height:1.55}
+.cap-cell .label{font-size:9.5px;color:var(--accent);margin-bottom:10px;display:block}
+@media(max-width:880px){
+  .cap-grid{grid-template-columns:repeat(2,1fr)}
+  .cap-cell:nth-child(2n){border-right:0}
+}
+@media(max-width:520px){
+  .cap-grid{grid-template-columns:1fr}
+  .cap-cell{border-right:0}
+}
+
+/* ─────────── ABOUT ─────────── */
+.about-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:60px;align-items:start}
+.about-grid p{font-size:16px;line-height:1.7;margin-bottom:18px}
+.about-grid p:last-child{margin-bottom:0}
+.about-grid .pull{
+  font-family:var(--serif);font-size:24px;font-weight:300;font-style:italic;
+  color:var(--ink);line-height:1.4;font-variation-settings:'opsz' 96,'wght' 300;
+  border-left:2px solid var(--accent);padding-left:24px;margin:8px 0;
+}
+@media(max-width:760px){.about-grid{grid-template-columns:1fr;gap:32px}}
+
+/* ─────────── CTA / CONTACT ─────────── */
+.contact-block{
+  background:var(--ink);color:var(--bg);
+  padding:80px 0;margin-top:0;
+  position:relative;overflow:hidden;
+}
+.contact-block::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 80% 50%,rgba(184,71,43,0.18),transparent 60%);
+  pointer-events:none;
+}
+.contact-block .wrap{position:relative;z-index:2}
+.contact-block .eyebrow{color:#d97c5e}
+.contact-block .eyebrow::before{background:#d97c5e}
+.contact-block h2{color:var(--bg);margin-bottom:18px;max-width:700px}
+.contact-block p{color:rgba(237,231,217,0.75);font-size:17px;max-width:580px;margin-bottom:36px}
+.contact-actions{display:flex;flex-wrap:wrap;gap:14px}
+.contact-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 24px;border-radius:2px;
+  font-family:var(--mono);font-size:12px;letter-spacing:0.12em;
+  text-transform:uppercase;border:1px solid rgba(237,231,217,0.18);
+  background:transparent;color:var(--bg);font-weight:500;
+  border-bottom:1px solid rgba(237,231,217,0.18);
+}
+.contact-btn:hover{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+.contact-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.contact-btn.primary:hover{background:#d65a3a;border-color:#d65a3a;color:#fff}
+
+/* ─────────── FOOTER ─────────── */
+footer{
+  padding:36px 0;
+  text-align:center;
+  font-family:var(--mono);font-size:11px;letter-spacing:0.1em;
+  color:var(--muted);text-transform:uppercase;
+  background:var(--bg-warm);
+  border-top:1px solid var(--rule);
+}
+footer a{color:var(--secondary);border:0}
+footer a:hover{color:var(--accent);background:none}
+
+/* ─────────── REVEAL ANIMATION ─────────── */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ─────────── PRINT ─────────── */
+@media print{
+  body{background:#fff;color:#000}
+  body::before,.topbar,.contact-block,footer{display:none}
+  section{padding:24px 0;page-break-inside:avoid}
+  .arc,.app-row{page-break-inside:avoid}
+  a{color:#000;border:0}
+}
+</style>
+</head>
+<body>
+
+<!-- ─────────── TOP BAR ─────────── -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="#top" class="brand">DeJahn <span>Bell</span></a>
+    <nav class="nav-links">
+      <a href="#apps">Apps</a>
+      <a href="#arcs">Arcs</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap" id="top">
+
+<!-- ─────────── HERO ─────────── -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <span class="eyebrow">Creative Technologist · Food4Thoth</span>
+      <h1 class="serif">DeJahn Bell</h1>
+      <p class="role">Designer, builder, and shipper of interactive software systems — web, games, audio tools, mobile apps.</p>
+      <p class="lead">Self-taught creative technologist. In under a year, designed and shipped a +482-page interactive web platform and four published Apple App Store apps — three games and one utility — across both Apple and Google ecosystems.</p>
+    </div>
+
+    <aside class="identity-card">
+      <span class="label">At a Glance</span>
+      <div class="meta-row"><span class="k">Role</span><span class="v">Creative Technologist</span></div>
+      <div class="meta-row"><span class="k">Studio</span><span class="v">Food4Thoth</span></div>
+      <div class="meta-row"><span class="k">Apps Shipped</span><span class="v accent">4 · Apple App Store</span></div>
+      <div class="meta-row"><span class="k">Android</span><span class="v">In Closed Test</span></div>
+      <div class="meta-row"><span class="k">Web Pages Built</span><span class="v">482+</span></div>
+      <div class="meta-row"><span class="k">Time to First Ship</span><span class="v">&lt; 1 year</span></div>
+      <div class="meta-row"><span class="k">Status</span><span class="v accent">Open to work</span></div>
+    </aside>
+  </div>
+
+  <div class="proof-strip">
+    <div class="proof-cell">
+      <div class="proof-num"><span class="accent">4</span></div>
+      <div class="proof-label">Published iOS Apps</div>
+    </div>
+    <div class="proof-cell">
+      <div class="proof-num">3<span class="accent">+1</span></div>
+      <div class="proof-label">Games + Utility</div>
+    </div>
+    <div class="proof-cell">
+      <div class="proof-num">2<span class="accent">↗</span></div>
+      <div class="proof-label">Platforms (iOS, Android Test)</div>
+    </div>
+    <div class="proof-cell">
+      <div class="proof-num">482<span class="accent">+</span></div>
+      <div class="proof-label">Web Pages Live</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── APPS ─────────── -->
+<section id="apps">
+  <div class="section-head reveal">
+    <span class="eyebrow">Featured · Apple App Store</span>
+    <h2 class="serif">Four shipped apps.<br/>One development pipeline.</h2>
+    <p>A complete portfolio of published mobile software — three original games and one utility — each with marketing landing pages and privacy policies hosted on Food4Thoth.com. All built and shipped solo.</p>
+  </div>
+
+  <div class="apps-list">
+
+    <!-- NEON SERPENT SPIRAL -->
+    <article class="app-row reveal">
+      <div class="app-glyph">𝟬𝟭<span class="small">$2.99</span></div>
+      <div class="app-body">
+        <h3 class="serif">Neon Serpent Spiral</h3>
+        <div class="app-tagline">A Psychedelic Cosmic Adventure</div>
+        <div class="app-meta-tags">
+          <span class="tag paid">Paid · $2.99</span>
+          <span class="tag">Adventure</span>
+          <span class="tag platform">iPhone</span>
+          <span class="tag platform">36 MB</span>
+          <span class="tag platform">Offline · Privacy-First</span>
+        </div>
+        <p class="app-desc">A point-and-explore narrative adventure spanning ten surreal locations. The player is "a signal" navigating a broadcast that "is still transmitting." Sound is synthesized on-device. Full game included for a single price — no in-app purchases.</p>
+        <div class="app-features">
+          <strong>10 worlds</strong> · <strong>10 NPCs</strong> · <strong>25 musical mini-games</strong> · <strong>6 branching endings</strong> · Karma & Weirdness tracking · Memory Fragment collectibles · Accessibility settings (CRT intensity, reduced motion, sound toggle)
+        </div>
+      </div>
+      <div class="app-links">
+        <a class="app-link primary" href="https://apps.apple.com/us/app/neon-serpent-spiral/id6760896039" target="_blank" rel="noopener">App Store <span class="arrow">→</span></a>
+        <a class="app-link" href="https://www.food4thoth.com/NeonSerpentSpiral/marketing.html" target="_blank" rel="noopener">Marketing <span class="arrow">→</span></a>
+        <a class="app-link" href="https://www.food4thoth.com/NeonSerpentSpiral/privacy.html" target="_blank" rel="noopener">Privacy <span class="arrow">→</span></a>
+      </div>
+    </article>
+
+    <!-- PIXEL QUEST -->
+    <article class="app-row reveal">
+      <div class="app-glyph">𝟬𝟮<span class="small">$1.99</span></div>
+      <div class="app-body">
+        <h3 class="serif">Pixel Quest: Retro Arcade Game</h3>
+        <div class="app-tagline">Dodge. Collect. Survive.</div>
+        <div class="app-meta-tags">
+          <span class="tag paid">Paid · $1.99</span>
+          <span class="tag">Casual</span>
+          <span class="tag platform">iPhone · iPad</span>
+          <span class="tag platform">68.5 MB</span>
+          <span class="tag" style="border-color:rgba(184,71,43,0.4);background:rgba(184,71,43,0.08);color:var(--accent-2)">Premium Edition</span>
+        </div>
+        <p class="app-desc">The expanded paid edition built on the Terminal Game engine. Six handcrafted skins — each with its own characters, enemies, gems, power-up artwork, environment, and original music track. One price, everything included.</p>
+        <div class="app-features">
+          <strong>6 skins:</strong> Old School Bit, Neon Bit, New School Kid, Pixel Kid, Wizard, Shadow Wizard · <strong>5 power-ups:</strong> Speed, Invincible, 2X Score, Heart, Eliminator · Easy/Normal/Hard · per-skin high scores · haptic feedback · adaptive iPhone/iPad layout
+        </div>
+      </div>
+      <div class="app-links">
+        <a class="app-link primary" href="https://apps.apple.com/us/app/pixel-quest-retro-arcade-game/id6760863454" target="_blank" rel="noopener">App Store <span class="arrow">→</span></a>
+        <a class="app-link" href="https://www.food4thoth.com/RetroArcadeIOS/PixelMarketing.html" target="_blank" rel="noopener">Marketing <span class="arrow">→</span></a>
+        <a class="app-link" href="https://www.food4thoth.com/RetroArcadeIOS/PrivacyPolicy.html" target="_blank" rel="noopener">Privacy <span class="arrow">→</span></a>
+      </div>
+    </article>
+
+    <!-- TERMINAL GAME -->
+    <article class="app-row reveal">
+      <div class="app-glyph">𝟬𝟯<span class="small">FREE</span></div>
+      <div class="app-body">
+        <h3 class="serif">Terminal Game</h3>
+        <div class="app-tagline">Retro Arcade — the original</div>
+        <div class="app-meta-tags">
+          <span class="tag free">Free</span>
+          <span class="tag">Casual</span>
+          <span class="tag platform">iPhone · iPad</span>
+          <span class="tag platform">39.4 MB</span>
+          <span class="tag" style="border-color:rgba(168,127,30,0.35);background:rgba(168,127,30,0.06);color:var(--gold)">Genesis Project</span>
+        </div>
+        <p class="app-desc">The free original — and the genesis of the entire mobile catalog. Began as a Python <span class="mono" style="font-size:13px">curses</span> terminal prototype, ported to HTML5 Canvas, then to iOS. Designed for quick sessions, clean controls, and "one-more-round" energy.</p>
+        <div class="app-features">
+          <strong>Updated controls:</strong> 8-direction swipe + tap-to-move, continuous movement, larger D-pad · power-ups (speed, invincibility, 2X) · top-5 score persistence · retro chiptune soundtrack · fully offline
+        </div>
+      </div>
+      <div class="app-links">
+        <a class="app-link primary" href="https://apps.apple.com/us/app/terminal-game/id6757940532" target="_blank" rel="noopener">App Store <span class="arrow">→</span></a>
+        <a class="app-link" href="https://www.food4thoth.com/RetroArcadeIOS/Marketing.html" target="_blank" rel="noopener">Marketing <span class="arrow">→</span></a>
+        <a class="app-link" href="https://www.food4thoth.com/RetroArcadeIOS/PrivatePolicy.html" target="_blank" rel="noopener">Privacy <span class="arrow">→</span></a>
+      </div>
+    </article>
+
+    <!-- GLO-CALCULATO -->
+    <article class="app-row reveal">
+      <div class="app-glyph">𝟬𝟰<span class="small">FREE</span></div>
+      <div class="app-body">
+        <h3 class="serif">Glo-CALCULATO</h3>
+        <div class="app-tagline">Rainbow Scientific Calculator — practical, useful, and a little joyful</div>
+        <div class="app-meta-tags">
+          <span class="tag free">Free</span>
+          <span class="tag utility">Utility</span>
+          <span class="tag platform">iPhone</span>
+          <span class="tag platform">32.9 MB</span>
+          <span class="tag" style="border-color:rgba(46,92,82,0.4);background:var(--teal-soft);color:var(--teal)">Cross-Platform</span>
+        </div>
+        <p class="app-desc">A fully functional scientific calculator wrapped in a continuously rotating rainbow glow. Began as a visual concept on Food4Thoth, iterated through multiple web refinements, then matured into a complete utility — now live on the Apple App Store and in active Google Play closed test.</p>
+        <div class="app-features">
+          <strong>Math functions:</strong> sin, cos, tan, log, ln, √, exponents, π, e, parentheses, full arithmetic · DEG/RAD modes · scrollable history with tap-to-reuse · copy-to-clipboard · haptic feedback · zero ads · zero subscriptions · zero accounts · all calculations stay on-device
+        </div>
+      </div>
+      <div class="app-links">
+        <a class="app-link primary" href="https://apps.apple.com/us/app/glo-calculato/id6760606910" target="_blank" rel="noopener">App Store <span class="arrow">→</span></a>
+        <a class="app-link" href="https://play.google.com/store/apps/details?id=app.replit.glocalculato" target="_blank" rel="noopener">Google Play (Test) <span class="arrow">→</span></a>
+        <a class="app-link" href="https://www.food4thoth.com/GloCalculatoLanding/glo-calculato-marketing-page.html" target="_blank" rel="noopener">Marketing <span class="arrow">→</span></a>
+        <a class="app-link" href="https://www.food4thoth.com/GloCalculatoLanding/glo-calcutato-privacy-policy.html" target="_blank" rel="noopener">Privacy <span class="arrow">→</span></a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ─────────── ARCS ─────────── -->
+<section id="arcs">
+  <div class="section-head reveal">
+    <span class="eyebrow">Project Arcs · Three Throughlines</span>
+    <h2 class="serif">Every shipped app traces back<br/>to an earlier prototype.</h2>
+    <p>The Apple App Store catalog isn't a set of one-off projects. Each title is the production milestone of a longer arc that began on the web — concept, iteration, refinement, and finally a packaged, distributable product.</p>
+  </div>
+
+  <!-- ARC I: TERMINAL GAME → PIXEL QUEST -->
+  <div class="arc reveal">
+    <aside class="arc-meta">
+      <div class="arc-num">I</div>
+      <span class="label">Free Original → Premium Edition</span>
+    </aside>
+    <div class="arc-content">
+      <h3 class="serif">From Python Terminal to Pixel Quest</h3>
+      <div class="arc-tagline">A repeatable production pipeline, proven by a free release and its premium successor.</div>
+      <p>The longest arc in the catalog. What started as a Python <span class="mono" style="font-size:13px">curses</span> script in a terminal — moving a player, dodging enemies, collecting dots — became a Canvas web port, a series of themed sprite variants, a TestFlight beta, the free <strong>Terminal Game</strong> on the App Store, and finally <strong>Pixel Quest</strong>, the expanded paid edition with six handcrafted skins and per-skin music.</p>
+
+      <ol class="timeline">
+        <li>
+          <div class="timeline-step">Step 01 · Terminal Origin</div>
+          <div class="timeline-title">Python <span class="mono" style="font-size:13px">curses</span> prototype</div>
+          <div class="timeline-detail">Player, enemies, collectibles, real-time scoring, difficulty scaling — all in the terminal.</div>
+        </li>
+        <li>
+          <div class="timeline-step">Step 02 · Web Port</div>
+          <div class="timeline-title">HTML5 Canvas + JavaScript engine</div>
+          <div class="timeline-detail">Game loop via <span class="mono" style="font-size:13px">requestAnimationFrame</span>; unified touch / click / keyboard controls; AABB collision system.</div>
+        </li>
+        <li>
+          <div class="timeline-step">Step 03 · Themed Variants</div>
+          <div class="timeline-title">Sprite-based re-skins on Food4Thoth.com</div>
+          <div class="timeline-detail">NewSchool Kid, NewSchool Wizard — proving the engine could host multiple aesthetic identities without a rewrite.</div>
+        </li>
+        <li>
+          <div class="timeline-step">Step 04 · Beta Track</div>
+          <div class="timeline-title">TestFlight closed beta</div>
+          <div class="timeline-detail">Real-device feedback, App Store submission process, code-signing pipeline.</div>
+        </li>
+        <li class="peak">
+          <div class="timeline-step">Step 05 · First Ship</div>
+          <div class="timeline-title">Terminal Game launches free on Apple App Store</div>
+          <div class="timeline-detail">39.4 MB, iPhone + iPad, fully offline, privacy-first, retro chiptune soundtrack.</div>
+        </li>
+        <li class="peak">
+          <div class="timeline-step">Step 06 · Premium Edition</div>
+          <div class="timeline-title">Pixel Quest ships at $1.99 with 6 full skins</div>
+          <div class="timeline-detail">Each skin a complete visual + audio identity. Five power-ups, three difficulties, per-skin high scores, haptic feedback. The same engine — refined, expanded, monetized.</div>
+        </li>
+      </ol>
+
+      <div class="arc-result">
+        <span class="label">Outcome</span>
+        <p>One toolchain, two shipped products, two price points (free + paid), one learning loop that now repeats reliably. The pipeline is the asset.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARC II: NARRATIVE THROUGHLINE -->
+  <div class="arc reveal">
+    <aside class="arc-meta">
+      <div class="arc-num">II</div>
+      <span class="label">Story → Branching Game → Adventure App</span>
+    </aside>
+    <div class="arc-content">
+      <h3 class="serif">From Web Comics to Neon Serpent Spiral</h3>
+      <div class="arc-tagline">A narrative practice that began on the page and ended in a six-ending shipped adventure.</div>
+      <p>This arc traces a single creative throughline: the patient development of a <strong>narrative design language</strong>. It started with browser-native comics and scroll-driven story pages, matured into a 122-node branching <em>Choose Your Own Adventure</em> system with stat tracking and 30+ unique endings, and culminated in <strong>Neon Serpent Spiral</strong> — a published iOS adventure with ten worlds, ten NPCs, twenty-five musical mini-games, and six branching endings driven by Karma and Weirdness scores.</p>
+
+      <ol class="timeline">
+        <li>
+          <div class="timeline-step">Step 01 · Web Comics</div>
+          <div class="timeline-title">Browser-native illustrated stories</div>
+          <div class="timeline-detail">Trent's Storybook, Prayer Children's Fade — visual narrative pacing, scroll dramaturgy, image rhythm. Story as a <em>web</em> experience, not a port from print.</div>
+        </li>
+        <li>
+          <div class="timeline-step">Step 02 · Branching Engine</div>
+          <div class="timeline-title">122-node Choose Your Own Adventure system</div>
+          <div class="timeline-detail">JavaScript object-graph state machine. Typewriter effect. Stat tracking (wisdom / courage / vision). 30+ unique endings. Recursive narrative architecture.</div>
+        </li>
+        <li>
+          <div class="timeline-step">Step 03 · World-Building Practice</div>
+          <div class="timeline-title">Tarot engines, oracle systems, ritual interfaces</div>
+          <div class="timeline-detail">40+ tarot/oracle variants on Food4Thoth — design vocabulary for symbolic UI, dialogue tone, and reactive character logic.</div>
+        </li>
+        <li class="peak">
+          <div class="timeline-step">Step 04 · Mobile Adventure Ships</div>
+          <div class="timeline-title">Neon Serpent Spiral launches at $2.99 on Apple App Store</div>
+          <div class="timeline-detail">10 surreal worlds (Breathing Bus Stop, Neon Marbled Desert, Checkerboard Dream Mall, Pirate Public Access TV, Ritual Arcade, Floating Garden, Motel of Broken Realities, Phosphorescent Memory Swamp, Digital Temple, Diner at the Edge of Everything). 10 NPCs. 25 musical mini-games. 6 branching endings. On-device sound synthesis. Full accessibility settings. Zero in-app purchases.</div>
+        </li>
+      </ol>
+
+      <div class="arc-result">
+        <span class="label">Outcome</span>
+        <p>Narrative skills built on the open web translate directly into a finished, sellable mobile adventure — proving that interactive storytelling, symbolic UI, and game logic can be developed as a single integrated practice.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARC III: GLO-CALCULATO -->
+  <div class="arc reveal">
+    <aside class="arc-meta">
+      <div class="arc-num">III</div>
+      <span class="label">Visual Concept → Functional Tool → Cross-Platform</span>
+    </aside>
+    <div class="arc-content">
+      <h3 class="serif">Glo-CALCULATO: From Look to Useful</h3>
+      <div class="arc-tagline">A calculator that began as an aesthetic and grew into a daily-driver utility across two platforms.</div>
+      <p>Glo-CALCULATO is the catalog's only utility — and its arc is the most disciplined. The project began as a <strong>visual concept</strong> on Food4Thoth: a calculator face wrapped in continuously rotating rainbow gradients with a hand-drawn smiley face. From that aesthetic seed, it was iterated through multiple web rounds — adding scientific functions, calculation history, DEG/RAD toggles, haptic feedback, copy-to-clipboard — until it became a <strong>fully functional tool</strong> people would actually use. It now ships on Apple's App Store and is in <strong>active Google Play closed test</strong>: the first cross-platform release in the catalog.</p>
+
+      <ol class="timeline">
+        <li>
+          <div class="timeline-step">Step 01 · Visual Concept</div>
+          <div class="timeline-title">Rainbow-glow calculator face on Food4Thoth.com</div>
+          <div class="timeline-detail">Continuously rotating spectrum borders, swirly psychedelic background, hand-drawn smiley that fades on input and returns on AC. Look first — the "feel" was the original idea.</div>
+        </li>
+        <li>
+          <div class="timeline-step">Step 02 · Functional Math</div>
+          <div class="timeline-title">Standard arithmetic + scientific operators added</div>
+          <div class="timeline-detail">sin, cos, tan, log, ln, √, exponents, π, e, parentheses. Real input parsing. Real expression evaluation. The aesthetic toy becomes a tool.</div>
+        </li>
+        <li>
+          <div class="timeline-step">Step 03 · Iteration & Refinement</div>
+          <div class="timeline-title">Multiple updates and upgrades on the web</div>
+          <div class="timeline-detail">DEG/RAD toggle. Scrollable calculation history. Tap-to-reuse previous results. Copy-to-clipboard. Haptic feedback. Neon-green result display. Each round of feedback narrowed the gap between concept and a calculator someone might prefer.</div>
+        </li>
+        <li class="peak">
+          <div class="timeline-step">Step 04 · Apple App Store Release</div>
+          <div class="timeline-title">Glo-CALCULATO ships free on iPhone</div>
+          <div class="timeline-detail">32.9 MB. Zero ads. Zero subscriptions. Zero accounts. No data collected, no network requests, no analytics SDKs. A serious tool with playful surface — the calculator you actually want to open.</div>
+        </li>
+        <li class="current">
+          <div class="timeline-step">Step 05 · Cross-Platform Now</div>
+          <div class="timeline-title">Google Play closed test — Android expansion in progress</div>
+          <div class="timeline-detail">10-tester closed-track group is active. Recruiting additional testers via email signup, Android device link, and web join link. First step into the second mobile ecosystem.</div>
+        </li>
+      </ol>
+
+      <div class="arc-result">
+        <span class="label">Why this matters</span>
+        <p>Glo-CALCULATO is the proof that the toolchain isn't only for games. The same pipeline that ships paid arcade titles can ship a clean, daily-use utility — and it can ship across platforms. It's the bridge from "creative tech experimenter" to "shipped software developer."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── CAPABILITIES ─────────── -->
+<section id="capabilities">
+  <div class="section-head reveal">
+    <span class="eyebrow">What I Bring</span>
+    <h2 class="serif">Capabilities</h2>
+    <p>The skills behind the catalog — from prototype to App Store, from a single index.html to a complete production pipeline.</p>
+  </div>
+
+  <div class="cap-grid">
+    <div class="cap-cell reveal">
+      <span class="label">01 · Front-End</span>
+      <h4>Interactive Web Engineering</h4>
+      <p>HTML / CSS / vanilla JavaScript at scale. Canvas 2D, WebGL via Three.js, Web Audio API, Tone.js, Leaflet.js, responsive layouts, mobile touch input.</p>
+    </div>
+    <div class="cap-cell reveal">
+      <span class="label">02 · Game Dev</span>
+      <h4>Game Loops & Mechanics</h4>
+      <p>requestAnimationFrame loops, AABB collision, difficulty scaling, sprite systems, themed re-skinning, escalating enemy patterns, score persistence.</p>
+    </div>
+    <div class="cap-cell reveal">
+      <span class="label">03 · Audio</span>
+      <h4>Real-Time Audio Systems</h4>
+      <p>Web Audio synthesis, on-device sound generation, Tone.js sequencers, custom drum machines, frequency visualizers, music-reactive interfaces.</p>
+    </div>
+    <div class="cap-cell reveal">
+      <span class="label">04 · Mobile</span>
+      <h4>Mobile App Pipeline</h4>
+      <p>TestFlight beta workflow, App Store submission, code signing, App Store optimization (titles, subtitles, categories, age ratings), privacy compliance.</p>
+    </div>
+    <div class="cap-cell reveal">
+      <span class="label">05 · Narrative</span>
+      <h4>Narrative & Content Systems</h4>
+      <p>122-node branching engines, stat-tracking story logic, multi-ending architectures, web comics, dialogue systems, symbolic UI design.</p>
+    </div>
+    <div class="cap-cell reveal">
+      <span class="label">06 · Cross-Platform</span>
+      <h4>Two-Platform Distribution</h4>
+      <p>Apple App Store (4 live releases) and Google Play (active closed test). Same engine, same toolchain, two ecosystems.</p>
+    </div>
+    <div class="cap-cell reveal">
+      <span class="label">07 · AI-Assisted</span>
+      <h4>AI-Augmented Workflow</h4>
+      <p>Modern prompt-driven development as a force multiplier for architecture, debugging, refactoring, and rapid iteration. Direction, taste, and decomposition over autocomplete.</p>
+    </div>
+    <div class="cap-cell reveal">
+      <span class="label">08 · Production</span>
+      <h4>Solo Shipping Discipline</h4>
+      <p>End-to-end ownership: idea → prototype → web build → polish → marketing page → privacy policy → store submission → public release.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── ABOUT ─────────── -->
+<section id="about">
+  <div class="section-head reveal">
+    <span class="eyebrow">Background</span>
+    <h2 class="serif">About</h2>
+  </div>
+
+  <div class="about-grid reveal">
+    <div>
+      <p class="pull">Self-taught. Solo. Shipped four apps in under a year.</p>
+    </div>
+    <div>
+      <p>DeJahn Bell is the creator and curator of <strong>Food4Thoth</strong>, a 482-page experimental web platform spanning interactive games, audio tools, branching narratives, tarot and oracle engines, civic maps, web comics, and WebGL portals.</p>
+      <p>Starting with no prior programming background, DeJahn built the entire platform — and four published Apple App Store apps — through relentless iteration and an AI-augmented workflow that emphasizes direction, taste, and the discipline of finishing.</p>
+      <p>The work spans creative-technical and practical-utility: a $2.99 surreal narrative adventure, a $1.99 retro arcade game, a free arcade original, and a free scientific calculator now in cross-platform release. Each app comes with its own marketing site and privacy policy hosted on Food4Thoth.com — every release is shipped end-to-end, solo.</p>
+      <p>Open to creative-technologist, front-end developer, indie game, and creative software roles — full-time, contract, or collaboration.</p>
+    </div>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<!-- ─────────── CONTACT ─────────── -->
+<section class="contact-block" id="contact">
+  <div class="wrap">
+    <span class="eyebrow">Get in touch</span>
+    <h2 class="serif">Looking for someone who ships?</h2>
+    <p>Open to creative technologist, front-end, indie game, and creative software roles. Available for full-time, contract, and collaborative work. Also recruiting Google Play testers for Glo-CALCULATO — email me if you'd like to join.</p>
+    <div class="contact-actions">
+      <a class="contact-btn primary" href="mailto:food4thoth@proton.me">✉ Email · food4thoth@proton.me</a>
+      <a class="contact-btn" href="https://github.com/Dseekeroftruth" target="_blank" rel="noopener">⌘ GitHub</a>
+      <a class="contact-btn" href="https://www.food4thoth.com" target="_blank" rel="noopener">◎ Food4Thoth.com</a>
+      <a class="contact-btn" href="https://www.instagram.com/emerald_path_food4th0th" target="_blank" rel="noopener">◌ Instagram</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    DeJahn Bell · Food4Thoth · <a href="mailto:food4thoth@proton.me">food4thoth@proton.me</a> · 4 Apps Live on Apple App Store
+  </div>
+</footer>
+
+<script>
+  // Subtle reveal animation
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

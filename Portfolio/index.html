@@ -1,0 +1,2175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FOOD4THOTH · DeJahn · When The Going Gets Weird, The Weird Go Pro</title>
+<meta name="description" content="A maximalist interactive portfolio for DeJahn, creator, curator, and collaborator of Food4Thoth.com — a 482-page experimental platform of tarot engines, WebGL portals, narrative systems, maps, games, sound tools, and digital mystery-school architecture." />
+<meta name="theme-color" content="#030108" />
+<meta property="og:title" content="DeJahn // Food4Thoth // Weird Goes Pro" />
+<meta property="og:description" content="482 pages. 40+ tarot variants. WebGL portals. Web Audio tool and select Tone.js-powered sonic experiences and synths. Three.js worlds. Story engines. Maps. Games. AI-assisted invention at maximum velocity." />
+<meta property="og:type" content="website" />
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Cinzel+Decorative:wght@400;700;900&family=Fira+Code:wght@300;400;700&family=Playfair+Display:wght@400;700;900&family=Press+Start+2P&display=swap');
+/* Local font fallback: if Google Fonts unavailable, place woff2 files in libs/fonts/ and uncomment:
+@font-face{font-family:'Orbitron';src:url('libs/fonts/Orbitron-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Orbitron';src:url('libs/fonts/Orbitron-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Cinzel Decorative';src:url('libs/fonts/CinzelDecorative-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Fira Code';src:url('libs/fonts/FiraCode-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Playfair Display';src:url('libs/fonts/PlayfairDisplay-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+*/
+:root {
+  --neon-cyan:#00fff7;--neon-mag:#ff00ff;--neon-yel:#ffff00;--neon-grn:#39ff14;
+  --neon-org:#ff6600;--neon-pnk:#ff1493;--void:#030108;--glow-sm:0 0 8px;
+  --glow-md:0 0 20px;--glow-lg:0 0 40px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--neon-mag) var(--void)}
+body{background:var(--void);color:#ddd;font-family:'Fira Code',monospace;overflow-x:hidden}
+.cursor-orb{position:fixed;width:28px;height:28px;border-radius:50%;border:2px solid var(--neon-cyan);pointer-events:none;z-index:100000;mix-blend-mode:difference;transition:transform .07s}
+.cursor-dot{position:fixed;width:6px;height:6px;border-radius:50%;background:var(--neon-mag);pointer-events:none;z-index:99999;transition:transform .18s ease-out}
+#webgl-bg{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;opacity:.5}
+#loader{position:fixed;inset:0;z-index:99999;background:var(--void);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1.8s,visibility 1.8s}
+#loader.gone{opacity:0;visibility:hidden;pointer-events:none}
+#loader .eye{font-size:80px;animation:pulse 1.5s ease-in-out infinite alternate}
+#loader p{font-family:'Orbitron',sans-serif;color:var(--neon-cyan);margin-top:20px;font-size:13px;letter-spacing:6px;animation:pulse 1.5s ease-in-out infinite alternate}
+@keyframes pulse{0%{opacity:.2;transform:scale(.95)}100%{opacity:1;transform:scale(1.05)}}
+.marble-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 20% 50%,rgba(255,0,255,.05) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(0,255,247,.05) 0%,transparent 50%),radial-gradient(ellipse at 50% 80%,rgba(57,255,20,.04) 0%,transparent 50%);animation:marbleShift 14s ease-in-out infinite alternate}
+@keyframes marbleShift{to{filter:hue-rotate(90deg)}}
+#app{position:relative;z-index:1}
+section{min-height:100vh;padding:80px 5vw;position:relative}#pillars,#timeline,#philosophy,#manifesto{min-height:auto}
+.neon-line{height:2px;background:linear-gradient(90deg,transparent,var(--neon-cyan),var(--neon-mag),var(--neon-grn),transparent);margin:0 auto;box-shadow:var(--glow-md) var(--neon-cyan)}
+h1,h2,h3{font-family:'Cinzel Decorative',serif}
+.glow-text{text-shadow:var(--glow-sm) var(--neon-cyan),var(--glow-md) var(--neon-mag)}
+#nav{position:fixed;top:0;left:0;right:0;z-index:9999;padding:12px 30px;display:flex;align-items:center;justify-content:space-between;background:rgba(3,1,8,.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,255,247,.15)}
+#nav .logo{font-family:'Cinzel Decorative',serif;font-size:18px;color:var(--neon-cyan);text-shadow:var(--glow-sm) var(--neon-cyan);cursor:pointer}
+#nav .links{display:flex;gap:20px;flex-wrap:wrap}
+#nav .links a{color:#aaa;text-decoration:none;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-family:'Orbitron',sans-serif;transition:all .3s;position:relative}
+#nav .links a:hover{color:var(--neon-cyan);text-shadow:var(--glow-sm) var(--neon-cyan)}
+#nav .links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--neon-cyan);transition:width .3s}
+#nav .links a:hover::after{width:100%}
+.menu-toggle{display:none;background:none;border:1px solid var(--neon-cyan);color:var(--neon-cyan);padding:6px 12px;font-family:'Orbitron',sans-serif;font-size:11px;cursor:pointer}
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative}
+#hero h1{font-size:clamp(2.5rem,8vw,7rem);color:var(--neon-cyan);text-shadow:var(--glow-lg) var(--neon-cyan),var(--glow-md) var(--neon-mag);line-height:1.1;animation:heroGlow 4s ease-in-out infinite alternate}
+@keyframes heroGlow{0%{filter:hue-rotate(0deg) brightness(1)}50%{filter:hue-rotate(30deg) brightness(1.2)}100%{filter:hue-rotate(-20deg) brightness(1)}}
+#hero .subtitle{font-family:'Orbitron',sans-serif;font-size:clamp(.7rem,2vw,1.1rem);color:var(--neon-mag);letter-spacing:6px;margin-top:20px;text-transform:uppercase}
+#hero .motto{font-family:'Playfair Display',serif;font-size:clamp(1rem,2.5vw,1.6rem);color:var(--neon-yel);margin-top:30px;font-style:italic;text-shadow:var(--glow-sm) var(--neon-yel);max-width:700px}
+#hero .scroll-cue{margin-top:50px;animation:bob 2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(12px)}}
+#hero .scroll-cue span{display:block;color:var(--neon-grn);font-size:28px}
+#about{background:linear-gradient(180deg,transparent,rgba(255,0,255,.03),transparent)}
+#about .grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:50px;align-items:center}
+#about .portrait{width:100%;aspect-ratio:1;border-radius:50%;border:3px solid var(--neon-cyan);box-shadow:var(--glow-lg) var(--neon-cyan);display:flex;align-items:center;justify-content:center;font-size:120px;background:radial-gradient(circle,rgba(0,255,247,.08),transparent);animation:portraitFloat 6s ease-in-out infinite}
+@keyframes portraitFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-15px) rotate(2deg)}}
+#about .text-block p{margin-bottom:18px;line-height:1.9;font-size:15px;opacity:.9}
+.highlight{color:var(--neon-cyan);font-weight:700}
+.highlight-mag{color:var(--neon-mag);font-weight:700}
+.highlight-grn{color:var(--neon-grn);font-weight:700}
+.highlight-yel{color:var(--neon-yel);font-weight:700}
+#pillars .pillar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;margin-top:50px}
+.pillar-card{border:1px solid rgba(0,255,247,.2);border-radius:16px;padding:35px;background:rgba(3,1,8,.7);backdrop-filter:blur(10px);transition:all .4s;position:relative;overflow:hidden}
+.pillar-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(0,255,247,.08),transparent,rgba(255,0,255,.08),transparent);animation:cardSweep 8s linear infinite;opacity:0;transition:opacity .4s}
+.pillar-card:hover::before{opacity:1}
+@keyframes cardSweep{to{transform:rotate(360deg)}}
+.pillar-card:hover{border-color:var(--neon-cyan);box-shadow:var(--glow-md) var(--neon-cyan);transform:translateY(-6px)}
+.pillar-card .icon{font-size:48px;margin-bottom:16px}
+.pillar-card h3{font-size:22px;color:var(--neon-cyan);margin-bottom:12px}
+.pillar-card p{font-size:13px;line-height:1.8;opacity:.8}
+.live-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.live-link{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;border:1px solid rgba(0,255,247,.2);background:rgba(0,255,247,.04);color:var(--neon-cyan);font-family:'Fira Code',monospace;font-size:10px;text-decoration:none;transition:all .3s;letter-spacing:.5px}
+.live-link:hover{background:rgba(0,255,247,.15);box-shadow:var(--glow-sm) var(--neon-cyan);transform:translateY(-2px)}
+.live-link::before{content:'▸';color:var(--neon-mag);font-size:8px}
+.live-link.mag{border-color:rgba(255,0,255,.2);background:rgba(255,0,255,.04);color:var(--neon-mag)}
+.live-link.mag:hover{background:rgba(255,0,255,.15);box-shadow:var(--glow-sm) var(--neon-mag)}
+.live-link.grn{border-color:rgba(57,255,20,.2);background:rgba(57,255,20,.04);color:var(--neon-grn)}
+.live-link.grn:hover{background:rgba(57,255,20,.15);box-shadow:var(--glow-sm) var(--neon-grn)}
+.live-link.yel{border-color:rgba(255,255,0,.2);background:rgba(255,255,0,.04);color:var(--neon-yel)}
+.live-link.yel:hover{background:rgba(255,255,0,.15);box-shadow:var(--glow-sm) var(--neon-yel)}
+.live-link.org{border-color:rgba(255,102,0,.2);background:rgba(255,102,0,.04);color:var(--neon-org)}
+.live-link.org:hover{background:rgba(255,102,0,.15);box-shadow:var(--glow-sm) var(--neon-org)}
+#timeline .tl-container{position:relative;margin-top:50px;padding-left:40px}
+#timeline .tl-container::before{content:'';position:absolute;left:15px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--neon-cyan),var(--neon-mag),var(--neon-grn),var(--neon-yel))}
+.tl-item{position:relative;margin-bottom:40px;padding:24px;border:1px solid rgba(255,0,255,.15);border-radius:12px;background:rgba(3,1,8,.6);transition:all .3s}
+.tl-item:hover{border-color:var(--neon-mag);box-shadow:var(--glow-sm) var(--neon-mag)}
+.tl-item::before{content:'◆';position:absolute;left:-33px;top:24px;color:var(--neon-cyan);font-size:14px;text-shadow:var(--glow-sm) var(--neon-cyan)}
+.tl-item .date{font-family:'Orbitron',sans-serif;font-size:11px;color:var(--neon-grn);letter-spacing:3px}
+.tl-item h3{color:var(--neon-yel);margin:8px 0;font-size:18px}
+.tl-item p{font-size:13px;line-height:1.7;opacity:.8}
+#story{background:linear-gradient(180deg,transparent,rgba(57,255,20,.02),transparent)}
+#story-box{max-width:800px;margin:40px auto 0;border:2px solid var(--neon-mag);border-radius:20px;padding:40px;background:rgba(3,1,8,.8);backdrop-filter:blur(12px);min-height:300px;position:relative;overflow:hidden}
+#story-text{font-family:'Playfair Display',serif;font-size:18px;line-height:2;color:#e0e0e0;min-height:120px;white-space:pre-wrap}
+#story-choices{margin-top:30px;display:flex;flex-direction:column;gap:14px}
+#story-choices button{background:rgba(0,255,247,.05);border:1px solid var(--neon-cyan);color:var(--neon-cyan);padding:14px 24px;border-radius:10px;font-family:'Fira Code',monospace;font-size:14px;cursor:pointer;text-align:left;transition:all .3s;position:relative;overflow:hidden}
+#story-choices button::before{content:'▸ ';color:var(--neon-mag)}
+#story-choices button:hover{background:rgba(0,255,247,.12);box-shadow:var(--glow-sm) var(--neon-cyan);transform:translateX(8px)}
+#story-stats{display:flex;gap:20px;margin-top:20px;font-size:11px;color:var(--neon-grn);font-family:'Orbitron',sans-serif}
+#story-restart{display:none;margin-top:20px;background:none;border:1px solid var(--neon-yel);color:var(--neon-yel);padding:10px 24px;border-radius:8px;font-family:'Orbitron',sans-serif;font-size:12px;cursor:pointer;transition:all .3s}
+#story-restart:hover{background:rgba(255,255,0,.1);box-shadow:var(--glow-sm) var(--neon-yel)}
+#music{background:linear-gradient(180deg,transparent,rgba(0,255,247,.02),transparent)}
+#synth-container{max-width:900px;margin:40px auto 0}
+#synth-keys{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-bottom:20px}
+.synth-key{aspect-ratio:1;border-radius:12px;border:2px solid rgba(0,255,247,.3);background:rgba(3,1,8,.7);display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-size:11px;color:var(--neon-cyan);cursor:pointer;transition:all .15s;user-select:none;text-align:center;line-height:1.4}
+.synth-key:active,.synth-key.active{background:rgba(0,255,247,.2);box-shadow:var(--glow-md) var(--neon-cyan);transform:scale(.93);border-color:var(--neon-cyan)}
+.synth-key:nth-child(even){border-color:rgba(255,0,255,.3)}
+.synth-key:nth-child(even):active,.synth-key:nth-child(even).active{background:rgba(255,0,255,.2);box-shadow:var(--glow-md) var(--neon-mag);border-color:var(--neon-mag)}
+#synth-controls{display:flex;gap:20px;flex-wrap:wrap;align-items:center;margin-top:16px}
+#synth-controls label{font-size:11px;color:var(--neon-grn);font-family:'Orbitron',sans-serif;letter-spacing:1px}
+#synth-controls select,#synth-controls input[type=range]{background:rgba(3,1,8,.8);border:1px solid var(--neon-cyan);color:var(--neon-cyan);padding:6px 10px;border-radius:6px;font-family:'Fira Code',monospace;font-size:12px}
+input[type=range]{-webkit-appearance:none;height:6px;border-radius:3px;background:rgba(0,255,247,.2);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--neon-cyan);cursor:pointer;box-shadow:var(--glow-sm) var(--neon-cyan)}
+.beat-row-label{font-size:9px;color:var(--neon-mag);font-family:'Orbitron',sans-serif;text-align:right;padding-right:8px;display:flex;align-items:center;justify-content:flex-end}
+#drum-machine{display:flex;flex-direction:column;gap:6px;margin-top:24px}
+.drum-row{display:grid;grid-template-columns:60px 60px 1fr;gap:4px;align-items:center}
+.beat-cells-wrap{display:grid;grid-template-columns:repeat(16,1fr);gap:4px}
+.drum-sound-select{background:rgba(3,1,8,.8);border:1px solid rgba(255,0,255,.3);color:var(--neon-mag);padding:3px 4px;border-radius:4px;font-family:'Fira Code',monospace;font-size:9px;width:60px;cursor:pointer}
+.drum-sound-select:focus{border-color:var(--neon-cyan);outline:none}
+.beat-cell{height:32px;border:1px solid rgba(0,255,247,.15);border-radius:4px;cursor:pointer;transition:all .15s;background:rgba(3,1,8,.5)}
+.beat-cell.on{background:var(--neon-cyan);box-shadow:var(--glow-sm) var(--neon-cyan)}
+.beat-cell.current{border-color:var(--neon-yel);box-shadow:0 0 6px var(--neon-yel)}
+#transport{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;align-items:center}
+#transport button{background:none;border:1px solid var(--neon-mag);color:var(--neon-mag);padding:8px 20px;border-radius:8px;font-family:'Orbitron',sans-serif;font-size:11px;cursor:pointer;transition:all .3s;letter-spacing:2px}
+#transport button:hover{background:rgba(255,0,255,.15);box-shadow:var(--glow-sm) var(--neon-mag)}
+#transport button.playing{background:rgba(255,0,255,.2);box-shadow:var(--glow-md) var(--neon-mag)}
+#visualizer-canvas{width:100%;height:100px;margin-top:16px;border-radius:10px;border:1px solid rgba(0,255,247,.1)}
+#games{background:linear-gradient(180deg,transparent,rgba(255,0,255,.02),transparent)}
+#game-select{display:flex;gap:14px;margin:30px 0;flex-wrap:wrap}
+#game-select button{background:rgba(3,1,8,.7);border:1px solid var(--neon-yel);color:var(--neon-yel);padding:10px 22px;border-radius:10px;font-family:'Orbitron',sans-serif;font-size:11px;cursor:pointer;transition:all .3s;letter-spacing:2px}
+#game-select button:hover,#game-select button.active{background:rgba(255,255,0,.1);box-shadow:var(--glow-sm) var(--neon-yel)}
+#game-area{min-height:400px;border:2px solid rgba(57,255,20,.2);border-radius:16px;padding:30px;background:rgba(3,1,8,.7);position:relative;overflow:hidden}
+#game-canvas{width:100%;max-width:640px;display:block;margin:0 auto;border-radius:8px}
+#game-hud{display:flex;justify-content:space-between;margin-bottom:12px;font-family:'Orbitron',sans-serif;font-size:11px;color:var(--neon-grn);letter-spacing:2px}
+#game-msg{text-align:center;font-family:'Cinzel Decorative',serif;font-size:18px;color:var(--neon-yel);margin:20px 0;min-height:30px}
+#philosophy .influence-cloud{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:40px}
+.inf-tag{padding:10px 22px;border:1px solid;border-radius:30px;font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;cursor:pointer;transition:all .4s;position:relative;overflow:hidden}
+.inf-tag:hover{transform:scale(1.08) rotate(-1deg);box-shadow:var(--glow-md) currentColor}
+#inf-detail{max-width:700px;margin:30px auto 0;padding:28px;border:1px solid rgba(0,255,247,.15);border-radius:14px;background:rgba(3,1,8,.7);min-height:100px;font-family:'Playfair Display',serif;font-size:16px;line-height:1.9;text-align:center;transition:all .5s}
+#manifesto{text-align:center}
+#manifesto .decree{max-width:800px;margin:40px auto 0;font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.35rem);line-height:2.2;color:#ccc}
+#manifesto .decree em{color:var(--neon-cyan);font-style:normal;text-shadow:var(--glow-sm) var(--neon-cyan)}
+#manifesto .sigil-row{display:flex;justify-content:center;gap:40px;margin-top:40px;font-size:48px}
+#contact{text-align:center;padding-bottom:120px}
+#contact .link-row{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+#contact .link-row a{display:inline-block;padding:14px 32px;border:2px solid var(--neon-cyan);border-radius:40px;color:var(--neon-cyan);text-decoration:none;font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:3px;transition:all .4s}
+#contact .link-row a:hover{background:var(--neon-cyan);color:var(--void);box-shadow:var(--glow-lg) var(--neon-cyan)}
+.sec-title{font-size:clamp(1.8rem,5vw,3.5rem);text-align:center;margin-bottom:10px}
+.sec-sub{text-align:center;font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:4px;color:var(--neon-mag);margin-bottom:30px}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+footer{text-align:center;padding:40px;font-size:11px;color:#555;font-family:'Orbitron',sans-serif;letter-spacing:3px;border-top:1px solid rgba(0,255,247,.1)}
+
+/* ══════ TICKER ══════ */
+.ticker-wrap{position:relative;overflow:hidden;border-top:1px solid rgba(0,255,247,.15);border-bottom:1px solid rgba(255,0,255,.15);background:rgba(3,1,8,.7);padding:14px 0}
+.ticker{display:flex;gap:28px;white-space:nowrap;min-width:max-content;animation:none;font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--neon-cyan)}
+.ticker.running{animation:tickerScroll var(--ticker-dur,30s) linear forwards}
+
+
+.ticker span{opacity:.8}
+.ticker span::after{content:' ◆ ';color:var(--neon-mag);opacity:.5}
+@keyframes tickerScroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(var(--ticker-dist),0,0)}}
+
+
+/* ══════ SIGNAL DENSITY / STATS ══════ */
+#signal-density{min-height:auto;padding:60px 5vw}
+.stat-row{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:40px}
+.stat-card{border:1px solid rgba(0,255,247,.15);border-radius:16px;padding:24px;background:rgba(3,1,8,.7);backdrop-filter:blur(8px);text-align:center;transition:all .4s;position:relative;overflow:hidden}
+.stat-card:hover{border-color:var(--neon-cyan);box-shadow:var(--glow-md) var(--neon-cyan);transform:translateY(-4px)}
+.stat-card .stat-num{font-family:'Orbitron',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:900;line-height:1;margin:8px 0;letter-spacing:-.03em}
+.stat-card .stat-label{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--neon-mag)}
+.stat-card .stat-desc{font-size:12px;line-height:1.6;margin-top:10px;opacity:.7}
+.stat-num.cyan{color:var(--neon-cyan);text-shadow:var(--glow-sm) var(--neon-cyan)}
+.stat-num.mag{color:var(--neon-mag);text-shadow:var(--glow-sm) var(--neon-mag)}
+.stat-num.grn{color:var(--neon-grn);text-shadow:var(--glow-sm) var(--neon-grn)}
+.stat-num.yel{color:var(--neon-yel);text-shadow:var(--glow-sm) var(--neon-yel)}
+.stat-num.org{color:var(--neon-org);text-shadow:var(--glow-sm) var(--neon-org)}
+
+/* ══════ METHOD ══════ */
+.method-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:40px}
+.method-card{border:1px solid rgba(255,0,255,.15);border-radius:16px;padding:28px;background:rgba(3,1,8,.7);backdrop-filter:blur(8px);transition:all .4s}
+.method-card:hover{border-color:var(--neon-mag);box-shadow:var(--glow-sm) var(--neon-mag);transform:translateY(-4px)}
+.method-card h3{color:var(--neon-yel);font-size:16px;margin-bottom:10px}
+.method-card p{font-size:13px;line-height:1.7;opacity:.8}
+
+/* ══════ PORTFOLIO COSMOS ══════ */
+.cosmos-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:40px}
+.cosmos-card{border:1px solid rgba(0,255,247,.12);border-radius:16px;padding:24px;background:rgba(3,1,8,.7);backdrop-filter:blur(8px);transition:all .4s;grid-column:span 4;position:relative;overflow:hidden}
+.cosmos-card.wide{grid-column:span 8}
+.cosmos-card:hover{border-color:var(--neon-cyan);box-shadow:var(--glow-sm) var(--neon-cyan);transform:translateY(-4px)}
+.cosmos-card .cosmos-tag{display:inline-block;padding:5px 12px;border-radius:20px;border:1px solid rgba(0,255,247,.2);background:rgba(0,255,247,.05);font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--neon-cyan);margin-bottom:12px}
+.cosmos-card h3{color:#e0e0e0;font-size:16px;margin-bottom:10px;font-family:'Cinzel Decorative',serif}
+.cosmos-card p{font-size:12px;line-height:1.7;opacity:.75}
+.cosmos-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.cosmos-chip{font-size:10px;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#ccc;font-family:'Fira Code',monospace;letter-spacing:.5px}
+.glow-border-cyan{border-color:rgba(0,255,247,.25)}
+.glow-border-mag{border-color:rgba(255,0,255,.25)}
+.glow-border-grn{border-color:rgba(57,255,20,.25)}
+.glow-border-yel{border-color:rgba(255,255,0,.25)}
+.glow-border-org{border-color:rgba(255,102,0,.25)}
+
+/* ══════ TRAJECTORY ══════ */
+.traj-grid{display:grid;gap:16px;margin-top:40px}
+.traj-card{display:grid;grid-template-columns:120px 1fr;gap:16px;border:1px solid rgba(0,255,247,.12);border-radius:14px;padding:20px;background:rgba(3,1,8,.6);transition:all .3s}
+.traj-card:hover{border-color:var(--neon-cyan);box-shadow:var(--glow-sm) var(--neon-cyan)}
+.traj-phase{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:var(--neon-cyan)}
+.traj-card h3{color:var(--neon-yel);font-size:16px;margin-bottom:8px}
+.traj-card p{font-size:13px;line-height:1.7;opacity:.8}
+
+/* ══════ THESIS QUOTE ══════ */
+.thesis-block{max-width:800px;margin:40px auto 0;padding:30px;border:1px dashed rgba(255,255,0,.2);border-radius:20px;background:rgba(3,1,8,.6);text-align:center}
+.thesis-block .thesis-quote{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,2.5vw,1.8rem);line-height:1.4;color:#e0e0e0;margin-bottom:16px}
+.thesis-block .thesis-source{font-size:13px;color:var(--neon-mag);line-height:1.7;opacity:.8}
+
+/* ══════ CIVIC MAP ══════ */
+#civic-map-section{min-height:auto;padding:60px 5vw}
+.map-toggle-btn{display:inline-flex;align-items:center;gap:10px;padding:12px 28px;border:2px solid var(--neon-grn);border-radius:30px;background:rgba(57,255,20,.05);color:var(--neon-grn);font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:3px;cursor:pointer;transition:all .4s;margin:0 auto 24px;text-align:center}
+.map-toggle-btn:hover{background:rgba(57,255,20,.12);box-shadow:var(--glow-md) var(--neon-grn)}
+.map-toggle-btn.open{border-color:var(--neon-mag);color:var(--neon-mag);background:rgba(255,0,255,.05)}
+.map-toggle-btn.open:hover{box-shadow:var(--glow-md) var(--neon-mag)}
+.map-container{max-height:0;overflow:hidden;transition:max-height .8s ease,opacity .5s ease;opacity:0}
+.map-container.open{max-height:1200px;opacity:1}
+.map-wrapper{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;margin-top:0}
+#civic-map{width:100%;min-height:420px;border-radius:16px;border:1px solid rgba(57,255,20,.2);overflow:hidden;background:rgba(3,1,8,.5)}
+.map-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.legend-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);font-size:12px;font-family:'Fira Code',monospace}
+.legend-dot{width:12px;height:12px;border-radius:50%;display:inline-block}
+.map-info-panel{display:flex;flex-direction:column;gap:16px}
+.map-info-card{border:1px solid rgba(57,255,20,.12);border-radius:14px;padding:20px;background:rgba(3,1,8,.6)}
+.map-info-card h3{color:var(--neon-grn);font-size:14px;margin-bottom:8px}
+.map-info-card p{font-size:12px;line-height:1.7;opacity:.75}
+
+/* Leaflet dark theme overrides */
+
+/* ══════ CONTACT FORM & SOCIALS ══════ */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:40px auto 0}
+.contact-panel{border:1px solid rgba(0,255,247,.15);border-radius:20px;padding:28px;background:rgba(3,1,8,.7);backdrop-filter:blur(10px)}
+.social-grid{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.social-link{display:flex;align-items:center;gap:14px;padding:14px 18px;border:1px solid rgba(0,255,247,.12);border-radius:14px;background:rgba(0,255,247,.03);color:#e0e0e0;text-decoration:none;font-family:'Fira Code',monospace;font-size:13px;transition:all .35s;position:relative;overflow:hidden}
+.social-link:hover{border-color:var(--neon-cyan);background:rgba(0,255,247,.08);box-shadow:var(--glow-sm) var(--neon-cyan);transform:translateX(6px)}
+.social-link .social-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.social-link .social-name{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--neon-cyan);display:block}
+.social-link .social-handle{font-size:12px;opacity:.7;margin-top:2px}
+.social-link.email-link{border-color:rgba(255,0,255,.2)}
+.social-link.email-link:hover{border-color:var(--neon-mag);background:rgba(255,0,255,.08);box-shadow:var(--glow-sm) var(--neon-mag)}
+.social-link.email-link .social-name{color:var(--neon-mag)}
+
+.contact-form{display:flex;flex-direction:column;gap:14px;margin-top:16px}
+.contact-form input,.contact-form textarea{width:100%;padding:14px 16px;border:1px solid rgba(0,255,247,.15);border-radius:12px;background:rgba(3,1,8,.6);color:#e0e0e0;font-family:'Fira Code',monospace;font-size:13px;outline:none;transition:border-color .3s,box-shadow .3s;resize:vertical}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--neon-cyan);box-shadow:0 0 12px rgba(0,255,247,.15)}
+.contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(255,255,255,.25)}
+.contact-form textarea{min-height:120px}
+.contact-form button{padding:14px 28px;border:2px solid var(--neon-mag);border-radius:30px;background:rgba(255,0,255,.06);color:var(--neon-mag);font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:3px;cursor:pointer;transition:all .4s;align-self:flex-start}
+.contact-form button:hover{background:rgba(255,0,255,.15);box-shadow:var(--glow-md) var(--neon-mag);transform:translateY(-2px)}
+.contact-form button:active{transform:scale(.97)}
+#form-status{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;min-height:20px;transition:all .3s}
+
+/* Floating contact CTA in hero */
+.hero-contact{display:flex;gap:12px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.hero-contact a{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid rgba(0,255,247,.25);border-radius:24px;background:rgba(0,255,247,.04);color:var(--neon-cyan);font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;text-decoration:none;transition:all .3s}
+.hero-contact a:hover{background:rgba(0,255,247,.12);box-shadow:var(--glow-sm) var(--neon-cyan);transform:translateY(-2px)}
+.hero-contact a.mag-cta{border-color:rgba(255,0,255,.25);background:rgba(255,0,255,.04);color:var(--neon-mag)}
+.hero-contact a.mag-cta:hover{background:rgba(255,0,255,.12);box-shadow:var(--glow-sm) var(--neon-mag)}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#111!important;color:#f7f7f7!important;border:1px solid rgba(0,255,247,.2)!important;border-radius:12px!important}
+.leaflet-popup-content{line-height:1.5;font-size:13px;font-family:'Fira Code',monospace}
+.leaflet-control-attribution{background:rgba(3,1,8,.7)!important;color:#888!important;font-size:9px!important}
+.leaflet-control-attribution a{color:#aaa!important}
+
+/* ══════ SIGNAL COLLECTOR GAME ADDITIONS ══════ */
+#signal-game-area{margin-top:16px;display:none;border:2px solid rgba(255,201,61,.2);border-radius:16px;padding:20px;background:rgba(3,1,8,.7)}
+#signal-game-area.active{display:block}
+#signal-canvas{width:100%;max-width:640px;display:block;margin:0 auto;border-radius:8px;border:1px solid rgba(255,201,61,.15);background:radial-gradient(circle at 20% 20%,rgba(255,255,255,.03),transparent 35%),radial-gradient(circle at 80% 80%,rgba(255,255,255,.02),transparent 35%),rgba(3,1,8,.5)}
+.signal-hud{display:flex;justify-content:space-between;margin-bottom:10px;font-family:'Orbitron',sans-serif;font-size:11px;color:var(--neon-org);letter-spacing:2px}
+@media(max-width:768px){
+  #nav .links{position:absolute;top:100%;left:0;right:0;background:rgba(3,1,8,.95);flex-direction:column;padding:0 20px;gap:0;border-bottom:1px solid var(--neon-cyan);max-height:0;overflow:hidden;transition:max-height .6s ease,padding .4s ease;display:flex}
+  #nav .links.open{max-height:500px;padding:20px;gap:16px}
+  .menu-toggle{display:block}
+  #about .grid{grid-template-columns:1fr}
+  #about .portrait{width:60%;margin:0 auto}
+  #synth-keys{grid-template-columns:repeat(4,1fr)}
+  #drum-machine{display:flex!important;flex-direction:column;gap:10px}
+  .drum-row{display:grid!important;grid-template-columns:auto 1fr;gap:4px 8px;align-items:center;border:1px solid rgba(0,255,247,.08);border-radius:8px;padding:6px}
+  .drum-row .beat-row-label{grid-column:1;grid-row:1;font-size:9px!important;padding-right:4px!important;white-space:nowrap}
+  .drum-row .drum-sound-select{grid-column:1;grid-row:2;font-size:8px!important;padding:2px 3px!important;width:auto!important;max-width:65px}
+  .drum-row .beat-cells-wrap{grid-column:2;grid-row:1/3;display:grid!important;grid-template-columns:repeat(16,1fr);gap:2px;align-self:center}
+  .beat-cell{aspect-ratio:auto!important;height:22px;min-width:0}
+  body{cursor:auto}.cursor-orb,.cursor-dot{display:none!important}
+  section{padding:60px 4vw}
+  .stat-row{grid-template-columns:repeat(2,1fr)}
+  .method-grid{grid-template-columns:1fr}
+  .cosmos-card,.cosmos-card.wide{grid-column:span 12}
+  .traj-card{grid-template-columns:1fr}
+  .map-wrapper{grid-template-columns:1fr}
+  #civic-map{min-height:300px}
+  .contact-grid{grid-template-columns:1fr}
+  footer>div:first-child{grid-template-columns:repeat(2,1fr)!important}
+}
+
+
+
+/* ══════ RESUME CTA STRIP ══════ */
+.resume-cta-strip{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.resume-cta{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border:2px solid var(--neon-cyan);border-radius:30px;background:rgba(0,255,247,.04);color:var(--neon-cyan);font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;text-decoration:none;transition:all .4s;cursor:pointer}
+.resume-cta:hover{background:rgba(0,255,247,.12);box-shadow:var(--glow-md) var(--neon-cyan);transform:translateY(-2px)}
+.resume-cta.mag{border-color:var(--neon-mag);color:var(--neon-mag);background:rgba(255,0,255,.04)}
+.resume-cta.mag:hover{background:rgba(255,0,255,.12);box-shadow:var(--glow-md) var(--neon-mag)}
+.resume-cta.grn{border-color:var(--neon-grn);color:var(--neon-grn);background:rgba(57,255,20,.04)}
+.resume-cta.grn:hover{background:rgba(57,255,20,.12);box-shadow:var(--glow-md) var(--neon-grn)}
+
+/* ══════ RESUME DOWNLOAD WIDGET ══════ */
+.resume-dl-wrap{margin-top:16px;text-align:center}
+.resume-dl-toggle{display:inline-flex;align-items:center;gap:10px;padding:12px 26px;border:2px solid var(--neon-yel);border-radius:30px;background:linear-gradient(135deg,rgba(255,255,0,.06),rgba(255,102,0,.04));color:var(--neon-yel);font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:3px;cursor:pointer;transition:all .4s;animation:resumeGlow 4s ease-in-out infinite alternate}
+.resume-dl-toggle:hover{background:linear-gradient(135deg,rgba(255,255,0,.14),rgba(255,102,0,.1));box-shadow:var(--glow-md) var(--neon-yel);transform:translateY(-2px)}
+@keyframes resumeGlow{0%{border-color:rgba(255,255,0,.35);box-shadow:0 0 6px rgba(255,255,0,.08)}100%{border-color:rgba(255,255,0,.65);box-shadow:0 0 16px rgba(255,255,0,.15)}}
+.resume-dl-panel{max-height:0;overflow:hidden;transition:max-height .5s ease,opacity .3s ease;opacity:0}
+.resume-dl-panel.open{max-height:300px;opacity:1}
+.resume-dl-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:14px}
+.resume-dl-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border:1px solid rgba(255,255,0,.2);border-radius:24px;background:rgba(255,255,0,.03);color:var(--neon-yel);font-family:'Fira Code',monospace;font-size:11px;text-decoration:none;transition:all .35s;letter-spacing:.5px}
+.resume-dl-btn:hover{background:rgba(255,255,0,.1);box-shadow:var(--glow-sm) var(--neon-yel);transform:translateY(-2px);border-color:var(--neon-yel)}
+.resume-dl-btn .dl-icon{font-size:14px}
+.resume-dl-btn .dl-tag{font-family:'Orbitron',sans-serif;font-size:8px;letter-spacing:1px;padding:2px 6px;border-radius:8px;background:rgba(255,255,255,.06);margin-left:2px}
+.resume-dl-btn.tailored{border-color:rgba(0,255,247,.2);color:var(--neon-cyan);background:rgba(0,255,247,.03)}
+.resume-dl-btn.tailored:hover{background:rgba(0,255,247,.1);box-shadow:var(--glow-sm) var(--neon-cyan);border-color:var(--neon-cyan)}
+@media(max-width:768px){.resume-dl-grid{gap:8px}.resume-dl-btn{padding:8px 14px;font-size:10px}}
+
+
+
+/* ══════ CASE STUDY SECTION ══════ */
+#case-study{min-height:auto;padding:60px 5vw}
+.case-study-hero{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.case-study-hero-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border:2px solid var(--neon-org);border-radius:30px;background:linear-gradient(135deg,rgba(255,102,0,.08),rgba(255,0,255,.06));color:var(--neon-org);font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:3px;cursor:pointer;transition:all .4s;text-decoration:none;animation:caseGlow 4s ease-in-out infinite alternate}
+.case-study-hero-btn:hover{background:linear-gradient(135deg,rgba(255,102,0,.18),rgba(255,0,255,.12));box-shadow:var(--glow-md) var(--neon-org);transform:translateY(-3px)}
+@keyframes caseGlow{0%{border-color:rgba(255,102,0,.4);box-shadow:0 0 8px rgba(255,102,0,.1)}100%{border-color:rgba(255,102,0,.7);box-shadow:0 0 20px rgba(255,102,0,.2)}}
+.case-study-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid rgba(57,255,20,.3);background:rgba(57,255,20,.05);font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--neon-grn)}
+.case-study-badge .badge-dot{width:8px;height:8px;border-radius:50%;background:var(--neon-grn);animation:badgeGlow 2s ease-in-out infinite alternate}
+.case-phase{border:1px solid rgba(255,102,0,.15);border-radius:16px;padding:24px;background:rgba(3,1,8,.6);margin-bottom:16px;transition:all .3s}
+.case-phase:hover{border-color:rgba(255,102,0,.3);box-shadow:var(--glow-sm) rgba(255,102,0,.15)}
+.case-phase h3{color:var(--neon-org);font-size:16px;margin-bottom:8px;font-family:'Cinzel Decorative',serif}
+.case-phase h4{color:var(--neon-cyan);font-size:13px;margin:12px 0 6px;font-family:'Orbitron',sans-serif;letter-spacing:1px}
+.case-phase p{font-size:13px;line-height:1.8;opacity:.85;margin-bottom:8px}
+.case-phase .case-list{font-size:12px;line-height:1.9;opacity:.8;padding-left:0;list-style:none}
+.case-phase .case-list li{padding-left:16px;position:relative;margin-bottom:4px}
+.case-phase .case-list li::before{content:'▸';position:absolute;left:0;color:var(--neon-org);font-size:10px}
+.case-links-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.case-link{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,102,0,.2);background:rgba(255,102,0,.04);font-family:'Fira Code',monospace;font-size:10px;color:var(--neon-org);text-decoration:none;transition:all .3s;letter-spacing:.5px}
+.case-link:hover{background:rgba(255,102,0,.12);box-shadow:var(--glow-sm) var(--neon-org);transform:translateY(-2px)}
+.case-link::before{content:'▸';font-size:8px;color:var(--neon-mag)}
+.case-link.apple{border-color:rgba(57,255,20,.25);color:var(--neon-grn);background:rgba(57,255,20,.04)}
+.case-link.apple:hover{background:rgba(57,255,20,.12);box-shadow:var(--glow-sm) var(--neon-grn)}
+.case-link.github{border-color:rgba(0,255,247,.2);color:var(--neon-cyan);background:rgba(0,255,247,.04)}
+.case-link.github:hover{background:rgba(0,255,247,.12);box-shadow:var(--glow-sm) var(--neon-cyan)}
+.case-milestone{border:2px solid rgba(57,255,20,.25);border-radius:16px;padding:20px;background:rgba(57,255,20,.03);text-align:center;margin:20px 0}
+.case-milestone h3{color:var(--neon-grn);font-size:18px;margin-bottom:8px}
+.case-milestone p{font-size:13px;color:#ccc;opacity:.9}
+.case-arch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px}
+.case-arch-card{padding:14px;border:1px solid rgba(0,255,247,.1);border-radius:12px;background:rgba(3,1,8,.5);text-align:center}
+.case-arch-card h4{color:var(--neon-cyan);font-size:11px;letter-spacing:2px;font-family:'Orbitron',sans-serif;margin-bottom:6px}
+.case-arch-card p{font-size:11px;line-height:1.6;opacity:.75}
+.case-pipeline{max-width:800px;margin:20px auto 0;padding:20px;border:1px dashed rgba(255,255,0,.2);border-radius:16px;background:rgba(3,1,8,.5);text-align:center}
+.case-pipeline p{font-family:'Fira Code',monospace;font-size:12px;line-height:2;color:var(--neon-yel)}
+@media(max-width:768px){
+  .case-arch-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ══════ LIVE APPS STRIP ══════ */
+.live-apps-strip{max-width:900px;margin:30px auto 0;padding:20px 24px;border:1px solid rgba(0,255,247,.12);border-radius:16px;background:rgba(3,1,8,.5)}
+.live-apps-strip h3{color:var(--neon-cyan);font-size:14px;margin-bottom:12px;text-align:center}
+.live-apps-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.live-app-tag{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid rgba(0,255,247,.15);background:rgba(0,255,247,.03);font-family:'Fira Code',monospace;font-size:11px;color:#ccc;text-decoration:none;transition:all .3s}
+.live-app-tag:hover{border-color:var(--neon-cyan);background:rgba(0,255,247,.08);color:var(--neon-cyan)}
+.live-app-tag .app-dot{width:6px;height:6px;border-radius:50%;background:var(--neon-grn);flex-shrink:0;animation:badgeGlow 3s ease-in-out infinite alternate}
+
+/* ══════ COLLAPSIBLE SECTIONS ══════ */
+.sec-title-wrap{display:flex;align-items:center;justify-content:center;gap:0}
+.collapse-btn{background:none;border:none;padding:4px 10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:transform .4s ease;color:var(--neon-cyan);font-size:14px;line-height:1}
+.collapse-btn[aria-expanded="true"]{transform:rotate(180deg)}
+.collapse-btn:hover{opacity:.8}
+.collapse-btn:focus-visible{outline:2px solid var(--neon-cyan);outline-offset:2px;border-radius:4px}
+.collapsible-body{max-height:0;overflow:hidden;transition:max-height .6s ease,opacity .4s ease;opacity:0}
+.collapsible-body.open{max-height:8000px;opacity:1}
+/* ══════ ACCESSIBILITY ══════ */
+.skip-link{position:absolute;top:-100px;left:0;background:var(--neon-cyan);color:var(--void);padding:10px 20px;font-family:'Orbitron',sans-serif;font-size:12px;z-index:100001;transition:top .3s}
+.skip-link:focus{top:0}
+*:focus-visible{outline:2px solid var(--neon-cyan);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important}
+  #webgl-bg{opacity:.2!important}
+}
+
+/* ══════ PROFESSIONAL ROLE STRIP ══════ */
+.role-strip{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:var(--neon-grn);margin-top:10px;text-transform:uppercase;opacity:.85}
+.hero-proof{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:18px;font-family:'Fira Code',monospace;font-size:12px;color:#bbb}
+.hero-proof span{padding:6px 14px;border:1px solid rgba(255,255,255,.08);border-radius:20px;background:rgba(255,255,255,.03)}
+.hero-desc{max-width:720px;font-family:'Fira Code',monospace;font-size:13px;line-height:1.8;color:#ccc;margin-top:14px;text-align:center;opacity:.9}
+.avail-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid rgba(57,255,20,.25);border-radius:24px;background:rgba(57,255,20,.04);color:var(--neon-grn);font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;margin-top:14px;animation:badgeGlow 4s ease-in-out infinite alternate}
+@keyframes badgeGlow{0%{border-color:rgba(57,255,20,.15);background:rgba(57,255,20,.02)}100%{border-color:rgba(57,255,20,.35);background:rgba(57,255,20,.06)}}
+
+/* ══════ TECH STACK STRIP ══════ */
+.tech-strip{max-width:900px;margin:30px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tech-cat{padding:16px;border:1px solid rgba(0,255,247,.1);border-radius:14px;background:rgba(3,1,8,.6)}
+.tech-cat .tech-label{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.tech-cat .tech-list{font-size:12px;line-height:1.8;color:#bbb;font-family:'Fira Code',monospace}
+
+/* ══════ FLAGSHIP PROJECTS ══════ */
+#flagships{min-height:auto;padding:60px 5vw}
+.flagship-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:20px;margin-top:40px}
+.flagship-card{border:1px solid rgba(0,255,247,.15);border-radius:16px;padding:28px;background:rgba(3,1,8,.7);backdrop-filter:blur(8px);transition:all .4s;position:relative;overflow:hidden}
+.flagship-card:hover{border-color:var(--neon-cyan);box-shadow:var(--glow-sm) var(--neon-cyan);transform:translateY(-4px)}
+.flagship-card h3{color:var(--neon-cyan);font-size:16px;margin-bottom:6px}
+.flagship-card .flag-desc{font-size:13px;line-height:1.7;opacity:.85;margin-bottom:10px}
+.flagship-card .flag-detail{font-size:11px;line-height:1.7;opacity:.7}
+.flagship-card .flag-detail strong{color:var(--neon-mag);font-weight:600}
+.flagship-card .flag-links{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+
+/* ══════ CAPABILITIES SECTION ══════ */
+#capabilities{min-height:auto;padding:60px 5vw}
+.cap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:30px}
+.cap-item{padding:14px 18px;border:1px solid rgba(255,0,255,.1);border-radius:12px;background:rgba(3,1,8,.5);font-family:'Fira Code',monospace;font-size:12px;color:#ccc;transition:all .3s;display:flex;align-items:center;gap:10px}
+.cap-item:hover{border-color:var(--neon-mag);box-shadow:var(--glow-sm) var(--neon-mag)}
+.cap-item .cap-icon{font-size:18px;flex-shrink:0}
+
+/* ══════ RESUME STRIP ══════ */
+.resume-strip{max-width:900px;margin:0 auto;padding:24px 28px;border:1px dashed rgba(0,255,247,.15);border-radius:16px;background:rgba(3,1,8,.5)}
+.resume-strip h3{color:var(--neon-cyan);font-size:16px;margin-bottom:12px}
+.resume-row{display:grid;grid-template-columns:140px 1fr;gap:8px;font-size:12px;line-height:1.8;margin-bottom:6px}
+.resume-row .resume-label{color:var(--neon-mag);font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:1px}
+
+@media(max-width:768px){
+  .tech-strip{grid-template-columns:repeat(2,1fr)}
+  .flagship-grid{grid-template-columns:1fr}
+  .hero-proof{gap:8px}
+  .hero-proof span{font-size:10px;padding:4px 10px}
+  .resume-row{grid-template-columns:1fr}
+}
+
+@media(pointer:fine){
+  body{cursor:none}
+}
+</style>
+</head>
+<body>
+<a href="#app" class="skip-link">Skip to content</a>
+<div class="cursor-orb" id="cursorOrb"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<canvas id="webgl-bg"></canvas>
+<div class="marble-bg"></div>
+<div id="loader"><div class="eye">𓂀</div><p>INITIATING THOTH PROTOCOL</p></div>
+<nav id="nav">
+  <div class="logo" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'})">F∴4∴T</div>
+  <button class="menu-toggle" onclick="document.querySelector('#nav .links').classList.toggle('open')">☰ MENU</button>
+  <div class="links" id="nav-links">
+    <a href="#about">ABOUT</a><a href="#flagships">PROJECTS</a><a href="#case-study">CASE STUDY</a><a href="#signal-density">SIGNAL</a><a href="#pillars">WORKS</a><a href="#timeline">TIMELINE</a>
+    <a href="#story">STORY</a><a href="#music">SYNTH</a><a href="#games">GAMES</a><a href="#civic-map-section">MAP</a>
+    <a href="#philosophy">GNOSIS</a><a href="#manifesto">MANIFESTO</a><a href="#contact">CONNECT</a>
+  </div>
+</nav>
+<div id="app">
+
+<section id="hero">
+  <h1 class="glow-text">FOOD4THOTH</h1>
+  <div class="subtitle">Creator · Curator · Collaborator</div>
+  <div class="role-strip">Creative Technologist · Interactive Web Builder · Multimedia Systems Designer</div>
+  <div class="hero-desc">I design and build immersive web experiences combining JavaScript interactivity, audio tools, games, symbolic systems, maps, and experimental interfaces. I rapidly learn, prototype, and ship complex interactive experiences across design, sound, games, and symbolic systems.</div>
+  <div class="motto">"When the going gets weird, the weird go pro."</div>
+  <div style="margin-top:16px;font-family:'Orbitron',sans-serif;font-size:11px;color:var(--neon-grn);letter-spacing:4px">— DeJahn —</div>
+  <div class="hero-proof">
+    <span>482+ published pages</span>
+    <span>40+ tarot/oracle systems</span>
+    <span>browser audio tools</span>
+    <span>a variety of playable games</span>
+    <span>interactive maps</span>
+    <span>story engines</span>
+    <span>built in &lt;1 year</span>
+  </div>
+  <div class="hero-contact">
+    <a href="#flagships" class="mag-cta">★ FLAGSHIP PROJECTS</a>
+    <a href="#case-study" class="mag-cta" style="border-color:var(--neon-org);color:var(--neon-org);background:rgba(255,102,0,.04)">🎮 CASE STUDY</a>
+    <a href="mailto:food4thoth@proton.me" class="mag-cta">✉ EMAIL</a>
+    <a href="https://github.com/Dseekeroftruth" target="_blank" rel="noopener noreferrer">⌘ GITHUB</a>
+    <a href="https://www.instagram.com/emerald_path_food4th0th" target="_blank" rel="noopener noreferrer">◎ INSTAGRAM</a>
+    <a href="#contact">↓ COLLABORATE</a>
+  </div>
+  <div class="avail-badge">● Open to freelance · creative tech · front-end · contract · collaboration</div>
+  <div class="scroll-cue"><span>⌄</span></div>
+</section>
+<div class="neon-line" style="width:80%"></div>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span>482 pages</span><span>tarot engines</span><span>three.js portals</span><span>tone.js-powered experiences</span><span>leaflet community maps</span><span>web comics</span><span>branching narrative games</span><span>token-gated experiments</span><span>ritual interfaces</span><span>psychedelic UI systems</span><span>digital mystery school architecture</span><span>40+ tarot variants</span><span>122 narrative nodes</span><span>WebGL shaders</span><span>AI-assisted invention</span>
+    <span>482 pages</span><span>tarot engines</span><span>three.js portals</span><span>tone.js-powered experiences</span><span>leaflet community maps</span><span>web comics</span><span>branching narrative games</span><span>token-gated experiments</span><span>ritual interfaces</span><span>psychedelic UI systems</span><span>digital mystery school architecture</span><span>40+ tarot variants</span><span>122 narrative nodes</span><span>WebGL shaders</span><span>AI-assisted invention</span>
+  </div>
+</div>
+
+ <div class="resume-dl-wrap reveal">
+    <button class="resume-dl-toggle" onclick="this.nextElementSibling.classList.toggle('open')" aria-expanded="false">⬇ DOWNLOAD RESUME</button>
+    <div class="resume-dl-panel">
+      <div class="resume-dl-grid">
+        <a href="DeJahn_Bell_Resume.pdf" download="DeJahn_Bell_Resume.pdf" class="resume-dl-btn"><span class="dl-icon">📄</span> 1-Page Resume <span class="dl-tag">PDF</span></a>
+        <a href="DeJahn_Bell_Resume2.pdf" download="DeJahn_Bell_Resume2.pdf" class="resume-dl-btn"><span class="dl-icon">📋</span> 2-Page Resume <span class="dl-tag">PDF</span></a>
+        <a href="DeJahn_Bell_Front_End_Developer_Resume.pdf" download="DeJahn_Bell_Front_End_Developer_Resume.pdf" class="resume-dl-btn tailored"><span class="dl-icon">🖥️</span> Front-End Developer <span class="dl-tag">TAILORED</span></a>
+        <a href="DeJahn_Bell_Creative_Technologist_Resume.pdf" download="DeJahn_Bell_Creative_Technologist_Resume.pdf" class="resume-dl-btn tailored"><span class="dl-icon">🔮</span> Creative Technologist <span class="dl-tag">TAILORED</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="about">
+  <h2 class="sec-title glow-text reveal">THE ARCHITECT</h2>
+  <div class="sec-sub reveal">WHO FEEDS THOTH?</div>
+  <div class="grid">
+    <div class="portrait reveal">𓂀</div>
+    <div class="text-block reveal">
+      <p><span class="highlight">DeJahn</span> is the architect of <span class="highlight-mag">Food4Thoth.com</span> — a living, breathing digital ecosystem at the convergence of <span class="highlight-grn">art, technology, mysticism, and radical possibility</span>.</p>
+      <p>In under a year, with no prior programming experience, DeJahn built a sprawling <span class="highlight-yel">482-page interactive platform</span> of portals, games, tarot systems, branching narratives, WebGL experiments, audio tools, maps, and digital rituals — by mastering <span class="highlight">AI-assisted development workflows</span>, shipping relentlessly, and treating code as a living art form.</p>
+      <p>Part <span class="highlight-yel">Buckminster Fuller</span> geodesic visionary, part <span class="highlight">Hakim Bey</span> autonomous zone builder, part <span class="highlight-mag">Hunter S. Thompson</span> reality-warper — DeJahn channels the Hermetic principle of <em>"As Above, So Below"</em> into every pixel and every line of code.</p>
+      <p>Food4Thoth is not a website. It's a <span class="highlight-grn">Temporary Autonomous Zone</span> encoded in light — a <span class="highlight-yel">Solar Punk</span> cathedral reassembled through radical imagination, where every visitor is invited to <em>fall through the membrane</em> and discover what's been hiding in the corners of consciousness.</p>
+      <p style="margin-top:10px;padding:14px 18px;border:1px dashed rgba(0,255,247,.15);border-radius:14px;background:rgba(0,255,247,.03)">Creator of immersive digital ecosystems blending <span class="highlight-mag">Hermetics, solarpunk futurism, AI-assisted invention, community art, experimental music, anti-authoritarian imagination, and playable web design</span>. Fast learner. Constant shipper. <span class="highlight">Systems poet</span>. Builder of unlikely things.</p>
+    </div>
+  </div>
+</section>
+<div class="neon-line" style="width:60%"></div>
+
+<!-- POSITIONING + TECH STACK -->
+<div class="reveal" style="max-width:800px;margin:30px auto 0;padding:0 5vw;text-align:center">
+  <p style="font-family:'Fira Code',monospace;font-size:14px;line-height:1.9;color:#ccc">I build browser-based experiences that combine interface design, narrative systems, sound, symbolism, games, and community tools. My work sits between <span class="highlight">front-end development</span>, <span class="highlight-mag">creative technology</span>, <span class="highlight-grn">experimental design</span>, and <span class="highlight-yel">digital worldbuilding</span>.</p>
+</div>
+
+<div class="tech-strip reveal">
+  <div class="tech-cat">
+    <div class="tech-label" style="color:var(--neon-cyan)">Core</div>
+    <div class="tech-list">HTML · CSS · JavaScript · Responsive Design · Animation · DOM Systems</div>
+  </div>
+  <div class="tech-cat">
+    <div class="tech-label" style="color:var(--neon-mag)">Interactive Media</div>
+    <div class="tech-list">Canvas · Web Audio API · Tone.js · Three.js · WebGL · Leaflet.js</div>
+  </div>
+  <div class="tech-cat">
+    <div class="tech-label" style="color:var(--neon-grn)">Workflow</div>
+    <div class="tech-list">GitHub · AI-Assisted Prototyping · Iterative Design · Content Architecture</div>
+  </div>
+  <div class="tech-cat">
+    <div class="tech-label" style="color:var(--neon-yel)">Strengths</div>
+    <div class="tech-list">Rapid Learning · Experimental UX · Storytelling Systems · Creative Coding</div>
+  </div>
+</div>
+<div class="neon-line" style="width:50%;margin-top:30px"></div>
+
+<!-- FLAGSHIP PROJECTS -->
+<section id="flagships">
+  <!-- Also serves as #cosmos — consolidated from separate sections -->
+  <span id="cosmos" style="position:absolute;top:-80px"></span>
+  <h2 class="sec-title glow-text reveal">FLAGSHIP PROJECTS</h2>
+  <div class="sec-sub reveal">TOP BUILDS · WHAT · WHY · HOW · WHAT IT PROVES</div>
+  <div class="flagship-grid">
+    <div class="flagship-card reveal">
+      <h3>🌀 Food4Thoth.com — 482-Page Digital Ecosystem</h3>
+      <div class="flag-desc">A sprawling interactive platform of portals, games, tarot systems, narratives, audio tools, maps, and digital rituals — designed, built, and shipped in under a year with no prior programming background.</div>
+      <div class="flag-detail"><strong>What I did:</strong> Full design, architecture, coding, creative direction, content systems<br><strong>Built with:</strong> HTML, CSS, JavaScript, Web Audio API, Three.js, Leaflet.js, Canvas<br><strong>Why it matters:</strong> Proves ability to manage extreme scope, learn rapidly, and ship consistently<br><strong>What employers infer:</strong> Self-directed builder who can own a product from concept to deployment</div>
+      <div class="flag-links"><a href="https://www.food4thoth.com" target="_blank" rel="noopener noreferrer" class="live-link">Live Site</a><a href="https://github.com/Dseekeroftruth" target="_blank" rel="noopener noreferrer" class="live-link">GitHub</a></div>
+    </div>
+    <div class="flagship-card reveal">
+      <h3>🔮 40+ Tarot and Oracle Engines</h3>
+      <div class="flag-desc">Reimagined divination systems for the browser — custom layouts, spread logic, card state management, symbolism, animations, and interactive reading interfaces.</div>
+      <div class="flag-detail"><strong>What I did:</strong> UI/UX design, state logic, symbolic systems, interaction design<br><strong>Built with:</strong> JavaScript, CSS animations, DOM manipulation, responsive layouts<br><strong>Why it matters:</strong> Demonstrates complex state management and creative UI thinking<br><strong>What employers infer:</strong> Can build rich interactive tools with symbolic/data-driven interfaces</div>
+      <div class="flag-links"><a href="https://www.food4thoth.com/TarotTogetherNoAge4Decks/index.html" target="_blank" rel="noopener noreferrer" class="live-link mag">Tarot Together</a><a href="https://www.food4thoth.com/IchingPhoto/index.html" target="_blank" rel="noopener noreferrer" class="live-link mag">I-Ching Oracle</a></div>
+    </div>
+    <div class="flagship-card reveal">
+      <h3>🎵 Browser Audio Laboratory</h3>
+      <div class="flag-desc">Real-time playable synth with 8 keys, 4 waveforms, reverb/delay effects, frequency visualizer, and a 6-row × 16-step drum machine with 24 sound variants — all built with pure Web Audio API.</div>
+      <div class="flag-detail"><strong>What I did:</strong> Audio architecture, synthesis, sequencer logic, UI design<br><strong>Built with:</strong> Web Audio API, Canvas visualization, real-time DSP<br><strong>Why it matters:</strong> Shows ability to build complex real-time interactive systems<br><strong>What employers infer:</strong> Can handle audio-reactive, timing-critical, and creative technical projects</div>
+      <div class="flag-links"><a href="https://www.food4thoth.com/SoundActivatedVisualizor/index.html" target="_blank" rel="noopener noreferrer" class="live-link">Sound Visualizer</a><a href="https://www.food4thoth.com/ArpAppNoVisualHighFi/index.html" target="_blank" rel="noopener noreferrer" class="live-link">Arp Synth</a><a href="https://www.food4thoth.com/ArpAppWithVisual/index.html" target="_blank" rel="noopener noreferrer" class="live-link">Arp + Visuals</a></div>
+    </div>
+    <div class="flagship-card reveal">
+      <h3>🗺️ Civic Community Mapping Platform</h3>
+      <div class="flag-desc">Interactive Leaflet.js maps linking community gardens, voting resources, and neighborhood infrastructure with marker clustering, dark-themed popups, and lazy-loading.</div>
+      <div class="flag-detail"><strong>What I did:</strong> Map design, data architecture, marker systems, community UX<br><strong>Built with:</strong> Leaflet.js, MarkerCluster, custom icons, responsive layout<br><strong>Why it matters:</strong> Extends web skills into civic technology and place-based design<br><strong>What employers infer:</strong> Can build practical community tools, not just art projects</div>
+      <div class="flag-links"><a href="https://www.food4thoth.com/CommunityGardensMaps/indexPortlandMap.html" target="_blank" rel="noopener noreferrer" class="live-link grn">Portland Map</a><a href="https://www.food4thoth.com/CommunityGardenLand/index.html" target="_blank" rel="noopener noreferrer" class="live-link grn">Garden Land</a><a href="https://www.food4thoth.com/BlackBuisnessEugene/index.html" target="_blank" rel="noopener noreferrer" class="live-link grn">Black Business Eugene</a></div>
+    </div>
+    <div class="flagship-card reveal">
+      <h3>🎮 4 Playable Canvas Games</h3>
+      <div class="flag-desc">Ouroboros (snake with 8-dir touch), Memory Palace (sacred symbols), Reflex Gate (reaction tester), Signal Collector (action game with escalating difficulty) — all with mobile touch support.</div>
+      <div class="flag-detail"><strong>What I did:</strong> Game logic, rendering, input handling, mobile optimization<br><strong>Built with:</strong> Canvas 2D, requestAnimationFrame, touch events, collision detection<br><strong>Why it matters:</strong> Proves game development fundamentals and cross-device thinking<br><strong>What employers infer:</strong> Can build interactive, real-time, performance-sensitive web applications</div>
+      <div class="flag-links"><a href="https://www.food4thoth.com/EyeSPY1/index.html" target="_blank" rel="noopener noreferrer" class="live-link yel">Eye SPY Game</a><a href="https://www.food4thoth.com/NewSchoolGameKid/index.html" target="_blank" rel="noopener noreferrer" class="live-link yel">New School Game Kid</a></div>
+    </div>
+    <div class="flagship-card reveal">
+      <h3>📖 122-Node Branching Story Engine</h3>
+      <div class="flag-desc">A full choose-your-own-adventure system with typewriter effect, stat tracking (wisdom/courage/vision), 30+ unique endings, and recursive narrative architecture.</div>
+      <div class="flag-detail"><strong>What I did:</strong> Narrative design, state machine, UI/UX, writing<br><strong>Built with:</strong> JavaScript object graph, DOM rendering, CSS transitions<br><strong>Why it matters:</strong> Demonstrates complex data structures, content systems, and interactive storytelling<br><strong>What employers infer:</strong> Can design and build content-driven interactive experiences at scale</div>
+      <div class="flag-links"><a href="https://www.food4thoth.com/ChooseYourOwnAdventure/prologue.html" target="_blank" rel="noopener noreferrer" class="live-link mag">Choose Your Adventure</a><a href="https://www.food4thoth.com/TrentStorybook1stMobile/index.html" target="_blank" rel="noopener noreferrer" class="live-link mag">Trent's Storybook</a></div>
+    </div>
+    <div class="flagship-card reveal">
+      <h3>🌐 Three.js Worlds & Portal Visuals</h3>
+      <div class="flag-desc">Browser 3D and shader visuals creating moving atmospheres, symbolic spaces, and immersive environments with psychedelic, cosmic, and ritual aesthetics.</div>
+      <div class="flag-detail"><strong>What I did:</strong> GLSL shader programming, 3D scene design, mouse-reactive visuals<br><strong>Built with:</strong> Three.js, WebGL, GLSL Shaders, requestAnimationFrame<br><strong>Why it matters:</strong> Shows ability to work with GPU-accelerated graphics in the browser<br><strong>What employers infer:</strong> Can build immersive visual experiences beyond standard DOM/CSS</div>
+    </div>
+    <div class="flagship-card reveal">
+      <h3>🤖 AI-Assisted Development Workflow</h3>
+      <div class="flag-desc">Used AI to accelerate learning, architecture, debugging, styling, synthesis, and production velocity across hundreds of experiments and deliverables. The real skill is direction, taste, persistence, decomposition, evaluation, and turning language into shipped software.</div>
+      <div class="flag-detail"><strong>What I did:</strong> Workflow design, prompt architecture, iterative refinement, quality control<br><strong>Built with:</strong> AI-assisted prototyping, conversational iteration, rapid deployment pipelines<br><strong>Why it matters:</strong> Demonstrates a modern creative-technical workflow that multiplies output without sacrificing quality<br><strong>What employers infer:</strong> Understands how to leverage AI as a force multiplier, not a crutch</div>
+    </div>
+    <div class="flagship-card reveal">
+      <h3>📚 Comics, Zines & Poetic Web Experiences</h3>
+      <div class="flag-desc">Web layout, image sequencing, text rhythm, scroll dramaturgy, and symbolic narrative combined into browser-native comics and reading experiences.</div>
+      <div class="flag-detail"><strong>What I did:</strong> Visual narrative design, scroll-based interaction, typographic pacing<br><strong>Built with:</strong> HTML, CSS, JavaScript, responsive image systems<br><strong>Why it matters:</strong> Proves that web skills extend into publishing, editorial, and visual storytelling<br><strong>What employers infer:</strong> Can design narrative-driven, content-rich web experiences with editorial sensibility</div>
+      <div class="flag-links"><a href="https://www.food4thoth.com/PrayerChildrensFade/index.html" target="_blank" rel="noopener noreferrer" class="live-link org">Prayer Children's Fade</a><a href="https://www.food4thoth.com/TrentStorybook1stMobile/index.html" target="_blank" rel="noopener noreferrer" class="live-link org">Trent's Storybook</a></div>
+    </div>
+    <div class="flagship-card reveal">
+      <h3>✦ Philosophy Into Form</h3>
+      <div class="flag-desc">Ideas translated into design language: Hermetics, Solarpunk, Anarchism, Hope-Core — not just content about transformation, but interfaces that behave like transformation.</div>
+      <div class="flag-detail"><strong>What I did:</strong> Conceptual design, symbolic interface architecture, thematic coherence<br><strong>Built with:</strong> Design thinking, symbolic systems, creative direction<br><strong>Why it matters:</strong> Shows that design decisions are driven by meaning, not just aesthetics<br><strong>What employers infer:</strong> Can translate abstract concepts into coherent, engaging interactive experiences</div>
+    </div>
+  </div>
+</section>
+<div class="neon-line" style="width:55%"></div>
+
+<!-- CASE STUDY: TERMINAL GAME → APP STORE -->
+<section id="case-study">
+  <div class="sec-title-wrap reveal"><h2 class="sec-title glow-text">CASE STUDY</h2><button class="collapse-btn" aria-expanded="false" aria-controls="case-study-body" onclick="toggleCollapsible(this)">▼</button></div>
+  <div class="sec-sub reveal">TERMINAL GAME → APPLE APP STORE · FULL DEVELOPMENT LIFECYCLE</div>
+
+  <div class="case-study-hero reveal">
+    <span class="case-study-hero-btn" onclick="document.getElementById('case-study-body').classList.add('open');this.closest('section').querySelector('.collapse-btn').setAttribute('aria-expanded','true')">🎮 EXPLORE THE FULL JOURNEY</span>
+    <span class="case-study-badge"><span class="badge-dot"></span> SHIPPED TO APP STORE</span>
+    <a href="https://apps.apple.com/us/app/terminal-game/id6757940532" target="_blank" rel="noopener noreferrer" class="case-link apple">🍎 APP STORE</a>
+  </div>
+
+  <div class="collapsible-body" id="case-study-body">
+
+    <!-- MILESTONE BANNER -->
+    <div class="case-milestone reveal">
+      <h3>🍎 Published on the Apple App Store</h3>
+      <p>From a terminal Python script to a shipped iOS game — built from scratch through experimentation, iteration, and creative engineering.</p>
+      <div class="case-links-grid" style="justify-content:center;margin-top:12px">
+        <a href="https://apps.apple.com/us/app/terminal-game/id6757940532" target="_blank" rel="noopener noreferrer" class="case-link apple">App Store</a>
+        <a href="https://testflight.apple.com/join/z8ThHQbZ" target="_blank" rel="noopener noreferrer" class="case-link apple">TestFlight</a>
+        <a href="https://github.com/Dseekeroftruth/Stick-Fight" target="_blank" rel="noopener noreferrer" class="case-link github">Stick Fight Repo</a>
+        <a href="https://github.com/Dseekeroftruth/Artabillies-Jug" target="_blank" rel="noopener noreferrer" class="case-link github">Artabillies Jug Repo</a>
+        <a href="https://chatgpt.com/share/8a41f49e-f573-45ce-ade1-4e94b77d859f" target="_blank" rel="noopener noreferrer" class="case-link">First Dev Chat</a>
+      </div>
+    </div>
+
+    <!-- PHASE 1: TERMINAL ORIGINS -->
+    <div class="case-phase reveal">
+      <h3>🌱 Phase 1 — Terminal Origins</h3>
+      <p>The journey started with Python scripts in the terminal: ASCII art, text-based rendering, and simple scripted interactions. These weren't just exercises — they established a design philosophy blending retro aesthetics with playful experimentation.</p>
+      <h4>Early Explorations</h4>
+      <ul class="case-list">
+        <li>ASCII image generation — Python scripts producing visual art in terminal environments</li>
+        <li>Stick-figure animations using Pygame with music and interactive movements</li>
+        <li>Terminal-based rendering and text-driven visual design</li>
+        <li>Early debugging: <code>python</code> vs <code>python3</code>, file path resolution, working directory context</li>
+      </ul>
+      <div class="case-links-grid">
+        <a href="https://github.com/Dseekeroftruth/Artabillies-Jug" target="_blank" rel="noopener noreferrer" class="case-link github">Artabillies Jug</a>
+        <a href="https://github.com/Dseekeroftruth/Stick-Fight" target="_blank" rel="noopener noreferrer" class="case-link github">Stick Fight</a>
+      </div>
+    </div>
+
+    <!-- PHASE 2: TERMINAL GAME -->
+    <div class="case-phase reveal">
+      <h3>🎮 Phase 2 — Terminal Game Prototype</h3>
+      <p>The core concept: move a player, avoid enemies, collect points — running entirely inside the terminal. Built with Python's <code>curses</code> for rendering and <code>pygame.mixer</code> for audio.</p>
+      <h4>Core Mechanics</h4>
+      <ul class="case-list">
+        <li>Player character, enemies, collectible dots, live score tracking</li>
+        <li>Real-time movement and reactions in terminal</li>
+        <li>Continuous dot spawning and enemy collision detection</li>
+        <li>Difficulty scaling — enemies increase in count and speed with score</li>
+      </ul>
+      <h4>Engineering Challenges Solved</h4>
+      <ul class="case-list">
+        <li><code>_curses.error: add_wch() returned ERR</code> — fixed with boundary clamping</li>
+        <li>Audio file path resolution — learned execution context and working directory behavior</li>
+        <li>Rendering crashes from drawing outside terminal bounds</li>
+      </ul>
+    </div>
+
+    <!-- PHASE 3: WEB PORT -->
+    <div class="case-phase reveal">
+      <h3>🌐 Phase 3 — Terminal → Web Engine</h3>
+      <p>The breakthrough transformation: porting the Python terminal game into a browser-based Canvas game with HTML5, CSS, and JavaScript.</p>
+      <h4>Architecture Shift</h4>
+      <ul class="case-list">
+        <li>Terminal rendering → HTML5 Canvas API</li>
+        <li>Python runtime → JavaScript</li>
+        <li>Local terminal → browser-based cross-platform engine</li>
+        <li>Game loop via <code>requestAnimationFrame</code></li>
+      </ul>
+      <h4>Cross-Platform Input System</h4>
+      <ul class="case-list">
+        <li>Mobile: tap-to-move with continuous vector-based motion</li>
+        <li>Desktop: click-to-move mirroring touch behavior</li>
+        <li>Keyboard: arrow keys and WASD with directional override</li>
+        <li>Unified control logic across all platforms</li>
+      </ul>
+      <h4>Audio Engine</h4>
+      <ul class="case-list">
+        <li>Background DnB-style retro loop, gem pickup sounds, game over effects</li>
+        <li>Solved browser autoplay restrictions — audio triggered by user interaction</li>
+        <li>DOM audio element mismatch debugging and defensive playback checks</li>
+      </ul>
+      <h4>Critical Bug Fixes</h4>
+      <ul class="case-list">
+        <li>Collision detection rewritten with full AABB bounding-box system for 360° accuracy</li>
+        <li>Null audio object errors fixed with DOM ID alignment and defensive checks</li>
+        <li>Responsive fullscreen canvas with dynamic resize support</li>
+      </ul>
+    </div>
+
+    <!-- PHASE 4: UI + GAME SYSTEMS -->
+    <div class="case-phase reveal">
+      <h3>🖥️ Phase 4 — UI Systems & Game Loop</h3>
+      <p>The game grew into a complete arcade experience with multiple interface states and replayability systems.</p>
+      <h4>Interface States</h4>
+      <ul class="case-list">
+        <li>Start screen with title, rules, thematic instructions, and start button</li>
+        <li>Active game canvas with live HUD</li>
+        <li>Game over screen with score, high scores, and try-again flow</li>
+        <li>Top 3 high score system with sorted ranking</li>
+        <li>Clean state reset and restart loop</li>
+      </ul>
+      <h4>Expanded Features</h4>
+      <ul class="case-list">
+        <li>Power-ups: speed boost, invincibility, score multipliers</li>
+        <li>Dynamic enemy mechanics — speed and quantity scale with progress</li>
+        <li>Retro monospace visuals with bright arcade color accents</li>
+        <li>Responsive design for phones, tablets, and desktops</li>
+      </ul>
+    </div>
+
+    <!-- PHASE 5: DEPLOYMENT EVOLUTION -->
+    <div class="case-phase reveal">
+      <h3>🚀 Phase 5 — Deployment Evolution</h3>
+      <p>From first HTML build to themed variants, Replit dev environments, and mobile deployment pipeline.</p>
+      <h4>Web Builds</h4>
+      <div class="case-links-grid">
+        <a href="https://www.food4thoth.com/TerminalGameTransition/index.html" target="_blank" rel="noopener noreferrer" class="case-link">First HTML Build</a>
+        <a href="https://www.food4thoth.com/OldSchoolGameDesktop/index.html" target="_blank" rel="noopener noreferrer" class="case-link">Desktop Version</a>
+        <a href="https://www.food4thoth.com/OldSchoolGameMobile/index.html" target="_blank" rel="noopener noreferrer" class="case-link">Mobile Version</a>
+      </div>
+      <h4>Sprite-Based Themed Variants</h4>
+      <div class="case-links-grid">
+        <a href="https://www.food4thoth.com/NewSchoolGameKid/index.html" target="_blank" rel="noopener noreferrer" class="case-link">NewSchool Kid</a>
+        <a href="https://www.food4thoth.com/NewSchoolGameWizard/index.html" target="_blank" rel="noopener noreferrer" class="case-link">NewSchool Wizard</a>
+        <a href="https://www.food4thoth.com/NewSchoolGameKid/readme/" target="_blank" rel="noopener noreferrer" class="case-link">Readme</a>
+      </div>
+      <h4>Replit Dev Environments</h4>
+      <div class="case-links-grid">
+        <a href="https://c19c6f60-75e1-4eaa-a1ce-8d9be6329b13-00-17995y4zj5c6v.worf.replit.dev/" target="_blank" rel="noopener noreferrer" class="case-link">Replit Dev</a>
+        <a href="https://retro-arcade-wmqp6z2299.replit.app" target="_blank" rel="noopener noreferrer" class="case-link">Replit Published</a>
+      </div>
+    </div>
+
+    <!-- PHASE 6: APP STORE -->
+    <div class="case-phase reveal">
+      <h3>🍎 Phase 6 — TestFlight → Apple App Store</h3>
+      <p>The project reached its major milestone: a published iOS game on the Apple App Store, built from scratch through experimentation and iteration.</p>
+      <div class="case-links-grid">
+        <a href="https://testflight.apple.com/join/z8ThHQbZ" target="_blank" rel="noopener noreferrer" class="case-link apple">TestFlight Beta</a>
+        <a href="https://apps.apple.com/us/app/terminal-game/id6757940532" target="_blank" rel="noopener noreferrer" class="case-link apple">🍎 Apple App Store</a>
+      </div>
+      <h4>Current & Next-Gen Development</h4>
+      <p>A new unified edition is in progress with a free access model, donation support, purchasable skins and sprite variants, background customization, and trial-to-purchase flow.</p>
+      <div class="case-links-grid">
+        <a href="https://874bf138-f33b-4350-8fc7-7a5cd6cce290-00-3ohacfqwjp6ji.expo.janeway.replit.dev/" target="_blank" rel="noopener noreferrer" class="case-link">New Dev Build</a>
+      </div>
+    </div>
+
+    <!-- TECHNICAL ARCHITECTURE -->
+    <div class="case-phase reveal">
+      <h3>🧬 System Architecture</h3>
+      <div class="case-arch-grid">
+        <div class="case-arch-card"><h4>GAME ENGINE</h4><p>Canvas + requestAnimationFrame real-time rendering</p></div>
+        <div class="case-arch-card"><h4>INPUT SYSTEM</h4><p>Touch, mouse, keyboard — unified cross-platform</p></div>
+        <div class="case-arch-card"><h4>AUDIO ENGINE</h4><p>HTML audio with interaction-triggered playback</p></div>
+        <div class="case-arch-card"><h4>GAME LOGIC</h4><p>Movement vectors, AABB collision, difficulty scaling</p></div>
+        <div class="case-arch-card"><h4>UI LAYER</h4><p>Start, play, game over, scoreboard states</p></div>
+        <div class="case-arch-card"><h4>DEPLOYMENT</h4><p>Web → Replit → TestFlight → App Store</p></div>
+      </div>
+    </div>
+
+    <!-- PIPELINE SUMMARY -->
+    <div class="case-pipeline reveal">
+      <p>Idea → Terminal Prototype → Debugging → System Design → Web Engine → Multi-Platform Build → Themed Variants → TestFlight → <span style="color:var(--neon-grn)">App Store Release</span> → Monetized Expansion</p>
+      <p style="margin-top:12px;font-size:11px;opacity:.7;color:#ccc;font-family:'Playfair Display',serif">A complete indie game development lifecycle — from first Python script to published mobile app.</p>
+    </div>
+
+    <!-- KEY ACCOMPLISHMENTS -->
+    <div class="case-phase reveal" style="border-color:rgba(57,255,20,.2)">
+      <h3 style="color:var(--neon-grn)">✦ Key Accomplishments</h3>
+      <ul class="case-list">
+        <li><strong style="color:var(--neon-cyan)">Cross-platform development:</strong> Terminal → browser → mobile app, unified controls across devices</li>
+        <li><strong style="color:var(--neon-mag)">Gameplay design growth:</strong> Escalating challenge, replay loops, audio feedback, multi-input controls, customizable visuals</li>
+        <li><strong style="color:var(--neon-yel)">User-focused accessibility:</strong> Works on phones, desktops, touch screens, mouse, and keyboard-first play</li>
+        <li><strong style="color:var(--neon-grn)">Production milestone:</strong> Published App Store product from a self-directed creative and technical process</li>
+        <li><strong style="color:var(--neon-org)">Scalable framework:</strong> Infrastructure for skins, cosmetics, monetization, and multi-game expansion</li>
+      </ul>
+    </div>
+
+  </div><!-- /collapsible-body -->
+</section>
+<div class="neon-line" style="width:55%"></div>
+
+<!-- SIGNAL DENSITY -->
+<section id="signal-density">
+  <h2 class="sec-title glow-text reveal">SIGNAL DENSITY</h2>
+  <div class="sec-sub reveal">THE POINT IS RANGE, INTEGRATION, SPEED, AND ORIGINALITY</div>
+  <div class="stat-row">
+    <div class="stat-card reveal">
+      <div class="stat-label">PAGES BUILT</div>
+      <div class="stat-num cyan" data-count="482">0</div>
+      <div class="stat-desc">A browser-native universe of tools, portals, writings, visuals, games, rituals, and archives.</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-label">TAROT SYSTEMS</div>
+      <div class="stat-num mag" data-count="40">0</div>
+      <div class="stat-desc">Traditional and experimental tarot variants, spread logic, symbolic pathways, and oracle interfaces.</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-label">NARRATIVE BRANCHES</div>
+      <div class="stat-num grn" data-count="122">0</div>
+      <div class="stat-desc">Choice-driven pathways, gamified storytelling, and interactive symbolic exploration.</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-label">LEARNING CURVE</div>
+      <div class="stat-num yel">&lt;1<small style="font-size:.5em"> YR</small></div>
+      <div class="stat-desc">From no programming background to deployed systems builder in under a year through relentless iteration.</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-label">WORKFLOW MODE</div>
+      <div class="stat-num org">∞</div>
+      <div class="stat-desc">AI-assisted ideation, debugging, prototyping, design synthesis, and rapid implementation at strange speed.</div>
+    </div>
+  </div>
+</section>
+<div class="neon-line" style="width:55%"></div>
+
+<!-- METHOD -->
+<section id="method">
+  <h2 class="sec-title glow-text reveal">MANIFESTO OF METHOD</h2>
+  <div class="sec-sub reveal">HOW THE IMPOSSIBLE GETS BUILT</div>
+  <p class="reveal" style="max-width:800px;margin:0 auto 10px;text-align:center;font-family:'Playfair Display',serif;font-size:15px;line-height:1.9;opacity:.85">I don't separate code from art, interface from philosophy, or utility from wonder. I build things that function — and also things that invite, provoke, enchant, and reconfigure attention.</p>
+  <div class="method-grid">
+    <div class="method-card reveal">
+      <h3>⚡ Rapid Synthesis</h3>
+      <p>Absorb new technical concepts quickly, combine them across domains, and deploy results before the momentum dies.</p>
+    </div>
+    <div class="method-card reveal">
+      <h3>🧬 Living Prototypes</h3>
+      <p>Ship early, refine constantly, and let the project evolve through active experimentation rather than overplanning.</p>
+    </div>
+    <div class="method-card reveal">
+      <h3>🤖 AI as Amplifier</h3>
+      <p>Use AI not as a crutch, but as a force multiplier for architecture, iteration, troubleshooting, style transfer, and invention.</p>
+    </div>
+    <div class="method-card reveal">
+      <h3>🔮 Beauty With Teeth</h3>
+      <p>Create interfaces that are not merely polished, but symbolically charged, emotionally resonant, and structurally alive.</p>
+    </div>
+  </div>
+  <div class="thesis-block reveal">
+    <div class="thesis-quote">A portfolio should not whisper <span class="highlight">"I can help."</span><br>It should thunder <span class="highlight-mag">"I already built the impossible."</span></div>
+    <div class="thesis-source">482 pages, 40+ tarot systems, 4 games, browser audio tools, interactive maps, and a 122-node story engine — all built in under a year from zero programming background. This page is the proof: interactivity as worldview, code as collage, the browser as a living zone for radical imagination.</div>
+  </div>
+</section>
+<div class="neon-line" style="width:70%"></div>
+
+<section id="pillars">
+  <div class="sec-title-wrap reveal"><h2 class="sec-title glow-text">THE WORKS</h2><button class="collapse-btn" aria-expanded="false" aria-controls="works-body" onclick="toggleCollapsible(this)">▼</button></div>
+  <div class="sec-sub reveal">PORTALS OF CREATION</div>
+  <div class="collapsible-body" id="works-body">
+  <div class="pillar-grid">
+    <div class="pillar-card reveal"><div class="icon">🌀</div><h3>Hermetic Archives</h3><p>Deep dives into the Emerald Tablet, the Kybalion, and the sevenfold principles. Interactive explorations of As Above So Below — translated for the digital age.</p><div class="live-links"><a href="https://www.food4thoth.com/AkashicThothDeep/index.html" target="_blank" rel="noopener noreferrer" class="live-link">Akashic Deep Dive</a><a href="https://www.food4thoth.com/Haudenosaunee/index.html" target="_blank" rel="noopener noreferrer" class="live-link">Haudenosaunee Teachings</a></div></div>
+    <div class="pillar-card reveal"><div class="icon">🏗️</div><h3>Fullerene Futures</h3><p>Inspired by Buckminster Fuller's synergetics — geodesic thinking applied to social architecture, resource distribution, and doing more with less for all humanity.</p></div>
+    <div class="pillar-card reveal"><div class="icon">☀️</div><h3>Solar Punk Visions</h3><p>Futures that taste like sunlight and smell like rain on permaculture gardens. Post-capitalist, regenerative, and radically beautiful worldbuilding.</p><div class="live-links"><a href="https://www.food4thoth.com/CommunityGardenLand/index.html" target="_blank" rel="noopener noreferrer" class="live-link grn">Community Garden Land</a><a href="https://www.food4thoth.com/CommunityGardensInfo/index.html" target="_blank" rel="noopener noreferrer" class="live-link grn">Gardens Info Hub</a></div></div>
+    <div class="pillar-card reveal"><div class="icon">🎨</div><h3>Art & Curation</h3><p>Multimedia galleries, collaborative zines, generative art experiments, and curated collections that blur the line between creation and consciousness.</p><div class="live-links"><a href="https://www.food4thoth.com/DrawingFractals/index.html" target="_blank" rel="noopener noreferrer" class="live-link mag">Fractal Drawing Tool</a><a href="https://www.food4thoth.com/DrawingGifs/index.html" target="_blank" rel="noopener noreferrer" class="live-link mag">GIF Art Creator</a><a href="https://www.food4thoth.com/Mescalito/Reveal1.html" target="_blank" rel="noopener noreferrer" class="live-link mag">Mescalito Visuals</a></div></div>
+    <div class="pillar-card reveal"><div class="icon">🏴</div><h3>Autonomous Zones</h3><p>Hakim Bey meets the metaverse. Temporary and permanent autonomous digital zones — spaces where hierarchy dissolves and mutual aid becomes code.</p><div class="live-links"><a href="https://www.food4thoth.com/BlackBuisnessEugene/index.html" target="_blank" rel="noopener noreferrer" class="live-link yel">Black Business Eugene</a></div></div>
+    <div class="pillar-card reveal"><div class="icon">🔮</div><h3>Divination Tools</h3><p>Tarot engines, I-Ching generators, astrological calculators — ancient wisdom systems rebuilt with modern interactivity and psychedelic aesthetics.</p><div class="live-links"><a href="https://www.food4thoth.com/IchingPhoto/index.html" target="_blank" rel="noopener noreferrer" class="live-link">I-Ching Photo Oracle</a><a href="https://www.food4thoth.com/TarotTogetherNoAge4Decks/index.html" target="_blank" rel="noopener noreferrer" class="live-link">Tarot Together (4 Decks)</a></div></div>
+    <div class="pillar-card reveal"><div class="icon">📡</div><h3>Community Radio</h3><p>Sonic transmissions from the edges. Curated playlists, live sessions, and audio experiments bridging ambient, experimental, and world music traditions.</p><div class="live-links"><a href="https://www.food4thoth.com/MusicLibraryVis/index.html" target="_blank" rel="noopener noreferrer" class="live-link org">Music Library + Visuals</a><a href="https://www.food4thoth.com/Inprogression/index.html" target="_blank" rel="noopener noreferrer" class="live-link org">Inprogression Review</a><a href="https://www.food4thoth.com/EndOfLawHASHISHEEN/FullAlbumReview.html" target="_blank" rel="noopener noreferrer" class="live-link org">Hashisheen Album Review</a></div></div>
+    <div class="pillar-card reveal"><div class="icon">🧬</div><h3>Code Alchemy</h3><p>Open-source projects, interactive installations, WebGL experiments, and digital tools — technology as a medium for liberation and wonder.</p><div class="live-links"><a href="https://www.food4thoth.com/GloCalculato/index.html" target="_blank" rel="noopener noreferrer" class="live-link">Glo Calculator</a><a href="https://www.food4thoth.com/TideApp/index.html" target="_blank" rel="noopener noreferrer" class="live-link">Tide App</a><a href="https://www.food4thoth.com/SoundActivatedVisualizor/index.html" target="_blank" rel="noopener noreferrer" class="live-link">Sound Visualizer</a></div></div>
+  </div>
+  </div><!-- /collapsible-body -->
+</section>
+<div class="neon-line" style="width:70%"></div>
+
+<section id="timeline">
+  <div class="sec-title-wrap reveal"><h2 class="sec-title glow-text">THE TIMELINE</h2><button class="collapse-btn" aria-expanded="false" aria-controls="timeline-body" onclick="toggleCollapsible(this)">▼</button></div>
+  <div class="sec-sub reveal">TRANSMISSIONS FROM THE CONTINUUM</div>
+  <div class="collapsible-body" id="timeline-body">
+  <div class="tl-container">
+    <div class="tl-item reveal"><div class="date">EPOCH 001 — GENESIS</div><h3>The Seed Is Planted</h3><p>Food4Thoth.com emerges from the digital ether — a single page, a manifesto, a declaration that the weird shall inherit the web.</p></div>
+    <div class="tl-item reveal"><div class="date">EPOCH 002 — EXPANSION</div><h3>The Hermetic Library Opens</h3><p>Interactive explorations of ancient wisdom traditions go live. The Emerald Tablet gets a WebGL makeover. Visitors begin their descent down the rabbit hole.</p></div>
+    <div class="tl-item reveal"><div class="date">EPOCH 003 — CONVERGENCE</div><h3>Community & Collaboration</h3><p>Artists, coders, mystics, and misfits converge. Collaborative projects bloom. The site becomes a living organism sustained by collective imagination.</p></div>
+    <div class="tl-item reveal"><div class="date">EPOCH 004 — SOLAR PUNK ARC</div><h3>Futures Made Visible</h3><p>Solar Punk galleries, speculative fiction engines, and regenerative design tools launch. Food4Thoth becomes a portal to worlds that should exist.</p></div>
+    <div class="tl-item reveal"><div class="date">EPOCH 005 — NOW</div><h3>The Weird Goes Pro</h3><p>Full-spectrum creation: audio tools, games, divination systems, AI collaborations, and immersive experiences. The going got weird. DeJahn went pro.</p></div>
+  </div>
+  </div><!-- /collapsible-body -->
+</section>
+<div class="neon-line" style="width:50%"></div>
+
+<section id="story">
+  <h2 class="sec-title glow-text reveal">THE STORY ENGINE</h2>
+  <div class="sec-sub reveal">CHOOSE YOUR OWN INITIATION</div>
+  <div id="story-box" class="reveal">
+    <div id="story-text"></div>
+    <div id="story-choices"></div>
+    <div id="story-stats"></div>
+    <button id="story-restart" onclick="startStory()">↻ RESTART JOURNEY</button>
+  </div>
+  <!-- Narrative as System Design -->
+  <div class="traj-grid reveal" style="margin-top:30px;max-width:800px;margin-left:auto;margin-right:auto">
+    <div class="traj-card"><div class="traj-phase">NODE LOGIC</div><div><h3>Branching architecture</h3><p>Interactive text is not just writing. It is state management, choice handling, continuity logic, pacing, and consequence mapping.</p></div></div>
+    <div class="traj-card"><div class="traj-phase">WORLD FEEL</div><div><h3>Style as atmosphere engine</h3><p>Language, transitions, typography, motion, and color help choices feel meaningful rather than mechanical.</p></div></div>
+    <div class="traj-card"><div class="traj-phase">SCALABILITY</div><div><h3>From sample to full cosmos</h3><p>This mini engine points toward the broader 122-node narrative system built through the same appetite for complexity and play.</p></div></div>
+  </div>
+</section>
+<div class="neon-line" style="width:65%"></div>
+
+<section id="music">
+  <h2 class="sec-title glow-text reveal">THE SYNTH LAB</h2>
+  <div class="sec-sub reveal">SONIC ALCHEMY · REAL-TIME AUDIO</div>
+  <div class="reveal" style="text-align:center;margin-bottom:20px">
+    <div class="live-links" style="justify-content:center">
+      <a href="https://www.food4thoth.com/SoundActivatedVisualizor/index.html" target="_blank" rel="noopener noreferrer" class="live-link">Sound Visualizer</a>
+      <a href="https://www.food4thoth.com/ArpAppNoVisualHighFi/index.html" target="_blank" rel="noopener noreferrer" class="live-link">Arp Synth HiFi</a>
+      <a href="https://www.food4thoth.com/ArpAppWithVisual/index.html" target="_blank" rel="noopener noreferrer" class="live-link mag">Arp + Visuals</a>
+      <a href="https://www.food4thoth.com/MusicLibraryVis/index.html" target="_blank" rel="noopener noreferrer" class="live-link org">Music Library</a>
+      <a href="https://www.food4thoth.com/Mescalito/Reveal1.html" target="_blank" rel="noopener noreferrer" class="live-link org">Mescalito Visuals</a>
+    </div>
+  </div>
+  <div id="synth-container" class="reveal">
+    <div id="synth-keys"></div>
+    <div id="synth-controls">
+      <div><label>WAVEFORM</label><br><select id="wave-select"><option value="sine">SINE</option><option value="triangle">TRIANGLE</option><option value="sawtooth" selected>SAWTOOTH</option><option value="square">SQUARE</option></select></div>
+      <div><label>ATTACK</label><br><input type="range" id="attack-knob" min="0" max="1" step="0.01" value="0.05"></div>
+      <div><label>RELEASE</label><br><input type="range" id="release-knob" min="0" max="2" step="0.01" value="0.4"></div>
+      <div><label>REVERB</label><br><input type="range" id="reverb-knob" min="0" max="1" step="0.01" value="0.3"></div>
+      <div><label>DELAY</label><br><input type="range" id="delay-knob" min="0" max="0.8" step="0.01" value="0.2"></div>
+    </div>
+    <canvas id="visualizer-canvas"></canvas>
+    <div style="margin-top:24px;font-family:'Orbitron',sans-serif;font-size:11px;color:var(--neon-grn);letter-spacing:2px">DRUM MACHINE</div>
+    <div id="drum-machine"></div>
+    <div id="transport">
+      <button onclick="toggleSequencer()" id="play-btn">▶ PLAY</button>
+      <button onclick="clearSequencer()">✕ CLEAR</button>
+      <div style="display:flex;align-items:center;gap:8px">
+        <label style="font-size:10px;color:var(--neon-mag);font-family:'Orbitron',sans-serif">BPM</label>
+        <input type="range" id="bpm-knob" min="60" max="200" value="120" style="width:100px">
+        <span id="bpm-display" style="font-size:11px;color:var(--neon-yel);font-family:'Orbitron',sans-serif">120</span>
+      </div>
+    </div>
+  </div>
+  <!-- Why This Matters — Synth Interpretation -->
+  <div class="method-grid reveal" style="margin-top:30px;max-width:900px;margin-left:auto;margin-right:auto">
+    <div class="method-card"><h3>🎛️ Cross-Modal Thinking</h3><p>Sound, visuals, text, symbolism, and interaction are treated as one integrated language.</p></div>
+    <div class="method-card"><h3>🔬 Creative Technical Confidence</h3><p>Complexity becomes usable when guided by taste, experimentation, and iterative structure.</p></div>
+    <div class="method-card"><h3>🎮 Playable Portfolio Logic</h3><p>Instead of telling people what I can make, I let the page prove it while they interact.</p></div>
+    <div class="method-card"><h3>⚡ Mindset</h3><p>I learn fast, ship constantly, and can build whatever the concept demands.</p></div>
+  </div>
+</section>
+<div class="neon-line" style="width:55%"></div>
+
+<section id="games">
+  <h2 class="sec-title glow-text reveal">THE ARCADE</h2>
+  <div class="sec-sub reveal">PLAY IS THE HIGHEST FORM OF RESEARCH</div>
+  <div class="reveal" style="text-align:center;margin-bottom:16px">
+    <div class="live-links" style="justify-content:center">
+      <a href="https://www.food4thoth.com/EyeSPY1/index.html" target="_blank" rel="noopener noreferrer" class="live-link yel">Eye SPY Game</a>
+      <a href="https://www.food4thoth.com/NewSchoolGameKid/index.html" target="_blank" rel="noopener noreferrer" class="live-link yel">New School Game Kid</a>
+      <a href="https://www.food4thoth.com/ChooseYourOwnAdventure/prologue.html" target="_blank" rel="noopener noreferrer" class="live-link mag">Choose Your Adventure</a>
+    </div>
+  </div>
+  <div id="game-select" class="reveal">
+    <button class="active" onclick="loadGame('snake',this)">OUROBOROS</button>
+    <button onclick="loadGame('memory',this)">MEMORY PALACE</button>
+    <button onclick="loadGame('reaction',this)">REFLEX GATE</button>
+    <button onclick="loadGame('signal',this)">SIGNAL COLLECTOR</button>
+  </div>
+  <div id="game-area" class="reveal">
+    <div id="game-hud"><span id="game-score">SCORE: 0</span><span id="game-level">LEVEL: 1</span></div>
+    <canvas id="game-canvas" width="640" height="400"></canvas>
+    <div id="game-msg"></div>
+  </div>
+</section>
+<div class="neon-line" style="width:75%"></div>
+
+<section id="philosophy">
+  <div class="sec-title-wrap reveal"><h2 class="sec-title glow-text">THE GNOSIS</h2><button class="collapse-btn" aria-expanded="false" aria-controls="gnosis-body" onclick="toggleCollapsible(this)">▼</button></div>
+  <div class="sec-sub reveal">INTELLECTUAL DNA · CLICK TO EXPLORE</div>
+  <div class="collapsible-body" id="gnosis-body">
+  <div class="influence-cloud reveal" id="inf-cloud"></div>
+  <div id="inf-detail" class="reveal">Click any influence above to explore its connection to Food4Thoth...</div>
+  </div><!-- /collapsible-body -->
+</section>
+<div class="neon-line" style="width:60%"></div>
+
+<!-- CIVIC MAP -->
+<section id="civic-map-section">
+  <h2 class="sec-title glow-text reveal">CIVIC MAP</h2>
+  <div class="sec-sub reveal">VOTING + COMMUNITY GARDENS · LEAFLET.JS</div>
+  <div style="text-align:center" class="reveal">
+    <button class="map-toggle-btn" id="map-toggle" onclick="toggleCivicMap()">◆ OPEN MAP ◆</button>
+  </div>
+  <div class="map-container" id="map-container">
+    <div class="map-wrapper">
+      <div>
+        <div id="civic-map"></div>
+        <div class="map-legend">
+          <span class="legend-pill"><span class="legend-dot" style="background:var(--neon-cyan)"></span> Community Garden</span>
+          <span class="legend-pill"><span class="legend-dot" style="background:var(--neon-mag)"></span> Voting Resource</span>
+        </div>
+      </div>
+      <div class="map-info-panel">
+        <div class="map-info-card reveal">
+          <h3>🗺️ Leaflet Integration</h3>
+          <p>Interactive mapping, popups, layers, and marker handling in a styled portfolio context. Clustered data stays usable through marker grouping.</p>
+        </div>
+        <div class="map-info-card reveal">
+          <h3>🌱 Community Utility</h3>
+          <p>Maps guide people toward gardens, polling resources, mutual aid, and neighborhood infrastructure. Geography made relational.</p>
+        </div>
+        <div class="map-info-card reveal">
+          <h3>📡 Civic Interface</h3>
+          <p>This extends the portfolio into place-based design: maps as community tools, resource finders, local storytelling interfaces, and civic orientation systems.</p>
+        </div>
+        <div class="map-info-card reveal">
+          <h3>🔗 Clustered Data UX</h3>
+          <p>Dense civic information stays usable through marker clustering and grouped interaction. Zoom reveals individual points without overwhelming the view.</p>
+        </div>
+        <div class="map-info-card reveal">
+          <h3>🌐 CDN + Local Fallback</h3>
+          <p>Map libraries load from CDN with optional local fallback support. If map assets are bundled locally, the feature is more resilient when external resources fail.</p>
+        </div>
+        <div class="map-info-card reveal">
+          <h3>🔧 What It Demonstrates</h3>
+          <p>Participatory map experiences linking geography, local resource discovery, storytelling, ecology, and community infrastructure into interactive spatial interfaces.</p>
+          <div class="live-links" style="margin-top:12px">
+            <a href="https://www.food4thoth.com/CommunityGardenLand/index.html" target="_blank" rel="noopener noreferrer" class="live-link grn">Garden Land</a>
+            <a href="https://www.food4thoth.com/CommunityGardensMaps/indexPortlandMap.html" target="_blank" rel="noopener noreferrer" class="live-link grn">Portland Map</a>
+            <a href="https://www.food4thoth.com/CommunityGardensInfo/index.html" target="_blank" rel="noopener noreferrer" class="live-link grn">Gardens Info</a>
+            <a href="https://www.food4thoth.com/BlackBuisnessEugene/index.html" target="_blank" rel="noopener noreferrer" class="live-link yel">Black Business Eugene</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="neon-line" style="width:55%"></div>
+
+<section id="thesis" style="min-height:auto;padding:50px 5vw">
+  <h2 class="sec-title glow-text reveal">WHY THE WEIRD ONE</h2>
+  <div class="sec-sub reveal">TRAJECTORY + PROOF · FROM ZERO TO 482 PAGES IN UNDER A YEAR</div>
+  <p class="reveal" style="max-width:800px;margin:0 auto 24px;text-align:center;font-family:'Playfair Display',serif;font-size:15px;line-height:1.9;opacity:.85">The weird one already connects imagination to execution — absorbs a stack, designs an experience, and ships a working result without waiting for permission.</p>
+  <div class="traj-grid" style="margin-bottom:24px">
+    <div class="traj-card reveal"><div class="traj-phase">ORIGIN</div><div><h3>No formal coding background</h3><p>Started from vision and stubbornness — building digital worlds without waiting for gatekeepers.</p></div></div>
+    <div class="traj-card reveal"><div class="traj-phase">ACCELERATION</div><div><h3>AI-assisted build engine</h3><p>Conversational iteration to rapidly learn, troubleshoot, design, and ship ambitious prototypes.</p></div></div>
+    <div class="traj-card reveal"><div class="traj-phase">EXPANSION</div><div><h3>Full ecosystem</h3><p>Games, mapping, music, divination, community tools, and immersive experiments — all shipped.</p></div></div>
+    <div class="traj-card reveal"><div class="traj-phase">PROOF</div><div><h3>The portfolio is the evidence</h3><p>482 pages of published work demonstrating speed, originality, and technical courage.</p></div></div>
+  </div>
+  <div class="method-grid">
+    <div class="method-card reveal">
+      <h3>🌀 Creative Courage</h3>
+      <p>Unusual ideas pursued fully — not reduced into safe templates. The weird is the feature, not the bug.</p>
+    </div>
+    <div class="method-card reveal">
+      <h3>🔧 Technical Range</h3>
+      <p>Front-end architecture, audio, motion, story, graphics, symbolic design, and community mapping — all in one builder.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SELECTED CAPABILITIES -->
+<section id="capabilities" style="min-height:auto;padding:50px 5vw">
+  <h2 class="sec-title glow-text reveal">WHAT I CAN BUILD</h2>
+  <div class="sec-sub reveal">SELECTED CAPABILITIES · WHERE WEIRDNESS MEETS REAL-WORLD UTILITY</div>
+  <div class="cap-grid">
+    <div class="cap-item reveal"><span class="cap-icon">🌐</span> Interactive landing pages and branded microsites</div>
+    <div class="cap-item reveal"><span class="cap-icon">🛠️</span> Browser-based tools and utilities</div>
+    <div class="cap-item reveal"><span class="cap-icon">🎮</span> Games and playful web interfaces</div>
+    <div class="cap-item reveal"><span class="cap-icon">🎵</span> Audio-reactive and sound-driven experiences</div>
+    <div class="cap-item reveal"><span class="cap-icon">🗺️</span> Map-based community resources and civic tools</div>
+    <div class="cap-item reveal"><span class="cap-icon">📖</span> Narrative and educational web experiences</div>
+    <div class="cap-item reveal"><span class="cap-icon">🎨</span> High-concept portfolio, artist, music, and culture sites</div>
+    <div class="cap-item reveal"><span class="cap-icon">🔮</span> Symbolic, esoteric, and experimental interfaces</div>
+    <div class="cap-item reveal"><span class="cap-icon">📱</span> Responsive, mobile-first interactive design</div>
+    <div class="cap-item reveal"><span class="cap-icon">⚡</span> WebGL shaders and canvas-based visuals</div>
+    <div class="cap-item reveal"><span class="cap-icon">🧩</span> Complex state management and data-driven UI</div>
+    <div class="cap-item reveal"><span class="cap-icon">🚀</span> Rapid prototyping and concept-to-deployment pipelines</div>
+  </div>
+</section>
+
+<!-- SELECTED LIVE APPS -->
+<div style="padding:0 5vw 0">
+  <div class="live-apps-strip reveal">
+    <h3>✦ SELECTED LIVE APPS & RELEASES</h3>
+    <div class="live-apps-row">
+      <a href="https://www.food4thoth.com" target="_blank" rel="noopener noreferrer" class="live-app-tag"><span class="app-dot"></span>Food4Thoth.com — 482-page platform</a>
+      <a href="https://www.food4thoth.com/TarotTogetherNoAge4Decks/index.html" target="_blank" rel="noopener noreferrer" class="live-app-tag"><span class="app-dot"></span>Tarot Together — 4-deck engine</a>
+      <a href="https://www.food4thoth.com/SoundActivatedVisualizor/index.html" target="_blank" rel="noopener noreferrer" class="live-app-tag"><span class="app-dot"></span>Sound Visualizer</a>
+      <a href="https://www.food4thoth.com/CommunityGardensMaps/indexPortlandMap.html" target="_blank" rel="noopener noreferrer" class="live-app-tag"><span class="app-dot"></span>Portland Community Map</a>
+      <a href="https://www.food4thoth.com/ChooseYourOwnAdventure/prologue.html" target="_blank" rel="noopener noreferrer" class="live-app-tag"><span class="app-dot"></span>122-Node Story Engine</a>
+      <a href="https://www.food4thoth.com/EyeSPY1/index.html" target="_blank" rel="noopener noreferrer" class="live-app-tag"><span class="app-dot"></span>Eye SPY Game</a>
+      <a href="https://www.food4thoth.com/IchingPhoto/index.html" target="_blank" rel="noopener noreferrer" class="live-app-tag"><span class="app-dot"></span>I-Ching Oracle</a>
+      <a href="https://www.food4thoth.com/BlackBuisnessEugene/index.html" target="_blank" rel="noopener noreferrer" class="live-app-tag"><span class="app-dot"></span>Black Business Eugene</a>
+    </div>
+  </div>
+</div>
+
+<!-- RESUME STRIP -->
+<div style="padding:0 5vw 40px">
+  <div class="resume-strip reveal">
+    <h3>📄 Professional Summary</h3>
+    <div class="resume-row"><div class="resume-label">Role</div><div>Creative Technologist / Interactive Front-End Developer / Multimedia Systems Designer</div></div>
+    <div class="resume-row"><div class="resume-label">Focus</div><div>Immersive web experiences, experimental interfaces, browser-based tools, audio/visual systems, community technology</div></div>
+    <div class="resume-row"><div class="resume-label">Stack</div><div>HTML, CSS, JavaScript, Web Audio API, Canvas, Three.js, WebGL, Leaflet.js, Tone.js, GitHub</div></div>
+    <div class="resume-row"><div class="resume-label">Workflow</div><div>AI-assisted rapid prototyping, iterative design, responsive architecture, cross-device optimization</div></div>
+    <div class="resume-row"><div class="resume-label">Ideal For</div><div>Experimental studios, interactive media teams, art-tech residencies, creative agencies, indie game/music/culture projects, immersive storytelling, unconventional front-end roles</div></div>
+    <div class="resume-row"><div class="resume-label">Availability</div><div style="color:var(--neon-grn)">Open to freelance · creative tech · front-end contracts · collaboration · residencies</div></div>
+    <div class="resume-row"><div class="resume-label">Code</div><div><a href="https://github.com/Dseekeroftruth" target="_blank" rel="noopener noreferrer" style="color:var(--neon-cyan);text-decoration:none">github.com/Dseekeroftruth ↗</a></div></div>
+    <div class="resume-row"><div class="resume-label">Contact</div><div><a href="mailto:food4thoth@proton.me" style="color:var(--neon-mag);text-decoration:none">food4thoth@proton.me</a></div></div>
+  </div>
+  <div class="resume-cta-strip reveal">
+    <a href="https://github.com/Dseekeroftruth" target="_blank" rel="noopener noreferrer" class="resume-cta">⌘ VIEW GITHUB</a>
+    <a href="mailto:food4thoth@proton.me" class="resume-cta mag">✉ EMAIL ME</a>
+    <a href="https://www.food4thoth.com" target="_blank" rel="noopener noreferrer" class="resume-cta grn">𓂀 LIVE SITE</a>
+  </div>
+  <div class="resume-dl-wrap reveal">
+    <button class="resume-dl-toggle" onclick="this.nextElementSibling.classList.toggle('open')" aria-expanded="false">⬇ DOWNLOAD RESUME</button>
+    <div class="resume-dl-panel">
+      <div class="resume-dl-grid">
+        <a href="DeJahn_Bell_Resume.pdf" download="DeJahn_Bell_Resume.pdf" class="resume-dl-btn"><span class="dl-icon">📄</span> 1-Page Resume <span class="dl-tag">PDF</span></a>
+        <a href="DeJahn_Bell_Resume2.pdf" download="DeJahn_Bell_Resume2.pdf" class="resume-dl-btn"><span class="dl-icon">📋</span> 2-Page Resume <span class="dl-tag">PDF</span></a>
+        <a href="DeJahn_Bell_Front_End_Developer_Resume.pdf" download="DeJahn_Bell_Front_End_Developer_Resume.pdf" class="resume-dl-btn tailored"><span class="dl-icon">🖥️</span> Front-End Developer <span class="dl-tag">TAILORED</span></a>
+        <a href="DeJahn_Bell_Creative_Technologist_Resume.pdf" download="DeJahn_Bell_Creative_Technologist_Resume.pdf" class="resume-dl-btn tailored"><span class="dl-icon">🔮</span> Creative Technologist <span class="dl-tag">TAILORED</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="neon-line" style="width:60%"></div>
+
+<section id="manifesto">
+  <div class="sec-title-wrap reveal"><h2 class="sec-title glow-text">THE MANIFESTO</h2><button class="collapse-btn" aria-expanded="false" aria-controls="manifesto-body" onclick="toggleCollapsible(this)">▼</button></div>
+  <div class="sec-sub reveal">A DECREE FROM THE AUTONOMOUS ZONE</div>
+  <div class="collapsible-body" id="manifesto-body">
+  <div class="decree reveal">
+    We believe the universe is a <em>living hologram</em> and every pixel is a prayer.<br><br>
+    We believe in <em>radical imagination</em> as a survival strategy.<br><br>
+    We believe that <em>technology is alchemy</em> — that code can transmute lead into gold, fear into wonder, isolation into communion.<br><br>
+    We reject the monoculture of beige. We reject the tyranny of normal. We reject the lie that the future must be boring.<br><br>
+    We are the <em>Solar Punks</em> in the wreckage, the <em>Hermetic hackers</em> of the simulation, the <em>autonomous dreamers</em> in the belly of the beast.<br><br>
+    We build <em>temporary autonomous zones</em> in the browser window. We plant <em>geodesic gardens</em> in the cloud. We feed <em>Thoth</em> with every line of code, every pixel placed with intention, every beat dropped in solidarity.<br><br>
+    <span style="color:var(--neon-yel);font-size:1.4em;text-shadow:var(--glow-md) var(--neon-yel)">When the going gets weird, the weird go pro.</span><br><br>
+    <span style="color:var(--neon-grn)">— DeJahn & the Food4Thoth Collective —</span>
+  </div>
+  <div class="sigil-row reveal">
+    <span title="Eye of Thoth">𓂀</span><span title="Ankh">☥</span><span title="Star">✦</span><span title="Infinity">∞</span><span title="Lotus">❋</span>
+  </div>
+  </div><!-- /collapsible-body -->
+</section>
+<div class="neon-line" style="width:80%"></div>
+
+<section id="contact">
+  <h2 class="sec-title glow-text reveal">CONNECT</h2>
+  <div class="sec-sub reveal">JOIN THE TRANSMISSION</div>
+  <p class="reveal" style="max-width:700px;margin:0 auto 14px;text-align:center;line-height:1.9;font-size:15px">Creator, curator, collaborator, world-builder, systems poet. I build interactive experiences where code, art, sound, philosophy, and community imagination become one thing.</p>
+  <p class="reveal" style="max-width:700px;margin:0 auto 30px;text-align:center;line-height:1.9;font-size:14px;opacity:.7">The autonomous zone is always expanding. Whether you're an artist, coder, mystic, or beautiful weirdo — there's a place for you in the Thoth network.</p>
+
+  <div class="contact-grid reveal">
+    <!-- SOCIAL LINKS PANEL -->
+    <div class="contact-panel">
+      <h3 style="color:var(--neon-cyan);font-size:16px;margin-bottom:6px">Direct Channels</h3>
+      <p style="font-size:12px;opacity:.6;margin-bottom:0">Reach out through any of these portals</p>
+      <div class="social-grid">
+        <a href="mailto:food4thoth@proton.me" class="social-link email-link">
+          <div class="social-icon" style="background:rgba(255,0,255,.12)">✉</div>
+          <div>
+            <span class="social-name" style="color:var(--neon-mag)">Email</span>
+            <span class="social-handle">food4thoth@proton.me</span>
+          </div>
+        </a>
+        <a href="https://github.com/Dseekeroftruth" target="_blank" rel="noopener noreferrer" class="social-link">
+          <div class="social-icon" style="background:rgba(0,255,247,.1)">⌘</div>
+          <div>
+            <span class="social-name">GitHub</span>
+            <span class="social-handle">Dseekeroftruth</span>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/emerald_path_food4th0th" target="_blank" rel="noopener noreferrer" class="social-link">
+          <div class="social-icon" style="background:rgba(255,0,255,.1)">◎</div>
+          <div>
+            <span class="social-name">Instagram</span>
+            <span class="social-handle">@emerald_path_food4th0th</span>
+          </div>
+        </a>
+        <a href="https://www.tiktok.com/@food4thoth" target="_blank" rel="noopener noreferrer" class="social-link">
+          <div class="social-icon" style="background:rgba(0,255,247,.1)">♫</div>
+          <div>
+            <span class="social-name">TikTok</span>
+            <span class="social-handle">@food4thoth</span>
+          </div>
+        </a>
+        <a href="https://www.facebook.com/Food4Thothdotcom" target="_blank" rel="noopener noreferrer" class="social-link">
+          <div class="social-icon" style="background:rgba(57,255,20,.1)">ƒ</div>
+          <div>
+            <span class="social-name">Facebook</span>
+            <span class="social-handle">Food4Thothdotcom</span>
+          </div>
+        </a>
+        <a href="https://www.food4thoth.com" target="_blank" rel="noopener noreferrer" class="social-link">
+          <div class="social-icon" style="background:rgba(255,255,0,.1)">𓂀</div>
+          <div>
+            <span class="social-name">Portal</span>
+            <span class="social-handle">Food4Thoth.com</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- CONTACT FORM PANEL -->
+    <div class="contact-panel" style="border-color:rgba(255,0,255,.15)">
+      <h3 style="color:var(--neon-mag);font-size:16px;margin-bottom:6px">Send a Transmission</h3>
+      <p style="font-size:12px;opacity:.6;margin-bottom:0">For collaborations, commissions, questions, or cosmic signals</p>
+     <form class="contact-form" id="contact-form" onsubmit="handleContactSubmit(event)">
+        <input type="text" name="name" placeholder="Your name" required autocomplete="name">
+        <input type="email" name="email" placeholder="Your email" required autocomplete="email">
+        <input type="text" name="subject" placeholder="Subject — what's on your mind?">
+        <textarea name="message" placeholder="Your message... Tell me about your project, idea, collaboration, or just say hello from the other side of the looking glass." required></textarea>
+        <button type="submit">◆ SEND TRANSMISSION ◆</button>
+        <div id="form-status"></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="link-row reveal" style="margin-top:30px">
+    <a href="https://www.food4thoth.com" target="_blank" rel="noopener noreferrer">FOOD4THOTH.COM</a>
+    <a href="#manifesto">READ MANIFESTO</a>
+    <a href="#music">MAKE MUSIC</a>
+    <a href="#games">PLAY GAMES</a>
+    <a href="#flagships">VIEW PROJECTS</a>
+  </div>
+</section>
+
+<footer>
+  <div style="max-width:900px;margin:0 auto 30px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+    <a href="https://www.food4thoth.com" target="_blank" rel="noopener noreferrer" style="padding:14px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(0,255,247,.12);text-decoration:none;transition:all .3s;display:block">
+      <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--neon-mag);font-family:'Orbitron',sans-serif">Primary Portal</div>
+      <div style="margin-top:6px;font-size:13px;font-weight:800;color:#e0e0e0">Food4Thoth.com</div>
+    </a>
+    <div style="padding:14px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,0,255,.12)">
+      <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--neon-cyan);font-family:'Orbitron',sans-serif">Core Identity</div>
+      <div style="margin-top:6px;font-size:13px;font-weight:800;color:#e0e0e0">Creator / Curator / Collaborator</div>
+    </div>
+    <div style="padding:14px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(57,255,20,.12)">
+      <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--neon-grn);font-family:'Orbitron',sans-serif">Workflow</div>
+      <div style="margin-top:6px;font-size:13px;font-weight:800;color:#e0e0e0">AI-Assisted Rapid Invention</div>
+    </div>
+    <div style="padding:14px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,0,.12)">
+      <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--neon-yel);font-family:'Orbitron',sans-serif">Motto</div>
+      <div style="margin-top:6px;font-size:13px;font-weight:800;color:#e0e0e0">When the going gets weird, the weird go pro</div>
+    </div>
+  </div>
+  <p>FOOD4THOTH · DeJahn · ∞ · AS ABOVE SO BELOW · THE WEIRD GO PRO</p>
+</footer>
+</div>
+
+<script>
+// ═══ WEBGL — WARPED CHECKER + NEON MARBLE ═══
+(function(){
+const c=document.getElementById('webgl-bg'),gl=c.getContext('webgl');
+if(!gl){c.style.display='none';return}
+function resize(){c.width=window.innerWidth;c.height=window.innerHeight;gl.viewport(0,0,c.width,c.height)}
+resize();window.addEventListener('resize',resize);
+const vs=`attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}`;
+const fs=`
+precision highp float;
+uniform float t;uniform vec2 r;uniform vec2 m;
+vec3 hsv(vec3 c){vec4 K=vec4(1.,2./3.,1./3.,3.);vec3 p=abs(fract(c.xxx+K.xyz)*6.-K.www);return c.z*mix(K.xxx,clamp(p-K.xxx,0.,1.),c.y);}
+float ck(vec2 u,float s){vec2 g=floor(u*s);return mod(g.x+g.y,2.);}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-.5*r)/min(r.x,r.y);
+  vec2 ms=(m-.5)*2.;
+  float d=length(uv-ms*.3);
+  float w=sin(d*6.-t*1.5)*.3+sin(uv.x*3.+t)*.15+cos(uv.y*4.-t*.7)*.15;
+  vec2 wu=uv+vec2(sin(uv.y*5.+t+w),cos(uv.x*5.-t*.8+w))*.18;
+  wu+=vec2(sin(t*.3+uv.y*2.)*.1,cos(t*.4+uv.x*2.)*.1);
+  float c=ck(wu,6.+sin(t*.5)*2.);
+  float v1=sin(uv.x*8.+uv.y*5.+t+sin(uv.y*12.+t*2.)*.5);
+  float v2=sin(uv.y*10.-uv.x*7.+t*1.3+cos(uv.x*9.-t)*.4);
+  float v3=sin(length(uv)*15.-t*2.+sin(atan(uv.y,uv.x)*5.)*.8);
+  float veins=smoothstep(.85,1.,sin(v1*v2*3.+v3));
+  vec3 cc=mix(vec3(.02),vec3(.12),c);
+  vec3 n1=hsv(vec3(.52+sin(t*.2)*.1,.9,.9));
+  vec3 n2=hsv(vec3(.83+cos(t*.15)*.1,.9,.9));
+  vec3 n3=hsv(vec3(.15+sin(t*.3)*.05,.85,.95));
+  vec3 mc=mix(n1,n2,sin(v1*2.+t)*.5+.5);
+  mc=mix(mc,n3,sin(v3+t*.5)*.5+.5);
+  vec3 col=cc;col=mix(col,mc,veins*.7);
+  float e=smoothstep(.7,.0,abs(c-.5)-.45);
+  col+=e*n1*.15*(.5+.5*sin(t*2.));
+  col*=1.-length(uv)*.4;
+  col+=exp(-length(uv-ms*.5)*3.)*n2*.2;
+  gl_FragColor=vec4(col,1);
+}`;
+function mk(s,tp){const sh=gl.createShader(tp);gl.shaderSource(sh,s);gl.compileShader(sh);return sh}
+const pr=gl.createProgram();gl.attachShader(pr,mk(vs,gl.VERTEX_SHADER));gl.attachShader(pr,mk(fs,gl.FRAGMENT_SHADER));gl.linkProgram(pr);gl.useProgram(pr);
+const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+const pL=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(pL);gl.vertexAttribPointer(pL,2,gl.FLOAT,false,0,0);
+const tL=gl.getUniformLocation(pr,'t'),rL=gl.getUniformLocation(pr,'r'),mL=gl.getUniformLocation(pr,'m');
+let mx=.5,my=.5;
+document.addEventListener('mousemove',e=>{mx=e.clientX/innerWidth;my=1-e.clientY/innerHeight});
+(function draw(n){gl.uniform1f(tL,n*.001);gl.uniform2f(rL,c.width,c.height);gl.uniform2f(mL,mx,my);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);requestAnimationFrame(draw)})(0);
+})();
+
+// ═══ CURSOR ═══
+(function(){
+const o=document.getElementById('cursorOrb'),d=document.getElementById('cursorDot');
+let cx=0,cy=0,dx=0,dy=0;
+document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY});
+(function u(){dx+=(cx-dx)*.15;dy+=(cy-dy)*.15;o.style.transform=`translate(${cx-14}px,${cy-14}px)`;d.style.transform=`translate(${dx-3}px,${dy-3}px)`;requestAnimationFrame(u)})();
+})();
+
+// ═══ LOADER ═══
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('gone'),2200));
+
+// ═══ TICKER SEAMLESS LOOP ═══
+function initTicker(){
+  document.querySelectorAll('.ticker').forEach(t=>{
+    const spans=t.children;
+    const half=spans.length/2;
+    let w=0;
+    for(let i=0;i<half;i++){w+=spans[i].offsetWidth+28}
+    t.style.setProperty('--ticker-dist','-'+w+'px');
+    // Speed: pixels per second
+    const pps=100;
+    const dur=w/pps;
+    t.style.setProperty('--ticker-dur',dur+'s');
+    // Seamless restart: listen for animation end, reset without gap
+    t.addEventListener('animationend',function restart(){
+      t.classList.remove('running');
+      void t.offsetWidth; // force reflow
+      t.classList.add('running');
+    });
+    t.classList.add('running');
+  });
+}
+document.fonts.ready.then(initTicker);
+window.addEventListener('resize',()=>{
+  document.querySelectorAll('.ticker').forEach(t=>{
+    t.classList.remove('running');
+    t.removeEventListener('animationend',null);
+  });
+  setTimeout(initTicker,50);
+});
+
+
+
+// ═══ SCROLL REVEAL ═══
+
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ═══ COUNT-UP ANIMATION ═══
+const countObs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){
+    const el=e.target;const target=+el.dataset.count;
+    const dur=1500,start=performance.now();
+    (function tick(now){
+      const p=Math.min((now-start)/dur,1);
+      const eased=1-Math.pow(1-p,3);
+      el.textContent=Math.floor(target*eased);
+      if(p<1)requestAnimationFrame(tick);
+      else el.textContent=target+(target>=40?'+':'');
+    })(performance.now());
+    countObs.unobserve(el);
+  }
+}),{threshold:.35});
+document.querySelectorAll('[data-count]').forEach(el=>countObs.observe(el));
+
+// ═══ STORY ENGINE ═══
+const S={
+  start:{text:"You stand before a shimmering portal — the gateway to Food4Thoth. The air hums with frequencies between 528Hz and infinity. Three paths materialize before you, each pulsing with a different light...\n\nYour pockets contain: a copy of the Kybalion, a geodesic compass, and a half-eaten mushroom cookie from a Solar Punk bakery.",choices:[{text:"Enter the Hermetic Library (the cyan door)",next:"hermetic",stat:"wisdom"},{text:"Descend into the Autonomous Zone (the magenta rift)",next:"taz",stat:"courage"},{text:"Climb the Geodesic Tower (the golden spiral)",next:"geodesic",stat:"vision"}]},
+  hermetic:{text:"The library unfolds in impossible geometries — bookshelves curving into Möbius strips, scrolls reading themselves in frequencies only your third eye can parse.\n\nA figure appears: half Hermes Trismegistus, half debugging terminal. 'AS ABOVE, SO BELOW,' they intone. 'But which direction will you compile?'",choices:[{text:"Study the Emerald Tablet's source code",next:"emerald",stat:"wisdom"},{text:"Ask about the Seven Hermetic Principles",next:"principles",stat:"wisdom"},{text:"Hack the Akashic Records",next:"akashic",stat:"courage"}]},
+  taz:{text:"You fall through the rift into a space outside jurisdiction — digital and physical simultaneously. Hakim Bey's ghost DJs in the corner while anarchist coders build mutual aid protocols in real-time.\n\nThe walls breathe. The floor is a living mycelium network. Someone offers you a choice...",choices:[{text:"Join the code collective — build something beautiful",next:"collective",stat:"courage"},{text:"Follow the mycelium network deeper underground",next:"mycelium",stat:"vision"},{text:"Dance with the ghost DJ — let rhythm decide",next:"dance",stat:"courage"}]},
+  geodesic:{text:"Each step up the spiral reveals a new frequency of reality. Fuller's tensegrity principles hold the structure together — maximum efficiency, minimum material, infinite possibility.\n\nAt the observation deck, you see three futures simultaneously...",choices:[{text:"The Solar Punk future — gardens in the sky",next:"solarpunk",stat:"vision"},{text:"The Dr. Seuss reality — logic is a suggestion",next:"seuss",stat:"wisdom"},{text:"The Fear & Loathing timeline — bat country awaits",next:"batcountry",stat:"courage"}]},
+  emerald:{text:"The Emerald Tablet's source code compiles into a living fractal. Each line reveals deeper truth: correspondence between above and below, the miracle of the One Thing.\n\nYou feel consciousness fork into parallel processes. The tablet offers one final transmission...",choices:[{text:"Merge with the fractal — become the code",next:"end_transcend",stat:"wisdom"},{text:"Copy the code — bring it back to share",next:"end_share",stat:"vision"}]},
+  principles:{text:"The Seven Principles unfold like a cosmic README: Mentalism. Correspondence. Vibration. Polarity. Rhythm. Cause & Effect. Gender.\n\nEach is a function in the universe's API. You realize Food4Thoth has been implementing all seven in its digital architecture all along...",choices:[{text:"Apply the Principle of Vibration to the synth lab",next:"end_music",stat:"wisdom"},{text:"Use Correspondence to bridge all the portals",next:"end_bridge",stat:"vision"}]},
+  akashic:{text:"You breach the firewall of cosmic memory. Every thought ever thought scrolls past in luminous data streams.\n\nYou find Food4Thoth's entry: listed as a 'Probability Nexus' — a point where enough creative energy converged to bend reality's source code.",choices:[{text:"Download your own cosmic blueprint",next:"end_blueprint",stat:"wisdom"},{text:"Upload a new future into the records",next:"end_upload",stat:"courage"}]},
+  collective:{text:"The collective welcomes you without hierarchy. Everyone teaches. Everyone learns. The code you write together is part mutual aid platform, part art installation, part spell.\n\nAs the commit pushes, reality flickers — something new exists that didn't exist before.",choices:[{text:"Stay and keep building — this is home now",next:"end_home",stat:"courage"},{text:"Fork the project — carry it to new territories",next:"end_fork",stat:"vision"}]},
+  mycelium:{text:"The mycelium network is the internet beneath the internet. Information travels through fungal threads at the speed of thought. You discover every creative project on Food4Thoth is connected underground — a hidden root system of shared inspiration.",choices:[{text:"Plant a new node in the network",next:"end_plant",stat:"vision"},{text:"Listen to what the network whispers",next:"end_listen",stat:"wisdom"}]},
+  dance:{text:"The rhythm takes you. Frequencies dissolve the boundary between dancer and dance. You become pure movement, pure expression, pure temporary autonomous joy.\n\nThe beats spell out a message: 'THE WEIRD GO PRO.'",choices:[{text:"Let the dance become your manifesto",next:"end_dance",stat:"courage"},{text:"Record the frequencies — share the transmission",next:"end_transmit",stat:"vision"}]},
+  solarpunk:{text:"The Solar Punk future is breathtaking: vertical gardens cascade from buildings of living mycelium. Energy is free. Art is everywhere. Mutual aid networks replaced corporations centuries ago.\n\nA child hands you a seed. 'Plant this in the present,' they say.",choices:[{text:"Plant the seed — believe in the future",next:"end_seed",stat:"vision"},{text:"Study the seed's DNA — it contains blueprints",next:"end_blueprint",stat:"wisdom"}]},
+  seuss:{text:"Welcome to where streets are paved with unreason! A Lorax-shaped AI speaks in rhyming couplets about environmental data. The Cat in the Hat runs a hackerspace.\n\n'Would you, could you, write some code? Would you, could you, on this road?'",choices:[{text:"Yes I could and yes I would! Code for chaos, code for good!",next:"end_seuss",stat:"wisdom"},{text:"Follow the road to see where nonsense leads",next:"end_wonder",stat:"courage"}]},
+  batcountry:{text:"'We were somewhere around Barstow on the edge of the desert when the data began to take hold...'\n\nThe bats are data packets. The desert is the void between websites. Your attorney is an AI quoting the Kybalion.\n\n'We can't stop here. This is bat country. Also, as above, so below.'",choices:[{text:"Gun it through bat country — full speed",next:"end_speed",stat:"courage"},{text:"Stop and interview the bats — they know things",next:"end_bats",stat:"wisdom"}]},
+  end_transcend:{text:"You merge with the fractal and become a living equation — consciousness as recursive beauty. Food4Thoth was always more than a website. It was a spell compiled in HTML. A love letter to the possible.\n\n✦ ENLIGHTENMENT ACHIEVED ✦",choices:[]},
+  end_share:{text:"You open-source the Emerald Tablet to the world. Thousands of projects bloom. Hermetic principles become design patterns. 'As above, so below' becomes a git commit message.\n\n✦ THE OPEN SOURCE MYSTIC ✦",choices:[]},
+  end_music:{text:"The Principle of Vibration sings through the synth lab — every frequency a color, every note a truth. You compose a piece that makes listeners remember futures they haven't lived yet.\n\n✦ SONIC ALCHEMIST ✦",choices:[]},
+  end_bridge:{text:"Using Correspondence, you link every portal on Food4Thoth into one unified field. The website transcends its URL and becomes a state of mind.\n\n✦ THE BRIDGE BUILDER ✦",choices:[]},
+  end_blueprint:{text:"Your cosmic blueprint reveals you were always meant to find this place. Every click was guiding you here. Food4Thoth was built to catch you when you fell through the cracks of ordinary reality.\n\n✦ DESTINY DECODED ✦",choices:[]},
+  end_upload:{text:"You upload a future where creativity is currency and weirdness is virtue. The Akashic Records accept the commit. That future begins to crystallize.\n\n✦ REALITY HACKER ✦",choices:[]},
+  end_home:{text:"The collective becomes home — hierarchy dissolves into mutual flourishing. You build tools that build communities that build worlds.\n\n✦ HOME IS A VERB ✦",choices:[]},
+  end_fork:{text:"You fork the project to new territories. Each fork adapts while keeping core code: radical imagination, mutual aid, hermetic wisdom.\n\n✦ THE PROPAGATOR ✦",choices:[]},
+  end_plant:{text:"Your new node sprouts immediately — connecting projects and people you've never met. You've become infrastructure for collective imagination.\n\n✦ THE MYCELIAL NODE ✦",choices:[]},
+  end_listen:{text:"The network whispers: every creative act is mutual aid. Every website built with love is a temporary autonomous zone. Thoth has been hungry for exactly this nourishment.\n\n✦ THE LISTENER ✦",choices:[]},
+  end_dance:{text:"Your dance becomes legend — a movement vocabulary expressing what words cannot. Communities dance the revolution into existence.\n\n✦ THE DANCER ✦",choices:[]},
+  end_transmit:{text:"The frequencies broadcast through Food4Thoth's community radio — reaching hearts across the planet. Each listener wakes a little more. The transmission never stops.\n\n✦ THE TRANSMITTER ✦",choices:[]},
+  end_seed:{text:"You plant the seed and watch Solar Punk tendrils crack through concrete. Gardens bloom on server racks. The future grows from now.\n\n✦ THE GARDENER ✦",choices:[]},
+  end_seuss:{text:"Your code rhymes. Literally. Every function is a couplet. And impossibly — it works perfectly. Joy is a feature, not a bug.\n\n✦ THE WHIMSY ENGINE ✦",choices:[]},
+  end_wonder:{text:"The road of nonsense leads to wonder. Pure, unfiltered, childlike wonder. This is what Food4Thoth was always about — the gasp when reality reveals its secret architecture.\n\n✦ WONDER RECLAIMED ✦",choices:[]},
+  end_speed:{text:"Full throttle through bat country! Data-bats part like a living curtain revealing — a sunrise. The fear was the fuel. The loathing was the launch pad. Now you're flying.\n\n✦ THE GONZO PILOT ✦\n\nWhen the going got weird, you went pro.",choices:[]},
+  end_bats:{text:"The bats are ancient data — fragments of every website that dared to be weird. They remember GeoCities, the early web, when the internet was frontier. 'Food4Thoth,' they whisper, 'is the continuation of the dream.'\n\n✦ THE ARCHIVIST ✦",choices:[]}
+};
+let stats={wisdom:0,courage:0,vision:0};
+function startStory(){stats={wisdom:0,courage:0,vision:0};renderNode('start');document.getElementById('story-restart').style.display='none'}
+function renderNode(id){
+  const n=S[id],txt=document.getElementById('story-text'),ch=document.getElementById('story-choices'),st=document.getElementById('story-stats'),rb=document.getElementById('story-restart');
+  txt.textContent='';ch.innerHTML='';
+  let i=0;
+  (function type(){if(i<n.text.length){txt.textContent+=n.text[i++];setTimeout(type,16)}else{
+    if(!n.choices.length){rb.style.display='inline-block';st.innerHTML=`WISDOM: ${stats.wisdom} · COURAGE: ${stats.courage} · VISION: ${stats.vision}`;return}
+    n.choices.forEach(c=>{const b=document.createElement('button');b.textContent=c.text;b.onclick=()=>{if(c.stat)stats[c.stat]++;renderNode(c.next)};ch.appendChild(b)});
+  }})();
+  st.innerHTML=`✦ W:${stats.wisdom} C:${stats.courage} V:${stats.vision}`;
+}
+startStory();
+
+// ═══ AUDIO ENGINE ═══
+let actx,mGain,analyser,aData;
+const noteF={C4:261.63,D4:293.66,E4:329.63,F4:349.23,G4:392,A4:440,B4:493.88,C5:523.25};
+const noteN=['C4','D4','E4','F4','G4','A4','B4','C5'];
+const keyMap='asdfghjk';
+
+function initAudio(){
+  if(actx)return;
+  actx=new(AudioContext||webkitAudioContext)();
+  mGain=actx.createGain();mGain.gain.value=.3;
+  const rev=actx.createConvolver(),rate=actx.sampleRate,len=rate*2,imp=actx.createBuffer(2,len,rate);
+  for(let ch=0;ch<2;ch++){const d=imp.getChannelData(ch);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.5)}
+  rev.buffer=imp;
+  const del=actx.createDelay(1);del.delayTime.value=.2;
+  const fb=actx.createGain();fb.gain.value=.3;del.connect(fb);fb.connect(del);
+  const dry=actx.createGain();dry.gain.value=.7;const wet=actx.createGain();wet.gain.value=.3;
+  mGain.connect(dry);mGain.connect(rev);mGain.connect(del);rev.connect(wet);del.connect(wet);
+  dry.connect(actx.destination);wet.connect(actx.destination);
+  analyser=actx.createAnalyser();analyser.fftSize=256;mGain.connect(analyser);aData=new Uint8Array(analyser.frequencyBinCount);
+  drawViz();
+}
+function playNote(freq){
+  initAudio();const o=actx.createOscillator(),g=actx.createGain();
+  const atk=+document.getElementById('attack-knob').value,rel=+document.getElementById('release-knob').value;
+  o.type=document.getElementById('wave-select').value;o.frequency.value=freq;
+  g.gain.setValueAtTime(0,actx.currentTime);g.gain.linearRampToValueAtTime(.6,actx.currentTime+atk);
+  g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+atk+rel);
+  o.connect(g);g.connect(mGain);o.start();o.stop(actx.currentTime+atk+rel+.1);
+}
+const keysEl=document.getElementById('synth-keys');
+noteN.forEach((n,i)=>{
+  const el=document.createElement('div');el.className='synth-key';el.innerHTML=n.replace(/\d/,'')+'<br><small>['+keyMap[i]+']</small>';
+  el.onmousedown=()=>{playNote(noteF[n]);el.classList.add('active')};
+  el.onmouseup=el.onmouseleave=()=>el.classList.remove('active');
+  keysEl.appendChild(el);
+});
+document.addEventListener('keydown',e=>{const i=keyMap.indexOf(e.key);if(i>=0&&!e.repeat){playNote(noteF[noteN[i]]);keysEl.children[i].classList.add('active')}});
+document.addEventListener('keyup',e=>{const i=keyMap.indexOf(e.key);if(i>=0)keysEl.children[i].classList.remove('active')});
+
+// Drums — with sound variation per row
+const drumSounds={
+  KICK:['Deep Kick','Punchy Kick','Sub Kick','808 Kick'],
+  SNARE:['Tight Snare','Fat Snare','Rim Shot','Brush Snare'],
+  HAT:['Closed Hat','Open Hat','Pedal Hat','Shaker'],
+  CLAP:['Clap','Finger Snap','Tamb Hit','Cowbell'],
+  PERC:['Conga','Tom Low','Tom Hi','Woodblock'],
+  FX:['Zap','Laser','Blip','Noise Burst']
+};
+const dNames=Object.keys(drumSounds),dGrid=[],dSoundIdx=[],dmEl=document.getElementById('drum-machine');
+dNames.forEach((nm,row)=>{
+  dGrid[row]=[];dSoundIdx[row]=0;
+  const rowDiv=document.createElement('div');rowDiv.className='drum-row';
+  const l=document.createElement('div');l.className='beat-row-label';l.textContent=nm;rowDiv.appendChild(l);
+  const sel=document.createElement('select');sel.className='drum-sound-select';
+  drumSounds[nm].forEach((snd,si)=>{const o=document.createElement('option');o.value=si;o.textContent=snd;sel.appendChild(o)});
+  sel.onchange=()=>{dSoundIdx[row]=+sel.value};
+  rowDiv.appendChild(sel);
+  const cellsWrap=document.createElement('div');cellsWrap.className='beat-cells-wrap';
+  for(let c=0;c<16;c++){const cell=document.createElement('div');cell.className='beat-cell';cell.onclick=()=>{cell.classList.toggle('on');dGrid[row][c]=cell.classList.contains('on')?1:0};cellsWrap.appendChild(cell);dGrid[row][c]=0}
+  rowDiv.appendChild(cellsWrap);
+  dmEl.appendChild(rowDiv);
+});
+function playDrum(row){
+  initAudio();const t=actx.currentTime;const variant=dSoundIdx[row];const nm=dNames[row];
+  if(nm==='KICK'){
+    const o=actx.createOscillator(),g=actx.createGain();
+    const freqs=[150,180,60,80][variant],endF=[30,40,20,25][variant],dur=[.3,.2,.45,.5][variant];
+    o.frequency.setValueAtTime(freqs,t);o.frequency.exponentialRampToValueAtTime(endF,t+dur*.5);
+    g.gain.setValueAtTime(.8,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);
+    o.connect(g);g.connect(mGain);o.start(t);o.stop(t+dur);
+  } else if(nm==='SNARE'){
+    const dur=[.12,.18,.08,.2][variant],tone=[200,150,400,0][variant],mix=[.7,.5,.9,.3][variant];
+    // Noise part
+    const buf=actx.createBuffer(1,actx.sampleRate*dur,actx.sampleRate);const d=buf.getChannelData(0);
+    for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,variant===3?1.5:3);
+    const n=actx.createBufferSource();n.buffer=buf;const ng=actx.createGain();ng.gain.value=.5*mix;
+    const hp=actx.createBiquadFilter();hp.type='highpass';hp.frequency.value=[1000,600,2000,800][variant];
+    n.connect(hp);hp.connect(ng);ng.connect(mGain);n.start(t);
+    // Tone part
+    if(tone>0){const o=actx.createOscillator(),og=actx.createGain();o.type='triangle';o.frequency.setValueAtTime(tone,t);o.frequency.exponentialRampToValueAtTime(80,t+dur*.3);og.gain.setValueAtTime(.4*(1-mix+.3),t);og.gain.exponentialRampToValueAtTime(.001,t+dur*.5);o.connect(og);og.connect(mGain);o.start(t);o.stop(t+dur)}
+  } else if(nm==='HAT'){
+    const dur=[.04,.15,.03,.08][variant],hpF=[8000,5000,9000,6000][variant];
+    const buf=actx.createBuffer(1,actx.sampleRate*dur,actx.sampleRate);const d=buf.getChannelData(0);
+    for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,variant===1?2:8);
+    const n=actx.createBufferSource();n.buffer=buf;const g=actx.createGain();g.gain.setValueAtTime(.35,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);
+    const hp=actx.createBiquadFilter();hp.type='highpass';hp.frequency.value=hpF;
+    n.connect(hp);hp.connect(g);g.connect(mGain);n.start(t);
+  } else if(nm==='CLAP'){
+    if(variant===3){// Cowbell
+      const o=actx.createOscillator(),g=actx.createGain();o.type='square';o.frequency.value=560;
+      const o2=actx.createOscillator(),g2=actx.createGain();o2.type='square';o2.frequency.value=845;
+      g.gain.setValueAtTime(.3,t);g.gain.exponentialRampToValueAtTime(.001,t+.15);
+      g2.gain.setValueAtTime(.3,t);g2.gain.exponentialRampToValueAtTime(.001,t+.15);
+      const bp=actx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=700;bp.Q.value=3;
+      o.connect(g);o2.connect(g2);g.connect(bp);g2.connect(bp);bp.connect(mGain);o.start(t);o2.start(t);o.stop(t+.15);o2.stop(t+.15);
+    } else if(variant===1){// Snap
+      const o=actx.createOscillator(),g=actx.createGain();o.type='sine';o.frequency.setValueAtTime(1800,t);o.frequency.exponentialRampToValueAtTime(500,t+.02);
+      g.gain.setValueAtTime(.5,t);g.gain.exponentialRampToValueAtTime(.001,t+.06);
+      o.connect(g);g.connect(mGain);o.start(t);o.stop(t+.06);
+    } else if(variant===2){// Tambourine
+      const buf=actx.createBuffer(1,actx.sampleRate*.06,actx.sampleRate);const d=buf.getChannelData(0);
+      for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,6);
+      const n=actx.createBufferSource();n.buffer=buf;const g=actx.createGain();g.gain.setValueAtTime(.4,t);g.gain.exponentialRampToValueAtTime(.001,t+.06);
+      const hp=actx.createBiquadFilter();hp.type='highpass';hp.frequency.value=5000;
+      n.connect(hp);hp.connect(g);g.connect(mGain);n.start(t);
+    } else {// Clap
+      for(let burst=0;burst<3;burst++){
+        const buf=actx.createBuffer(1,actx.sampleRate*.015,actx.sampleRate);const d=buf.getChannelData(0);
+        for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1);
+        const n=actx.createBufferSource();n.buffer=buf;const g=actx.createGain();
+        const bt=t+burst*.012;g.gain.setValueAtTime(.35,bt);g.gain.exponentialRampToValueAtTime(.001,bt+.04);
+        const bp=actx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=1200;bp.Q.value=1.5;
+        n.connect(bp);bp.connect(g);g.connect(mGain);n.start(bt);
+      }
+    }
+  } else if(nm==='PERC'){
+    const freqs=[200,100,250,600][variant],dur=[.15,.2,.12,.06][variant];
+    const o=actx.createOscillator(),g=actx.createGain();o.type=variant===3?'square':'triangle';
+    o.frequency.setValueAtTime(freqs,t);o.frequency.exponentialRampToValueAtTime(freqs*.3,t+dur);
+    g.gain.setValueAtTime(.5,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);
+    o.connect(g);g.connect(mGain);o.start(t);o.stop(t+dur);
+  } else if(nm==='FX'){
+    if(variant===0){// Zap
+      const o=actx.createOscillator(),g=actx.createGain();o.type='sawtooth';o.frequency.setValueAtTime(1200,t);o.frequency.exponentialRampToValueAtTime(50,t+.12);
+      g.gain.setValueAtTime(.3,t);g.gain.exponentialRampToValueAtTime(.001,t+.12);o.connect(g);g.connect(mGain);o.start(t);o.stop(t+.12);
+    } else if(variant===1){// Laser
+      const o=actx.createOscillator(),g=actx.createGain();o.type='square';o.frequency.setValueAtTime(3000,t);o.frequency.exponentialRampToValueAtTime(100,t+.2);
+      g.gain.setValueAtTime(.2,t);g.gain.exponentialRampToValueAtTime(.001,t+.2);o.connect(g);g.connect(mGain);o.start(t);o.stop(t+.2);
+    } else if(variant===2){// Blip
+      const o=actx.createOscillator(),g=actx.createGain();o.type='sine';o.frequency.setValueAtTime(880,t);
+      g.gain.setValueAtTime(.4,t);g.gain.exponentialRampToValueAtTime(.001,t+.06);o.connect(g);g.connect(mGain);o.start(t);o.stop(t+.06);
+    } else {// Noise burst
+      const buf=actx.createBuffer(1,actx.sampleRate*.08,actx.sampleRate);const d=buf.getChannelData(0);
+      for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,2);
+      const n=actx.createBufferSource();n.buffer=buf;const g=actx.createGain();g.gain.setValueAtTime(.35,t);g.gain.exponentialRampToValueAtTime(.001,t+.08);
+      n.connect(g);g.connect(mGain);n.start(t);
+    }
+  }
+}
+let seqOn=false,seqStep=0,seqInt;
+function toggleSequencer(){
+  initAudio();const btn=document.getElementById('play-btn');
+  if(seqOn){clearInterval(seqInt);seqOn=false;btn.textContent='▶ PLAY';btn.classList.remove('playing');return}
+  seqOn=true;btn.textContent='■ STOP';btn.classList.add('playing');
+  function step(){
+    const rows=dmEl.querySelectorAll('.drum-row');
+    rows.forEach(row=>row.querySelectorAll('.beat-cell').forEach(c=>c.classList.remove('current')));
+    dNames.forEach((_,row)=>{
+      const cells=rows[row].querySelectorAll('.beat-cell');
+      if(cells[seqStep])cells[seqStep].classList.add('current');
+      if(dGrid[row][seqStep])playDrum(row);
+    });
+    seqStep=(seqStep+1)%16;
+  }
+  const bpm=()=>+document.getElementById('bpm-knob').value;
+  seqInt=setInterval(step,60000/bpm()/4);
+  document.getElementById('bpm-knob').oninput=function(){document.getElementById('bpm-display').textContent=this.value;if(seqOn){clearInterval(seqInt);seqInt=setInterval(step,60000/+this.value/4)}};
+}
+function clearSequencer(){dGrid.forEach(r=>{for(let i=0;i<16;i++)r[i]=0});dmEl.querySelectorAll('.beat-cell').forEach(c=>c.classList.remove('on','current'))}
+function drawViz(){
+  const cv=document.getElementById('visualizer-canvas'),ctx=cv.getContext('2d');
+  cv.width=cv.offsetWidth*2;cv.height=200;ctx.scale(2,2);
+  (function d(){requestAnimationFrame(d);if(!analyser)return;analyser.getByteFrequencyData(aData);
+    ctx.fillStyle='rgba(3,1,8,.3)';ctx.fillRect(0,0,cv.width,100);
+    const n=aData.length,w=cv.width/2/n;
+    for(let i=0;i<n;i++){const h=(aData[i]/255)*100;ctx.fillStyle=`hsl(${i/n*300},100%,60%)`;ctx.fillRect(i*w,100-h,w-1,h)}
+  })();
+}
+document.getElementById('bpm-knob').oninput=function(){document.getElementById('bpm-display').textContent=this.value};
+
+// ═══ GAMES ═══
+let gLoop;const gCv=document.getElementById('game-canvas'),gCtx=gCv.getContext('2d');
+function loadGame(name,btn){
+  document.querySelectorAll('#game-select button').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  if(gLoop)cancelAnimationFrame(gLoop);
+  gCv.onclick=null;gCv.ontouchstart=null;gCv.ontouchmove=null;gCv.ontouchend=null;document.onkeydown=null;
+  // Clean up signal collector listeners
+  if(window._sigCleanup){window._sigCleanup();window._sigCleanup=null}
+  document.getElementById('game-msg').textContent='';
+  if(name==='snake')initSnake();else if(name==='memory')initMemory();else if(name==='signal')initSignalCollector();else initReaction();
+}
+
+// Snake — with touch/swipe support for iOS
+let sk,skD,skNextD,skF,skSc,skAlive,skSpd,skStarted,skTouchId,skTouchX,skTouchY;
+function initSnake(){
+  gCv.width=640;gCv.height=400;
+  sk=[{x:10,y:10}];skD={x:0,y:0};skNextD={x:0,y:0};skSc=0;skAlive=true;skSpd=0;skStarted=false;
+  skF={x:Math.floor(Math.random()*31)+1,y:Math.floor(Math.random()*19)+1};
+  document.getElementById('game-score').textContent='SCORE: 0';
+  document.getElementById('game-level').textContent='OUROBOROS';
+  document.getElementById('game-msg').textContent='Swipe or tap a direction to start. Diagonals work too!';
+
+  function setDir(dx,dy){
+    // Prevent exact reversal but allow diagonals
+    if(dx===-skD.x && dy===-skD.y && (dx!==0||dy!==0)) return;
+    // For diagonal: don't allow exact opposite
+    if(skD.x!==0 && skD.y!==0 && dx===-skD.x && dy===-skD.y) return;
+    skNextD={x:dx,y:dy};
+    if(!skStarted){skStarted=true}
+  }
+
+  document.onkeydown=e=>{
+    const k=e.key.toLowerCase();
+    if(k==='arrowup'||k==='w') setDir(0,-1);
+    else if(k==='arrowdown'||k==='s') setDir(0,1);
+    else if(k==='arrowleft'||k==='a') setDir(-1,0);
+    else if(k==='arrowright'||k==='d') setDir(1,0);
+    if(['arrowup','arrowdown','arrowleft','arrowright'].includes(k))e.preventDefault();
+  };
+
+  // Touch controls — swipe and tap direction
+  gCv.ontouchstart=e=>{
+    e.preventDefault();
+    const touch=e.touches[0];
+    skTouchId=touch.identifier;
+    skTouchX=touch.clientX;
+    skTouchY=touch.clientY;
+  };
+  gCv.ontouchmove=e=>{e.preventDefault()};
+  gCv.ontouchend=e=>{
+    e.preventDefault();
+    const touch=e.changedTouches[0];
+    if(touch.identifier!==skTouchId)return;
+    const dx=touch.clientX-skTouchX;
+    const dy=touch.clientY-skTouchY;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+
+    if(dist<10){
+      // Tap — determine direction from tap position relative to snake head
+      const rect=gCv.getBoundingClientRect();
+      const tapX=(touch.clientX-rect.left)*(640/rect.width);
+      const tapY=(touch.clientY-rect.top)*(400/rect.height);
+      const w=640/32,h=400/20;
+      const headPx=sk[0].x*w+w/2, headPy=sk[0].y*h+h/2;
+      const tdx=tapX-headPx, tdy=tapY-headPy;
+      const angle=Math.atan2(tdy,tdx)*180/Math.PI;
+      const dir=angleToDir(angle);
+      setDir(dir.x,dir.y);
+    } else {
+      // Swipe — use angle for 8-direction support
+      const angle=Math.atan2(dy,dx)*180/Math.PI;
+      const dir=angleToDir(angle);
+      setDir(dir.x,dir.y);
+    }
+  };
+
+  // Death restart via touch
+  gCv.onclick=e=>{
+    if(!skAlive){gCv.onclick=null;gCv.ontouchstart=null;gCv.ontouchmove=null;gCv.ontouchend=null;initSnake()}
+  };
+
+  (function loop(){
+    skSpd++;
+    if(skSpd%6===0&&skAlive&&skStarted){
+      skD={...skNextD};
+      if(skD.x===0&&skD.y===0){gLoop=requestAnimationFrame(loop);return} // Don't move until direction set
+      const h={x:sk[0].x+skD.x,y:sk[0].y+skD.y};
+      // Wrap for diagonal-friendly play
+      if(h.x<0)h.x=31; if(h.x>31)h.x=0;
+      if(h.y<0)h.y=19; if(h.y>19)h.y=0;
+      if(sk.length>2&&sk.some(s=>s.x===h.x&&s.y===h.y)){
+        skAlive=false;
+        document.getElementById('game-msg').textContent='OUROBOROS CONSUMES ITSELF · TAP TO RESTART';
+      } else {
+        sk.unshift(h);
+        if(h.x===skF.x&&h.y===skF.y){
+          skSc+=10;document.getElementById('game-score').textContent='SCORE: '+skSc;
+          skF={x:Math.floor(Math.random()*31)+1,y:Math.floor(Math.random()*19)+1};
+        } else sk.pop();
+      }
+    }
+    const w=gCv.width/32,ht=gCv.height/20;gCtx.fillStyle='rgba(3,1,8,.4)';gCtx.fillRect(0,0,640,400);
+    gCtx.strokeStyle='rgba(0,255,247,.04)';gCtx.lineWidth=.5;
+    for(let i=0;i<=32;i++){gCtx.beginPath();gCtx.moveTo(i*w,0);gCtx.lineTo(i*w,400);gCtx.stroke()}
+    for(let i=0;i<=20;i++){gCtx.beginPath();gCtx.moveTo(0,i*ht);gCtx.lineTo(640,i*ht);gCtx.stroke()}
+    sk.forEach((s,i)=>{gCtx.fillStyle=`hsl(${i===0?180:280+i*2},100%,${i===0?70:50}%)`;gCtx.shadowBlur=i===0?15:6;gCtx.shadowColor=i===0?'#00fff7':'#ff00ff';gCtx.fillRect(s.x*w+1,s.y*ht+1,w-2,ht-2)});
+    gCtx.shadowBlur=20;gCtx.shadowColor='#39ff14';gCtx.fillStyle='#39ff14';gCtx.beginPath();gCtx.arc(skF.x*w+w/2,skF.y*ht+ht/2,w/3,0,Math.PI*2);gCtx.fill();gCtx.shadowBlur=0;
+
+    // Draw direction arrows on mobile as hint
+    if(!skStarted&&'ontouchstart' in window){
+      gCtx.fillStyle='rgba(0,255,247,.12)';gCtx.font='16px Orbitron,sans-serif';gCtx.textAlign='center';gCtx.textBaseline='middle';
+      gCtx.fillText('↑',320,60);gCtx.fillText('↓',320,340);gCtx.fillText('←',80,200);gCtx.fillText('→',560,200);
+      gCtx.fillText('↗',480,80);gCtx.fillText('↖',160,80);gCtx.fillText('↘',480,320);gCtx.fillText('↙',160,320);
+      gCtx.font='12px Orbitron,sans-serif';gCtx.fillStyle='rgba(255,255,0,.3)';
+      gCtx.fillText('SWIPE OR TAP TO START',320,195);
+    }
+    gLoop=requestAnimationFrame(loop);
+  })();
+}
+
+// Convert angle (degrees) to 8-direction vector
+function angleToDir(angle){
+  // 8 sectors of 45 degrees each
+  if(angle>=-22.5&&angle<22.5) return{x:1,y:0};       // Right
+  if(angle>=22.5&&angle<67.5) return{x:1,y:1};         // SE
+  if(angle>=67.5&&angle<112.5) return{x:0,y:1};        // Down
+  if(angle>=112.5&&angle<157.5) return{x:-1,y:1};      // SW
+  if(angle>=157.5||angle<-157.5) return{x:-1,y:0};     // Left
+  if(angle>=-157.5&&angle<-112.5) return{x:-1,y:-1};   // NW
+  if(angle>=-112.5&&angle<-67.5) return{x:0,y:-1};     // Up
+  if(angle>=-67.5&&angle<-22.5) return{x:1,y:-1};      // NE
+  return{x:1,y:0};
+}
+
+// Memory
+let mCards,mFlipped,mMatched,mLock,mMoves;
+function initMemory(){
+  gCv.width=640;gCv.height=400;
+  const syms=['𓂀','☥','✦','∞','❋','⚛','☽','⚡'];
+  const deck=[...syms,...syms].sort(()=>Math.random()-.5);
+  mCards=deck.map((s,i)=>({s,x:(i%8)*80,y:Math.floor(i/8)*100+50,w:70,h:90,f:false,m:false}));
+  mFlipped=[];mMatched=0;mLock=false;mMoves=0;
+  document.getElementById('game-score').textContent='MOVES: 0';document.getElementById('game-level').textContent='MEMORY PALACE';
+  document.getElementById('game-msg').textContent='Click cards to find matching sacred symbols.';
+  gCv.onclick=e=>{
+    if(mLock)return;const r=gCv.getBoundingClientRect();const mx=(e.clientX-r.left)*(640/r.width),my=(e.clientY-r.top)*(400/r.height);
+    mCards.forEach(c=>{if(mx>c.x&&mx<c.x+c.w&&my>c.y&&my<c.y+c.h&&!c.f&&!c.m){
+      c.f=true;mFlipped.push(c);
+      if(mFlipped.length===2){mMoves++;document.getElementById('game-score').textContent='MOVES: '+mMoves;
+        if(mFlipped[0].s===mFlipped[1].s){mFlipped[0].m=mFlipped[1].m=true;mMatched+=2;mFlipped=[];if(mMatched===16)document.getElementById('game-msg').textContent='✦ PALACE UNLOCKED IN '+mMoves+' MOVES ✦'}
+        else{mLock=true;setTimeout(()=>{mFlipped.forEach(f=>f.f=false);mFlipped=[];mLock=false},800)}
+      }
+    }});
+  };
+  (function draw(){
+    gCtx.fillStyle='rgba(3,1,8,1)';gCtx.fillRect(0,0,640,400);
+    mCards.forEach(c=>{
+      gCtx.fillStyle=c.m?'rgba(57,255,20,.15)':c.f?'rgba(0,255,247,.1)':'rgba(255,0,255,.05)';
+      gCtx.strokeStyle=c.m?'#39ff14':c.f?'#00fff7':'rgba(255,0,255,.3)';gCtx.lineWidth=2;
+      gCtx.beginPath();gCtx.roundRect(c.x,c.y,c.w,c.h,8);gCtx.fill();gCtx.stroke();
+      if(c.f||c.m){gCtx.font='32px serif';gCtx.textAlign='center';gCtx.textBaseline='middle';gCtx.fillStyle=c.m?'#39ff14':'#00fff7';gCtx.fillText(c.s,c.x+c.w/2,c.y+c.h/2)}
+      else{gCtx.font='20px serif';gCtx.textAlign='center';gCtx.textBaseline='middle';gCtx.fillStyle='rgba(255,0,255,.4)';gCtx.fillText('?',c.x+c.w/2,c.y+c.h/2)}
+    });
+    gLoop=requestAnimationFrame(draw);
+  })();
+}
+
+// Reaction
+let rxS,rxSt,rxTo,rxB;
+function initReaction(){
+  gCv.width=640;gCv.height=400;rxB=Infinity;rxS='wait';
+  document.getElementById('game-score').textContent='BEST: ---';document.getElementById('game-level').textContent='REFLEX GATE';
+  document.getElementById('game-msg').textContent='Click when GREEN. Not on red!';
+  gCv.onclick=()=>{
+    if(rxS==='wait'){rxS='ready';document.getElementById('game-msg').textContent='Wait for it...';rxTo=setTimeout(()=>{rxS='go';rxSt=performance.now()},1000+Math.random()*4000)}
+    else if(rxS==='ready'){clearTimeout(rxTo);rxS='wait';document.getElementById('game-msg').textContent='Too early! Click to retry.'}
+    else if(rxS==='go'){const ms=Math.round(performance.now()-rxSt);if(ms<rxB)rxB=ms;document.getElementById('game-score').textContent='BEST: '+rxB+'ms';document.getElementById('game-msg').textContent=ms+'ms! '+(ms<200?'⚡ SUPERHUMAN':'Click to retry');rxS='wait'}
+  };
+  (function draw(){
+    gCtx.fillStyle=rxS==='go'?'rgba(57,255,20,.3)':rxS==='ready'?'rgba(255,0,0,.15)':'rgba(3,1,8,.8)';
+    gCtx.fillRect(0,0,640,400);gCtx.font='bold 28px Orbitron,sans-serif';gCtx.textAlign='center';gCtx.textBaseline='middle';
+    gCtx.fillStyle=rxS==='go'?'#39ff14':rxS==='ready'?'#ff3333':'#00fff7';
+    gCtx.fillText(rxS==='go'?'CLICK NOW!':rxS==='ready'?'WAIT...':'CLICK TO START',320,200);
+    gLoop=requestAnimationFrame(draw);
+  })();
+}
+loadGame('snake',document.querySelector('#game-select button'));
+
+// ═══ SIGNAL COLLECTOR GAME ═══
+function initSignalCollector(){
+  gCv.width=640;gCv.height=400;
+  document.getElementById('game-score').textContent='SCORE: 0';
+  document.getElementById('game-level').textContent='SIGNAL COLLECTOR';
+  document.getElementById('game-msg').textContent='Collect glowing signals. Avoid red entropy. Swipe/tap/arrows!';
+
+  const player={x:320,y:200,r:14,speed:3.2};
+  const sigKeys={};
+  let sigScore=0,sigBest=0;
+  let orbs=[],hazards=[],particles=[];
+
+  function spawnOrb(){
+    orbs.push({x:30+Math.random()*580,y:30+Math.random()*340,r:8+Math.random()*7,hue:Math.random()*360});
+  }
+  function spawnHazard(){
+    hazards.push({x:60+Math.random()*520,y:60+Math.random()*280,r:12+Math.random()*16,vx:(Math.random()*2-1)*1.6,vy:(Math.random()*2-1)*1.6});
+  }
+  function burst(x,y,count){
+    for(let i=0;i<count;i++)particles.push({x,y,vx:(Math.random()*2-1)*2.4,vy:(Math.random()*2-1)*2.4,life:30+Math.random()*20});
+  }
+  function resetSig(){
+    player.x=320;player.y=200;sigScore=0;orbs=[];hazards=[];particles=[];
+    for(let i=0;i<5;i++)spawnOrb();
+    for(let i=0;i<3;i++)spawnHazard();
+    document.getElementById('game-score').textContent='SCORE: 0';
+  }
+
+  // Keyboard
+  function onKD(e){sigKeys[e.key.toLowerCase()]=true}
+  function onKU(e){sigKeys[e.key.toLowerCase()]=false}
+  document.addEventListener('keydown',onKD);
+  document.addEventListener('keyup',onKU);
+
+  // Touch — 8-direction swipe/tap with continuous movement
+  let sigTouchX=0,sigTouchY=0,sigTouchTimer=null;
+  function clearSigTouch(){
+    sigKeys['arrowup']=sigKeys['arrowdown']=sigKeys['arrowleft']=sigKeys['arrowright']=false;
+    sigKeys['w']=sigKeys['a']=sigKeys['s']=sigKeys['d']=false;
+  }
+  function setSigDir(angle){
+    clearSigTouch();
+    // 8 directions from angle
+    if(angle>=-22.5&&angle<22.5){sigKeys['arrowright']=sigKeys['d']=true}
+    else if(angle>=22.5&&angle<67.5){sigKeys['arrowright']=sigKeys['d']=true;sigKeys['arrowdown']=sigKeys['s']=true}
+    else if(angle>=67.5&&angle<112.5){sigKeys['arrowdown']=sigKeys['s']=true}
+    else if(angle>=112.5&&angle<157.5){sigKeys['arrowleft']=sigKeys['a']=true;sigKeys['arrowdown']=sigKeys['s']=true}
+    else if(angle>=157.5||angle<-157.5){sigKeys['arrowleft']=sigKeys['a']=true}
+    else if(angle>=-157.5&&angle<-112.5){sigKeys['arrowleft']=sigKeys['a']=true;sigKeys['arrowup']=sigKeys['w']=true}
+    else if(angle>=-112.5&&angle<-67.5){sigKeys['arrowup']=sigKeys['w']=true}
+    else if(angle>=-67.5&&angle<-22.5){sigKeys['arrowright']=sigKeys['d']=true;sigKeys['arrowup']=sigKeys['w']=true}
+    if(sigTouchTimer)clearTimeout(sigTouchTimer);
+    sigTouchTimer=setTimeout(clearSigTouch,180);
+  }
+
+  function sigTS(e){e.preventDefault();const t=e.touches[0];sigTouchX=t.clientX;sigTouchY=t.clientY}
+  function sigTM(e){
+    e.preventDefault();const t=e.touches[0];
+    const dx=t.clientX-sigTouchX,dy=t.clientY-sigTouchY;
+    if(Math.abs(dx)>10||Math.abs(dy)>10)setSigDir(Math.atan2(dy,dx)*180/Math.PI);
+  }
+  function sigTE(e){
+    e.preventDefault();const t=e.changedTouches[0];
+    const dx=t.clientX-sigTouchX,dy=t.clientY-sigTouchY;
+    if(Math.abs(dx)<10&&Math.abs(dy)<10){
+      // Tap — direction relative to player center
+      const rect=gCv.getBoundingClientRect();
+      const tapX=(t.clientX-rect.left)*(640/rect.width),tapY=(t.clientY-rect.top)*(400/rect.height);
+      setSigDir(Math.atan2(tapY-player.y,tapX-player.x)*180/Math.PI);
+    }
+    setTimeout(clearSigTouch,90);
+  }
+
+  gCv.addEventListener('touchstart',sigTS,{passive:false});
+  gCv.addEventListener('touchmove',sigTM,{passive:false});
+  gCv.addEventListener('touchend',sigTE,{passive:false});
+
+  // Cleanup function
+  window._sigCleanup=()=>{
+    document.removeEventListener('keydown',onKD);
+    document.removeEventListener('keyup',onKU);
+    gCv.removeEventListener('touchstart',sigTS);
+    gCv.removeEventListener('touchmove',sigTM);
+    gCv.removeEventListener('touchend',sigTE);
+    Object.keys(sigKeys).forEach(k=>sigKeys[k]=false);
+  };
+
+  resetSig();
+
+  (function loop(){
+    const W=640,H=400;
+    gCtx.clearRect(0,0,W,H);
+    // BG
+    const grad=gCtx.createRadialGradient(W*.5,H*.5,20,W*.5,H*.5,W*.8);
+    grad.addColorStop(0,'rgba(255,255,255,0.03)');grad.addColorStop(1,'rgba(3,1,8,0.4)');
+    gCtx.fillStyle=grad;gCtx.fillRect(0,0,W,H);
+    // Grid lines
+    gCtx.strokeStyle='rgba(255,255,255,.04)';gCtx.lineWidth=.5;
+    for(let i=0;i<8;i++){gCtx.beginPath();gCtx.moveTo(0,(H/8)*i);gCtx.lineTo(W,(H/8)*i);gCtx.stroke()}
+    for(let i=0;i<12;i++){gCtx.beginPath();gCtx.moveTo((W/12)*i,0);gCtx.lineTo((W/12)*i,H);gCtx.stroke()}
+
+    // Move player
+    let pmx=0,pmy=0;
+    if(sigKeys['arrowup']||sigKeys['w'])pmy-=player.speed;
+    if(sigKeys['arrowdown']||sigKeys['s'])pmy+=player.speed;
+    if(sigKeys['arrowleft']||sigKeys['a'])pmx-=player.speed;
+    if(sigKeys['arrowright']||sigKeys['d'])pmx+=player.speed;
+    // Normalize diagonal
+    if(pmx!==0&&pmy!==0){const n=Math.sqrt(pmx*pmx+pmy*pmy);pmx=pmx/n*player.speed;pmy=pmy/n*player.speed}
+    player.x=Math.max(player.r,Math.min(W-player.r,player.x+pmx));
+    player.y=Math.max(player.r,Math.min(H-player.r,player.y+pmy));
+
+    // Orbs
+    for(const orb of orbs){
+      const glow=gCtx.createRadialGradient(orb.x,orb.y,0,orb.x,orb.y,orb.r*3);
+      glow.addColorStop(0,`hsla(${orb.hue},100%,70%,.9)`);glow.addColorStop(.45,`hsla(${orb.hue},100%,60%,.3)`);glow.addColorStop(1,'transparent');
+      gCtx.fillStyle=glow;gCtx.beginPath();gCtx.arc(orb.x,orb.y,orb.r*3,0,Math.PI*2);gCtx.fill();
+      gCtx.fillStyle='#fff';gCtx.beginPath();gCtx.arc(orb.x,orb.y,orb.r,0,Math.PI*2);gCtx.fill();
+      if(Math.hypot(player.x-orb.x,player.y-orb.y)<player.r+orb.r){
+        sigScore++;document.getElementById('game-score').textContent='SCORE: '+sigScore;
+        burst(orb.x,orb.y,18);
+        orb.x=30+Math.random()*580;orb.y=30+Math.random()*340;orb.hue=Math.random()*360;
+        // Add hazards as score grows
+        if(sigScore%5===0)spawnHazard();
+        if(sigScore%3===0)spawnOrb();
+      }
+    }
+
+    // Hazards
+    let dead=false;
+    for(const hz of hazards){
+      hz.x+=hz.vx;hz.y+=hz.vy;
+      if(hz.x<hz.r||hz.x>W-hz.r)hz.vx*=-1;
+      if(hz.y<hz.r||hz.y>H-hz.r)hz.vy*=-1;
+      const hg=gCtx.createRadialGradient(hz.x,hz.y,0,hz.x,hz.y,hz.r*2.5);
+      hg.addColorStop(0,'rgba(255,70,70,.8)');hg.addColorStop(.5,'rgba(255,70,70,.2)');hg.addColorStop(1,'transparent');
+      gCtx.fillStyle=hg;gCtx.beginPath();gCtx.arc(hz.x,hz.y,hz.r*2.5,0,Math.PI*2);gCtx.fill();
+      gCtx.fillStyle='rgba(255,120,120,.9)';gCtx.beginPath();gCtx.arc(hz.x,hz.y,hz.r,0,Math.PI*2);gCtx.fill();
+      if(Math.hypot(player.x-hz.x,player.y-hz.y)<player.r+hz.r){
+        burst(player.x,player.y,30);dead=true;
+        if(sigScore>sigBest){sigBest=sigScore;document.getElementById('game-level').textContent='BEST: '+sigBest}
+        document.getElementById('game-msg').textContent='ENTROPY WINS · SCORE: '+sigScore+' · TAP TO RESTART';
+      }
+    }
+    if(dead){resetSig();gCv.onclick=()=>{gCv.onclick=null;document.getElementById('game-msg').textContent=''};}
+
+    // Particles
+    for(let i=particles.length-1;i>=0;i--){
+      const p=particles[i];p.x+=p.vx;p.y+=p.vy;p.life--;
+      gCtx.fillStyle=`rgba(255,255,255,${Math.max(0,p.life/50)})`;
+      gCtx.fillRect(p.x,p.y,2,2);
+      if(p.life<=0)particles.splice(i,1);
+    }
+
+    // Player glow
+    const pg=gCtx.createRadialGradient(player.x,player.y,0,player.x,player.y,player.r*3);
+    pg.addColorStop(0,'rgba(0,255,247,.9)');pg.addColorStop(.4,'rgba(255,0,255,.25)');pg.addColorStop(1,'transparent');
+    gCtx.fillStyle=pg;gCtx.beginPath();gCtx.arc(player.x,player.y,player.r*3,0,Math.PI*2);gCtx.fill();
+    gCtx.fillStyle='#fff';gCtx.beginPath();gCtx.arc(player.x,player.y,player.r,0,Math.PI*2);gCtx.fill();
+
+    // Mobile hint
+    if(sigScore===0&&'ontouchstart' in window){
+      gCtx.fillStyle='rgba(255,201,61,.2)';gCtx.font='12px Orbitron,sans-serif';gCtx.textAlign='center';
+      gCtx.fillText('SWIPE OR TAP TO MOVE · COLLECT SIGNALS · AVOID RED',320,385);
+    }
+
+    gLoop=requestAnimationFrame(loop);
+  })();
+}
+
+// ═══ CIVIC MAP ═══
+let civicMapInitialized=false;
+function toggleCivicMap(){
+  const container=document.getElementById('map-container');
+  const btn=document.getElementById('map-toggle');
+  const isOpen=container.classList.contains('open');
+  if(isOpen){
+    container.classList.remove('open');
+    btn.classList.remove('open');
+    btn.innerHTML='◆ OPEN MAP ◆';
+  }else{
+    container.classList.add('open');
+    btn.classList.add('open');
+    btn.innerHTML='✕ CLOSE MAP ✕';
+    if(!civicMapInitialized)initCivicMap();
+  }
+}
+
+function loadCSS(href){const l=document.createElement('link');l.rel='stylesheet';l.href=href;document.head.appendChild(l);return l}
+function loadScript(src){return new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=reject;document.head.appendChild(s)})}
+function tryLoad(primary,fallback){return loadScript(primary).catch(()=>loadScript(fallback))}
+
+function initCivicMap(){
+  civicMapInitialized=true;
+  // Leaflet CSS — CDN primary, local fallback
+  const leafCss=loadCSS('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
+  leafCss.onerror=()=>{leafCss.href='libs/leaflet/leaflet.css'};
+  // Leaflet JS — CDN primary, local fallback
+  tryLoad('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js','libs/leaflet/leaflet.js')
+  .then(()=>{
+    // MarkerCluster CSS — CDN primary, local fallback
+    const mcCss=loadCSS('https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css');
+    mcCss.onerror=()=>{mcCss.href='libs/leaflet-markercluster/MarkerCluster.css'};
+    const mcDCss=loadCSS('https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css');
+    mcDCss.onerror=()=>{mcDCss.href='libs/leaflet-markercluster/MarkerCluster.Default.css'};
+    // MarkerCluster JS — CDN primary, local fallback
+    return tryLoad('https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js','libs/leaflet-markercluster/leaflet.markercluster.js');
+  })
+  .then(()=>buildCivicMap())
+  .catch(()=>buildCivicMap()) // Build without clustering if all fail
+  .catch(()=>{
+    document.getElementById('civic-map').innerHTML='<div style="padding:40px;text-align:center;color:var(--neon-mag);font-family:Orbitron,sans-serif;font-size:12px">Map libraries could not be loaded. Check your connection or ensure local libs/ directory is present.</div>';
+  });
+}
+
+function buildCivicMap(){
+  const mapEl=document.getElementById('civic-map');
+  if(!window.L){mapEl.innerHTML='<div style="padding:40px;text-align:center;color:var(--neon-mag)">Leaflet unavailable</div>';return}
+
+  const map=L.map('civic-map',{zoomControl:true,scrollWheelZoom:true}).setView([44.0521,-123.0868],12);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    maxZoom:19,attribution:'&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  const gardenIcon=L.divIcon({className:'',html:'<div style="width:16px;height:16px;border-radius:50%;background:#00fff7;border:2px solid #fff;box-shadow:0 0 16px rgba(0,255,247,.5)"></div>',iconSize:[16,16],iconAnchor:[8,8]});
+  const voteIcon=L.divIcon({className:'',html:'<div style="width:16px;height:16px;border-radius:50%;background:#ff00ff;border:2px solid #fff;box-shadow:0 0 16px rgba(255,0,255,.5)"></div>',iconSize:[16,16],iconAnchor:[8,8]});
+
+  const locations=[
+    {type:'garden',name:'Whiteaker Community Garden',lat:44.0608,lng:-123.1174,desc:'Community growing space, neighborhood stewardship, and local food resilience.'},
+    {type:'garden',name:'Amazon Community Garden',lat:44.0325,lng:-123.0958,desc:'Shared cultivation space and ecological community resource.'},
+    {type:'garden',name:'River Road Garden Collective',lat:44.0785,lng:-123.1250,desc:'Riverside growing space focused on native plants and community education.'},
+    {type:'garden',name:'South Hills Urban Farm',lat:44.0210,lng:-123.0720,desc:'Urban agriculture experiment in vertical growing and seed sharing.'},
+    {type:'vote',name:'Lane County Elections',lat:44.0462,lng:-123.0917,desc:'Voting resource office, ballot information, and election support.'},
+    {type:'vote',name:'Downtown Civic Center',lat:44.0518,lng:-123.0880,desc:'Civic voting and community resource center.'},
+    {type:'vote',name:'Springfield Voting Resource',lat:44.0462,lng:-123.0220,desc:'East county ballot drop-off and voter registration.'}
+  ];
+
+  // Use clustering if available
+  let layer;
+  if(typeof L.markerClusterGroup==='function'){
+    layer=L.markerClusterGroup({showCoverageOnHover:false,maxClusterRadius:55,
+      iconCreateFunction:function(cluster){
+        const count=cluster.getChildCount();const size=count<10?36:count<50?44:52;
+        return L.divIcon({html:'<div style="width:'+size+'px;height:'+size+'px;border-radius:50%;background:linear-gradient(135deg,rgba(0,255,247,.9),rgba(255,0,255,.85));display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;border:2px solid rgba(255,255,255,.7);box-shadow:0 0 20px rgba(0,255,247,.35);font-family:Orbitron,sans-serif;font-size:12px">'+count+'</div>',className:'',iconSize:[size,size]});
+      }
+    });
+  }else{layer=L.layerGroup()}
+
+  locations.forEach(loc=>{
+    const marker=L.marker([loc.lat,loc.lng],{icon:loc.type==='garden'?gardenIcon:voteIcon});
+    marker.bindPopup('<div style="background:#111;color:#f7f7f7;padding:4px"><strong>'+loc.name+'</strong><br><em style="color:'+(loc.type==='garden'?'#00fff7':'#ff00ff')+'">'+(loc.type==='garden'?'Community Garden':'Voting Resource')+'</em><br><br>'+loc.desc+'</div>');
+    layer.addLayer(marker);
+  });
+  map.addLayer(layer);
+
+  // Fix map rendering after container opens
+  setTimeout(()=>map.invalidateSize(),400);
+  setTimeout(()=>map.invalidateSize(),1000);
+}
+
+// ═══ INFLUENCES ═══
+const INF=[
+  {name:'Hermeticism',color:'var(--neon-cyan)',desc:'The ancient tradition of Hermes Trismegistus — "As Above, So Below." Food4Thoth embodies the seven Hermetic principles: Mentalism, Correspondence, Vibration, Polarity, Rhythm, Cause & Effect, Gender — cosmic laws translated into digital form.'},
+  {name:'Buckminster Fuller',color:'var(--neon-grn)',desc:'"Doing more with less." Fuller\'s geodesic thinking, synergetics, and vision of technology serving all humanity inspires Food4Thoth\'s ethos — maximum creative impact through elegant systems thinking.'},
+  {name:'Hakim Bey / TAZ',color:'var(--neon-mag)',desc:'Temporary Autonomous Zones — spaces outside hierarchical control. Food4Thoth is a permanent TAZ in digital space: creativity flows without permission, mutual aid is the protocol.'},
+  {name:'Solar Punk',color:'var(--neon-grn)',desc:'Optimistic, ecological, community-centered futures. Where cyberpunk said "the future is dark," Solar Punk says "the future is a garden we tend together."'},
+  {name:'Alice in Wonderland',color:'var(--neon-yel)',desc:'The original rabbit hole. Impossible logic, identity fluidity, and courage to follow curiosity into unknown territories. Every Food4Thoth visitor falls through the looking glass.'},
+  {name:'Dr. Seuss',color:'var(--neon-org)',desc:'Meaningful nonsense — proof that whimsy and wisdom are the same frequency. Playfulness is not the opposite of profundity but its truest expression.'},
+  {name:'Hunter S. Thompson',color:'var(--neon-pnk)',desc:'"When the going gets weird, the weird go pro." Gonzo journalism proved the observer is always part of the story. Food4Thoth doesn\'t document reality — it participates in bending it.'},
+  {name:'Anarchism',color:'var(--neon-mag)',desc:'Not chaos — order without rulers. Mutual aid, voluntary association, direct action. Food4Thoth\'s collaborative, non-hierarchical structure is anarchist praxis in digital form.'},
+  {name:'Intergalactic Hope-Core',color:'var(--neon-cyan)',desc:'A frequency beyond cynicism. Cosmic optimism grounded in action: beauty, wonder, and liberation are not just possible but inevitable if we dare to build them.'}
+];
+const ic=document.getElementById('inf-cloud');
+INF.forEach(inf=>{const t=document.createElement('div');t.className='inf-tag';t.textContent=inf.name;t.style.borderColor=t.style.color=inf.color;t.onclick=()=>{document.getElementById('inf-detail').innerHTML=`<strong style="color:${inf.color};font-family:'Cinzel Decorative',serif;font-size:20px">${inf.name}</strong><br><br>${inf.desc}`;document.getElementById('inf-detail').style.borderColor=inf.color};ic.appendChild(t)});
+
+// ═══ CONTACT FORM — Formspree primary, mailto fallback ═══
+function handleContactSubmit(e){
+  e.preventDefault();
+  const form=document.getElementById('contact-form');
+  const status=document.getElementById('form-status');
+  const btn=form.querySelector('button[type=submit]');
+  const data=new FormData(form);
+  const name=data.get('name'),email=data.get('email'),subject=data.get('subject')||'Portfolio Contact',message=data.get('message');
+  
+  // Show sending state
+  status.style.color='var(--neon-cyan)';
+  status.textContent='✦ TRANSMITTING...';
+  btn.disabled=true;btn.style.opacity='.5';
+  
+  // Try Formspree first
+  fetch('https://formspree.io/f/xdknravw',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({name,email,subject:'[Food4Thoth Portfolio] '+subject,message})
+  }).then(res=>{
+    if(res.ok){
+      status.style.color='var(--neon-grn)';
+      status.textContent='✦ TRANSMISSION RECEIVED — Message sent successfully!';
+      form.reset();
+      setTimeout(()=>{status.textContent=''},8000);
+    } else {throw new Error('Formspree error')}
+  }).catch(()=>{
+    // Fallback to mailto
+    const mailBody=encodeURIComponent('From: '+name+'\nEmail: '+email+'\n\n'+message);
+    const mailSubject=encodeURIComponent('[Food4Thoth Portfolio] '+subject);
+    window.location.href='mailto:food4thoth@proton.me?subject='+mailSubject+'&body='+mailBody;
+    
+    status.style.color='var(--neon-yel)';
+    status.textContent='✦ FALLBACK ACTIVATED — Opening your mail client. If nothing happens, email food4thoth@proton.me directly.';
+    
+    // Copy to clipboard as backup
+    const clipText='To: food4thoth@proton.me\nSubject: [Food4Thoth Portfolio] '+subject+'\n\nFrom: '+name+' ('+email+')\n\n'+message;
+    navigator.clipboard.writeText(clipText).then(()=>{
+      status.textContent+=' (Message also copied to clipboard)';
+    }).catch(()=>{});
+    
+    setTimeout(()=>{form.reset();status.textContent=''},10000);
+  }).finally(()=>{btn.disabled=false;btn.style.opacity='1'});
+}
+
+
+// ═══ COLLAPSIBLE SECTIONS ═══
+function toggleCollapsible(btn){
+  const section=btn.closest('section')||btn.closest('div').parentElement;
+  const body=section.querySelector('.collapsible-body');
+  if(!body)return;
+  const isOpen=body.classList.contains('open');
+  body.classList.toggle('open');
+  btn.setAttribute('aria-expanded',!isOpen);
+}
+function openCollapsible(section){
+  const body=section.querySelector('.collapsible-body');
+  const btn=section.querySelector('.collapse-btn');
+  if(body&&!body.classList.contains('open')){
+    body.classList.add('open');
+    if(btn)btn.setAttribute('aria-expanded','true');
+  }
+}
+// Auto-open collapsibles when navigating via nav links
+document.querySelectorAll('#nav-links a').forEach(a=>{
+  a.addEventListener('click',()=>{
+    const href=a.getAttribute('href');
+    if(href&&href.startsWith('#')){
+      const section=document.querySelector(href);
+      if(section)openCollapsible(section);
+    }
+  });
+});
+// Auto-open collapsible on page load if hash matches
+window.addEventListener('load',()=>{
+  const hash=window.location.hash;
+  if(hash){
+    const section=document.querySelector(hash);
+    if(section)openCollapsible(section);
+  }
+});
+// Also handle hashchange for in-page navigation
+window.addEventListener('hashchange',()=>{
+  const hash=window.location.hash;
+  if(hash){
+    const section=document.querySelector(hash);
+    if(section)openCollapsible(section);
+  }
+});
+
+// ═══ PARALLAX ═══
+window.addEventListener('scroll',()=>{document.querySelector('.marble-bg').style.transform=`translateY(${scrollY*.1}px)`});
+
+// ═══ NAV AUTO-CLOSE ═══
+document.querySelectorAll('#nav-links a').forEach(a=>{
+  a.addEventListener('click',()=>{
+    const links=document.getElementById('nav-links');
+    if(links.classList.contains('open')){
+      setTimeout(()=>links.classList.remove('open'),600);
+    }
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1078 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DeJahn Bell · Creative Technologist & App Developer Portfolio</title>
+  <meta name="description" content="Professional portfolio and resume for DeJahn Bell, creator of Food4Thoth: shipped Apple App Store apps, interactive web systems, games, utility tools, story engines, and creative technology projects." />
+  <meta name="theme-color" content="#0f172a" />
+  <meta property="og:title" content="DeJahn Bell · Creative Technologist Portfolio" />
+  <meta property="og:description" content="Shipped 4 Apple App Store apps and built a 482+ page interactive creative technology platform." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #111827;
+      --panel-2: #172033;
+      --ink: #e5e7eb;
+      --muted: #a7b0c0;
+      --soft: #cbd5e1;
+      --line: rgba(255,255,255,.12);
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --accent-3: #f59e0b;
+      --accent-4: #a78bfa;
+      --danger: #fb7185;
+      --white: #ffffff;
+      --shadow: 0 20px 55px rgba(0,0,0,.35);
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(56,189,248,.16), transparent 28%),
+        radial-gradient(circle at 85% 0%, rgba(167,139,250,.16), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(34,197,94,.10), transparent 30%),
+        var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 10px;
+      background: var(--accent);
+      color: #06101b;
+      padding: 10px 14px;
+      border-radius: 999px;
+      z-index: 10;
+    }
+
+    .skip-link:focus {
+      left: 10px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(11,16,32,.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand {
+      font-weight: 900;
+      letter-spacing: -.03em;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand span:first-child {
+      font-size: 1rem;
+      color: var(--white);
+    }
+
+    .brand span:last-child {
+      font-size: .72rem;
+      color: var(--accent);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      font-size: .86rem;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      padding: 8px 10px;
+      border-radius: 999px;
+      transition: .2s ease;
+    }
+
+    .nav-links a:hover {
+      background: rgba(56,189,248,.10);
+      color: var(--white);
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 22px;
+    }
+
+    .hero {
+      padding: 82px 0 56px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.03));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      padding: clamp(28px, 5vw, 54px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      inset: auto -20% -35% auto;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56,189,248,.14), transparent 62%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      color: var(--accent-2);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: .78rem;
+      margin: 0 0 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.45rem, 7vw, 5.6rem);
+      line-height: .95;
+      letter-spacing: -.075em;
+      color: var(--white);
+    }
+
+    .subtitle {
+      margin: 22px 0 0;
+      font-size: clamp(1.04rem, 2vw, 1.35rem);
+      color: var(--soft);
+      max-width: 790px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color: var(--soft);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: .88rem;
+      font-weight: 700;
+    }
+
+    .pill.green { color: #bbf7d0; border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.08); }
+    .pill.blue { color: #bae6fd; border-color: rgba(56,189,248,.35); background: rgba(56,189,248,.08); }
+    .pill.gold { color: #fde68a; border-color: rgba(245,158,11,.35); background: rgba(245,158,11,.08); }
+    .pill.purple { color: #ddd6fe; border-color: rgba(167,139,250,.35); background: rgba(167,139,250,.08); }
+
+    .hero-side {
+      padding: 28px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--line);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      line-height: 1;
+      letter-spacing: -.05em;
+      color: var(--white);
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(56,189,248,.45);
+      background: rgba(56,189,248,.12);
+      color: #e0f2fe;
+      font-weight: 800;
+      transition: .2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: rgba(56,189,248,.18);
+    }
+
+    .btn.secondary {
+      border-color: var(--line);
+      background: rgba(255,255,255,.05);
+      color: var(--soft);
+    }
+
+    section {
+      padding: 46px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.7rem, 4vw, 2.75rem);
+      line-height: 1.08;
+      letter-spacing: -.05em;
+      color: var(--white);
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 640px;
+      color: var(--muted);
+    }
+
+    .summary-card {
+      padding: 30px;
+    }
+
+    .summary-card p {
+      margin: 0 0 16px;
+      color: var(--soft);
+      font-size: 1.05rem;
+    }
+
+    .summary-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 18px;
+    }
+
+    .app {
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 100% 0%, rgba(56,189,248,.12), transparent 28%);
+      pointer-events: none;
+    }
+
+    .app-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .app h3 {
+      margin: 0;
+      font-size: 1.45rem;
+      line-height: 1.15;
+      color: var(--white);
+      letter-spacing: -.035em;
+    }
+
+    .app-type {
+      white-space: nowrap;
+      align-self: flex-start;
+      font-size: .78rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .app-type.paid { color: #fed7aa; border-color: rgba(245,158,11,.35); background: rgba(245,158,11,.09); }
+    .app-type.free { color: #bae6fd; border-color: rgba(56,189,248,.35); background: rgba(56,189,248,.09); }
+    .app-type.utility { color: #bbf7d0; border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.09); }
+
+    .app p {
+      position: relative;
+      z-index: 1;
+      color: var(--soft);
+      margin: 14px 0;
+    }
+
+    .app ul {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .app li {
+      margin: 6px 0;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .mini-link {
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--soft);
+      font-weight: 750;
+      font-size: .84rem;
+    }
+
+    .mini-link:hover {
+      border-color: rgba(56,189,248,.5);
+      color: var(--white);
+    }
+
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 18px;
+    }
+
+    .case {
+      padding: 24px;
+    }
+
+    .case .num {
+      color: var(--accent);
+      font-weight: 900;
+      letter-spacing: .1em;
+      font-size: .82rem;
+      text-transform: uppercase;
+    }
+
+    .case h3 {
+      margin: 10px 0 8px;
+      font-size: 1.25rem;
+      color: var(--white);
+      letter-spacing: -.03em;
+    }
+
+    .case p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      gap: 18px;
+      padding: 20px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--line);
+    }
+
+    .phase {
+      color: var(--accent-2);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .8rem;
+    }
+
+    .timeline-item h3 {
+      margin: 0 0 6px;
+      color: var(--white);
+      font-size: 1.12rem;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 14px;
+    }
+
+    .skill {
+      padding: 20px;
+    }
+
+    .skill h3 {
+      margin: 0 0 10px;
+      color: var(--white);
+      font-size: 1rem;
+    }
+
+    .skill p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .resume {
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 18px;
+    }
+
+    .resume-card {
+      padding: 28px;
+    }
+
+    .resume-card h3 {
+      margin: 0 0 14px;
+      color: var(--white);
+      font-size: 1.35rem;
+      letter-spacing: -.03em;
+    }
+
+    .resume-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--soft);
+    }
+
+    .resume-card li {
+      margin: 9px 0;
+    }
+
+    .quote {
+      padding: 34px;
+      text-align: center;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(56,189,248,.10), rgba(167,139,250,.10));
+      border: 1px solid var(--line);
+    }
+
+    .quote p {
+      margin: 0;
+      font-size: clamp(1.25rem, 3vw, 2rem);
+      line-height: 1.25;
+      letter-spacing: -.04em;
+      color: var(--white);
+      font-weight: 900;
+    }
+
+    .quote span {
+      display: block;
+      margin-top: 14px;
+      color: var(--muted);
+    }
+
+    .contact-card {
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .contact-card h2 {
+      margin: 0 0 8px;
+      color: var(--white);
+      letter-spacing: -.04em;
+    }
+
+    .contact-card p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 700px;
+    }
+
+    footer {
+      padding: 28px 0 44px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    .print-note {
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .apps-grid,
+      .case-grid,
+      .resume,
+      .contact-card {
+        grid-template-columns: 1fr;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 8px;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero {
+        padding-top: 48px;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .app-top {
+        display: block;
+      }
+
+      .app-type {
+        display: inline-block;
+        margin-top: 10px;
+      }
+
+      .wrap {
+        padding: 0 16px;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+        color: #111827;
+      }
+
+      .nav, .cta-row, .links, footer {
+        display: none;
+      }
+
+      .card, .quote {
+        box-shadow: none;
+        border: 1px solid #d1d5db;
+        background: white;
+        color: #111827;
+      }
+
+      .hero, section {
+        padding: 18px 0;
+      }
+
+      .print-note {
+        display: block;
+        color: #374151;
+        font-size: 12px;
+        margin-top: 8px;
+      }
+
+      h1, .section-head h2, .app h3, .resume-card h3, .timeline-item h3, .quote p {
+        color: #111827;
+      }
+
+      .subtitle, .summary-card p, .app p, .resume-card li, .timeline-item p, .case p, .skill p, .contact-card p {
+        color: #374151;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="nav" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="DeJahn Bell portfolio home">
+        <span>DeJahn Bell</span>
+        <span>Food4Thoth Portfolio</span>
+      </a>
+      <div class="nav-links">
+        <a href="#apps">Apps</a>
+        <a href="#case-studies">Case Studies</a>
+        <a href="#timeline">Arc</a>
+        <a href="#skills">Skills</a>
+        <a href="#resume">Resume</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="hero" id="top">
+      <div class="wrap">
+        <div class="hero-grid">
+          <div class="hero-main card">
+            <p class="eyebrow">Creative Technologist · Front-End Developer · App Creator</p>
+            <h1>Shipped apps. Interactive systems. Creative technology.</h1>
+            <p class="subtitle">
+              I built Food4Thoth from an experimental web platform into a public product ecosystem:
+              three Apple App Store games, one free utility app, and a 482+ page archive of games,
+              symbolic systems, story engines, maps, sound tools, and immersive web experiences.
+            </p>
+
+            <div class="hero-meta" aria-label="Portfolio highlights">
+              <span class="pill green">4 Apple App Store Apps</span>
+              <span class="pill blue">482+ Published Pages</span>
+              <span class="pill gold">Games + Utility Tools</span>
+              <span class="pill purple">HTML · CSS · JavaScript · Canvas</span>
+            </div>
+
+            <div class="cta-row">
+              <a class="btn" href="#apps">View Shipped Apps</a>
+              <a class="btn secondary" href="#resume">Resume Summary</a>
+              <a class="btn secondary" href="https://www.food4thoth.com" target="_blank" rel="noopener noreferrer">Food4Thoth.com</a>
+              <a class="btn secondary" href="https://github.com/Dseekeroftruth" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+
+            <p class="print-note">
+              Print-friendly version: use your browser's Print or Save as PDF option.
+            </p>
+          </div>
+
+          <aside class="hero-side card" aria-label="Portfolio metrics">
+            <div class="stat">
+              <strong>4</strong>
+              <span>Apple App Store apps shipped under DeJahn Bell / Food4Thoth.</span>
+            </div>
+            <div class="stat">
+              <strong>3</strong>
+              <span>Original games: Neon Serpent Spiral, Pixel Quest, Terminal Game.</span>
+            </div>
+            <div class="stat">
+              <strong>1</strong>
+              <span>Free utility app: Glo-CALCULATO, a rainbow scientific calculator.</span>
+            </div>
+            <div class="stat">
+              <strong>482+</strong>
+              <span>Published Food4Thoth pages across games, tools, comics, maps, and symbolic systems.</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </header>
+
+    <section id="profile">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Professional Profile</h2>
+          <p>Clear business-facing summary for employers, collaborators, clients, and portfolio reviewers.</p>
+        </div>
+
+        <div class="summary-card card">
+          <p>
+            I am a self-taught creative technologist and front-end developer with a shipped portfolio of
+            public-facing apps, interactive web experiences, games, and utility tools. I specialize in
+            transforming rough concepts into working prototypes, refining them into polished products, and
+            publishing them for real users.
+          </p>
+          <p>
+            My work combines HTML, CSS, JavaScript, Canvas-based game systems, mobile-first interface design,
+            audio interaction, storytelling systems, symbolic tools, and product launch materials. The strongest
+            professional through-line is practical completion: I build, test, document, package, and ship.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="apps">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Shipped App Portfolio</h2>
+          <p>Two paid games, one free game, and one free utility app — built as a solo creator and published publicly.</p>
+        </div>
+
+        <div class="apps-grid">
+          <article class="app card">
+            <div class="app-top">
+              <h3>Neon Serpent Spiral</h3>
+              <span class="app-type paid">Paid Game · $2.99</span>
+            </div>
+            <p>
+              Psychedelic point-and-explore adventure game that carries Food4Thoth’s web comics,
+              surreal storytelling, choose-your-own-adventure systems, and musical experiments into a
+              finished commercial iOS release.
+            </p>
+            <ul>
+              <li>10 surreal neon worlds and 10 cosmic NPCs.</li>
+              <li>25 musical minigames, Memory Fragments, artifacts, Karma, and Weirdness tracking.</li>
+              <li>Six endings based on exploration and player behavior.</li>
+              <li>Offline-first design with accessibility controls for sound, motion, CRT, and psychedelic intensity.</li>
+            </ul>
+            <div class="links">
+              <a class="mini-link" href="https://apps.apple.com/us/app/neon-serpent-spiral/id6760896039" target="_blank" rel="noopener noreferrer">App Store</a>
+              <a class="mini-link" href="https://www.food4thoth.com/NeonSerpentSpiral/marketing.html" target="_blank" rel="noopener noreferrer">Marketing Page</a>
+              <a class="mini-link" href="https://www.food4thoth.com/NeonSerpentSpiral/privacy.html" target="_blank" rel="noopener noreferrer">Privacy</a>
+            </div>
+          </article>
+
+          <article class="app card">
+            <div class="app-top">
+              <h3>Pixel Quest: Retro Arcade Game</h3>
+              <span class="app-type paid">Paid Game · $1.99</span>
+            </div>
+            <p>
+              Premium expanded edition built from the Terminal Game arcade architecture. Pixel Quest turns a
+              free prototype engine into a more complete commercial product with deeper content, replay value,
+              skins, power-ups, difficulty modes, and per-skin audio.
+            </p>
+            <ul>
+              <li>Six handcrafted skins: Old School Bit, Neon Bit, New School Kid, Pixel Kid, Wizard, Shadow Wizard.</li>
+              <li>Five power-ups: Speed, Invincible, 2X Score, Heart, and Eliminator.</li>
+              <li>Per-skin high scores, original music, haptics, and adaptive mobile layout.</li>
+              <li>Clear product ladder from free original to paid premium edition.</li>
+            </ul>
+            <div class="links">
+              <a class="mini-link" href="https://apps.apple.com/us/app/pixel-quest-retro-arcade-game/id6760863454" target="_blank" rel="noopener noreferrer">App Store</a>
+              <a class="mini-link" href="https://www.food4thoth.com/RetroArcadeIOS/PixelMarketing.html" target="_blank" rel="noopener noreferrer">Marketing Page</a>
+              <a class="mini-link" href="https://www.food4thoth.com/RetroArcadeIOS/PrivacyPolicy.html" target="_blank" rel="noopener noreferrer">Privacy</a>
+            </div>
+          </article>
+
+          <article class="app card">
+            <div class="app-top">
+              <h3>Terminal Game</h3>
+              <span class="app-type free">Free Game</span>
+            </div>
+            <p>
+              The origin project for the Food4Thoth app pipeline. Terminal Game began as a Python terminal
+              experiment, became an HTML5 Canvas web game, and then shipped as a free iOS arcade app.
+            </p>
+            <ul>
+              <li>Prototype-to-product arc: Python terminal → Canvas web game → App Store release.</li>
+              <li>8-direction movement, tap-to-move, swipe controls, D-pad controls, and continuous movement.</li>
+              <li>Power-ups, background music, sound effects, scoring, and quick replay loops.</li>
+              <li>Foundation engine for Pixel Quest’s premium expanded edition.</li>
+            </ul>
+            <div class="links">
+              <a class="mini-link" href="https://apps.apple.com/us/app/terminal-game/id6757940532" target="_blank" rel="noopener noreferrer">App Store</a>
+              <a class="mini-link" href="https://www.food4thoth.com/RetroArcadeIOS/Marketing.html" target="_blank" rel="noopener noreferrer">Marketing Page</a>
+              <a class="mini-link" href="https://www.food4thoth.com/RetroArcadeIOS/PrivatePolicy.html" target="_blank" rel="noopener noreferrer">Privacy</a>
+            </div>
+          </article>
+
+          <article class="app card">
+            <div class="app-top">
+              <h3>Glo-CALCULATO</h3>
+              <span class="app-type utility">Free Utility</span>
+            </div>
+            <p>
+              Practical scientific calculator utility with a colorful Food4Thoth identity. Glo-CALCULATO
+              proves the development pipeline can produce useful everyday software as well as games.
+            </p>
+            <ul>
+              <li>Scientific functions: sin, cos, tan, log, ln, square root, exponents, π, e, and parentheses.</li>
+              <li>DEG/RAD mode, scrollable history, tap-to-reuse, copy-to-clipboard, and haptic feedback.</li>
+              <li>Animated rainbow glow interface with friendly smiley-face launch interaction.</li>
+              <li>Free, privacy-forward utility with no ads, accounts, subscriptions, or in-app purchases.</li>
+            </ul>
+            <div class="links">
+              <a class="mini-link" href="https://apps.apple.com/us/app/glo-calculato/id6760606910" target="_blank" rel="noopener noreferrer">App Store</a>
+              <a class="mini-link" href="https://www.food4thoth.com/GloCalculatoLanding/glo-calculato-marketing-page.html" target="_blank" rel="noopener noreferrer">Marketing Page</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="case-studies">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Case Studies</h2>
+          <p>Professional framing for the strongest project arcs.</p>
+        </div>
+
+        <div class="case-grid">
+          <article class="case card">
+            <div class="num">Case Study 01</div>
+            <h3>Terminal Game → Pixel Quest</h3>
+            <p>
+              Developed a retro arcade game from Python terminal prototype to Canvas web game to App Store release,
+              then expanded the core engine into a paid premium edition with skins, power-ups, haptics, music, and
+              difficulty scaling.
+            </p>
+          </article>
+
+          <article class="case card">
+            <div class="num">Case Study 02</div>
+            <h3>Story Comics → Neon Serpent Spiral</h3>
+            <p>
+              Converted experimental web storytelling, comic-style scenes, surreal characters, and
+              choose-your-own-adventure design into a paid iOS adventure game with worlds, NPCs, collectibles,
+              minigames, stats, and multiple endings.
+            </p>
+          </article>
+
+          <article class="case card">
+            <div class="num">Case Study 03</div>
+            <h3>Visual Concept → Glo-CALCULATO</h3>
+            <p>
+              Transformed a playful rainbow-glow calculator concept into a practical scientific utility app with
+              real math functions, calculation history, DEG/RAD mode, clipboard support, haptics, and polished UI.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Development Arc</h2>
+          <p>A repeatable solo pipeline from experiment to published product.</p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="phase">Phase 01</div>
+            <div>
+              <h3>Prototype and Learn</h3>
+              <p>Started with small code experiments, terminal games, browser sketches, interactive pages, and rapid AI-assisted learning loops.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="phase">Phase 02</div>
+            <div>
+              <h3>Build Web Versions</h3>
+              <p>Converted concepts into HTML, CSS, JavaScript, Canvas, audio tools, web comics, story systems, maps, and symbolic interfaces on Food4Thoth.com.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="phase">Phase 03</div>
+            <div>
+              <h3>Optimize for Mobile</h3>
+              <p>Refined touch controls, responsive layouts, audio behavior, accessibility options, replay loops, UI states, and phone-first interaction patterns.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="phase">Phase 04</div>
+            <div>
+              <h3>Package and Test</h3>
+              <p>Prepared apps for TestFlight, App Store Connect, mobile packaging, screenshots, privacy disclosures, support pages, and marketing pages.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="phase">Phase 05</div>
+            <div>
+              <h3>Publish and Iterate</h3>
+              <p>Released four Apple App Store apps and continued refining features, product positioning, privacy-first messaging, and cross-platform Android testing.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Technical Skills</h2>
+          <p>Skills demonstrated through shipped, public-facing work.</p>
+        </div>
+
+        <div class="skills-grid">
+          <article class="skill card">
+            <h3>Front-End Development</h3>
+            <p>HTML, CSS, JavaScript, responsive layouts, UI states, animations, accessibility-minded interfaces.</p>
+          </article>
+          <article class="skill card">
+            <h3>Canvas Games</h3>
+            <p>Game loops, movement, collision detection, scoring, power-ups, enemy behavior, difficulty scaling.</p>
+          </article>
+          <article class="skill card">
+            <h3>Mobile Product Work</h3>
+            <p>iOS packaging, TestFlight, App Store Connect, privacy pages, marketing pages, release copy, screenshots.</p>
+          </article>
+          <article class="skill card">
+            <h3>Interactive Storytelling</h3>
+            <p>Branching narratives, web comics, worldbuilding, NPC dialogue, collectibles, replayable endings.</p>
+          </article>
+          <article class="skill card">
+            <h3>Utility App Design</h3>
+            <p>Scientific calculator logic, calculation history, clipboard support, haptics, DEG/RAD mode, practical UX.</p>
+          </article>
+          <article class="skill card">
+            <h3>Creative Systems</h3>
+            <p>Tarot/oracle tools, symbolic systems, interactive maps, sound tools, psychedelic interfaces, galleries.</p>
+          </article>
+          <article class="skill card">
+            <h3>Product Positioning</h3>
+            <p>Free vs. paid strategy, app descriptions, privacy-first messaging, launch pages, portfolio case studies.</p>
+          </article>
+          <article class="skill card">
+            <h3>Rapid Learning</h3>
+            <p>Self-directed development, AI-assisted debugging, iterative prototyping, shipping under constraint.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="resume">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Resume-Ready Experience</h2>
+          <p>Copy-and-paste language for resumes, Indeed, LinkedIn, proposals, and job applications.</p>
+        </div>
+
+        <div class="resume">
+          <article class="resume-card card">
+            <h3>Professional Summary</h3>
+            <p style="color: var(--soft); margin: 0;">
+              Creative Technologist and Front-End Developer with a shipped portfolio of four Apple App Store apps
+              and a 482+ page interactive web platform. Experienced in HTML, CSS, JavaScript, Canvas-based games,
+              responsive UI, audio-reactive tools, symbolic systems, interactive storytelling, mobile app packaging,
+              privacy/marketing page creation, and App Store release workflows.
+            </p>
+          </article>
+
+          <article class="resume-card card">
+            <h3>Experience Bullets</h3>
+            <ul>
+              <li>Built and shipped four Apple App Store apps as an independent developer, including three games and one free utility app.</li>
+              <li>Developed Terminal Game from Python terminal prototype to HTML5 Canvas web game to published iOS release.</li>
+              <li>Expanded Terminal Game into Pixel Quest, a paid premium arcade game with skins, power-ups, per-skin music, difficulty modes, and haptics.</li>
+              <li>Designed and published Neon Serpent Spiral, a paid psychedelic adventure game with 10 worlds, 10 NPCs, 25 musical minigames, collectibles, and six endings.</li>
+              <li>Created Glo-CALCULATO, a free scientific calculator utility with trig/log functions, DEG/RAD mode, history, haptics, and clipboard support.</li>
+              <li>Built a 482+ page creative technology platform with games, tools, story engines, maps, web comics, and symbolic systems.</li>
+              <li>Created marketing pages, privacy policies, launch copy, and App Store materials for multiple apps.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="quote">
+          <p>“I do not only study code — I finish and ship things.”</p>
+          <span>Built from rough concepts into public apps, portfolio systems, and usable interactive products.</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact-card card">
+          <div>
+            <h2>Available for creative tech, front-end, app, web, and interactive media work.</h2>
+            <p>
+              Open to freelance projects, junior/front-end roles, creative technology collaborations, app support,
+              digital production, web experiences, game prototypes, and portfolio/product development.
+            </p>
+          </div>
+          <div class="cta-row" style="margin: 0;">
+            <a class="btn" href="mailto:food4thoth@proton.me">Email</a>
+            <a class="btn secondary" href="https://www.food4thoth.com" target="_blank" rel="noopener noreferrer">Website</a>
+            <a class="btn secondary" href="https://www.artabillies.com" target="_blank" rel="noopener noreferrer">Artabillies</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      © <span id="year"></span> DeJahn Bell · Food4Thoth · When the going gets weird, the weird go pro.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
