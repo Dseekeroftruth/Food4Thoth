@@ -1337,7 +1337,14 @@ function drawMenu() {
 
   // Controls reminder
   ctx.fillStyle='#555577'; ctx.font='5px "Press Start 2P"'; ctx.textAlign='center';
-  ctx.fillText('ARROWS/WASD: MOVE  •  SPACE: JUMP  •  Z: ATTACK', W/2, H-20);
+  const isMobile='ontouchstart' in window;
+  if(isMobile){
+    ctx.fillStyle='#aa55ff88'; ctx.font='6px "Press Start 2P"';
+    ctx.fillText('TAP A MENU OPTION TO START', W/2, H-20);
+  } else {
+    ctx.fillText('ARROWS/WASD: MOVE  •  SPACE: JUMP  •  Z: ATTACK', W/2, H-20);
+  }
+  ctx.fillStyle='#555577'; ctx.font='5px "Press Start 2P"';
   ctx.fillText('COLLECT ALL 24 FOOD4THOTH SECTIONS TO UNLOCK THE GRAND TRUTH', W/2, H-8);
 
   // F4T branding
@@ -1580,7 +1587,44 @@ function selectMenu(){
   }
 }
 
-// ── TOUCH CONTROLS ──
+// ── CANVAS TAP HANDLER (menu + screens) ──
+function canvasPos(clientX, clientY){
+  const r=canvas.getBoundingClientRect();
+  return {x:(clientX-r.left)/scale, y:(clientY-r.top)/scale};
+}
+function handleCanvasTap(x,y){
+  Audio.init();
+  const s=G.state;
+  if(s==='menu'){
+    for(let i=0;i<3;i++){
+      const oy=H/2+10+i*45;
+      if(x>W/2-130&&x<W/2+130&&y>oy-24&&y<oy+20){
+        G.menuSel=i; selectMenu(); return;
+      }
+    }
+    return;
+  }
+  if(s==='legend'){G.state='menu';return;}
+  if(s==='tarot'&&(Date.now()-G.tarotRevealTime)>1500){applyTarot();return;}
+  if(s==='worldcomplete'){nextLevel();return;}
+  if(s==='bosscomplete'){advanceWorld();return;}
+  if(s==='gameover'){G.state='menu';return;}
+  if(s==='victory'){G.state='menu';return;}
+}
+canvas.addEventListener('click', e=>{const p=canvasPos(e.clientX,e.clientY);handleCanvasTap(p.x,p.y);});
+canvas.addEventListener('touchend', e=>{
+  e.preventDefault();
+  const t=e.changedTouches[0];
+  const p=canvasPos(t.clientX,t.clientY);
+  handleCanvasTap(p.x,p.y);
+},{passive:false});
+
+// ── TOUCH CONTROLS (game only) ──
+const touchDiv=document.getElementById('touch');
+function syncTouchVisibility(){
+  const show=G.state==='game'||G.state==='boss';
+  touchDiv.style.display=show?'block':'none';
+}
 const tl=document.getElementById('tl'),tr=document.getElementById('tr'),tj=document.getElementById('tj'),ta=document.getElementById('ta');
 function addTouch(el,kdown,kup){
   const down=e=>{Audio.init();if(kdown)kdown();e.preventDefault();};
@@ -1828,6 +1872,7 @@ function update(dt){
 // ── RENDER ──
 function render(){
   ctx.clearRect(0,0,W,H);
+  syncTouchVisibility();
 
   switch(G.state){
     case 'menu':    drawMenu(); break;
