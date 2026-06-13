@@ -47,6 +47,21 @@ get_header(); ?>
         </div>
     </div>
 
+    <!-- ===== RANDOM POPUP ===== -->
+    <div id="randomPopup" class="popup" role="dialog" aria-modal="true" aria-label="Random Creation">
+        <div class="popup-content" style="padding:10px;">
+            <button class="close-btn" aria-label="Close">&times;</button>
+            <!-- NO loading="lazy" — src is set dynamically -->
+            <iframe id="randomIframe" src="" style="width:100%;height:70vh;border:none;display:block;"
+                    title="Food4Thoth Random"
+                    allow="autoplay;fullscreen"></iframe>
+            <div style="text-align:center;margin-top:8px;">
+                <a href="#" class="popup-ext-link" target="_blank" rel="noopener"
+                   style="color:#00ff99;font-size:0.85rem;">Explore CREATION ↗</a>
+            </div>
+        </div>
+    </div>
+
     <main id="main" class="content-area" role="main">
 
         <!-- INTRO -->
