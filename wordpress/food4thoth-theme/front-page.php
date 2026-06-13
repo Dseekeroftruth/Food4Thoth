@@ -6,7 +6,7 @@ get_header(); ?>
 
     <!-- ===== ANIMATED LOGO (served from food4thoth.com) ===== -->
     <div class="logo-animation-container" aria-hidden="true">
-        <iframe src="https://food4thoth.com/Artabillies4ThothAnimate/F4TLOGO5.html"
+        <iframe src="https://www.food4thoth.com/Artabillies4ThothAnimate/F4TLOGO5.html"
                 title="Food4Thoth Animated Logo"
                 loading="lazy"></iframe>
     </div>
@@ -19,7 +19,7 @@ get_header(); ?>
         <button id="btn-animate" class="neumorphic-button">👁️ ANIMATE 👁️</button>
     </div>
     <div class="button-container">
-        <a href="https://food4thoth.com/RstoryArtabillies/" target="_blank">
+        <a href="https://www.food4thoth.com/RstoryArtabillies/" target="_blank">
             <button class="neumorphic-button">$ 👁️ RSTORY 👁️ $</button>
         </a>
     </div>
@@ -56,7 +56,7 @@ get_header(); ?>
 
         <!-- LOGO ANIMATION 2 -->
         <div class="logo-animation-container" aria-hidden="true" style="max-height:200px;overflow:hidden;">
-            <iframe src="https://food4thoth.com/Artabillies4ThothAnimate/F4TLOGO1.1.html"
+            <iframe src="https://www.food4thoth.com/Artabillies4ThothAnimate/F4TLOGO1.1.html"
                     loading="lazy" title="Food4Thoth Logo Animation 2"></iframe>
         </div>
 
@@ -65,67 +65,67 @@ get_header(); ?>
             <h2>Explore Food4Thoth</h2>
             <div class="category-hub">
 
-                <a href="https://food4thoth.com/TarotLanding/" class="category-card" target="_blank">
+                <a href="https://www.food4thoth.com/TarotLanding/" class="category-card" target="_blank">
                     <div class="card-icon">🃏</div>
                     <h3>Tarot &amp; Divination</h3>
                     <p>27+ Tarot decks, Celtic Cross, I Ching, and more</p>
                 </a>
 
-                <a href="https://food4thoth.com/LoopStation/" class="category-card" target="_blank">
+                <a href="https://www.food4thoth.com/LoopStation/" class="category-card" target="_blank">
                     <div class="card-icon">🎵</div>
                     <h3>Music &amp; Audio</h3>
                     <p>Loop Stations, ARP Synths, Music Library, Visualizers</p>
                 </a>
 
-                <a href="https://food4thoth.com/NexusOfGames/" class="category-card" target="_blank">
+                <a href="https://www.food4thoth.com/NexusOfGames/" class="category-card" target="_blank">
                     <div class="card-icon">🎮</div>
                     <h3>Games &amp; Interactive</h3>
                     <p>Retro games, Claw Machine, Choose Your Adventure</p>
                 </a>
 
-                <a href="https://food4thoth.com/DrawingFractals/" class="category-card" target="_blank">
+                <a href="https://www.food4thoth.com/DrawingFractals/" class="category-card" target="_blank">
                     <div class="card-icon">🌀</div>
                     <h3>Fractals &amp; Visuals</h3>
                     <p>WebGL, fractals, psychedelic animations, art generators</p>
                 </a>
 
-                <a href="https://food4thoth.com/css-only-3d-image-carousel/" class="category-card" target="_blank">
+                <a href="https://www.food4thoth.com/css-only-3d-image-carousel/" class="category-card" target="_blank">
                     <div class="card-icon">📜</div>
                     <h3>Akashic Records</h3>
                     <p>Emerald Tablet, Hermiticum, Nag Hammadi, Asclepius</p>
                 </a>
 
-                <a href="https://food4thoth.com/AnarchyComicBreakFree/" class="category-card" target="_blank">
+                <a href="https://www.food4thoth.com/AnarchyComicBreakFree/" class="category-card" target="_blank">
                     <div class="card-icon">✊</div>
                     <h3>Anarchy &amp; Philosophy</h3>
                     <p>Comics, Hakim Bey, TAZ, Haudenosaunee Thanksgiving</p>
                 </a>
 
-                <a href="https://food4thoth.com/CommunityGardensLists/" class="category-card" target="_blank">
+                <a href="https://www.food4thoth.com/CommunityGardensLists/" class="category-card" target="_blank">
                     <div class="card-icon">🌱</div>
                     <h3>Community Gardens</h3>
                     <p>Eugene &amp; Portland garden maps, directories, info</p>
                 </a>
 
-                <a href="https://food4thoth.com/BlackBuisnessEugene/" class="category-card" target="_blank">
+                <a href="https://www.food4thoth.com/BlackBuisnessEugene/" class="category-card" target="_blank">
                     <div class="card-icon">🏪</div>
                     <h3>Black Business Eugene</h3>
                     <p>Directory of Black-owned businesses in Eugene, OR</p>
                 </a>
 
-                <a href="https://food4thoth.com/GloCalculato/" class="category-card" target="_blank">
+                <a href="https://www.food4thoth.com/GloCalculato/" class="category-card" target="_blank">
                     <div class="card-icon">🌈</div>
                     <h3>Glo-Calculato</h3>
                     <p>Rainbow glowing calculator app &amp; tariff calculator</p>
                 </a>
 
-                <a href="https://food4thoth.com/PrayerForLove/" class="category-card" target="_blank">
+                <a href="https://www.food4thoth.com/PrayerForLove/" class="category-card" target="_blank">
                     <div class="card-icon">🙏</div>
                     <h3>Prayer &amp; Spirit</h3>
                     <p>Prayer for Love, Childrens Prayers, Gratitude</p>
                 </a>
 
-                <a href="https://food4thoth.com/TrentOfTheDay/" class="category-card" target="_blank">
+                <a href="https://www.food4thoth.com/TrentOfTheDay/" class="category-card" target="_blank">
                     <div class="card-icon">🐾</div>
                     <h3>Trent the Dog</h3>
                     <p>Trent of the Day, Storybook, and more canine wisdom</p>
@@ -267,7 +267,7 @@ get_header(); ?>
 
         <!-- BACKGROUND ANIMATION -->
         <div aria-hidden="true" style="pointer-events:none;overflow:hidden;opacity:0.3;position:sticky;top:0;z-index:0;height:0;">
-            <iframe src="https://food4thoth.com/spiral/" style="width:100vw;height:100vh;border:none;margin-top:-100vh;" loading="lazy"></iframe>
+            <iframe src="https://www.food4thoth.com/spiral/" style="width:100vw;height:100vh;border:none;margin-top:-100vh;" loading="lazy"></iframe>
         </div>
 
         <!-- DONATIONS -->

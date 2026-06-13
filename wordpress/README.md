@@ -79,7 +79,7 @@ You **can** still use it to:
 To embed a tool on WordPress.com:
 1. Add a new page
 2. Add an "HTML" block (Custom HTML)
-3. Paste: `<iframe src="https://food4thoth.com/TarotLanding/" style="width:100%;height:85vh;border:none;" loading="lazy"></iframe>`
+3. Paste: `<iframe src="https://www.food4thoth.com/TarotLanding/" style="width:100%;height:85vh;border:none;" loading="lazy"></iframe>`
 
 ### Option C: Local WordPress (for development/export)
 
@@ -116,7 +116,7 @@ The header replicates the **exact navigation** from food4thoth.com including all
 ### Shortcodes
 
 ```
-[f4t_tool url="https://food4thoth.com/TarotLanding/" height="85vh" title="Tarot"]
+[f4t_tool url="https://www.food4thoth.com/TarotLanding/" height="85vh" title="Tarot"]
 ```
 Embeds any tool inline in any page/post.
 

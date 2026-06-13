@@ -52,7 +52,7 @@ function f4t_enqueue_assets() {
         'ajaxUrl' => admin_url( 'admin-ajax.php' ),
         'nonce'   => wp_create_nonce( 'f4t_nonce' ),
         'siteUrl' => get_site_url(),
-        'baseToolUrl' => 'https://food4thoth.com/',
+        'baseToolUrl' => 'https://www.food4thoth.com/',
     ] );
 }
 add_action( 'wp_enqueue_scripts', 'f4t_enqueue_assets' );
@@ -138,7 +138,7 @@ function f4t_tool_meta_box_html( $post ) {
                 <input type="url" id="f4t_iframe_url" name="f4t_iframe_url"
                        value="<?php echo esc_attr( $iframe_url ); ?>"
                        class="regular-text"
-                       placeholder="https://food4thoth.com/TarotLanding/" />
+                       placeholder="https://www.food4thoth.com/TarotLanding/" />
                 <p class="description"><?php _e( 'Full URL of the tool on food4thoth.com to embed via iframe.', 'food4thoth' ); ?></p>
             </td>
         </tr>

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 define( 'F4T_PLUGIN_VERSION', '1.0.0' );
 define( 'F4T_PLUGIN_PATH',    plugin_dir_path( __FILE__ ) );
 define( 'F4T_PLUGIN_URL',     plugin_dir_url( __FILE__ ) );
-define( 'F4T_BASE_URL',       'https://food4thoth.com/' );
+define( 'F4T_BASE_URL',       'https://www.food4thoth.com/' );
 
 /* =============================================
    ACTIVATION: Create default pages
@@ -256,7 +256,7 @@ function f4t_admin_page_html() {
         <div class="card" style="max-width:700px;margin-top:20px;">
             <h2>Shortcodes</h2>
             <ul>
-                <li><code>[f4t_tool url="https://food4thoth.com/TarotLanding/" height="85vh" title="Tarot"]</code> — Embed any tool</li>
+                <li><code>[f4t_tool url="https://www.food4thoth.com/TarotLanding/" height="85vh" title="Tarot"]</code> — Embed any tool</li>
                 <li><code>[f4t_category_hub]</code> — Auto card-grid of all child pages</li>
             </ul>
         </div>
@@ -264,9 +264,9 @@ function f4t_admin_page_html() {
         <div class="card" style="max-width:700px;margin-top:20px;">
             <h2>Quick Links to food4thoth.com</h2>
             <a href="https://food4thoth.com" target="_blank" class="button">food4thoth.com</a>
-            <a href="https://food4thoth.com/TarotLanding/" target="_blank" class="button">Tarot Landing</a>
-            <a href="https://food4thoth.com/LoopStation/" target="_blank" class="button">Loop Station</a>
-            <a href="https://food4thoth.com/GloCalculato/" target="_blank" class="button">Glo-Calculato</a>
+            <a href="https://www.food4thoth.com/TarotLanding/" target="_blank" class="button">Tarot Landing</a>
+            <a href="https://www.food4thoth.com/LoopStation/" target="_blank" class="button">Loop Station</a>
+            <a href="https://www.food4thoth.com/GloCalculato/" target="_blank" class="button">Glo-Calculato</a>
         </div>
     </div>
     <?php
