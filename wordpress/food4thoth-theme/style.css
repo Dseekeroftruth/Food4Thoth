@@ -1,0 +1,594 @@
+/*
+Theme Name: Food4Thoth
+Theme URI: https://food4thoth.com
+Author: DeJahn / Artabillies
+Author URI: https://www.artabillies.com
+Description: A mystical digital garden for creativity, mysticism, interactive tools, and community empowerment. Ports the full Food4Thoth experience to WordPress with iframe-embedded tools.
+Version: 1.0.0
+Requires at least: 6.0
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: food4thoth
+Tags: dark, mystical, creative, portfolio, iframe, custom-menu, custom-colors
+*/
+
+/* =============================================
+   CSS CUSTOM PROPERTIES & ANIMATIONS
+   ============================================= */
+@property --a {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+@keyframes rotateGlow {
+    0%   { --a: 0deg; }
+    100% { --a: 360deg; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =============================================
+   RESET & BASE
+   ============================================= */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-image:
+        url("https://food4thoth.com/images/17background.PNG"),
+        linear-gradient(to bottom, #2e3b4e, #16222a);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+    color: #f0f0f0;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+body.no-scroll { overflow: hidden; }
+
+/* Dark overlay */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px);
+    z-index: -1;
+}
+
+/* =============================================
+   TYPOGRAPHY
+   ============================================= */
+h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.3;
+}
+
+p, li { color: #f0f0f0; line-height: 1.6; font-size: 1.1rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+
+a { color: #00ff99; font-weight: bold; text-decoration: none; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); transition: color 0.3s; }
+a:hover  { color: #ff0095; text-decoration: underline; }
+a:visited{ color: #9b59b6; }
+a:active { color: #ff4545; }
+
+/* =============================================
+   LAYOUT CONTAINERS
+   ============================================= */
+.site-wrapper {
+    position: relative;
+    min-height: 100vh;
+}
+
+.content-area {
+    padding: 20px;
+    animation: fadeIn 0.5s ease;
+}
+
+.intro-section,
+.features-section,
+.philosophy-section,
+.audience-section,
+.why-visit-section,
+.content-section,
+.donations-section,
+.tool-section {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    max-width: 1200px;
+    width: 90%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+.feature { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid rgba(0,255,153,0.2); }
+.feature:last-child { border-bottom: none; }
+.feature ul { list-style: none; padding: 10px 0; }
+.feature ul li { padding: 4px 0; }
+.feature ul li::before { content: "✦ "; color: #00ff99; }
+
+/* =============================================
+   GLOW / CONIC GRADIENT MIXIN
+   ============================================= */
+.glow-border {
+    background: conic-gradient(from var(--a, 0deg), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    animation: rotateGlow 4s linear infinite;
+    filter: drop-shadow(0 0 8px #00ff9988);
+}
+
+/* =============================================
+   TOGGLE BUTTON
+   ============================================= */
+.toggle-button {
+    position: sticky;
+    top: 0;
+    left: 10px;
+    padding: 5px 12px;
+    background: conic-gradient(from var(--a, 0deg), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    color: #000;
+    border: solid 4px transparent;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0,255,153,0.5);
+    animation: rotateGlow 4s linear infinite;
+    z-index: 1100;
+    transition: opacity 0.3s;
+}
+.toggle-button:hover { opacity: 0.85; }
+
+/* =============================================
+   NAVIGATION
+   ============================================= */
+#navigation {
+    position: sticky;
+    top: 38px;
+    right: 5px;
+    background-color: #1e1e1e;
+    padding: 6px;
+    border-radius: 15px;
+    border: 2px solid rgba(0,255,153,0.25);
+    box-shadow: 0 0 20px rgba(255,255,255,0.15), 0 0 30px rgba(0,255,153,0.2);
+    max-height: 55vh;
+    overflow-y: auto;
+    text-align: center;
+    z-index: 1000;
+    width: clamp(200px, 30vw, 380px);
+    scrollbar-width: thin;
+    scrollbar-color: #00ff99 #1e1e1e;
+}
+
+#navigation.hidden {
+    display: none;
+}
+
+#navigation::-webkit-scrollbar { width: 5px; }
+#navigation::-webkit-scrollbar-track { background: #1e1e1e; }
+#navigation::-webkit-scrollbar-thumb { background: #00ff99; border-radius: 4px; }
+
+.neumorphic-tab {
+    display: inline-block;
+    margin: 2px;
+    padding: 4px 8px;
+    border-radius: 25px;
+    background: conic-gradient(from var(--a, 0deg), #e0e0e0, #bebebe, #ffffff, #d1d1d1, #e0e0e0);
+    color: #222;
+    font-weight: bold;
+    font-size: clamp(11px, 1.1vw, 18px);
+    box-shadow: 0 0 8px rgba(0,255,153,0.4);
+    animation: rotateGlow 4s linear infinite;
+    transition: box-shadow 0.3s, transform 0.15s;
+    cursor: pointer;
+    text-decoration: none;
+}
+.neumorphic-tab:hover {
+    color: #111;
+    text-decoration: none;
+    box-shadow: inset 6px 6px 12px rgba(255,255,255,0.5), inset -6px -6px 12px rgba(0,0,0,0.4);
+    transform: scale(1.03);
+}
+
+.submenu {
+    padding-left: 12px;
+    border-left: 2px solid rgba(0,255,153,0.3);
+    margin: 4px 0 4px 8px;
+}
+.submenu.hidden { display: none; }
+
+/* =============================================
+   NEUMORPHIC BUTTONS
+   ============================================= */
+.neumorphic-button {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 50px;
+    background: conic-gradient(from var(--a, 0deg), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    border: solid 4px transparent;
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(0,255,153,0.5);
+    animation: rotateGlow 4s linear infinite;
+    transition: transform 0.15s;
+    text-decoration: none;
+}
+.neumorphic-button:hover { transform: scale(1.05); color: #000; text-decoration: none; }
+.neumorphic-button:active { transform: scale(0.97); }
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin: 12px auto;
+}
+
+/* =============================================
+   IFRAME TOOL EMBED
+   ============================================= */
+.tool-iframe-wrapper {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,255,153,0.3);
+    margin: 20px auto;
+    background: #111;
+}
+.tool-iframe-wrapper iframe {
+    width: 100%;
+    height: 85vh;
+    min-height: 600px;
+    border: none;
+    display: block;
+}
+
+.tool-description {
+    background: rgba(0,0,0,0.7);
+    padding: 16px 24px;
+    border-radius: 8px;
+    margin: 0 auto 20px;
+    max-width: 900px;
+    width: 90%;
+}
+
+/* =============================================
+   POPUP
+   ============================================= */
+.popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+.popup.active { display: flex; }
+.popup-content {
+    background: #1e1e1e;
+    border-radius: 12px;
+    border: 2px solid rgba(0,255,153,0.4);
+    padding: 20px;
+    width: 90vw;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+.popup-content .close-btn {
+    position: absolute;
+    top: 10px; right: 14px;
+    font-size: 1.6rem;
+    color: #00ff99;
+    cursor: pointer;
+    background: none;
+    border: none;
+    line-height: 1;
+}
+.popup-link {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #00ff99;
+    font-weight: bold;
+}
+
+/* =============================================
+   CARD / POPUP CARD
+   ============================================= */
+#cardImage {
+    display: block;
+    max-width: 320px;
+    margin: 10px auto;
+    border-radius: 8px;
+    border: 2px solid rgba(0,255,153,0.4);
+}
+
+/* =============================================
+   LOGO ANIMATION IFRAMES
+   ============================================= */
+.logo-animation-container {
+    width: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+.logo-animation-container iframe {
+    width: 100%;
+    height: 65vh;
+    border: none;
+}
+
+/* =============================================
+   DONATIONS SECTION
+   ============================================= */
+.donation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    max-width: 700px;
+    margin: 20px auto;
+}
+.donation-btn {
+    background: conic-gradient(from var(--a, 0deg), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    animation: rotateGlow 4s linear infinite;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 0 12px rgba(0,255,153,0.4);
+}
+.donation-btn::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    background: #2c2c2c;
+    border-radius: 8px;
+    z-index: 0;
+}
+.donation-btn a {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    font-weight: 900;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: block;
+}
+.crypto-section { margin-top: 20px; }
+.crypto-section code {
+    display: block;
+    background: #111;
+    color: #00ff99;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    margin: 6px auto;
+    word-break: break-all;
+    max-width: 550px;
+}
+
+/* =============================================
+   FOOTER
+   ============================================= */
+.site-footer {
+    background: rgba(0,0,0,0.8);
+    border-top: 1px solid rgba(0,255,153,0.2);
+    padding: 20px;
+    text-align: center;
+    margin-top: 40px;
+}
+.site-footer p { font-size: 0.9rem; color: #aaa; }
+.site-footer a { color: #00ff99; }
+
+/* =============================================
+   BLOG / ARCHIVE
+   ============================================= */
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+.post-card {
+    background: rgba(0,0,0,0.7);
+    border: 1px solid rgba(0,255,153,0.2);
+    border-radius: 12px;
+    padding: 20px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.post-card:hover { border-color: #00ff99; box-shadow: 0 0 15px rgba(0,255,153,0.25); }
+.post-card h2 a { color: #00ff99; font-size: 1.2rem; }
+.post-card .post-meta { color: #888; font-size: 0.85rem; margin: 8px 0; }
+.post-card .post-excerpt { font-size: 0.95rem; }
+.post-card .read-more { display: inline-block; margin-top: 12px; color: #ff0095; font-weight: bold; }
+
+/* =============================================
+   SINGLE POST
+   ============================================= */
+.single-post-content {
+    background: rgba(0,0,0,0.7);
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 900px;
+    margin: 20px auto;
+}
+.single-post-content img { max-width: 100%; border-radius: 8px; margin: 16px 0; }
+.post-navigation { display: flex; justify-content: space-between; max-width: 900px; margin: 20px auto; padding: 0 20px; }
+
+/* =============================================
+   PORTFOLIO
+   ============================================= */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.portfolio-item {
+    background: rgba(0,0,0,0.7);
+    border: 1px solid rgba(0,255,153,0.2);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    transition: border-color 0.3s, transform 0.3s;
+}
+.portfolio-item:hover { border-color: #ff0095; transform: translateY(-4px); }
+.portfolio-item h3 { font-size: 1rem; margin-bottom: 8px; }
+.portfolio-item .visit-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    background: conic-gradient(from var(--a, 0deg), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    animation: rotateGlow 4s linear infinite;
+    color: #000;
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+/* =============================================
+   CONTACT FORM
+   ============================================= */
+.contact-form-wrapper {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.contact-form-wrapper input,
+.contact-form-wrapper textarea,
+.contact-form-wrapper select {
+    width: 100%;
+    background: #1e1e1e;
+    color: #f0f0f0;
+    border: 1px solid rgba(0,255,153,0.3);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+.contact-form-wrapper input:focus,
+.contact-form-wrapper textarea:focus { border-color: #00ff99; }
+.contact-form-wrapper textarea { min-height: 150px; resize: vertical; }
+.contact-form-wrapper .submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: conic-gradient(from var(--a, 0deg), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    animation: rotateGlow 4s linear infinite;
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: transform 0.15s;
+}
+.contact-form-wrapper .submit-btn:hover { transform: scale(1.02); }
+
+/* =============================================
+   CATEGORY CARDS (hub pages)
+   ============================================= */
+.category-hub {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.category-card {
+    background: rgba(0,0,0,0.75);
+    border: 1px solid rgba(0,255,153,0.2);
+    border-radius: 14px;
+    padding: 18px 14px;
+    text-align: center;
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+}
+.category-card:hover {
+    border-color: #00ff99;
+    box-shadow: 0 0 20px rgba(0,255,153,0.3);
+    transform: translateY(-3px);
+    text-decoration: none;
+}
+.category-card h3 { color: #00ff99; font-size: 1.05rem; margin-bottom: 8px; }
+.category-card p { color: #ccc; font-size: 0.88rem; }
+.category-card .card-icon { font-size: 2rem; margin-bottom: 10px; }
+
+/* =============================================
+   SEARCH RESULTS
+   ============================================= */
+.search-form-container { max-width: 600px; margin: 30px auto; text-align: center; }
+.search-field {
+    width: 80%;
+    padding: 12px;
+    background: #1e1e1e;
+    color: #f0f0f0;
+    border: 1px solid rgba(0,255,153,0.4);
+    border-radius: 8px 0 0 8px;
+    font-size: 1rem;
+    outline: none;
+}
+.search-submit {
+    padding: 12px 20px;
+    background: #00ff99;
+    color: #000;
+    border: none;
+    border-radius: 0 8px 8px 0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* =============================================
+   404
+   ============================================= */
+.error-404 { text-align: center; padding: 60px 20px; }
+.error-404 h1 { font-size: 6rem; color: #ff0095; text-shadow: 0 0 20px #ff0095; }
+.error-404 p { font-size: 1.2rem; margin: 20px 0; }
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 768px) {
+    #navigation {
+        width: calc(100vw - 20px);
+        right: 10px;
+        max-height: 60vh;
+    }
+    .tool-iframe-wrapper iframe { height: 75vh; min-height: 400px; }
+    .logo-animation-container iframe { height: 35vh; }
+    .portfolio-grid { grid-template-columns: 1fr 1fr; }
+    .category-hub  { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+    .portfolio-grid, .category-hub { grid-template-columns: 1fr; }
+    h1 { font-size: 1.6rem; }
+    .error-404 h1 { font-size: 3.5rem; }
+}
