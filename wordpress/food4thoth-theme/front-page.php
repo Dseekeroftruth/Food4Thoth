@@ -27,22 +27,23 @@ get_header(); ?>
         <button id="btn-random" class="neumorphic-button">👁️ RANDOM 👁️</button>
     </div>
 
-    <!-- ===== CARD POPUP ===== -->
-    <div id="cardPopup" class="popup" role="dialog" aria-modal="true" aria-labelledby="cardName">
-        <div class="popup-content">
-            <button class="close-btn" aria-label="Close">&times;</button>
-            <h2 id="cardName"></h2>
-            <img id="cardImage" src="" alt="">
-            <p id="cardDescription"></p>
-            <a id="cardWebsite" href="#" target="_blank" class="popup-link">Explore Website</a>
-        </div>
+    <!-- ===== CARD POPUP (rebuilt dynamically by JS) ===== -->
+    <div id="cardPopup" class="popup" role="dialog" aria-modal="true">
+        <div class="popup-content"></div>
     </div>
 
     <!-- ===== ANIMATION POPUP ===== -->
     <div id="animationPopup" class="popup" role="dialog" aria-modal="true" aria-label="Animation">
-        <div class="popup-content">
+        <div class="popup-content" style="padding:10px;">
             <button class="close-btn" aria-label="Close">&times;</button>
-            <iframe id="animationIframe" src="" style="width:100%;height:65vh;border:none;" loading="lazy"></iframe>
+            <!-- NO loading="lazy" — src is set dynamically -->
+            <iframe id="animationIframe" src="" style="width:100%;height:70vh;border:none;display:block;"
+                    title="Food4Thoth Animation"
+                    allow="autoplay;fullscreen"></iframe>
+            <div style="text-align:center;margin-top:8px;">
+                <a href="#" class="popup-ext-link" target="_blank" rel="noopener"
+                   style="color:#00ff99;font-size:0.85rem;">Open in full screen ↗</a>
+            </div>
         </div>
     </div>
 
