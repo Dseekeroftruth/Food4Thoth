@@ -3,7 +3,7 @@
  * Plugin Name:  Food4Thoth Tools
  * Plugin URI:   https://food4thoth.com
  * Description:  Adds custom post types, shortcodes, and admin tools for the Food4Thoth WordPress installation. Pairs with the Food4Thoth theme.
- * Version:      1.0.0
+ * Version:      1.1.0
  * Author:       DeJahn / Artabillies
  * Author URI:   https://www.artabillies.com
  * License:      GPL-2.0-or-later
@@ -12,7 +12,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'F4T_PLUGIN_VERSION', '1.0.0' );
+define( 'F4T_PLUGIN_VERSION', '1.1.0' );
 define( 'F4T_PLUGIN_PATH',    plugin_dir_path( __FILE__ ) );
 define( 'F4T_PLUGIN_URL',     plugin_dir_url( __FILE__ ) );
 define( 'F4T_BASE_URL',       'https://www.food4thoth.com/' );
@@ -24,8 +24,18 @@ register_activation_hook( __FILE__, 'f4t_plugin_activate' );
 
 function f4t_plugin_activate() {
     f4t_create_default_pages();
+    f4t_import_rss_feeds();
+    if ( ! wp_next_scheduled( 'f4t_daily_rss_import' ) ) {
+        wp_schedule_event( time(), 'daily', 'f4t_daily_rss_import' );
+    }
     flush_rewrite_rules();
 }
+
+register_deactivation_hook( __FILE__, function() {
+    wp_clear_scheduled_hook( 'f4t_daily_rss_import' );
+} );
+
+add_action( 'f4t_daily_rss_import', 'f4t_import_rss_feeds' );
 
 function f4t_create_default_pages() {
     $pages = [
@@ -205,6 +215,149 @@ function f4t_get_all_tools() {
 }
 
 /* =============================================
+   RSS FEED IMPORTER
+   Pulls https://www.food4thoth.com/blog.xml  (all posts)
+   and   https://www.food4thoth.com/feed.xml  (podcast/audio)
+   Creates published WP posts; skips duplicates via _f4t_source_guid.
+   ============================================= */
+function f4t_import_rss_feeds() {
+    $imported = 0;
+
+    // Blog feed — all posts
+    $imported += f4t_import_single_feed(
+        'https://www.food4thoth.com/blog.xml',
+        [ 'art', 'food4thoth' ]
+    );
+
+    // Podcast/audio feed — posts with audio
+    $imported += f4t_import_single_feed(
+        'https://www.food4thoth.com/feed.xml',
+        [ 'podcast', 'food4thoth' ]
+    );
+
+    update_option( 'f4t_last_import', [
+        'time'     => current_time( 'mysql' ),
+        'imported' => $imported,
+    ] );
+
+    return $imported;
+}
+
+function f4t_import_single_feed( $feed_url, $default_tags = [] ) {
+    $response = wp_remote_get( $feed_url, [
+        'timeout'    => 20,
+        'user-agent' => 'Food4Thoth WordPress Importer/1.1',
+    ] );
+
+    if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
+        return 0;
+    }
+
+    $body = wp_remote_retrieve_body( $response );
+
+    // Suppress XML warnings — feed may have Liquid/Jekyll template remnants
+    libxml_use_internal_errors( true );
+    $xml = simplexml_load_string( $body );
+    libxml_clear_errors();
+
+    if ( ! $xml || ! isset( $xml->channel->item ) ) {
+        return 0;
+    }
+
+    $imported = 0;
+
+    foreach ( $xml->channel->item as $item ) {
+        $title   = trim( (string) $item->title );
+        $link    = trim( (string) $item->link );
+        $guid    = trim( (string) $item->guid ) ?: $link;
+        $pub     = (string) $item->pubDate;
+        $excerpt = trim( strip_tags( (string) $item->description ) );
+
+        if ( empty( $title ) || empty( $guid ) ) continue;
+
+        // Skip if already imported (match on source GUID)
+        $existing = get_posts( [
+            'post_type'  => 'post',
+            'meta_key'   => '_f4t_source_guid',
+            'meta_value' => $guid,
+            'numberposts'=> 1,
+            'fields'     => 'ids',
+        ] );
+        if ( ! empty( $existing ) ) continue;
+
+        // Build post content — description + link back to source
+        $content  = wpautop( esc_html( $excerpt ) );
+        $content .= "\n\n" . sprintf(
+            '<p><a href="%s" target="_blank" rel="noopener" class="neumorphic-button" style="display:inline-block;margin-top:12px;">Read on Food4Thoth ↗</a></p>',
+            esc_url( $link )
+        );
+
+        // Check for iTunes/audio namespaces
+        $itunes    = $item->children( 'http://www.itunes.com/dtds/podcast-1.0.dtd' );
+        $audio_url = '';
+        $duration  = '';
+
+        if ( isset( $item->enclosure ) ) {
+            $enc       = $item->enclosure->attributes();
+            $audio_url = (string) ( $enc['url'] ?? '' );
+        }
+        if ( $itunes && isset( $itunes->duration ) ) {
+            $duration = (string) $itunes->duration;
+        }
+
+        // Append audio player if present
+        if ( $audio_url ) {
+            $content .= "\n\n" . sprintf(
+                '<figure class="wp-block-audio"><audio controls src="%s"></audio><figcaption>%s</figcaption></figure>',
+                esc_url( $audio_url ),
+                esc_html( $duration ? "Duration: $duration" : 'Audio' )
+            );
+        }
+
+        // Determine categories
+        $cat_names = array_merge( $default_tags, [ 'Food4Thoth' ] );
+        if ( $audio_url ) $cat_names[] = 'Podcast';
+
+        $cat_ids = [];
+        foreach ( $cat_names as $cat_name ) {
+            $cat = get_category_by_slug( sanitize_title( $cat_name ) );
+            if ( $cat ) {
+                $cat_ids[] = $cat->term_id;
+            } else {
+                $new_cat = wp_insert_category( [ 'cat_name' => $cat_name ] );
+                if ( ! is_wp_error( $new_cat ) ) $cat_ids[] = $new_cat;
+            }
+        }
+
+        $post_date = $pub ? date( 'Y-m-d H:i:s', strtotime( $pub ) ) : current_time( 'mysql' );
+
+        $post_id = wp_insert_post( [
+            'post_title'    => wp_strip_all_tags( $title ),
+            'post_content'  => $content,
+            'post_excerpt'  => $excerpt,
+            'post_status'   => 'publish',
+            'post_type'     => 'post',
+            'post_date'     => $post_date,
+            'post_date_gmt' => get_gmt_from_date( $post_date ),
+            'post_category' => $cat_ids,
+        ] );
+
+        if ( $post_id && ! is_wp_error( $post_id ) ) {
+            update_post_meta( $post_id, '_f4t_source_guid',  $guid );
+            update_post_meta( $post_id, '_f4t_source_url',   $link );
+            update_post_meta( $post_id, '_f4t_source_feed',  $feed_url );
+            if ( $audio_url ) {
+                update_post_meta( $post_id, '_f4t_audio_url',  $audio_url );
+                update_post_meta( $post_id, '_f4t_duration',   $duration );
+            }
+            $imported++;
+        }
+    }
+
+    return $imported;
+}
+
+/* =============================================
    ADMIN PAGE: Food4Thoth Tools Dashboard
    ============================================= */
 function f4t_admin_menu() {
@@ -226,12 +379,23 @@ function f4t_admin_page_html() {
     // Handle re-run setup
     if ( isset( $_POST['f4t_run_setup'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'f4t_setup' ) ) {
         f4t_create_default_pages();
-        echo '<div class="notice notice-success"><p>✓ Food4Thoth pages have been created/updated!</p></div>';
+        echo '<div class="notice notice-success"><p>&#10003; Food4Thoth pages have been created/updated!</p></div>';
     }
+
+    // Handle manual RSS import
+    $import_notice = '';
+    if ( isset( $_POST['f4t_run_import'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'f4t_import' ) ) {
+        $count = f4t_import_rss_feeds();
+        $import_notice = '<div class="notice notice-success"><p>&#10003; Imported ' . intval( $count ) . ' new post(s) from food4thoth.com feeds.</p></div>';
+    }
+
+    $last_import = get_option( 'f4t_last_import', [] );
     ?>
     <div class="wrap">
-        <h1>🌀 Food4Thoth Dashboard</h1>
+        <h1>Food4Thoth Dashboard</h1>
         <p>Welcome to the Food4Thoth WordPress setup. This plugin manages tool pages, categories, and iframes.</p>
+
+        <?php echo $import_notice; ?>
 
         <div class="card" style="max-width:700px;">
             <h2>Setup Pages</h2>
@@ -244,9 +408,31 @@ function f4t_admin_page_html() {
         </div>
 
         <div class="card" style="max-width:700px;margin-top:20px;">
+            <h2>RSS Feed Import</h2>
+            <p>Imports posts from the Food4Thoth blog and podcast feeds on food4thoth.com. Runs automatically every day via WP-Cron.</p>
+            <ul style="margin-bottom:12px;">
+                <li><strong>Blog feed:</strong> <code>https://www.food4thoth.com/blog.xml</code></li>
+                <li><strong>Podcast feed:</strong> <code>https://www.food4thoth.com/feed.xml</code></li>
+            </ul>
+            <?php if ( ! empty( $last_import ) ) : ?>
+            <p>
+                <strong>Last import:</strong> <?php echo esc_html( $last_import['time'] ?? '' ); ?>
+                &mdash; <?php echo intval( $last_import['imported'] ?? 0 ); ?> post(s) imported
+            </p>
+            <?php else : ?>
+            <p><em>No import has run yet.</em></p>
+            <?php endif; ?>
+            <form method="post" style="margin-top:10px;">
+                <?php wp_nonce_field( 'f4t_import' ); ?>
+                <input type="hidden" name="f4t_run_import" value="1">
+                <button type="submit" class="button button-primary">Import Posts Now</button>
+            </form>
+        </div>
+
+        <div class="card" style="max-width:700px;margin-top:20px;">
             <h2>How to Use the Tool Embed Template</h2>
             <ol>
-                <li>Go to <strong>Pages → Add New</strong></li>
+                <li>Go to <strong>Pages &rarr; Add New</strong></li>
                 <li>Set the <strong>Page Template</strong> to "Tool Embed (iframe)"</li>
                 <li>In the <strong>Tool Settings</strong> panel, paste the food4thoth.com URL</li>
                 <li>Publish the page</li>
@@ -256,8 +442,8 @@ function f4t_admin_page_html() {
         <div class="card" style="max-width:700px;margin-top:20px;">
             <h2>Shortcodes</h2>
             <ul>
-                <li><code>[f4t_tool url="https://www.food4thoth.com/TarotLanding/" height="85vh" title="Tarot"]</code> — Embed any tool</li>
-                <li><code>[f4t_category_hub]</code> — Auto card-grid of all child pages</li>
+                <li><code>[f4t_tool url="https://www.food4thoth.com/TarotLanding/" height="85vh" title="Tarot"]</code> &mdash; Embed any tool</li>
+                <li><code>[f4t_category_hub]</code> &mdash; Auto card-grid of all child pages</li>
             </ul>
         </div>
 
