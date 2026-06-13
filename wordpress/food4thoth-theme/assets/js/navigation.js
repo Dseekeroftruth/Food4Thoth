@@ -751,7 +751,10 @@
             var url    = animations[Math.floor(Math.random() * animations.length)];
             var popup  = document.getElementById('animationPopup');
             var iframe = document.getElementById('animationIframe');
-            if (!popup || !iframe) return;
+            if (!popup || !iframe) {
+                window.open(url, '_blank', 'noopener,noreferrer');
+                return;
+            }
 
             iframe.removeAttribute('loading');
             iframe.src = url;
@@ -773,7 +776,10 @@
             var site   = randomSites[idx];
             var popup  = document.getElementById('randomPopup');
             var iframe = document.getElementById('randomIframe');
-            if (!popup || !iframe) return;
+            if (!popup || !iframe) {
+                window.open(site.url, '_blank', 'noopener,noreferrer');
+                return;
+            }
 
             iframe.removeAttribute('loading');
             iframe.src = site.url;
