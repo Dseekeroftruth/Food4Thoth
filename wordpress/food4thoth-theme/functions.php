@@ -36,14 +36,14 @@ add_action( 'after_setup_theme', 'f4t_theme_setup' );
    ============================================= */
 function f4t_enqueue_assets() {
     // Main theme stylesheet
-    wp_enqueue_style( 'f4t-style', get_stylesheet_uri(), [], '1.1.0' );
+    wp_enqueue_style( 'f4t-style', get_stylesheet_uri(), [], '1.2.0' );
 
     // Navigation JS
     wp_enqueue_script(
         'f4t-navigation',
         get_template_directory_uri() . '/assets/js/navigation.js',
         [],
-        '1.1.0',
+        '1.2.0',
         true
     );
 

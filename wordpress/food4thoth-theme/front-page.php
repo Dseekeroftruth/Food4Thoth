@@ -4,12 +4,32 @@
  */
 get_header(); ?>
 
-    <!-- ===== ANIMATED LOGO (served from food4thoth.com) ===== -->
+    <!-- ===== ANIMATED LOGOS (served from food4thoth.com) ===== -->
     <div class="logo-animation-container" aria-hidden="true">
         <iframe src="https://www.food4thoth.com/Artabillies4ThothAnimate/F4TLOGO5.html"
                 title="Food4Thoth Animated Logo"
                 loading="lazy"></iframe>
     </div>
+
+    <iframe aria-hidden="true" tabindex="-1"
+            src="https://www.food4thoth.com/Artabillies4ThothAnimate/F4TLOGO3.2.html"
+            style="width:100vw;height:10vh;border:none;top:-30px;position:sticky;left:0;display:block;pointer-events:none;"
+            title="" loading="lazy"></iframe>
+
+    <iframe aria-hidden="true" tabindex="-1"
+            src="https://www.food4thoth.com/Artabillies4ThothAnimate/F4TLOGO4.html"
+            style="width:100vw;height:30vh;border:none;top:0;position:absolute;left:0;display:block;pointer-events:none;"
+            title="" loading="lazy"></iframe>
+
+    <iframe aria-hidden="true" tabindex="-1"
+            src="https://www.food4thoth.com/Artabillies4ThothAnimate/F4TLOGO3.2.html"
+            style="width:100vw;height:2vh;border:none;top:10px;position:absolute;left:0;display:block;pointer-events:none;"
+            title="" loading="lazy"></iframe>
+
+    <iframe aria-hidden="true" tabindex="-1"
+            src="https://www.food4thoth.com/Artabillies4ThothAnimate/F4TLOGO2.1.html"
+            style="width:20%;max-width:100px;height:10vh;border:none;top:-65px;position:sticky;left:3px;display:block;pointer-events:none;"
+            title="" loading="lazy"></iframe>
 
     <!-- ===== ACTION BUTTONS ===== -->
     <div class="button-container">
@@ -281,7 +301,10 @@ get_header(); ?>
             <p>Food4Thoth is not just a website — it's a living ecosystem for those who hunger for knowledge, creativity, and connection. Explore and thrive with us.</p>
         </section>
 
-        <!-- BACKGROUND ANIMATION -->
+        <!-- BACKGROUND ANIMATIONS -->
+        <div aria-hidden="true" style="pointer-events:none;overflow:hidden;opacity:0.3;position:sticky;top:0;z-index:0;height:0;">
+            <iframe src="https://www.food4thoth.com/behind-the-fold/" style="width:100vw;height:100vh;border:none;margin-top:-100vh;" loading="lazy"></iframe>
+        </div>
         <div aria-hidden="true" style="pointer-events:none;overflow:hidden;opacity:0.3;position:sticky;top:0;z-index:0;height:0;">
             <iframe src="https://www.food4thoth.com/spiral/" style="width:100vw;height:100vh;border:none;margin-top:-100vh;" loading="lazy"></iframe>
         </div>
