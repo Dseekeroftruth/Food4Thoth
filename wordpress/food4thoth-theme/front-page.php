@@ -26,10 +26,13 @@ get_header(); ?>
             style="width:100vw;height:2vh;border:none;top:10px;position:absolute;left:0;display:block;pointer-events:none;"
             title="" loading="lazy"></iframe>
 
-    <iframe aria-hidden="true" tabindex="-1"
-            src="https://www.food4thoth.com/Artabillies4ThothAnimate/F4TLOGO2.1.html"
-            style="width:20%;max-width:100px;height:10vh;border:none;top:-55px;position:sticky;left:2px;display:block;pointer-events:none;"
-            title="" loading="lazy"></iframe>
+    <!-- sticky wrapper: zero-height, overflows visibly — lets us pin the iframe exactly behind the nav button -->
+    <div aria-hidden="true" style="position:sticky;top:0;height:0;overflow:visible;z-index:1090;pointer-events:none;">
+        <iframe tabindex="-1"
+                src="https://www.food4thoth.com/Artabillies4ThothAnimate/F4TLOGO2.1.html"
+                style="position:absolute;top:0;left:10px;width:110px;height:44px;border:none;"
+                title="" loading="lazy"></iframe>
+    </div>
 
     <!-- ===== ACTION BUTTONS ===== -->
     <div class="button-container">
