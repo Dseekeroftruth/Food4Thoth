@@ -331,6 +331,71 @@ a:active { color: #ff4545; }
     pointer-events: none;
     overflow: hidden;
 }
+
+/* =============================================
+   HERO WELCOME TEXT (over F4TLOGO4)
+   ============================================= */
+.f4t-hero-welcome {
+    font-size: clamp(1.3rem, 6vw, 2.8rem);
+    font-weight: 900;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    line-height: 1.25;
+    margin: 0;
+    padding: 0 16px;
+    color: #00ff99;
+    text-shadow:
+        0 0 8px  #00ff99,
+        0 0 22px #00ff99,
+        0 0 55px #006aff,
+        0 0 90px rgba(0, 106, 255, 0.45);
+    animation: heroGlow 3.5s ease-in-out infinite alternate;
+}
+.f4t-hero-welcome span {
+    display: block;
+    font-size: 0.52em;
+    letter-spacing: 0.38em;
+    margin-top: 4px;
+    color: #cc99ff;
+    text-shadow:
+        0 0 6px  #cc99ff,
+        0 0 18px #9933ff,
+        0 0 40px rgba(153, 51, 255, 0.5);
+}
+@keyframes heroGlow {
+    from {
+        text-shadow:
+            0 0 8px  #00ff99,
+            0 0 22px #00ff99,
+            0 0 55px #006aff,
+            0 0 90px rgba(0,106,255,0.45);
+    }
+    to {
+        text-shadow:
+            0 0 14px #00ff99,
+            0 0 38px #00ff99,
+            0 0 75px #ff0095,
+            0 0 120px rgba(255,0,149,0.55);
+    }
+}
+
+/* =============================================
+   NAV CORNER LOGO (F4TLOGO2.1) — portrait & landscape
+   ============================================= */
+.f4t-nav-logo {
+    width: 20%;
+    max-width: 100px;
+    height: 10vh;
+    min-height: 85px; /* landscape: 10vh shrinks, min-height keeps it consistent */
+}
+@media (orientation: landscape) and (max-height: 500px) {
+    .f4t-nav-logo {
+        height: 20vmin;
+        min-height: 70px;
+        max-width: 80px;
+    }
+}
 .logo-animation-container iframe {
     width: 100%;
     height: 65vh;

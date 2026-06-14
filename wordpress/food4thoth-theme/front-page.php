@@ -21,18 +21,25 @@ get_header(); ?>
             style="width:100vw;height:30vh;border:none;top:0;position:absolute;left:0;display:block;pointer-events:none;"
             title="" loading="lazy"></iframe>
 
+    <!-- Welcome text centred on top of F4TLOGO4 -->
+    <div aria-hidden="false" style="position:absolute;top:0;left:0;width:100%;height:30vh;display:flex;align-items:center;justify-content:center;z-index:6;pointer-events:none;">
+        <h1 class="f4t-hero-welcome">
+            Welcome to<br>
+            FOOD4THOTH<br>
+            <span>WordPress Portal</span>
+        </h1>
+    </div>
+
     <iframe aria-hidden="true" tabindex="-1"
             src="https://www.food4thoth.com/Artabillies4ThothAnimate/F4TLOGO3.2.html"
             style="width:100vw;height:2vh;border:none;top:10px;position:absolute;left:0;display:block;pointer-events:none;"
             title="" loading="lazy"></iframe>
 
-    <!-- fixed corner logo — overlaps main video, stays behind nav button (z-index 1090 < nav's 1100) at all times -->
-    <div aria-hidden="true" style="position:fixed;top:0;left:0;width:90px;height:90px;z-index:1090;pointer-events:none;overflow:hidden;">
-        <iframe tabindex="-1"
-                src="https://www.food4thoth.com/Artabillies4ThothAnimate/F4TLOGO2.1.html"
-                style="width:90px;height:90px;border:none;display:block;"
-                title="" loading="lazy"></iframe>
-    </div>
+    <iframe aria-hidden="true" tabindex="-1"
+            class="f4t-nav-logo"
+            src="https://www.food4thoth.com/Artabillies4ThothAnimate/F4TLOGO2.1.html"
+            style="border:none;top:-25px;position:sticky;left:5px;display:block;pointer-events:none;"
+            title="" loading="lazy"></iframe>
 
     <!-- ===== ACTION BUTTONS ===== -->
     <div class="button-container">
