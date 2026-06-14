@@ -26,11 +26,11 @@ get_header(); ?>
             style="width:100vw;height:2vh;border:none;top:10px;position:absolute;left:0;display:block;pointer-events:none;"
             title="" loading="lazy"></iframe>
 
-    <!-- sticky wrapper: zero-height, overflows visibly — lets us pin the iframe exactly behind the nav button -->
-    <div aria-hidden="true" style="position:sticky;top:0;height:0;overflow:visible;z-index:1090;pointer-events:none;">
+    <!-- fixed corner logo — overlaps main video, stays behind nav button (z-index 1090 < nav's 1100) at all times -->
+    <div aria-hidden="true" style="position:fixed;top:0;left:0;width:90px;height:90px;z-index:1090;pointer-events:none;overflow:hidden;">
         <iframe tabindex="-1"
                 src="https://www.food4thoth.com/Artabillies4ThothAnimate/F4TLOGO2.1.html"
-                style="position:absolute;top:0;left:10px;width:110px;height:44px;border:none;"
+                style="width:90px;height:90px;border:none;display:block;"
                 title="" loading="lazy"></iframe>
     </div>
 
