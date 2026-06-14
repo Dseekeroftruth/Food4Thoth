@@ -28,7 +28,7 @@ get_header(); ?>
 
     <iframe aria-hidden="true" tabindex="-1"
             src="https://www.food4thoth.com/Artabillies4ThothAnimate/F4TLOGO2.1.html"
-            style="width:20%;max-width:100px;height:10vh;border:none;top:-65px;position:sticky;left:3px;display:block;pointer-events:none;"
+            style="width:20%;max-width:100px;height:10vh;border:none;top:-55px;position:sticky;left:2px;display:block;pointer-events:none;"
             title="" loading="lazy"></iframe>
 
     <!-- ===== ACTION BUTTONS ===== -->
@@ -91,8 +91,9 @@ get_header(); ?>
         </section>
 
         <!-- LOGO ANIMATION 2 -->
-        <div class="logo-animation-container" aria-hidden="true" style="max-height:200px;overflow:hidden;">
+        <div aria-hidden="true" style="display:flex;justify-content:center;align-items:center;width:100%;overflow:visible;">
             <iframe src="https://www.food4thoth.com/Artabillies4ThothAnimate/F4TLOGO1.1.html"
+                    style="width:80vw;max-width:450px;height:80vw;max-height:450px;border:none;display:block;"
                     loading="lazy" title="Food4Thoth Logo Animation 2"></iframe>
         </div>
 
