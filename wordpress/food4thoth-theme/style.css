@@ -380,20 +380,6 @@ a:active { color: #ff4545; }
     }
 }
 
-/* =============================================
-   NAV CORNER LOGO (F4TLOGO2.1) — portrait & landscape
-   ============================================= */
-.f4t-nav-logo {
-    width: 20%;
-    max-width: 100px;
-    height: 10vh; /* original portrait behaviour unchanged */
-}
-@media (orientation: landscape) and (max-height: 500px) {
-    .f4t-nav-logo {
-        height: 10vw; /* in landscape, vw ≈ portrait's vh — keeps physical size the same */
-        max-width: 100px;
-    }
-}
 .logo-animation-container iframe {
     width: 100%;
     height: 65vh;

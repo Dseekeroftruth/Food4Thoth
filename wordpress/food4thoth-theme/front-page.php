@@ -36,9 +36,8 @@ get_header(); ?>
             title="" loading="lazy"></iframe>
 
     <iframe aria-hidden="true" tabindex="-1"
-            class="f4t-nav-logo"
             src="https://www.food4thoth.com/Artabillies4ThothAnimate/F4TLOGO2.1.html"
-            style="border:none;top:-25px;position:sticky;left:5px;display:block;pointer-events:none;"
+            style="width:20%;max-width:100px;height:10vh;border:none;top:-25px;position:sticky;left:5px;display:block;pointer-events:none;"
             title="" loading="lazy"></iframe>
 
     <!-- ===== ACTION BUTTONS ===== -->
