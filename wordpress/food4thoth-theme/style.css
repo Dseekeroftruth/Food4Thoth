@@ -125,6 +125,26 @@ a:active { color: #ff4545; }
 .feature ul li { padding: 4px 0; }
 .feature ul li::before { content: "✦ "; color: #00ff99; }
 
+/* When .feature is an <a> link */
+a.feature {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-left: -12px;
+    transition: background 0.25s, box-shadow 0.25s;
+}
+a.feature:hover,
+a.feature:focus {
+    background: rgba(0, 255, 153, 0.06);
+    box-shadow: 0 0 0 1px rgba(0, 255, 153, 0.25), 0 0 18px rgba(0, 255, 153, 0.12);
+    outline: none;
+}
+a.feature h3 { color: #00ff99; transition: text-shadow 0.25s; }
+a.feature:hover h3,
+a.feature:focus h3 { text-shadow: 0 0 8px #00ff99; }
+
 /* =============================================
    GLOW / CONIC GRADIENT MIXIN
    ============================================= */

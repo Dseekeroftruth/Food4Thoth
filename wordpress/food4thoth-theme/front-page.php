@@ -190,88 +190,88 @@ get_header(); ?>
         <section class="features-section">
             <h2>Core Features and Offerings</h2>
 
-            <div class="feature">
-                <h3>1. Art and Cyber Design</h3>
+            <a class="feature" href="https://www.food4thoth.com/DrawingFractals/" target="_blank" rel="noopener">
+                <h3>1. Art and Cyber Design ↗</h3>
                 <ul>
                     <li>Celebrating art in all its forms: traditional, digital, and experimental.</li>
                     <li>Cyber design and experimentation push the boundaries of creativity.</li>
                     <li>Showcases curated art pieces, interactive galleries, and creative tools.</li>
                 </ul>
-            </div>
+            </a>
 
-            <div class="feature">
-                <h3>2. Esoterica, Gnosticism, and Hermetics</h3>
+            <a class="feature" href="https://www.food4thoth.com/css-only-3d-image-carousel/" target="_blank" rel="noopener">
+                <h3>2. Esoterica, Gnosticism, and Hermetics ↗</h3>
                 <ul>
                     <li>A treasure trove of esoteric knowledge exploring the mystical and hidden.</li>
                     <li>Deep dives into Gnosticism, emphasizing personal spiritual knowledge.</li>
                     <li>Resources on Hermetics, focusing on universal principles.</li>
                 </ul>
-            </div>
+            </a>
 
-            <div class="feature">
-                <h3>3. Tarot, I Ching, and Divination</h3>
+            <a class="feature" href="https://www.food4thoth.com/TarotLanding/" target="_blank" rel="noopener">
+                <h3>3. Tarot, I Ching, and Divination ↗</h3>
                 <ul>
                     <li>Apps for Tarot card readings, bringing ancient introspection into the digital age.</li>
                     <li>I Ching readings offering modern insights into life's complexities.</li>
                     <li>Tools designed for both beginners and experienced users.</li>
                 </ul>
-            </div>
+            </a>
 
-            <div class="feature">
-                <h3>4. Community Gardens and Directories</h3>
+            <a class="feature" href="https://www.food4thoth.com/CommunityGardensLists/" target="_blank" rel="noopener">
+                <h3>4. Community Gardens and Directories ↗</h3>
                 <ul>
                     <li>Encourages real-world connection through community gardens.</li>
                     <li>Fosters sustainability and local action by connecting people to nearby projects.</li>
                 </ul>
-            </div>
+            </a>
 
-            <div class="feature">
-                <h3>5. Music Reviews and Explorations</h3>
+            <a class="feature" href="https://www.food4thoth.com/MusicLibraryVis/" target="_blank" rel="noopener">
+                <h3>5. Music Reviews and Explorations ↗</h3>
                 <ul>
                     <li>In-depth music reviews blending artistic appreciation with cultural critique.</li>
                     <li>Explores various genres, emphasizing music's connection to the human experience.</li>
                 </ul>
-            </div>
+            </a>
 
-            <div class="feature">
-                <h3>6. Anarchy and Creative Freedom</h3>
+            <a class="feature" href="https://www.food4thoth.com/AnarchyComicBreakFree/" target="_blank" rel="noopener">
+                <h3>6. Anarchy and Creative Freedom ↗</h3>
                 <ul>
                     <li>Promotes anarchy as a philosophy of personal freedom and radical creativity.</li>
                     <li>Encourages exploring one's full potential beyond societal constraints.</li>
                 </ul>
-            </div>
+            </a>
 
-            <div class="feature">
-                <h3>7. Black Business Support</h3>
+            <a class="feature" href="https://www.food4thoth.com/BlackBuisnessEugene/" target="_blank" rel="noopener">
+                <h3>7. Black Business Support ↗</h3>
                 <ul>
                     <li>Features a directory of local Black-owned businesses in Eugene, OR.</li>
                     <li>Celebrates creativity and entrepreneurship within the Black community.</li>
                 </ul>
-            </div>
+            </a>
 
-            <div class="feature">
-                <h3>8. Games and Interactive Experiences</h3>
+            <a class="feature" href="https://www.food4thoth.com/NexusOfGames/" target="_blank" rel="noopener">
+                <h3>8. Games and Interactive Experiences ↗</h3>
                 <ul>
                     <li>Games and tools that are both entertaining and thought-provoking.</li>
                     <li>Designed to challenge perspectives and encourage creativity.</li>
                 </ul>
-            </div>
+            </a>
 
-            <div class="feature">
-                <h3>9. Rainbow Glowing Calculator App</h3>
+            <a class="feature" href="https://www.food4thoth.com/GloCalculato/" target="_blank" rel="noopener">
+                <h3>9. Rainbow Glowing Calculator App ↗</h3>
                 <ul>
                     <li>A whimsical yet functional calculator with a glowing rainbow design.</li>
                     <li>Blends practicality with fun and vibrant visuals.</li>
                 </ul>
-            </div>
+            </a>
 
-            <div class="feature">
-                <h3>10. Inspirational Dog Trent</h3>
+            <a class="feature" href="https://www.food4thoth.com/TrentOfTheDay/" target="_blank" rel="noopener">
+                <h3>10. Inspirational Dog Trent ↗</h3>
                 <ul>
                     <li>Features Trent, a dog with a heartwarming presence.</li>
                     <li>Embodies themes of loyalty, connection, and joy.</li>
                 </ul>
-            </div>
+            </a>
         </section>
 
         <!-- PHILOSOPHY SECTION -->
