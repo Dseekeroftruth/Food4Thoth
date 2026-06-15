@@ -386,14 +386,12 @@ a:active { color: #ff4545; }
 .f4t-nav-logo {
     width: 20%;
     max-width: 100px;
-    height: 10vh;
-    min-height: 85px; /* landscape: 10vh shrinks, min-height keeps it consistent */
+    height: 10vh; /* original portrait behaviour unchanged */
 }
 @media (orientation: landscape) and (max-height: 500px) {
     .f4t-nav-logo {
-        height: 20vmin;
-        min-height: 70px;
-        max-width: 80px;
+        height: 10vw; /* in landscape, vw ≈ portrait's vh — keeps physical size the same */
+        max-width: 100px;
     }
 }
 .logo-animation-container iframe {
