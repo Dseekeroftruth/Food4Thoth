@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sound Visualizer</title>
+<style>
+  :root {
+    --bg: #000;
+    --surface: rgba(28,28,30,0.82);
+    --surface2: rgba(44,44,46,0.78);
+    --border: rgba(255,255,255,0.10);
+    --blue: #0A84FF;
+    --red: #FF453A;
+    --green: #30D158;
+    --yellow: #FFD60A;
+    --label: #FFFFFF;
+    --label2: rgba(255,255,255,0.60);
+    --label3: rgba(255,255,255,0.30);
+    --radius: 14px;
+    --radius-sm: 10px;
+    --blur: blur(24px) saturate(180%);
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%; height: 100%; overflow: hidden;
+    background: var(--bg); color: var(--label);
+    font-family: var(--font); -webkit-font-smoothing: antialiased;
+    user-select: none;
+  }
+  canvas.vis-canvas {
+    position: fixed; inset: 0; width: 100%; height: 100%;
+    display: block; touch-action: none;
+  }
+  #canvas-bg  { z-index: 0; }
+  #canvas-mid { z-index: 1; pointer-events: none; }
+  #canvas-top { z-index: 2; pointer-events: none; }
+
+  /* ── TOP BAR ── */
+  #topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: env(safe-area-inset-top, 8px) 16px 8px;
+    padding-top: max(env(safe-area-inset-top, 8px), 8px);
+    background: rgba(0,0,0,0.50); backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+    border-bottom: 1px solid var(--border);
+  }
+  #app-title {
+    font-size: 15px; font-weight: 700; letter-spacing: -0.3px;
+    background: linear-gradient(135deg,#fff 40%,rgba(255,255,255,0.5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  #bpm-pill {
+    display: flex; align-items: center; gap: 5px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 20px; padding: 3px 10px;
+    font-size: 12px; font-weight: 600; color: var(--label2);
+    min-width: 72px; justify-content: center;
+  }
+  #bpm-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green); flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  #bpm-dot.beat { background: #fff; }
+  #mic-btn {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: none; cursor: pointer; outline: none;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; transition: all 0.2s;
+    background: var(--surface2);
+  }
+  #mic-btn.active { background: var(--blue); }
+  #mic-btn.error  { background: var(--red); }
+
+  /* ── BOTTOM PANEL ── */
+  #panel {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
+    background: rgba(0,0,0,0.70); backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+    border-top: 1px solid var(--border);
+    transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+    will-change: transform;
+  }
+  #panel.collapsed {
+    transform: translateY(calc(100% - 40px));
+  }
+
+  /* ── PANEL TOGGLE ── */
+  #panel-toggle {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    width: 100%; height: 40px;
+    background: transparent; border: none; cursor: pointer; outline: none;
+    color: var(--label2); font-family: var(--font);
+    font-size: 12px; font-weight: 600; letter-spacing: 0.3px;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+  }
+  #panel-toggle::before {
+    content: '';
+    width: 32px; height: 3px; border-radius: 2px;
+    background: rgba(255,255,255,0.25);
+    position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+  }
+  #panel-toggle-icon {
+    transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+    font-size: 14px;
+  }
+  #panel.collapsed #panel-toggle-icon { transform: rotate(180deg); }
+
+  /* ── PANEL CONTENT ── */
+  #panel-content {
+    padding: 0 12px 6px;
+    padding-bottom: max(env(safe-area-inset-bottom, 4px), 4px);
+    overflow-y: auto;
+    max-height: 60vh;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ── CAPTURE STRIP ── */
+  #capture-strip {
+    display: flex; gap: 8px; align-items: center; padding: 2px 0 6px;
+  }
+  .cap-btn {
+    flex: 1; height: 38px; border-radius: 19px;
+    border: none; cursor: pointer; outline: none;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-family: var(--font); font-size: 13px; font-weight: 600;
+    letter-spacing: -0.2px; transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .cap-btn:active { transform: scale(0.96); }
+  #photo-btn { background: var(--surface2); color: var(--label); border: 1px solid var(--border); }
+  #record-btn { background: var(--red); color: #fff; }
+  #record-btn.recording { animation: rec-pulse 1.4s ease-in-out infinite; }
+  @keyframes rec-pulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(255,69,58,0.5); }
+    50%      { box-shadow: 0 0 0 10px rgba(255,69,58,0); }
+  }
+  .cap-icon { font-size: 15px; }
+
+  /* ── SEGMENTS & CONTROLS ── */
+  .seg-label {
+    font-size: 10px; font-weight: 600; color: var(--label3);
+    letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 3px; margin-top: 6px;
+  }
+  .seg-wrap {
+    display: flex; background: var(--surface);
+    border-radius: var(--radius-sm); padding: 2px; margin-bottom: 6px;
+  }
+  .seg-btn {
+    flex: 1; height: 26px; border-radius: 7px; border: none; cursor: pointer;
+    background: transparent; color: var(--label2); font-family: var(--font);
+    font-size: 11px; font-weight: 500; transition: all 0.2s; outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .seg-btn.active { background: rgba(255,255,255,0.16); color: #fff; font-weight: 600; }
+
+  /* ── PALETTE ROW ── */
+  .palette-row {
+    display: flex; gap: 6px; align-items: center; margin-bottom: 6px;
+  }
+  .pal-btn {
+    flex: 1; height: 26px; border-radius: 8px;
+    border: 2px solid transparent; cursor: pointer; outline: none;
+    font-size: 12px; font-weight: 600; transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .pal-btn.active { border-color: #fff; transform: scale(1.08); }
+
+  /* ── SHAPE ROW ── */
+  .shape-row { display: flex; gap: 4px; margin-bottom: 6px; }
+  .shape-btn {
+    flex: 1; height: 28px; border-radius: 8px;
+    border: 1px solid var(--border); cursor: pointer; background: var(--surface);
+    color: var(--label2); font-size: 14px; transition: all 0.15s; outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .shape-btn.active { background: rgba(255,255,255,0.18); color: #fff; border-color: rgba(255,255,255,0.4); }
+
+  /* ── SLIDERS ── */
+  .slider-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; }
+  .slider-row { display: flex; flex-direction: column; gap: 1px; }
+  .slider-name { font-size: 10px; font-weight: 600; color: var(--label2); }
+  input[type=range] {
+    -webkit-appearance: none; width: 100%; height: 3px;
+    border-radius: 2px; background: rgba(255,255,255,0.15); outline: none; cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%;
+    background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.4); cursor: pointer;
+    margin-top: -6px;
+  }
+  input[type=range]::-webkit-slider-runnable-track { height: 3px; border-radius: 2px; }
+
+  /* ── LAYER SECTION ── */
+  .layer-section {
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 6px 8px; margin-bottom: 6px;
+    background: rgba(255,255,255,0.03);
+  }
+  .layer-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  .layer-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+  }
+  .layer-toggle {
+    width: 36px; height: 20px; border-radius: 10px; border: none; cursor: pointer;
+    background: rgba(255,255,255,0.15); position: relative; transition: background 0.2s;
+    outline: none; -webkit-tap-highlight-color: transparent;
+  }
+  .layer-toggle.on { background: var(--green); }
+  .layer-toggle::after {
+    content: ''; position: absolute; top: 2px; left: 2px;
+    width: 16px; height: 16px; border-radius: 50%; background: #fff;
+    transition: transform 0.2s;
+  }
+  .layer-toggle.on::after { transform: translateX(16px); }
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed; top: 70px; left: 50%; transform: translateX(-50%) translateY(-20px);
+    background: var(--surface); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+    border: 1px solid var(--border); border-radius: 20px; padding: 6px 16px;
+    font-size: 13px; font-weight: 600; color: #fff; white-space: nowrap;
+    opacity: 0; pointer-events: none; z-index: 100;
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── REC TIMER ── */
+  #rec-timer {
+    position: fixed; top: 62px; left: 50%; transform: translateX(-50%);
+    background: rgba(255,69,58,0.85); backdrop-filter: var(--blur);
+    border-radius: 20px; padding: 4px 12px;
+    font-size: 12px; font-weight: 700; color: #fff; letter-spacing: 0.5px;
+    z-index: 20; display: none; align-items: center; gap: 6px;
+  }
+  #rec-timer.show { display: flex; }
+  #rec-dot { width: 7px; height: 7px; border-radius: 50%; background: #fff; animation: blink 1s step-start infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .color-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; vertical-align: middle; }
+  .dot-fractal { background: #FF4081; }
+  .dot-spiral  { background: #00E5FF; }
+  .dot-particle { background: #FFD60A; }
+</style>
+</head>
+<body>
+
+<!-- THREE LAYERED CANVASES -->
+<canvas id="canvas-bg" class="vis-canvas"></canvas>
+<canvas id="canvas-mid" class="vis-canvas"></canvas>
+<canvas id="canvas-top" class="vis-canvas"></canvas>
+
+<!-- TOP BAR -->
+<div id="topbar">
+  <div id="app-title">Sound Visualizer</div>
+  <div id="bpm-pill">
+    <div id="bpm-dot"></div>
+    <span id="bpm-val">-- BPM</span>
+  </div>
+  <button id="mic-btn" title="Toggle Microphone">🎙️</button>
+</div>
+
+<!-- REC TIMER -->
+<div id="rec-timer"><div id="rec-dot"></div><span id="rec-time">0:00</span></div>
+
+<!-- BOTTOM PANEL -->
+<div id="panel" class="collapsed">
+  <button id="panel-toggle" aria-label="Toggle controls panel">
+    <span id="panel-toggle-icon">▲</span>
+    <span id="panel-toggle-label">Controls</span>
+  </button>
+
+  <div id="panel-content">
+    <!-- CAPTURE -->
+    <div id="capture-strip">
+      <button class="cap-btn" id="photo-btn"><span class="cap-icon">📸</span> Photo</button>
+      <button class="cap-btn" id="record-btn"><span class="cap-icon">⏺</span> Record</button>
+    </div>
+
+    <!-- GLOBAL CONTROLS -->
+    <div class="seg-label">Global</div>
+    <div class="slider-grid">
+      <div class="slider-row">
+        <div class="slider-name">Sensitivity</div>
+        <input type="range" id="sl-sens" min="0.5" max="4" step="0.1" value="1.4">
+      </div>
+      <div class="slider-row">
+        <div class="slider-name">Master Spin</div>
+        <input type="range" id="sl-spin" min="0.1" max="5" step="0.1" value="1.2">
+      </div>
+    </div>
+
+    <!-- ═══════ LAYER 1: FRACTAL ═══════ -->
+    <div class="layer-section" id="layer0-section">
+      <div class="layer-header">
+        <span class="layer-title"><span class="color-dot dot-fractal"></span>Layer 1 — Fractal</span>
+        <button class="layer-toggle on" id="layer0-toggle"></button>
+      </div>
+      <div class="seg-label">Mode</div>
+      <div class="seg-wrap" data-layer="0">
+        <button class="seg-btn active" data-mode="fractal">Fractal</button>
+        <button class="seg-btn" data-mode="spiral">Spiral</button>
+        <button class="seg-btn" data-mode="particles">Particles</button>
+      </div>
+      <div class="seg-label">Palette</div>
+      <div class="palette-row" data-layer="0"></div>
+      <div class="seg-label">Shape</div>
+      <div class="shape-row" data-layer="0">
+        <button class="shape-btn active" data-shape="circle">●</button>
+        <button class="shape-btn" data-shape="square">■</button>
+        <button class="shape-btn" data-shape="triangle">▲</button>
+        <button class="shape-btn" data-shape="diamond">◆</button>
+        <button class="shape-btn" data-shape="star">★</button>
+        <button class="shape-btn" data-shape="hexagon">⬡</button>
+      </div>
+      <div class="slider-grid">
+        <div class="slider-row">
+          <div class="slider-name">Spread</div>
+          <input type="range" data-layer="0" data-prop="spread" min="1" max="12" step="0.5" value="5">
+        </div>
+        <div class="slider-row">
+          <div class="slider-name">Core Size</div>
+          <input type="range" data-layer="0" data-prop="coreSize" min="0.3" max="3" step="0.1" value="1">
+        </div>
+        <div class="slider-row">
+          <div class="slider-name">Shape Size</div>
+          <input type="range" data-layer="0" data-prop="shapeScale" min="0.2" max="5" step="0.1" value="1">
+        </div>
+        <div class="slider-row">
+          <div class="slider-name">Spin Offset</div>
+          <input type="range" data-layer="0" data-prop="spinOffset" min="0" max="3" step="0.1" value="0">
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ LAYER 2: SPIRAL ═══════ -->
+    <div class="layer-section" id="layer1-section">
+      <div class="layer-header">
+        <span class="layer-title"><span class="color-dot dot-spiral"></span>Layer 2 — Spiral</span>
+        <button class="layer-toggle on" id="layer1-toggle"></button>
+      </div>
+      <div class="seg-label">Mode</div>
+      <div class="seg-wrap" data-layer="1">
+        <button class="seg-btn" data-mode="fractal">Fractal</button>
+        <button class="seg-btn active" data-mode="spiral">Spiral</button>
+        <button class="seg-btn" data-mode="particles">Particles</button>
+      </div>
+      <div class="seg-label">Palette</div>
+      <div class="palette-row" data-layer="1"></div>
+      <div class="seg-label">Shape</div>
+      <div class="shape-row" data-layer="1">
+        <button class="shape-btn active" data-shape="circle">●</button>
+        <button class="shape-btn" data-shape="square">■</button>
+        <button class="shape-btn" data-shape="triangle">▲</button>
+        <button class="shape-btn" data-shape="diamond">◆</button>
+        <button class="shape-btn" data-shape="star">★</button>
+        <button class="shape-btn" data-shape="hexagon">⬡</button>
+      </div>
+      <div class="slider-grid">
+        <div class="slider-row">
+          <div class="slider-name">Spread</div>
+          <input type="range" data-layer="1" data-prop="spread" min="1" max="12" step="0.5" value="5">
+        </div>
+        <div class="slider-row">
+          <div class="slider-name">Core Size</div>
+          <input type="range" data-layer="1" data-prop="coreSize" min="0.3" max="3" step="0.1" value="1">
+        </div>
+        <div class="slider-row">
+          <div class="slider-name">Shape Size</div>
+          <input type="range" data-layer="1" data-prop="shapeScale" min="0.2" max="5" step="0.1" value="1">
+        </div>
+        <div class="slider-row">
+          <div class="slider-name">Spin Offset</div>
+          <input type="range" data-layer="1" data-prop="spinOffset" min="0" max="3" step="0.1" value="0.4">
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ LAYER 3: PARTICLES ═══════ -->
+    <div class="layer-section" id="layer2-section">
+      <div class="layer-header">
+        <span class="layer-title"><span class="color-dot dot-particle"></span>Layer 3 — Particles</span>
+        <button class="layer-toggle on" id="layer2-toggle"></button>
+      </div>
+      <div class="seg-label">Mode</div>
+      <div class="seg-wrap" data-layer="2">
+        <button class="seg-btn" data-mode="fractal">Fractal</button>
+        <button class="seg-btn" data-mode="spiral">Spiral</button>
+        <button class="seg-btn active" data-mode="particles">Particles</button>
+      </div>
+      <div class="seg-label">Palette</div>
+      <div class="palette-row" data-layer="2"></div>
+      <div class="seg-label">Shape</div>
+      <div class="shape-row" data-layer="2">
+        <button class="shape-btn active" data-shape="circle">●</button>
+        <button class="shape-btn" data-shape="square">■</button>
+        <button class="shape-btn" data-shape="triangle">▲</button>
+        <button class="shape-btn" data-shape="diamond">◆</button>
+        <button class="shape-btn" data-shape="star">★</button>
+        <button class="shape-btn" data-shape="hexagon">⬡</button>
+      </div>
+      <div class="slider-grid">
+        <div class="slider-row">
+          <div class="slider-name">Spread</div>
+          <input type="range" data-layer="2" data-prop="spread" min="1" max="12" step="0.5" value="5">
+        </div>
+        <div class="slider-row">
+          <div class="slider-name">Core Size</div>
+          <input type="range" data-layer="2" data-prop="coreSize" min="0.3" max="3" step="0.1" value="1">
+        </div>
+        <div class="slider-row">
+          <div class="slider-name">Shape Size</div>
+          <input type="range" data-layer="2" data-prop="shapeScale" min="0.2" max="5" step="0.1" value="1">
+        </div>
+        <div class="slider-row">
+          <div class="slider-name">Spin Offset</div>
+          <input type="range" data-layer="2" data-prop="spinOffset" min="0" max="3" step="0.1" value="0.8">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+// ─── PANEL TOGGLE ────────────────────────────────────────────────────────────
+const panel = document.getElementById("panel");
+const panelToggle = document.getElementById("panel-toggle");
+const panelLabelEl = document.getElementById("panel-toggle-label");
+panelToggle.addEventListener("click", () => {
+  const collapsed = panel.classList.toggle("collapsed");
+  panelLabelEl.textContent = collapsed ? "Controls" : "Close";
+});
+
+// ─── PALETTES ────────────────────────────────────────────────────────────────
+const PALETTES = [
+  { name:"rainbow", label:"🌈", colors:["#FF4081","#FFD700","#00E5FF","#7C4DFF","#69FF47"] },
+  { name:"fire",    label:"🔥", colors:["#FF1400","#FF6A00","#FFB300","#FF5722","#FF0000"] },
+  { name:"ocean",   label:"🌊", colors:["#00E5FF","#00B0FF","#2979FF","#3D5AFE","#00BFA5"] },
+  { name:"cosmic",  label:"🪐", colors:["#7C4DFF","#E040FB","#FF4081","#FF6D00","#D500F9"] },
+  { name:"mono",    label:"💜", colors:["#B39DDB","#9575CD","#7E57C2","#673AB7","#CE93D8"] },
+  { name:"neon",    label:"⚡", colors:["#39FF14","#FF073A","#00F0FF","#FFFF00","#FF00FF"] },
+  { name:"sunset",  label:"🌅", colors:["#FF6B6B","#FFA07A","#FFD700","#FF4500","#FF1493"] },
+];
+
+function transformHue(h, palette) {
+  const n = (((h % 360) + 360) % 360) / 360;
+  switch(palette) {
+    case "fire":   return n * 58;
+    case "ocean":  return 185 + n * 85;
+    case "cosmic": return 270 + n * 90;
+    case "mono":   return 262 + n * 22;
+    case "neon":   return n * 360;
+    case "sunset": return n * 60 + 340;
+    default:       return ((h % 360) + 360) % 360;
+  }
+}
+
+// ─── LAYER STATE ─────────────────────────────────────────────────────────────
+const defaultPalettes = ["rainbow","ocean","cosmic"];
+const defaultModes    = ["fractal","spiral","particles"];
+const layers = [0,1,2].map(i => ({
+  mode: defaultModes[i],
+  palette: defaultPalettes[i],
+  shape: "circle",
+  spread: 5,
+  coreSize: 1,
+  shapeScale: 1,
+  spinOffset: i * 0.4,
+  visible: true,
+  hue: i * 120,
+  spinA: 0, spinB: 0, spinC: 0,
+}));
+
+// ─── GLOBAL STATE ────────────────────────────────────────────────────────────
+const state = {
+  sensitivity: 1.4,
+  spin: 1.2,
+  amp: 0, rawAmp: 0,
+  beatTimestamps: [], bpm: 0, lastBeat: 0, beatFlash: 0,
+  bars: new Array(32).fill(0),
+  stars: [],
+  micActive: false,
+  frame: 0,
+};
+
+// ─── CANVASES ────────────────────────────────────────────────────────────────
+const canvasBg  = document.getElementById("canvas-bg");
+const canvasMid = document.getElementById("canvas-mid");
+const canvasTop = document.getElementById("canvas-top");
+const ctxBg  = canvasBg.getContext("2d");
+const ctxMid = canvasMid.getContext("2d");
+const ctxTop = canvasTop.getContext("2d");
+const allCanvas = [canvasBg, canvasMid, canvasTop];
+const allCtx    = [ctxBg, ctxMid, ctxTop];
+let W=0, H=0, CX=0, CY=0, BASE=0;
+
+function resize() {
+  W = window.innerWidth; H = window.innerHeight;
+  CX = W/2; CY = H/2; BASE = Math.min(W,H)*0.5;
+  allCanvas.forEach(c => { c.width = W; c.height = H; });
+  generateStars();
+}
+window.addEventListener("resize", resize);
+resize();
+
+function generateStars() {
+  state.stars = Array.from({length:160}, () => ({
+    x: Math.random()*W, y: Math.random()*H,
+    r: Math.random()*1.4+0.2, a: Math.random(),
+    speed: Math.random()*0.003+0.001,
+  }));
+}
+
+// ─── AUDIO ───────────────────────────────────────────────────────────────────
+let audioCtx, analyser, dataArray, sourceNode, micStream;
+
+async function startMic() {
+  try {
+    micStream = await navigator.mediaDevices.getUserMedia({audio:true,video:false});
+    audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 512;
+    analyser.smoothingTimeConstant = 0.7;
+    sourceNode = audioCtx.createMediaStreamSource(micStream);
+    sourceNode.connect(analyser);
+    dataArray = new Uint8Array(analyser.frequencyBinCount);
+    state.micActive = true;
+    micBtn.className = "active";
+    micBtn.textContent = "🎤";
+    toast("Mic on — play some music!");
+  } catch(e) {
+    micBtn.className = "error";
+    micBtn.textContent = "🚫";
+    toast("Mic access denied");
+  }
+}
+
+function stopMic() {
+  if(sourceNode) sourceNode.disconnect();
+  if(audioCtx) audioCtx.close();
+  if(micStream) micStream.getTracks().forEach(t=>t.stop());
+  state.micActive = false; state.amp = 0; state.rawAmp = 0;
+  micBtn.className = ""; micBtn.textContent = "🎙️";
+}
+
+function readAudio() {
+  if(!analyser) return;
+  analyser.getByteFrequencyData(dataArray);
+  const bins = dataArray.length;
+  const bassEnd = Math.floor(bins*0.12);
+  const midEnd  = Math.floor(bins*0.45);
+  let bassSum=0, midSum=0;
+  for(let i=0;i<bassEnd;i++) bassSum += dataArray[i];
+  for(let i=bassEnd;i<midEnd;i++) midSum += dataArray[i];
+  const bassAvg = bassSum/bassEnd/255;
+  const midAvg  = midSum/(midEnd-bassEnd)/255;
+  const raw = (bassAvg*0.65+midAvg*0.35)*state.sensitivity;
+  state.rawAmp = Math.min(1,raw);
+
+  if(state.rawAmp > state.amp) state.amp += (state.rawAmp-state.amp)*0.55;
+  else state.amp += (state.rawAmp-state.amp)*0.08;
+
+  const barBins = Math.floor(bins/2);
+  const step = Math.floor(barBins/state.bars.length);
+  for(let i=0;i<state.bars.length;i++) {
+    const b = dataArray[i*step]/255;
+    state.bars[i] += (b-state.bars[i])*0.35;
+  }
+
+  const delta = state.rawAmp - state.amp;
+  const now = performance.now();
+  if(delta>0.08 && now-state.lastBeat>240) {
+    state.lastBeat = now;
+    state.beatTimestamps.push(now);
+    if(state.beatTimestamps.length>12) state.beatTimestamps.shift();
+    state.beatFlash = 1;
+    bpmDot.classList.add("beat");
+    setTimeout(()=>bpmDot.classList.remove("beat"),120);
+    if(state.beatTimestamps.length>=2) {
+      const intervals = [];
+      for(let i=1;i<state.beatTimestamps.length;i++)
+        intervals.push(state.beatTimestamps[i]-state.beatTimestamps[i-1]);
+      const avg = intervals.reduce((a,b)=>a+b,0)/intervals.length;
+      state.bpm = Math.round(60000/avg);
+    }
+  }
+  state.beatFlash *= 0.9;
+  bpmVal.textContent = state.bpm>0 ? `${state.bpm} BPM` : "-- BPM";
+}
+
+// ─── DRAWING ─────────────────────────────────────────────────────────────────
+function draw() {
+  requestAnimationFrame(draw);
+  readAudio();
+  const amp = state.amp;
+  const dt = 0.016;
+
+  // Update per-layer spins
+  layers.forEach(L => {
+    const s = state.spin + L.spinOffset;
+    L.spinA += dt * s * 0.8 * (1+amp);
+    L.spinB += dt * s * 0.5 * (1+amp*0.6);
+    L.spinC += dt * s * 1.1 * (1+amp*1.2);
+    L.hue   += dt * 40 * s;
+  });
+
+  // ── BG canvas: black fill + stars + beat flash ──
+  ctxBg.fillStyle = "#000";
+  ctxBg.fillRect(0,0,W,H);
+  drawStars(ctxBg, amp);
+
+  if(state.beatFlash > 0.05) {
+    const r = ctxBg.createRadialGradient(CX,CY,BASE*0.3,CX,CY,BASE*1.5);
+    r.addColorStop(0,"transparent");
+    const flashHue = transformHue(layers[0].hue, layers[0].palette);
+    r.addColorStop(1,`hsla(${flashHue},100%,60%,${state.beatFlash*0.22})`);
+    ctxBg.fillStyle = r;
+    ctxBg.fillRect(0,0,W,H);
+  }
+
+  // ── Draw each layer on its own canvas ──
+  allCtx.forEach((ctx, i) => {
+    if(i > 0) ctx.clearRect(0,0,W,H);
+    if(!layers[i].visible) return;
+    const L = layers[i];
+    drawStarburst(ctx, amp, L);
+    if(L.mode === "fractal")        drawFractal(ctx, amp, L);
+    else if(L.mode === "spiral")    drawSpiral(ctx, amp, L);
+    else                            drawParticles(ctx, amp, L);
+    drawCore(ctx, amp, L);
+  });
+
+  // ── Waveform on top canvas ──
+  drawWaveform(ctxTop);
+}
+
+function drawStars(ctx, amp) {
+  state.stars.forEach(s => {
+    s.a += s.speed*(1+amp*2);
+    const a = Math.abs(Math.sin(s.a))*0.7+0.1;
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle = `rgba(255,255,255,${a})`;
+    ctx.fill();
+  });
+}
+
+function drawStarburst(ctx, amp, L) {
+  const rays = 24;
+  const len = BASE*(0.5+amp*0.8);
+  ctx.save(); ctx.translate(CX,CY); ctx.rotate(L.spinB);
+  for(let i=0;i<rays;i++) {
+    const angle = (i/rays)*Math.PI*2;
+    const hue = transformHue(L.hue+i*15, L.palette);
+    ctx.beginPath(); ctx.moveTo(0,0);
+    ctx.lineTo(Math.cos(angle)*len, Math.sin(angle)*len);
+    ctx.strokeStyle = `hsla(${hue},100%,65%,${0.03+amp*0.04})`;
+    ctx.lineWidth = 1; ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function drawFractal(ctx, amp, L) {
+  const arms = 6;
+  const points = Math.round(8+L.spread*2);
+  const radius = BASE*(0.25+amp*0.35)*L.shapeScale;
+  ctx.save(); ctx.translate(CX,CY);
+  for(let arm=0;arm<arms;arm++) {
+    const armAngle = (arm/arms)*Math.PI*2+L.spinA;
+    for(let p=1;p<=points;p++) {
+      const t = p/points;
+      const r = radius*t;
+      const spread = L.spread*0.12;
+      const wA = armAngle+Math.sin(t*Math.PI*2+L.spinC)*spread;
+      const x = Math.cos(wA)*r;
+      const y = Math.sin(wA)*r;
+      const sz = (6+amp*12)*(1-t*0.5)*L.shapeScale;
+      const hue = transformHue(L.hue+arm*60+t*120, L.palette);
+      const alpha = 0.7-t*0.3;
+
+      ctx.save();
+      ctx.translate(x,y);
+      ctx.rotate(L.spinA*0.3+t*2);
+      for(let g=2;g>=0;g--) {
+        const gs = sz*(1+g*0.6);
+        const ga = alpha*(0.5-g*0.15);
+        ctx.fillStyle = `hsla(${hue},100%,${65+g*10}%,${ga})`;
+        drawShapeAt(ctx, L.shape, gs);
+      }
+      ctx.restore();
+    }
+  }
+  ctx.restore();
+}
+
+function drawSpiral(ctx, amp, L) {
+  const helixes = 2;
+  const turns = 3+L.spread*0.5;
+  const steps = 120;
+  const maxR = BASE*(0.45+amp*0.25)*L.shapeScale;
+  ctx.save(); ctx.translate(CX,CY);
+  for(let h=0;h<helixes;h++) {
+    const phaseOff = (h/helixes)*Math.PI*2;
+    ctx.beginPath();
+    for(let i=0;i<=steps;i++) {
+      const t=i/steps;
+      const angle=t*turns*Math.PI*2+L.spinA+phaseOff;
+      const r=maxR*t;
+      const wX=Math.cos(angle)*r, wY=Math.sin(angle)*r;
+      i===0?ctx.moveTo(wX,wY):ctx.lineTo(wX,wY);
+    }
+    const hue = transformHue(L.hue+h*180, L.palette);
+    ctx.strokeStyle = `hsla(${hue},100%,65%,${0.5+amp*0.4})`;
+    ctx.lineWidth = 2+amp*4;
+    ctx.shadowColor = `hsla(${hue},100%,65%,0.8)`;
+    ctx.shadowBlur = 12; ctx.stroke(); ctx.shadowBlur = 0;
+
+    for(let i=0;i<=steps;i+=6) {
+      const t=i/steps;
+      const angle=t*turns*Math.PI*2+L.spinA+phaseOff;
+      const r=maxR*t;
+      const x=Math.cos(angle)*r, y=Math.sin(angle)*r;
+      const sz=(3+amp*8)*(1-t*0.3)*L.shapeScale;
+      const hue2=transformHue(L.hue+h*180+t*60, L.palette);
+      ctx.save(); ctx.translate(x,y); ctx.rotate(L.spinC*t);
+      ctx.fillStyle = `hsla(${hue2},100%,75%,0.85)`;
+      drawShapeAt(ctx, L.shape, sz);
+      ctx.restore();
+    }
+  }
+  ctx.restore();
+}
+
+function drawParticles(ctx, amp, L) {
+  const rings = 4;
+  const perRing = Math.round(8+L.spread);
+  ctx.save(); ctx.translate(CX,CY);
+  for(let r=0;r<rings;r++) {
+    const ringR = BASE*(0.12+r*0.12+amp*0.08)*L.shapeScale;
+    const spinDir = r%2===0?1:-1;
+    const speed = L.spinA*(0.5+r*0.3)*spinDir;
+    for(let p=0;p<perRing;p++) {
+      const angle=(p/perRing)*Math.PI*2+speed;
+      const x=Math.cos(angle)*ringR;
+      const y=Math.sin(angle)*ringR;
+      const sz=(4+amp*10)*(1-r*0.15)*L.shapeScale;
+      const hue=transformHue(L.hue+r*90+p*(360/perRing), L.palette);
+      ctx.save(); ctx.translate(x,y); ctx.rotate(L.spinB+p);
+      for(let g=2;g>=0;g--) {
+        ctx.fillStyle = `hsla(${hue},100%,${65+g*8}%,${0.7-g*0.2})`;
+        drawShapeAt(ctx, L.shape, sz*(1+g*0.7));
+      }
+      ctx.restore();
+    }
+  }
+  ctx.restore();
+}
+
+function drawCore(ctx, amp, L) {
+  const r = BASE*0.08*L.coreSize*(1+amp*0.8);
+  const hue = transformHue(L.hue, L.palette);
+  ctx.save(); ctx.translate(CX,CY); ctx.rotate(L.spinA*0.4);
+
+  for(let g=5;g>=0;g--) {
+    const gr=r*(1+g*0.6);
+    const ga=0.18-g*0.025;
+    const rg=ctx.createRadialGradient(0,0,0,0,0,gr);
+    rg.addColorStop(0,`hsla(${hue},100%,90%,${ga*2})`);
+    rg.addColorStop(1,`hsla(${hue},100%,60%,0)`);
+    ctx.beginPath(); ctx.arc(0,0,gr,0,Math.PI*2);
+    ctx.fillStyle=rg; ctx.fill();
+  }
+
+  ctx.shadowColor = `hsla(${hue},100%,70%,0.9)`;
+  ctx.shadowBlur = 20+amp*20;
+  ctx.fillStyle = `hsla(${hue},100%,80%,0.95)`;
+  drawShapeAt(ctx, L.shape, r);
+  ctx.shadowBlur = 0;
+  ctx.restore();
+}
+
+// ─── SHAPE RENDERER ──────────────────────────────────────────────────────────
+function drawShapeAt(ctx, shape, r) {
+  ctx.beginPath();
+  switch(shape) {
+    case "circle":
+      ctx.arc(0,0,r,0,Math.PI*2); break;
+    case "square":
+      ctx.rect(-r,-r,r*2,r*2); break;
+    case "triangle":
+      for(let i=0;i<3;i++){const a=(i/3)*Math.PI*2-Math.PI/2;i===0?ctx.moveTo(Math.cos(a)*r,Math.sin(a)*r):ctx.lineTo(Math.cos(a)*r,Math.sin(a)*r);}
+      ctx.closePath(); break;
+    case "diamond":
+      ctx.moveTo(0,-r*1.3);ctx.lineTo(r*0.9,0);ctx.lineTo(0,r*1.3);ctx.lineTo(-r*0.9,0);
+      ctx.closePath(); break;
+    case "star":
+      for(let i=0;i<10;i++){const a=(i/10)*Math.PI*2-Math.PI/2;const rad=i%2===0?r:r*0.45;i===0?ctx.moveTo(Math.cos(a)*rad,Math.sin(a)*rad):ctx.lineTo(Math.cos(a)*rad,Math.sin(a)*rad);}
+      ctx.closePath(); break;
+    case "hexagon":
+      for(let i=0;i<6;i++){const a=(i/6)*Math.PI*2;i===0?ctx.moveTo(Math.cos(a)*r,Math.sin(a)*r):ctx.lineTo(Math.cos(a)*r,Math.sin(a)*r);}
+      ctx.closePath(); break;
+  }
+  ctx.fill();
+}
+
+function drawWaveform(ctx) {
+  const bars = state.bars;
+  const n = bars.length;
+  const totalW = W*0.7;
+  const barW = totalW/n;
+  const maxH = H*0.08;
+  const baseY = H-14;
+
+  for(let side=-1;side<=1;side+=2) {
+    for(let i=0;i<n/2;i++) {
+      const b = bars[side>0?i:n/2+i];
+      const bH = Math.max(2, b*maxH);
+      const x = side>0 ? CX+(i/(n/2))*(totalW/2) : CX-((i+1)/(n/2))*(totalW/2);
+      const hue = transformHue(layers[0].hue+i*(360/(n/2)), layers[0].palette);
+      const grd = ctx.createLinearGradient(0,baseY-bH,0,baseY);
+      grd.addColorStop(0,`hsla(${hue},100%,75%,0.9)`);
+      grd.addColorStop(1,`hsla(${hue},100%,50%,0.4)`);
+      const bx = x-barW*0.45;
+      const br = barW*0.35;
+      ctx.beginPath(); ctx.roundRect(bx,baseY-bH,barW*0.9,bH,br);
+      ctx.fillStyle = grd; ctx.fill();
+    }
+  }
+}
+
+// ─── BUILD PALETTE BUTTONS ───────────────────────────────────────────────────
+document.querySelectorAll(".palette-row").forEach(row => {
+  const li = +row.dataset.layer;
+  PALETTES.forEach(p => {
+    const btn = document.createElement("button");
+    btn.className = "pal-btn" + (p.name===layers[li].palette?" active":"");
+    btn.textContent = p.label;
+    btn.style.background = `linear-gradient(135deg,${p.colors.join(",")})`;
+    btn.style.color = "#fff";
+    btn.style.textShadow = "0 1px 3px rgba(0,0,0,0.6)";
+    btn.addEventListener("click", () => {
+      layers[li].palette = p.name;
+      row.querySelectorAll(".pal-btn").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+    });
+    row.appendChild(btn);
+  });
+});
+
+// ─── MODE SEGMENTS ───────────────────────────────────────────────────────────
+document.querySelectorAll(".seg-wrap[data-layer]").forEach(wrap => {
+  const li = +wrap.dataset.layer;
+  wrap.querySelectorAll(".seg-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      layers[li].mode = btn.dataset.mode;
+      wrap.querySelectorAll(".seg-btn").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+    });
+  });
+});
+
+// ─── SHAPE BUTTONS ───────────────────────────────────────────────────────────
+document.querySelectorAll(".shape-row[data-layer]").forEach(row => {
+  const li = +row.dataset.layer;
+  row.querySelectorAll(".shape-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      layers[li].shape = btn.dataset.shape;
+      row.querySelectorAll(".shape-btn").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+    });
+  });
+});
+
+// ─── PER-LAYER SLIDERS ──────────────────────────────────────────────────────
+document.querySelectorAll("input[type=range][data-layer]").forEach(sl => {
+  sl.addEventListener("input", () => {
+    layers[+sl.dataset.layer][sl.dataset.prop] = +sl.value;
+  });
+});
+
+// ─── LAYER TOGGLES ──────────────────────────────────────────────────────────
+[0,1,2].forEach(i => {
+  const btn = document.getElementById(`layer${i}-toggle`);
+  btn.addEventListener("click", () => {
+    layers[i].visible = !layers[i].visible;
+    btn.classList.toggle("on", layers[i].visible);
+  });
+});
+
+// ─── GLOBAL SLIDERS ─────────────────────────────────────────────────────────
+document.getElementById("sl-sens").addEventListener("input", e => state.sensitivity=+e.target.value);
+document.getElementById("sl-spin").addEventListener("input", e => state.spin=+e.target.value);
+
+// ─── MIC ─────────────────────────────────────────────────────────────────────
+const micBtn = document.getElementById("mic-btn");
+const bpmDot = document.getElementById("bpm-dot");
+const bpmVal = document.getElementById("bpm-val");
+micBtn.addEventListener("click", () => { state.micActive?stopMic():startMic(); });
+
+// ─── TOAST ───────────────────────────────────────────────────────────────────
+const toastEl = document.getElementById("toast");
+let toastTimer;
+function toast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>toastEl.classList.remove("show"),2500);
+}
+
+// ─── PHOTO ───────────────────────────────────────────────────────────────────
+document.getElementById("photo-btn").addEventListener("click", () => {
+  const tmp = document.createElement("canvas");
+  tmp.width = W; tmp.height = H;
+  const tctx = tmp.getContext("2d");
+  allCanvas.forEach(c => tctx.drawImage(c,0,0));
+  const link = document.createElement("a");
+  link.download = `visualizer-${Date.now()}.png`;
+  link.href = tmp.toDataURL("image/png");
+  link.click();
+  toast("📸 Photo saved!");
+});
+
+// ─── VIDEO RECORDING ─────────────────────────────────────────────────────────
+let mediaRecorder=null, recChunks=[], recStart=0, recInterval=null;
+const recBtn=document.getElementById("record-btn");
+const recTimerEl=document.getElementById("rec-timer");
+const recTimeEl=document.getElementById("rec-time");
+
+recBtn.addEventListener("click", () => {
+  if(mediaRecorder && mediaRecorder.state==="recording") stopRecording();
+  else startRecording();
+});
+
+function startRecording() {
+  recChunks = [];
+  const compCanvas = document.createElement("canvas");
+  compCanvas.width = W; compCanvas.height = H;
+  const compCtx = compCanvas.getContext("2d");
+  const compStream = compCanvas.captureStream(60);
+
+  const compFrame = () => {
+    if(!mediaRecorder || mediaRecorder.state !== "recording") return;
+    compCtx.clearRect(0,0,W,H);
+    allCanvas.forEach(c => compCtx.drawImage(c,0,0));
+    requestAnimationFrame(compFrame);
+  };
+
+  const mimeTypes=["video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm","video/mp4"];
+  const mimeType = mimeTypes.find(t=>MediaRecorder.isTypeSupported(t))||"";
+  mediaRecorder = new MediaRecorder(compStream, mimeType?{mimeType}:{});
+  mediaRecorder.ondataavailable = e => { if(e.data.size>0) recChunks.push(e.data); };
+  mediaRecorder.onstop = saveRecording;
+  mediaRecorder.start(200);
+  recStart = performance.now();
+  recBtn.innerHTML = '<span class="cap-icon">⏹</span> Stop';
+  recBtn.classList.add("recording");
+  recTimerEl.classList.add("show");
+  recInterval = setInterval(updateTimer,500);
+  requestAnimationFrame(compFrame);
+  toast("🔴 Recording started");
+}
+
+function stopRecording() {
+  if(mediaRecorder) mediaRecorder.stop();
+  clearInterval(recInterval);
+  recBtn.innerHTML = '<span class="cap-icon">⏺</span> Record';
+  recBtn.classList.remove("recording");
+  recTimerEl.classList.remove("show");
+}
+
+function updateTimer() {
+  const s=Math.floor((performance.now()-recStart)/1000);
+  const m=Math.floor(s/60);
+  recTimeEl.textContent=`${m}:${String(s%60).padStart(2,"0")}`;
+}
+
+function saveRecording() {
+  const mimeType=mediaRecorder.mimeType||"video/webm";
+  const ext=mimeType.includes("mp4")?"mp4":"webm";
+  const blob=new Blob(recChunks,{type:mimeType});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement("a");
+  link.download=`visualizer-${Date.now()}.${ext}`;
+  link.href=url; link.click();
+  URL.revokeObjectURL(url);
+  toast(`🎬 Recording saved! (${ext.toUpperCase()})`);
+}
+
+// ─── START ───────────────────────────────────────────────────────────────────
+requestAnimationFrame(draw);
+toast("Tap 🎙️ to activate microphone");
+</script>
+</body>
+</html>
