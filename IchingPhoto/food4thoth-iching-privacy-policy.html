@@ -2,98 +2,161 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Privacy Policy — Food4Thoth I Ching Oracle</title>
+<meta name="description" content="Privacy Policy for Food4Thoth I Ching Oracle apps: Food4Thoth I Ching, Food4Thoth I Ching PRO, and ORNATE I Ching ELITE. No accounts, no ads, no analytics, local-only readings, and on-device photo analysis.">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta name="theme-color" content="#0D0D0D">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--gold:#C9A84C;--gold-dim:#9A7A32;--black:#0D0D0D;--dark2:#1A1A1A;--text:#F0E8D8;--muted:#9A8E78;--border:rgba(201,168,76,0.18)}
+:root{
+  --gold:#C9A84C;--gold-light:#E8C97A;--gold-dim:#9A7A32;
+  --black:#0D0D0D;--dark2:#1A1A1A;--dark3:#121212;
+  --text:#F0E8D8;--muted:#9A8E78;--muted2:#6F6556;
+  --border:rgba(201,168,76,0.18);--border-strong:rgba(201,168,76,0.38);
+  --green:#4CAF7D;--purple:#9B72CF;--blue:#7B9EA8;
+}
 html{scroll-behavior:smooth}
-body{background:var(--black);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;line-height:1.7;padding:0 0 80px}
+body{background:var(--black);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;line-height:1.7;padding:0 0 80px;overflow-x:hidden}
+a{color:var(--gold);text-decoration:none;transition:color .2s,border-color .2s,background .2s,transform .2s}
+a:hover{color:var(--gold-light)}
+code{color:var(--gold);font-size:13px;background:rgba(201,168,76,.08);border:1px solid var(--border);border-radius:6px;padding:1px 6px}
 
 /* HEADER */
-.header{background:var(--dark2);border-bottom:1px solid var(--border);padding:40px 24px 32px;text-align:center}
+.header{background:radial-gradient(circle at top,rgba(201,168,76,.08),transparent 55%),var(--dark2);border-bottom:1px solid var(--border);padding:42px 24px 34px;text-align:center}
 .header-symbol{font-size:28px;color:var(--gold);letter-spacing:10px;margin-bottom:16px;display:block}
-.header-title{font-size:clamp(22px,4vw,34px);font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:-0.5px}
+.header-title{font-size:clamp(24px,4vw,38px);font-weight:800;color:var(--gold);margin-bottom:8px;letter-spacing:-0.5px}
 .header-app{font-size:16px;color:var(--muted);margin-bottom:4px}
-.header-date{font-size:13px;color:var(--gold-dim)}
+.header-date{font-size:13px;color:var(--gold-dim);margin-bottom:22px}
+.header-actions{display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;max-width:900px;margin:0 auto}
+.pill-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--border);background:rgba(0,0,0,.2);color:var(--text);padding:10px 15px;border-radius:999px;font-size:13px;font-weight:650;min-height:42px}
+.pill-btn.primary{background:linear-gradient(135deg,var(--gold-light),var(--gold));border-color:var(--gold);color:#0D0D0D}
+.pill-btn:hover{border-color:var(--border-strong);transform:translateY(-1px)}
+.pill-btn.primary:hover{color:#0D0D0D;filter:brightness(1.05)}
 
 /* LAYOUT */
-.page{max-width:780px;margin:0 auto;padding:48px 24px 0}
+.page{max-width:820px;margin:0 auto;padding:48px 24px 0}
 
 /* NAV */
 .toc{background:var(--dark2);border:1px solid var(--border);border-radius:14px;padding:24px 28px;margin-bottom:48px}
-.toc-title{font-size:13px;font-weight:600;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:14px}
+.toc-title{font-size:13px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:14px}
 .toc ol{padding-left:20px;display:flex;flex-direction:column;gap:7px}
-.toc li a{color:var(--muted);text-decoration:none;font-size:14px;transition:color .2s}
+.toc li a{color:var(--muted);font-size:14px}
 .toc li a:hover{color:var(--gold)}
 
 /* SECTIONS */
 .section{margin-bottom:52px;scroll-margin-top:24px}
-.section-num{font-size:11px;font-weight:600;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:6px}
-.section-title{font-size:clamp(18px,2.5vw,24px);font-weight:700;color:var(--gold);margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.section-num{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:6px}
+.section-title{font-size:clamp(18px,2.5vw,24px);font-weight:800;color:var(--gold);margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border)}
 p{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 p:last-child{margin-bottom:0}
-strong{color:var(--text);font-weight:600}
+strong{color:var(--text);font-weight:700}
 
 /* HIGHLIGHT BOXES */
 .box{background:var(--dark2);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin:18px 0}
-.box-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.box-title{font-size:13px;font-weight:800;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .box ul{list-style:none;display:flex;flex-direction:column;gap:8px}
 .box ul li{font-size:14px;color:var(--muted);line-height:1.6;display:flex;gap:10px;align-items:flex-start}
-.box ul li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:7px}
+.box ul li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:8px}
 .box.green{border-color:rgba(76,175,125,0.3)}
-.box.green .box-title{color:#4CAF7D}
-.box.green ul li::before{background:#4CAF7D}
+.box.green .box-title{color:var(--green)}
+.box.green ul li::before{background:var(--green)}
 .box.amber{border-color:rgba(201,168,76,0.35)}
+.box.purple{border-color:rgba(155,114,207,0.32)}
+.box.purple .box-title{color:var(--purple)}
+.box.purple ul li::before{background:var(--purple)}
+
+/* LINK GRIDS */
+.link-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:16px}
+.link-card{display:flex;flex-direction:column;gap:4px;background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:16px;min-height:112px}
+.link-card:hover{border-color:var(--border-strong);background:rgba(201,168,76,.045);transform:translateY(-1px)}
+.link-card .kicker{font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold-dim);font-weight:800}
+.link-card .name{font-size:15px;color:var(--text);font-weight:800;line-height:1.35}
+.link-card .meta{font-size:12px;color:var(--muted2);line-height:1.5}
 
 /* CONTACT */
 .contact-box{background:var(--dark2);border:1px solid var(--border);border-radius:14px;padding:28px;text-align:center;margin-top:20px}
-.contact-title{font-size:18px;font-weight:700;color:var(--gold);margin-bottom:8px}
-.contact-body{font-size:14px;color:var(--muted);line-height:1.7}
-.contact-body a{color:var(--gold);text-decoration:none}
+.contact-title{font-size:18px;font-weight:800;color:var(--gold);margin-bottom:8px}
+.contact-body{font-size:14px;color:var(--muted);line-height:1.8}
+.contact-body a{font-weight:700}
 
 /* FOOTER */
 footer{border-top:1px solid var(--border);margin-top:64px;padding:32px 24px;text-align:center}
 .footer-syms{font-size:16px;color:var(--gold);letter-spacing:8px;margin-bottom:12px;opacity:.5}
+.footer-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:0 auto 18px;max-width:900px}
+.footer-links a{font-size:12px;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.02)}
+.footer-links a:hover{color:var(--gold);border-color:var(--border-strong)}
 .footer-copy{font-size:12px;color:var(--gold-dim);line-height:1.8}
+
+@media(max-width:620px){
+  .header{padding:32px 18px 28px}.header-symbol{font-size:22px;letter-spacing:5px}.page{padding:36px 18px 0}.toc{padding:20px}.box{padding:18px}.pill-btn{width:100%;max-width:360px}.link-grid{grid-template-columns:1fr}.footer-links a{width:100%;max-width:340px}
+}
 </style>
 </head>
 <body>
 
-<div class="header">
+<header class="header">
   <span class="header-symbol">&#9776; &#9783; &#9779; &#9780; &#9781; &#9778; &#9782; &#9777;</span>
   <h1 class="header-title">Privacy Policy</h1>
-  <p class="header-app">Food4Thoth I Ching Oracle — All Editions (Lite, PRO, Ornate Elite)</p>
-  <p class="header-date">Effective Date: March 19, 2026</p>
-</div>
+  <p class="header-app">Food4Thoth I Ching Oracle — Apple App Store Editions</p>
+  <p class="header-date">Effective Date: June 18, 2026</p>
+  <nav class="header-actions" aria-label="Important links">
+    <a class="pill-btn primary" href="./food4thoth-iching-marketing.html">← Back to Marketing Page</a>
+    <a class="pill-btn" href="https://www.food4thoth.com" target="_blank" rel="noopener">🌐 Main Site</a>
+    <a class="pill-btn" href="mailto:food4thoth@proton.me">✉ food4thoth@proton.me</a>
+    <a class="pill-btn" href="https://apps.apple.com/us/app/id6760737376" target="_blank" rel="noopener">Lite App Store</a>
+    <a class="pill-btn" href="https://apps.apple.com/us/app/id6760805901" target="_blank" rel="noopener">PRO App Store</a>
+    <a class="pill-btn" href="https://apps.apple.com/us/app/id6760729148" target="_blank" rel="noopener">ELITE App Store</a>
+  </nav>
+</header>
 
-<div class="page">
+<main class="page">
 
   <!-- INTRO -->
-  <div class="section">
+  <section class="section" aria-label="Introduction">
     <p>
       This Privacy Policy describes how the <strong>Food4Thoth I Ching Oracle</strong> apps
-      — including the <strong>Lite</strong>, <strong>PRO</strong>, and <strong>Ornate Elite</strong> editions
-      (collectively, the &ldquo;App&rdquo;) — developed and operated by
-      <strong>Food4Thoth / Artabillies</strong>
-      (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;), handle your information.
+      — including <strong>Food4Thoth I Ching</strong>, <strong>Food4Thoth I Ching PRO</strong>, and
+      <strong>ORNATE I Ching ELITE</strong> (collectively, the &ldquo;App&rdquo;) — developed and operated by
+      <strong>Food4Thoth / Artabillies</strong> (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;), handle your information.
       We are committed to protecting your privacy and being fully transparent about our data practices.
     </p>
     <div class="box green">
       <div class="box-title">&#10003; &nbsp;Our Core Commitment</div>
       <ul>
-        <li>We do <strong>not</strong> collect, transmit, or store any personal data on our servers.</li>
-        <li>All readings and preferences are stored <strong>locally on your device only</strong>.</li>
-        <li>We do <strong>not</strong> require account registration or login.</li>
-        <li>We do <strong>not</strong> use third-party analytics or advertising SDKs.</li>
-        <li>Your photos are analyzed on-device and <strong>never uploaded</strong> anywhere.</li>
-        <li>The App is a <strong>one-time purchase</strong> with no subscriptions or recurring charges.</li>
+        <li>We do <strong>not</strong> collect, transmit, sell, rent, or store any personal data on our servers.</li>
+        <li>All saved readings, preferences, and journal data are stored <strong>locally on your device only</strong>.</li>
+        <li>We do <strong>not</strong> require account registration, login, email signup, or cloud sync.</li>
+        <li>We do <strong>not</strong> use third-party analytics, advertising SDKs, tracking pixels, or social login services.</li>
+        <li>Photo Oracle images are analyzed on-device and <strong>never uploaded</strong> anywhere by us.</li>
+        <li>The App Store editions are <strong>one-time purchases</strong> with no subscriptions or recurring charges.</li>
       </ul>
     </div>
-  </div>
+
+    <div class="box amber">
+      <div class="box-title">Official App Store Editions</div>
+      <div class="link-grid">
+        <a class="link-card" href="https://apps.apple.com/us/app/id6760737376" target="_blank" rel="noopener">
+          <span class="kicker">Apple ID 6760737376</span>
+          <span class="name">Food4Thoth I Ching</span>
+          <span class="meta">Bundle ID: com.food4thoth.iching<br>SKU: EX1773800560481</span>
+        </a>
+        <a class="link-card" href="https://apps.apple.com/us/app/id6760805901" target="_blank" rel="noopener">
+          <span class="kicker">Apple ID 6760805901</span>
+          <span class="name">Food4Thoth I Ching PRO</span>
+          <span class="meta">Bundle ID: com.food4thoth.ichingpro<br>SKU: ICHINGPRO2026</span>
+        </a>
+        <a class="link-card" href="https://apps.apple.com/us/app/id6760729148" target="_blank" rel="noopener">
+          <span class="kicker">Apple ID 6760729148</span>
+          <span class="name">ORNATE I Ching ELITE</span>
+          <span class="meta">Bundle ID: app.replit.food4thothiching<br>SKU: EX1773772034670</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- TOC -->
-  <div class="toc">
+  <nav class="toc" aria-label="Privacy Policy contents">
     <div class="toc-title">Contents</div>
     <ol>
       <li><a href="#s1">Information We Collect</a></li>
@@ -106,290 +169,328 @@ footer{border-top:1px solid var(--border);margin-top:64px;padding:32px 24px;text
       <li><a href="#s8">Data Security</a></li>
       <li><a href="#s9">Your Rights &amp; Choices</a></li>
       <li><a href="#s10">Changes to This Policy</a></li>
-      <li><a href="#s11">Contact Us</a></li>
+      <li><a href="#s11">Official Links</a></li>
+      <li><a href="#s12">Contact Us</a></li>
     </ol>
-  </div>
+  </nav>
 
   <!-- SECTION 1 -->
-  <div class="section" id="s1">
+  <section class="section" id="s1">
     <div class="section-num">Section 01</div>
     <h2 class="section-title">Information We Collect</h2>
     <p>
-      The App is designed with privacy as a default. We collect <strong>no personally
-      identifiable information</strong> (PII). Below is a complete summary of what
-      the App does and does not access:
+      The App is designed with privacy as the default. We collect <strong>no personally
+      identifiable information</strong> from within the App. Below is a complete summary of what
+      the App does and does not access.
     </p>
     <div class="box amber">
       <div class="box-title">&#128274;&nbsp; Data That Stays On Your Device</div>
       <ul>
-        <li><strong>Saved readings</strong> &mdash; Hexagram results you choose to save are stored in your device&rsquo;s local storage. This data never leaves your device.</li>
-        <li><strong>App preferences</strong> &mdash; Settings such as animation mode, sound toggle, and notification time are saved locally and are never transmitted.</li>
-        <li><strong>Photo data</strong> &mdash; If you use the Photo Oracle feature, the selected image is analyzed entirely on-device. No image data, pixel data, or metadata is sent to any server.</li>
-        <li><strong>Exported images</strong> &mdash; When you export a reading as an image, it is saved directly to your device&rsquo;s Photos library. We do not receive or store a copy.</li>
+        <li><strong>Saved readings</strong> &mdash; Hexagram results you choose to save are stored in your device&rsquo;s local storage. This data never leaves your device through our systems.</li>
+        <li><strong>App preferences</strong> &mdash; Settings such as animation mode, sound toggle, theme, onboarding state, and notification time are saved locally and are never transmitted to us.</li>
+        <li><strong>Photo data</strong> &mdash; If you use the Photo Oracle feature, the selected image is analyzed entirely on-device. No image data, pixel data, or metadata is sent to any server by us.</li>
+        <li><strong>Exported images or PDFs</strong> &mdash; When you export a reading, it is created locally and saved or shared using your device&rsquo;s normal system share tools. We do not receive or store a copy.</li>
       </ul>
     </div>
     <div class="box">
       <div class="box-title">&#10060;&nbsp; Data We Do NOT Collect</div>
       <ul>
-        <li>Name, email address, or any contact information</li>
-        <li>Device identifiers, advertising IDs, or IP addresses</li>
-        <li>Location data</li>
-        <li>Biometric data</li>
-        <li>Purchase history or financial information</li>
-        <li>Usage analytics, crash reports, or behavioral tracking</li>
-        <li>Any data synced to external servers or cloud services</li>
+        <li>Name, email address, phone number, or contact information</li>
+        <li>Device identifiers, advertising IDs, IP addresses, or precise location data</li>
+        <li>Biometric data, health data, contacts, calendars, messages, or microphone recordings</li>
+        <li>Payment card numbers or financial information</li>
+        <li>Usage analytics, behavioral tracking, session recordings, or advertising profiles</li>
+        <li>Photos, camera footage, reading questions, saved readings, notes, or journal exports</li>
+        <li>Any data synced to external servers owned or operated by us</li>
       </ul>
     </div>
-  </div>
+  </section>
 
   <!-- SECTION 2 -->
-  <div class="section" id="s2">
+  <section class="section" id="s2">
     <div class="section-num">Section 02</div>
     <h2 class="section-title">How We Use Information</h2>
     <p>
-      Since we do not collect personal information, there is no personal data for us
-      to use, share, sell, or process. The App operates entirely offline for all
-      core divination and storage functions.
+      Since we do not collect personal information from within the App, there is no personal data for us
+      to use, share, sell, rent, analyze, or process on our servers. The App operates locally for core
+      divination, journal, export, and preference functions.
     </p>
     <p>
-      The only &ldquo;processing&rdquo; that occurs is purely local: your photo or
-      fractal drawing is analyzed on your device to generate a hexagram value, and
-      that result may be saved to your device&rsquo;s local storage if you choose
-      to save your reading. Neither the input nor the output is transmitted anywhere.
+      The only processing that occurs is local to your device: a coin toss, manual selection, fractal drawing,
+      yarrow-style process, or selected photo is transformed into an I Ching hexagram. If you choose to save
+      the result, the saved reading remains in your device&rsquo;s local App storage unless you delete it.
     </p>
-  </div>
+  </section>
 
   <!-- SECTION 3 -->
-  <div class="section" id="s3">
+  <section class="section" id="s3">
     <div class="section-num">Section 03</div>
     <h2 class="section-title">Photo, Camera &amp; Media Access</h2>
     <p>
-      The App may request access to your <strong>Photo Library</strong>, <strong>Camera</strong>,
-      and <strong>Media Library</strong> for the following specific purposes:
+      Some editions include a Photo Oracle and export features. Where available, the App may request access to your
+      <strong>Photo Library</strong>, <strong>Camera</strong>, or permission to <strong>save media</strong> for the following specific purposes.
     </p>
     <div class="box green">
       <div class="box-title">Photo Library — Photo Oracle Feature</div>
       <ul>
-        <li>You select a photo from your library using the system photo picker.</li>
-        <li>The App reads the image&rsquo;s color data entirely within your device&rsquo;s memory.</li>
-        <li>A hexagram value is calculated from the color composition on-device.</li>
-        <li>The photo is <strong>not saved</strong> by the App and is <strong>not transmitted</strong> to any server.</li>
-        <li>The App does <strong>not</strong> have access to your entire photo library &mdash; only the specific image you select.</li>
+        <li>You select a photo from your library using Apple&rsquo;s system photo picker or photo permission flow.</li>
+        <li>The App reads the selected image&rsquo;s color data entirely within your device&rsquo;s memory.</li>
+        <li>A hexagram value is calculated from the image composition on-device.</li>
+        <li>The photo is <strong>not saved</strong> by the App as a separate upload and is <strong>not transmitted</strong> to any server by us.</li>
+        <li>The App only uses the image you select for the reading action you initiate.</li>
       </ul>
     </div>
     <div class="box green">
-      <div class="box-title">Camera — Photo Oracle Feature</div>
+      <div class="box-title">Camera — Optional Photo Oracle Capture</div>
       <ul>
         <li>If you choose to take a new photo directly within the App, camera access is requested at that moment.</li>
-        <li>The captured image is analyzed on-device in the same manner as a library photo.</li>
-        <li>No camera footage is recorded, streamed, or transmitted.</li>
+        <li>The captured image is analyzed on-device in the same manner as a selected library photo.</li>
+        <li>No camera footage is recorded in the background, streamed, or transmitted by us.</li>
       </ul>
     </div>
     <div class="box green">
-      <div class="box-title">Media Library (Photos) — Reading Export Feature</div>
+      <div class="box-title">Photos / Media Saving — Reading Export Feature</div>
       <ul>
-        <li>When you export a reading as a styled image, the App requests permission to save the file to your Photos library.</li>
-        <li>Only the specific exported image is saved. The App cannot read from or browse your Photos library for this purpose.</li>
-        <li>No export data is transmitted to any server.</li>
+        <li>When you export a reading as a styled image or PDF, the App may request permission to save that file to your device.</li>
+        <li>Only the specific export you create is saved or shared through your device&rsquo;s system tools.</li>
+        <li>No exported reading image, PDF, or journal file is transmitted to any server by us.</li>
       </ul>
     </div>
     <p>
-      You may revoke any of these permissions at any time in your device&rsquo;s
-      Settings &rarr; Privacy. Revoking photo or camera access disables the Photo
-      Oracle feature. Revoking media library access disables the reading export
-      feature. No other App functionality is affected.
+      You may revoke these permissions at any time in iOS Settings. Revoking photo or camera access disables photo-based readings.
+      Revoking media saving access may disable saving exports to Photos. Other oracle methods continue to work.
     </p>
-  </div>
+  </section>
 
   <!-- SECTION 4 -->
-  <div class="section" id="s4">
+  <section class="section" id="s4">
     <div class="section-num">Section 04</div>
     <h2 class="section-title">Notifications</h2>
     <p>
-      In the <strong>PRO</strong> and <strong>Ornate Elite</strong> editions, the App can send you
-      a <strong>daily hexagram notification</strong> — a push notification containing the hexagram
-      of the day, its name, and its Judgement text. This feature is entirely optional.
+      In supported editions, the App can send an optional <strong>daily hexagram notification</strong>. This feature is off unless you choose to enable it and grant iOS notification permission.
     </p>
     <div class="box amber">
       <div class="box-title">&#128276;&nbsp; How Notifications Work</div>
       <ul>
-        <li>Notifications are <strong>scheduled locally on your device</strong>. No notification content is sent to or from a server.</li>
-        <li>The App requests system notification permission only when you enable daily reminders in the Guide tab.</li>
-        <li>You set the delivery time yourself. No notification data, delivery receipts, or open rates are collected by us.</li>
-        <li>You can disable notifications at any time in the App&rsquo;s Guide tab or in your device&rsquo;s Settings &rarr; Notifications.</li>
+        <li>Notifications are <strong>scheduled locally on your device</strong>. No notification content is sent to or from our servers.</li>
+        <li>The App requests system notification permission only when you enable reminders.</li>
+        <li>You choose the reminder time. We do not collect notification delivery data, open rates, or engagement data.</li>
+        <li>You can disable notifications in the App settings area or in iOS Settings &rarr; Notifications.</li>
       </ul>
     </div>
-  </div>
+  </section>
 
   <!-- SECTION 5 -->
-  <div class="section" id="s5">
+  <section class="section" id="s5">
     <div class="section-num">Section 05</div>
     <h2 class="section-title">Local Data Storage</h2>
     <p>
-      The App uses <strong>AsyncStorage</strong> (a standard local device storage
-      mechanism) to save:
+      The App may use standard local device storage to save your readings and preferences.
     </p>
     <div class="box">
       <div class="box-title">&#128190;&nbsp; What Is Stored Locally</div>
       <ul>
-        <li>Your saved I Ching readings (hexagram number, method used, timestamp, and interpretation)</li>
-        <li>App preferences (animation mode, sound enabled/disabled, notification time)</li>
-        <li>Onboarding completion status</li>
-        <li>Reading count (used only locally to trigger the in-app review prompt after 3 readings)</li>
+        <li>Your saved I Ching readings, including hexagram number, method used, timestamp, transformation data, and interpretation text</li>
+        <li>Optional notes or journal details you choose to save, if available in your edition</li>
+        <li>App preferences such as theme, animation mode, sound enabled/disabled, notification time, and onboarding completion status</li>
+        <li>Reading count or similar local-only state used for features such as prompts or in-app display logic</li>
       </ul>
     </div>
     <p>
-      This data is stored using the key prefix <code style="color:var(--gold);font-size:13px">iching_</code>
-      in your device&rsquo;s local storage. It is never synced to the cloud,
-      never backed up to our servers, and is permanently deleted when you
-      uninstall the App or use the &ldquo;Clear Readings&rdquo; function within the App.
+      Locally stored App data is never synced to our servers and is deleted when you uninstall the App or use any built-in clear/delete reading controls.
     </p>
     <p>
-      Standard device backups (e.g., iCloud on iOS or Google Drive on Android) may
-      include locally stored App data as part of device-level backup. This is
-      controlled entirely by your device&rsquo;s backup settings and your chosen
-      cloud provider &mdash; not by us.
+      Standard Apple device backups, such as iCloud Backup, may include locally stored App data as part of your device-level backup depending on your iOS settings. This is controlled by your Apple/iCloud settings, not by Food4Thoth.
     </p>
-  </div>
+  </section>
 
   <!-- SECTION 6 -->
-  <div class="section" id="s6">
+  <section class="section" id="s6">
     <div class="section-num">Section 06</div>
     <h2 class="section-title">Third-Party Services</h2>
     <p>
-      All fractal generation, coin toss simulations, divination logic, sound synthesis,
-      and yarrow stalk animation frames run <strong>entirely on-device</strong> using
-      self-contained code and locally bundled assets. The App makes <strong>no network
-      requests</strong> during normal use and functions fully without an internet connection.
+      Core divination logic, fractal generation, coin toss simulations, yarrow-style animation, sound effects,
+      journal display, and exports are designed to run locally using bundled app code and on-device functionality.
     </p>
     <p>
-      The in-app review prompt (available in PRO and Ornate Elite after 3 saved readings)
-      uses the platform&rsquo;s native review API (Apple App Store on iOS, Google Play on
-      Android). This interaction is handled entirely by the operating system. We do not
-      receive, store, or have access to any review content you submit.
+      App purchase, download, refund, and review systems are handled by <strong>Apple</strong> through the App Store and iOS. We do not receive your payment card information, and we do not control Apple&rsquo;s App Store account, purchase, or review systems.
     </p>
     <div class="box">
-      <div class="box-title">&#10060;&nbsp; Third-Party Services We Do NOT Use</div>
+      <div class="box-title">&#10060;&nbsp; Third-Party Services We Do NOT Use Inside the App</div>
       <ul>
-        <li>Analytics platforms (e.g., Firebase Analytics, Mixpanel, Amplitude)</li>
-        <li>Advertising networks or SDKs</li>
-        <li>Social media SDKs or login services</li>
-        <li>Crash reporting services (e.g., Sentry, Crashlytics)</li>
-        <li>Content delivery networks (CDNs) or remote asset hosts</li>
-        <li>Subscription billing or payment processors (all editions are one-time purchases)</li>
+        <li>Advertising networks or ad SDKs</li>
+        <li>Third-party analytics platforms such as Firebase Analytics, Mixpanel, or Amplitude</li>
+        <li>Social media SDKs, tracking pixels, or social login services</li>
+        <li>Third-party crash reporting services such as Crashlytics or Sentry</li>
+        <li>Subscription billing systems or recurring payment processors inside the App</li>
       </ul>
     </div>
-  </div>
+  </section>
 
   <!-- SECTION 7 -->
-  <div class="section" id="s7">
+  <section class="section" id="s7">
     <div class="section-num">Section 07</div>
     <h2 class="section-title">Children&rsquo;s Privacy</h2>
     <p>
-      The App is not directed at children under the age of 13 (or 16 in certain
-      jurisdictions). We do not knowingly collect any information from children.
-      Since the App collects no personal information from any user, there is no
-      mechanism by which we could inadvertently collect data from minors.
+      The App is not directed at children under the age of 13. We do not knowingly collect any information from children.
+      Since the App does not collect personal information from any user through our systems, there is no mechanism by which we collect personal data from minors.
     </p>
     <p>
-      If you are a parent or guardian and believe your child has used the App,
-      please be assured that no personal data has been collected or transmitted.
+      If you are a parent or guardian and believe your child has used the App, please be assured that no personal data has been collected or transmitted to us by the App.
     </p>
-  </div>
+  </section>
 
   <!-- SECTION 8 -->
-  <div class="section" id="s8">
+  <section class="section" id="s8">
     <div class="section-num">Section 08</div>
     <h2 class="section-title">Data Security</h2>
     <p>
-      Because all data remains on your device and we transmit nothing to external
-      servers, the primary security of your reading history and preferences is
-      provided by your device&rsquo;s own security mechanisms (passcode, Face ID,
-      fingerprint lock, etc.).
+      Because readings and preferences remain on your device and are not transmitted to our servers, the primary security of your data is provided by your device&rsquo;s own protections, such as passcode, Face ID, Touch ID, and iOS app sandboxing.
     </p>
     <p>
-      We encourage you to keep your device software up to date and use a device
-      passcode or biometric lock to protect the data stored by all your apps,
-      including this one.
+      We encourage you to keep iOS updated and use a secure device passcode or biometric lock to protect data stored by all apps, including this one.
     </p>
-  </div>
+  </section>
 
   <!-- SECTION 9 -->
-  <div class="section" id="s9">
+  <section class="section" id="s9">
     <div class="section-num">Section 09</div>
     <h2 class="section-title">Your Rights &amp; Choices</h2>
-    <p>You have full control over all data associated with the App:</p>
+    <p>You have control over the data associated with the App on your device.</p>
     <div class="box green">
       <div class="box-title">Your Controls</div>
       <ul>
-        <li><strong>View your readings</strong> &mdash; All saved readings are visible in the Readings tab at any time.</li>
-        <li><strong>Delete individual readings</strong> &mdash; Tap the delete button on any saved reading in the Readings tab.</li>
-        <li><strong>Clear all readings</strong> &mdash; Use &ldquo;Clear All&rdquo; in the Readings tab to permanently delete all stored readings from your device.</li>
-        <li><strong>Revoke photo or camera access</strong> &mdash; Remove permission at any time in your device&rsquo;s Settings app.</li>
-        <li><strong>Disable notifications</strong> &mdash; Turn off daily reminders in the Guide tab or in your device&rsquo;s Settings &rarr; Notifications.</li>
-        <li><strong>Delete all App data</strong> &mdash; Uninstalling the App removes all locally stored data permanently.</li>
+        <li><strong>View your readings</strong> &mdash; Saved readings are visible inside the App wherever the journal/history feature is provided.</li>
+        <li><strong>Delete individual readings</strong> &mdash; Use the App&rsquo;s delete controls, if provided by your edition.</li>
+        <li><strong>Clear all readings</strong> &mdash; Use the App&rsquo;s clear history controls, if provided, to delete locally stored readings from your device.</li>
+        <li><strong>Revoke photo or camera access</strong> &mdash; Remove permission at any time in iOS Settings.</li>
+        <li><strong>Disable notifications</strong> &mdash; Turn off reminders in the App or in iOS Settings &rarr; Notifications.</li>
+        <li><strong>Delete all App data</strong> &mdash; Uninstalling the App removes its local data from your device, subject to any Apple/iCloud backup settings you control.</li>
       </ul>
     </div>
     <p>
-      <strong>California Residents (CCPA):</strong> Because we collect no personal
-      information, the California Consumer Privacy Act rights to access, delete,
-      or opt-out of sale of personal information are satisfied by default &mdash;
-      there is nothing to access, delete beyond what you can already control, or sell.
+      <strong>California Residents:</strong> We do not sell or share personal information because we do not collect personal information through the App. Any local readings or preferences can be managed directly on your device.
     </p>
     <p>
-      <strong>EU / EEA Residents (GDPR):</strong> Because we collect no personal data,
-      GDPR obligations regarding data subject rights, lawful basis for processing,
-      and data transfers do not apply to our operations. Your data never leaves your device.
+      <strong>EU / EEA / UK Residents:</strong> We do not operate an external personal-data database for App users. The App&rsquo;s reading history and preferences remain on your device and can be deleted locally by you.
     </p>
-  </div>
+  </section>
 
   <!-- SECTION 10 -->
-  <div class="section" id="s10">
+  <section class="section" id="s10">
     <div class="section-num">Section 10</div>
     <h2 class="section-title">Changes to This Policy</h2>
     <p>
-      We may update this Privacy Policy from time to time. Any changes will be
-      reflected by updating the &ldquo;Effective Date&rdquo; at the top of this page.
-      For significant changes, we will provide notice through an App update.
+      We may update this Privacy Policy from time to time. Any changes will be reflected by updating the Effective Date at the top of this page.
     </p>
     <p>
-      Continued use of the App after any changes constitutes your acceptance of
-      the updated Privacy Policy. We encourage you to review this page periodically.
+      Continued use of the App after any changes constitutes your acceptance of the updated Privacy Policy. We encourage you to review this page periodically.
     </p>
     <p>
-      The most current version of this Privacy Policy is always available at
-      the URL provided in the App Store listing and within the App&rsquo;s
-      Guide &amp; About section.
+      The most current version of this Privacy Policy is available from the App Store listing and on the Food4Thoth website.
     </p>
-  </div>
+  </section>
 
   <!-- SECTION 11 -->
-  <div class="section" id="s11">
+  <section class="section" id="s11">
     <div class="section-num">Section 11</div>
+    <h2 class="section-title">Official Links</h2>
+    <p>
+      These are the official Food4Thoth I Ching Oracle links for the App Store editions and related web versions.
+    </p>
+    <div class="box purple">
+      <div class="box-title">Apple App Store</div>
+      <div class="link-grid">
+        <a class="link-card" href="https://apps.apple.com/us/app/id6760737376" target="_blank" rel="noopener">
+          <span class="kicker">Lite / Essential</span>
+          <span class="name">Food4Thoth I Ching</span>
+          <span class="meta">Apple ID 6760737376</span>
+        </a>
+        <a class="link-card" href="https://apps.apple.com/us/app/id6760805901" target="_blank" rel="noopener">
+          <span class="kicker">PRO</span>
+          <span class="name">Food4Thoth I Ching PRO</span>
+          <span class="meta">Apple ID 6760805901</span>
+        </a>
+        <a class="link-card" href="https://apps.apple.com/us/app/id6760729148" target="_blank" rel="noopener">
+          <span class="kicker">Elite</span>
+          <span class="name">ORNATE I Ching ELITE</span>
+          <span class="meta">Apple ID 6760729148</span>
+        </a>
+      </div>
+    </div>
+    <div class="box amber">
+      <div class="box-title">Food4Thoth Web Pages</div>
+      <div class="link-grid">
+        <a class="link-card" href="./food4thoth-iching-marketing.html">
+          <span class="kicker">Marketing Page</span>
+          <span class="name">I Ching Oracle App Editions</span>
+          <span class="meta">Return to the Apple app marketing page</span>
+        </a>
+        <a class="link-card" href="https://www.food4thoth.com/IchingPhoto/" target="_blank" rel="noopener">
+          <span class="kicker">Full Web Version</span>
+          <span class="name">I Ching Photo Oracle</span>
+          <span class="meta">Full-feature web version</span>
+        </a>
+        <a class="link-card" href="https://www.food4thoth.com/IchingPhoto/oracle-sonic-unified" target="_blank" rel="noopener">
+          <span class="kicker">Unified Web App</span>
+          <span class="name">Oracle Sonic Unified</span>
+          <span class="meta">New web app matching the Apple app experience</span>
+        </a>
+        <a class="link-card" href="https://www.food4thoth.com/IchingFractal/index.html" target="_blank" rel="noopener">
+          <span class="kicker">Fractal Web Version</span>
+          <span class="name">I Ching Fractal Oracle</span>
+          <span class="meta">Fractal oracle without photo features</span>
+        </a>
+        <a class="link-card" href="https://www.food4thoth.com/Iching/index.html" target="_blank" rel="noopener">
+          <span class="kicker">Simple Web Version</span>
+          <span class="name">I Ching Simple Oracle</span>
+          <span class="meta">Simple edition without fractal or photo features</span>
+        </a>
+        <a class="link-card" href="https://www.food4thoth.com" target="_blank" rel="noopener">
+          <span class="kicker">Main Site</span>
+          <span class="name">Food4Thoth.com</span>
+          <span class="meta">Main Food4Thoth web portal</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 12 -->
+  <section class="section" id="s12">
+    <div class="section-num">Section 12</div>
     <h2 class="section-title">Contact Us</h2>
     <p>
-      If you have any questions, concerns, or requests regarding this Privacy Policy
-      or the App&rsquo;s data practices, please contact us:
+      If you have any questions, concerns, or requests regarding this Privacy Policy or the App&rsquo;s data practices, please contact us.
     </p>
     <div class="contact-box">
       <div class="contact-title">Food4Thoth / Artabillies</div>
       <div class="contact-body">
-        Website: <a href="https://food4thoth.com" target="_blank" rel="noopener">food4thoth.com</a><br>
-        Apps: Food4Thoth I Ching Oracle (Lite &middot; PRO &middot; Ornate Elite)<br>
-        Bundle ID: com.food4thoth.ichingpro<br><br>
-        We aim to respond to all privacy inquiries within 30 days.
+        Email: <a href="mailto:food4thoth@proton.me">food4thoth@proton.me</a><br>
+        Website: <a href="https://www.food4thoth.com" target="_blank" rel="noopener">www.food4thoth.com</a><br>
+        Marketing Page: <a href="./food4thoth-iching-marketing.html">food4thoth-iching-marketing.html</a><br><br>
+        Apps: Food4Thoth I Ching &middot; Food4Thoth I Ching PRO &middot; ORNATE I Ching ELITE<br>
+        Apple IDs: 6760737376 &middot; 6760805901 &middot; 6760729148<br><br>
+        We aim to respond to privacy inquiries within 30 days.
       </div>
     </div>
-  </div>
+  </section>
 
-</div>
+</main>
 
 <footer>
   <div class="footer-syms">&#9776; &#9783; &#9779; &#9780; &#9781; &#9778; &#9782; &#9777;</div>
+  <nav class="footer-links" aria-label="Footer links">
+    <a href="./food4thoth-iching-marketing.html">Marketing Page</a>
+    <a href="https://www.food4thoth.com" target="_blank" rel="noopener">Food4Thoth.com</a>
+    <a href="mailto:food4thoth@proton.me">Email Support</a>
+    <a href="https://apps.apple.com/us/app/id6760737376" target="_blank" rel="noopener">Lite App</a>
+    <a href="https://apps.apple.com/us/app/id6760805901" target="_blank" rel="noopener">PRO App</a>
+    <a href="https://apps.apple.com/us/app/id6760729148" target="_blank" rel="noopener">ELITE App</a>
+  </nav>
   <p class="footer-copy">
     &copy; 2026 Food4Thoth &middot; All rights reserved<br>
-    Food4Thoth &middot; Designed &amp; curated by DeJahn<br>
-    This Privacy Policy was last updated on March 19, 2026.
+    Food4Thoth &middot; Artabillies &middot; Designed &amp; curated by DeJahn<br>
+    This Privacy Policy was last updated on June 18, 2026.
   </p>
 </footer>
 
