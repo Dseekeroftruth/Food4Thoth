@@ -1,316 +1,843 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy — TVDJ</title>
-  <meta name="description" content="Privacy Policy for TVDJ — Video & Audio DJ app for iPhone.">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Privacy Policy — TVDJ | FOOD4THOTH</title>
+  <meta name="description" content="Privacy Policy for TVDJ — Video & Audio DJ app for iPhone by DeJahn Bell / FOOD4THOTH. TVDJ is designed to be privacy-first, offline-friendly, and does not collect personal data." />
+  <meta name="keywords" content="TVDJ privacy policy, TVDJ app, Food4Thoth, DeJahn Bell, iPhone video DJ app, audio DJ app privacy" />
+  <meta name="author" content="DeJahn Bell / FOOD4THOTH" />
+  <meta name="theme-color" content="#0A0A0F" />
+  <meta name="application-name" content="TVDJ" />
+  <meta name="apple-mobile-web-app-title" content="TVDJ" />
+  <meta name="apple-itunes-app" content="app-id=6760279297" />
+
+  <!-- App identifiers -->
+  <meta name="tvdj-apple-id" content="6760279297" />
+  <meta name="tvdj-bundle-id" content="app.replit.tvdj" />
+  <meta name="tvdj-sku" content="EX1773031246563" />
+
+  <link rel="canonical" href="https://www.food4thoth.com/TVDJ/tvdj-privacy-policy.html" />
+
+  <meta property="og:title" content="Privacy Policy — TVDJ" />
+  <meta property="og:description" content="TVDJ is designed to respect your privacy by keeping your creative content on your own device." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.food4thoth.com/TVDJ/tvdj-privacy-policy.html" />
+  <meta property="og:site_name" content="FOOD4THOTH" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Privacy Policy — TVDJ" />
+  <meta name="twitter:description" content="Privacy Policy for TVDJ — Video & Audio DJ app for iPhone." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --pink: #FF0066;
-      --cyan: #00FFCC;
-      --bg: #0A0A0F;
-      --bg2: #111118;
-      --bg3: #1A1A24;
-      --bg4: #252530;
-      --text: #FFFFFF;
-      --text2: #AAAACC;
-      --font: 'Montserrat', sans-serif;
-    }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.75; }
 
-    /* ── NAV ── */
-    nav {
-      position: sticky; top: 0; z-index: 50;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 40px;
-      background: rgba(10,10,15,.9);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,.06);
+    :root {
+      --pink: #ff0066;
+      --cyan: #00ffcc;
+      --green: #00ff88;
+      --orange: #ff9900;
+      --purple: #cc00ff;
+      --bg: #0a0a0f;
+      --bg2: #111118;
+      --bg3: #1a1a24;
+      --bg4: #252530;
+      --text: #ffffff;
+      --text2: #aaaacc;
+      --text3: #74748f;
+      --line: rgba(255,255,255,.075);
+      --font: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
-    .nav-logo { font-size: 20px; font-weight: 900; letter-spacing: 4px; color: var(--pink); text-decoration: none; }
-    .nav-back { color: var(--text2); text-decoration: none; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; transition: color .2s; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background:
+        radial-gradient(circle at 15% 0%, rgba(255,0,102,.14), transparent 33%),
+        radial-gradient(circle at 85% 12%, rgba(0,255,204,.10), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(204,0,255,.11), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    a { color: var(--pink); font-weight: 700; text-decoration: none; }
+    a:hover { color: var(--cyan); }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px clamp(18px, 4vw, 40px);
+      background: rgba(10,10,15,.91);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--pink);
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      white-space: nowrap;
+    }
+
+    .nav-logo-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 13px;
+      letter-spacing: 0;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      box-shadow: 0 0 24px rgba(255,0,102,.32);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link,
+    .nav-back {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: color .2s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .nav-link:hover,
     .nav-back:hover { color: var(--text); }
     .nav-back svg { width: 16px; height: 16px; }
-    @media (max-width: 600px) { nav { padding: 14px 20px; } }
 
-    /* ── HERO ── */
-    .hero {
-      text-align: center; padding: 80px 20px 60px;
-      border-bottom: 1px solid rgba(255,255,255,.06);
-      position: relative; overflow: hidden;
+    .nav-cta {
+      padding: 8px 13px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--pink);
+      box-shadow: 0 10px 30px rgba(255,0,102,.26);
     }
+
+    .nav-cta:hover { color: #fff; background: #ff2c7f; }
+
+    @media (max-width: 760px) {
+      nav { align-items: flex-start; flex-direction: column; }
+      .nav-links { justify-content: flex-start; gap: 13px; }
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 82px 20px 60px;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+
     .hero::before {
-      content: ''; position: absolute; width: 500px; height: 500px;
-      background: var(--pink); border-radius: 50%;
-      filter: blur(140px); opacity: .08;
-      top: -200px; left: 50%; transform: translateX(-50%);
+      content: '';
+      position: absolute;
+      width: 540px;
+      height: 540px;
+      background: var(--pink);
+      border-radius: 50%;
+      filter: blur(145px);
+      opacity: .09;
+      top: -250px;
+      left: 50%;
+      transform: translateX(-50%);
       pointer-events: none;
     }
+
+    .hero > * { position: relative; z-index: 1; }
+
     .hero-label {
-      display: inline-block; font-size: 10px; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 2.5px; color: var(--pink); margin-bottom: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--pink);
+      border: 1px solid rgba(255,0,102,.28);
+      background: rgba(255,0,102,.09);
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2.2px;
+      margin-bottom: 18px;
     }
-    .hero h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 900; letter-spacing: -1.5px; margin-bottom: 14px; }
-    .hero-sub { font-size: 15px; color: var(--text2); max-width: 520px; margin: 0 auto; }
-    .hero-meta { margin-top: 24px; font-size: 12px; color: var(--text2); }
+
+    .hero-label::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--pink);
+      box-shadow: 0 0 16px rgba(255,0,102,.7);
+    }
+
+    .hero h1 {
+      font-size: clamp(34px, 6vw, 58px);
+      font-weight: 900;
+      letter-spacing: -1.7px;
+      line-height: 1.05;
+      margin-bottom: 15px;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--text2);
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.8;
+      font-weight: 500;
+    }
+
+    .hero-meta {
+      margin-top: 24px;
+      font-size: 12px;
+      color: var(--text2);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px 16px;
+    }
+
     .hero-meta strong { color: var(--text); }
 
-    /* ── LAYOUT ── */
-    .page { max-width: 760px; margin: 0 auto; padding: 60px 24px 120px; }
+    /* LAYOUT */
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 24px 112px;
+    }
 
-    /* ── SECTION ── */
-    .section { margin-bottom: 48px; }
+    .section { margin-bottom: 48px; scroll-margin-top: 92px; }
+
     .section-num {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 28px; height: 28px; border-radius: 8px;
-      background: rgba(255,0,102,.12); color: var(--pink);
-      font-size: 12px; font-weight: 800; margin-bottom: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      background: rgba(255,0,102,.12);
+      color: var(--pink);
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 12px;
     }
-    h2 { font-size: 20px; font-weight: 800; margin-bottom: 14px; letter-spacing: -.3px; }
-    p { font-size: 15px; color: var(--text2); margin-bottom: 14px; line-height: 1.8; }
+
+    h2 {
+      font-size: 21px;
+      font-weight: 900;
+      margin-bottom: 14px;
+      letter-spacing: -.35px;
+    }
+
+    p {
+      font-size: 15px;
+      color: var(--text2);
+      margin-bottom: 14px;
+      line-height: 1.84;
+      font-weight: 500;
+    }
+
     p:last-child { margin-bottom: 0; }
-    ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+    ul {
+      padding-left: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 12px 0 0;
+    }
+
     ul li {
-      font-size: 15px; color: var(--text2); padding-left: 22px; position: relative; line-height: 1.7;
+      font-size: 15px;
+      color: var(--text2);
+      padding-left: 24px;
+      position: relative;
+      line-height: 1.72;
+      font-weight: 500;
     }
+
     ul li::before {
-      content: ''; position: absolute; left: 0; top: 10px;
-      width: 6px; height: 6px; border-radius: 50%;
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
       background: var(--pink);
+      box-shadow: 0 0 12px rgba(255,0,102,.35);
     }
 
-    /* ── HIGHLIGHT BOX ── */
+    strong { color: var(--text); }
+
+    /* BUTTONS + BOXES */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 44px;
+      border-radius: 999px;
+      padding: 10px 16px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--text);
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.12);
+      transition: transform .16s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .btn:hover {
+      color: var(--text);
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.09);
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .btn-primary {
+      background: #fff;
+      color: #000;
+      border-color: #fff;
+      box-shadow: 0 12px 38px rgba(255,255,255,.13);
+    }
+
+    .btn-primary:hover { color: #000; background: #fff; }
+
     .highlight {
-      background: var(--bg3); border: 1px solid rgba(255,255,255,.08);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)),
+        var(--bg3);
+      border: 1px solid rgba(255,255,255,.08);
       border-left: 3px solid var(--cyan);
-      border-radius: 14px; padding: 22px 24px; margin: 24px 0;
+      border-radius: 15px;
+      padding: 22px 24px;
+      margin: 24px 0;
     }
-    .highlight p { color: var(--text); font-weight: 600; margin: 0; }
 
-    /* ── CALLOUT ── */
+    .highlight p {
+      color: var(--text);
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .highlight small {
+      color: var(--text2);
+      display: block;
+      margin-top: 8px;
+      line-height: 1.7;
+    }
+
+    .highlight a {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .contact-card {
+      border-left-width: 4px;
+      padding: clamp(16px, 4vw, 22px);
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+    }
+
+    .contact-row {
+      display: grid;
+      grid-template-columns: minmax(92px, 138px) minmax(0, 1fr);
+      gap: 8px 14px;
+      align-items: start;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.55;
+      font-weight: 650;
+    }
+
+    .contact-label {
+      color: var(--text);
+      font-weight: 900;
+    }
+
+    .contact-value {
+      min-width: 0;
+      color: var(--text2);
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .contact-value a {
+      color: var(--pink);
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .contact-value a:hover {
+      text-decoration: underline;
+    }
+
+    .contact-note {
+      color: var(--text2);
+      display: block;
+      margin-top: 14px;
+      font-size: 13px;
+      line-height: 1.65;
+      font-weight: 500;
+    }
+
+    @media (max-width: 520px) {
+      .page {
+        padding: 44px 16px 92px;
+      }
+
+      .highlight {
+        padding: 16px;
+        border-radius: 14px;
+      }
+
+      .contact-card {
+        padding: 16px;
+      }
+
+      .contact-row {
+        grid-template-columns: 1fr;
+        gap: 2px;
+        font-size: 13px;
+        line-height: 1.5;
+        padding-bottom: 9px;
+        border-bottom: 1px solid rgba(255,255,255,.06);
+      }
+
+      .contact-row:last-child {
+        padding-bottom: 0;
+        border-bottom: 0;
+      }
+
+      .contact-label {
+        font-size: 12px;
+        letter-spacing: .4px;
+        text-transform: uppercase;
+        color: var(--text2);
+      }
+
+      .contact-value {
+        font-size: 13px;
+      }
+
+      .contact-note {
+        font-size: 12.5px;
+        line-height: 1.55;
+      }
+    }
+
     .callout {
-      background: rgba(255,0,102,.07); border: 1px solid rgba(255,0,102,.2);
-      border-radius: 14px; padding: 20px 24px; margin: 20px 0;
-      display: flex; gap: 14px; align-items: flex-start;
+      background: rgba(255,0,102,.07);
+      border: 1px solid rgba(255,0,102,.22);
+      border-radius: 15px;
+      padding: 20px 22px;
+      margin: 22px 0;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
     }
+
     .callout-icon { flex-shrink: 0; margin-top: 1px; }
-    .callout-icon svg { width: 18px; height: 18px; color: var(--pink); }
-    .callout p { color: var(--text); font-size: 14px; margin: 0; }
+    .callout-icon svg { width: 19px; height: 19px; color: var(--pink); }
+    .callout p { color: var(--text); font-size: 14px; margin: 0; font-weight: 650; }
 
-    /* ── DIVIDER ── */
-    .divider { border: none; border-top: 1px solid rgba(255,255,255,.07); margin: 48px 0; }
-
-    /* ── TABLE OF CONTENTS ── */
-    .toc {
-      background: var(--bg3); border: 1px solid rgba(255,255,255,.07);
-      border-radius: 16px; padding: 24px 28px; margin-bottom: 52px;
+    .divider {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 48px 0;
     }
-    .toc-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text2); margin-bottom: 14px; }
-    .toc-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+
+    /* TABLE OF CONTENTS */
+    .toc {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)),
+        var(--bg3);
+      border: 1px solid rgba(255,255,255,.075);
+      border-radius: 18px;
+      padding: 25px 28px;
+      margin-bottom: 52px;
+    }
+
+    .toc-title {
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1.6px;
+      color: var(--text2);
+      margin-bottom: 14px;
+    }
+
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
     .toc-list li { padding-left: 0; }
     .toc-list li::before { display: none; }
-    .toc-list a { color: var(--text2); text-decoration: none; font-size: 14px; font-weight: 600; transition: color .2s; display: flex; align-items: center; gap: 8px; }
-    .toc-list a:hover { color: var(--pink); }
-    .toc-list a svg { width: 14px; height: 14px; opacity: .5; }
 
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid rgba(255,255,255,.06);
-      padding: 36px 40px;
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
-      max-width: 760px; margin: 0 auto;
+    .toc-list a {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      transition: color .2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    @media (max-width: 600px) { footer { flex-direction: column; text-align: center; padding: 36px 20px; } }
-    .footer-logo { font-size: 16px; font-weight: 900; letter-spacing: 3px; color: var(--pink); }
-    .footer-copy { font-size: 12px; color: var(--text2); }
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a { color: var(--text2); text-decoration: none; font-size: 12px; font-weight: 500; transition: color .2s; }
+
+    .toc-list a:hover { color: var(--pink); }
+    .toc-list a svg { width: 14px; height: 14px; opacity: .55; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 36px 24px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 18px;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: var(--pink);
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--text2);
+      text-align: right;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px 24px;
+    }
+
+    .footer-links a {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      transition: color .2s;
+    }
+
     .footer-links a:hover { color: var(--text); }
+
+    @media (max-width: 760px) {
+      footer { grid-template-columns: 1fr; text-align: center; }
+      .footer-copy { text-align: center; }
+    }
   </style>
 </head>
+
 <body>
+  <!-- NAV -->
+  <nav aria-label="TVDJ privacy policy navigation">
+    <a href="https://www.food4thoth.com/TVDJ/tvdj-marketing.html" class="nav-logo" aria-label="TVDJ marketing page">
+      <span class="nav-logo-mark">TV</span>
+      TVDJ
+    </a>
 
-<!-- NAV -->
-<nav>
-  <a href="tvdj-marketing.html" class="nav-logo">TVDJ</a>
-  <a href="tvdj-marketing.html" class="nav-back">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    Back to home
-  </a>
-</nav>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-label">Legal</div>
-  <h1>Privacy Policy</h1>
-  <p class="hero-sub">We built TVDJ to respect your privacy by design. No accounts. No tracking. No data collection. Ever.</p>
-  <p class="hero-meta">Effective date: <strong>March 24, 2026</strong> &nbsp;&middot;&nbsp; App: <strong>TVDJ</strong> &nbsp;&middot;&nbsp; Developer: <strong>DeJahn Bell</strong></p>
-</div>
-
-<!-- MAIN CONTENT -->
-<div class="page">
-
-  <div class="highlight">
-    <p>TVDJ does not collect, store, transmit, or share any personal data. All content you add to the app lives entirely on your own device and never leaves it.</p>
-  </div>
-
-  <!-- TABLE OF CONTENTS -->
-  <div class="toc">
-    <div class="toc-title">Contents</div>
-    <ol class="toc-list">
-      <li><a href="#s1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Overview</a></li>
-      <li><a href="#s2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Information We Do Not Collect</a></li>
-      <li><a href="#s3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>How Your Data Is Stored</a></li>
-      <li><a href="#s4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Third-Party Services</a></li>
-      <li><a href="#s5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Children's Privacy</a></li>
-      <li><a href="#s6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>App Store and Apple</a></li>
-      <li><a href="#s7"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Your Rights</a></li>
-      <li><a href="#s8"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Changes to This Policy</a></li>
-      <li><a href="#s9"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>Contact</a></li>
-    </ol>
-  </div>
-
-  <!-- 1 -->
-  <div class="section" id="s1">
-    <div class="section-num">1</div>
-    <h2>Overview</h2>
-    <p>TVDJ ("the App") is a live performance tool for video and audio DJs, developed and published by DeJahn Bell ("we," "us," or "our"). This Privacy Policy explains how the App handles any information related to its use.</p>
-    <p>TVDJ is a single-user, offline-first creative tool. It requires no account, no login, and no internet connection to function. The App is designed so that your creative content never leaves your device unless you explicitly choose to share it yourself.</p>
-  </div>
-
-  <hr class="divider">
-
-  <!-- 2 -->
-  <div class="section" id="s2">
-    <div class="section-num">2</div>
-    <h2>Information We Do Not Collect</h2>
-    <p>TVDJ does not collect any of the following:</p>
-    <ul>
-      <li>Your name, email address, phone number, or any other personal identifier</li>
-      <li>Your location data or GPS coordinates</li>
-      <li>Your device identifiers (such as IDFA, IDFV, or device serial numbers)</li>
-      <li>Usage statistics, analytics, or behavioral data</li>
-      <li>Crash reports or diagnostic information sent to us</li>
-      <li>The video or audio files you upload and use in the App</li>
-      <li>Any metadata contained within your files</li>
-      <li>Your contacts, photos, or any other data from other device apps</li>
-      <li>Financial or payment information (purchases are handled entirely by Apple)</li>
-    </ul>
-    <div class="callout">
-      <div class="callout-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      </div>
-      <p>The App does not contain any analytics SDKs, advertising SDKs, tracking pixels, or third-party data collection tools of any kind.</p>
+    <div class="nav-links">
+      <a href="https://www.food4thoth.com/TVDJ/tvdj-marketing.html" class="nav-back">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        Marketing Page
+      </a>
+      <a href="https://apps.apple.com/us/app/tvdj/id6760279297" class="nav-link nav-cta" target="_blank" rel="noopener">App Store</a>
+      <a href="https://www.food4thoth.com/" class="nav-link" target="_blank" rel="noopener">FOOD4THOTH</a>
+      <a href="mailto:food4thoth@proton.me" class="nav-link">Support</a>
     </div>
-  </div>
+  </nav>
 
-  <hr class="divider">
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-label">Legal / Privacy</div>
+    <h1>Privacy Policy</h1>
+    <p class="hero-sub">TVDJ is built to respect your privacy by design. No accounts. No advertising. No analytics SDKs. Your imported audio and video content stays on your device.</p>
+    <div class="hero-meta">
+      <span>Effective / Last updated: <strong>June 17, 2026</strong></span>
+      <span>App: <strong>TVDJ</strong></span>
+      <span>Developer: <strong>DeJahn Bell / FOOD4THOTH</strong></span>
+    </div>
+  </header>
 
-  <!-- 3 -->
-  <div class="section" id="s3">
-    <div class="section-num">3</div>
-    <h2>How Your Data Is Stored</h2>
-    <p>All data created or imported within TVDJ is stored exclusively on your device using Apple's standard on-device storage mechanisms. This includes:</p>
-    <ul>
-      <li><strong style="color:var(--text)">Sample files</strong> — video and audio files you import are stored in the App's local sandboxed storage on your device</li>
-      <li><strong style="color:var(--text)">App settings and preferences</strong> — stored locally using standard system storage on your device</li>
-      <li><strong style="color:var(--text)">Pad assignments and configurations</strong> — stored locally on your device only</li>
-    </ul>
-    <p>This data is protected by iOS's standard app sandboxing, which means other apps cannot access it. It is backed up by iCloud only if you have iCloud Backup enabled in your iOS device settings, in which case Apple's privacy practices apply to that backup.</p>
-    <p>To delete all App data, simply delete the TVDJ app from your device. All associated files and preferences are permanently removed when the App is uninstalled.</p>
-  </div>
-
-  <hr class="divider">
-
-  <!-- 4 -->
-  <div class="section" id="s4">
-    <div class="section-num">4</div>
-    <h2>Third-Party Services</h2>
-    <p>TVDJ does not integrate with any third-party services, APIs, or platforms that collect user data. Specifically:</p>
-    <ul>
-      <li>No analytics or telemetry services (such as Firebase, Mixpanel, Amplitude, or similar)</li>
-      <li>No advertising networks</li>
-      <li>No social media integrations</li>
-      <li>No cloud storage or sync services operated by us</li>
-      <li>No customer support chat tools that collect user data</li>
-    </ul>
-    <p>The only third-party entity involved with TVDJ is Apple, through the App Store for distribution and payment processing. Apple's privacy practices are governed by Apple's own Privacy Policy, available at <a href="https://www.apple.com/legal/privacy/" style="color:var(--pink);font-weight:600" target="_blank" rel="noopener">apple.com/legal/privacy</a>.</p>
-  </div>
-
-  <hr class="divider">
-
-  <!-- 5 -->
-  <div class="section" id="s5">
-    <div class="section-num">5</div>
-    <h2>Children's Privacy</h2>
-    <p>TVDJ is rated 4+ on the App Store and is suitable for users of all ages. Because we do not collect any personal information from any users, there is no special handling required for users under 13 (or the applicable age of digital consent in their jurisdiction).</p>
-    <p>We do not knowingly collect personal data from any individual, including children. If you believe that a child has provided personal information through the App, please contact us and we will take steps to address the situation, though given our architecture, no such data should exist on our end.</p>
-  </div>
-
-  <hr class="divider">
-
-  <!-- 6 -->
-  <div class="section" id="s6">
-    <div class="section-num">6</div>
-    <h2>App Store and Apple</h2>
-    <p>TVDJ is distributed exclusively through Apple's App Store. When you purchase or download the App, Apple collects and processes transaction information in accordance with their own Privacy Policy. We receive only aggregated, anonymized sales data from Apple — no personal information about individual users is shared with us.</p>
-    <p>Apple may collect certain device and usage information as part of their standard App Store operations, iOS system services, and optional features such as iCloud Backup. This is governed entirely by Apple and is outside our control or visibility.</p>
-  </div>
-
-  <hr class="divider">
-
-  <!-- 7 -->
-  <div class="section" id="s7">
-    <div class="section-num">7</div>
-    <h2>Your Rights</h2>
-    <p>Because TVDJ does not collect any personal data, there is no personal data held by us for you to access, correct, export, or request deletion of. All your App data resides solely on your own device and is entirely under your control.</p>
-    <p>You may delete all App data at any time by uninstalling the TVDJ app from your iPhone. This action permanently removes all files, settings, and configurations associated with the App from your device.</p>
-    <p>If you are located in the European Union or California and have questions about your data rights in the context of this App, you are welcome to contact us. Given that we collect no personal data, no action on our part is required to fulfill typical data rights requests, but we are happy to confirm this in writing upon request.</p>
-  </div>
-
-  <hr class="divider">
-
-  <!-- 8 -->
-  <div class="section" id="s8">
-    <div class="section-num">8</div>
-    <h2>Changes to This Policy</h2>
-    <p>If our privacy practices change in any meaningful way — for example, if a future version of TVDJ introduces optional cloud sync, analytics, or account features — this Privacy Policy will be updated before those features are released. The updated policy will reflect a new effective date at the top of this page.</p>
-    <p>We encourage you to review this page periodically if you want to stay informed of any changes. Your continued use of the App after any changes constitutes your acceptance of the updated policy.</p>
-    <p>We will not introduce any data collection features without clearly disclosing them here first.</p>
-  </div>
-
-  <hr class="divider">
-
-  <!-- 9 -->
-  <div class="section" id="s9">
-    <div class="section-num">9</div>
-    <h2>Contact</h2>
-    <p>If you have any questions, concerns, or requests regarding this Privacy Policy or TVDJ's privacy practices, you can reach us at:</p>
+  <!-- MAIN CONTENT -->
+  <main class="page">
     <div class="highlight">
-      <p>Developer: DeJahn Bell<br>
-      App: TVDJ — Video &amp; Audio DJ<br>
-      Platform: iOS App Store<br>
-      Contact: <span style="color:var(--cyan)">[your-email@example.com]</span></p>
+      <p>TVDJ does not collect, store, transmit, sell, or share personal data. All content you add to the app is stored locally on your own device and is not sent to us.</p>
     </div>
-    <p>We aim to respond to all privacy-related inquiries within 5 business days.</p>
-  </div>
 
-</div><!-- /page -->
+    <div class="btn-row" aria-label="Important TVDJ links">
+      <a href="https://apps.apple.com/us/app/tvdj/id6760279297" class="btn btn-primary" target="_blank" rel="noopener">Download TVDJ on the App Store</a>
+      <a href="https://www.food4thoth.com/TVDJ/tvdj-marketing.html" class="btn">TVDJ Marketing Page</a>
+      <a href="https://www.food4thoth.com/TVDJ/TVDJAPP.html" class="btn">New Web App</a>
+      <a href="https://www.food4thoth.com/" class="btn" target="_blank" rel="noopener">FOOD4THOTH Main Site</a>
+      <a href="mailto:food4thoth@proton.me" class="btn">Contact Support</a>
+    </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">TVDJ</div>
-  <div class="footer-links">
-    <a href="tvdj-marketing.html">Home</a>
-    <a href="#">App Store</a>
-    <a href="#">Support</a>
-  </div>
-  <div class="footer-copy">&copy; 2026 DeJahn Bell. All rights reserved.</div>
-</footer>
+    <!-- TABLE OF CONTENTS -->
+    <div class="toc">
+      <div class="toc-title">Contents</div>
+      <ol class="toc-list">
+        <li><a href="#s1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>Overview</a></li>
+        <li><a href="#s2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>Information We Do Not Collect</a></li>
+        <li><a href="#s3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>How Your Data Is Stored</a></li>
+        <li><a href="#s4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>Third-Party Services</a></li>
+        <li><a href="#s5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>Children's Privacy</a></li>
+        <li><a href="#s6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>App Store and Apple</a></li>
+        <li><a href="#s7"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>Website and Web App Links</a></li>
+        <li><a href="#s8"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>Your Rights</a></li>
+        <li><a href="#s9"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>Changes to This Policy</a></li>
+        <li><a href="#s10"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>Contact</a></li>
+      </ol>
+    </div>
 
+    <!-- 1 -->
+    <section class="section" id="s1">
+      <div class="section-num">1</div>
+      <h2>Overview</h2>
+      <p>TVDJ ("the App") is a live performance tool for video and audio DJs, artists, musicians, VJs, and experimental performers. It is developed and published by DeJahn Bell / FOOD4THOTH ("we," "us," or "our"). This Privacy Policy explains how the App handles information related to its use.</p>
+      <p>TVDJ is a single-user, offline-friendly creative tool. It does not require an account, login, profile, advertising identifier, or internet connection for its core performance workflow. The App is designed so that your creative content remains on your device unless you choose to move, share, export, or back it up through your own device settings or other apps.</p>
+      <div class="highlight">
+        <p>App Store listing: <a href="https://apps.apple.com/us/app/tvdj/id6760279297" target="_blank" rel="noopener">TVDJ on the Apple App Store</a><br>
+        Bundle ID: <strong>app.replit.tvdj</strong><br>
+        SKU: <strong>EX1773031246563</strong><br>
+        Apple ID: <strong>6760279297</strong></p>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- 2 -->
+    <section class="section" id="s2">
+      <div class="section-num">2</div>
+      <h2>Information We Do Not Collect</h2>
+      <p>TVDJ does not collect any of the following:</p>
+      <ul>
+        <li>Your name, email address, phone number, mailing address, or other personal identifiers</li>
+        <li>Your location data, GPS coordinates, or precise physical location</li>
+        <li>Your contacts, calendars, messages, or data from other device apps</li>
+        <li>Your device advertising identifiers, such as IDFA</li>
+        <li>Usage statistics, analytics events, behavioral data, or tracking data</li>
+        <li>Advertising data or cross-app tracking data</li>
+        <li>The video files, audio files, samples, clips, or creative content you import into the App</li>
+        <li>Metadata contained inside your imported files</li>
+        <li>Financial or payment information; App Store purchases are handled by Apple</li>
+      </ul>
+      <div class="callout">
+        <div class="callout-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        </div>
+        <p>The App is not designed to include advertising SDKs, analytics SDKs, tracking pixels, or third-party data collection tools.</p>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- 3 -->
+    <section class="section" id="s3">
+      <div class="section-num">3</div>
+      <h2>How Your Data Is Stored</h2>
+      <p>Data created or imported within TVDJ is stored locally on your device using Apple's standard app storage mechanisms. This may include:</p>
+      <ul>
+        <li><strong>Sample files</strong> — video and audio files you import for use inside the App</li>
+        <li><strong>App settings and preferences</strong> — local settings used to preserve your chosen setup</li>
+        <li><strong>Pad assignments and configurations</strong> — local information used to remember which clips are assigned to pads</li>
+      </ul>
+      <p>This local data is protected by iOS app sandboxing, which helps prevent other apps from accessing TVDJ's local storage without permission. If your device has iCloud Backup or other system-level backup features enabled, Apple may back up app data according to your device settings and Apple's own policies.</p>
+      <p>To delete TVDJ data from your device, delete the TVDJ app. Uninstalling the App removes its associated local app data from your device according to normal iOS behavior.</p>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- 4 -->
+    <section class="section" id="s4">
+      <div class="section-num">4</div>
+      <h2>Third-Party Services</h2>
+      <p>TVDJ does not intentionally integrate third-party analytics, advertising, behavioral tracking, or cloud-sync services operated by us. Specifically, the App is not designed to use:</p>
+      <ul>
+        <li>Analytics or telemetry services such as Firebase Analytics, Mixpanel, Amplitude, or similar tools</li>
+        <li>Advertising networks or personalized advertising SDKs</li>
+        <li>Social media tracking integrations</li>
+        <li>Cloud storage or sync services operated by us</li>
+        <li>Customer support chat widgets embedded inside the App</li>
+      </ul>
+      <p>The main third-party platform involved with TVDJ is Apple, through the App Store, iOS, and optional Apple device services such as iCloud Backup. Apple's privacy practices are governed by Apple's own policies, including <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple's Privacy Policy</a>.</p>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- 5 -->
+    <section class="section" id="s5">
+      <div class="section-num">5</div>
+      <h2>Children's Privacy</h2>
+      <p>TVDJ is designed as a creative audio/video performance tool and does not knowingly collect personal information from anyone, including children. Because the App does not collect personal data, there is no special child-data processing performed by us.</p>
+      <p>If you believe a child has provided personal information to us outside the App, such as through a support email, contact us at <a href="mailto:food4thoth@proton.me">food4thoth@proton.me</a> and we will review the request.</p>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- 6 -->
+    <section class="section" id="s6">
+      <div class="section-num">6</div>
+      <h2>App Store and Apple</h2>
+      <p>TVDJ is distributed through Apple's App Store. When you download or purchase the App, Apple may collect and process information related to your App Store account, purchase, device, region, receipts, and payment method according to Apple's own privacy practices. We do not receive your payment card details or personal App Store account information.</p>
+      <p>Apple may provide developers with aggregated or limited app information, such as sales, download, crash, or performance information through App Store Connect. To the extent Apple provides such information, it is controlled by Apple and handled through Apple's developer systems.</p>
+      <div class="btn-row">
+        <a href="https://apps.apple.com/us/app/tvdj/id6760279297" class="btn btn-primary" target="_blank" rel="noopener">Open TVDJ on App Store</a>
+        <a href="https://www.apple.com/legal/privacy/" class="btn" target="_blank" rel="noopener">Apple Privacy Policy</a>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- 7 -->
+    <section class="section" id="s7">
+      <div class="section-num">7</div>
+      <h2>Website and Web App Links</h2>
+      <p>This Privacy Policy page may link to the TVDJ marketing page, the main FOOD4THOTH website, the new TVDJ web app, and older TVDJ web experiments. These pages are separate from the iOS App Store version of TVDJ.</p>
+      <p>Relevant TVDJ and FOOD4THOTH links include:</p>
+      <ul>
+        <li><a href="https://www.food4thoth.com/TVDJ/tvdj-marketing.html">TVDJ marketing page</a></li>
+        <li><a href="https://www.food4thoth.com/TVDJ/TVDJAPP.html">New TVDJ web app</a></li>
+        <li><a href="https://www.food4thoth.com/TVDJ/index.html">Original TVDJ web app</a></li>
+        <li><a href="https://www.food4thoth.com/TVDJ/indexFX.html">TVDJ FX variation</a></li>
+        <li><a href="https://www.food4thoth.com/TVDJ/indexSeq.html">TVDJ sequencer variation</a></li>
+        <li><a href="https://www.food4thoth.com/" target="_blank" rel="noopener">FOOD4THOTH main site</a></li>
+      </ul>
+      <p>When using a website or web app, your browser, device, internet provider, hosting platforms, and any third-party services used by those sites may process basic technical information needed to load pages. This policy primarily describes the TVDJ iOS app. For questions about TVDJ or FOOD4THOTH web pages, contact <a href="mailto:food4thoth@proton.me">food4thoth@proton.me</a>.</p>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- 8 -->
+    <section class="section" id="s8">
+      <div class="section-num">8</div>
+      <h2>Your Rights</h2>
+      <p>Because TVDJ does not collect personal data through the App, we do not hold app-collected personal data for you to access, correct, export, or request deletion of. Your imported clips and local app settings reside on your device.</p>
+      <p>You can delete the App and its local data at any time by uninstalling TVDJ from your iPhone. You can also manage iCloud Backup and other Apple services in your iOS device settings.</p>
+      <p>If you contact us by email, we may receive your email address and any information you choose to include in that message. We use support emails only to respond to your inquiry.</p>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- 9 -->
+    <section class="section" id="s9">
+      <div class="section-num">9</div>
+      <h2>Changes to This Policy</h2>
+      <p>If our privacy practices change in a meaningful way — for example, if a future version of TVDJ introduces optional cloud sync, accounts, analytics, or other network features — this Privacy Policy will be updated to describe those changes before or when they are released.</p>
+      <p>The latest version of this Privacy Policy will be available at <a href="https://www.food4thoth.com/TVDJ/tvdj-privacy-policy.html">https://www.food4thoth.com/TVDJ/tvdj-privacy-policy.html</a>. The effective or last updated date at the top of this page will indicate the latest update.</p>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- 10 -->
+    <section class="section" id="s10">
+      <div class="section-num">10</div>
+      <h2>Contact</h2>
+      <p>If you have any questions, concerns, support needs, or privacy-related requests regarding TVDJ, contact us at:</p>
+      <div class="highlight contact-card">
+        <div class="contact-list" aria-label="TVDJ contact details">
+          <div class="contact-row">
+            <span class="contact-label">Developer</span>
+            <span class="contact-value">DeJahn Bell / FOOD4THOTH</span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label">App</span>
+            <span class="contact-value">TVDJ — Video &amp; Audio DJ</span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label">Platform</span>
+            <span class="contact-value">iOS / Apple App Store</span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label">App Store</span>
+            <span class="contact-value"><a href="https://apps.apple.com/us/app/tvdj/id6760279297" target="_blank" rel="noopener">Open TVDJ on the App Store</a></span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label">Main site</span>
+            <span class="contact-value"><a href="https://www.food4thoth.com/" target="_blank" rel="noopener">FOOD4THOTH.com</a></span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label">Support</span>
+            <span class="contact-value"><a href="mailto:food4thoth@proton.me">food4thoth@proton.me</a></span>
+          </div>
+        </div>
+        <small class="contact-note">We aim to respond to privacy and support inquiries as soon as reasonably possible.</small>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">TVDJ</div>
+    <div class="footer-links">
+      <a href="https://www.food4thoth.com/TVDJ/tvdj-marketing.html">Marketing</a>
+      <a href="https://apps.apple.com/us/app/tvdj/id6760279297" target="_blank" rel="noopener">App Store</a>
+      <a href="https://www.food4thoth.com/TVDJ/TVDJAPP.html">New Web App</a>
+      <a href="https://www.food4thoth.com/" target="_blank" rel="noopener">FOOD4THOTH</a>
+      <a href="mailto:food4thoth@proton.me">Support</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 DeJahn Bell / FOOD4THOTH. All rights reserved.</div>
+  </footer>
 </body>
 </html>
