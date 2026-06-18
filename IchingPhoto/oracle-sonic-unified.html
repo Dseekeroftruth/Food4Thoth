@@ -2594,5 +2594,128 @@ try{ renderLibrary(document.getElementById('libSearch')?document.getElementById(
 })();
 
 </script>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   FOOD4THOTH SONIC STUDIO — SAFE AUDIO PRIME PATCH
+   Additive only. Does NOT wrap or block your playback engine.
+   Paste after your existing scripts, directly before </body>.
+   ═══════════════════════════════════════════════════════════ */
+(function(){
+  'use strict';
+
+  if (window.__F4T_SAFE_AUDIO_PRIME__) return;
+  window.__F4T_SAFE_AUDIO_PRIME__ = true;
+
+  function getAudioCtor() {
+    return window.AudioContext || window.webkitAudioContext || null;
+  }
+
+  function safeToast(msg) {
+    try {
+      if (typeof toast === 'function') toast(msg);
+      else console.log('[Food4Thoth Audio]', msg);
+    } catch {
+      console.log('[Food4Thoth Audio]', msg);
+    }
+  }
+
+  function primeAudioNow() {
+    const AudioCtor = getAudioCtor();
+    if (!AudioCtor) {
+      safeToast('Web Audio is not supported in this browser.');
+      return;
+    }
+
+    try {
+      /*
+        Your original code uses global let AC.
+        This safely creates/resumes that same AC without replacing your engine.
+      */
+      if (typeof AC !== 'undefined') {
+        if (!AC || AC.state === 'closed') {
+          AC = new AudioCtor();
+        }
+
+        if (AC.state === 'suspended') {
+          AC.resume().catch(function(){});
+        }
+
+        /*
+          Tiny silent sound. This helps mobile browsers recognize
+          the page as audio-activated, but it does not interrupt music.
+        */
+        const osc = AC.createOscillator();
+        const gain = AC.createGain();
+
+        gain.gain.value = 0.000001;
+        osc.frequency.value = 440;
+
+        osc.connect(gain);
+        gain.connect(AC.destination);
+
+        osc.start(0);
+        osc.stop(AC.currentTime + 0.035);
+
+        setTimeout(function(){
+          try { osc.disconnect(); } catch {}
+          try { gain.disconnect(); } catch {}
+        }, 120);
+      }
+    } catch (err) {
+      console.warn('[Food4Thoth Audio Prime]', err);
+    }
+  }
+
+  /*
+    Prime audio from the actual first touch/click.
+    No awaiting. No blocking. No forced state check.
+  */
+  ['touchstart', 'pointerdown', 'mousedown', 'keydown'].forEach(function(type){
+    document.addEventListener(type, primeAudioNow, {
+      capture: true,
+      passive: true
+    });
+  });
+
+  /*
+    Extra direct button coverage for the Studio controls.
+    This keeps the unlock close to your music buttons.
+  */
+  function attachButtonPrime(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    ['touchstart', 'pointerdown', 'mousedown'].forEach(function(type){
+      el.addEventListener(type, primeAudioNow, {
+        capture: true,
+        passive: true
+      });
+    });
+  }
+
+  [
+    'soCastBtn',
+    'coinCastBtn',
+    'playBtn',
+    'recastBtn',
+    'wavBtn',
+    'castBtn'
+  ].forEach(attachButtonPrime);
+
+  /*
+    When returning from another tab/app, quietly resume if possible.
+    This does not start playback by itself.
+  */
+  document.addEventListener('visibilitychange', function(){
+    try {
+      if (!document.hidden && typeof AC !== 'undefined' && AC && AC.state === 'suspended') {
+        AC.resume().catch(function(){});
+      }
+    } catch {}
+  });
+
+})();
+</script>
 </body>
 </html>
