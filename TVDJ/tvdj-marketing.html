@@ -1,772 +1,973 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TVDJ — Video & Audio DJ for iPhone</title>
-  <meta name="description" content="TVDJ is a live performance tool for video and audio DJs. Load your clips, trigger 12 color-coded pads, and perform in real time on iPhone.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>TVDJ — Video & Audio DJ App for iPhone | FOOD4THOTH</title>
+  <meta name="description" content="TVDJ is a live video and audio DJ app for iPhone. Trigger clips, perform with 12 color-coded pads, build sets offline, and explore the FOOD4THOTH TVDJ web app and legacy variations." />
+  <meta name="keywords" content="TVDJ, video DJ app, audio DJ app, iPhone DJ app, sample pads, live performance app, Food4Thoth, DeJahn Bell" />
+  <meta name="author" content="DeJahn Bell / FOOD4THOTH" />
+  <meta name="theme-color" content="#0A0A0F" />
+  <meta name="application-name" content="TVDJ" />
+  <meta name="apple-mobile-web-app-title" content="TVDJ" />
+  <meta name="apple-itunes-app" content="app-id=6760279297" />
+
+  <!-- App Store / App Store Connect identifiers -->
+  <meta name="tvdj-bundle-id" content="app.replit.tvdj" />
+  <meta name="tvdj-sku" content="EX1773031246563" />
+  <meta name="tvdj-apple-id" content="6760279297" />
+
+  <link rel="canonical" href="https://www.food4thoth.com/TVDJ/tvdj-marketing.html" />
+
+  <meta property="og:title" content="TVDJ — Video & Audio DJ App for iPhone" />
+  <meta property="og:description" content="Perform live with video and audio clips. 12 trigger pads, offline library, clip trimming, and a full FOOD4THOTH web-app ecosystem." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.food4thoth.com/TVDJ/tvdj-marketing.html" />
+  <meta property="og:site_name" content="FOOD4THOTH" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TVDJ — Video & Audio DJ App for iPhone" />
+  <meta name="twitter:description" content="A pocket live-performance tool for video/audio DJs, artists, VJs, beatmakers, and experimental performers." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --pink: #FF0066;
-      --cyan: #00FFCC;
-      --green: #00FF88;
-      --bg: #0A0A0F;
+      --pink: #ff0066;
+      --cyan: #00ffcc;
+      --green: #00ff88;
+      --orange: #ff9900;
+      --purple: #cc00ff;
+      --blue: #0066ff;
+      --bg: #0a0a0f;
       --bg2: #111118;
-      --bg3: #1A1A24;
+      --bg3: #1a1a24;
       --bg4: #252530;
-      --text: #FFFFFF;
-      --text2: #AAAACC;
-      --font: 'Montserrat', sans-serif;
-      --pad1: #FF0066; --pad2: #00FFCC; --pad3: #FF6600; --pad4: #00FF88;
-      --pad5: #FF00CC; --pad6: #FFCC00; --pad7: #0066FF; --pad8: #FF3366;
-      --pad9: #00CCFF; --pad10: #99FF00; --pad11: #CC00FF; --pad12: #FF9900;
+      --text: #ffffff;
+      --text2: #aaaacc;
+      --text3: #71718d;
+      --line: rgba(255,255,255,.08);
+      --font: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --pad1: #ff0066; --pad2: #00ffcc; --pad3: #ff6600; --pad4: #00ff88;
+      --pad5: #ff00cc; --pad6: #ffcc00; --pad7: #0066ff; --pad8: #ff3366;
+      --pad9: #00ccff; --pad10: #99ff00; --pad11: #cc00ff; --pad12: #ff9900;
     }
+
     html { scroll-behavior: smooth; }
-    body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
 
-    /* ── NAV ── */
+    body {
+      font-family: var(--font);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255,0,102,.18), transparent 34%),
+        radial-gradient(circle at 90% 12%, rgba(0,255,204,.14), transparent 32%),
+        radial-gradient(circle at 50% 100%, rgba(204,0,255,.14), transparent 36%),
+        var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+    .page-wrap { min-height: 100vh; }
+
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 40px;
-      background: rgba(10,10,15,.85);
-      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .nav-logo { font-size: 22px; font-weight: 900; letter-spacing: 4px; color: var(--pink); text-decoration: none; }
-    .nav-links { display: flex; align-items: center; gap: 36px; }
-    .nav-links a { color: var(--text2); text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: .5px; transition: color .2s; }
-    .nav-links a:hover { color: var(--text); }
-    .nav-cta {
-      background: var(--pink); color: #fff; padding: 10px 22px;
-      border-radius: 999px; text-decoration: none; font-size: 13px; font-weight: 700;
-      transition: opacity .2s, transform .15s;
-    }
-    .nav-cta:hover { opacity: .88; transform: scale(1.02); }
-    @media (max-width: 680px) {
-      nav { padding: 16px 20px; }
-      .nav-links { display: none; }
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px clamp(18px, 4vw, 44px);
+      background: rgba(10,10,15,.86);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--line);
     }
 
-    /* ── HERO ── */
+    .nav-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--pink);
+      text-decoration: none;
+      font-weight: 900;
+      letter-spacing: 4px;
+      font-size: 22px;
+      white-space: nowrap;
+    }
+
+    .nav-logo-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      box-shadow: 0 0 24px rgba(255,0,102,.4), inset 0 0 18px rgba(255,255,255,.16);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 14px;
+      letter-spacing: 0;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+
+    .nav-links a {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      transition: color .2s ease;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--pink);
+      color: #fff !important;
+      padding: 10px 18px;
+      border-radius: 999px;
+      box-shadow: 0 10px 28px rgba(255,0,102,.28);
+    }
+
+    @media (max-width: 860px) {
+      nav { align-items: flex-start; flex-direction: column; }
+      .nav-links { width: 100%; overflow-x: auto; gap: 16px; padding-bottom: 4px; }
+      .nav-links a { white-space: nowrap; }
+    }
+
+    .btn-row { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 0;
+      border-radius: 16px;
+      padding: 14px 24px;
+      min-height: 52px;
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .16s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn svg { width: 21px; height: 21px; flex: 0 0 auto; }
+
+    .btn-appstore {
+      background: #fff;
+      color: #000;
+      box-shadow: 0 12px 48px rgba(255,255,255,.16);
+    }
+
+    .btn-appstore:hover { box-shadow: 0 18px 58px rgba(255,255,255,.22); }
+
+    .btn-pink {
+      background: var(--pink);
+      color: #fff;
+      box-shadow: 0 12px 48px rgba(255,0,102,.25);
+    }
+
+    .btn-outline {
+      color: var(--text);
+      border: 1.5px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.04);
+    }
+
+    .btn-outline:hover { border-color: rgba(255,255,255,.42); background: rgba(255,255,255,.08); }
+
+    .tiny-note {
+      color: var(--text2);
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    .tiny-note strong { color: var(--text); }
+
     .hero {
-      min-height: 100vh; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 120px 20px 80px;
-      position: relative; overflow: hidden; text-align: center;
+      min-height: 100vh;
+      padding: 148px 20px 90px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(260px, .75fr);
+      gap: clamp(36px, 6vw, 82px);
+      align-items: center;
+      max-width: 1180px;
+      margin: 0 auto;
     }
-    .hero-glow {
-      position: absolute; border-radius: 50%; filter: blur(120px); pointer-events: none; opacity: .55;
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: .46;
+      pointer-events: none;
     }
-    .hero-glow-1 { width: 600px; height: 600px; background: var(--pink); top: -200px; left: -200px; }
-    .hero-glow-2 { width: 500px; height: 500px; background: var(--cyan); bottom: -200px; right: -200px; }
+
+    .hero::before { width: 520px; height: 520px; background: var(--pink); top: -220px; left: -190px; }
+    .hero::after { width: 480px; height: 480px; background: var(--cyan); right: -220px; bottom: -210px; }
+    .hero-copy, .hero-visual { position: relative; z-index: 1; }
+
     .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255,0,102,.12); border: 1px solid rgba(255,0,102,.3);
-      color: var(--pink); padding: 7px 16px; border-radius: 999px;
-      font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: rgba(255,0,102,.12);
+      border: 1px solid rgba(255,0,102,.34);
+      color: var(--pink);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
       margin-bottom: 28px;
     }
-    .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--pink); animation: blink 1.4s ease-in-out infinite; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    .hero-badge span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--pink);
+      box-shadow: 0 0 18px rgba(255,0,102,.8);
+      animation: blink 1.4s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .42; transform: scale(.72); }
+    }
+
     h1 {
-      font-size: clamp(52px, 8vw, 96px); font-weight: 900;
-      line-height: 1.0; letter-spacing: -2px; margin-bottom: 24px;
+      font-size: clamp(48px, 8vw, 100px);
+      font-weight: 900;
+      line-height: .96;
+      letter-spacing: -3px;
+      margin-bottom: 26px;
     }
-    h1 em { font-style: normal; color: var(--pink); }
+
+    h1 em, h2 em { font-style: normal; color: var(--pink); }
+
     .hero-sub {
-      font-size: clamp(16px,2.5vw,20px); color: var(--text2); font-weight: 500;
-      max-width: 560px; margin: 0 auto 44px; line-height: 1.65;
+      max-width: 660px;
+      color: var(--text2);
+      font-size: clamp(16px, 2.4vw, 21px);
+      font-weight: 500;
+      line-height: 1.68;
+      margin-bottom: 36px;
     }
-    .hero-actions { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 80px; }
-    .btn-appstore {
-      display: inline-flex; align-items: center; gap: 12px;
-      background: #fff; color: #000; padding: 14px 28px;
-      border-radius: 14px; text-decoration: none; font-weight: 700; font-size: 15px;
-      transition: transform .15s, box-shadow .2s;
-      box-shadow: 0 8px 40px rgba(255,255,255,.15);
-    }
-    .btn-appstore:hover { transform: translateY(-2px); box-shadow: 0 16px 48px rgba(255,255,255,.2); }
-    .btn-appstore svg { width: 22px; height: 22px; }
-    .btn-outline {
-      display: inline-flex; align-items: center; gap: 10px;
-      border: 1.5px solid rgba(255,255,255,.2); color: var(--text); padding: 14px 26px;
-      border-radius: 14px; text-decoration: none; font-weight: 600; font-size: 15px;
-      transition: border-color .2s, background .2s;
-    }
-    .btn-outline:hover { border-color: rgba(255,255,255,.5); background: rgba(255,255,255,.05); }
-    .hero-price { font-size: 13px; color: var(--text2); font-weight: 500; }
-    .hero-price strong { color: var(--text); }
 
-    /* ── PHONE MOCKUP ── */
-    .phone-wrap { position: relative; display: inline-flex; justify-content: center; align-items: center; }
+    .hero-sub strong { color: var(--text); }
+    .hero-actions { justify-content: flex-start; }
+
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 34px; }
+
+    .meta-pill {
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.04);
+      border-radius: 999px;
+      color: var(--text2);
+      font-size: 12px;
+      font-weight: 800;
+      padding: 8px 12px;
+    }
+
+    .meta-pill strong { color: var(--text); }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding-top: 176px; }
+      .hero-actions { justify-content: center; }
+      .hero-meta { justify-content: center; }
+    }
+
+    .phone-wrap { display: flex; justify-content: center; position: relative; }
+
+    .phone-wrap::before,
+    .phone-wrap::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(50px);
+      pointer-events: none;
+      opacity: .24;
+    }
+
+    .phone-wrap::before { width: 220px; height: 220px; background: var(--pink); top: -44px; left: 4%; }
+    .phone-wrap::after { width: 200px; height: 200px; background: var(--cyan); bottom: -38px; right: 8%; }
+
     .phone {
-      width: 260px; background: #111118;
-      border-radius: 44px; border: 2px solid rgba(255,255,255,.12);
-      box-shadow: 0 0 0 8px rgba(255,255,255,.04), 0 60px 120px rgba(0,0,0,.7),
-                  0 0 80px rgba(255,0,102,.15);
-      overflow: hidden; position: relative;
+      width: min(300px, 78vw);
+      background: #101018;
+      border-radius: 48px;
+      border: 2px solid rgba(255,255,255,.13);
+      box-shadow: 0 0 0 8px rgba(255,255,255,.04), 0 58px 110px rgba(0,0,0,.68), 0 0 90px rgba(255,0,102,.18);
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
     }
-    .phone-notch { width: 80px; height: 28px; background: #111118; border-radius: 0 0 18px 18px; margin: 0 auto; }
-    .phone-screen { background: var(--bg); padding: 10px 8px 8px; }
-    .ph-header { display: flex; justify-content: center; align-items: center; padding: 6px 0 10px; }
-    .ph-title { font-size: 13px; font-weight: 900; letter-spacing: 3px; color: var(--pink); }
-    .ph-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 5px; margin-bottom: 8px; }
-    .ph-pad { aspect-ratio: 1; border-radius: 7px; border: 1.5px solid; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 7px; font-weight: 700; position: relative; overflow: hidden; }
-    .ph-pad.filled { border-style: solid; }
-    .ph-pad.empty { border-style: dashed; border-color: #555; background: rgba(26,26,36,.5); color: #666; font-size: 6px; }
-    .ph-pad-name { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,.75); text-align: center; padding: 2px; font-size: 5.5px; font-weight: 700; }
-    .ph-pad-dot { position: absolute; top: 3px; right: 3px; width: 8px; height: 8px; border-radius: 50%; }
-    .ph-transport { background: #1A1A24; border-radius: 10px; padding: 8px; display: flex; flex-direction: column; gap: 6px; }
-    .ph-t-row { display: flex; justify-content: center; gap: 8px; align-items: center; }
-    .ph-t-btn { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; }
-    .ph-t-play { background: var(--pink); }
-    .ph-t-stop { background: #303040; }
-    .ph-vol-row { display: flex; align-items: center; gap: 5px; }
-    .ph-vol-bar { flex: 1; height: 3px; border-radius: 2px; background: var(--bg4); position: relative; }
-    .ph-vol-fill { height: 100%; border-radius: 2px; background: var(--pink); width: 80%; }
-    .ph-vol-txt { font-size: 7px; font-weight: 700; color: var(--text2); }
-    .phone-home-bar { width: 80px; height: 4px; background: rgba(255,255,255,.2); border-radius: 2px; margin: 8px auto 6px; }
 
-    /* floating glows around phone */
-    .phone-wrap::before, .phone-wrap::after {
-      content: ''; position: absolute; border-radius: 50%; filter: blur(50px); pointer-events: none;
-    }
-    .phone-wrap::before { width: 200px; height: 200px; background: var(--pink); opacity: .2; top: -50px; left: -70px; }
-    .phone-wrap::after { width: 180px; height: 180px; background: var(--cyan); opacity: .18; bottom: -50px; right: -60px; }
+    .phone-notch { width: 88px; height: 28px; background: #101018; border-radius: 0 0 18px 18px; margin: 0 auto; }
 
-    /* ── SECTION COMMON ── */
-    section { padding: 100px 20px; max-width: 1100px; margin: 0 auto; }
-    .section-tag { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2.5px; color: var(--pink); margin-bottom: 14px; }
-    h2 { font-size: clamp(36px,5vw,60px); font-weight: 900; line-height: 1.08; letter-spacing: -1.5px; margin-bottom: 20px; }
-    h2 em { font-style: normal; color: var(--pink); }
-    .lead { font-size: 18px; color: var(--text2); font-weight: 500; line-height: 1.65; max-width: 560px; }
+    .phone-screen {
+      background: radial-gradient(circle at 50% 0%, rgba(255,0,102,.16), transparent 36%), var(--bg);
+      padding: 10px 9px 9px;
+    }
 
-    /* ── FEATURES ── */
-    #features { max-width: 1100px; }
-    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 60px; }
-    .feat-card {
-      background: var(--bg3); border: 1px solid rgba(255,255,255,.07);
-      border-radius: 24px; padding: 36px 32px;
-      transition: transform .25s, border-color .25s, box-shadow .25s;
-      position: relative; overflow: hidden;
-    }
-    .feat-card::before {
-      content: ''; position: absolute; inset: 0; opacity: 0;
-      transition: opacity .3s;
-    }
-    .feat-card:hover { transform: translateY(-4px); border-color: rgba(255,0,102,.3); box-shadow: 0 20px 60px rgba(0,0,0,.4); }
-    .feat-card:hover::before { opacity: 1; }
-    .feat-icon {
-      width: 56px; height: 56px; border-radius: 16px;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 22px; font-size: 24px;
-    }
-    .feat-icon svg { width: 26px; height: 26px; }
-    .feat-title { font-size: 19px; font-weight: 800; margin-bottom: 10px; }
-    .feat-desc { font-size: 14px; color: var(--text2); line-height: 1.7; }
+    .ph-header { display: flex; justify-content: space-between; align-items: center; padding: 6px 4px 12px; }
+    .ph-title { font-size: 14px; font-weight: 900; letter-spacing: 3px; color: var(--pink); }
 
-    /* ── PADS SHOWCASE ── */
-    #pads { text-align: center; }
-    .pads-intro { max-width: 600px; margin: 0 auto 60px; }
-    .pads-intro .lead { margin: 0 auto; }
-    .big-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; max-width: 700px; margin: 0 auto; }
-    @media (max-width: 600px) { .big-grid { grid-template-columns: repeat(3,1fr); } }
+    .ph-live {
+      font-size: 8px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: var(--green);
+      background: rgba(0,255,136,.1);
+      border: 1px solid rgba(0,255,136,.22);
+      border-radius: 999px;
+      padding: 4px 7px;
+    }
+
+    .ph-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 10px; }
+
+    .ph-pad {
+      aspect-ratio: 1;
+      border-radius: 9px;
+      border: 1.5px solid;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .ph-pad.empty { border-style: dashed; border-color: #55556b; background: rgba(26,26,36,.5); color: #66667c; }
+
+    .ph-pad-name {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,.72);
+      color: #fff;
+      text-align: center;
+      padding: 3px 2px;
+      font-size: 5.5px;
+      font-weight: 800;
+    }
+
+    .ph-pad-dot { position: absolute; top: 5px; right: 5px; width: 9px; height: 9px; border-radius: 50%; }
+
+    .ph-transport {
+      background: #1a1a24;
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 13px;
+      padding: 9px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .ph-t-row { display: flex; justify-content: center; gap: 8px; }
+    .ph-t-btn { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-size: 9px; font-weight: 900; }
+    .ph-t-play { background: var(--pink); box-shadow: 0 0 20px rgba(255,0,102,.35); }
+    .ph-t-stop { background: #303040; color: var(--text2); }
+    .ph-vol-row { display: flex; align-items: center; gap: 6px; }
+    .ph-vol-txt { color: var(--text2); font-size: 7px; font-weight: 900; }
+    .ph-vol-bar { flex: 1; height: 4px; background: var(--bg4); border-radius: 999px; overflow: hidden; }
+    .ph-vol-fill { width: 80%; height: 100%; background: var(--pink); border-radius: inherit; }
+    .phone-home-bar { width: 86px; height: 4px; border-radius: 999px; background: rgba(255,255,255,.22); margin: 10px auto 8px; }
+
+    section, .section-inner { max-width: 1120px; margin: 0 auto; padding: 96px 20px; }
+
+    .section-tag {
+      color: var(--pink);
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 2.5px;
+      margin-bottom: 14px;
+    }
+
+    h2 { font-size: clamp(34px, 5vw, 60px); font-weight: 900; line-height: 1.06; letter-spacing: -1.5px; margin-bottom: 18px; }
+
+    .lead { max-width: 660px; color: var(--text2); font-size: 17px; line-height: 1.72; font-weight: 500; }
+    .center { text-align: center; }
+    .center .lead { margin-left: auto; margin-right: auto; }
+
+    .features-grid { margin-top: 54px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    @media (max-width: 900px) { .features-grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015)), var(--bg3);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .card:hover { transform: translateY(-4px); border-color: rgba(255,0,102,.34); box-shadow: 0 22px 68px rgba(0,0,0,.36); }
+
+    .card-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 17px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+      background: rgba(255,0,102,.12);
+    }
+
+    .card-icon svg { width: 27px; height: 27px; }
+    .card-title { font-size: 18px; font-weight: 900; margin-bottom: 9px; }
+    .card-desc { color: var(--text2); font-size: 14px; line-height: 1.7; font-weight: 500; }
+
+    .pads-band { max-width: none; background: rgba(17,17,24,.72); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 98px 20px; }
+    .pads-inner { max-width: 900px; margin: 0 auto; }
+
+    .big-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; max-width: 720px; margin: 54px auto 0; }
+    @media (max-width: 640px) { .big-grid { grid-template-columns: repeat(3, 1fr); } }
+
     .big-pad {
-      aspect-ratio: 1; border-radius: 16px; border: 2px solid; cursor: pointer;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      position: relative; overflow: hidden; transition: transform .15s, box-shadow .2s;
-      animation: padFadeIn .5s ease both;
+      aspect-ratio: 1;
+      border-radius: 18px;
+      border: 2px solid;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .16s ease, box-shadow .2s ease;
+      user-select: none;
     }
-    @keyframes padFadeIn { from { opacity:0; transform:scale(.85); } to { opacity:1; transform:scale(1); } }
-    .big-pad:hover { transform: scale(1.05); }
-    .big-pad.glow { animation: bigGlow .6s ease-in-out infinite alternate; }
-    @keyframes bigGlow { from { transform: scale(1); } to { transform: scale(1.04); } }
-    .big-pad-inner { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
-    .big-pad-num { font-size: 28px; font-weight: 900; opacity: .9; }
-    .big-pad-label { font-size: 10px; font-weight: 700; opacity: .7; text-transform: uppercase; letter-spacing: 1px; }
-    .pad-wave { position: absolute; bottom: 6px; left: 0; right: 0; display: flex; justify-content: center; gap: 2px; align-items: flex-end; height: 16px; opacity: 0; transition: opacity .2s; }
+
+    .big-pad:hover { transform: scale(1.045); }
+    .big-pad.glow { animation: bigGlow .72s ease-in-out infinite alternate; }
+    @keyframes bigGlow { from { transform: scale(1); } to { transform: scale(1.035); } }
+    .big-pad-inner { display: grid; gap: 5px; place-items: center; position: relative; z-index: 1; }
+    .big-pad-num { font-size: clamp(24px, 4vw, 34px); line-height: 1; font-weight: 900; }
+    .big-pad-label { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; opacity: .72; }
+
+    .pad-wave {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 9px;
+      display: flex;
+      justify-content: center;
+      gap: 3px;
+      align-items: flex-end;
+      height: 18px;
+      opacity: 0;
+      transition: opacity .2s ease;
+    }
+
     .big-pad.glow .pad-wave { opacity: 1; }
-    .pw { width: 3px; border-radius: 2px; background: #fff; animation: wave .5s ease-in-out infinite alternate; }
-    .pw:nth-child(1){ height: 6px; animation-delay: 0s; }
-    .pw:nth-child(2){ height: 12px; animation-delay: .1s; }
-    .pw:nth-child(3){ height: 8px; animation-delay: .2s; }
-    .pw:nth-child(4){ height: 14px; animation-delay: .05s; }
-    .pw:nth-child(5){ height: 5px; animation-delay: .15s; }
-    @keyframes wave { from { transform: scaleY(.5); } to { transform: scaleY(1.1); } }
+    .pw { width: 3px; border-radius: 999px; background: #fff; animation: wave .5s ease-in-out infinite alternate; }
+    .pw:nth-child(1) { height: 6px; animation-delay: 0s; }
+    .pw:nth-child(2) { height: 14px; animation-delay: .1s; }
+    .pw:nth-child(3) { height: 9px; animation-delay: .2s; }
+    .pw:nth-child(4) { height: 16px; animation-delay: .05s; }
+    .pw:nth-child(5) { height: 7px; animation-delay: .15s; }
+    @keyframes wave { from { transform: scaleY(.55); } to { transform: scaleY(1.1); } }
 
-    /* ── SPLIT SECTIONS ── */
-    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; padding: 100px 20px; max-width: 1100px; margin: 0 auto; }
-    .split.reverse { direction: rtl; }
-    .split.reverse > * { direction: ltr; }
-    @media (max-width: 800px) { .split { grid-template-columns: 1fr; gap: 48px; } .split.reverse { direction: ltr; } }
-    .split-visual { position: relative; display: flex; justify-content: center; }
-    .card-stack { position: relative; width: 100%; max-width: 400px; }
-    .ui-card {
-      background: var(--bg3); border: 1px solid rgba(255,255,255,.08);
-      border-radius: 20px; overflow: hidden;
+    .ecosystem { background: var(--bg2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); max-width: none; }
+    .app-grid { margin-top: 54px; display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 18px; }
+    @media (max-width: 950px) { .app-grid { grid-template-columns: 1fr; } }
+
+    .app-card { min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; }
+    .app-card.featured { border-color: rgba(255,0,102,.34); box-shadow: 0 0 80px rgba(255,0,102,.08); }
+
+    .app-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: max-content;
+      color: var(--pink);
+      border: 1px solid rgba(255,0,102,.3);
+      background: rgba(255,0,102,.1);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
     }
-    .ui-card-header { padding: 16px 18px 12px; border-bottom: 1px solid rgba(255,255,255,.06); display: flex; align-items: center; gap: 10px; }
-    .ui-card-title { font-size: 14px; font-weight: 700; }
-    .ui-back { font-size: 11px; color: var(--pink); font-weight: 700; }
-    .ui-card-body { padding: 16px 18px; }
-    .video-thumb { width: 100%; aspect-ratio: 16/9; background: var(--bg4); border-radius: 12px; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-    .video-thumb-inner { width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a30, #0d0d20); display: flex; align-items: center; justify-content: center; }
-    .play-circle { width: 44px; height: 44px; border-radius: 50%; background: rgba(0,0,0,.65); display: flex; align-items: center; justify-content: center; }
-    .play-circle svg { width: 18px; height: 18px; fill: #fff; }
-    .slider-demo { margin-bottom: 12px; }
-    .slider-demo-lbl { display: flex; justify-content: space-between; font-size: 10px; color: var(--text2); font-weight: 700; margin-bottom: 5px; text-transform: uppercase; letter-spacing: .5px; }
-    .slider-track { height: 4px; border-radius: 2px; background: var(--bg4); position: relative; }
-    .slider-fill { height: 100%; border-radius: 2px; }
-    .slider-thumb { width: 16px; height: 16px; border-radius: 50%; position: absolute; top: 50%; transform: translateY(-50%); }
-    .info-pills { display: flex; gap: 8px; }
-    .pill { background: var(--bg4); border-radius: 8px; padding: 8px 12px; flex: 1; text-align: center; }
-    .pill-lbl { font-size: 8px; color: var(--text2); text-transform: uppercase; letter-spacing: .5px; font-weight: 700; margin-bottom: 2px; }
-    .pill-val { font-size: 14px; font-weight: 800; }
 
-    /* library ui */
-    .lib-card { background: var(--bg3); border: 1px solid rgba(255,255,255,.07); border-radius: 20px; overflow: hidden; }
-    .lib-search { margin: 14px; background: var(--bg4); border-radius: 10px; height: 38px; display: flex; align-items: center; padding: 0 12px; gap: 8px; }
-    .lib-search-bar { flex: 1; height: 2px; background: rgba(255,255,255,.1); border-radius: 1px; }
-    .lib-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,.05); }
-    .lib-row:last-child { border-bottom: none; }
-    .lib-thumb { width: 46px; height: 46px; border-radius: 9px; flex-shrink: 0; }
-    .lib-info { flex: 1; }
-    .lib-name { font-size: 12px; font-weight: 700; margin-bottom: 2px; }
-    .lib-meta { font-size: 10px; color: var(--text2); }
-    .lib-del { width: 28px; height: 28px; border-radius: 8px; background: rgba(255,51,102,.1); display: flex; align-items: center; justify-content: center; }
-    .lib-del svg { width: 12px; height: 12px; color: #FF3366; }
+    .app-card h3 { font-size: 24px; line-height: 1.12; letter-spacing: -.6px; margin-bottom: 12px; }
+    .app-card p { color: var(--text2); font-size: 14px; line-height: 1.72; font-weight: 500; margin-bottom: 22px; }
+    .mini-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
 
-    /* ── STEPS ── */
-    #how { text-align: center; }
-    .steps-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 60px; }
-    .step { background: var(--bg3); border: 1px solid rgba(255,255,255,.07); border-radius: 22px; padding: 32px 26px; text-align: left; position: relative; }
-    .step-num { font-size: 52px; font-weight: 900; color: rgba(255,0,102,.12); line-height: 1; margin-bottom: 16px; }
-    .step-icon { width: 46px; height: 46px; border-radius: 13px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
-    .step-icon svg { width: 22px; height: 22px; }
-    .step-title { font-size: 17px; font-weight: 800; margin-bottom: 8px; }
-    .step-desc { font-size: 13px; color: var(--text2); line-height: 1.65; }
-    .step-line { position: absolute; top: 50%; right: -12px; width: 24px; height: 2px; background: rgba(255,0,102,.25); z-index: 1; }
-    @media (max-width: 700px) { .step-line { display: none; } }
+    .mini-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      border-radius: 999px;
+      padding: 9px 13px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: background .2s ease, transform .16s ease;
+    }
 
-    /* ── SPECS ── */
-    #specs { background: var(--bg2); border-top: 1px solid rgba(255,255,255,.05); border-bottom: 1px solid rgba(255,255,255,.05); }
-    .specs-inner { max-width: 1100px; margin: 0 auto; padding: 100px 20px; }
-    .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 60px; }
-    .spec-item { background: var(--bg3); border: 1px solid rgba(255,255,255,.07); border-radius: 18px; padding: 28px 22px; }
-    .spec-val { font-size: 36px; font-weight: 900; margin-bottom: 6px; }
-    .spec-label { font-size: 12px; color: var(--text2); font-weight: 600; text-transform: uppercase; letter-spacing: .8px; }
+    .mini-link:hover { transform: translateY(-2px); background: rgba(255,255,255,.08); }
 
-    /* ── PRICING ── */
-    #pricing { text-align: center; max-width: 1100px; }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 82px); align-items: center; }
+    @media (max-width: 850px) { .split { grid-template-columns: 1fr; } }
+
+    .ui-demo {
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)), var(--bg3);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+      max-width: 430px;
+      margin: 0 auto;
+      box-shadow: 0 28px 80px rgba(0,0,0,.38);
+    }
+
+    .ui-demo-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+    .ui-back { color: var(--pink); font-size: 12px; font-weight: 900; }
+    .ui-title { font-size: 13px; font-weight: 900; letter-spacing: .6px; }
+    .ui-demo-body { padding: 18px; }
+
+    .video-thumb {
+      aspect-ratio: 16 / 9;
+      background: radial-gradient(circle at 30% 30%, rgba(255,0,102,.22), transparent 34%), radial-gradient(circle at 70% 70%, rgba(0,255,204,.16), transparent 30%), #111120;
+      border-radius: 15px;
+      margin-bottom: 16px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .play-circle { width: 52px; height: 52px; border-radius: 50%; background: rgba(0,0,0,.62); display: grid; place-items: center; box-shadow: 0 0 30px rgba(255,255,255,.1); }
+    .play-circle svg { width: 22px; height: 22px; fill: #fff; margin-left: 3px; }
+    .slider-demo { margin-bottom: 14px; }
+
+    .slider-demo-lbl {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      color: var(--text2);
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      margin-bottom: 7px;
+    }
+
+    .slider-track { height: 5px; border-radius: 999px; background: var(--bg4); position: relative; }
+    .slider-fill { height: 100%; border-radius: inherit; }
+    .slider-thumb { width: 17px; height: 17px; border-radius: 50%; position: absolute; top: 50%; transform: translateY(-50%); box-shadow: 0 0 20px rgba(255,255,255,.12); }
+
+    .info-pills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-top: 18px; }
+    .pill { background: var(--bg4); border: 1px solid rgba(255,255,255,.05); border-radius: 12px; padding: 10px 8px; text-align: center; }
+    .pill-lbl { color: var(--text2); font-size: 8px; text-transform: uppercase; letter-spacing: .6px; font-weight: 900; margin-bottom: 2px; }
+    .pill-val { font-size: 14px; font-weight: 900; }
+
+    .steps-wrap { margin-top: 54px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    @media (max-width: 850px) { .steps-wrap { grid-template-columns: 1fr; } }
+    .step-num { font-size: 54px; line-height: 1; font-weight: 900; color: rgba(255,0,102,.14); margin-bottom: 14px; }
+
+    .specs { background: var(--bg2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); max-width: none; }
+    .specs-grid { margin-top: 54px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+    @media (max-width: 1000px) { .specs-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 620px) { .specs-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .spec-item { background: var(--bg3); border: 1px solid var(--line); border-radius: 18px; padding: 24px 16px; text-align: center; }
+    .spec-val { font-size: clamp(27px, 4vw, 38px); font-weight: 900; line-height: 1; margin-bottom: 8px; }
+    .spec-label { color: var(--text2); font-size: 10px; line-height: 1.35; font-weight: 900; letter-spacing: .8px; text-transform: uppercase; }
+
     .price-card {
-      max-width: 420px; margin: 60px auto 0;
-      background: var(--bg3); border: 1px solid rgba(255,0,102,.3);
-      border-radius: 28px; padding: 48px 40px;
-      box-shadow: 0 0 80px rgba(255,0,102,.1);
+      max-width: 500px;
+      margin: 56px auto 0;
+      background: radial-gradient(circle at 50% 0%, rgba(255,0,102,.16), transparent 42%), linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)), var(--bg3);
+      border: 1px solid rgba(255,0,102,.35);
+      border-radius: 30px;
+      padding: clamp(32px, 5vw, 50px);
+      box-shadow: 0 0 90px rgba(255,0,102,.12), 0 28px 90px rgba(0,0,0,.36);
     }
-    .price-badge { display: inline-block; background: var(--pink); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
-    .price-amount { font-size: 80px; font-weight: 900; line-height: 1; margin-bottom: 8px; }
-    .price-amount sup { font-size: 32px; font-weight: 700; vertical-align: top; margin-top: 14px; }
-    .price-sub { font-size: 13px; color: var(--text2); margin-bottom: 36px; }
-    .price-features { text-align: left; margin-bottom: 36px; display: flex; flex-direction: column; gap: 12px; }
-    .pf { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 600; }
-    .pf-check { width: 22px; height: 22px; border-radius: 50%; background: rgba(0,255,136,.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+    .price-badge { display: inline-flex; color: #fff; background: var(--pink); border-radius: 999px; padding: 6px 14px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; font-weight: 900; margin-bottom: 18px; }
+    .price-amount {
+      display: inline-flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 4px;
+      font-size: clamp(58px, 8vw, 74px);
+      font-weight: 900;
+      line-height: 0.95;
+      margin-bottom: 12px;
+      letter-spacing: -2px;
+    }
+
+    .price-amount sup {
+      font-size: 0.42em;
+      line-height: 1;
+      margin-top: 0.08em;
+      margin-right: 2px;
+      letter-spacing: 0;
+    }
+
+    .price-number {
+      display: inline-block;
+      font-size: 1em;
+      letter-spacing: -2px;
+    }
+    .price-sub { color: var(--text2); font-size: 13px; font-weight: 700; margin-bottom: 32px; }
+    .price-features { display: grid; gap: 12px; text-align: left; margin-bottom: 32px; }
+
+    .pf { display: flex; align-items: flex-start; gap: 12px; color: var(--text); font-size: 14px; font-weight: 700; line-height: 1.45; }
+    .pf-check { width: 22px; height: 22px; border-radius: 50%; flex: 0 0 auto; background: rgba(0,255,136,.14); display: grid; place-items: center; margin-top: -1px; }
     .pf-check svg { width: 12px; height: 12px; color: var(--green); }
-    .btn-download {
-      display: flex; align-items: center; justify-content: center; gap: 12px;
-      width: 100%; background: #fff; color: #000; padding: 17px;
-      border-radius: 14px; text-decoration: none; font-weight: 800; font-size: 16px;
-      transition: transform .15s, box-shadow .2s;
-      box-shadow: 0 8px 40px rgba(255,255,255,.15);
-    }
-    .btn-download:hover { transform: translateY(-2px); box-shadow: 0 16px 48px rgba(255,255,255,.2); }
-    .btn-download svg { width: 22px; height: 22px; }
-    .no-sub { font-size: 12px; color: var(--text2); margin-top: 16px; }
+    .full-width { width: 100%; }
 
-    /* ── CTA BANNER ── */
+    .cta-wrap { padding: 0 20px 96px; max-width: 1160px; margin: 0 auto; }
+
     .cta-banner {
-      margin: 0 20px 100px; max-width: 1060px; margin-left: auto; margin-right: auto;
-      background: linear-gradient(135deg, var(--pink) 0%, #cc0055 50%, #8800aa 100%);
-      border-radius: 28px; padding: 72px 60px; text-align: center;
-      position: relative; overflow: hidden;
+      border-radius: 30px;
+      padding: clamp(44px, 7vw, 76px) clamp(24px, 6vw, 62px);
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+      background: radial-gradient(circle at 18% 30%, rgba(255,255,255,.16), transparent 30%), radial-gradient(circle at 86% 78%, rgba(0,255,204,.18), transparent 30%), linear-gradient(135deg, #ff0066 0%, #cc0055 45%, #7900d8 100%);
+      box-shadow: 0 28px 90px rgba(255,0,102,.18);
     }
-    .cta-banner::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 20% 50%, rgba(255,255,255,.12) 0%, transparent 60%),
-                  radial-gradient(ellipse at 80% 50%, rgba(0,255,204,.15) 0%, transparent 60%);
-    }
-    .cta-banner > * { position: relative; }
-    .cta-banner h2 { font-size: clamp(30px,5vw,52px); letter-spacing: -1px; color: #fff; margin-bottom: 16px; }
-    .cta-banner p { font-size: 17px; color: rgba(255,255,255,.8); max-width: 500px; margin: 0 auto 40px; }
-    .cta-btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
-    .cta-white { background: #fff; color: #000; padding: 15px 32px; border-radius: 14px; font-weight: 800; font-size: 15px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: transform .15s; }
-    .cta-white:hover { transform: scale(1.03); }
-    .cta-ghost { background: rgba(255,255,255,.15); color: #fff; padding: 15px 32px; border-radius: 14px; font-weight: 700; font-size: 15px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; border: 1.5px solid rgba(255,255,255,.3); transition: background .2s; }
-    .cta-ghost:hover { background: rgba(255,255,255,.25); }
 
-    /* ── FOOTER ── */
+    .cta-banner h2 { color: #fff; margin-bottom: 14px; }
+    .cta-banner p { max-width: 610px; color: rgba(255,255,255,.82); margin: 0 auto 32px; font-size: 17px; line-height: 1.65; font-weight: 600; }
+
     footer {
-      border-top: 1px solid rgba(255,255,255,.06);
-      padding: 40px 40px;
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;
-      max-width: 1100px; margin: 0 auto; gap: 20px;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 42px 20px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 22px;
+      align-items: center;
     }
-    @media (max-width: 600px) { footer { flex-direction: column; text-align: center; padding: 40px 20px; } }
-    .footer-logo { font-size: 18px; font-weight: 900; letter-spacing: 3px; color: var(--pink); }
-    .footer-links { display: flex; gap: 28px; }
-    .footer-links a { color: var(--text2); text-decoration: none; font-size: 13px; font-weight: 500; transition: color .2s; }
-    .footer-links a:hover { color: var(--text); }
-    .footer-copy { font-size: 12px; color: var(--text2); }
 
-    /* ── ANIMATIONS ── */
-    .fade-in { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+    .footer-logo { color: var(--pink); font-weight: 900; letter-spacing: 3px; font-size: 18px; }
+    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px 26px; }
+    .footer-links a { color: var(--text2); text-decoration: none; font-size: 12px; font-weight: 800; transition: color .2s ease; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { color: var(--text2); font-size: 12px; text-align: right; }
+
+    @media (max-width: 780px) {
+      footer { grid-template-columns: 1fr; text-align: center; }
+      .footer-copy { text-align: center; }
+    }
+
+    .fade-in { opacity: 0; transform: translateY(26px); transition: opacity .72s ease, transform .72s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
-    .fade-in-delay-1 { transition-delay: .1s; }
-    .fade-in-delay-2 { transition-delay: .2s; }
-    .fade-in-delay-3 { transition-delay: .3s; }
-    .fade-in-delay-4 { transition-delay: .4s; }
+    .delay-1 { transition-delay: .08s; }
+    .delay-2 { transition-delay: .16s; }
+    .delay-3 { transition-delay: .24s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+      .fade-in { opacity: 1; transform: none; }
+    }
   </style>
 </head>
+
 <body>
-
-<!-- ── NAV ── -->
-<nav>
-  <a href="#" class="nav-logo">TVDJ</a>
-  <div class="nav-links">
-    <a href="#features">Features</a>
-    <a href="#how">How It Works</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#pricing" class="nav-cta">Download — $1.99</a>
-  </div>
-</nav>
-
-<!-- ── HERO ── -->
-<div class="hero">
-  <div class="hero-glow hero-glow-1"></div>
-  <div class="hero-glow hero-glow-2"></div>
-
-  <div class="hero-badge"><span></span>Available on the App Store</div>
-
-  <h1>Perform.<br><em>Live.</em><br>Your sounds.</h1>
-  <p class="hero-sub">TVDJ turns your videos and audio clips into a live DJ performance tool. 12 color-coded trigger pads. Your content. Your stage.</p>
-
-  <div class="hero-actions">
-    <a href="#pricing" class="btn-appstore">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-      Download on the App Store
-    </a>
-    <a href="#features" class="btn-outline">
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-      See Features
-    </a>
-  </div>
-
-  <!-- Phone Mockup -->
-  <div class="phone-wrap fade-in">
-    <div class="phone">
-      <div class="phone-notch"></div>
-      <div class="phone-screen">
-        <div class="ph-header"><span class="ph-title">TVDJ</span></div>
-        <div class="ph-grid">
-          <div class="ph-pad filled" style="border-color:var(--pad1);background:linear-gradient(135deg,rgba(255,0,102,.25),rgba(255,0,102,.1))">
-            <div class="ph-pad-name" style="color:#fff">Bass Drop</div>
-            <div class="ph-pad-dot" style="background:var(--pad1)"></div>
-          </div>
-          <div class="ph-pad filled" style="border-color:var(--pad2);background:linear-gradient(135deg,rgba(0,255,204,.2),rgba(0,255,204,.08))">
-            <div class="ph-pad-name">Synth Loop</div>
-          </div>
-          <div class="ph-pad filled glow" style="border-color:var(--pad3);background:linear-gradient(135deg,rgba(255,102,0,.25),rgba(255,102,0,.1));box-shadow:0 0 10px rgba(255,102,0,.4)">
-            <div class="ph-pad-name">Beat Hit</div>
-            <div class="ph-pad-dot" style="background:var(--pad3)"></div>
-          </div>
-          <div class="ph-pad filled" style="border-color:var(--pad4);background:linear-gradient(135deg,rgba(0,255,136,.2),rgba(0,255,136,.08))">
-            <div class="ph-pad-name">Vocal Chop</div>
-          </div>
-          <div class="ph-pad empty">+</div>
-          <div class="ph-pad filled" style="border-color:var(--pad6);background:linear-gradient(135deg,rgba(255,204,0,.2),rgba(255,204,0,.08))">
-            <div class="ph-pad-name">FX Sweep</div>
-          </div>
-          <div class="ph-pad empty">+</div>
-          <div class="ph-pad filled" style="border-color:var(--pad8);background:linear-gradient(135deg,rgba(255,51,102,.25),rgba(255,51,102,.1))">
-            <div class="ph-pad-name">Sub Bass</div>
-          </div>
-          <div class="ph-pad empty">+</div>
-          <div class="ph-pad filled" style="border-color:var(--pad10);background:linear-gradient(135deg,rgba(153,255,0,.2),rgba(153,255,0,.08))">
-            <div class="ph-pad-name">VFX Clip</div>
-          </div>
-          <div class="ph-pad empty">+</div>
-          <div class="ph-pad filled" style="border-color:var(--pad12);background:linear-gradient(135deg,rgba(255,153,0,.2),rgba(255,153,0,.08))">
-            <div class="ph-pad-name">Stab</div>
-          </div>
-        </div>
-        <div class="ph-transport">
-          <div class="ph-t-row">
-            <div class="ph-t-btn ph-t-stop" style="font-size:8px">&#9632;</div>
-            <div class="ph-t-btn ph-t-play" style="font-size:8px">&#9654;</div>
-          </div>
-          <div class="ph-vol-row">
-            <span class="ph-vol-txt">VOL</span>
-            <div class="ph-vol-bar"><div class="ph-vol-fill"></div></div>
-            <span class="ph-vol-txt">80%</span>
-          </div>
-        </div>
-      </div>
-      <div class="phone-home-bar"></div>
-    </div>
-  </div>
-
-  <p class="hero-price" style="margin-top:36px">One-time purchase &middot; <strong>$1.99</strong> &middot; No subscription ever</p>
-</div>
-
-<!-- ── FEATURES ── -->
-<section id="features">
-  <p class="section-tag fade-in">What you get</p>
-  <h2 class="fade-in">Everything you need<br>to <em>perform</em>.</h2>
-  <p class="lead fade-in fade-in-delay-1">No bloat. No complexity. Just a clean, powerful interface built for live performance.</p>
-
-  <div class="features-grid">
-    <div class="feat-card fade-in">
-      <div class="feat-icon" style="background:rgba(255,0,102,.12)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FF0066" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-      </div>
-      <div class="feat-title">12 Trigger Pads</div>
-      <div class="feat-desc">A 3x4 grid of color-coded pads lets you fire any clip instantly. Each pad pulses and glows when active for clear visual feedback on stage.</div>
-    </div>
-    <div class="feat-card fade-in fade-in-delay-1">
-      <div class="feat-icon" style="background:rgba(0,255,204,.1)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#00FFCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      </div>
-      <div class="feat-title">Any Format Welcome</div>
-      <div class="feat-desc">Import MP4, MOV, AVI, MKV, MP3, WAV, AAC, OGG and more. No conversion needed. If your device plays it, TVDJ can trigger it.</div>
-    </div>
-    <div class="feat-card fade-in fade-in-delay-2">
-      <div class="feat-icon" style="background:rgba(255,102,0,.12)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FF6600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
-      </div>
-      <div class="feat-title">Per-Pad Clip Editing</div>
-      <div class="feat-desc">Set custom start and end points for every clip. Adjust individual pad volume. Trim your samples to the exact moment without touching the original file.</div>
-    </div>
-    <div class="feat-card fade-in">
-      <div class="feat-icon" style="background:rgba(0,255,136,.1)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#00FF88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-      </div>
-      <div class="feat-title">Sample Library</div>
-      <div class="feat-desc">All your clips in one searchable place. Name them, organize them, reassign them to any pad. Your library grows with you.</div>
-    </div>
-    <div class="feat-card fade-in fade-in-delay-1">
-      <div class="feat-icon" style="background:rgba(255,0,204,.1)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FF00CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-      </div>
-      <div class="feat-title">Master Transport</div>
-      <div class="feat-desc">Global play, stop, and master volume control. Take command of your entire set from a single panel at the bottom of the screen.</div>
-    </div>
-    <div class="feat-card fade-in fade-in-delay-2">
-      <div class="feat-icon" style="background:rgba(255,204,0,.1)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FFCC00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </div>
-      <div class="feat-title">Fully Offline</div>
-      <div class="feat-desc">Everything lives on your device. No account. No cloud. No subscription. No internet required on stage. Your music, your hardware.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ── PADS SECTION ── -->
-<section id="pads" style="background:var(--bg2);border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);max-width:none;padding:100px 20px">
-  <div class="pads-intro fade-in">
-    <p class="section-tag">Performance grid</p>
-    <h2>12 pads.<br><em>Infinite</em> possibilities.</h2>
-    <p class="lead">Each pad is color-coded, independently controlled, and responds instantly. Tap to play. Hold to edit. The stage is yours.</p>
-  </div>
-  <div class="big-grid fade-in">
-    <div class="big-pad glow" style="border-color:var(--pad1);background:linear-gradient(135deg,rgba(255,0,102,.3),rgba(255,0,102,.08));color:#fff;box-shadow:0 0 30px rgba(255,0,102,.3)">
-      <div class="big-pad-inner"><div class="big-pad-num">1</div><div class="big-pad-label">Playing</div></div>
-      <div class="pad-wave"><div class="pw"></div><div class="pw"></div><div class="pw"></div><div class="pw"></div><div class="pw"></div></div>
-    </div>
-    <div class="big-pad" style="border-color:var(--pad2);background:linear-gradient(135deg,rgba(0,255,204,.2),rgba(0,255,204,.06));color:#fff">
-      <div class="big-pad-inner"><div class="big-pad-num">2</div><div class="big-pad-label">Ready</div></div>
-    </div>
-    <div class="big-pad" style="border-color:var(--pad3);background:linear-gradient(135deg,rgba(255,102,0,.2),rgba(255,102,0,.06));color:#fff">
-      <div class="big-pad-inner"><div class="big-pad-num">3</div><div class="big-pad-label">Ready</div></div>
-    </div>
-    <div class="big-pad glow" style="border-color:var(--pad4);background:linear-gradient(135deg,rgba(0,255,136,.25),rgba(0,255,136,.08));color:#fff;box-shadow:0 0 30px rgba(0,255,136,.25)">
-      <div class="big-pad-inner"><div class="big-pad-num">4</div><div class="big-pad-label">Playing</div></div>
-      <div class="pad-wave"><div class="pw"></div><div class="pw"></div><div class="pw"></div><div class="pw"></div><div class="pw"></div></div>
-    </div>
-    <div class="big-pad" style="border-color:var(--pad5);background:linear-gradient(135deg,rgba(255,0,204,.2),rgba(255,0,204,.06));color:#fff">
-      <div class="big-pad-inner"><div class="big-pad-num">5</div><div class="big-pad-label">Ready</div></div>
-    </div>
-    <div class="big-pad" style="border-color:var(--pad6);background:linear-gradient(135deg,rgba(255,204,0,.2),rgba(255,204,0,.06));color:#fff">
-      <div class="big-pad-inner"><div class="big-pad-num">6</div><div class="big-pad-label">Ready</div></div>
-    </div>
-    <div class="big-pad" style="border-style:dashed;border-color:#444;background:rgba(26,26,36,.4);color:#666">
-      <div class="big-pad-inner">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        <div class="big-pad-label" style="font-size:9px">Add sample</div>
-      </div>
-    </div>
-    <div class="big-pad glow" style="border-color:var(--pad8);background:linear-gradient(135deg,rgba(255,51,102,.25),rgba(255,51,102,.08));color:#fff;box-shadow:0 0 30px rgba(255,51,102,.28)">
-      <div class="big-pad-inner"><div class="big-pad-num">8</div><div class="big-pad-label">Playing</div></div>
-      <div class="pad-wave"><div class="pw"></div><div class="pw"></div><div class="pw"></div><div class="pw"></div><div class="pw"></div></div>
-    </div>
-    <div class="big-pad" style="border-style:dashed;border-color:#444;background:rgba(26,26,36,.4);color:#666">
-      <div class="big-pad-inner">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        <div class="big-pad-label" style="font-size:9px">Add sample</div>
-      </div>
-    </div>
-    <div class="big-pad" style="border-color:var(--pad10);background:linear-gradient(135deg,rgba(153,255,0,.2),rgba(153,255,0,.06));color:#fff">
-      <div class="big-pad-inner"><div class="big-pad-num">10</div><div class="big-pad-label">Ready</div></div>
-    </div>
-    <div class="big-pad" style="border-color:var(--pad11);background:linear-gradient(135deg,rgba(204,0,255,.2),rgba(204,0,255,.06));color:#fff">
-      <div class="big-pad-inner"><div class="big-pad-num">11</div><div class="big-pad-label">Ready</div></div>
-    </div>
-    <div class="big-pad" style="border-color:var(--pad12);background:linear-gradient(135deg,rgba(255,153,0,.2),rgba(255,153,0,.06));color:#fff">
-      <div class="big-pad-inner"><div class="big-pad-num">12</div><div class="big-pad-label">Ready</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ── SPLIT: EDIT ── -->
-<div class="split">
-  <div class="split-text fade-in">
-    <p class="section-tag">Precision control</p>
-    <h2>Edit every<br>clip your <em>way</em>.</h2>
-    <p class="lead">Trim start and end points. Set the exact volume for each sample. Preview playback before you go live. All without touching the original file.</p>
-  </div>
-  <div class="split-visual fade-in fade-in-delay-2">
-    <div class="ui-card" style="max-width:380px">
-      <div class="ui-card-header">
-        <span class="ui-back">&#8249; Back</span>
-        <span class="ui-card-title">Edit Sample</span>
-      </div>
-      <div class="ui-card-body">
-        <div class="video-thumb">
-          <div class="video-thumb-inner">
-            <div class="play-circle"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
-        </div>
-        <div class="slider-demo">
-          <div class="slider-demo-lbl"><span>Volume</span><span style="color:#fff">85%</span></div>
-          <div class="slider-track">
-            <div class="slider-fill" style="width:85%;background:var(--pad1)"></div>
-            <div class="slider-thumb" style="left:calc(85% - 8px);background:var(--pad1)"></div>
-          </div>
-        </div>
-        <div class="slider-demo">
-          <div class="slider-demo-lbl"><span>Start Time</span><span style="color:#fff">0:04</span></div>
-          <div class="slider-track">
-            <div class="slider-fill" style="width:22%;background:var(--cyan)"></div>
-            <div class="slider-thumb" style="left:calc(22% - 8px);background:var(--cyan)"></div>
-          </div>
-        </div>
-        <div class="slider-demo" style="margin-bottom:14px">
-          <div class="slider-demo-lbl"><span>End Time</span><span style="color:#fff">0:18</span></div>
-          <div class="slider-track">
-            <div class="slider-fill" style="width:72%;background:var(--cyan)"></div>
-            <div class="slider-thumb" style="left:calc(72% - 8px);background:var(--cyan)"></div>
-          </div>
-        </div>
-        <div class="info-pills">
-          <div class="pill"><div class="pill-lbl">Duration</div><div class="pill-val">0:24</div></div>
-          <div class="pill"><div class="pill-lbl">Format</div><div class="pill-val" style="color:var(--pad1)">MP4</div></div>
-          <div class="pill"><div class="pill-lbl">Clip</div><div class="pill-val">0:14</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── SPLIT: LIBRARY ── -->
-<div class="split reverse" style="background:var(--bg2);border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);max-width:none;padding:100px 20px">
-  <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;width:100%">
-    <div class="fade-in">
-      <p class="section-tag">Your collection</p>
-      <h2>A library that<br>grows with <em>you</em>.</h2>
-      <p class="lead">Upload once, use anywhere across your 12 pads. Search by name, preview, and reassign samples instantly. Your library is always one tap away.</p>
-    </div>
-    <div class="fade-in fade-in-delay-2" style="display:flex;justify-content:center">
-      <div class="lib-card" style="width:100%;max-width:380px">
-        <div class="lib-search">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <div class="lib-search-bar"></div>
-        </div>
-        <div class="lib-row">
-          <div class="lib-thumb" style="background:linear-gradient(135deg,rgba(255,0,102,.3),rgba(255,0,102,.1))"></div>
-          <div class="lib-info"><div class="lib-name">Bass Drop 001</div><div class="lib-meta">MP4 &middot; 0:12</div></div>
-          <div class="lib-del"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></div>
-        </div>
-        <div class="lib-row">
-          <div class="lib-thumb" style="background:linear-gradient(135deg,rgba(0,255,204,.2),rgba(0,255,204,.06));display:flex;align-items:center;justify-content:center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-          </div>
-          <div class="lib-info"><div class="lib-name">Synth Loop A</div><div class="lib-meta">MP3 &middot; 0:08</div></div>
-          <div class="lib-del"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></div>
-        </div>
-        <div class="lib-row">
-          <div class="lib-thumb" style="background:linear-gradient(135deg,rgba(255,102,0,.25),rgba(255,102,0,.08))"></div>
-          <div class="lib-info"><div class="lib-name">FX Sweep Rise</div><div class="lib-meta">WAV &middot; 0:06</div></div>
-          <div class="lib-del"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></div>
-        </div>
-        <div class="lib-row">
-          <div class="lib-thumb" style="background:linear-gradient(135deg,rgba(0,255,136,.2),rgba(0,255,136,.06));display:flex;align-items:center;justify-content:center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-          </div>
-          <div class="lib-info"><div class="lib-name">Vocal Chop 3</div><div class="lib-meta">AAC &middot; 0:03</div></div>
-          <div class="lib-del"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── HOW IT WORKS ── -->
-<section id="how" style="text-align:center;max-width:1100px">
-  <p class="section-tag fade-in">Get started in minutes</p>
-  <h2 class="fade-in">Three steps to your<br>first <em>live set</em>.</h2>
-  <div class="steps-wrap">
-    <div class="step fade-in">
-      <div class="step-num">01</div>
-      <div class="step-icon" style="background:rgba(255,0,102,.1)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FF0066" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
-      </div>
-      <div class="step-title">Upload Your Clips</div>
-      <div class="step-desc">Go to the Library tab and upload any video or audio file from your iPhone. Any format works — MP4, MP3, WAV, MOV, and more.</div>
-      <div class="step-line"></div>
-    </div>
-    <div class="step fade-in fade-in-delay-1">
-      <div class="step-num">02</div>
-      <div class="step-icon" style="background:rgba(0,255,204,.1)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#00FFCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-      </div>
-      <div class="step-title">Assign to Pads</div>
-      <div class="step-desc">Tap any empty pad on the Perform screen and choose a sample from your library. Arrange your set exactly how you want it.</div>
-      <div class="step-line"></div>
-    </div>
-    <div class="step fade-in fade-in-delay-2">
-      <div class="step-num">03</div>
-      <div class="step-icon" style="background:rgba(255,0,204,.1)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FF00CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-      </div>
-      <div class="step-title">Perform Live</div>
-      <div class="step-desc">Tap pads to fire samples in real time. Adjust master volume on the fly. Hold any pad to edit its clip on the spot. You are ready.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ── SPECS ── -->
-<div id="specs">
-  <div class="specs-inner">
-    <p class="section-tag fade-in">By the numbers</p>
-    <h2 class="fade-in">Built for <em>real</em> performance.</h2>
-    <div class="specs-grid">
-      <div class="spec-item fade-in">
-        <div class="spec-val" style="color:var(--pink)">12</div>
-        <div class="spec-label">Trigger pads</div>
-      </div>
-      <div class="spec-item fade-in fade-in-delay-1">
-        <div class="spec-val" style="color:var(--cyan)">Any</div>
-        <div class="spec-label">Video & audio formats</div>
-      </div>
-      <div class="spec-item fade-in fade-in-delay-2">
-        <div class="spec-val" style="color:var(--green)">0</div>
-        <div class="spec-label">Subscriptions required</div>
-      </div>
-      <div class="spec-item fade-in fade-in-delay-3">
-        <div class="spec-val" style="color:#FF9900">100%</div>
-        <div class="spec-label">Offline — no internet needed</div>
-      </div>
-      <div class="spec-item fade-in">
-        <div class="spec-val" style="color:#FF00CC">4+</div>
-        <div class="spec-label">Age rating</div>
-      </div>
-      <div class="spec-item fade-in fade-in-delay-1">
-        <div class="spec-val" style="color:var(--pink)">$1.99</div>
-        <div class="spec-label">One-time purchase</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── PRICING ── -->
-<section id="pricing">
-  <p class="section-tag fade-in" style="text-align:center">Pricing</p>
-  <h2 class="fade-in" style="text-align:center">Simple.<br>One price. <em>Forever</em>.</h2>
-  <p class="lead fade-in" style="text-align:center;margin:0 auto">No tiers. No upsells. No subscription. Pay once and own TVDJ forever.</p>
-
-  <div class="price-card fade-in">
-    <div class="price-badge">Full Version</div>
-    <div class="price-amount"><sup>$</sup>1<span style="font-size:50px">.99</span></div>
-    <div class="price-sub">One-time purchase on the App Store</div>
-    <div class="price-features">
-      <div class="pf"><div class="pf-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>12 trigger pads with live playback</div>
-      <div class="pf"><div class="pf-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>Unlimited sample library</div>
-      <div class="pf"><div class="pf-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>All video & audio formats</div>
-      <div class="pf"><div class="pf-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>Per-pad volume & clip trimming</div>
-      <div class="pf"><div class="pf-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>Full offline — works anywhere</div>
-      <div class="pf"><div class="pf-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>All future updates included</div>
-    </div>
-    <a href="#" class="btn-download">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-      Download on the App Store
-    </a>
-    <p class="no-sub">No subscription &middot; No hidden fees &middot; Yours forever</p>
-  </div>
-</section>
-
-<!-- ── CTA BANNER ── -->
-<div style="padding:0 20px 100px;max-width:1140px;margin:0 auto">
-  <div class="cta-banner fade-in">
-    <h2>Ready to take the stage?</h2>
-    <p>Download TVDJ and start building your first live set in minutes. Your clips. Your pads. Your performance.</p>
-    <div class="cta-btns">
-      <a href="#" class="cta-white">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        Download — $1.99
+  <div class="page-wrap">
+    <nav aria-label="TVDJ navigation">
+      <a href="https://www.food4thoth.com/TVDJ/tvdj-marketing.html" class="nav-logo" aria-label="TVDJ marketing page">
+        <span class="nav-logo-mark">TV</span>
+        TVDJ
       </a>
-      <a href="#features" class="cta-ghost">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        Learn More
-      </a>
-    </div>
+
+      <div class="nav-links">
+        <a href="#features">Apple App</a>
+        <a href="#ecosystem">Web Apps</a>
+        <a href="#how">How It Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="https://www.food4thoth.com/TVDJ/tvdj-privacy-policy.html">Privacy</a>
+        <a href="https://www.food4thoth.com/" target="_blank" rel="noopener">FOOD4THOTH</a>
+        <a href="https://apps.apple.com/us/app/tvdj/id6760279297" class="nav-cta" target="_blank" rel="noopener">App Store</a>
+      </div>
+    </nav>
+
+    <main>
+      <header class="hero">
+        <div class="hero-copy">
+          <div class="hero-badge fade-in"><span></span>Available on the Apple App Store</div>
+
+          <h1 class="fade-in delay-1">TVDJ for<br><em>iPhone.</em><br>Your clips live.</h1>
+
+          <p class="hero-sub fade-in delay-2">
+            TVDJ turns your videos and audio clips into a pocket live-performance instrument.
+            Build a set, trigger <strong>12 color-coded pads</strong>, trim clips, control volume,
+            and perform anywhere with your own media.
+          </p>
+
+          <div class="btn-row hero-actions fade-in delay-3">
+            <a href="https://apps.apple.com/us/app/tvdj/id6760279297" class="btn btn-appstore" target="_blank" rel="noopener" aria-label="Download TVDJ on the Apple App Store">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              Download on the App Store
+            </a>
+
+            <a href="https://www.food4thoth.com/TVDJ/TVDJAPP.html" class="btn btn-outline">Try New Web App</a>
+            <a href="#ecosystem" class="btn btn-outline">Explore Versions</a>
+          </div>
+
+          <div class="hero-meta fade-in delay-3" aria-label="TVDJ app highlights">
+            <span class="meta-pill"><strong>$1.99</strong> one-time purchase</span>
+            <span class="meta-pill">No subscription</span>
+            <span class="meta-pill">Offline performance</span>
+            <span class="meta-pill">Privacy-first</span>
+          </div>
+        </div>
+
+        <div class="hero-visual fade-in delay-2" aria-hidden="true">
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="ph-header"><span class="ph-title">TVDJ</span><span class="ph-live">LIVE</span></div>
+                <div class="ph-grid">
+                  <div class="ph-pad" style="border-color:var(--pad1);background:linear-gradient(135deg,rgba(255,0,102,.28),rgba(255,0,102,.08));"><span>1</span><div class="ph-pad-name">Bass Drop</div><div class="ph-pad-dot" style="background:var(--pad1);"></div></div>
+                  <div class="ph-pad" style="border-color:var(--pad2);background:linear-gradient(135deg,rgba(0,255,204,.22),rgba(0,255,204,.06));"><span>2</span><div class="ph-pad-name">Synth Loop</div></div>
+                  <div class="ph-pad" style="border-color:var(--pad3);background:linear-gradient(135deg,rgba(255,102,0,.28),rgba(255,102,0,.08));box-shadow:0 0 16px rgba(255,102,0,.35);"><span>3</span><div class="ph-pad-name">Beat Hit</div><div class="ph-pad-dot" style="background:var(--pad3);"></div></div>
+                  <div class="ph-pad" style="border-color:var(--pad4);background:linear-gradient(135deg,rgba(0,255,136,.22),rgba(0,255,136,.06));"><span>4</span><div class="ph-pad-name">Vocal Chop</div></div>
+                  <div class="ph-pad empty">+</div>
+                  <div class="ph-pad" style="border-color:var(--pad6);background:linear-gradient(135deg,rgba(255,204,0,.22),rgba(255,204,0,.06));"><span>6</span><div class="ph-pad-name">FX Sweep</div></div>
+                  <div class="ph-pad empty">+</div>
+                  <div class="ph-pad" style="border-color:var(--pad8);background:linear-gradient(135deg,rgba(255,51,102,.28),rgba(255,51,102,.08));box-shadow:0 0 16px rgba(255,51,102,.32);"><span>8</span><div class="ph-pad-name">Sub Bass</div><div class="ph-pad-dot" style="background:var(--pad8);"></div></div>
+                  <div class="ph-pad empty">+</div>
+                  <div class="ph-pad" style="border-color:var(--pad10);background:linear-gradient(135deg,rgba(153,255,0,.22),rgba(153,255,0,.06));"><span>10</span><div class="ph-pad-name">VFX Clip</div></div>
+                  <div class="ph-pad empty">+</div>
+                  <div class="ph-pad" style="border-color:var(--pad12);background:linear-gradient(135deg,rgba(255,153,0,.22),rgba(255,153,0,.06));"><span>12</span><div class="ph-pad-name">Stab</div></div>
+                </div>
+                <div class="ph-transport">
+                  <div class="ph-t-row"><div class="ph-t-btn ph-t-stop">&#9632;</div><div class="ph-t-btn ph-t-play">&#9654;</div></div>
+                  <div class="ph-vol-row"><span class="ph-vol-txt">VOL</span><div class="ph-vol-bar"><div class="ph-vol-fill"></div></div><span class="ph-vol-txt">80%</span></div>
+                </div>
+              </div>
+              <div class="phone-home-bar"></div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section id="features">
+        <p class="section-tag fade-in">Main release</p>
+        <h2 class="fade-in">Promote the <em>Apple app</em> first.</h2>
+        <p class="lead fade-in delay-1">
+          This page now points people toward the iPhone App Store version first, while still connecting them to the new browser version,
+          the original TVDJ experiments, the privacy policy, and the main FOOD4THOTH universe.
+        </p>
+
+        <div class="features-grid">
+          <article class="card fade-in"><div class="card-icon" style="background:rgba(255,0,102,.12);"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#ff0066" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></div><h3 class="card-title">12 Live Trigger Pads</h3><p class="card-desc">A simple, colorful performance grid for launching sounds, videos, loops, hits, transitions, samples, and visual moments.</p></article>
+          <article class="card fade-in delay-1"><div class="card-icon" style="background:rgba(0,255,204,.1);"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#00ffcc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg></div><h3 class="card-title">Audio + Video Performance</h3><p class="card-desc">Built for performers who want sound and moving image together: DJs, VJs, experimental artists, musicians, and live storytellers.</p></article>
+          <article class="card fade-in delay-2"><div class="card-icon" style="background:rgba(0,255,136,.1);"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#00ff88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div><h3 class="card-title">Privacy-First + Offline</h3><p class="card-desc">No account-heavy workflow. No cloud dependency. Load your media, keep your set close, and perform from your own device.</p></article>
+          <article class="card fade-in"><div class="card-icon" style="background:rgba(255,153,0,.1);"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#ff9900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg></div><h3 class="card-title">Trim + Control Clips</h3><p class="card-desc">Set clip moments, adjust playback levels, preview your media, and shape each pad to fit the live set.</p></article>
+          <article class="card fade-in delay-1"><div class="card-icon" style="background:rgba(204,0,255,.1);"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#cc00ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg></div><h3 class="card-title">Sample Library</h3><p class="card-desc">Build a growing library of clips and sounds, then assign your favorites to pads for fast live access.</p></article>
+          <article class="card fade-in delay-2"><div class="card-icon" style="background:rgba(0,102,255,.1);"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#0066ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 12h18"></path><path d="M3 6h18"></path><path d="M3 18h18"></path></svg></div><h3 class="card-title">Connected App Ecosystem</h3><p class="card-desc">Use the Apple app as the main release, then explore the new web version and older Food4Thoth TVDJ variations.</p></article>
+        </div>
+      </section>
+
+      <section id="pads" class="pads-band center">
+        <div class="pads-inner">
+          <p class="section-tag fade-in">Performance grid</p>
+          <h2 class="fade-in">12 pads. <em>One pocket stage.</em></h2>
+          <p class="lead fade-in delay-1">Tap pads to trigger clips. Click the demo pads below to turn their live glow on and off.</p>
+
+          <div class="big-grid fade-in delay-2">
+            <div class="big-pad glow" style="border-color:var(--pad1);background:linear-gradient(135deg,rgba(255,0,102,.3),rgba(255,0,102,.08));box-shadow:0 0 30px rgba(255,0,102,.28);"><div class="big-pad-inner"><div class="big-pad-num">1</div><div class="big-pad-label">Playing</div></div><div class="pad-wave"><div class="pw"></div><div class="pw"></div><div class="pw"></div><div class="pw"></div><div class="pw"></div></div></div>
+            <div class="big-pad" style="border-color:var(--pad2);background:linear-gradient(135deg,rgba(0,255,204,.22),rgba(0,255,204,.06));"><div class="big-pad-inner"><div class="big-pad-num">2</div><div class="big-pad-label">Ready</div></div></div>
+            <div class="big-pad" style="border-color:var(--pad3);background:linear-gradient(135deg,rgba(255,102,0,.22),rgba(255,102,0,.06));"><div class="big-pad-inner"><div class="big-pad-num">3</div><div class="big-pad-label">Ready</div></div></div>
+            <div class="big-pad glow" style="border-color:var(--pad4);background:linear-gradient(135deg,rgba(0,255,136,.26),rgba(0,255,136,.08));box-shadow:0 0 30px rgba(0,255,136,.24);"><div class="big-pad-inner"><div class="big-pad-num">4</div><div class="big-pad-label">Playing</div></div><div class="pad-wave"><div class="pw"></div><div class="pw"></div><div class="pw"></div><div class="pw"></div><div class="pw"></div></div></div>
+            <div class="big-pad" style="border-color:var(--pad5);background:linear-gradient(135deg,rgba(255,0,204,.22),rgba(255,0,204,.06));"><div class="big-pad-inner"><div class="big-pad-num">5</div><div class="big-pad-label">Ready</div></div></div>
+            <div class="big-pad" style="border-color:var(--pad6);background:linear-gradient(135deg,rgba(255,204,0,.22),rgba(255,204,0,.06));"><div class="big-pad-inner"><div class="big-pad-num">6</div><div class="big-pad-label">Ready</div></div></div>
+            <div class="big-pad" style="border-style:dashed;border-color:#555;background:rgba(26,26,36,.44);color:#777;"><div class="big-pad-inner"><div class="big-pad-num">+</div><div class="big-pad-label">Add</div></div></div>
+            <div class="big-pad glow" style="border-color:var(--pad8);background:linear-gradient(135deg,rgba(255,51,102,.26),rgba(255,51,102,.08));box-shadow:0 0 30px rgba(255,51,102,.26);"><div class="big-pad-inner"><div class="big-pad-num">8</div><div class="big-pad-label">Playing</div></div><div class="pad-wave"><div class="pw"></div><div class="pw"></div><div class="pw"></div><div class="pw"></div><div class="pw"></div></div></div>
+            <div class="big-pad" style="border-style:dashed;border-color:#555;background:rgba(26,26,36,.44);color:#777;"><div class="big-pad-inner"><div class="big-pad-num">+</div><div class="big-pad-label">Add</div></div></div>
+            <div class="big-pad" style="border-color:var(--pad10);background:linear-gradient(135deg,rgba(153,255,0,.22),rgba(153,255,0,.06));"><div class="big-pad-inner"><div class="big-pad-num">10</div><div class="big-pad-label">Ready</div></div></div>
+            <div class="big-pad" style="border-color:var(--pad11);background:linear-gradient(135deg,rgba(204,0,255,.22),rgba(204,0,255,.06));"><div class="big-pad-inner"><div class="big-pad-num">11</div><div class="big-pad-label">Ready</div></div></div>
+            <div class="big-pad" style="border-color:var(--pad12);background:linear-gradient(135deg,rgba(255,153,0,.22),rgba(255,153,0,.06));"><div class="big-pad-inner"><div class="big-pad-num">12</div><div class="big-pad-label">Ready</div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="split">
+        <div class="fade-in">
+          <p class="section-tag">Precision control</p>
+          <h2>Edit every clip <em>your way</em>.</h2>
+          <p class="lead">Trim the start and end of a clip, adjust individual pad volume, preview your media, and keep the original file untouched. TVDJ is built for fast setup before a show and quick changes during creative flow.</p>
+        </div>
+
+        <div class="fade-in delay-2">
+          <div class="ui-demo">
+            <div class="ui-demo-header"><span class="ui-back">&#8249; Back</span><span class="ui-title">Edit Sample</span><span class="ui-back">Save</span></div>
+            <div class="ui-demo-body">
+              <div class="video-thumb"><div class="play-circle"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></div></div>
+              <div class="slider-demo"><div class="slider-demo-lbl"><span>Volume</span><span style="color:#fff;">85%</span></div><div class="slider-track"><div class="slider-fill" style="width:85%;background:var(--pink);"></div><div class="slider-thumb" style="left:calc(85% - 8px);background:var(--pink);"></div></div></div>
+              <div class="slider-demo"><div class="slider-demo-lbl"><span>Start Time</span><span style="color:#fff;">0:04</span></div><div class="slider-track"><div class="slider-fill" style="width:22%;background:var(--cyan);"></div><div class="slider-thumb" style="left:calc(22% - 8px);background:var(--cyan);"></div></div></div>
+              <div class="slider-demo"><div class="slider-demo-lbl"><span>End Time</span><span style="color:#fff;">0:18</span></div><div class="slider-track"><div class="slider-fill" style="width:72%;background:var(--cyan);"></div><div class="slider-thumb" style="left:calc(72% - 8px);background:var(--cyan);"></div></div></div>
+              <div class="info-pills"><div class="pill"><div class="pill-lbl">Duration</div><div class="pill-val">0:24</div></div><div class="pill"><div class="pill-lbl">Format</div><div class="pill-val" style="color:var(--pink);">MP4</div></div><div class="pill"><div class="pill-lbl">Clip</div><div class="pill-val">0:14</div></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="ecosystem" class="ecosystem">
+        <div class="section-inner">
+          <p class="section-tag fade-in">Connected TVDJ universe</p>
+          <h2 class="fade-in">Apple app first. <em>Web versions connected.</em></h2>
+          <p class="lead fade-in delay-1">This page now works as the central TVDJ ad and hub: send visitors to the Apple app, the new matching web app, the older browser app, experimental FX mode, sequencer mode, privacy policy, and FOOD4THOTH home.</p>
+
+          <div class="app-grid">
+            <article class="card app-card featured fade-in">
+              <div><span class="app-label">Primary Download</span><h3>TVDJ Apple App</h3><p>The main promoted version. Best for iPhone users who want the focused app experience, live performance workflow, and a one-time App Store purchase.</p></div>
+              <div class="mini-links"><a href="https://apps.apple.com/us/app/tvdj/id6760279297" class="mini-link" target="_blank" rel="noopener">Download on App Store</a><a href="https://www.food4thoth.com/TVDJ/tvdj-privacy-policy.html" class="mini-link">Privacy Policy</a></div>
+            </article>
+
+            <article class="card app-card fade-in delay-1">
+              <div><span class="app-label" style="color:var(--cyan);border-color:rgba(0,255,204,.3);background:rgba(0,255,204,.08);">New Web App</span><h3>Matching Web Version</h3><p>A browser-based TVDJ version designed to connect with the Apple app concept. Great for previews, sharing, testing, and desktop exploration.</p></div>
+              <div class="mini-links"><a href="https://www.food4thoth.com/TVDJ/TVDJAPP.html" class="mini-link">Open New Web App</a></div>
+            </article>
+
+            <article class="card app-card fade-in delay-2">
+              <div><span class="app-label" style="color:var(--orange);border-color:rgba(255,153,0,.32);background:rgba(255,153,0,.09);">Original App</span><h3>Legacy TVDJ</h3><p>The original web version and earlier experiments remain connected for visitors who want to explore the full creative evolution.</p></div>
+              <div class="mini-links"><a href="https://www.food4thoth.com/TVDJ/index.html" class="mini-link">Old App</a><a href="https://www.food4thoth.com/TVDJ/indexFX.html" class="mini-link">FX Version</a><a href="https://www.food4thoth.com/TVDJ/indexSeq.html" class="mini-link">Sequencer</a></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="how" class="center">
+        <p class="section-tag fade-in">Get started fast</p>
+        <h2 class="fade-in">Three steps to your <em>first live set</em>.</h2>
+        <p class="lead fade-in delay-1">TVDJ is made to feel immediate: load media, assign pads, perform.</p>
+        <div class="steps-wrap">
+          <article class="card fade-in"><div class="step-num">01</div><h3 class="card-title">Load Your Clips</h3><p class="card-desc">Add videos, sounds, loops, stabs, textures, voice clips, transitions, and performance moments from your device.</p></article>
+          <article class="card fade-in delay-1"><div class="step-num">02</div><h3 class="card-title">Build Your Pad Grid</h3><p class="card-desc">Assign your favorite clips to the 12-pad performance grid and arrange them for the flow of your set.</p></article>
+          <article class="card fade-in delay-2"><div class="step-num">03</div><h3 class="card-title">Perform Live</h3><p class="card-desc">Tap pads in real time, adjust volume, trigger moments, and bring your audio/video set to life.</p></article>
+        </div>
+      </section>
+
+      <section class="specs">
+        <div class="section-inner">
+          <p class="section-tag fade-in">By the numbers</p>
+          <h2 class="fade-in">Built for <em>simple performance</em>.</h2>
+          <div class="specs-grid">
+            <div class="spec-item fade-in"><div class="spec-val" style="color:var(--pink);">12</div><div class="spec-label">Trigger Pads</div></div>
+            <div class="spec-item fade-in delay-1"><div class="spec-val" style="color:var(--cyan);">A/V</div><div class="spec-label">Audio + Video</div></div>
+            <div class="spec-item fade-in delay-2"><div class="spec-val" style="color:var(--green);">0</div><div class="spec-label">Subscriptions</div></div>
+            <div class="spec-item fade-in delay-3"><div class="spec-val" style="color:var(--orange);">100%</div><div class="spec-label">Offline Friendly</div></div>
+            <div class="spec-item fade-in"><div class="spec-val" style="color:var(--purple);">4+</div><div class="spec-label">Age Rating</div></div>
+            <div class="spec-item fade-in delay-1"><div class="spec-val" style="color:var(--pink);">$1.99</div><div class="spec-label">One-Time Price</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing" class="center">
+        <p class="section-tag fade-in">Pricing</p>
+        <h2 class="fade-in">Simple. One price. <em>No subscription.</em></h2>
+        <p class="lead fade-in delay-1">TVDJ is positioned as a focused Apple app purchase for performers, artists, and creative experimenters.</p>
+
+        <div class="price-card fade-in delay-2">
+          <div class="price-badge">Apple App</div>
+          <div class="price-amount"><sup>$</sup><span class="price-number">1.99</span></div>
+          <div class="price-sub">One-time purchase on the App Store</div>
+          <div class="price-features">
+            <div class="pf"><span class="pf-check"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>12 color-coded trigger pads for live performance</div>
+            <div class="pf"><span class="pf-check"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Video and audio clip workflow</div>
+            <div class="pf"><span class="pf-check"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Per-pad volume, preview, and clip control</div>
+            <div class="pf"><span class="pf-check"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Offline-friendly performance setup</div>
+            <div class="pf"><span class="pf-check"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Connected to FOOD4THOTH web versions and experiments</div>
+          </div>
+          <a href="https://apps.apple.com/us/app/tvdj/id6760279297" class="btn btn-appstore full-width" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>Download on the App Store</a>
+          <p class="tiny-note">No subscription &middot; No hidden fees &middot; Privacy policy linked below</p>
+        </div>
+      </section>
+
+      <div class="cta-wrap">
+        <div class="cta-banner fade-in">
+          <h2>Ready to turn your iPhone into a live A/V pad rig?</h2>
+          <p>Download TVDJ on the App Store, or preview the matching web app and older Food4Thoth TVDJ experiments.</p>
+          <div class="btn-row">
+            <a href="https://apps.apple.com/us/app/tvdj/id6760279297" class="btn btn-appstore" target="_blank" rel="noopener">Download — $1.99</a>
+            <a href="https://www.food4thoth.com/TVDJ/TVDJAPP.html" class="btn btn-outline">Try Web App</a>
+            <a href="https://www.food4thoth.com/" class="btn btn-outline" target="_blank" rel="noopener">Visit FOOD4THOTH</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-logo">TVDJ</div>
+      <div class="footer-links">
+        <a href="https://www.food4thoth.com/TVDJ/tvdj-privacy-policy.html">Privacy Policy</a>
+        <a href="https://apps.apple.com/us/app/tvdj/id6760279297" target="_blank" rel="noopener">App Store</a>
+        <a href="https://www.food4thoth.com/TVDJ/TVDJAPP.html">New Web App</a>
+        <a href="https://www.food4thoth.com/TVDJ/index.html">Old App</a>
+        <a href="https://www.food4thoth.com/TVDJ/indexFX.html">FX</a>
+        <a href="https://www.food4thoth.com/TVDJ/indexSeq.html">Sequencer</a>
+        <a href="https://www.food4thoth.com/" target="_blank" rel="noopener">FOOD4THOTH</a>
+      </div>
+      <div class="footer-copy">&copy; 2026 DeJahn Bell / FOOD4THOTH. All rights reserved.</div>
+    </footer>
   </div>
-</div>
 
-<!-- ── FOOTER ── -->
-<footer>
-  <div class="footer-logo">TVDJ</div>
-  <div class="footer-links">
-    <a href="#">Privacy Policy</a>
-    <a href="#">Support</a>
-    <a href="#">App Store</a>
-  </div>
-  <div class="footer-copy">&copy; 2026 DeJahn Bell. All rights reserved.</div>
-</footer>
+  <script>
+    const TVDJ_APP = {
+      appleId: "6760279297",
+      bundleId: "app.replit.tvdj",
+      sku: "EX1773031246563",
+      appStore: "https://apps.apple.com/us/app/tvdj/id6760279297",
+      marketingPage: "https://www.food4thoth.com/TVDJ/tvdj-marketing.html",
+      privacyPolicy: "https://www.food4thoth.com/TVDJ/tvdj-privacy-policy.html",
+      newWebApp: "https://www.food4thoth.com/TVDJ/TVDJAPP.html",
+      oldWebApp: "https://www.food4thoth.com/TVDJ/index.html",
+      fxWebApp: "https://www.food4thoth.com/TVDJ/indexFX.html",
+      sequencerWebApp: "https://www.food4thoth.com/TVDJ/indexSeq.html",
+      food4thoth: "https://www.food4thoth.com/"
+    };
 
-<script>
-  // Scroll animations
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    }, { threshold: 0.12 });
 
-  // Stagger pad animation delays
-  document.querySelectorAll('.big-pad').forEach((el,i) => {
-    el.style.animationDelay = (i * 0.05) + 's';
-  });
+    document.querySelectorAll(".fade-in").forEach((element) => observer.observe(element));
 
-  // Interactive pad demo
-  document.querySelectorAll('.big-pad').forEach(pad => {
-    pad.addEventListener('click', () => {
-      if (pad.style.borderStyle === 'dashed' || pad.classList.contains('empty')) return;
-      pad.classList.toggle('glow');
-      const wave = pad.querySelector('.pad-wave');
-      if (wave) wave.style.opacity = pad.classList.contains('glow') ? '1' : '0';
+    document.querySelectorAll(".big-pad").forEach((pad) => {
+      pad.addEventListener("click", () => {
+        if (pad.style.borderStyle === "dashed") return;
+        pad.classList.toggle("glow");
+      });
     });
-  });
-</script>
+  </script>
 </body>
 </html>
