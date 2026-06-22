@@ -2,23 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FOOD4THOTH Sacred Tarot — Sacred Geometry Oracle</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover" />
+
+  <title>FOOD4THOTH Sacred Geometry Tarot — Web Oracle</title>
+
   <meta
     name="description"
-    content="A complete sacred arts companion. Tarot readings, sacred geometry, binaural sound healing, pathworking journeys, breathwork, personal symbol creation, and a private ritual journal. Available now on the App Store for a $9.99 one-time purchase. Android coming soon."
+    content="FOOD4THOTH Sacred Geometry Tarot is a free web-based sacred arts oracle featuring 78 tarot cards, sacred geometry, daily draws, tarot spreads, sound tones, breathwork, meditation, journaling, and symbolic ritual practice."
   />
-  <meta property="og:title" content="FOOD4THOTH Sacred Tarot" />
+  <meta
+    name="keywords"
+    content="FOOD4THOTH, Sacred Geometry Tarot, Tarot Web App, Tarot Oracle, Sacred Geometry, Daily Draw, Tarot Spreads, Meditation, Breathwork, Sound Healing, Ritual Journal, Artabillies"
+  />
+  <meta name="author" content="DeJahn Lamar / FOOD4THOTH / Artabillies" />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+
+  <link rel="canonical" href="https://www.food4thoth.com/TarotSacredGeometry/NewSacredTarot.html" />
+
+  <meta property="og:title" content="FOOD4THOTH Sacred Geometry Tarot — Web Oracle" />
   <meta
     property="og:description"
-    content="Tarot, Sacred Geometry, Sound Healing, Pathworking, Breathwork, Symbol Creation, and sacred journaling — all in one sacred arts app. $9.99 one-time purchase. App Store now. Android coming soon."
+    content="A free browser-based sacred arts oracle with tarot readings, sacred geometry, sound tones, breathwork, spreads, meditation, and private journaling."
   />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.food4thoth.com/TarotSacredGeometry/NewSacredTarot.html" />
+  <meta property="og:image" content="https://www.food4thoth.com/TarotSacredGeometry/images/social-preview.jpeg" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FOOD4THOTH Sacred Geometry Tarot — Web Oracle" />
+  <meta name="twitter:description" content="A free sacred geometry tarot experience on FOOD4THOTH.com." />
+  <meta name="twitter:image" content="https://www.food4thoth.com/TarotSacredGeometry/images/social-preview.jpeg" />
+
+  <meta name="theme-color" content="#0A0814" />
+
+  <link rel="apple-touch-icon" href="https://www.food4thoth.com/TarotSacredGeometry/icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="https://www.food4thoth.com/TarotSacredGeometry/icons/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="https://www.food4thoth.com/TarotSacredGeometry/icons/icon-512.png" />
+
   <link
     rel="icon"
     type="image/svg+xml"
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='36' fill='%230A0814'/%3E%3Ccircle cx='90' cy='90' r='36' fill='none' stroke='%23D4AF37' stroke-width='2'/%3E%3Ccircle cx='90' cy='54' r='36' fill='none' stroke='%23D4AF37' stroke-width='1.5' opacity='.7'/%3E%3Ccircle cx='90' cy='126' r='36' fill='none' stroke='%23D4AF37' stroke-width='1.5' opacity='.7'/%3E%3Ccircle cx='121.2' cy='72' r='36' fill='none' stroke='%23D4AF37' stroke-width='1.5' opacity='.7'/%3E%3Ccircle cx='58.8' cy='72' r='36' fill='none' stroke='%23D4AF37' stroke-width='1.5' opacity='.7'/%3E%3Ccircle cx='121.2' cy='108' r='36' fill='none' stroke='%23D4AF37' stroke-width='1.5' opacity='.7'/%3E%3Ccircle cx='58.8' cy='108' r='36' fill='none' stroke='%23D4AF37' stroke-width='1.5' opacity='.7'/%3E%3C/svg%3E"
   />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -27,1101 +53,1089 @@
   />
 
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --midnight:#0a0814;
+      --deep:#120a2e;
+      --surface:#1a0f3c;
+      --surface-2:#21114a;
+      --gold:#d4af37;
+      --gold-dim:#b8952a;
+      --gold-soft:rgba(212,175,55,.16);
+      --gold-border:rgba(212,175,55,.22);
+      --cream:#f5f0e8;
+      --text:#ece5f8;
+      --muted:#8a7fa0;
+      --dim:#6d6286;
+      --wands:#e07c2a;
+      --cups:#4fc3f7;
+      --swords:#90caf9;
+      --pentacles:#81c784;
+      --major:#ce93d8;
+      --radius:18px;
+      --shadow:0 12px 40px rgba(0,0,0,.28);
     }
 
-    :root {
-      --midnight: #0a0814;
-      --deep: #120a2e;
-      --surface: #1a0f3c;
-      --surface-2: #21114a;
-      --gold: #d4af37;
-      --gold-dim: #b8952a;
-      --gold-soft: rgba(212, 175, 55, 0.16);
-      --gold-border: rgba(212, 175, 55, 0.22);
-      --cream: #f5f0e8;
-      --text: #ece5f8;
-      --muted: #8a7fa0;
-      --dim: #6d6286;
-      --wands: #e07c2a;
-      --cups: #4fc3f7;
-      --swords: #90caf9;
-      --pentacles: #81c784;
-      --major: #ce93d8;
-      --radius: 18px;
-      --shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+    html{scroll-behavior:smooth}
+    body{
+      background:var(--midnight);
+      color:var(--cream);
+      font-family:"Inter",sans-serif;
+      font-size:16px;
+      line-height:1.6;
+      overflow-x:hidden;
     }
 
-    html {
-      scroll-behavior: smooth;
+    a{color:inherit}
+
+    nav{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:100;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:16px 32px;
+      background:linear-gradient(to bottom,rgba(10,8,20,.95) 0%,rgba(10,8,20,.78) 65%,transparent 100%);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
     }
 
-    body {
-      background: var(--midnight);
-      color: var(--cream);
-      font-family: "Inter", sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-      overflow-x: hidden;
+    .nav-logo{
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      flex-shrink:0;
     }
 
-    a {
-      color: inherit;
+    .nav-logo svg{
+      width:34px;
+      height:34px;
+      display:block;
     }
 
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 16px 32px;
-      background: linear-gradient(to bottom, rgba(10, 8, 20, 0.95) 0%, rgba(10, 8, 20, 0.78) 65%, transparent 100%);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+    .nav-logo-text{
+      font-family:"Cinzel",serif;
+      font-weight:900;
+      font-size:16px;
+      letter-spacing:3px;
+      color:var(--gold);
+      white-space:nowrap;
     }
 
-    .nav-logo {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      flex-shrink: 0;
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:22px;
+      flex-wrap:wrap;
+      justify-content:center;
     }
 
-    .nav-logo svg {
-      width: 34px;
-      height: 34px;
-      display: block;
+    .nav-links a{
+      font-size:12px;
+      color:var(--muted);
+      text-decoration:none;
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+      transition:color .2s ease;
     }
 
-    .nav-logo-text {
-      font-family: "Cinzel", serif;
-      font-weight: 900;
-      font-size: 16px;
-      letter-spacing: 3px;
-      color: var(--gold);
-      text-decoration: none;
-      white-space: nowrap;
+    .nav-links a:hover{color:var(--gold)}
+
+    .nav-cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--gold);
+      color:var(--midnight);
+      font-family:"Cinzel",serif;
+      font-weight:700;
+      font-size:12px;
+      letter-spacing:2px;
+      padding:10px 22px;
+      border-radius:999px;
+      text-decoration:none;
+      transition:background .2s ease,transform .2s ease;
+      white-space:nowrap;
+      flex-shrink:0;
     }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      flex-wrap: wrap;
-      justify-content: center;
+    .nav-cta:hover{
+      background:var(--gold-dim);
+      transform:translateY(-1px);
     }
 
-    .nav-links a {
-      font-size: 12px;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      transition: color 0.2s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--gold);
-    }
-
-    .nav-cta {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--gold);
-      color: var(--midnight);
-      font-family: "Cinzel", serif;
-      font-weight: 700;
-      font-size: 12px;
-      letter-spacing: 2px;
-      padding: 10px 22px;
-      border-radius: 999px;
-      text-decoration: none;
-      transition: background 0.2s ease, transform 0.2s ease;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .nav-cta:hover {
-      background: var(--gold-dim);
-      transform: translateY(-1px);
-    }
-
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 132px 24px 88px;
-      position: relative;
-      overflow: hidden;
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:132px 24px 88px;
+      position:relative;
+      overflow:hidden;
       background:
-        radial-gradient(circle at 50% 35%, rgba(212, 175, 55, 0.09), transparent 32%),
-        radial-gradient(circle at 50% 55%, rgba(206, 147, 216, 0.08), transparent 28%);
-    }
-
-    .hero-geo,
-    .hero-geo-2 {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      pointer-events: none;
-    }
-
-    .hero-geo {
-      transform: translate(-50%, -50%);
-      width: 720px;
-      height: 720px;
-      opacity: 0.08;
-      animation: spin 60s linear infinite;
-    }
-
-    .hero-geo-2 {
-      transform: translate(-50%, -50%);
-      width: 520px;
-      height: 520px;
-      opacity: 0.08;
-      animation: spin-reverse 42s linear infinite;
-    }
-
-    @keyframes spin {
-      from { transform: translate(-50%, -50%) rotate(0deg); }
-      to   { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-
-    @keyframes spin-reverse {
-      from { transform: translate(-50%, -50%) rotate(360deg); }
-      to   { transform: translate(-50%, -50%) rotate(0deg); }
+        radial-gradient(circle at 50% 35%,rgba(212,175,55,.09),transparent 32%),
+        radial-gradient(circle at 50% 55%,rgba(206,147,216,.08),transparent 28%);
     }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 820px;
-    }
-
-    .hero-eyebrow {
-      font-family: "Cinzel", serif;
-      font-size: 11px;
-      letter-spacing: 5px;
-      color: var(--gold);
-      opacity: 0.9;
-      margin-bottom: 24px;
-      text-transform: uppercase;
-    }
-
-    .hero-title {
-      font-family: "Cinzel", serif;
-      font-weight: 900;
-      font-size: clamp(40px, 8vw, 82px);
-      color: var(--gold);
-      letter-spacing: 6px;
-      line-height: 1.02;
-      margin-bottom: 12px;
-      text-shadow: 0 0 60px rgba(212, 175, 55, 0.24);
-    }
-
-    .hero-subtitle {
-      font-family: "Cinzel", serif;
-      font-size: clamp(14px, 2vw, 20px);
-      color: var(--muted);
-      letter-spacing: 3px;
-      margin-bottom: 28px;
-      text-transform: uppercase;
-    }
-
-    .hero-body {
-      font-size: clamp(16px, 2vw, 19px);
-      color: var(--cream);
-      opacity: 0.9;
-      max-width: 680px;
-      margin: 0 auto 44px;
-      line-height: 1.9;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-
-    .btn-primary,
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 52px;
-      padding: 15px 32px;
-      border-radius: 999px;
-      text-decoration: none;
-      transition: all 0.25s ease;
-    }
-
-    .btn-primary {
-      background: var(--gold);
-      color: var(--midnight);
-      font-family: "Cinzel", serif;
-      font-weight: 700;
-      font-size: 14px;
-      letter-spacing: 1.8px;
-      box-shadow: 0 8px 32px rgba(212, 175, 55, 0.28);
-    }
-
-    .btn-primary:hover {
-      background: var(--gold-dim);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(212, 175, 55, 0.36);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--cream);
-      font-family: "Cinzel", serif;
-      font-size: 14px;
-      letter-spacing: 1.8px;
-      border: 1px solid rgba(245, 240, 232, 0.2);
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      padding: 10px 18px;
-      border: 1px solid var(--gold-border);
-      border-radius: 999px;
-      font-size: 12px;
-      color: var(--muted);
-      background: rgba(255,255,255,0.02);
-    }
-
-    .hero-badge span {
-      color: var(--gold);
-      font-weight: 600;
-    }
-
-    section {
-      padding: 100px 24px;
-      position: relative;
-    }
-
-    .container,
-    .section-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
 
-    .section-label {
-      font-family: "Cinzel", serif;
-      font-size: 10px;
-      letter-spacing: 5px;
-      color: var(--gold);
-      opacity: 0.8;
-      text-transform: uppercase;
-      text-align: center;
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      font-family: "Cinzel", serif;
-      font-weight: 700;
-      font-size: clamp(28px, 4vw, 42px);
-      color: var(--cream);
-      text-align: center;
-      letter-spacing: 2px;
-      margin-bottom: 16px;
-    }
+    .hero-geo,.hero-geo-2{
+      position:absolute;
+      top:50%;
+      left:50%;
+      pointer-events:none;
+    }
+
+    .hero-geo{
+      transform:translate(-50%,-50%);
+      width:720px;
+      height:720px;
+      opacity:.08;
+      animation:spin 60s linear infinite;
+    }
 
-    .section-subtitle,
-    .section-desc {
-      text-align: center;
-      color: var(--muted);
-      font-size: 16px;
-      max-width: 700px;
-      margin: 0 auto 56px;
-      line-height: 1.8;
-    }
+    .hero-geo-2{
+      transform:translate(-50%,-50%);
+      width:520px;
+      height:520px;
+      opacity:.08;
+      animation:spin-reverse 42s linear infinite;
+    }
+
+    @keyframes spin{
+      from{transform:translate(-50%,-50%) rotate(0deg)}
+      to{transform:translate(-50%,-50%) rotate(360deg)}
+    }
 
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(212,175,55,0.35), transparent);
-      margin: 0 auto 56px;
-      max-width: 620px;
+    @keyframes spin-reverse{
+      from{transform:translate(-50%,-50%) rotate(360deg)}
+      to{transform:translate(-50%,-50%) rotate(0deg)}
     }
 
-    .cards-strip {
-      background: linear-gradient(135deg, var(--deep) 0%, var(--surface) 100%);
-      padding: 84px 24px;
-      overflow: hidden;
+    .hero-content{
+      position:relative;
+      z-index:2;
+      max-width:840px;
+    }
+
+    .hero-eyebrow{
+      font-family:"Cinzel",serif;
+      font-size:11px;
+      letter-spacing:5px;
+      color:var(--gold);
+      opacity:.9;
+      margin-bottom:24px;
+      text-transform:uppercase;
     }
 
-    .suits-row {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      gap: 0;
-      flex-wrap: wrap;
+    .hero-title{
+      font-family:"Cinzel",serif;
+      font-weight:900;
+      font-size:clamp(40px,8vw,82px);
+      color:var(--gold);
+      letter-spacing:6px;
+      line-height:1.02;
+      margin-bottom:12px;
+      text-shadow:0 0 60px rgba(212,175,55,.24);
     }
 
-    .suit-block {
-      flex: 1;
-      min-width: 200px;
-      padding: 42px 30px;
-      text-align: center;
-      border-right: 1px solid rgba(255,255,255,0.05);
-      position: relative;
-    }
+    .hero-subtitle{
+      font-family:"Cinzel",serif;
+      font-size:clamp(14px,2vw,20px);
+      color:var(--muted);
+      letter-spacing:3px;
+      margin-bottom:28px;
+      text-transform:uppercase;
+    }
 
-    .suit-block:last-child {
-      border-right: none;
+    .hero-body{
+      font-size:clamp(16px,2vw,19px);
+      color:var(--cream);
+      opacity:.9;
+      max-width:720px;
+      margin:0 auto 44px;
+      line-height:1.9;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:16px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-bottom:24px;
+    }
+
+    .btn-primary,.btn-secondary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:52px;
+      padding:15px 32px;
+      border-radius:999px;
+      text-decoration:none;
+      transition:all .25s ease;
     }
 
-    .suit-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      margin: 0 auto 20px;
+    .btn-primary{
+      background:var(--gold);
+      color:var(--midnight);
+      font-family:"Cinzel",serif;
+      font-weight:700;
+      font-size:14px;
+      letter-spacing:1.8px;
+      box-shadow:0 8px 32px rgba(212,175,55,.28);
     }
 
-    .suit-name {
-      font-family: "Cinzel", serif;
-      font-size: 13px;
-      letter-spacing: 3px;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
+    .btn-primary:hover{
+      background:var(--gold-dim);
+      transform:translateY(-2px);
+      box-shadow:0 12px 40px rgba(212,175,55,.36);
+    }
+
+    .btn-secondary{
+      background:transparent;
+      color:var(--cream);
+      font-family:"Cinzel",serif;
+      font-size:14px;
+      letter-spacing:1.8px;
+      border:1px solid rgba(245,240,232,.2);
+    }
 
-    .suit-count {
-      font-size: 36px;
-      font-weight: 700;
-      opacity: 0.95;
-      margin-bottom: 8px;
+    .btn-secondary:hover{
+      border-color:var(--gold);
+      color:var(--gold);
+    }
+
+    .hero-badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:8px;
+      padding:10px 18px;
+      border:1px solid var(--gold-border);
+      border-radius:999px;
+      font-size:12px;
+      color:var(--muted);
+      background:rgba(255,255,255,.02);
+    }
+
+    .hero-badge span{
+      color:var(--gold);
+      font-weight:600;
+    }
+
+    section{
+      padding:100px 24px;
+      position:relative;
+    }
+
+    .container,.section-inner{
+      max-width:1100px;
+      margin:0 auto;
+    }
+
+    .section-label{
+      font-family:"Cinzel",serif;
+      font-size:10px;
+      letter-spacing:5px;
+      color:var(--gold);
+      opacity:.8;
+      text-transform:uppercase;
+      text-align:center;
+      margin-bottom:16px;
+      display:block;
+    }
+
+    .section-title{
+      font-family:"Cinzel",serif;
+      font-weight:700;
+      font-size:clamp(28px,4vw,42px);
+      color:var(--cream);
+      text-align:center;
+      letter-spacing:2px;
+      margin-bottom:16px;
+    }
+
+    .section-subtitle,.section-desc{
+      text-align:center;
+      color:var(--muted);
+      font-size:16px;
+      max-width:720px;
+      margin:0 auto 56px;
+      line-height:1.8;
+    }
+
+    .divider{
+      width:100%;
+      height:1px;
+      background:linear-gradient(to right,transparent,rgba(212,175,55,.35),transparent);
+      margin:0 auto 56px;
+      max-width:620px;
+    }
+
+    .web-links{
+      padding:58px 24px;
+      background:rgba(26,15,60,.38);
+      border-top:1px solid rgba(212,175,55,.1);
+      border-bottom:1px solid rgba(212,175,55,.1);
+      text-align:center;
+    }
+
+    .web-links-label{
+      margin:0 0 18px;
+      font-family:"Cinzel",serif;
+      font-size:11px;
+      letter-spacing:3px;
+      color:var(--gold);
+      opacity:.85;
+      text-transform:uppercase;
     }
-
-    .suit-desc {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.7;
-      max-width: 220px;
-      margin: 0 auto;
+
+    .web-link-buttons{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .web-link-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      padding:14px 22px;
+      border-radius:999px;
+      border:1px solid rgba(212,175,55,.28);
+      background:linear-gradient(135deg,rgba(26,15,60,.92),rgba(18,10,46,.92));
+      color:var(--cream);
+      text-decoration:none;
+      font-family:"Cinzel",serif;
+      font-size:12px;
+      letter-spacing:1.5px;
+      line-height:1.2;
+      transition:transform .22s,border-color .22s,box-shadow .22s,color .22s;
+      box-shadow:0 8px 28px rgba(0,0,0,.18);
+    }
+
+    .web-link-btn:hover{
+      color:var(--gold);
+      border-color:rgba(212,175,55,.6);
+      transform:translateY(-2px);
+      box-shadow:0 12px 34px rgba(212,175,55,.12);
+    }
+
+    .cards-strip{
+      background:linear-gradient(135deg,var(--deep) 0%,var(--surface) 100%);
+      padding:84px 24px;
+      overflow:hidden;
     }
+
+    .suits-row{
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      justify-content:center;
+      gap:0;
+      flex-wrap:wrap;
+    }
+
+    .suit-block{
+      flex:1;
+      min-width:200px;
+      padding:42px 30px;
+      text-align:center;
+      border-right:1px solid rgba(255,255,255,.05);
+    }
+
+    .suit-block:last-child{border-right:none}
 
-    .features-section {
-      background: var(--midnight);
+    .suit-dot{
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      margin:0 auto 20px;
     }
 
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 22px;
-      margin-top: 16px;
-    }
+    .suit-name{
+      font-family:"Cinzel",serif;
+      font-size:13px;
+      letter-spacing:3px;
+      margin-bottom:8px;
+      text-transform:uppercase;
+    }
 
-    .feature-card {
-      background: linear-gradient(135deg, rgba(26,15,60,0.86), rgba(18,10,46,0.92));
-      border: 1px solid var(--gold-border);
-      border-radius: 20px;
-      padding: 30px 28px;
-      transition: border-color 0.28s ease, transform 0.28s ease;
-      box-shadow: var(--shadow);
+    .suit-count{
+      font-size:36px;
+      font-weight:700;
+      opacity:.95;
+      margin-bottom:8px;
     }
 
-    .feature-card:hover {
-      border-color: rgba(212,175,55,0.42);
-      transform: translateY(-4px);
+    .suit-desc{
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.7;
+      max-width:220px;
+      margin:0 auto;
     }
 
-    .feature-icon {
-      width: 54px;
-      height: 54px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 18px;
-      background: rgba(212, 175, 55, 0.1);
-      font-size: 28px;
-    }
+    .features-section{background:var(--midnight)}
 
-    .feature-title {
-      font-family: "Cinzel", serif;
-      font-size: 16px;
-      color: var(--gold);
-      letter-spacing: 1px;
-      margin-bottom: 10px;
+    .features-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:22px;
+      margin-top:16px;
     }
 
-    .feature-body,
-    .feature-desc {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.75;
+    .feature-card{
+      background:linear-gradient(135deg,rgba(26,15,60,.86),rgba(18,10,46,.92));
+      border:1px solid var(--gold-border);
+      border-radius:20px;
+      padding:30px 28px;
+      transition:border-color .28s ease,transform .28s ease;
+      box-shadow:var(--shadow);
     }
 
-    .feature-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 18px;
+    .feature-card:hover{
+      border-color:rgba(212,175,55,.42);
+      transform:translateY(-4px);
     }
 
-    .tag {
-      padding: 5px 11px;
-      background: rgba(212, 175, 55, 0.1);
-      border: 1px solid var(--gold-border);
-      border-radius: 999px;
-      font-size: 11px;
-      color: var(--gold);
-      font-weight: 500;
+    .feature-icon{
+      width:54px;
+      height:54px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:18px;
+      background:rgba(212,175,55,.1);
+      font-size:28px;
     }
 
-    .geometry-section {
-      background: linear-gradient(180deg, var(--midnight), var(--deep));
+    .feature-title{
+      font-family:"Cinzel",serif;
+      font-size:16px;
+      color:var(--gold);
+      letter-spacing:1px;
+      margin-bottom:10px;
     }
 
-    .geometry-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
+    .feature-body{
+      font-size:14px;
+      color:var(--muted);
+      line-height:1.75;
     }
 
-    .geo-card {
-      background: rgba(26, 15, 60, 0.72);
-      border: 1px solid rgba(212,175,55,0.16);
-      border-radius: 16px;
-      padding: 22px 16px;
-      text-align: center;
-      transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+    .feature-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:18px;
     }
 
-    .geo-card:hover {
-      border-color: rgba(212,175,55,0.35);
-      background: rgba(33, 17, 74, 0.9);
-      transform: translateY(-2px);
+    .tag{
+      padding:5px 11px;
+      background:rgba(212,175,55,.1);
+      border:1px solid var(--gold-border);
+      border-radius:999px;
+      font-size:11px;
+      color:var(--gold);
+      font-weight:500;
     }
 
-    .geo-symbol {
-      font-size: 32px;
-      margin-bottom: 10px;
-      display: block;
-      color: var(--gold);
-      filter: drop-shadow(0 0 10px rgba(212,175,55,0.18));
+    .geometry-section{
+      background:linear-gradient(180deg,var(--midnight),var(--deep));
     }
 
-    .geo-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 4px;
+    .geometry-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:16px;
     }
 
-    .geo-hz {
-      font-size: 11px;
-      color: var(--gold);
-      font-weight: 600;
-      margin-bottom: 4px;
+    .geo-card{
+      background:rgba(26,15,60,.72);
+      border:1px solid rgba(212,175,55,.16);
+      border-radius:16px;
+      padding:22px 16px;
+      text-align:center;
+      transition:border-color .2s ease,transform .2s ease,background .2s ease;
     }
 
-    .geo-tagline {
-      font-size: 11px;
-      color: var(--dim);
-      line-height: 1.5;
+    .geo-card:hover{
+      border-color:rgba(212,175,55,.35);
+      background:rgba(33,17,74,.9);
+      transform:translateY(-2px);
     }
 
-    .sound-section {
-      background: var(--midnight);
+    .geo-symbol{
+      font-size:32px;
+      margin-bottom:10px;
+      display:block;
+      color:var(--gold);
+      filter:drop-shadow(0 0 10px rgba(212,175,55,.18));
     }
 
-    .sound-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 14px;
+    .geo-name{
+      font-size:13px;
+      font-weight:600;
+      color:#fff;
+      margin-bottom:4px;
     }
 
-    .sound-card {
-      background: rgba(26, 15, 60, 0.75);
-      border: 1px solid rgba(212,175,55,0.15);
-      border-radius: 14px;
-      padding: 18px 18px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      transition: border-color 0.2s ease, transform 0.2s ease;
+    .geo-hz{
+      font-size:11px;
+      color:var(--gold);
+      font-weight:600;
+      margin-bottom:4px;
     }
 
-    .sound-card:hover {
-      border-color: rgba(212,175,55,0.34);
-      transform: translateY(-2px);
+    .geo-tagline{
+      font-size:11px;
+      color:var(--dim);
+      line-height:1.5;
     }
 
-    .sound-hz {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--gold);
-      min-width: 62px;
-    }
+    .sound-section{background:var(--midnight)}
 
-    .sound-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 2px;
+    .sound-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      gap:14px;
     }
 
-    .sound-meaning {
-      font-size: 12px;
-      color: var(--muted);
+    .sound-card{
+      background:rgba(26,15,60,.75);
+      border:1px solid rgba(212,175,55,.15);
+      border-radius:14px;
+      padding:18px;
+      display:flex;
+      align-items:center;
+      gap:16px;
+      transition:border-color .2s ease,transform .2s ease;
     }
 
-    .pathworking-section {
-      background: linear-gradient(180deg, var(--deep), var(--midnight));
+    .sound-card:hover{
+      border-color:rgba(212,175,55,.34);
+      transform:translateY(-2px);
     }
 
-    .journey-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+    .sound-hz{
+      font-size:20px;
+      font-weight:700;
+      color:var(--gold);
+      min-width:62px;
     }
 
-    .journey-item {
-      background: rgba(26,15,60,0.84);
-      border: 1px solid var(--gold-border);
-      border-radius: var(--radius);
-      padding: 22px 24px;
-      display: flex;
-      align-items: flex-start;
-      gap: 18px;
-      transition: border-color 0.2s ease, transform 0.2s ease;
+    .sound-name{
+      font-size:13px;
+      font-weight:600;
+      color:#fff;
+      margin-bottom:2px;
     }
 
-    .journey-item:hover {
-      border-color: rgba(212,175,55,0.4);
-      transform: translateY(-2px);
+    .sound-meaning{
+      font-size:12px;
+      color:var(--muted);
     }
 
-    .journey-num {
-      width: 42px;
-      height: 42px;
-      background: rgba(212, 175, 55, 0.12);
-      border: 1px solid var(--gold-border);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--gold);
-      flex-shrink: 0;
+    .pathworking-section{
+      background:linear-gradient(180deg,var(--deep),var(--midnight));
     }
 
-    .journey-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 4px;
+    .journey-list{
+      display:flex;
+      flex-direction:column;
+      gap:16px;
     }
 
-    .journey-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.7;
+    .journey-item{
+      background:rgba(26,15,60,.84);
+      border:1px solid var(--gold-border);
+      border-radius:var(--radius);
+      padding:22px 24px;
+      display:flex;
+      align-items:flex-start;
+      gap:18px;
+      transition:border-color .2s ease,transform .2s ease;
     }
 
-    .journey-meta {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-      flex-wrap: wrap;
+    .journey-item:hover{
+      border-color:rgba(212,175,55,.4);
+      transform:translateY(-2px);
     }
 
-    .journey-pill {
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 500;
+    .journey-num{
+      width:42px;
+      height:42px;
+      background:rgba(212,175,55,.12);
+      border:1px solid var(--gold-border);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      font-weight:700;
+      color:var(--gold);
+      flex-shrink:0;
     }
 
-    .pill-level {
-      background: rgba(138,127,160,0.18);
-      color: var(--text);
+    .journey-title{
+      font-size:16px;
+      font-weight:600;
+      color:#fff;
+      margin-bottom:4px;
     }
 
-    .pill-time {
-      background: rgba(212,175,55,0.12);
-      color: var(--gold);
+    .journey-desc{
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.7;
     }
 
-    .breathwork-section {
-      background: var(--midnight);
+    .journey-meta{
+      display:flex;
+      gap:10px;
+      margin-top:10px;
+      flex-wrap:wrap;
     }
 
-    .breath-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 16px;
+    .journey-pill{
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:500;
     }
 
-    .breath-card {
-      background: rgba(26,15,60,0.75);
-      border: 1px solid rgba(212,175,55,0.15);
-      border-radius: 14px;
-      padding: 22px 20px;
-      transition: border-color 0.2s ease, transform 0.2s ease;
+    .pill-level{
+      background:rgba(138,127,160,.18);
+      color:var(--text);
     }
 
-    .breath-card:hover {
-      border-color: rgba(212,175,55,0.35);
-      transform: translateY(-2px);
+    .pill-time{
+      background:rgba(212,175,55,.12);
+      color:var(--gold);
     }
 
-    .breath-name {
-      font-size: 15px;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 8px;
-    }
+    .breathwork-section{background:var(--midnight)}
 
-    .breath-pattern {
-      font-size: 13px;
-      color: var(--gold);
-      margin-bottom: 8px;
-      font-variant-numeric: tabular-nums;
+    .breath-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      gap:16px;
     }
 
-    .breath-desc {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.65;
+    .breath-card{
+      background:rgba(26,15,60,.75);
+      border:1px solid rgba(212,175,55,.15);
+      border-radius:14px;
+      padding:22px 20px;
+      transition:border-color .2s ease,transform .2s ease;
     }
 
-    .spreads-section {
-      background: linear-gradient(180deg, var(--deep), var(--surface));
+    .breath-card:hover{
+      border-color:rgba(212,175,55,.35);
+      transform:translateY(-2px);
     }
 
-    .spreads-columns {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 22px;
+    .breath-name{
+      font-size:15px;
+      font-weight:600;
+      color:#fff;
+      margin-bottom:8px;
     }
 
-    .spread-group {
-      background: rgba(26,15,60,0.84);
-      border: 1px solid var(--gold-border);
-      border-radius: var(--radius);
-      padding: 26px;
-      box-shadow: var(--shadow);
+    .breath-pattern{
+      font-size:13px;
+      color:var(--gold);
+      margin-bottom:8px;
+      font-variant-numeric:tabular-nums;
     }
 
-    .spread-group-label {
-      font-family: "Cinzel", serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 16px;
+    .breath-desc{
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.65;
     }
 
-    .spread-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    .spreads-section{
+      background:linear-gradient(180deg,var(--deep),var(--surface));
     }
 
-    .spread-list li {
-      font-size: 14px;
-      color: var(--text);
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
+    .spreads-columns{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:22px;
     }
 
-    .spread-list li::before {
-      content: "—";
-      color: var(--gold);
-      font-size: 12px;
+    .spread-group{
+      background:rgba(26,15,60,.84);
+      border:1px solid var(--gold-border);
+      border-radius:var(--radius);
+      padding:26px;
+      box-shadow:var(--shadow);
     }
 
-    .spread-list .cards {
-      margin-left: auto;
-      font-size: 11px;
-      color: var(--dim);
-      white-space: nowrap;
+    .spread-group-label{
+      font-family:"Cinzel",serif;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--gold);
+      margin-bottom:16px;
     }
 
-    .spread-custom-note {
-      margin-top: 14px;
-      padding: 12px 16px;
-      background: rgba(212,175,55,0.1);
-      border-radius: 10px;
-      font-size: 13px;
-      color: var(--cream);
-      border: 1px solid var(--gold-border);
-      line-height: 1.6;
+    .spread-list{
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
     }
 
-    .quote-section {
-      background: linear-gradient(135deg, var(--deep), var(--midnight));
-      text-align: center;
+    .spread-list li{
+      font-size:14px;
+      color:var(--text);
+      display:flex;
+      align-items:baseline;
+      gap:8px;
     }
 
-    .quote-text {
-      font-family: "Cinzel", serif;
-      font-size: clamp(20px, 3vw, 32px);
-      color: var(--cream);
-      line-height: 1.7;
-      max-width: 820px;
-      margin: 0 auto 24px;
-      font-style: italic;
-      opacity: 0.92;
+    .spread-list li::before{
+      content:"—";
+      color:var(--gold);
+      font-size:12px;
     }
 
-    .quote-source {
-      font-size: 12px;
-      color: var(--gold);
-      letter-spacing: 3px;
-      text-transform: uppercase;
+    .spread-list .cards{
+      margin-left:auto;
+      font-size:11px;
+      color:var(--dim);
+      white-space:nowrap;
     }
 
-    .privacy-strip {
-      background: rgba(26,15,60,0.42);
-      border-top: 1px solid rgba(212,175,55,0.1);
-      border-bottom: 1px solid rgba(212,175,55,0.1);
+    .spread-custom-note{
+      margin-top:14px;
+      padding:12px 16px;
+      background:rgba(212,175,55,.1);
+      border-radius:10px;
+      font-size:13px;
+      color:var(--cream);
+      border:1px solid var(--gold-border);
+      line-height:1.6;
     }
 
-    .privacy-strip .container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 34px;
-      flex-wrap: wrap;
-      padding: 42px 24px;
+    .quote-section{
+      background:linear-gradient(135deg,var(--deep),var(--midnight));
+      text-align:center;
     }
 
-    .privacy-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 14px;
-      color: var(--muted);
+    .quote-text{
+      font-family:"Cinzel",serif;
+      font-size:clamp(20px,3vw,32px);
+      color:var(--cream);
+      line-height:1.7;
+      max-width:820px;
+      margin:0 auto 24px;
+      font-style:italic;
+      opacity:.92;
     }
 
-    .privacy-check {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: rgba(129,199,132,0.15);
-      border: 1px solid rgba(129,199,132,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      color: var(--pentacles);
-      flex-shrink: 0;
+    .quote-source{
+      font-size:12px;
+      color:var(--gold);
+      letter-spacing:3px;
+      text-transform:uppercase;
     }
 
-    .cta-section {
-      text-align: center;
-      padding: 120px 24px;
+    .donate-section{
+      text-align:center;
+      padding:110px 24px;
       background:
-        radial-gradient(ellipse at center, rgba(212,175,55,0.08) 0%, transparent 70%),
-        linear-gradient(180deg, var(--surface), var(--midnight));
-      border-top: 1px solid rgba(212,175,55,0.1);
-      border-bottom: 1px solid rgba(212,175,55,0.1);
+        radial-gradient(circle at 50% 25%,rgba(212,175,55,.1),transparent 36%),
+        linear-gradient(180deg,var(--midnight),var(--deep));
+      border-top:1px solid rgba(212,175,55,.1);
+      border-bottom:1px solid rgba(212,175,55,.1);
     }
 
-    .cta-title {
-      font-family: "Cinzel", serif;
-      font-weight: 900;
-      font-size: clamp(32px, 5vw, 56px);
-      color: var(--gold);
-      letter-spacing: 4px;
-      margin-bottom: 20px;
-      text-shadow: 0 0 40px rgba(212,175,55,0.18);
-      text-transform: uppercase;
+    .donate-card{
+      max-width:920px;
+      margin:0 auto;
+      background:linear-gradient(135deg,rgba(26,15,60,.88),rgba(18,10,46,.94));
+      border:1px solid var(--gold-border);
+      border-radius:28px;
+      padding:42px 28px;
+      box-shadow:var(--shadow);
     }
 
-    .cta-body {
-      font-size: 18px;
-      color: var(--muted);
-      max-width: 680px;
-      margin: 0 auto 40px;
-      line-height: 1.8;
+    .donate-title{
+      font-family:"Cinzel",serif;
+      font-weight:900;
+      font-size:clamp(30px,5vw,52px);
+      color:var(--gold);
+      letter-spacing:4px;
+      text-transform:uppercase;
+      margin-bottom:18px;
+      text-shadow:0 0 40px rgba(212,175,55,.18);
     }
 
-    .store-badges {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 28px;
+    .donate-body{
+      max-width:740px;
+      margin:0 auto 30px;
+      color:var(--text);
+      font-size:17px;
+      line-height:1.85;
+      opacity:.92;
     }
 
-    .store-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      background: #000;
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 14px;
-      padding: 14px 24px;
-      text-decoration: none;
-      transition: all 0.25s ease;
-      min-width: 210px;
-      justify-content: center;
+    .donate-body strong{
+      color:var(--gold);
+      font-weight:700;
     }
 
-    .store-badge:hover {
-      border-color: var(--gold);
-      transform: translateY(-2px);
+    .donate-buttons{
+      display:flex;
+      justify-content:center;
+      align-items:stretch;
+      gap:14px;
+      flex-wrap:wrap;
+      margin:32px auto 24px;
     }
 
-    .store-badge-icon {
-      font-size: 28px;
-      line-height: 1;
+    .donate-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:54px;
+      padding:15px 24px;
+      border-radius:999px;
+      border:1px solid rgba(212,175,55,.32);
+      background:rgba(10,8,20,.68);
+      color:var(--cream);
+      text-decoration:none;
+      font-family:"Cinzel",serif;
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:1.4px;
+      transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease,color .22s ease,background .22s ease;
+      min-width:190px;
     }
 
-    .store-badge-text {
-      text-align: left;
+    .donate-btn:hover{
+      color:var(--midnight);
+      background:var(--gold);
+      border-color:var(--gold);
+      transform:translateY(-2px);
+      box-shadow:0 12px 34px rgba(212,175,55,.18);
     }
 
-    .store-badge-sub {
-      font-size: 10px;
-      color: var(--muted);
-      letter-spacing: 1px;
+    .donate-note{
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.7;
+      max-width:700px;
+      margin:0 auto;
     }
 
-    .store-badge-name {
-      font-size: 16px;
-      color: #fff;
-      font-weight: 600;
+    .donate-email{
+      color:var(--gold);
+      font-weight:600;
     }
 
-    .coming-soon-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 52px;
-      padding: 14px 22px;
-      border-radius: 999px;
-      border: 1px solid rgba(212, 175, 55, 0.28);
-      background: linear-gradient(135deg, rgba(26, 15, 60, 0.92), rgba(18, 10, 46, 0.92));
-      color: var(--cream);
-      font-family: "Cinzel", serif;
-      font-size: 12px;
-      letter-spacing: 1.5px;
-      line-height: 1.2;
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+    .privacy-strip{
+      background:rgba(26,15,60,.42);
+      border-top:1px solid rgba(212,175,55,.1);
+      border-bottom:1px solid rgba(212,175,55,.1);
     }
 
-    .f4t-sacred-web-links {
-      margin-top: 40px;
-      text-align: center;
+    .privacy-strip .container{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:34px;
+      flex-wrap:wrap;
+      padding:42px 24px;
     }
 
-    .f4t-sacred-web-links__label {
-      margin: 0 0 18px;
-      font-family: "Cinzel", serif;
-      font-size: 11px;
-      letter-spacing: 3px;
-      color: var(--gold);
-      opacity: 0.85;
-      text-transform: uppercase;
+    .privacy-item{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:14px;
+      color:var(--muted);
     }
 
-    .f4t-sacred-web-links__buttons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
+    .privacy-check{
+      width:20px;
+      height:20px;
+      border-radius:50%;
+      background:rgba(129,199,132,.15);
+      border:1px solid rgba(129,199,132,.4);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:11px;
+      color:var(--pentacles);
+      flex-shrink:0;
     }
 
-    .f4t-sacred-web-links__btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 14px 22px;
-      border-radius: 999px;
-      border: 1px solid rgba(212, 175, 55, 0.28);
-      background: linear-gradient(135deg, rgba(26, 15, 60, 0.92), rgba(18, 10, 46, 0.92));
-      color: var(--cream);
-      text-decoration: none;
-      font-family: "Cinzel", serif;
-      font-size: 12px;
-      letter-spacing: 1.5px;
-      line-height: 1.2;
-      transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s, color 0.22s;
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+    .cta-section{
+      text-align:center;
+      padding:120px 24px;
+      background:
+        radial-gradient(ellipse at center,rgba(212,175,55,.08) 0%,transparent 70%),
+        linear-gradient(180deg,var(--surface),var(--midnight));
+      border-top:1px solid rgba(212,175,55,.1);
+      border-bottom:1px solid rgba(212,175,55,.1);
     }
 
-    .f4t-sacred-web-links__btn:hover {
-      color: var(--gold);
-      border-color: rgba(212, 175, 55, 0.6);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 34px rgba(212, 175, 55, 0.12);
-      text-decoration: none;
+    .cta-title{
+      font-family:"Cinzel",serif;
+      font-weight:900;
+      font-size:clamp(32px,5vw,56px);
+      color:var(--gold);
+      letter-spacing:4px;
+      margin-bottom:20px;
+      text-shadow:0 0 40px rgba(212,175,55,.18);
+      text-transform:uppercase;
     }
 
-    .f4t-sacred-web-links__btn:focus-visible {
-      outline: 2px solid var(--gold);
-      outline-offset: 3px;
+    .cta-body{
+      font-size:18px;
+      color:var(--muted);
+      max-width:700px;
+      margin:0 auto 40px;
+      line-height:1.8;
     }
 
-    .cta-note {
-      margin-top: 24px;
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 1px;
+    .cta-note{
+      margin-top:24px;
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:1px;
     }
 
-    footer {
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 48px 24px;
-      text-align: center;
-      background: var(--midnight);
+    footer{
+      border-top:1px solid rgba(255,255,255,.06);
+      padding:48px 24px;
+      text-align:center;
+      background:var(--midnight);
     }
 
-    .footer-logo {
-      font-family: "Cinzel", serif;
-      font-weight: 900;
-      font-size: 20px;
-      color: var(--gold);
-      letter-spacing: 5px;
-      margin-bottom: 8px;
+    .footer-logo{
+      font-family:"Cinzel",serif;
+      font-weight:900;
+      font-size:20px;
+      color:var(--gold);
+      letter-spacing:5px;
+      margin-bottom:8px;
     }
 
-    .footer-tagline {
-      font-family: "Cinzel", serif;
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 3px;
-      margin-bottom: 28px;
-      text-transform: uppercase;
+    .footer-tagline{
+      font-family:"Cinzel",serif;
+      font-size:11px;
+      color:var(--muted);
+      letter-spacing:3px;
+      margin-bottom:28px;
+      text-transform:uppercase;
     }
 
-    .footer-links {
-      display: flex;
-      gap: 28px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 28px;
+    .footer-links{
+      display:flex;
+      gap:28px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-bottom:28px;
     }
 
-    .footer-links a {
-      font-size: 12px;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 1px;
-      transition: color 0.2s ease;
+    .footer-links a{
+      font-size:12px;
+      color:var(--muted);
+      text-decoration:none;
+      letter-spacing:1px;
+      transition:color .2s ease;
     }
 
-    .footer-links a:hover {
-      color: var(--gold);
+    .footer-links a:hover{color:var(--gold)}
+
+    .footer-copy{
+      font-size:11px;
+      color:rgba(138,127,160,.58);
     }
 
-    .footer-copy {
-      font-size: 11px;
-      color: rgba(138,127,160,0.58);
+    @media(max-width:960px){
+      nav{padding:14px 20px}
+      .nav-links{display:none}
     }
 
-    @media (max-width: 960px) {
-      nav {
-        padding: 14px 20px;
+    @media(max-width:640px){
+      .hero{
+        padding-top:118px;
+        padding-bottom:68px;
       }
 
-      .nav-links {
-        display: none;
-      }
-    }
+      section{padding:72px 20px}
 
-    @media (max-width: 640px) {
-      .hero {
-        padding-top: 118px;
-        padding-bottom: 68px;
-      }
+      .cards-strip{padding:64px 20px}
 
-      section {
-        padding: 72px 20px;
+      .suit-block{
+        min-width:160px;
+        padding:32px 20px;
+        border-right:none;
+        border-bottom:1px solid rgba(255,255,255,.05);
       }
 
-      .cards-strip {
-        padding: 64px 20px;
+      .suit-block:last-child{border-bottom:none}
+
+      .privacy-strip .container{gap:20px}
+
+      .web-link-buttons{gap:12px}
+
+      .web-link-btn{
+        width:100%;
+        max-width:360px;
       }
 
-      .suit-block {
-        min-width: 160px;
-        padding: 32px 20px;
-        border-right: none;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
+      .donate-section{padding:78px 20px}
+
+      .donate-card{
+        padding:34px 22px;
+        border-radius:22px;
       }
 
-      .suit-block:last-child {
-        border-bottom: none;
+      .donate-buttons{gap:12px}
+
+      .donate-btn{
+        width:100%;
+        max-width:360px;
       }
 
-      .privacy-strip .container {
-        gap: 20px;
+      .hero-geo{
+        width:540px;
+        height:540px;
       }
 
-      .f4t-sacred-web-links {
-        margin-top: 32px;
-      }
-
-      .f4t-sacred-web-links__buttons {
-        gap: 12px;
-      }
-
-      .f4t-sacred-web-links__btn {
-        width: 100%;
-        max-width: 360px;
-      }
-
-      .store-badge,
-      .coming-soon-pill {
-        width: 100%;
-        max-width: 320px;
-      }
-
-      .hero-geo {
-        width: 540px;
-        height: 540px;
-      }
-
-      .hero-geo-2 {
-        width: 390px;
-        height: 390px;
+      .hero-geo-2{
+        width:390px;
+        height:390px;
       }
     }
   </style>
 </head>
+
 <body>
 
   <nav>
-    <a href="#" class="nav-logo" aria-label="FOOD4THOTH Sacred Tarot">
+    <a href="https://www.food4thoth.com/" class="nav-logo" aria-label="FOOD4THOTH home">
       <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="50" cy="50" r="20" stroke="#D4AF37" stroke-width="1.5"/>
         <circle cx="50" cy="30" r="20" stroke="#D4AF37" stroke-width="1.2" opacity=".7"/>
@@ -1141,10 +1155,13 @@
       <a href="#sound">Sound</a>
       <a href="#pathworking">Pathworking</a>
       <a href="#spreads">Spreads</a>
+      <a href="#donate">Donate</a>
       <a href="#privacy">Privacy</a>
     </div>
 
-    <a href="#download" class="nav-cta">Get for $9.99</a>
+    <a href="https://www.food4thoth.com/TarotSacredGeometry/NewSacredTarot.html" class="nav-cta">
+      Open Oracle
+    </a>
   </nav>
 
   <section class="hero">
@@ -1172,63 +1189,55 @@
       <p class="hero-eyebrow">Sacred Arts for the Modern Seeker</p>
       <h1 class="hero-title">FOOD4THOTH</h1>
       <p class="hero-subtitle">Sacred Geometry Tarot</p>
+
       <p class="hero-body">
-        A complete sacred arts companion for iPhone and iPad, with Android coming soon. Explore the 78-card Thoth tarot, meditate with animated sacred geometry, journey through narrative pathworkings, breathe with guided ritual pacing, and heal with binaural sound frequencies.
+        A free web-based tarot and sacred geometry oracle from FOOD4THOTH.com. Explore the 78-card tarot deck, daily draws, multi-card spreads, animated sacred geometry, sound tones, breathwork, meditation, journaling, and symbolic ritual practice directly in your browser.
       </p>
 
       <div class="hero-actions">
-        <a href="#download" class="btn-primary">Get for $9.99</a>
-        <a href="#features" class="btn-secondary">Explore the App</a>
+        <a href="https://www.food4thoth.com/TarotSacredGeometry/NewSacredTarot.html" class="btn-primary" target="_blank" rel="noopener">
+          Enter the Web Oracle
+        </a>
+        <a href="#features" class="btn-secondary">
+          Explore the Experience
+        </a>
       </div>
 
       <div class="hero-badge">
-        <span>iPhone &amp; iPad now</span>
-        · Android coming soon
-        · $9.99 one-time purchase
-        · No ads
-        · No subscriptions
+        <span>Free web experience</span>
+        · No purchase required
         · No account required
-        · Private on-device practice
+        · Browser-based practice
+        · Tarot
+        · Geometry
+        · Sound
+        · Breathwork
+        · Journaling
       </div>
     </div>
   </section>
 
-  <div class="f4t-sacred-web-links">
-    <p class="f4t-sacred-web-links__label">Explore More Tarot Portals</p>
-    <div class="f4t-sacred-web-links__buttons">
-      <a
-        href="https://www.food4thoth.com/TarotSacredGeometry/NewSacredTarot.html"
-        class="f4t-sacred-web-links__btn"
-        target="_blank"
-        rel="noopener"
-      >
-        Visit New Web Version
+  <div class="web-links">
+    <p class="web-links-label">Explore More Tarot Portals</p>
+    <div class="web-link-buttons">
+      <a href="https://www.food4thoth.com/TarotSacredGeometry/NewSacredTarot.html" class="web-link-btn" target="_blank" rel="noopener">
+        Visit New Sacred Geometry Tarot
       </a>
 
-      <a
-        href="https://www.food4thoth.com/TarotSacredGeometry/index.html"
-        class="f4t-sacred-web-links__btn"
-        target="_blank"
-        rel="noopener"
-      >
-        Visit Original Web Version
+      <a href="https://www.food4thoth.com/TarotSacredGeometry/index.html" class="web-link-btn" target="_blank" rel="noopener">
+        Visit Original Sacred Tarot
       </a>
 
-      <a
-        href="https://www.food4thoth.com/TarotTogetherNoAge4Decks/index.html"
-        class="f4t-sacred-web-links__btn"
-        target="_blank"
-        rel="noopener"
-      >
+      <a href="https://www.food4thoth.com/TarotTogetherNoAge4Decks/index.html" class="web-link-btn" target="_blank" rel="noopener">
         View Original Deck Gallery
       </a>
     </div>
   </div>
 
   <div class="cards-strip" id="cards">
-    <div style="text-align:center; margin-bottom:48px;">
+    <div style="text-align:center;margin-bottom:48px;">
       <p class="section-label">The Complete Deck</p>
-      <h2 class="section-title" style="font-size:28px; margin-bottom: 0;">78 Sacred Geometry Cards</h2>
+      <h2 class="section-title" style="font-size:28px;margin-bottom:0;">78 Sacred Geometry Cards</h2>
     </div>
 
     <div class="suits-row">
@@ -1264,7 +1273,7 @@
         <div class="suit-dot" style="background:#CE93D8;"></div>
         <div class="suit-name" style="color:#CE93D8;">Major Arcana</div>
         <div class="suit-count" style="color:#CE93D8;">22</div>
-        <div class="suit-desc">The great archetypes. From The Fool to The World — the journey of the soul.</div>
+        <div class="suit-desc">The great archetypes. From The Fool to The World — the symbolic journey of the soul.</div>
       </div>
     </div>
   </div>
@@ -1272,9 +1281,9 @@
   <section class="features-section" id="features">
     <div class="container">
       <p class="section-label">What’s Inside</p>
-      <h2 class="section-title">Everything You Need for Sacred Practice</h2>
+      <h2 class="section-title">A Sacred Web Toolkit for Tarot, Geometry, and Reflection</h2>
       <p class="section-subtitle">
-        A complete divination and ritual toolkit built for depth, beauty, privacy, and daily use.
+        A browser-based divination and ritual experience built for beauty, depth, symbolic exploration, and daily use.
       </p>
 
       <div class="features-grid">
@@ -1282,13 +1291,13 @@
           <div class="feature-icon">🃏</div>
           <div class="feature-title">Daily Tarot Readings</div>
           <div class="feature-body">
-            Browse the complete 78-card Thoth deck with upright and reversed meanings, elemental associations, and personal journaling. Draw a card of the day or lay out a full spread.
+            Browse the complete 78-card tarot deck with card meanings, archetypal symbolism, elemental associations, and personal reflection. Draw one card or explore deeper spreads.
           </div>
           <div class="feature-tags">
             <span class="tag">78 Cards</span>
             <span class="tag">Daily Draw</span>
-            <span class="tag">Reversed Meanings</span>
-            <span class="tag">Card Journal</span>
+            <span class="tag">Spreads</span>
+            <span class="tag">Card Study</span>
           </div>
         </div>
 
@@ -1296,26 +1305,26 @@
           <div class="feature-icon">✦</div>
           <div class="feature-title">Sacred Geometry Explorer</div>
           <div class="feature-body">
-            Study animated sacred geometry patterns — from the Seed of Life to Metatron’s Cube — with deeper notes on mathematics, symbolism, and spiritual significance.
+            Study animated sacred geometry patterns — from the Seed of Life to Metatron’s Cube — with symbolic, mathematical, and meditative context.
           </div>
           <div class="feature-tags">
-            <span class="tag">12 Patterns</span>
             <span class="tag">Animated</span>
+            <span class="tag">Geometry</span>
             <span class="tag">Study Mode</span>
-            <span class="tag">Ritual Use</span>
+            <span class="tag">Ritual Focus</span>
           </div>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon">🔊</div>
-          <div class="feature-title">Binaural Sound Healing</div>
+          <div class="feature-title">Sound Tones and Frequencies</div>
           <div class="feature-body">
-            Each geometry pattern is paired with a sacred frequency. Binaural tones and ambient soundscapes support meditation, focus, grounding, and inner ritual.
+            Sacred tones and ambient sound elements support meditation, focus, grounding, breathwork, and symbolic ritual practice.
           </div>
           <div class="feature-tags">
             <span class="tag">174–963 Hz</span>
-            <span class="tag">Binaural Beats</span>
-            <span class="tag">Ambient Tones</span>
+            <span class="tag">Meditation</span>
+            <span class="tag">Focus</span>
           </div>
         </div>
 
@@ -1323,12 +1332,12 @@
           <div class="feature-icon">🌀</div>
           <div class="feature-title">Pathworking Journeys</div>
           <div class="feature-body">
-            Follow guided narrative meditations through curated sequences of sacred patterns, optional tarot draws, and reflective prompts designed for focused inner work.
+            Follow guided symbolic journeys through sacred patterns, tarot prompts, and reflective pauses designed for contemplative inner work.
           </div>
           <div class="feature-tags">
-            <span class="tag">5 Journeys</span>
-            <span class="tag">15–25 min</span>
-            <span class="tag">Beginner–Advanced</span>
+            <span class="tag">Journeys</span>
+            <span class="tag">Reflection</span>
+            <span class="tag">Meditation</span>
           </div>
         </div>
 
@@ -1336,54 +1345,54 @@
           <div class="feature-icon">🌬️</div>
           <div class="feature-title">Guided Breathwork</div>
           <div class="feature-body">
-            Four grounded breathing modes guide inhale, hold, exhale, and rest with animated visual pacing so your focus can remain inward instead of on the clock.
+            Use visual breathing rhythms to guide inhale, hold, exhale, and rest phases while staying centered in the ritual experience.
           </div>
           <div class="feature-tags">
-            <span class="tag">Box</span>
+            <span class="tag">Box Breathing</span>
             <span class="tag">4-7-8</span>
-            <span class="tag">Deep Calm</span>
-            <span class="tag">Energizing</span>
+            <span class="tag">Calm</span>
+            <span class="tag">Energy</span>
           </div>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon">📖</div>
-          <div class="feature-title">Sacred Journal &amp; Symbol Library</div>
+          <div class="feature-title">Private Browser Journal</div>
           <div class="feature-body">
-            Save reflections, track ritual use, and build a personal symbol library. Create layered meanings that evolve into an ongoing record of sacred practice.
+            Save reflections, ritual notes, favorite cards, and symbolic insights locally in your browser for your own evolving sacred practice.
           </div>
           <div class="feature-tags">
             <span class="tag">Journal</span>
             <span class="tag">Intentions</span>
-            <span class="tag">Symbol Work</span>
-            <span class="tag">Private Notes</span>
+            <span class="tag">Local Notes</span>
+            <span class="tag">Reflection</span>
           </div>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon">🔮</div>
-          <div class="feature-title">Custom Spread Builder</div>
+          <div class="feature-title">Tarot Spreads</div>
           <div class="feature-body">
-            Design your own tarot layouts by placing up to 12 card positions on a visual canvas. Save and revisit your own sacred reading architectures.
+            Explore single-card pulls, three-card readings, seven-card layouts, sacred spreads, and deeper multi-card reading structures.
           </div>
           <div class="feature-tags">
-            <span class="tag">Up to 12 Cards</span>
-            <span class="tag">Visual Canvas</span>
-            <span class="tag">Saved Spreads</span>
+            <span class="tag">1–12 Cards</span>
+            <span class="tag">Sacred Layouts</span>
+            <span class="tag">Reading Tools</span>
           </div>
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">🔒</div>
-          <div class="feature-title">Completely Private</div>
+          <div class="feature-icon">🌐</div>
+          <div class="feature-title">Made for the Web</div>
           <div class="feature-body">
-            No account required. No ads. No subscriptions. Your readings, journal entries, symbols, and practice history stay with you on your device.
+            Open the oracle directly from FOOD4THOTH.com. No store download, no checkout, and no account needed to begin exploring.
           </div>
           <div class="feature-tags">
-            <span class="tag">No Login</span>
-            <span class="tag">On-Device</span>
-            <span class="tag">No Tracking</span>
-            <span class="tag">Offline-Friendly</span>
+            <span class="tag">Web-Based</span>
+            <span class="tag">No Account</span>
+            <span class="tag">No Checkout</span>
+            <span class="tag">FOOD4THOTH</span>
           </div>
         </div>
       </div>
@@ -1393,167 +1402,47 @@
   <section class="geometry-section" id="geometry">
     <div class="section-inner">
       <span class="section-label">Sacred Geometry</span>
-      <h2 class="section-title">12 Animated Sacred Patterns</h2>
+      <h2 class="section-title">Animated Sacred Patterns</h2>
       <p class="section-desc">
-        Each pattern includes animated rendering, study notes, ritual context, and a matched sacred frequency for sound meditation and contemplative focus.
+        Each pattern invites study, meditation, visual focus, and symbolic reflection through the language of sacred geometry.
       </p>
 
       <div class="geometry-grid">
-        <div class="geo-card">
-          <span class="geo-symbol">⊙</span>
-          <div class="geo-name">Seed of Life</div>
-          <div class="geo-hz">396 Hz</div>
-          <div class="geo-tagline">Origin of all creation</div>
-        </div>
-        <div class="geo-card">
-          <span class="geo-symbol">✿</span>
-          <div class="geo-name">Flower of Life</div>
-          <div class="geo-hz">528 Hz</div>
-          <div class="geo-tagline">Interconnected web of existence</div>
-        </div>
-        <div class="geo-card">
-          <span class="geo-symbol">✦</span>
-          <div class="geo-name">Metatron’s Cube</div>
-          <div class="geo-hz">432 Hz</div>
-          <div class="geo-tagline">Blueprint of physical reality</div>
-        </div>
-        <div class="geo-card">
-          <span class="geo-symbol">⬡</span>
-          <div class="geo-name">Vesica Piscis</div>
-          <div class="geo-hz">417 Hz</div>
-          <div class="geo-tagline">Gateway between worlds</div>
-        </div>
-        <div class="geo-card">
-          <span class="geo-symbol">✡</span>
-          <div class="geo-name">Merkaba</div>
-          <div class="geo-hz">741 Hz</div>
-          <div class="geo-tagline">Light body and ascension geometry</div>
-        </div>
-        <div class="geo-card">
-          <span class="geo-symbol">◈</span>
-          <div class="geo-name">Sri Yantra</div>
-          <div class="geo-hz">963 Hz</div>
-          <div class="geo-tagline">Geometry of consciousness</div>
-        </div>
-        <div class="geo-card">
-          <span class="geo-symbol">◎</span>
-          <div class="geo-name">Torus</div>
-          <div class="geo-hz">174 Hz</div>
-          <div class="geo-tagline">Self-sustaining flow of life</div>
-        </div>
-        <div class="geo-card">
-          <span class="geo-symbol">𝜑</span>
-          <div class="geo-name">Golden Spiral</div>
-          <div class="geo-hz">528 Hz</div>
-          <div class="geo-tagline">The ratio of growth</div>
-        </div>
-        <div class="geo-card">
-          <span class="geo-symbol">⟁</span>
-          <div class="geo-name">Tree of Life</div>
-          <div class="geo-hz">639 Hz</div>
-          <div class="geo-tagline">10 spheres, 22 paths</div>
-        </div>
-        <div class="geo-card">
-          <span class="geo-symbol">❃</span>
-          <div class="geo-name">Mandala</div>
-          <div class="geo-hz">285 Hz</div>
-          <div class="geo-tagline">Integration of the self</div>
-        </div>
-        <div class="geo-card">
-          <span class="geo-symbol">⛤</span>
-          <div class="geo-name">Pentagram</div>
-          <div class="geo-hz">852 Hz</div>
-          <div class="geo-tagline">Human form in sacred proportion</div>
-        </div>
-        <div class="geo-card">
-          <span class="geo-symbol">✶</span>
-          <div class="geo-name">Hexagram</div>
-          <div class="geo-hz">396 Hz</div>
-          <div class="geo-tagline">As above, so below</div>
-        </div>
+        <div class="geo-card"><span class="geo-symbol">⊙</span><div class="geo-name">Seed of Life</div><div class="geo-hz">396 Hz</div><div class="geo-tagline">Origin of creation</div></div>
+        <div class="geo-card"><span class="geo-symbol">✿</span><div class="geo-name">Flower of Life</div><div class="geo-hz">528 Hz</div><div class="geo-tagline">Interconnected existence</div></div>
+        <div class="geo-card"><span class="geo-symbol">✦</span><div class="geo-name">Metatron’s Cube</div><div class="geo-hz">432 Hz</div><div class="geo-tagline">Blueprint of reality</div></div>
+        <div class="geo-card"><span class="geo-symbol">⬡</span><div class="geo-name">Vesica Piscis</div><div class="geo-hz">417 Hz</div><div class="geo-tagline">Gateway between worlds</div></div>
+        <div class="geo-card"><span class="geo-symbol">✡</span><div class="geo-name">Merkaba</div><div class="geo-hz">741 Hz</div><div class="geo-tagline">Light body geometry</div></div>
+        <div class="geo-card"><span class="geo-symbol">◈</span><div class="geo-name">Sri Yantra</div><div class="geo-hz">963 Hz</div><div class="geo-tagline">Consciousness pattern</div></div>
+        <div class="geo-card"><span class="geo-symbol">◎</span><div class="geo-name">Torus</div><div class="geo-hz">174 Hz</div><div class="geo-tagline">Self-sustaining flow</div></div>
+        <div class="geo-card"><span class="geo-symbol">𝜑</span><div class="geo-name">Golden Spiral</div><div class="geo-hz">528 Hz</div><div class="geo-tagline">The ratio of growth</div></div>
+        <div class="geo-card"><span class="geo-symbol">⟁</span><div class="geo-name">Tree of Life</div><div class="geo-hz">639 Hz</div><div class="geo-tagline">10 spheres, 22 paths</div></div>
+        <div class="geo-card"><span class="geo-symbol">❃</span><div class="geo-name">Mandala</div><div class="geo-hz">285 Hz</div><div class="geo-tagline">Integration of self</div></div>
+        <div class="geo-card"><span class="geo-symbol">⛤</span><div class="geo-name">Pentagram</div><div class="geo-hz">852 Hz</div><div class="geo-tagline">Sacred proportion</div></div>
+        <div class="geo-card"><span class="geo-symbol">✶</span><div class="geo-name">Hexagram</div><div class="geo-hz">396 Hz</div><div class="geo-tagline">As above, so below</div></div>
       </div>
     </div>
   </section>
 
   <section class="sound-section" id="sound">
     <div class="section-inner">
-      <span class="section-label">Sound Healing</span>
-      <h2 class="section-title">Sacred Solfeggio Frequencies</h2>
+      <span class="section-label">Sound and Frequency</span>
+      <h2 class="section-title">Sacred Tones for Meditation</h2>
       <p class="section-desc">
-        Binaural sound pairs sacred tones for ritual focus, meditation, grounding, and energetic alignment — all generated as part of the living sacred arts experience.
+        Sound elements support ritual focus, meditation, grounding, and symbolic alignment throughout the web oracle.
       </p>
 
       <div class="sound-grid">
-        <div class="sound-card">
-          <div class="sound-hz">174 Hz</div>
-          <div>
-            <div class="sound-name">Foundation &amp; Safety</div>
-            <div class="sound-meaning">Torus — physical grounding</div>
-          </div>
-        </div>
-        <div class="sound-card">
-          <div class="sound-hz">285 Hz</div>
-          <div>
-            <div class="sound-name">Healing &amp; Rejuvenation</div>
-            <div class="sound-meaning">Mandala — restoration and repair</div>
-          </div>
-        </div>
-        <div class="sound-card">
-          <div class="sound-hz">396 Hz</div>
-          <div>
-            <div class="sound-name">Liberation from Fear</div>
-            <div class="sound-meaning">Seed of Life &amp; Hexagram</div>
-          </div>
-        </div>
-        <div class="sound-card">
-          <div class="sound-hz">417 Hz</div>
-          <div>
-            <div class="sound-name">Facilitating Change</div>
-            <div class="sound-meaning">Vesica Piscis</div>
-          </div>
-        </div>
-        <div class="sound-card">
-          <div class="sound-hz">432 Hz</div>
-          <div>
-            <div class="sound-name">Universal Harmony</div>
-            <div class="sound-meaning">Metatron’s Cube</div>
-          </div>
-        </div>
-        <div class="sound-card">
-          <div class="sound-hz">528 Hz</div>
-          <div>
-            <div class="sound-name">Miracles &amp; Transformation</div>
-            <div class="sound-meaning">Flower of Life &amp; Golden Spiral</div>
-          </div>
-        </div>
-        <div class="sound-card">
-          <div class="sound-hz">639 Hz</div>
-          <div>
-            <div class="sound-name">Connection &amp; Relationships</div>
-            <div class="sound-meaning">Tree of Life</div>
-          </div>
-        </div>
-        <div class="sound-card">
-          <div class="sound-hz">741 Hz</div>
-          <div>
-            <div class="sound-name">Awakening Intuition</div>
-            <div class="sound-meaning">Merkaba</div>
-          </div>
-        </div>
-        <div class="sound-card">
-          <div class="sound-hz">852 Hz</div>
-          <div>
-            <div class="sound-name">Spiritual Order</div>
-            <div class="sound-meaning">Pentagram</div>
-          </div>
-        </div>
-        <div class="sound-card">
-          <div class="sound-hz">963 Hz</div>
-          <div>
-            <div class="sound-name">Divine Consciousness</div>
-            <div class="sound-meaning">Sri Yantra</div>
-          </div>
-        </div>
+        <div class="sound-card"><div class="sound-hz">174 Hz</div><div><div class="sound-name">Foundation and Safety</div><div class="sound-meaning">Torus — grounding</div></div></div>
+        <div class="sound-card"><div class="sound-hz">285 Hz</div><div><div class="sound-name">Healing and Restoration</div><div class="sound-meaning">Mandala — repair</div></div></div>
+        <div class="sound-card"><div class="sound-hz">396 Hz</div><div><div class="sound-name">Liberation from Fear</div><div class="sound-meaning">Seed of Life and Hexagram</div></div></div>
+        <div class="sound-card"><div class="sound-hz">417 Hz</div><div><div class="sound-name">Facilitating Change</div><div class="sound-meaning">Vesica Piscis</div></div></div>
+        <div class="sound-card"><div class="sound-hz">432 Hz</div><div><div class="sound-name">Universal Harmony</div><div class="sound-meaning">Metatron’s Cube</div></div></div>
+        <div class="sound-card"><div class="sound-hz">528 Hz</div><div><div class="sound-name">Transformation</div><div class="sound-meaning">Flower of Life and Golden Spiral</div></div></div>
+        <div class="sound-card"><div class="sound-hz">639 Hz</div><div><div class="sound-name">Connection</div><div class="sound-meaning">Tree of Life</div></div></div>
+        <div class="sound-card"><div class="sound-hz">741 Hz</div><div><div class="sound-name">Intuition</div><div class="sound-meaning">Merkaba</div></div></div>
+        <div class="sound-card"><div class="sound-hz">852 Hz</div><div><div class="sound-name">Spiritual Order</div><div class="sound-meaning">Pentagram</div></div></div>
+        <div class="sound-card"><div class="sound-hz">963 Hz</div><div><div class="sound-name">Divine Consciousness</div><div class="sound-meaning">Sri Yantra</div></div></div>
       </div>
     </div>
   </section>
@@ -1561,9 +1450,9 @@
   <section class="pathworking-section" id="pathworking">
     <div class="section-inner">
       <span class="section-label">Pathworking</span>
-      <h2 class="section-title">Five Narrative Meditative Journeys</h2>
+      <h2 class="section-title">Narrative Meditative Journeys</h2>
       <p class="section-desc">
-        Each journey guides you through sacred patterns, optional tarot draws, and reflective pauses designed for contemplative inner work and symbolic activation.
+        Move through sacred patterns, tarot prompts, and reflective pauses designed for contemplative inner work.
       </p>
 
       <div class="journey-list">
@@ -1571,13 +1460,8 @@
           <div class="journey-num">I</div>
           <div>
             <div class="journey-title">The Genesis Path</div>
-            <div class="journey-desc">
-              Begin where all creation begins. Move from the Seed of Life through the Flower of Life into Metatron’s Cube — from singular point to infinite blueprint.
-            </div>
-            <div class="journey-meta">
-              <span class="journey-pill pill-level">Beginner</span>
-              <span class="journey-pill pill-time">15 min</span>
-            </div>
+            <div class="journey-desc">Begin with the Seed of Life, Flower of Life, and Metatron’s Cube — from first spark to infinite blueprint.</div>
+            <div class="journey-meta"><span class="journey-pill pill-level">Beginner</span><span class="journey-pill pill-time">Creation</span></div>
           </div>
         </div>
 
@@ -1585,13 +1469,8 @@
           <div class="journey-num">II</div>
           <div>
             <div class="journey-title">The Consciousness Path</div>
-            <div class="journey-desc">
-              Journey through Sri Yantra, the Tree of Life, and the Mandala to map the structure of awareness and integrate the wholeness of the self.
-            </div>
-            <div class="journey-meta">
-              <span class="journey-pill pill-level">Intermediate</span>
-              <span class="journey-pill pill-time">20 min</span>
-            </div>
+            <div class="journey-desc">Journey through Sri Yantra, the Tree of Life, and the Mandala to map awareness and integrate the self.</div>
+            <div class="journey-meta"><span class="journey-pill pill-level">Intermediate</span><span class="journey-pill pill-time">Integration</span></div>
           </div>
         </div>
 
@@ -1599,13 +1478,8 @@
           <div class="journey-num">III</div>
           <div>
             <div class="journey-title">The Healing Path</div>
-            <div class="journey-desc">
-              Let the Vesica Piscis, Torus, and Golden Spiral restore energetic balance — moving from portal to self-sustaining flow to infinite unfolding.
-            </div>
-            <div class="journey-meta">
-              <span class="journey-pill pill-level">Beginner</span>
-              <span class="journey-pill pill-time">18 min</span>
-            </div>
+            <div class="journey-desc">Let the Vesica Piscis, Torus, and Golden Spiral restore balance through portal, flow, and unfolding.</div>
+            <div class="journey-meta"><span class="journey-pill pill-level">Beginner</span><span class="journey-pill pill-time">Healing</span></div>
           </div>
         </div>
 
@@ -1613,13 +1487,8 @@
           <div class="journey-num">IV</div>
           <div>
             <div class="journey-title">The Ascension Path</div>
-            <div class="journey-desc">
-              Activate the light body through Merkaba, Hexagram, and Pentagram — bridging spirit and matter, polarity and proportion, embodiment and ascent.
-            </div>
-            <div class="journey-meta">
-              <span class="journey-pill pill-level">Advanced</span>
-              <span class="journey-pill pill-time">22 min</span>
-            </div>
+            <div class="journey-desc">Activate symbolic alignment through Merkaba, Hexagram, and Pentagram — bridging spirit and matter.</div>
+            <div class="journey-meta"><span class="journey-pill pill-level">Advanced</span><span class="journey-pill pill-time">Alignment</span></div>
           </div>
         </div>
 
@@ -1627,13 +1496,8 @@
           <div class="journey-num">V</div>
           <div>
             <div class="journey-title">The Mystery Path</div>
-            <div class="journey-desc">
-              An advanced journey into dissolution and return — for the seasoned practitioner ready to move through pure symbol, geometry, and interior revelation.
-            </div>
-            <div class="journey-meta">
-              <span class="journey-pill pill-level">Advanced</span>
-              <span class="journey-pill pill-time">25 min</span>
-            </div>
+            <div class="journey-desc">An advanced contemplative route through symbol, geometry, dissolution, and return.</div>
+            <div class="journey-meta"><span class="journey-pill pill-level">Advanced</span><span class="journey-pill pill-time">Mystery</span></div>
           </div>
         </div>
       </div>
@@ -1643,34 +1507,34 @@
   <section class="breathwork-section" id="breathwork">
     <div class="section-inner">
       <span class="section-label">Breathwork</span>
-      <h2 class="section-title">Four Guided Breathing Modes</h2>
+      <h2 class="section-title">Guided Breathing Modes</h2>
       <p class="section-desc">
-        A visual guide paces each inhale, hold, exhale, and rest phase so you can stay inside the ritual rather than counting time.
+        Visual pacing supports inhale, hold, exhale, and rest phases for meditation and ritual preparation.
       </p>
 
       <div class="breath-grid">
         <div class="breath-card">
           <div class="breath-name">Box Breathing</div>
           <div class="breath-pattern">4s · 4s · 4s · 4s</div>
-          <div class="breath-desc">Inhale · Hold · Exhale · Hold. Ideal for nervous system reset, centering, and ritual preparation.</div>
+          <div class="breath-desc">Inhale · Hold · Exhale · Hold. Centering, resetting, and grounding.</div>
         </div>
 
         <div class="breath-card">
           <div class="breath-name">4-7-8 Relaxing</div>
           <div class="breath-pattern">4s · 7s · 8s</div>
-          <div class="breath-desc">Inhale · Hold · Exhale. A classic calming pattern suited for unwinding, sleep, and deep transition work.</div>
+          <div class="breath-desc">Inhale · Hold · Exhale. Calming, unwinding, and transition work.</div>
         </div>
 
         <div class="breath-card">
           <div class="breath-name">Deep Calm</div>
           <div class="breath-pattern">5s · 2s · 7s · 2s</div>
-          <div class="breath-desc">Inhale · Hold · Exhale · Hold. Extended exhale supports steady parasympathetic grounding and presence.</div>
+          <div class="breath-desc">Extended exhale for steady parasympathetic grounding and presence.</div>
         </div>
 
         <div class="breath-card">
           <div class="breath-name">Energizing</div>
           <div class="breath-pattern">6s · — · 2s · —</div>
-          <div class="breath-desc">Long inhale and quick exhale for alertness, activation, and morning ritual opening.</div>
+          <div class="breath-desc">Long inhale and quick exhale for alertness and ritual activation.</div>
         </div>
       </div>
     </div>
@@ -1679,9 +1543,9 @@
   <section class="spreads-section" id="spreads">
     <div class="section-inner">
       <span class="section-label">Tarot Spreads</span>
-      <h2 class="section-title">Built-In Spreads + Custom Builder</h2>
+      <h2 class="section-title">Built-In Spreads and Ritual Layouts</h2>
       <p class="section-desc">
-        From a single daily card to larger multi-card layouts, every spread supports ritual reflection, private notes, and repeated use over time.
+        From a single daily card to larger symbolic layouts, each spread supports reflection, interpretation, and repeated study.
       </p>
 
       <div class="spreads-columns">
@@ -1698,7 +1562,7 @@
         <div class="spread-group">
           <div class="spread-group-label">Featured</div>
           <ul class="spread-list">
-            <li>Substance &amp; Shadow <span class="cards">3 cards</span></li>
+            <li>Substance and Shadow <span class="cards">3 cards</span></li>
             <li>What / Why / How <span class="cards">3 cards</span></li>
             <li>Spirit Spread <span class="cards">5 cards</span></li>
             <li>Modern Celtic Cross <span class="cards">10 cards</span></li>
@@ -1713,7 +1577,7 @@
             <li>Merkaba Spread <span class="cards">7 cards</span></li>
           </ul>
           <div class="spread-custom-note">
-            ✦ Build your own spread with up to 12 card positions on a visual canvas.
+            ✦ Use tarot spreads as symbolic architectures for reflection, meditation, and ritual practice.
           </div>
         </div>
       </div>
@@ -1722,13 +1586,63 @@
 
   <section class="quote-section">
     <div class="container">
-      <div class="divider" style="margin-bottom: 80px;"></div>
+      <div class="divider" style="margin-bottom:80px;"></div>
       <p class="quote-text">
         “The cards do not tell you what will happen.<br />
         They show you what is already written in the geometry of your soul.”
       </p>
-      <p class="quote-source">FOOD4THOTH Sacred Tarot</p>
-      <div class="divider" style="margin-top: 80px; margin-bottom: 0;"></div>
+      <p class="quote-source">FOOD4THOTH Sacred Geometry Tarot</p>
+      <div class="divider" style="margin-top:80px;margin-bottom:0;"></div>
+    </div>
+  </section>
+
+  <section class="donate-section" id="donate">
+    <div class="donate-card">
+      <p class="section-label">Support the Cause</p>
+      <h2 class="donate-title">Donate to FOOD4THOTH</h2>
+
+      <p class="donate-body">
+        FOOD4THOTH is a living creative experiment — a growing constellation of sacred web oracles, art tools, music portals, games, community resources, educational pages, and strange beautiful digital experiences.
+        <br /><br />
+        Your donation helps keep this work <strong>alive, independent, accessible, and expanding</strong>. Every contribution supports the ongoing creation of free tools, symbolic systems, experimental art, community offerings, and future FOOD4THOTH portals.
+      </p>
+
+      <div class="donate-buttons">
+        <a
+          href="https://www.paypal.com/donate/?business=artabillies%40gmail.com&no_recurring=0&currency_code=USD"
+          class="donate-btn"
+          target="_blank"
+          rel="noopener"
+        >
+          Donate with PayPal
+        </a>
+
+        <a
+          href="https://venmo.com/u/DeJahnvu"
+          class="donate-btn"
+          target="_blank"
+          rel="noopener"
+        >
+          Donate with Venmo
+        </a>
+
+        <a
+          href="https://cash.app/$DeJahnVu"
+          class="donate-btn"
+          target="_blank"
+          rel="noopener"
+        >
+          Donate with Cash App
+        </a>
+      </div>
+
+      <p class="donate-note">
+        PayPal: <span class="donate-email">artabillies@gmail.com</span>
+        · Venmo: <span class="donate-email">@DeJahnvu</span>
+        · Cash App: <span class="donate-email">$DeJahnVu</span>
+        <br />
+        Donations are optional and deeply appreciated. Thank you for helping support independent art, music, code, community, and the FOOD4THOTH universe.
+      </p>
     </div>
   </section>
 
@@ -1740,82 +1654,59 @@
       </div>
       <div class="privacy-item">
         <div class="privacy-check">✓</div>
-        <span>No data collected or uploaded</span>
+        <span>No checkout required</span>
       </div>
       <div class="privacy-item">
         <div class="privacy-check">✓</div>
-        <span>No ads, ever</span>
+        <span>Browser-based practice</span>
       </div>
       <div class="privacy-item">
         <div class="privacy-check">✓</div>
-        <span>No subscriptions</span>
+        <span>Private local reflections</span>
       </div>
       <div class="privacy-item">
         <div class="privacy-check">✓</div>
-        <span>Works fully offline-friendly</span>
-      </div>
-      <div class="privacy-item">
-        <div class="privacy-check">✓</div>
-        <span>Your journal stays on your device</span>
+        <span>Part of FOOD4THOTH.com</span>
       </div>
     </div>
   </div>
 
-  <section class="cta-section" id="download">
+  <section class="cta-section" id="enter">
     <div class="container">
       <h2 class="cta-title">Enter the Oracle</h2>
       <p class="cta-body">
-        Tarot readings, sacred geometry, sound healing, breathwork, pathworking, and private journaling — all gathered into one sacred arts experience for a $9.99 one-time purchase. Available now on the App Store. Android coming soon.
+        Open the Sacred Geometry Tarot directly on FOOD4THOTH.com. Draw cards, explore sacred geometry, meditate with sound tones, breathe with guided rhythm, and build a private symbolic practice from your browser.
       </p>
 
-      <div class="store-badges">
-        <a href="https://apps.apple.com/app/id6746059071" class="store-badge" target="_blank" rel="noopener">
-          <span class="store-badge-icon"></span>
-          <div class="store-badge-text">
-            <div class="store-badge-sub">Download on the</div>
-            <div class="store-badge-name">App Store</div>
-          </div>
+      <div class="web-link-buttons">
+        <a href="https://www.food4thoth.com/TarotSacredGeometry/NewSacredTarot.html" class="btn-primary" target="_blank" rel="noopener">
+          Launch Sacred Geometry Tarot
         </a>
 
-        <div class="coming-soon-pill" aria-label="Android coming soon">
-          Android Coming Soon
-        </div>
+        <a href="https://www.food4thoth.com/" class="btn-secondary" target="_blank" rel="noopener">
+          Visit FOOD4THOTH.com
+        </a>
       </div>
 
-      <div class="f4t-sacred-web-links">
-        <p class="f4t-sacred-web-links__label">Explore More Tarot Portals</p>
-        <div class="f4t-sacred-web-links__buttons">
-          <a
-            href="https://www.food4thoth.com/TarotSacredGeometry/NewSacredTarot.html"
-            class="f4t-sacred-web-links__btn"
-            target="_blank"
-            rel="noopener"
-          >
-            Visit New Web Version
+      <div class="web-links" style="background:transparent;border:0;padding:40px 0 0;">
+        <p class="web-links-label">More Tarot Portals</p>
+        <div class="web-link-buttons">
+          <a href="https://www.food4thoth.com/TarotSacredGeometry/index.html" class="web-link-btn" target="_blank" rel="noopener">
+            Original Sacred Tarot
           </a>
 
-          <a
-            href="https://www.food4thoth.com/TarotSacredGeometry/index.html"
-            class="f4t-sacred-web-links__btn"
-            target="_blank"
-            rel="noopener"
-          >
-            Visit Original Web Version
+          <a href="https://www.food4thoth.com/TarotTogetherNoAge4Decks/index.html" class="web-link-btn" target="_blank" rel="noopener">
+            Original Deck Gallery
           </a>
 
-          <a
-            href="https://www.food4thoth.com/TarotTogetherNoAge4Decks/index.html"
-            class="f4t-sacred-web-links__btn"
-            target="_blank"
-            rel="noopener"
-          >
-            View Original Deck Gallery
+          <a href="#donate" class="web-link-btn">
+            Support the Cause
           </a>
         </div>
       </div>
 
       <p class="cta-note">
-        iPhone · iPad · $9.99 one-time purchase · Android coming soon · No ads · No subscriptions · Private sacred practice
+        Free web oracle · Tarot · Sacred geometry · Sound · Breathwork · Meditation · Journaling · FOOD4THOTH.com
       </p>
     </div>
   </section>
@@ -1825,13 +1716,15 @@
     <div class="footer-tagline">Sacred Geometry Tarot</div>
 
     <div class="footer-links">
-      <a href="https://food4thoth.com" target="_blank" rel="noopener">food4thoth.com</a>
+      <a href="https://www.food4thoth.com/" target="_blank" rel="noopener">Main Website</a>
+      <a href="https://www.food4thoth.com/TarotSacredGeometry/NewSacredTarot.html" target="_blank" rel="noopener">Sacred Geometry Tarot</a>
+      <a href="#donate">Donate</a>
       <a href="https://www.food4thoth.com/TarotSacredGeometry/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>
-      <a href="mailto:food4thothdotcom@gmail.com">Contact</a>
+      <a href="mailto:food4thoth@proton.me">Contact</a>
     </div>
 
     <p class="footer-copy">
-      &copy; 2026 FOOD4THOTH. All rights reserved. Apple and the Apple logo are trademarks of Apple Inc.
+      &copy; 2026 FOOD4THOTH / Artabillies. All rights reserved. Built for FOOD4THOTH.com.
     </p>
   </footer>
 

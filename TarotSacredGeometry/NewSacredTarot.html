@@ -759,6 +759,173 @@ html,body{height:100%;overflow:hidden;background:var(--midnight);color:var(--cre
   z-index:150;
 }
 
+/* ── PATCH: Reliable spread card image loading ── */
+.spread-pos-card{
+  background:rgba(18,10,46,.9);
+}
+
+.spread-pos-card.loading{
+  border-color:rgba(212,175,55,.35);
+  box-shadow:0 0 10px rgba(212,175,55,.16);
+}
+
+.spread-pos-card img.spread-img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  display:block;
+  background:var(--card-bg);
+  border-radius:4px;
+  opacity:0;
+  transition:opacity .18s ease;
+}
+
+.spread-pos-card img.spread-img.loaded{
+  opacity:1;
+}
+
+.spread-card-loader{
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  border:2px solid rgba(212,175,55,.18);
+  border-top-color:var(--gold);
+  animation:spin .85s linear infinite;
+}
+
+.spread-pos-card.image-missing::after{
+  content:"Image loading…";
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:4px;
+  text-align:center;
+  font-size:8px;
+  line-height:1.2;
+  color:var(--gold);
+  background:rgba(10,8,20,.88);
+  font-family:'Cinzel',serif;
+  letter-spacing:.4px;
+}
+
+.spread-entry-thumb{
+  background:var(--card-bg);
+}
+
+/* ── PATCH: Responsive larger spread layouts for landscape / tablet / desktop ── */
+.spread-diagram-wrap{
+  padding:24px 12px 12px;
+  overflow:visible;
+}
+
+.spread-diagram{
+  max-width:100%;
+}
+
+.spread-pos-card{
+  transform:translate(-50%,-50%);
+}
+
+.spread-pos-label{
+  text-shadow:0 2px 8px rgba(10,8,20,.95);
+}
+
+.spread-cards-list{
+  width:100%;
+}
+
+@media (min-width:700px){
+  .spread-detail-header{
+    padding:22px 24px 16px;
+  }
+
+  .spread-detail-title{
+    font-size:28px;
+    letter-spacing:2.5px;
+  }
+
+  .spread-detail-subtitle{
+    font-size:15px;
+  }
+
+  .spread-diagram-wrap{
+    padding-top:30px;
+  }
+
+  .spread-cards-list,
+  .spread-summary,
+  .spread-reading-banner{
+    max-width:min(920px,92vw);
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .spread-entry-top{
+    gap:20px;
+  }
+
+  .spread-entry-thumb{
+    width:clamp(82px,12vw,132px);
+    height:calc(clamp(82px,12vw,132px) * 1.597);
+  }
+
+  .spread-entry-num{
+    width:32px;
+    height:32px;
+    border-radius:16px;
+    font-size:13px;
+  }
+
+  .spread-entry-pos{
+    font-size:13px;
+  }
+
+  .spread-entry-name{
+    font-size:20px;
+  }
+
+  .spread-entry-suit{
+    font-size:12px;
+  }
+
+  .spread-entry-posdesc{
+    font-size:13px;
+    line-height:19px;
+  }
+
+  .spread-entry-meaning-label{
+    font-size:11px;
+  }
+
+  .spread-entry-meaning{
+    font-size:14px;
+    line-height:22px;
+  }
+
+  .spread-summary-text{
+    font-size:15px;
+    line-height:25px;
+  }
+}
+
+@media (min-width:1000px){
+  .spread-detail-title{
+    font-size:32px;
+  }
+
+  .spread-diagram-wrap{
+    padding-top:38px;
+  }
+
+  .spread-shuffle-btn,
+  .spread-new-btn{
+    font-size:15px;
+    padding:14px 30px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -4735,6 +4902,548 @@ function enableA11yClicks(){
   try{ const mo=new MutationObserver(()=>mark()); mo.observe(document.body,{childList:true,subtree:true}); }catch(_){ }
 }
 enableA11yClicks();
+
+// ═══════════════════════════════════════════════════════════════
+// PATCH: Stable spread card image preloading + reveal timer cleanup
+// ═══════════════════════════════════════════════════════════════
+var F4T_SPREAD_PATCH_TOKEN = 0;
+var F4T_SPREAD_PATCH_TIMERS = [];
+
+function f4tClearSpreadTimers(){
+  F4T_SPREAD_PATCH_TIMERS.forEach(t => clearTimeout(t));
+  F4T_SPREAD_PATCH_TIMERS = [];
+}
+
+function f4tPreloadSpreadCard(card){
+  const src = cardImg(card);
+
+  if(typeof preloadCardImage === "function"){
+    return preloadCardImage(src);
+  }
+
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = src;
+  });
+}
+
+function f4tBindSpreadImage(img, holder){
+  if(!img) return;
+
+  const markLoaded = () => {
+    img.classList.add("loaded");
+    if(holder){
+      holder.classList.remove("loading");
+      holder.classList.remove("image-missing");
+    }
+  };
+
+  const markMissing = () => {
+    if(holder){
+      holder.classList.remove("loading");
+      holder.classList.add("image-missing");
+    }
+  };
+
+  img.addEventListener("load", markLoaded, {once:true});
+  img.addEventListener("error", markMissing, {once:true});
+
+  if(img.complete){
+    if(img.naturalWidth > 0) markLoaded();
+    else markMissing();
+  }
+}
+
+function f4tSetSpreadLoading(posId){
+  const posEl = document.getElementById(`spos-${posId}`);
+  if(posEl){
+    posEl.classList.remove("revealed", "image-missing");
+    posEl.classList.add("loading");
+    posEl.innerHTML = `<div class="spread-card-loader" aria-label="Loading card image"></div>`;
+  }
+
+  const entryEl = document.getElementById(`sentry-${posId}`);
+  if(entryEl){
+    entryEl.style.opacity = ".55";
+    entryEl.style.pointerEvents = "none";
+  }
+}
+
+function f4tShuffleDeckCopy(){
+  const deck = [...ALL_CARDS];
+
+  for(let i = deck.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+
+  return deck;
+}
+
+// Override: open spread safely
+function openSpreadDetail(spreadId){
+  const spread = getSpread(spreadId);
+  if(!spread) return;
+
+  f4tClearSpreadTimers();
+  F4T_SPREAD_PATCH_TOKEN++;
+
+  state.currentSpreadId = spreadId;
+  state.spreadCards = {};
+  state.spreadReversed = {};
+  _lastSpreadLogKey = null;
+
+  renderSpreadDetail(spread);
+}
+
+// Override: new reading safely
+function newSpreadReading(spreadId){
+  const spread = getSpread(spreadId);
+  if(!spread) return;
+
+  f4tClearSpreadTimers();
+  F4T_SPREAD_PATCH_TOKEN++;
+
+  state.spreadCards = {};
+  state.spreadReversed = {};
+  _lastSpreadLogKey = null;
+
+  renderSpreadDetail(spread);
+}
+
+// Override: individual card reveal waits for image first
+async function revealSpreadCard(posId){
+  const spread = getSpread(state.currentSpreadId);
+  if(!spread || state.spreadCards[posId]) return;
+
+  const token = F4T_SPREAD_PATCH_TOKEN;
+  const used = Object.values(state.spreadCards);
+
+  let card;
+  do{
+    card = ALL_CARDS[Math.floor(Math.random() * ALL_CARDS.length)];
+  }while(used.includes(card.id) && used.length < ALL_CARDS.length);
+
+  state.spreadCards[posId] = card.id;
+  state.spreadReversed[posId] = Math.random() > 0.6;
+
+  f4tSetSpreadLoading(posId);
+
+  await f4tPreloadSpreadCard(card);
+
+  if(token !== F4T_SPREAD_PATCH_TOKEN) return;
+
+  updateSpreadPosition(posId, card);
+  showSpreadReadingBanner();
+  maybeSpreadComplete();
+}
+
+// Override: full spread reveal preloads every card before staggered display
+async function shuffleSpread(spreadId){
+  const spread = getSpread(spreadId);
+  if(!spread) return;
+
+  f4tClearSpreadTimers();
+
+  const token = ++F4T_SPREAD_PATCH_TOKEN;
+
+  state.spreadCards = {};
+  state.spreadReversed = {};
+  _lastSpreadLogKey = null;
+
+  const shuffled = f4tShuffleDeckCopy().slice(0, spread.cardCount);
+
+  spread.positions.forEach((p, i) => {
+    const card = shuffled[i];
+    if(!card) return;
+
+    state.spreadCards[p.id] = card.id;
+    state.spreadReversed[p.id] = Math.random() > 0.6;
+
+    f4tSetSpreadLoading(p.id);
+  });
+
+  showSpreadReadingBanner();
+
+  await Promise.all(shuffled.map(card => f4tPreloadSpreadCard(card)));
+
+  if(token !== F4T_SPREAD_PATCH_TOKEN) return;
+
+  spread.positions.forEach((p, i) => {
+    const card = shuffled[i];
+    const timer = setTimeout(() => {
+      if(token !== F4T_SPREAD_PATCH_TOKEN) return;
+
+      updateSpreadPosition(p.id, card);
+
+      if(i === spread.positions.length - 1){
+        setTimeout(() => {
+          if(token === F4T_SPREAD_PATCH_TOKEN) maybeSpreadComplete();
+        }, 80);
+      }
+    }, i * 130);
+
+    F4T_SPREAD_PATCH_TIMERS.push(timer);
+  });
+}
+
+// Override: safer image injection for diagram + list cards
+function updateSpreadPosition(posId, card){
+  const accent = SUIT_COLORS[card.suit];
+  const reversed = !!state.spreadReversed[posId];
+
+  const posEl = document.getElementById(`spos-${posId}`);
+  if(posEl){
+    posEl.classList.remove("image-missing");
+    posEl.classList.add("revealed", "loading");
+
+    posEl.innerHTML = `
+      <img
+        class="spread-img"
+        src="${cardImg(card)}"
+        alt="${escHtml(card.name)}"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+        style="${reversed ? "transform:rotate(180deg)" : ""}"
+      />
+      ${reversed ? `
+        <div style="position:absolute;top:2px;right:2px;width:14px;height:14px;border-radius:7px;border:1px solid rgba(230,57,70,.5);background:rgba(230,57,70,.2);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#E63946">R</div>
+      ` : ""}
+    `;
+
+    posEl.style.borderColor = reversed ? "#E6394666" : accent;
+    posEl.style.boxShadow = `0 0 10px ${reversed ? "#E6394630" : accent + "44"}`;
+    posEl.onclick = () => openCardFromSpread(posId);
+
+    f4tBindSpreadImage(posEl.querySelector("img.spread-img"), posEl);
+  }
+
+  const entryEl = document.getElementById(`sentry-${posId}`);
+  if(entryEl){
+    const spread = getSpread(state.currentSpreadId);
+    const pos = spread ? spread.positions.find(p => p.id === posId) : null;
+
+    const borderAccent = reversed ? "#E6394655" : `${accent}55`;
+    const meaningLabel = reversed ? "↓ Reversed Reading" : "↑ Upright Reading";
+    const meaningLabelColor = reversed ? "#E63946" : accent;
+    const meaningDividerColor = reversed ? "#E6394630" : `${accent}30`;
+    const meaningText = escHtml(reversed ? (card.reversedDescription || card.description || "") : (card.description || ""));
+
+    entryEl.style.opacity = "1";
+    entryEl.style.pointerEvents = "all";
+    entryEl.style.borderColor = borderAccent;
+    entryEl.style.background = reversed ? "rgba(230,57,70,.04)" : "";
+
+    entryEl.innerHTML = `
+      <div class="spread-entry-top">
+        <div class="spread-entry-left">
+          <div class="spread-entry-num" style="color:${reversed ? "#E63946" : accent};border-color:${reversed ? "#E6394655" : accent + "55"};background:${reversed ? "rgba(230,57,70,.15)" : accent + "22"}">${posId}</div>
+
+          <img
+            class="spread-entry-thumb"
+            src="${cardImg(card)}"
+            alt="${escHtml(card.name)}"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+            style="box-shadow:0 2px 8px ${reversed ? "#E6394640" : accent + "40"};${reversed ? "transform:rotate(180deg)" : ""}"
+          />
+        </div>
+
+        <div class="spread-entry-info">
+          <div class="spread-entry-pos" style="color:${reversed ? "#E63946" : accent}">${escHtml(pos ? pos.label : "Position")}</div>
+          <div class="spread-entry-name">${escHtml(card.name)}${reversed ? ` <span style="font-size:12px;color:#E63946;letter-spacing:.5px">↓ Reversed</span>` : ""}</div>
+          <div class="spread-entry-suit" style="color:${reversed ? "#E63946" : accent}">${SUIT_LABELS[card.suit]}</div>
+          <div class="spread-entry-posdesc">${escHtml(pos ? pos.description : "")}</div>
+          <div class="spread-entry-divider" style="background:${meaningDividerColor}"></div>
+          <div class="spread-entry-meaning-label" style="color:${meaningLabelColor}">${meaningLabel}</div>
+          <div class="spread-entry-meaning">${meaningText}</div>
+        </div>
+      </div>
+    `;
+
+    f4tBindSpreadImage(entryEl.querySelector("img.spread-entry-thumb"), entryEl);
+  }
+}
+
+// Override: returning from card detail restores spread cleanly
+function returnToSpread(){
+  const spread = getSpread(state.currentSpreadId);
+  if(!spread){
+    closePanel();
+    return;
+  }
+
+  f4tClearSpreadTimers();
+  F4T_SPREAD_PATCH_TOKEN++;
+
+  stopSound();
+  stop3D();
+
+  renderSpreadDetail(spread);
+
+  spread.positions.forEach(p => {
+    const cid = state.spreadCards[p.id];
+    if(cid){
+      const card = CARD_BY_ID[cid];
+      if(card) updateSpreadPosition(p.id, card);
+    }
+  });
+
+  showSpreadReadingBanner();
+
+  const filled = spread.positions.filter(p => state.spreadCards[p.id]).length;
+  if(filled === spread.positions.length){
+    const box = document.getElementById("spread-summary");
+    const txt = document.getElementById("spread-summary-text");
+
+    if(box && txt){
+      txt.innerHTML = weaveSpreadSummary(spread);
+      box.style.display = "block";
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PATCH: Larger responsive spread diagrams for landscape / tablet / desktop
+// Keeps iPhone portrait close to the current size, then scales up on wider screens.
+// ═══════════════════════════════════════════════════════════════
+
+function f4tSpreadResponsiveScale(spread){
+  const vw = Math.max(
+    document.documentElement.clientWidth || 0,
+    window.innerWidth || 0
+  );
+
+  const compactPhone = vw < 520;
+
+  let targetWidth;
+
+  if(compactPhone){
+    // Preserve the current good iPhone portrait behavior.
+    targetWidth = Math.min(vw - 32, 340);
+  }else{
+    // Let landscape phones, iPads, and desktop grow.
+    const sidePadding = vw >= 1000 ? 96 : 56;
+    targetWidth = Math.min(vw - sidePadding, 920);
+  }
+
+  targetWidth = Math.max(280, targetWidth);
+
+  let scale = targetWidth / spread.cw;
+
+  if(compactPhone){
+    // Original behavior is around 340 / 300 = 1.13.
+    scale = Math.min(scale, 1.14);
+  }else if(vw >= 1100){
+    scale = Math.min(scale, 3.15);
+    scale = Math.max(scale, 1.65);
+  }else if(vw >= 760){
+    scale = Math.min(scale, 2.85);
+    scale = Math.max(scale, 1.45);
+  }else{
+    // Landscape phones.
+    scale = Math.min(scale, 2.35);
+    scale = Math.max(scale, 1.25);
+  }
+
+  return scale;
+}
+
+// Override: responsive spread detail renderer
+function renderSpreadDetail(spread){
+  const SCALE = f4tSpreadResponsiveScale(spread);
+
+  const dw = spread.cw * SCALE;
+  const dh = spread.ch * SCALE;
+
+  const CARD_W = 48 * SCALE;
+  const CARD_H = 77 * SCALE;
+
+  const labelFont = Math.max(9, Math.min(15, 9 * SCALE));
+  const labelBottom = -Math.max(20, 22 * SCALE);
+  const diagramBottom = Math.max(34, 42 * SCALE);
+
+  const positions = spread.positions.map(p => `
+    <div
+      class="spread-pos-card"
+      id="spos-${p.id}"
+      style="
+        left:${(p.x * SCALE).toFixed(1)}px;
+        top:${(p.y * SCALE).toFixed(1)}px;
+        width:${CARD_W.toFixed(1)}px;
+        height:${CARD_H.toFixed(1)}px;
+        border-radius:${Math.max(5, 5 * SCALE).toFixed(1)}px;
+      "
+      onclick="revealSpreadCard(${p.id})"
+    >
+      <span
+        style="
+          font-family:'Cinzel',serif;
+          font-size:${Math.max(8, 10 * SCALE).toFixed(1)}px;
+          color:rgba(212,175,55,.7);
+          text-align:center;
+          padding:2px;
+        "
+      >${p.id}</span>
+
+      <div
+        class="spread-pos-label"
+        style="
+          bottom:${labelBottom.toFixed(1)}px;
+          font-size:${labelFont.toFixed(1)}px;
+        "
+      >${escHtml(p.label)}</div>
+    </div>
+  `).join("");
+
+  openPanel(`
+    <div id="spread-detail-content">
+      <div class="spread-detail-header">
+        <button class="spread-detail-back" onclick="closePanel()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+          Spreads
+        </button>
+
+        <div class="spread-detail-title">${escHtml(spread.name)}</div>
+        <div class="spread-detail-subtitle">${escHtml(spread.subtitle)} · ${spread.cardCount} cards</div>
+      </div>
+
+      <div class="spread-diagram-wrap">
+        <div
+          class="spread-diagram"
+          style="
+            width:${dw.toFixed(1)}px;
+            height:${dh.toFixed(1)}px;
+            position:relative;
+            margin-bottom:${diagramBottom.toFixed(1)}px;
+          "
+        >
+          ${positions}
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:center;gap:10px;margin-bottom:20px;flex-wrap:wrap">
+        <button class="spread-shuffle-btn" onclick="shuffleSpread('${spread.id}')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="16 3 21 3 21 8"/>
+            <line x1="4" y1="20" x2="21" y2="3"/>
+            <polyline points="21 16 21 21 16 21"/>
+            <line x1="15" y1="15" x2="21" y2="21"/>
+          </svg>
+          Shuffle & Reveal All
+        </button>
+
+        <button class="spread-new-btn" onclick="newSpreadReading('${spread.id}')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+          </svg>
+          New Reading
+        </button>
+      </div>
+
+      <div class="spread-reading-banner" id="spread-reading-banner" style="display:none">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+        <span>The information below is your reading — tap any card to explore its full meaning.</span>
+      </div>
+
+      <div class="spread-summary" id="spread-summary" style="display:none">
+        <div class="spread-summary-label">✦ Your Woven Reading</div>
+        <div class="spread-summary-text" id="spread-summary-text"></div>
+      </div>
+
+      <div class="spread-cards-list" id="spread-cards-list">
+        ${spread.positions.map(p => `
+          <div
+            class="spread-card-entry"
+            id="sentry-${p.id}"
+            onclick="openCardFromSpread(${p.id})"
+            style="opacity:.4;pointer-events:none"
+          >
+            <div class="spread-entry-top">
+              <div class="spread-entry-left">
+                <div
+                  class="spread-entry-num"
+                  style="color:var(--muted);border-color:rgba(107,95,138,.45);background:rgba(107,95,138,.15)"
+                >${p.id}</div>
+
+                <div
+                  class="spread-entry-thumb"
+                  style="display:flex;align-items:center;justify-content:center;border:1px solid rgba(212,175,55,.25)"
+                >
+                  <span style="font-size:22px;color:rgba(212,175,55,.4)">?</span>
+                </div>
+              </div>
+
+              <div class="spread-entry-info">
+                <div class="spread-entry-pos" style="color:var(--muted)">${escHtml(p.label)}</div>
+                <div class="spread-entry-name" style="color:var(--muted)">Not yet revealed</div>
+                <div class="spread-entry-posdesc">${escHtml(p.description)}</div>
+              </div>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `);
+}
+
+function f4tRestoreCurrentSpreadLayout(){
+  const panel = document.getElementById("detail-panel");
+  const spreadContent = document.getElementById("spread-detail-content");
+
+  if(!panel || !panel.classList.contains("open") || !spreadContent) return;
+
+  const spread = getSpread(state.currentSpreadId);
+  if(!spread) return;
+
+  renderSpreadDetail(spread);
+
+  spread.positions.forEach(p => {
+    const cid = state.spreadCards[p.id];
+    if(cid){
+      const card = CARD_BY_ID[cid];
+      if(card) updateSpreadPosition(p.id, card);
+    }
+  });
+
+  showSpreadReadingBanner();
+
+  const filled = spread.positions.filter(p => state.spreadCards[p.id]).length;
+
+  if(filled === spread.positions.length){
+    const box = document.getElementById("spread-summary");
+    const txt = document.getElementById("spread-summary-text");
+
+    if(box && txt){
+      txt.innerHTML = weaveSpreadSummary(spread);
+      box.style.display = "block";
+    }
+  }
+}
+
+let f4tSpreadResizeTimer = null;
+
+function f4tQueueSpreadResize(){
+  clearTimeout(f4tSpreadResizeTimer);
+
+  f4tSpreadResizeTimer = setTimeout(() => {
+    f4tRestoreCurrentSpreadLayout();
+  }, 180);
+}
+
+window.addEventListener("resize", f4tQueueSpreadResize);
+window.addEventListener("orientationchange", f4tQueueSpreadResize);
 </script>
 </body>
 </html>
