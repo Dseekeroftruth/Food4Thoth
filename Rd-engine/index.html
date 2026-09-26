@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>RD ENGINE — reaction-diffusion instrument</title>
+<style>
+  :root{
+    --ink:#f2f2f2;
+    --dim:#7c7c7c;
+    --line:rgba(255,255,255,.16);
+    --panel:rgba(0,0,0,.72);
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Roboto Mono", monospace;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%;background:#000;color:var(--ink);font-family:var(--mono);overflow:hidden}
+  canvas#view{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:crosshair}
+
+  .mark{position:fixed;top:14px;left:16px;z-index:5;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);pointer-events:none;line-height:1.6}
+  .mark b{color:var(--ink);font-weight:600}
+  .mark .st{color:var(--dim)}
+
+  #panel{position:fixed;top:0;right:0;bottom:0;width:326px;z-index:6;background:var(--panel);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-left:1px solid var(--line);
+    overflow-y:auto;overscroll-behavior:contain;transition:transform .22s ease;padding-bottom:96px}
+  #panel::-webkit-scrollbar{width:6px}
+  #panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18)}
+  #panel.hide{transform:translateX(100%)}
+  .sec{border-bottom:1px solid var(--line);padding:14px 16px 16px}
+  .sec>h2{margin:0 0 12px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);font-weight:500;
+    display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+  .sec>h2 i{font-style:normal;font-size:9px;opacity:.6}
+  .sec.closed .body{display:none}
+
+  .chips{display:grid;grid-template-columns:repeat(2,1fr);gap:4px}
+  .chips.three{grid-template-columns:repeat(3,1fr)}
+  .chip{font:inherit;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);
+    background:transparent;border:1px solid var(--line);padding:6px 4px;cursor:pointer;white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis;transition:background .12s,color .12s}
+  .chip:hover{background:rgba(255,255,255,.1)}
+  .chip.on{background:var(--ink);color:#000;border-color:var(--ink)}
+
+  .row{margin:9px 0 0}
+  .row .lab{display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:5px}
+  .row .lab span:last-child{color:var(--ink);font-variant-numeric:tabular-nums}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:14px;background:transparent;cursor:ew-resize;display:block}
+  input[type=range]::-webkit-slider-runnable-track{height:1px;background:var(--line)}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:9px;height:13px;background:var(--ink);margin-top:-6px;border-radius:0}
+  input[type=range]::-moz-range-track{height:1px;background:var(--line)}
+  input[type=range]::-moz-range-thumb{width:9px;height:13px;background:var(--ink);border:0;border-radius:0}
+
+  .togs{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
+  .tog{font:inherit;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);
+    background:transparent;color:var(--dim);padding:5px 8px;cursor:pointer}
+  .tog.on{background:var(--ink);color:#000;border-color:var(--ink)}
+  .hint{font-size:9px;letter-spacing:.06em;color:var(--dim);line-height:1.7;margin-top:10px}
+  .hint kbd{border:1px solid var(--line);padding:0 3px;color:var(--ink)}
+
+  #bar{position:fixed;left:0;right:0;bottom:0;z-index:7;display:flex;align-items:center;gap:6px;
+    padding:9px 12px;background:linear-gradient(0deg,rgba(0,0,0,.9),rgba(0,0,0,0));pointer-events:none}
+  #bar>*{pointer-events:auto}
+  .tbtn{font:inherit;font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line);
+    background:rgba(0,0,0,.5);color:var(--ink);padding:8px 11px;cursor:pointer;transition:background .12s,color .12s}
+  .tbtn:hover{background:rgba(255,255,255,.14)}
+  .tbtn.on{background:var(--ink);color:#000;border-color:var(--ink)}
+  .tbtn.rec.on{background:#fff;color:#000;animation:blink 1.1s steps(2) infinite}
+  @keyframes blink{50%{opacity:.45}}
+  .spacer{flex:1}
+  #meter{display:flex;align-items:flex-end;gap:2px;height:22px;width:34px;opacity:.9}
+  #meter i{display:block;width:8px;background:var(--ink);height:2px;transition:height .06s linear}
+  #stat{font-size:9.5px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  #drop{position:fixed;inset:0;z-index:20;display:none;place-items:center;background:rgba(0,0,0,.8);
+    font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+  #drop.on{display:grid}
+  .fileline{display:flex;gap:6px;align-items:center;margin-top:10px}
+  .fname{font-size:9px;color:var(--dim);letter-spacing:.06em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+  #seek{width:100%;margin-top:8px}
+  .hidden{display:none !important}
+
+  @media (max-width:760px){
+    #panel{width:100%;max-width:100%;top:auto;height:66vh;border-left:0;border-top:1px solid var(--line);padding-bottom:120px}
+    #panel.hide{transform:translateY(100%)}
+    .mark{font-size:9px}
+  }
+</style>
+</head>
+<body>
+<canvas id="view"></canvas>
+
+<div class="mark">
+  <b>RD ENGINE</b><br>
+  <span class="st" id="mode">coral · threshold</span>
+</div>
+
+<div id="panel">
+  <section class="sec" id="s-pattern">
+    <h2>Pattern <i>chemistry</i></h2>
+    <div class="body">
+      <div class="chips three" id="presets"></div>
+      <div id="pat-sliders"></div>
+      <div class="togs">
+        <button class="tog" data-act="randomize">Randomize</button>
+        <button class="tog" data-act="nudge">Nudge</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="s-field">
+    <h2>Field <i>flow &amp; maps</i></h2>
+    <div class="body">
+      <div class="lab" style="display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:0 0 5px"><span>Vector map</span></div>
+      <div class="chips three" id="flows"></div>
+      <div class="lab" style="display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:12px 0 5px"><span>Rate map</span></div>
+      <div class="chips three" id="maps"></div>
+      <div id="field-sliders"></div>
+      <div class="togs">
+        <button class="tog" data-tog="wrap">Tile edges</button>
+        <button class="tog" data-tog="erase">Erase border</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="s-look">
+    <h2>Look <i>render</i></h2>
+    <div class="body">
+      <div class="chips three" id="styles"></div>
+      <div class="lab" style="display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:12px 0 5px"><span>Symmetry</span></div>
+      <div class="chips three" id="syms"></div>
+      <div id="look-sliders"></div>
+      <div class="togs"><button class="tog" data-tog="invert">Invert</button></div>
+    </div>
+  </section>
+
+  <section class="sec" id="s-seed">
+    <h2>Seed <i>start shape</i></h2>
+    <div class="body">
+      <div class="chips three" id="seeds"></div>
+      <div id="seed-sliders"></div>
+      <div class="togs">
+        <button class="tog" data-act="reseed">Reseed</button>
+        <button class="tog" data-act="clear">Clear</button>
+        <button class="tog" data-act="fill">Flood</button>
+      </div>
+      <div class="hint">Drag on the canvas to inject chemical B.</div>
+    </div>
+  </section>
+
+  <section class="sec" id="s-audio">
+    <h2>Audio <i>reactive</i></h2>
+    <div class="body">
+      <div class="chips"><button class="chip" id="btn-mic">Use mic</button><button class="chip" id="btn-file">Load track</button></div>
+      <input type="file" id="file" accept="audio/*" class="hidden">
+      <div class="fileline hidden" id="fileline">
+        <button class="tbtn" id="btn-play" style="padding:5px 9px">Play</button>
+        <div class="fname" id="fname">—</div>
+      </div>
+      <input type="range" id="seek" min="0" max="1000" value="0" class="hidden">
+      <div id="audio-sliders"></div>
+      <div class="togs">
+        <button class="tog" data-tog="beatSeed">Beat injects</button>
+        <button class="tog" data-tog="beatCycle">Beat cycles</button>
+        <button class="tog" data-tog="loop">Loop</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="s-cycle">
+    <h2>Cycle <i>auto</i></h2>
+    <div class="body">
+      <div class="togs" style="margin-top:0">
+        <button class="tog" data-tog="cycPat">Patterns</button>
+        <button class="tog" data-tog="cycLook">Looks</button>
+        <button class="tog" data-tog="cycField">Fields</button>
+      </div>
+      <div id="cycle-sliders"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="s-color">
+    <h2>Color <i>palette & modes</i></h2>
+    <div class="body">
+      <div class="togs" style="margin-top:0"><button class="tog" data-tog="colorOn">Colors on</button></div>
+      <div class="lab" style="display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:12px 0 5px"><span>Mode</span></div>
+      <div class="chips three" id="colormodes"></div>
+      <div id="color-sliders"></div>
+      <div class="lab" style="display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:12px 0 5px"><span>Palettes</span></div>
+      <div class="chips three" id="palettes"></div>
+      <div class="lab" style="display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:12px 0 5px"><span>Elements</span></div>
+      <div class="togs">
+        <button class="tog" data-tog="colorBody">Body</button>
+        <button class="tog" data-tog="colorEdge">Edges</button>
+        <button class="tog" data-tog="colorBg">Background</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="s-out">
+    <h2>Output <i>capture</i></h2>
+    <div class="body">
+      <div class="chips three" id="quals"></div>
+      <div class="togs">
+        <button class="tog" data-act="snap">Save frame</button>
+        <button class="tog" data-act="full">Fullscreen</button>
+      </div>
+      <div class="hint">
+        <kbd>space</kbd> pause · <kbd>N</kbd> reseed · <kbd>R</kbd> randomize · <kbd>C</kbd> clear<br>
+        <kbd>H</kbd> hide panel · <kbd>F</kbd> fullscreen · <kbd>S</kbd> save frame · <kbd>1–0</kbd> look
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="bar">
+  <button class="tbtn" id="btn-run">Pause</button>
+  <button class="tbtn" id="btn-seed">Reseed</button>
+  <button class="tbtn" id="btn-rand">Random</button>
+  <button class="tbtn rec" id="btn-rec">Record</button>
+  <div id="meter"><i></i><i></i><i></i></div>
+  <div class="spacer"></div>
+  <div id="stat">—</div>
+  <button class="tbtn" id="btn-panel">Panel</button>
+</div>
+
+<div id="drop">Drop audio to react</div>
+
+<script>
+"use strict";
+const cv = document.getElementById('view');
+const gl = cv.getContext('webgl2', {antialias:false, preserveDrawingBuffer:true, alpha:false});
+if(!gl){ document.body.innerHTML = '<div style="padding:40px;font:12px monospace;color:#fff">WebGL2 is required for this instrument.</div>'; throw new Error('no webgl2'); }
+const extF = gl.getExtension('EXT_color_buffer_float');
+const extHF = gl.getExtension('EXT_color_buffer_half_float');
+const HAS_FLOAT = !!(extF || extHF);
+gl.getExtension('OES_texture_float_linear');
+
+const VS = `#version 300 es
+in vec2 pos; out vec2 uv;
+void main(){ uv = pos*0.5+0.5; gl_Position = vec4(pos,0.,1.); }`;
+const COMMON = `
+float hash21(vec2 p){ p = fract(p*vec2(123.34,456.21)); p += dot(p,p+45.32); return fract(p.x*p.y); }
+float vnoise(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  f = f*f*(3.-2.*f);
+  float a=hash21(i), b=hash21(i+vec2(1,0)), c=hash21(i+vec2(0,1)), d=hash21(i+vec2(1,1));
+  return mix(mix(a,b,f.x), mix(c,d,f.x), f.y);
+}
+float fbm(vec2 p){ float s=0., a=.5; for(int i=0;i<4;i++){ s += a*vnoise(p); p*=2.03; a*=.5; } return s; }`;
+const SIM_FS = `#version 300 es
+precision highp float;
+in vec2 uv; out vec4 outC;
+uniform sampler2D uState;
+uniform vec2 uTexel;
+uniform float uF,uK,uDA,uDB,uDt,uTime;
+uniform float uFlow,uFlowScale,uFMod,uKMod,uMapScale;
+uniform int uFlowType,uMapType,uErase;
+${COMMON}
+vec2 flowField(vec2 p){
+  vec2 c = p - 0.5; float t = uTime;
+  if(uFlowType==1) return vec2(-c.y, c.x)*2.0;
+  if(uFlowType==2){ float e=0.01; float n1=fbm(vec2(p.x,p.y+e)*uFlowScale+t*0.03); float n2=fbm(vec2(p.x,p.y-e)*uFlowScale+t*0.03); float n3=fbm(vec2(p.x+e,p.y)*uFlowScale+t*0.03); float n4=fbm(vec2(p.x-e,p.y)*uFlowScale+t*0.03); return vec2(n1-n2,n4-n3)*90.0; }
+  if(uFlowType==3) return normalize(c+vec2(1e-5))*(0.4+length(c));
+  if(uFlowType==4) return -normalize(c+vec2(1e-5))*(0.4+length(c));
+  if(uFlowType==5) return vec2(sin(p.y*uFlowScale*6.2831+t*0.4),cos(p.x*uFlowScale*6.2831+t*0.37));
+  if(uFlowType==6) return vec2(-c.y,c.x)*2.0 + vec2(fbm(p*uFlowScale+t*.05)-.5,fbm(p*uFlowScale+9.1-t*.05)-.5)*4.0;
+  if(uFlowType==7){ float a=atan(c.y,c.x)*3.0+t*0.2; return vec2(cos(a),sin(a))*length(c)*2.0; }
+  return vec2(0.);
+}
+float rateMap(vec2 p){
+  if(uMapType==1) return clamp(length(p-0.5)*2.0,0.,1.)-0.5;
+  if(uMapType==2) return p.y-0.5;
+  if(uMapType==3) return p.x-0.5;
+  if(uMapType==4) return fbm(p*uMapScale+uTime*0.01)-0.5;
+  if(uMapType==5) return sin(length(p-0.5)*uMapScale*12.0)*0.5;
+  if(uMapType==6) return sin(p.x*uMapScale*10.0)*sin(p.y*uMapScale*10.0)*0.5;
+  if(uMapType==7) return (sin(uTime*0.25)*0.5)*(p.x-0.5)*2.0;
+  return 0.0;
+}
+void main(){
+  vec2 adv = uv - flowField(uv)*uFlow*uTexel*4.0;
+  vec4 c = texture(uState, adv); vec2 t = uTexel;
+  vec4 l = texture(uState, uv+vec2(-t.x,0))*0.2 + texture(uState, uv+vec2(t.x,0))*0.2
+         + texture(uState, uv+vec2(0,-t.y))*0.2 + texture(uState, uv+vec2(0,t.y))*0.2
+         + texture(uState, uv+vec2(-t.x,-t.y))*0.05 + texture(uState, uv+vec2(t.x,-t.y))*0.05
+         + texture(uState, uv+vec2(-t.x,t.y))*0.05 + texture(uState, uv+vec2(t.x,t.y))*0.05 - c;
+  float m = rateMap(uv);
+  float f = clamp(uF + uFMod*m*0.045, 0.0, 0.14); float k = clamp(uK + uKMod*m*0.025, 0.02, 0.09);
+  float A = c.r, B = c.g; float rq = A*B*B;
+  A += (uDA*l.r-rq+f*(1.0-A))*uDt; B += (uDB*l.g+rq-(k+f)*B)*uDt;
+  if(uErase==1){ vec2 d=min(uv,1.0-uv); float e=smoothstep(0.0,0.035,min(d.x,d.y)); B*=e; A=mix(1.0,A,e); }
+  outC=vec4(clamp(A,0.,1.),clamp(B,0.,1.),0.,1.);
+}`;
+const SPLAT_FS = `#version 300 es
+precision highp float;
+in vec2 uv; out vec4 outC;
+uniform sampler2D uState;
+uniform vec2 uPoint,uPrev;
+uniform float uRadius,uAspect,uAmount;
+float segDist(vec2 p,vec2 a,vec2 b){ vec2 pa=p-a,ba=b-a; float h=clamp(dot(pa,ba)/max(dot(ba,ba),1e-6),0.,1.); return length(pa-ba*h); }
+void main(){ vec4 c=texture(uState,uv); vec2 p=vec2(uv.x*uAspect,uv.y); vec2 a=vec2(uPoint.x*uAspect,uPoint.y); vec2 b=vec2(uPrev.x*uAspect,uPrev.y); float d=segDist(p,a,b); float s=1.0-smoothstep(uRadius*0.35,uRadius,d); c.g=clamp(c.g+s*uAmount,0.,1.); c.r=clamp(c.r-s*uAmount*0.55,0.,1.); outC=c; }`;
+const RENDER_FS = `#version 300 es
+precision highp float;
+in vec2 uv; out vec4 outC;
+uniform sampler2D uState;
+uniform vec2 uTexel;
+uniform float uLo,uHi,uContrast,uRelief,uLines,uGrain,uVig,uTime,uAspect,uZoom;
+uniform int uStyle,uInvert,uSym;
+uniform int uColorOn,uColorMode,uPalette;
+uniform float uColorSpeed,uColorShift;
+${COMMON}
+vec3 hsv2rgb(vec3 c){ vec4 K=vec4(1.0,2.0/3.0,1.0/3.0,3.0); vec3 p=abs(fract(c.xxx+K.xyz)*6.0-K.www); return c.z*mix(K.xxx,clamp(p-K.xxx,0.0,1.0),c.y); }
+vec3 palette(float v,int pal){
+  if(pal==0) return mix(vec3(1.0,0.0,0.0),vec3(1.0,1.0,0.0),v);
+  else if(pal==1) return mix(vec3(0.0,0.3,0.8),vec3(0.0,1.0,1.0),v);
+  else if(pal==2) return mix(vec3(0.8,0.0,1.0),vec3(0.0,1.0,0.5),v);
+  else if(pal==3) return mix(vec3(0.0,0.1,0.5),vec3(0.0,1.0,1.0),v);
+  else if(pal==4) return mix(vec3(1.0,0.3,0.0),vec3(1.0,1.0,0.3),v);
+  float h=mod(v*3.0+uTime*uColorSpeed*0.1,1.0); return hsv2rgb(vec3(h,1.0,1.0));
+}
+vec3 getColor(float v){
+  if(uColorMode==0) return hsv2rgb(vec3(uColorShift,0.8,v));
+  else if(uColorMode==1){ float h=mix(uColorShift,uColorShift+0.3,v); return hsv2rgb(vec3(mod(h,1.0),0.9,0.8)); }
+  else if(uColorMode==2){ float h=mod(v+uTime*uColorSpeed*0.3,1.0); return hsv2rgb(vec3(h,1.0,0.8)); }
+  else if(uColorMode==3){ float h=uColorShift+sin(uTime*uColorSpeed*3.0+v*6.28)*0.25; return hsv2rgb(vec3(mod(h,1.0),0.85,0.8)); }
+  else if(uColorMode==4){ float p=abs(sin(uTime*uColorSpeed)); float h=mix(uColorShift,uColorShift+0.5,p); return hsv2rgb(vec3(mod(h,1.0),0.8,v*0.9+0.1)); }
+  return palette(v,uPalette);
+}
+vec2 symmetry(vec2 p){ p=(p-0.5)/uZoom+0.5; if(uSym==1)p.x=0.5+abs(p.x-0.5); else if(uSym==2)p=0.5+abs(p-0.5); else if(uSym==3){vec2 c=(p-0.5)*vec2(uAspect,1.0);float a=atan(c.y,c.x),r=length(c),seg=3.14159265/3.0;a=abs(mod(a,seg*2.0)-seg);c=vec2(cos(a),sin(a))*r;p=c/vec2(uAspect,1.0)+0.5;} else if(uSym==4){p=fract(p*2.0);p=0.5+abs(p-0.5);} return p; }
+float lev(vec2 p){ float b=texture(uState,clamp(p,0.001,0.999)).g; float v=clamp((b-uLo)/max(1e-4,(uHi-uLo)),0.,1.); return clamp((v-0.5)*uContrast+0.5,0.,1.); }
+float bayer(vec2 fc){ int x=int(mod(fc.x,4.0)),y=int(mod(fc.y,4.0)); int i=y*4+x; float m[16]=float[16](0.,8.,2.,10.,12.,4.,14.,6.,3.,11.,1.,9.,15.,7.,13.,5.); return m[i]/16.0; }
+void main(){
+  vec2 p=symmetry(uv); float v=lev(p); vec2 t=uTexel; float gx=lev(p+vec2(t.x,0))-lev(p-vec2(t.x,0)); float gy=lev(p+vec2(0,t.y))-lev(p-vec2(0,t.y)); vec3 n=normalize(vec3(-gx*uRelief*14.0,-gy*uRelief*14.0,1.0)); float c=v;
+  if(uStyle==0){float w=fwidth(v)*1.2+0.004;c=smoothstep(0.5-w,0.5+w,v);} else if(uStyle==1)c=v; else if(uStyle==2){float f=abs(fract(v*uLines)-0.5)*2.0;c=smoothstep(0.25,0.72,f);} else if(uStyle==3){vec3 L=normalize(vec3(0.45,0.7,0.55));float spec=pow(max(dot(n,L),0.),34.0);float fres=pow(1.0-n.z,2.2);c=clamp(v*0.30+spec*1.25+fres*0.55,0.,1.);} else if(uStyle==4){float e=length(vec2(gx,gy))*22.0;c=1.0-clamp(e,0.,1.);} else if(uStyle==5){float L=max(2.0,floor(uLines*0.6));c=floor(v*L)/(L-1.0);} else if(uStyle==6)c=step(bayer(gl_FragCoord.xy),v); else if(uStyle==7){float r=1.0-abs(v*2.0-1.0);c=pow(clamp(r,0.,1.),0.55);} else if(uStyle==8){float s=0.;for(int i=-3;i<=3;i++)for(int j=-3;j<=3;j++)s+=lev(p+vec2(float(i),float(j))*t*2.2);s/=49.0;c=clamp(v*0.75+s*0.85,0.,1.);} else if(uStyle==9)c=abs(sin(v*3.14159*uLines*0.35+gx*6.0)); else if(uStyle==10){float e=length(vec2(gx,gy))*22.0;float body=smoothstep(0.5,0.52,v);c=clamp(body*0.85+clamp(e,0.,1.),0.,1.);} else if(uStyle==11){vec3 L=normalize(vec3(-0.5,0.6,0.6));float d=max(dot(n,L),0.);c=clamp(smoothstep(0.3,0.9,d)*0.9+pow(d,60.0),0.,1.);}
+  if(uInvert==1)c=1.0-c; float vg=1.0-uVig*pow(length((uv-0.5)*vec2(uAspect,1.0))*1.25,2.0); c*=clamp(vg,0.,1.); c+=(hash21(uv*vec2(1920.,1080.)+fract(uTime))-0.5)*uGrain; c=clamp(c,0.0,1.0); vec3 col=uColorOn==1?getColor(c):vec3(c); outC=vec4(col,1.0);
+}`;
+
+function sh(type,src){ const s=gl.createShader(type); gl.shaderSource(s,src); gl.compileShader(s); if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)+"\n"+src); return s; }
+function prog(fs){ const p=gl.createProgram(); gl.attachShader(p,sh(gl.VERTEX_SHADER,VS)); gl.attachShader(p,sh(gl.FRAGMENT_SHADER,fs)); gl.bindAttribLocation(p,0,'pos'); gl.linkProgram(p); if(!gl.getProgramParameter(p,gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p)); const u={}; const n=gl.getProgramParameter(p,gl.ACTIVE_UNIFORMS); for(let i=0;i<n;i++){const info=gl.getActiveUniform(p,i);u[info.name]=gl.getUniformLocation(p,info.name);} return {p,u}; }
+const pSim=prog(SIM_FS),pSplat=prog(SPLAT_FS),pRender=prog(RENDER_FS);
+const vao=gl.createVertexArray(); gl.bindVertexArray(vao); const vbo=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,vbo); gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
+let simW=0,simH=0,tex=[null,null],fbo=gl.createFramebuffer(),cur=0;
+function makeTex(w,h){ const t=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,t);const wrap=P.wrap?gl.REPEAT:gl.CLAMP_TO_EDGE;gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,wrap);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,wrap);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);if(HAS_FLOAT)gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA16F,w,h,0,gl.RGBA,gl.FLOAT,null);else gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA8,w,h,0,gl.RGBA,gl.UNSIGNED_BYTE,null);return t; }
+function setWrap(){const wrap=P.wrap?gl.REPEAT:gl.CLAMP_TO_EDGE;for(const t of tex){if(!t)continue;gl.bindTexture(gl.TEXTURE_2D,t);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,wrap);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,wrap);}}
+
+const PRESETS=[
+{n:'Coral',f:.0545,k:.0620,dA:1.0,dB:.50},{n:'Mitosis',f:.0367,k:.0649,dA:1.0,dB:.50},{n:'Worms',f:.0780,k:.0610,dA:1.0,dB:.50},{n:'Solitons',f:.0300,k:.0620,dA:1.0,dB:.50},{n:'U-Skate',f:.0620,k:.0609,dA:1.0,dB:.50},{n:'Holes',f:.0390,k:.0580,dA:1.0,dB:.50},{n:'Maze',f:.0290,k:.0570,dA:1.0,dB:.50},{n:'Waves',f:.0140,k:.0450,dA:1.0,dB:.50},{n:'Bubbles',f:.0980,k:.0570,dA:1.0,dB:.50},{n:'Fingerprint',f:.0370,k:.0600,dA:1.0,dB:.50},{n:'Spirals',f:.0140,k:.0540,dA:1.0,dB:.50},{n:'Flower',f:.0550,k:.0625,dA:1.0,dB:.50},{n:'Nautilus',f:.0900,k:.0590,dA:1.0,dB:.50},{n:'Lattice',f:.0260,k:.0510,dA:1.0,dB:.50},{n:'Pulse',f:.0250,k:.0600,dA:1.0,dB:.50},{n:'Ripples',f:.0180,k:.0510,dA:1.0,dB:.50},{n:'Cell wall',f:.0580,k:.0630,dA:1.0,dB:.48},{n:'Moss',f:.0460,k:.0594,dA:1.0,dB:.52}];
+const STYLES=['Threshold','Smooth','Contour','Liquid','Ink','Poster','Dither','Ridge','Bloom','Veins','Outline','Chrome'];
+const FLOWS=['None','Swirl','Curl','Expand','Implode','Wave','Turbulent','Pinwheel'];
+const MAPS=['Flat','Radial','Vert','Horiz','Noise','Rings','Grid','Sweep'];
+const SYMS=['Off','Mirror','Quad','Kaleido','Tile'];
+const SEEDS=['Noise','Disc','Ring','Grid','Bands','Spiral','Splatter','Frame','Cross','Wedge','Halftone','Chaos'];
+const QUALS=[['Low',.5],['Std',.75],['High',1.0]];
+const COLORMODES=['Single','Gradient','Rainbow','Oscillate','Pulse','Palette'];
+const PALETTES=['Fire','Cool','Purple','Ocean','Sunset','Neon'];
+const LOOKS=[
+{n:'Threshold',style:0,lo:.07,hi:.26,contrast:1.6,relief:1,lines:8,grain:.03,vig:.18,invert:0},{n:'Ink',style:4,lo:.06,hi:.28,contrast:1.2,relief:1,lines:8,grain:.05,vig:.10,invert:0},{n:'Liquid',style:3,lo:.05,hi:.30,contrast:1.1,relief:1.4,lines:8,grain:.04,vig:.30,invert:0},{n:'Contour',style:2,lo:.04,hi:.32,contrast:1.0,relief:1,lines:14,grain:.03,vig:.20,invert:0},{n:'Dither',style:6,lo:.06,hi:.27,contrast:1.4,relief:1,lines:8,grain:.00,vig:.15,invert:0},{n:'Bloom',style:8,lo:.05,hi:.29,contrast:1.3,relief:1,lines:8,grain:.05,vig:.35,invert:0},{n:'Chrome',style:11,lo:.05,hi:.30,contrast:1.2,relief:1.8,lines:8,grain:.03,vig:.28,invert:0},{n:'Negative',style:0,lo:.07,hi:.26,contrast:1.8,relief:1,lines:8,grain:.03,vig:.12,invert:1}];
+const P={f:.0545,k:.062,dA:1.0,dB:.5,dt:1.0,steps:12,flowType:0,flow:0,flowScale:2,mapType:0,fMod:0,kMod:0,mapScale:2,style:0,lo:.07,hi:.26,contrast:1.6,relief:1,lines:8,grain:.03,vig:.18,zoom:1,sym:0,invert:0,seed:0,brush:.05,aBass:0,aMid:0,aHigh:0,aLevel:0,aZoom:0,aSens:1,aSmooth:.72,cycSecs:8,cycMorph:2,quality:.75,colorOn:false,colorMode:2,palette:0,colorSpeed:0.8,colorShift:0,colorBody:true,colorEdge:false,colorBg:false,wrap:false,erase:false,beatSeed:false,beatCycle:false,loop:true,cycPat:false,cycLook:false,cycField:false};
+const SLIDERS={
+'pat-sliders':[['f','Feed',.005,.11,.0001,4],['k','Kill',.03,.075,.0001,4],['dA','Diffuse A',.5,1.6,.01,2],['dB','Diffuse B',.15,.9,.01,2],['dt','Time step',.3,1.6,.01,2],['steps','Steps / frame',1,32,1,0]],
+'field-sliders':[['flow','Flow force',0,1,.001,2],['flowScale','Flow scale',.5,8,.01,2],['fMod','Feed map amt',-1,1,.01,2],['kMod','Kill map amt',-1,1,.01,2],['mapScale','Map scale',.5,8,.01,2]],
+'look-sliders':[['lo','Black point',0,.4,.001,3],['hi','White point',.03,.6,.001,3],['contrast','Contrast',.4,5,.01,2],['relief','Relief',0,3,.01,2],['lines','Lines',2,28,.1,1],['zoom','Zoom',.4,3,.01,2],['grain','Grain',0,.35,.005,3],['vig','Vignette',0,1,.01,2]],
+'seed-sliders':[['brush','Brush size',.008,.25,.001,3]],
+'audio-sliders':[['aBass','Bass → feed',-1,1,.01,2],['aMid','Mid → kill',-1,1,.01,2],['aHigh','Highs → flow',-1,1,.01,2],['aLevel','Level → levels',-1,1,.01,2],['aZoom','Level → zoom',-1,1,.01,2],['aSens','Sensitivity',.2,4,.01,2],['aSmooth','Smoothing',0,.95,.01,2]],
+'cycle-sliders':[['cycSecs','Interval (s)',1,40,.5,1],['cycMorph','Morph (s)',0,8,.1,1]],
+'color-sliders':[['colorSpeed','Speed',0,2,.05,2],['colorShift','Hue shift',0,1,.01,2]]};
+const $=s=>document.querySelector(s); const fmt=(v,d)=>d===0?String(Math.round(v)):Number(v).toFixed(d); const sliderEls={};
+function buildSliders(){for(const host in SLIDERS){const box=document.getElementById(host);for(const [key,label,min,max,step,dec] of SLIDERS[host]){const row=document.createElement('div');row.className='row';row.innerHTML=`<div class="lab"><span>${label}</span><span id="v-${key}">${fmt(P[key],dec)}</span></div>`;const inp=document.createElement('input');inp.type='range';inp.min=min;inp.max=max;inp.step=step;inp.value=P[key];inp.addEventListener('input',()=>{P[key]=parseFloat(inp.value);document.getElementById('v-'+key).textContent=fmt(P[key],dec);if(key==='steps')P.steps=Math.round(P.steps);activePreset=-1;paintChips();});row.appendChild(inp);box.appendChild(row);sliderEls[key]={inp,dec};}}}
+function syncSlider(key){const s=sliderEls[key];if(!s)return;s.inp.value=P[key];const el=document.getElementById('v-'+key);if(el)el.textContent=fmt(P[key],s.dec);} function syncAll(){for(const k in sliderEls)syncSlider(k);}
+function chipRow(hostId,list,getActive,onPick){const box=document.getElementById(hostId);box.innerHTML='';list.forEach((name,i)=>{const b=document.createElement('button');b.className='chip';b.textContent=name;b.dataset.i=i;b.onclick=()=>{onPick(i);paintChips();};box.appendChild(b);});box._get=getActive;}
+let activePreset=0,activeLook=0;
+function paintChips(){const rows={presets:()=>activePreset,styles:()=>P.style,flows:()=>P.flowType,maps:()=>P.mapType,syms:()=>P.sym,seeds:()=>P.seed,quals:()=>QUALS.findIndex(q=>q[1]===P.quality),colormodes:()=>P.colorMode,palettes:()=>P.palette};for(const id in rows){const box=document.getElementById(id);if(!box)continue;const a=rows[id]();[...box.children].forEach((c,i)=>c.classList.toggle('on',i===a));}document.querySelectorAll('[data-tog]').forEach(b=>b.classList.toggle('on',!!P[b.dataset.tog]));const pn=activePreset>=0?PRESETS[activePreset].n:'custom';$('#mode').textContent=(pn+' · '+STYLES[P.style]).toLowerCase();}
+function applyPreset(i,morph){activePreset=i;const p=PRESETS[i];if(morph>0){morphTo={f:p.f,k:p.k,dA:p.dA,dB:p.dB};morphT=0;morphDur=morph;morphFrom={f:P.f,k:P.k,dA:P.dA,dB:P.dB};}else{P.f=p.f;P.k=p.k;P.dA=p.dA;P.dB=p.dB;morphTo=null;syncAll();}}
+function applyLook(i){activeLook=i;const L=LOOKS[i];P.style=L.style;P.lo=L.lo;P.hi=L.hi;P.contrast=L.contrast;P.relief=L.relief;P.lines=L.lines;P.grain=L.grain;P.vig=L.vig;P.invert=L.invert;syncAll();paintChips();}
+buildSliders();
+chipRow('presets',PRESETS.map(p=>p.n),()=>activePreset,i=>applyPreset(i,0));chipRow('styles',STYLES,()=>P.style,i=>{P.style=i;});chipRow('flows',FLOWS,()=>P.flowType,i=>{P.flowType=i;if(i>0&&P.flow===0){P.flow=.35;syncSlider('flow');}});chipRow('maps',MAPS,()=>P.mapType,i=>{P.mapType=i;if(i>0&&P.fMod===0&&P.kMod===0){P.kMod=.4;syncSlider('kMod');}});chipRow('syms',SYMS,()=>P.sym,i=>{P.sym=i;});chipRow('seeds',SEEDS,()=>P.seed,i=>{P.seed=i;reseed();});chipRow('quals',QUALS.map(q=>q[0]),()=>0,i=>{P.quality=QUALS[i][1];resize(true);});chipRow('colormodes',COLORMODES,()=>P.colorMode,i=>{P.colorMode=i;});chipRow('palettes',PALETTES,()=>P.palette,i=>{P.palette=i;});
+document.querySelectorAll('[data-tog]').forEach(b=>{b.onclick=()=>{const key=b.dataset.tog;P[key]=!P[key];if(key==='wrap')setWrap();if(key==='loop'&&audioEl)audioEl.loop=P.loop;paintChips();};});
+document.querySelectorAll('.sec>h2').forEach(h=>{h.onclick=()=>h.parentElement.classList.toggle('closed');});
+document.querySelectorAll('[data-act]').forEach(b=>{b.onclick=()=>{const a=b.dataset.act;if(a==='reseed')reseed();if(a==='clear')clearState(0);if(a==='fill')clearState(1);if(a==='randomize')randomize();if(a==='nudge')nudge();if(a==='snap')snapshot();if(a==='full')toggleFull();};});
+
+let DPR=Math.min(window.devicePixelRatio||1,2);
+function resize(force){const w=Math.floor(cv.clientWidth*DPR),h=Math.floor(cv.clientHeight*DPR);if(cv.width!==w||cv.height!==h||force){cv.width=w;cv.height=h;const cap=1500;let sw=Math.floor(w*P.quality),sh=Math.floor(h*P.quality);const m=Math.max(sw,sh);if(m>cap){sw=Math.floor(sw*cap/m);sh=Math.floor(sh*cap/m);}sw=Math.max(64,sw);sh=Math.max(64,sh);if(sw!==simW||sh!==simH){simW=sw;simH=sh;if(tex[0])gl.deleteTexture(tex[0]);if(tex[1])gl.deleteTexture(tex[1]);tex=[makeTex(simW,simH),makeTex(simW,simH)];reseed();}}}
+function uploadState(arr){for(const t of tex){gl.bindTexture(gl.TEXTURE_2D,t);if(HAS_FLOAT)gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA16F,simW,simH,0,gl.RGBA,gl.FLOAT,arr);else gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA8,simW,simH,0,gl.RGBA,gl.UNSIGNED_BYTE,arr);}cur=0;}
+function makeBuf(){return HAS_FLOAT?new Float32Array(simW*simH*4):new Uint8Array(simW*simH*4);} function put(arr,i,a,b){if(HAS_FLOAT){arr[i]=a;arr[i+1]=b;arr[i+2]=0;arr[i+3]=1;}else{arr[i]=a*255;arr[i+1]=b*255;arr[i+2]=0;arr[i+3]=255;}}
+function clearState(fill){const a=makeBuf();for(let i=0;i<simW*simH;i++)put(a,i*4,1,fill?(Math.random()<.5?1:0):0);uploadState(a);}
+function reseed(){if(!simW)return;const a=makeBuf(),W=simW,H=simH;const B=new Float32Array(W*H);const type=P.seed;const cx=W/2,cy=H/2,R=Math.min(W,H);const rnd=x=>Math.random()*x;const disc=(px,py,r)=>{for(let y=Math.max(0,py-r|0);y<Math.min(H,py+r);y++)for(let x=Math.max(0,px-r|0);x<Math.min(W,px+r);x++){const d=Math.hypot(x-px,y-py);if(d<r)B[y*W+x]=1;}};if(type===0){for(let i=0;i<W*H;i++)B[i]=Math.random()<0.28?1:0;}else if(type===1){disc(cx,cy,R*0.11);}else if(type===2){for(let y=0;y<H;y++)for(let x=0;x<W;x++){const d=Math.hypot(x-cx,y-cy);if(d>R*0.20&&d<R*0.26)B[y*W+x]=1;}}else if(type===3){const n=6;for(let i=1;i<=n;i++)for(let j=1;j<=n;j++)disc(W*i/(n+1),H*j/(n+1),R*0.022);}else if(type===4){for(let y=0;y<H;y++){if(Math.floor(y/(H/14))%2===0)for(let x=W*0.18|0;x<W*0.82;x++)B[y*W+x]=1;}}else if(type===5){for(let t=0;t<3000;t++){const a2=t*0.06,r=R*0.005*Math.sqrt(t)*0.6;disc(cx+Math.cos(a2)*r,cy+Math.sin(a2)*r,R*0.012);}}else if(type===6){for(let i=0;i<26;i++)disc(rnd(W),rnd(H),R*(0.01+Math.random()*0.05));}else if(type===7){const m=Math.floor(R*0.08);for(let y=0;y<H;y++)for(let x=0;x<W;x++){if(x<m||y<m||x>W-m||y>H-m)B[y*W+x]=1;}}else if(type===8){const t2=Math.floor(R*0.035);for(let y=0;y<H;y++)for(let x=0;x<W;x++){if(Math.abs(x-cx)<t2||Math.abs(y-cy)<t2)B[y*W+x]=1;}}else if(type===9){for(let y=0;y<H;y++)for(let x=0;x<W;x++){const a2=Math.atan2(y-cy,x-cx);if(Math.sin(a2*5)>0.55)B[y*W+x]=1;}}else if(type===10){const g=Math.max(6,Math.floor(R/26));for(let y=0;y<H;y+=g)for(let x=0;x<W;x+=g){const d=Math.hypot(x-cx,y-cy)/R;disc(x,y,g*0.48*(1-d));}}else{for(let i=0;i<W*H;i++)B[i]=Math.random()<0.5?1:0;}for(let i=0;i<W*H;i++){const b=B[i]?(0.85+Math.random()*0.15):(Math.random()<0.004?0.6:0);put(a,i*4,b>0?0.35:1.0,b);}uploadState(a);}
+function bindTarget(t){gl.bindFramebuffer(gl.FRAMEBUFFER,fbo);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,t,0);gl.viewport(0,0,simW,simH);}
+function simStep(eff,time){bindTarget(tex[1-cur]);gl.useProgram(pSim.p);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,tex[cur]);const u=pSim.u;gl.uniform1i(u.uState,0);gl.uniform2f(u.uTexel,1/simW,1/simH);gl.uniform1f(u.uF,eff.f);gl.uniform1f(u.uK,eff.k);gl.uniform1f(u.uDA,P.dA);gl.uniform1f(u.uDB,P.dB);gl.uniform1f(u.uDt,P.dt);gl.uniform1f(u.uTime,time);gl.uniform1f(u.uFlow,eff.flow);gl.uniform1f(u.uFlowScale,P.flowScale);gl.uniform1f(u.uFMod,P.fMod);gl.uniform1f(u.uKMod,P.kMod);gl.uniform1f(u.uMapScale,P.mapScale);gl.uniform1i(u.uFlowType,P.flowType);gl.uniform1i(u.uMapType,P.mapType);gl.uniform1i(u.uErase,P.erase?1:0);gl.drawArrays(gl.TRIANGLES,0,3);cur=1-cur;}
+function splat(x,y,px,py,amount){bindTarget(tex[1-cur]);gl.useProgram(pSplat.p);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,tex[cur]);const u=pSplat.u;gl.uniform1i(u.uState,0);gl.uniform2f(u.uPoint,x,y);gl.uniform2f(u.uPrev,px,py);gl.uniform1f(u.uRadius,P.brush);gl.uniform1f(u.uAspect,simW/simH);gl.uniform1f(u.uAmount,amount===undefined?1:amount);gl.drawArrays(gl.TRIANGLES,0,3);cur=1-cur;}
+function draw(eff,time){gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,cv.width,cv.height);gl.useProgram(pRender.p);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,tex[cur]);const u=pRender.u;gl.uniform1i(u.uState,0);gl.uniform2f(u.uTexel,1/simW,1/simH);gl.uniform1f(u.uLo,eff.lo);gl.uniform1f(u.uHi,Math.max(eff.lo+0.005,eff.hi));gl.uniform1f(u.uContrast,P.contrast);gl.uniform1f(u.uRelief,P.relief);gl.uniform1f(u.uLines,P.lines);gl.uniform1f(u.uGrain,P.grain);gl.uniform1f(u.uVig,P.vig);gl.uniform1f(u.uTime,time);gl.uniform1f(u.uAspect,cv.width/cv.height);gl.uniform1f(u.uZoom,eff.zoom);gl.uniform1i(u.uStyle,P.style);gl.uniform1i(u.uInvert,P.invert?1:0);gl.uniform1i(u.uSym,P.sym);if(u.uColorOn)gl.uniform1i(u.uColorOn,P.colorOn?1:0);if(u.uColorMode)gl.uniform1i(u.uColorMode,P.colorMode);if(u.uPalette)gl.uniform1i(u.uPalette,P.palette);if(u.uColorSpeed)gl.uniform1f(u.uColorSpeed,P.colorSpeed);if(u.uColorShift)gl.uniform1f(u.uColorShift,P.colorShift);gl.drawArrays(gl.TRIANGLES,0,3);}
+let pointer={down:false,x:0,y:0,px:0,py:0}; function pos(e){const r=cv.getBoundingClientRect();const t=e.touches?e.touches[0]:e;return[(t.clientX-r.left)/r.width,1-(t.clientY-r.top)/r.height];}
+cv.addEventListener('pointerdown',e=>{pointer.down=true;const[x,y]=pos(e);pointer.x=x;pointer.y=y;pointer.px=x;pointer.py=y;cv.setPointerCapture(e.pointerId);});
+cv.addEventListener('pointermove',e=>{if(!pointer.down)return;const[x,y]=pos(e);pointer.px=pointer.x;pointer.py=pointer.y;pointer.x=x;pointer.y=y;splat(x,y,pointer.px,pointer.py,1);});
+addEventListener('pointerup',()=>pointer.down=false);addEventListener('resize',()=>resize(false));
+function randomize(){const p=PRESETS[Math.floor(Math.random()*PRESETS.length)];P.f=p.f+(Math.random()-.5)*0.006;P.k=p.k+(Math.random()-.5)*0.003;P.dB=0.4+Math.random()*0.22;P.flowType=Math.random()<0.55?Math.floor(Math.random()*FLOWS.length):0;P.flow=P.flowType?Math.random()*0.6:0;P.mapType=Math.random()<0.5?Math.floor(Math.random()*MAPS.length):0;P.fMod=P.mapType?(Math.random()-.5)*1.2:0;P.kMod=P.mapType?(Math.random()-.5)*1.2:0;activePreset=-1;syncAll();paintChips();}
+function nudge(){P.f+=(Math.random()-.5)*0.0022;P.k+=(Math.random()-.5)*0.0012;activePreset=-1;syncAll();paintChips();}
+function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.();}
+function snapshot(){const a=document.createElement('a');a.download='rd-'+Date.now()+'.png';a.href=cv.toDataURL('image/png');a.click();}
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;const k=e.key.toLowerCase();if(k===' '){e.preventDefault();running=!running;$('#btn-run').textContent=running?'Pause':'Run';}else if(k==='n')reseed();else if(k==='r')randomize();else if(k==='c')clearState(0);else if(k==='h')$('#panel').classList.toggle('hide');else if(k==='f')toggleFull();else if(k==='s')snapshot();else if(/^[0-9]$/.test(k)){const i=(k==='0'?9:parseInt(k)-1);if(i<STYLES.length){P.style=i;paintChips();}}});
+$('#btn-run').onclick=()=>{running=!running;$('#btn-run').textContent=running?'Pause':'Run';};$('#btn-seed').onclick=reseed;$('#btn-rand').onclick=randomize;$('#btn-panel').onclick=()=>$('#panel').classList.toggle('hide');
+let actx=null,analyser=null,freqData=null,srcNode=null,audioEl=null,recDest=null,micStream=null;let bass=0,mid=0,high=0,level=0,beatAvg=0,lastBeat=0;
+function ensureCtx(){if(actx)return actx;actx=new(window.AudioContext||window.webkitAudioContext)();analyser=actx.createAnalyser();analyser.fftSize=2048;analyser.smoothingTimeConstant=.72;freqData=new Uint8Array(analyser.frequencyBinCount);recDest=actx.createMediaStreamDestination();analyser.connect(recDest);return actx;}
+async function useMic(){try{ensureCtx();await actx.resume();micStream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});if(srcNode)try{srcNode.disconnect()}catch(_){}srcNode=actx.createMediaStreamSource(micStream);srcNode.connect(analyser);$('#btn-mic').classList.add('on');$('#btn-file').classList.remove('on');if(P.aBass===0&&P.aMid===0&&P.aHigh===0&&P.aLevel===0){P.aBass=.5;P.aHigh=.4;P.aLevel=.4;syncAll();}}catch(err){$('#mode').textContent='mic unavailable — check permissions';}}
+function loadAudioFile(file){ensureCtx();if(srcNode)try{srcNode.disconnect()}catch(_){}if(micStream){micStream.getTracks().forEach(t=>t.stop());micStream=null;}if(audioEl){audioEl.pause();audioEl.src='';}audioEl=new Audio();audioEl.crossOrigin='anonymous';audioEl.src=URL.createObjectURL(file);audioEl.loop=P.loop;srcNode=actx.createMediaElementSource(audioEl);srcNode.connect(analyser);analyser.connect(actx.destination);audioEl.play().catch(()=>{});$('#fileline').classList.remove('hidden');$('#seek').classList.remove('hidden');$('#fname').textContent=file.name;$('#btn-play').textContent='Pause';$('#btn-file').classList.add('on');$('#btn-mic').classList.remove('on');if(P.aBass===0&&P.aMid===0&&P.aHigh===0&&P.aLevel===0){P.aBass=.5;P.aMid=.3;P.aHigh=.4;P.aLevel=.4;syncAll();}P.beatSeed=true;paintChips();audioEl.ontimeupdate=()=>{if(audioEl.duration)$('#seek').value=1000*audioEl.currentTime/audioEl.duration;};}
+$('#btn-mic').onclick=useMic;$('#btn-file').onclick=()=>$('#file').click();$('#file').onchange=e=>{if(e.target.files[0])loadAudioFile(e.target.files[0]);};$('#btn-play').onclick=()=>{if(!audioEl)return;if(audioEl.paused){actx.resume();audioEl.play();$('#btn-play').textContent='Pause';}else{audioEl.pause();$('#btn-play').textContent='Play';}};$('#seek').oninput=e=>{if(audioEl&&audioEl.duration)audioEl.currentTime=audioEl.duration*e.target.value/1000;};
+addEventListener('dragover',e=>{e.preventDefault();$('#drop').classList.add('on');});addEventListener('dragleave',e=>{if(e.clientX===0&&e.clientY===0)$('#drop').classList.remove('on');});addEventListener('drop',e=>{e.preventDefault();$('#drop').classList.remove('on');const f=e.dataTransfer.files[0];if(f&&f.type.startsWith('audio'))loadAudioFile(f);});
+function bandAvg(a,b){let s=0,n=0;for(let i=a;i<b&&i<freqData.length;i++){s+=freqData[i];n++;}return n?s/n/255:0;}
+function readAudio(now){if(!analyser)return false;analyser.smoothingTimeConstant=P.aSmooth;analyser.getByteFrequencyData(freqData);const sr=actx.sampleRate,binHz=sr/analyser.fftSize;const bin=hz=>Math.max(1,Math.round(hz/binHz));const g=P.aSens;bass=Math.min(1,bandAvg(bin(25),bin(160))*g);mid=Math.min(1,bandAvg(bin(160),bin(1800))*g);high=Math.min(1,bandAvg(bin(1800),bin(11000))*g*1.6);level=Math.min(1,(bass*.5+mid*.35+high*.25)*1.2);beatAvg=beatAvg*.94+bass*.06;let beat=false;if(bass>beatAvg*1.38&&bass>.14&&now-lastBeat>190){beat=true;lastBeat=now;}const m=document.getElementById('meter').children;m[0].style.height=(2+bass*20)+'px';m[1].style.height=(2+mid*20)+'px';m[2].style.height=(2+high*20)+'px';return beat;}
+
+let recorder=null,chunks=[],recStart=0,recInterval=null;let recState='idle',totalRecordedSize=0,recMemWatch=null;let recMime='video/webm';
+const recDB=(()=>{let db=null;const init=()=>new Promise((resolve,reject)=>{if(db){resolve(db);return;}const req=indexedDB.open('rdRecording',1);req.onerror=()=>reject(req.error);req.onupgradeneeded=e=>{const database=e.target.result;if(!database.objectStoreNames.contains('chunks'))database.createObjectStore('chunks',{autoIncrement:true});};req.onsuccess=()=>{db=req.result;resolve(db);};});const storeChunk=blob=>init().then(database=>new Promise((resolve,reject)=>{const tx=database.transaction('chunks','readwrite');tx.objectStore('chunks').add(blob);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);}));const getAllChunks=()=>init().then(database=>new Promise((resolve,reject)=>{const tx=database.transaction('chunks','readonly');const req=tx.objectStore('chunks').getAll();req.onerror=()=>reject(req.error);req.onsuccess=()=>resolve(req.result);}));const clear=()=>init().then(database=>new Promise((resolve,reject)=>{const tx=database.transaction('chunks','readwrite');tx.objectStore('chunks').clear();tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);}));return{init,storeChunk,getAllChunks,clear};})();
+async function flushChunksToDB(){if(chunks.length===0)return;try{const blob=new Blob(chunks,{type:recMime});await recDB.storeChunk(blob);chunks=[];return true;}catch(err){console.error('DB flush error:',err);return false;}}
+function startMemoryMonitoring(){if(recMemWatch)clearInterval(recMemWatch);recMemWatch=setInterval(async()=>{if(recState!=='recording'){clearInterval(recMemWatch);return;}if(chunks.length>30)await flushChunksToDB();if(totalRecordedSize>500000000)$('#mode').textContent='rec '+Math.round(totalRecordedSize/1000000)+'MB · (large file)';},1000);}
+async function startRecording(){try{await recDB.clear();chunks=[];totalRecordedSize=0;const stream=cv.captureStream(30);if(recDest&&recDest.stream&&recDest.stream.getAudioTracks&&recDest.stream.getAudioTracks().length){try{stream.addTrack(recDest.stream.getAudioTracks()[0]);}catch(e){}}const types=['video/webm;codecs=vp8,opus','video/webm;codecs=vp9,opus','video/webm','video/mp4'];let mime=null;for(const t of types){if(window.MediaRecorder&&MediaRecorder.isTypeSupported(t)){mime=t;break;}}if(!mime){$('#mode').textContent='no codec support - recording unavailable';return false;}recMime=mime;const options={mimeType:mime};if(mime.includes('webm'))options.videoBitsPerSecond=2000000;else if(mime.includes('mp4'))options.videoBitsPerSecond=2500000;try{recorder=new MediaRecorder(stream,options);}catch(err){$('#mode').textContent='codec error: '+err.message;return false;}let flushCounter=0;recorder.ondataavailable=async e=>{if(e.data.size===0)return;try{chunks.push(e.data);totalRecordedSize+=e.data.size;flushCounter++;if(flushCounter>=20){await flushChunksToDB();flushCounter=0;}}catch(err){console.error(err);}};recorder.onerror=e=>{console.error('Recording error:',e.error);$('#mode').textContent='recording error: '+e.error;recState='error';};recorder.onstop=async()=>{await finalizeRecording();};recorder.start(1000);recStart=performance.now();recState='recording';startMemoryMonitoring();if(recInterval){clearInterval(recInterval);recInterval=null;}$('#btn-rec').classList.add('on');return true;}catch(err){console.error('Recording startup failed:',err);$('#mode').textContent='startup error: '+err.message;recState='idle';return false;}}
+async function finalizeRecording(){if(recMemWatch)clearInterval(recMemWatch);if(recInterval)clearInterval(recInterval);try{if(chunks.length>0)await flushChunksToDB();const dbChunks=await recDB.getAllChunks();if(dbChunks.length===0){$('#mode').textContent='error: no recording data';$('#btn-rec').classList.remove('on');recState='idle';return;}const blob=new Blob(dbChunks,{type:recMime});if(blob.size===0){$('#mode').textContent='error: empty file';$('#btn-rec').classList.remove('on');recState='idle';return;}const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='rd-capture-'+Date.now()+(recMime.includes('mp4')?'.mp4':'.webm');document.body.appendChild(link);link.click();setTimeout(()=>{document.body.removeChild(link);URL.revokeObjectURL(url);},100);const sizeMB=Math.round(blob.size/1000000);$('#mode').textContent='saved: '+sizeMB+'MB · '+((performance.now()-recStart)/1000).toFixed(1)+'s';$('#btn-rec').classList.remove('on');$('#btn-rec').textContent='Record';await recDB.clear();recState='idle';chunks=[];totalRecordedSize=0;}catch(err){console.error('Finalization error:',err);$('#mode').textContent='save error: '+err.message;$('#btn-rec').classList.remove('on');recState='idle';}}
+function stopRecording(){if(!recorder||recorder.state==='inactive')return;try{recorder.stop();}catch(err){console.error('Stop error:',err);finalizeRecording();}}
+$('#btn-rec').onclick=async()=>{if(recState==='recording'){$('#btn-rec').textContent='Stopping...';stopRecording();}else if(recState==='idle'){$('#btn-rec').textContent='Starting...';const ok=await startRecording();if(!ok){$('#btn-rec').classList.remove('on');$('#btn-rec').textContent='Record';}else $('#btn-rec').textContent='Stop';}};
+
+let running=true,t0=performance.now(),frames=0,fps=0,lastFps=t0,lastCycle=t0;let morphTo=null,morphFrom=null,morphT=0,morphDur=0;
+function doCycle(){if(P.cycPat){let i;do{i=Math.floor(Math.random()*PRESETS.length);}while(i===activePreset&&PRESETS.length>1);applyPreset(i,P.cycMorph);}if(P.cycLook)applyLook((activeLook+1+Math.floor(Math.random()*(LOOKS.length-1)))%LOOKS.length);if(P.cycField){P.flowType=Math.floor(Math.random()*FLOWS.length);P.flow=P.flowType?.15+Math.random()*.5:0;P.mapType=Math.floor(Math.random()*MAPS.length);P.fMod=P.mapType?(Math.random()-.5)*1.1:0;P.kMod=P.mapType?(Math.random()-.5)*1.1:0;syncAll();}paintChips();}
+function frame(now){
+  requestAnimationFrame(frame);
+  resize(false);
+
+  const pace=window.__RD_REC_PACE;
+  const paceOn=!!(pace&&pace.active&&pace.enabled);
+  let paceElapsedSec=0;
+  if(paceOn){
+    if(!pace.lastNow)pace.lastNow=now;
+    let d=now-pace.lastNow;
+    pace.lastNow=now;
+    if(!Number.isFinite(d)||d<0)d=0;
+    /* Ignore giant background-tab gaps. Recording should resume naturally,
+       not attempt seconds of chemistry in one frame. */
+    d=Math.min(d,120);
+    paceElapsedSec=d/1000;
+  }
+
+  const time=(now-t0)/1000;
+  const beat=readAudio(now);
+
+  if(morphTo){
+    /* Original behavior is 1/60 per rendered frame. During recording only,
+       preserve the pre-recording rate even if encoding lowers render FPS. */
+    morphT += paceOn ? paceElapsedSec*(Math.max(15,pace.baselineHz||60)/60) : 1/60;
+    const a=morphDur>0?Math.min(1,morphT/morphDur):1;
+    const e=a*a*(3-2*a);
+    P.f=morphFrom.f+(morphTo.f-morphFrom.f)*e;
+    P.k=morphFrom.k+(morphTo.k-morphFrom.k)*e;
+    P.dA=morphFrom.dA+(morphTo.dA-morphFrom.dA)*e;
+    P.dB=morphFrom.dB+(morphTo.dB-morphFrom.dB)*e;
+    syncSlider('f');syncSlider('k');syncSlider('dA');syncSlider('dB');
+    if(a>=1)morphTo=null;
+  }
+
+  if((P.cycPat||P.cycLook||P.cycField)&&now-lastCycle>P.cycSecs*1000){lastCycle=now;doCycle();}
+  if(beat&&P.beatCycle&&now-lastCycle>900){lastCycle=now;doCycle();}
+  if(beat&&P.beatSeed){
+    const oldB=P.brush;
+    P.brush=oldB*(.6+level*1.6);
+    const x=Math.random(),y=Math.random();
+    splat(x,y,x,y,.7+level*.3);
+    P.brush=oldB;
+  }
+
+  const eff={
+    f:Math.min(.13,Math.max(.004,P.f+P.aBass*bass*.022)),
+    k:Math.min(.085,Math.max(.02,P.k+P.aMid*mid*.012)),
+    flow:Math.min(1.6,Math.max(0,P.flow+P.aHigh*high*.9)),
+    lo:Math.min(.5,Math.max(0,P.lo-P.aLevel*level*.09)),
+    hi:Math.max(.04,P.hi-P.aLevel*level*.05),
+    zoom:Math.max(.3,P.zoom+P.aZoom*level*.55)
+  };
+
+  if(running){
+    const baseSteps=Math.max(1,Math.round(P.steps));
+    if(paceOn){
+      /* Preserve the measured pre-recording chemistry rate. Every catch-up pass
+         is the same simStep() the original engine uses. No dt folding, so the
+         pattern does not change character on iPad. */
+      const hz=Math.max(15,Math.min(120,pace.baselineHz||60));
+      pace.stepDebt += baseSteps*hz*paceElapsedSec;
+
+      /* Enough headroom to recover from a 60→10 fps recording drop at the
+         common 12-step setting, while still preventing a runaway GPU spiral. */
+      const maxCalls=Math.max(baseSteps,Math.min(128,baseSteps*6));
+      const calls=Math.min(maxCalls,Math.floor(pace.stepDebt));
+      for(let i=0;i<calls;i++)simStep(eff,time);
+      pace.stepDebt=Math.max(0,pace.stepDebt-calls);
+
+      /* Keep at most ~0.75 s of debt. If a device is truly saturated, the
+         adaptive capture side will lower copy cadence before this is reached. */
+      const maxDebt=baseSteps*hz*.75;
+      if(pace.stepDebt>maxDebt){
+        pace.droppedDebt+=(pace.stepDebt-maxDebt);
+        pace.stepDebt=maxDebt;
+      }
+    }else{
+      for(let i=0;i<baseSteps;i++)simStep(eff,time);
+    }
+  }else if(paceOn){
+    pace.stepDebt=0;
+  }
+
+  draw(eff,time);
+  frames++;
+  if(now-lastFps>500){
+    fps=Math.round(frames*1000/(now-lastFps));
+    frames=0;lastFps=now;
+    let s=fps+' fps · '+simW+'×'+simH+(HAS_FLOAT?' · 16f':' · 8b');
+    if(recorder&&recorder.state==='recording'){
+      const sec=(now-recStart)/1000;
+      s='rec '+String(Math.floor(sec/60)).padStart(2,'0')+':'+String(Math.floor(sec%60)).padStart(2,'0')+' · '+s;
+      if(paceOn)s+=' · pace';
+    }
+    $('#stat').textContent=s;
+  }
+}
+resize(true);applyLook(0);applyPreset(0,0);paintChips();if(innerWidth<760){$('#panel').classList.add('hide');document.querySelectorAll('.sec').forEach((s,i)=>{if(i>0)s.classList.add('closed');});}requestAnimationFrame(frame);
+</script>
+
+<script>
+/* RD ENGINE — iPad/iPhone preservation-first upgrade
+   Keeps the original per-frame reaction-diffusion simulation behavior.
+   Adds finger gestures, image gestures, full scene snapshots, armed cycling,
+   independent HD/2K/4K capture and iOS Save/Share support.
+*/
+(function(){
+  'use strict';
+
+  const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+  Object.assign(P, {
+    randomOn: P.randomOn ?? false,
+    randomSecs: P.randomSecs ?? 8,
+    recSize: P.recSize ?? 'hd',
+    recFps: P.recFps ?? 30,
+    recPaceLock: P.recPaceLock ?? true,
+    showTouchViz: P.showTouchViz ?? false,
+    gestureLoop: P.gestureLoop ?? true,
+    gestureSpeed: P.gestureSpeed ?? 1,
+    gestureStrength: P.gestureStrength ?? 1,
+    sceneCycle: P.sceneCycle ?? false,
+    sceneSecs: P.sceneSecs ?? 8,
+    sceneMorph: P.sceneMorph ?? 2,
+
+    imgDetect: P.imgDetect ?? 'dark',
+    imgPlayMode: P.imgPlayMode ?? 'reveal',
+    imgRevealStyle: P.imgRevealStyle ?? 'scan',
+    imgStartMode: P.imgStartMode ?? 'keep',
+    imgFit: P.imgFit ?? 'fit',
+    imgThreshold: P.imgThreshold ?? .62,
+    imgEdgeThreshold: P.imgEdgeThreshold ?? .12,
+    imgTolerance: P.imgTolerance ?? .20,
+    imgThickness: P.imgThickness ?? 1,
+    imgStrength: P.imgStrength ?? 1.0,
+    imgReveal: P.imgReveal ?? 2.5,
+    imgHold: P.imgHold ?? .8,
+    imgDissolve: P.imgDissolve ?? 2.5,
+    imgOpacity: P.imgOpacity ?? .88,
+    imgScale: P.imgScale ?? .90,
+    imgX: P.imgX ?? 0,
+    imgY: P.imgY ?? 0,
+    imgRotation: P.imgRotation ?? 0,
+    imgDetail: P.imgDetail ?? 512,
+    imgColor: P.imgColor ?? '#000000',
+    imgShowOverlay: P.imgShowOverlay ?? true,
+    imgPreview: P.imgPreview ?? true,
+    imgLoop: P.imgLoop ?? false
+  });
+
+  /* Recording pace controller. The normal visualizer keeps the exact original
+     per-frame behavior. Pace Lock activates only while recording and makes up
+     missed frames with additional NORMAL simStep() calls — never by multiplying
+     P.dt. This preserves the chemistry/look while keeping motion pace tied to
+     the pre-recording visualizer speed. */
+  const REC_PACE = window.__RD_REC_PACE || (window.__RD_REC_PACE = {
+    enabled:true, active:false, baselineHz:60, preRecordHz:60, frameHz:60,
+    lastNow:0, stepDebt:0, droppedDebt:0
+  });
+  REC_PACE.enabled = !!P.recPaceLock;
+
+  const upgradeStyle = document.createElement('style');
+  upgradeStyle.textContent = `
+    .upgrade-sub{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:12px 0 6px}
+    .scene-list{display:grid;gap:5px;margin-top:8px}
+    .scene-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:4px;align-items:center}
+    .scene-row .chip{text-align:left;padding-left:8px}
+    .scene-row .tog{margin:0;min-width:42px}
+    .mini-stat{font-size:9px;line-height:1.6;color:var(--dim);letter-spacing:.05em;margin-top:8px;word-break:break-word}
+    .color-line{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;margin-top:9px;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+    .color-line input[type=color]{width:48px;height:27px;padding:0;border:1px solid var(--line);background:#000;border-radius:0}
+    #image-viz{position:fixed;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;display:block}
+    #touch-viz{position:fixed;inset:0;width:100%;height:100%;z-index:4;pointer-events:none;display:block}
+    #capture-canvas{position:fixed;left:-100000px;top:-100000px;pointer-events:none;width:1px;height:1px}
+    #rec-result{position:fixed;z-index:40;left:50%;bottom:max(72px,calc(env(safe-area-inset-bottom) + 58px));transform:translateX(-50%);
+      width:min(92vw,520px);background:rgba(0,0,0,.94);border:1px solid var(--line);padding:10px 12px;display:none;
+      -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+    #rec-result.on{display:block}
+    #rec-result .rr-top{display:flex;gap:8px;align-items:center}
+    #rec-result .rr-name{font-size:9px;color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+    #rec-result .rr-actions{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+    @media(max-width:760px){
+      #bar{padding-bottom:max(9px,env(safe-area-inset-bottom))}
+      #rec-result{bottom:max(84px,calc(env(safe-area-inset-bottom) + 70px))}
+    }
+  `;
+  document.head.appendChild(upgradeStyle);
+
+  const upgradeSliderEls = {};
+
+  function makeSection(id, title, aside, html){
+    const s = document.createElement('section');
+    s.className = 'sec'; s.id = id;
+    s.innerHTML = `<h2>${title} <i>${aside}</i></h2><div class="body">${html}</div>`;
+    s.querySelector('h2').onclick = ()=>s.classList.toggle('closed');
+    return s;
+  }
+
+  function addSlider(host, key, label, min, max, step, dec, onInput){
+    const row = document.createElement('div'); row.className='row';
+    row.innerHTML = `<div class="lab"><span>${label}</span><span id="uv-${key}">${fmt(P[key],dec)}</span></div>`;
+    const inp = document.createElement('input');
+    inp.type='range'; inp.min=min; inp.max=max; inp.step=step; inp.value=P[key];
+    const valueEl=row.querySelector('#uv-'+key);
+    inp.addEventListener('input', ()=>{
+      P[key] = parseFloat(inp.value);
+      valueEl.textContent = fmt(P[key],dec);
+      if(onInput) onInput(P[key]);
+    });
+    row.appendChild(inp); host.appendChild(row);
+    upgradeSliderEls[key]={inp,valueEl,dec};
+    return inp;
+  }
+
+  function syncUpgradeSliders(){
+    for(const [key,s] of Object.entries(upgradeSliderEls)){
+      if(P[key]===undefined) continue;
+      s.inp.value=P[key];
+      s.valueEl.textContent=fmt(P[key],s.dec);
+    }
+  }
+
+  function chipGroup(host, items, current, onPick){
+    host.classList.add('chips','three');
+    const repaint = ()=>{
+      [...host.children].forEach((b,i)=>b.classList.toggle('on', current()===items[i][0]));
+    };
+    items.forEach(([value,label])=>{
+      const b=document.createElement('button'); b.className='chip'; b.textContent=label;
+      b.onclick=()=>{onPick(value); repaint();}; host.appendChild(b);
+    });
+    repaint();
+    return repaint;
+  }
+
+  const outputSec = document.getElementById('s-out');
+
+  /* -------------------- true randomization toggle -------------------- */
+  let lastRandom = performance.now();
+  const randomBtn = document.querySelector('[data-act="randomize"]');
+  if(randomBtn){
+    randomBtn.removeAttribute('data-act');
+    randomBtn.dataset.tog = 'randomOn';
+    randomBtn.textContent = 'Randomize';
+    randomBtn.onclick = ()=>{
+      P.randomOn = !P.randomOn;
+      lastRandom = performance.now();
+      if(P.randomOn) randomize();
+      paintChips();
+    };
+    const nudgeBtn = document.querySelector('[data-act="nudge"]');
+    if(nudgeBtn){
+      const nowBtn = document.createElement('button');
+      nowBtn.className='tog'; nowBtn.textContent='Random now';
+      nowBtn.onclick=()=>randomize();
+      nudgeBtn.parentElement.insertBefore(nowBtn,nudgeBtn);
+    }
+    const patternBody = document.querySelector('#s-pattern .body');
+    if(patternBody) addSlider(patternBody, 'randomSecs', 'Random interval (s)', 1, 60, .5, 1);
+  }
+
+  /* -------------------- finger gesture recorder / looper -------------------- */
+  let gestureTake = [];
+  let gestureDuration = 0;
+  let gestureRecording = false;
+  let gesturePlaying = false;
+  let gestureRecStart = 0;
+  let gesturePlayStart = 0;
+  let gesturePlayIndex = 0;
+  let gestureLastElapsed = 0;
+  const gesturePointers = new Map();
+  const MAX_GESTURE_SEGMENTS = 8000;
+
+  const gestureSec = makeSection('s-gesture','Gesture loop','draw · capture · replay',`
+    <div class="chips three">
+      <button class="chip" id="g-rec">Record path</button>
+      <button class="chip" id="g-play">Play</button>
+      <button class="chip" id="g-clear">Clear</button>
+    </div>
+    <div class="togs">
+      <button class="tog" id="g-loop">Loop</button>
+      <button class="tog" id="g-viz">Show touch</button>
+    </div>
+    <div id="g-sliders"></div>
+    <div class="mini-stat" id="g-stat">No gesture captured yet.</div>
+    <div class="hint">Records normalized finger/mouse strokes, including multiple separate strokes, then re-injects them into the reaction field. Saved presets keep their own gesture and automatically replay it when loaded or cycled.</div>
+  `);
+  outputSec.parentElement.insertBefore(gestureSec, outputSec);
+  addSlider(gestureSec.querySelector('#g-sliders'),'gestureSpeed','Playback speed',.25,4,.05,2);
+  addSlider(gestureSec.querySelector('#g-sliders'),'gestureStrength','Inject strength',.1,2,.05,2);
+
+  function updateGestureUI(){
+    const br=gestureSec.querySelector('#g-rec'), bp=gestureSec.querySelector('#g-play');
+    br.classList.toggle('on',gestureRecording); br.textContent=gestureRecording?'Stop path':'Record path';
+    bp.classList.toggle('on',gesturePlaying); bp.textContent=gesturePlaying?'Stop':'Play';
+    gestureSec.querySelector('#g-loop').classList.toggle('on',P.gestureLoop);
+    gestureSec.querySelector('#g-viz').classList.toggle('on',P.showTouchViz);
+    gestureSec.querySelector('#g-stat').textContent = gestureTake.length
+      ? `${gestureTake.length} segments · ${(gestureDuration/1000).toFixed(1)}s${gesturePlaying?' · playing':''}`
+      : 'No gesture captured yet.';
+  }
+
+  function stopGestureRecord(){
+    gestureRecording=false;
+    gestureDuration = gestureTake.length ? Math.max(60, gestureTake[gestureTake.length-1].t + 60) : 0;
+    gesturePointers.clear();
+    updateGestureUI();
+  }
+  function beginGestureRecord(){
+    gestureTake=[]; gestureDuration=0; gestureRecording=true; gesturePlaying=false;
+    gestureRecStart=performance.now(); gesturePointers.clear(); updateGestureUI();
+  }
+  function startGesturePlay(){
+    if(!gestureTake.length) return false;
+    gesturePlaying=true; gesturePlayStart=performance.now(); gesturePlayIndex=0; gestureLastElapsed=0; updateGestureUI();
+    return true;
+  }
+  function stopGesturePlay(){ gesturePlaying=false; gesturePlayIndex=0; updateGestureUI(); }
+
+  gestureSec.querySelector('#g-rec').onclick=()=>gestureRecording?stopGestureRecord():beginGestureRecord();
+  gestureSec.querySelector('#g-play').onclick=()=>gesturePlaying?stopGesturePlay():startGesturePlay();
+  gestureSec.querySelector('#g-clear').onclick=()=>{gestureTake=[];gestureDuration=0;gesturePlaying=false;gestureRecording=false;updateGestureUI();};
+  gestureSec.querySelector('#g-loop').onclick=()=>{P.gestureLoop=!P.gestureLoop;updateGestureUI();};
+  gestureSec.querySelector('#g-viz').onclick=()=>{P.showTouchViz=!P.showTouchViz;updateGestureUI();};
+
+  function recordGesturePoint(e, isDown){
+    if(!gestureRecording || gestureTake.length>=MAX_GESTURE_SEGMENTS) return;
+    const [x,y] = pos(e);
+    const prev = gesturePointers.get(e.pointerId) || {x,y,lastT:-1e9};
+    const t = performance.now()-gestureRecStart;
+    if(!isDown && t-prev.lastT < 11) { prev.x=x; prev.y=y; gesturePointers.set(e.pointerId,prev); return; }
+    gestureTake.push({t:Math.round(t),x,y,px:isDown?x:prev.x,py:isDown?y:prev.y,pid:e.pointerId});
+    gesturePointers.set(e.pointerId,{x,y,lastT:t});
+    gestureDuration=t+60;
+    if(gestureTake.length===MAX_GESTURE_SEGMENTS) stopGestureRecord();
+  }
+  cv.addEventListener('pointerdown',e=>recordGesturePoint(e,true));
+  cv.addEventListener('pointermove',e=>{if(gesturePointers.has(e.pointerId))recordGesturePoint(e,false);});
+  addEventListener('pointerup',e=>{gesturePointers.delete(e.pointerId); if(gestureRecording) updateGestureUI();});
+  addEventListener('pointercancel',e=>gesturePointers.delete(e.pointerId));
+
+  /* -------------------- touch visualization -------------------- */
+  const touchCv=document.createElement('canvas'); touchCv.id='touch-viz'; document.body.insertBefore(touchCv,document.getElementById('panel'));
+  const touchCtx=touchCv.getContext('2d');
+  let touchDpr=1;
+  const liveTouches=new Map();
+  let trail=[];
+  let replayPoint=null;
+
+  function resizeTouch(){
+    touchDpr=Math.min(devicePixelRatio||1,2);
+    const w=Math.max(1,Math.floor(innerWidth*touchDpr)), h=Math.max(1,Math.floor(innerHeight*touchDpr));
+    if(touchCv.width!==w||touchCv.height!==h){touchCv.width=w;touchCv.height=h;touchCv.style.width=innerWidth+'px';touchCv.style.height=innerHeight+'px';}
+  }
+  cv.addEventListener('pointerdown',e=>{const [x,y]=pos(e);liveTouches.set(e.pointerId,{x,y});trail.push({x,y,t:performance.now(),cut:true});});
+  cv.addEventListener('pointermove',e=>{if(!liveTouches.has(e.pointerId))return;const [x,y]=pos(e);liveTouches.set(e.pointerId,{x,y});trail.push({x,y,t:performance.now(),cut:false});});
+  addEventListener('pointerup',e=>liveTouches.delete(e.pointerId));
+  addEventListener('pointercancel',e=>liveTouches.delete(e.pointerId));
+
+  function drawTouchOverlay(now){
+    resizeTouch();
+    touchCtx.clearRect(0,0,touchCv.width,touchCv.height);
+    if(!P.showTouchViz) return;
+    trail=trail.filter(p=>now-p.t<650);
+    touchCtx.save(); touchCtx.scale(touchDpr,touchDpr);
+    touchCtx.lineCap='round'; touchCtx.lineJoin='round';
+    touchCtx.strokeStyle='rgba(255,255,255,.52)'; touchCtx.lineWidth=2;
+    touchCtx.beginPath(); let started=false;
+    for(const p of trail){
+      const x=p.x*innerWidth,y=(1-p.y)*innerHeight;
+      if(p.cut||!started){touchCtx.moveTo(x,y);started=true;} else touchCtx.lineTo(x,y);
+    }
+    touchCtx.stroke();
+    const dots=[...liveTouches.values()]; if(replayPoint)dots.push(replayPoint);
+    for(const p of dots){
+      const x=p.x*innerWidth,y=(1-p.y)*innerHeight;
+      touchCtx.beginPath(); touchCtx.arc(x,y,13,0,Math.PI*2); touchCtx.strokeStyle='rgba(255,255,255,.88)';touchCtx.lineWidth=2;touchCtx.stroke();
+      touchCtx.beginPath(); touchCtx.arc(x,y,3,0,Math.PI*2);touchCtx.fillStyle='rgba(255,255,255,.92)';touchCtx.fill();
+    }
+    touchCtx.restore();
+  }
+
+  /* ============================================================
+     IMAGE GESTURE ENGINE
+     ============================================================ */
+
+  const IMG_INJECT_FS = `#version 300 es
+  precision highp float;
+  in vec2 uv; out vec4 outC;
+  uniform sampler2D uState;
+  uniform sampler2D uMask;
+  uniform float uStrength,uPrevProgress,uProgress,uAspect;
+  uniform int uStamp,uRevealType;
+  float hash21i(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+  float revealKey(vec2 p){
+    if(uRevealType==0) return clamp(1.0-p.y,0.0,1.0);
+    if(uRevealType==1) return clamp(p.x,0.0,1.0);
+    if(uRevealType==2){vec2 d=(p-0.5)*vec2(uAspect,1.0);return clamp(length(d)*1.55,0.0,1.0);}
+    return hash21i(floor(p*1024.0));
+  }
+  void main(){
+    vec4 c=texture(uState,uv);
+    float m=texture(uMask,uv).r;
+    float gate=1.0;
+    if(uStamp==0){
+      float k=revealKey(uv);
+      gate=step(uPrevProgress,k)*step(k,uProgress);
+    }
+    float s=clamp(m*gate*uStrength,0.0,1.5);
+    c.g=clamp(c.g+s,0.0,1.0);
+    c.r=clamp(c.r-s*0.55,0.0,1.0);
+    outC=c;
+  }`;
+  const pImgInject=prog(IMG_INJECT_FS);
+
+  const imgVizCv=document.createElement('canvas');
+  imgVizCv.id='image-viz';
+  document.body.insertBefore(imgVizCv,touchCv);
+  const imgVizCtx=imgVizCv.getContext('2d');
+  let imgVizDpr=1;
+  let imageVizWasDrawn=false;
+
+  const imageFileInput=document.createElement('input');
+  imageFileInput.type='file'; imageFileInput.accept='image/*'; imageFileInput.className='hidden'; imageFileInput.id='img-file';
+  document.body.appendChild(imageFileInput);
+
+  const sourceMaskCv=document.createElement('canvas');
+  const sourceMaskCtx=sourceMaskCv.getContext('2d',{willReadFrequently:true});
+  const processCv=document.createElement('canvas');
+  const processCtx=processCv.getContext('2d',{willReadFrequently:true});
+  const placedMaskCv=document.createElement('canvas');
+  const placedMaskCtx=placedMaskCv.getContext('2d',{willReadFrequently:false});
+
+  const imgMaskTex=gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D,imgMaskTex);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+  gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA8,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array([0,0,0,0]));
+
+  let currentImageSource=null;
+  let currentImageBlob=null;
+  let currentImageName='';
+  let currentImageType='';
+  let hasImageMask=false;
+  let placedMaskReady=false;
+  let placedSimW=0,placedSimH=0;
+  let imageGesturePlaying=false;
+  let imagePlayStart=0;
+  let imagePrevProgress=0;
+  let imageStamped=false;
+  let imageProcessTimer=null;
+  let imageSourceGeneration=0;
+
+  function hexToRgb(hex){
+    const h=String(hex||'#000000').replace('#','');
+    const n=parseInt(h.length===3?h.split('').map(c=>c+c).join(''):h,16);
+    return [(n>>16)&255,(n>>8)&255,n&255];
+  }
+  const clamp01=v=>Math.max(0,Math.min(1,v));
+
+  async function decodeImageBlob(blob){
+    if(typeof createImageBitmap==='function'){
+      try{return await createImageBitmap(blob,{imageOrientation:'from-image'});}catch(_){try{return await createImageBitmap(blob);}catch(__){}}
+    }
+    return await new Promise((resolve,reject)=>{
+      const url=URL.createObjectURL(blob),im=new Image();
+      im.onload=()=>{URL.revokeObjectURL(url);resolve(im);};
+      im.onerror=e=>{URL.revokeObjectURL(url);reject(e);};
+      im.src=url;
+    });
+  }
+
+  function closeImageSource(){
+    try{if(currentImageSource&&typeof currentImageSource.close==='function')currentImageSource.close();}catch(_){ }
+    currentImageSource=null;
+  }
+
+  function dilateMask(mask,w,h,r){
+    r=Math.max(0,Math.round(r));
+    if(!r)return mask;
+    let a=mask,b=new Uint8Array(mask.length);
+    for(let pass=0;pass<r;pass++){
+      for(let y=0;y<h;y++){
+        const row=y*w;
+        for(let x=0;x<w;x++){
+          let m=a[row+x];
+          if(x>0)m=Math.max(m,a[row+x-1]);
+          if(x<w-1)m=Math.max(m,a[row+x+1]);
+          if(y>0)m=Math.max(m,a[row-w+x]);
+          if(y<h-1)m=Math.max(m,a[row+w+x]);
+          b[row+x]=m;
+        }
+      }
+      const t=a;a=b;b=t;
+    }
+    return a;
+  }
+
+  function processCurrentImage(){
+    if(!currentImageSource) return false;
+    const sw=currentImageSource.width||currentImageSource.naturalWidth||1;
+    const sh=currentImageSource.height||currentImageSource.naturalHeight||1;
+    const detail=Math.max(128,Math.min(1024,Math.round(P.imgDetail||512)));
+    const sc=Math.min(1,detail/Math.max(sw,sh));
+    const w=Math.max(2,Math.round(sw*sc)),h=Math.max(2,Math.round(sh*sc));
+    processCv.width=w;processCv.height=h;
+    processCtx.clearRect(0,0,w,h);
+    processCtx.drawImage(currentImageSource,0,0,w,h);
+    const img=processCtx.getImageData(0,0,w,h),d=img.data;
+    const lum=new Float32Array(w*h),alpha=new Float32Array(w*h);
+    for(let i=0,j=0;i<d.length;i+=4,j++){
+      lum[j]=(d[i]*.2126+d[i+1]*.7152+d[i+2]*.0722)/255;
+      alpha[j]=d[i+3]/255;
+    }
+    let mask=new Uint8Array(w*h);
+    const detect=P.imgDetect;
+    const th=clamp01(P.imgThreshold);
+    const edgeTh=Math.max(.001,clamp01(P.imgEdgeThreshold));
+    const tol=Math.max(.005,clamp01(P.imgTolerance));
+    const [tr,tg,tb]=hexToRgb(P.imgColor);
+
+    for(let y=0;y<h;y++){
+      for(let x=0;x<w;x++){
+        const j=y*w+x, L=lum[j], A=alpha[j];
+        let v=0;
+        if(detect==='dark'){
+          if(A>.01&&L<=th) v=clamp01(.35+(th-L)/Math.max(.06,th)*.85)*A;
+        }else if(detect==='light'){
+          if(A>.01&&L>=th) v=clamp01(.35+(L-th)/Math.max(.06,1-th)*.85)*A;
+        }else if(detect==='alpha'){
+          if(A>=th) v=A;
+        }else if(detect==='color'){
+          const i=j*4;
+          const dr=(d[i]-tr)/255,dg=(d[i+1]-tg)/255,db=(d[i+2]-tb)/255;
+          const dist=Math.sqrt((dr*dr+dg*dg+db*db)/3);
+          if(A>.01&&dist<=tol)v=clamp01(1-dist/tol)*A;
+        }else if(detect==='edge'){
+          const xm=Math.max(0,x-1),xp=Math.min(w-1,x+1),ym=Math.max(0,y-1),yp=Math.min(h-1,y+1);
+          const gx=lum[y*w+xp]-lum[y*w+xm];
+          const gy=lum[yp*w+x]-lum[ym*w+x];
+          const mag=clamp01(Math.hypot(gx,gy)*1.75);
+          if(A>.01&&mag>=edgeTh)v=clamp01((mag-edgeTh)/Math.max(.03,1-edgeTh))*.9+.1;
+        }
+        mask[j]=Math.round(clamp01(v)*255);
+      }
+    }
+
+    mask=dilateMask(mask,w,h,P.imgThickness);
+    sourceMaskCv.width=w;sourceMaskCv.height=h;
+    const out=sourceMaskCtx.createImageData(w,h);
+    for(let j=0,i=0;j<mask.length;j++,i+=4){
+      const v=mask[j]; out.data[i]=v;out.data[i+1]=v;out.data[i+2]=v;out.data[i+3]=v;
+    }
+    sourceMaskCtx.putImageData(out,0,0);
+    hasImageMask=mask.some(v=>v>0);
+    rebuildPlacedMask();
+    updateImageUI();
+    return hasImageMask;
+  }
+
+  function scheduleImageProcess(){
+    if(!currentImageSource){rebuildPlacedMask();return;}
+    clearTimeout(imageProcessTimer);
+    imageProcessTimer=setTimeout(()=>processCurrentImage(),120);
+  }
+
+  function fitDimensions(cw,ch,iw,ih){
+    let dw,dh;
+    if(P.imgFit==='stretch'){
+      dw=cw;dh=ch;
+    }else{
+      const s=P.imgFit==='fill'?Math.max(cw/iw,ch/ih):Math.min(cw/iw,ch/ih);
+      dw=iw*s;dh=ih*s;
+    }
+    const scale=Math.max(.05,P.imgScale||1);
+    return [dw*scale,dh*scale];
+  }
+
+  function uploadPlacedMaskTexture(){
+    if(!placedMaskReady)return;
+    gl.bindTexture(gl.TEXTURE_2D,imgMaskTex);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,placedMaskCv);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);
+  }
+
+  function rebuildPlacedMask(){
+    if(!simW||!simH||!hasImageMask||!sourceMaskCv.width){placedMaskReady=false;return;}
+    placedMaskCv.width=simW;placedMaskCv.height=simH;
+    placedMaskCtx.clearRect(0,0,simW,simH);
+    const [dw,dh]=fitDimensions(simW,simH,sourceMaskCv.width,sourceMaskCv.height);
+    const cx=simW*(.5+(P.imgX||0)*.5),cy=simH*(.5+(P.imgY||0)*.5);
+    placedMaskCtx.save();
+    placedMaskCtx.translate(cx,cy);
+    placedMaskCtx.rotate((P.imgRotation||0)*Math.PI/180);
+    placedMaskCtx.imageSmoothingEnabled=true;
+    placedMaskCtx.drawImage(sourceMaskCv,-dw/2,-dh/2,dw,dh);
+    placedMaskCtx.restore();
+    placedMaskReady=true;placedSimW=simW;placedSimH=simH;
+    uploadPlacedMaskTexture();
+  }
+
+  function resizeImageViz(){
+    imgVizDpr=Math.min(devicePixelRatio||1,2);
+    const w=Math.max(1,Math.floor(innerWidth*imgVizDpr)),h=Math.max(1,Math.floor(innerHeight*imgVizDpr));
+    if(imgVizCv.width!==w||imgVizCv.height!==h){
+      imgVizCv.width=w;imgVizCv.height=h;
+      imgVizCv.style.width=innerWidth+'px';imgVizCv.style.height=innerHeight+'px';
+      imageVizWasDrawn=false;
+    }
+  }
+
+  function revealTypeIndex(){
+    return P.imgRevealStyle==='scan'?0:P.imgRevealStyle==='horizontal'?1:P.imgRevealStyle==='radial'?2:3;
+  }
+
+  function injectImageMask(prevProgress,progress,stamp){
+    if(!placedMaskReady||!hasImageMask)return;
+    bindTarget(tex[1-cur]);
+    gl.useProgram(pImgInject.p);
+    gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,tex[cur]);
+    gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,imgMaskTex);
+    const u=pImgInject.u;
+    gl.uniform1i(u.uState,0);gl.uniform1i(u.uMask,1);
+    gl.uniform1f(u.uStrength,Math.max(0,P.imgStrength||0));
+    gl.uniform1f(u.uPrevProgress,clamp01(prevProgress));
+    gl.uniform1f(u.uProgress,clamp01(progress));
+    gl.uniform1f(u.uAspect,simW/Math.max(1,simH));
+    gl.uniform1i(u.uStamp,stamp?1:0);
+    gl.uniform1i(u.uRevealType,revealTypeIndex());
+    gl.drawArrays(gl.TRIANGLES,0,3);
+    cur=1-cur;
+    gl.activeTexture(gl.TEXTURE0);
+  }
+
+  function prepareImageStart(){
+    if(P.imgStartMode==='clear') clearState(0);
+    else if(P.imgStartMode==='reseed') reseed();
+  }
+
+  function imageTiming(){
+    const revealMs=P.imgPlayMode==='reveal'?Math.max(40,(P.imgReveal||0)*1000):0;
+    const holdMs=Math.max(0,(P.imgHold||0)*1000);
+    const dissolveMs=Math.max(0,(P.imgDissolve||0)*1000);
+    return {revealMs,holdMs,dissolveMs,totalMs:Math.max(120,revealMs+holdMs+dissolveMs)};
+  }
+
+  function startImageGesture(opts={}){
+    if(!hasImageMask||!placedMaskReady)return false;
+    if(!opts.skipStartReset)prepareImageStart();
+    imageGesturePlaying=true;
+    imagePlayStart=performance.now();
+    imagePrevProgress=0;
+    imageStamped=false;
+    if(P.imgPlayMode==='stamp'){
+      injectImageMask(0,1,true);
+      imageStamped=true;
+      imagePrevProgress=1;
+    }
+    updateImageUI();
+    return true;
+  }
+
+  function stopImageGesture(){imageGesturePlaying=false;imagePrevProgress=0;imageStamped=false;updateImageUI();}
+
+  function stampImageNow(){
+    if(!hasImageMask)return;
+    prepareImageStart();
+    injectImageMask(0,1,true);
+    imageGesturePlaying=false;imagePrevProgress=1;imageStamped=true;
+    updateImageUI();
+    $('#mode').textContent='image stamped into chemistry';
+  }
+
+  function playImageGesture(now){
+    if(!imageGesturePlaying||!hasImageMask||!placedMaskReady)return;
+    const {revealMs,totalMs}=imageTiming();
+    const elapsed=Math.max(0,now-imagePlayStart);
+    if(P.imgPlayMode==='reveal'){
+      const progress=revealMs>0?clamp01(elapsed/revealMs):1;
+      if(progress>imagePrevProgress+1e-5){
+        injectImageMask(imagePrevProgress,progress,false);
+        imagePrevProgress=progress;
+      }
+    }else if(!imageStamped){
+      injectImageMask(0,1,true);imageStamped=true;imagePrevProgress=1;
+    }
+    if(elapsed>=totalMs){
+      if(P.imgLoop){
+        prepareImageStart();
+        imagePlayStart=now;imagePrevProgress=0;imageStamped=false;
+        if(P.imgPlayMode==='stamp'){injectImageMask(0,1,true);imageStamped=true;imagePrevProgress=1;}
+      }else stopImageGesture();
+    }
+  }
+
+  function imageOverlayState(now){
+    if(!hasImageMask||!P.imgShowOverlay)return {alpha:0,progress:1};
+    if(!imageGesturePlaying){return {alpha:P.imgPreview?P.imgOpacity*.28:0,progress:1};}
+    const {revealMs,holdMs,dissolveMs}=imageTiming();
+    const elapsed=Math.max(0,now-imagePlayStart);
+    let progress=P.imgPlayMode==='reveal'&&revealMs>0?clamp01(elapsed/revealMs):1;
+    let alpha=P.imgOpacity;
+    if(elapsed<revealMs){alpha*=Math.max(.12,progress);}
+    else if(elapsed<revealMs+holdMs){alpha=P.imgOpacity;}
+    else if(dissolveMs>0){alpha=P.imgOpacity*(1-clamp01((elapsed-revealMs-holdMs)/dissolveMs));}
+    else alpha=0;
+    return {alpha:clamp01(alpha),progress};
+  }
+
+  /* iPad-safe overlay renderer: visually identical, but avoids clearing and
+     redrawing the full Retina overlay canvas every frame when it is invisible. */
+  function drawImageOverlay(now){
+    resizeImageViz();
+
+    if(!placedMaskReady){
+      if(imageVizWasDrawn){
+        imgVizCtx.clearRect(0,0,imgVizCv.width,imgVizCv.height);
+        imageVizWasDrawn=false;
+      }
+      return;
+    }
+
+    const st=imageOverlayState(now);
+    if(st.alpha<=0){
+      if(imageVizWasDrawn){
+        imgVizCtx.clearRect(0,0,imgVizCv.width,imgVizCv.height);
+        imageVizWasDrawn=false;
+      }
+      return;
+    }
+
+    imgVizCtx.clearRect(0,0,imgVizCv.width,imgVizCv.height);
+    imgVizCtx.save();
+    imgVizCtx.globalAlpha=st.alpha;
+
+    if(imageGesturePlaying&&P.imgPlayMode==='reveal'&&st.progress<1){
+      if(P.imgRevealStyle==='scan'){
+        imgVizCtx.beginPath();imgVizCtx.rect(0,0,imgVizCv.width,imgVizCv.height*st.progress);imgVizCtx.clip();
+      }else if(P.imgRevealStyle==='horizontal'){
+        imgVizCtx.beginPath();imgVizCtx.rect(0,0,imgVizCv.width*st.progress,imgVizCv.height);imgVizCtx.clip();
+      }else if(P.imgRevealStyle==='radial'){
+        imgVizCtx.beginPath();imgVizCtx.arc(imgVizCv.width/2,imgVizCv.height/2,Math.hypot(imgVizCv.width,imgVizCv.height)*.55*st.progress,0,Math.PI*2);imgVizCtx.clip();
+      }else{
+        imgVizCtx.globalAlpha*=Math.max(.12,st.progress);
+      }
+    }
+
+    imgVizCtx.drawImage(placedMaskCv,0,0,imgVizCv.width,imgVizCv.height);
+    imgVizCtx.restore();
+    imageVizWasDrawn=true;
+  }
+
+  function sourceMaskBytes(){
+    if(!hasImageMask||!sourceMaskCv.width)return null;
+    const d=sourceMaskCtx.getImageData(0,0,sourceMaskCv.width,sourceMaskCv.height).data;
+    const out=new Uint8Array(sourceMaskCv.width*sourceMaskCv.height);
+    for(let i=0,j=0;i<d.length;i+=4,j++)out[j]=d[i+3];
+    return out;
+  }
+
+  function setSourceMaskBytes(w,h,bytes){
+    if(!w||!h||!bytes)return false;
+    const src=bytes instanceof Uint8Array?bytes:new Uint8Array(bytes);
+    if(src.length<w*h)return false;
+    sourceMaskCv.width=w;sourceMaskCv.height=h;
+    const out=sourceMaskCtx.createImageData(w,h);
+    for(let j=0,i=0;j<w*h;j++,i+=4){const v=src[j];out.data[i]=v;out.data[i+1]=v;out.data[i+2]=v;out.data[i+3]=v;}
+    sourceMaskCtx.putImageData(out,0,0);
+    hasImageMask=src.some(v=>v>0);
+    rebuildPlacedMask();
+    return hasImageMask;
+  }
+
+  async function loadImageBlob(blob,name,process=true){
+    if(!blob)return false;
+    const generation=++imageSourceGeneration;
+    try{
+      const src=await decodeImageBlob(blob);
+      if(generation!==imageSourceGeneration){try{src.close?.();}catch(_){}return false;}
+      closeImageSource();
+      currentImageSource=src;
+      currentImageBlob=blob;
+      currentImageName=name||'image';
+      currentImageType=blob.type||'';
+      if(process)processCurrentImage();
+      updateImageUI();
+      return true;
+    }catch(err){console.error('Image decode failed:',err);$('#mode').textContent='image decode failed';return false;}
+  }
+
+  function clearImageGesture(){
+    imageSourceGeneration++;
+    closeImageSource();currentImageBlob=null;currentImageName='';currentImageType='';
+    hasImageMask=false;placedMaskReady=false;imageGesturePlaying=false;imagePrevProgress=0;imageStamped=false;
+    sourceMaskCv.width=1;sourceMaskCv.height=1;sourceMaskCtx.clearRect(0,0,1,1);
+    placedMaskCv.width=1;placedMaskCv.height=1;placedMaskCtx.clearRect(0,0,1,1);
+    gl.bindTexture(gl.TEXTURE_2D,imgMaskTex);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA8,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array([0,0,0,0]));
+    if(imageVizWasDrawn){imgVizCtx.clearRect(0,0,imgVizCv.width,imgVizCv.height);imageVizWasDrawn=false;}
+    updateImageUI();
+  }
+
+  const imageSec=makeSection('s-image','Image gesture','lines · reveal · dissolve',`
+    <div class="chips three">
+      <button class="chip" id="img-load">Load image</button>
+      <button class="chip" id="img-play">Play image</button>
+      <button class="chip" id="img-stamp">Stamp now</button>
+    </div>
+    <div class="togs">
+      <button class="tog" id="img-clear">Clear image</button>
+      <button class="tog" id="img-overlay">Overlay</button>
+      <button class="tog" id="img-preview">Preview</button>
+      <button class="tog" id="img-loop">Loop image</button>
+    </div>
+    <div class="upgrade-sub">Extract</div><div id="img-detect"></div>
+    <div class="color-line"><span>Target color</span><input type="color" id="img-color" value="#000000"></div>
+    <div class="upgrade-sub">Playback</div><div id="img-playmode"></div>
+    <div class="upgrade-sub">Reveal path</div><div id="img-revealstyle"></div>
+    <div class="upgrade-sub">Start field</div><div id="img-startmode"></div>
+    <div class="upgrade-sub">Image fit</div><div id="img-fit"></div>
+    <div id="img-sliders"></div>
+    <div class="mini-stat" id="img-stat">No image loaded.</div>
+    <div class="hint">DARK/LIGHT/COLOR/ALPHA/EDGE extracts artwork into a chemical mask. REVEAL progressively injects the selected lines like a spatial gesture; STAMP injects the complete drawing at once. The temporary line overlay can reveal, hold, then dissolve while the reaction-diffusion pattern continues growing from those exact points.</div>
+  `);
+  outputSec.parentElement.insertBefore(imageSec,outputSec);
+
+  const repaintImgDetect=chipGroup(imageSec.querySelector('#img-detect'),[['dark','Dark'],['light','Light'],['color','Color'],['edge','Edges'],['alpha','Alpha']],()=>P.imgDetect,v=>{P.imgDetect=v;scheduleImageProcess();});
+  const repaintImgPlay=chipGroup(imageSec.querySelector('#img-playmode'),[['reveal','Reveal'],['stamp','Stamp']],()=>P.imgPlayMode,v=>{P.imgPlayMode=v;updateImageUI();});
+  const repaintImgReveal=chipGroup(imageSec.querySelector('#img-revealstyle'),[['scan','Down'],['horizontal','Across'],['radial','Radial'],['random','Scatter']],()=>P.imgRevealStyle,v=>{P.imgRevealStyle=v;});
+  const repaintImgStart=chipGroup(imageSec.querySelector('#img-startmode'),[['keep','Keep'],['clear','Clear'],['reseed','Reseed']],()=>P.imgStartMode,v=>{P.imgStartMode=v;});
+  const repaintImgFit=chipGroup(imageSec.querySelector('#img-fit'),[['fit','Fit'],['fill','Fill'],['stretch','Stretch']],()=>P.imgFit,v=>{P.imgFit=v;rebuildPlacedMask();});
+
+  const imgSliderHost=imageSec.querySelector('#img-sliders');
+  addSlider(imgSliderHost,'imgThreshold','Line threshold',.02,.98,.01,2,()=>scheduleImageProcess());
+  addSlider(imgSliderHost,'imgEdgeThreshold','Edge threshold',.01,.75,.01,2,()=>scheduleImageProcess());
+  addSlider(imgSliderHost,'imgTolerance','Color tolerance',.01,.8,.01,2,()=>scheduleImageProcess());
+  addSlider(imgSliderHost,'imgThickness','Line thickness',0,8,1,0,()=>scheduleImageProcess());
+  addSlider(imgSliderHost,'imgStrength','Inject strength',.05,2.5,.05,2);
+  addSlider(imgSliderHost,'imgReveal','Reveal time (s)',.1,12,.1,1);
+  addSlider(imgSliderHost,'imgHold','Hold time (s)',0,8,.1,1);
+  addSlider(imgSliderHost,'imgDissolve','Dissolve time (s)',0,12,.1,1);
+  addSlider(imgSliderHost,'imgOpacity','Overlay opacity',0,1,.01,2);
+  addSlider(imgSliderHost,'imgScale','Image scale',.1,2.5,.01,2,()=>rebuildPlacedMask());
+  addSlider(imgSliderHost,'imgX','Position X',-1,1,.01,2,()=>rebuildPlacedMask());
+  addSlider(imgSliderHost,'imgY','Position Y',-1,1,.01,2,()=>rebuildPlacedMask());
+  addSlider(imgSliderHost,'imgRotation','Rotation',-180,180,1,0,()=>rebuildPlacedMask());
+  addSlider(imgSliderHost,'imgDetail','Mask detail',128,1024,64,0,()=>scheduleImageProcess());
+
+  const imgColorInput=imageSec.querySelector('#img-color');
+  imgColorInput.value=P.imgColor;
+  imgColorInput.oninput=()=>{P.imgColor=imgColorInput.value;if(P.imgDetect==='color')scheduleImageProcess();};
+
+  function updateImageUI(){
+    imageSec.querySelector('#img-play').classList.toggle('on',imageGesturePlaying);
+    imageSec.querySelector('#img-play').textContent=imageGesturePlaying?'Stop image':'Play image';
+    imageSec.querySelector('#img-overlay').classList.toggle('on',!!P.imgShowOverlay);
+    imageSec.querySelector('#img-preview').classList.toggle('on',!!P.imgPreview);
+    imageSec.querySelector('#img-loop').classList.toggle('on',!!P.imgLoop);
+    imgColorInput.value=P.imgColor||'#000000';
+    repaintImgDetect();repaintImgPlay();repaintImgReveal();repaintImgStart();repaintImgFit();
+    const bits=[];
+    if(currentImageName)bits.push(currentImageName);
+    if(hasImageMask)bits.push(`${sourceMaskCv.width}×${sourceMaskCv.height} mask`);
+    if(imageGesturePlaying)bits.push('playing');
+    imageSec.querySelector('#img-stat').textContent=bits.length?bits.join(' · '):'No image loaded.';
+  }
+
+  imageSec.querySelector('#img-load').onclick=()=>imageFileInput.click();
+  imageSec.querySelector('#img-play').onclick=()=>imageGesturePlaying?stopImageGesture():startImageGesture();
+  imageSec.querySelector('#img-stamp').onclick=stampImageNow;
+  imageSec.querySelector('#img-clear').onclick=clearImageGesture;
+  imageSec.querySelector('#img-overlay').onclick=()=>{P.imgShowOverlay=!P.imgShowOverlay;updateImageUI();};
+  imageSec.querySelector('#img-preview').onclick=()=>{P.imgPreview=!P.imgPreview;updateImageUI();};
+  imageSec.querySelector('#img-loop').onclick=()=>{P.imgLoop=!P.imgLoop;updateImageUI();};
+  imageFileInput.onchange=async e=>{const f=e.target.files?.[0];if(f){await loadImageBlob(f,f.name,true);e.target.value='';}};
+
+  const dropEl=document.getElementById('drop');
+  if(dropEl)dropEl.textContent='Drop audio or image to react';
+  addEventListener('drop',e=>{
+    const f=e.dataTransfer?.files?.[0];
+    if(f&&f.type.startsWith('image/'))loadImageBlob(f,f.name,true);
+  });
+
+  /* -------------------- complete scene / preset bank -------------------- */
+  const STORE_KEY='rdEngine.sceneBank.v4';
+  const LEGACY_STORE_KEYS=['rdEngine.sceneBank.v3','rdEngine.sceneBank.v2'];
+  const SCENE_SCHEMA=4;
+  let sceneBank=[];
+  let lastSceneCycle=performance.now();
+  let sceneCycleIndex=-1;
+  let sceneApplying=false;
+  let currentSceneHoldMs=0;
+
+  const sceneDB=(()=>{
+    let db=null;
+    const init=()=>new Promise((resolve,reject)=>{
+      if(db){resolve(db);return;}
+      const req=indexedDB.open('rdSceneSnapshots',2);
+      req.onerror=()=>reject(req.error);
+      req.onupgradeneeded=e=>{
+        const database=e.target.result;
+        if(!database.objectStoreNames.contains('states')) database.createObjectStore('states',{keyPath:'id'});
+        if(!database.objectStoreNames.contains('images')) database.createObjectStore('images',{keyPath:'id'});
+      };
+      req.onsuccess=()=>{db=req.result;resolve(db);};
+    });
+    const putState=(id,snap)=>init().then(database=>new Promise((resolve,reject)=>{
+      const tx=database.transaction('states','readwrite');
+      tx.objectStore('states').put({id,w:snap.w,h:snap.h,format:'ab8',data:snap.data});
+      tx.oncomplete=()=>resolve(true);tx.onerror=()=>reject(tx.error);
+    }));
+    const getState=id=>init().then(database=>new Promise((resolve,reject)=>{
+      const tx=database.transaction('states','readonly');const req=tx.objectStore('states').get(id);
+      req.onsuccess=()=>resolve(req.result||null);req.onerror=()=>reject(req.error);
+    }));
+    const deleteState=id=>init().then(database=>new Promise((resolve,reject)=>{
+      const tx=database.transaction('states','readwrite');tx.objectStore('states').delete(id);
+      tx.oncomplete=()=>resolve(true);tx.onerror=()=>reject(tx.error);
+    }));
+    const putImage=(id,rec)=>init().then(database=>new Promise((resolve,reject)=>{
+      const tx=database.transaction('images','readwrite');
+      tx.objectStore('images').put({id,...rec});
+      tx.oncomplete=()=>resolve(true);tx.onerror=()=>reject(tx.error);
+    }));
+    const getImage=id=>init().then(database=>new Promise((resolve,reject)=>{
+      const tx=database.transaction('images','readonly');const req=tx.objectStore('images').get(id);
+      req.onsuccess=()=>resolve(req.result||null);req.onerror=()=>reject(req.error);
+    }));
+    const deleteImage=id=>init().then(database=>new Promise((resolve,reject)=>{
+      const tx=database.transaction('images','readwrite');tx.objectStore('images').delete(id);
+      tx.oncomplete=()=>resolve(true);tx.onerror=()=>reject(tx.error);
+    }));
+    return {init,putState,getState,deleteState,putImage,getImage,deleteImage};
+  })();
+
+  function loadBank(){
+    try{
+      let raw=localStorage.getItem(STORE_KEY),migrated=false;
+      if(!raw){
+        for(const k of LEGACY_STORE_KEYS){raw=localStorage.getItem(k);if(raw){migrated=true;break;}}
+      }
+      sceneBank=raw?JSON.parse(raw):[];
+      if(!Array.isArray(sceneBank))sceneBank=[];
+      sceneBank=sceneBank.map(s=>({schema:s.schema||2,...s}));
+      if(migrated)saveBank();
+    }catch(_){sceneBank=[];}
+  }
+  function saveBank(){
+    try{localStorage.setItem(STORE_KEY,JSON.stringify(sceneBank));return true;}
+    catch(err){$('#mode').textContent='preset storage full';console.warn(err);return false;}
+  }
+
+  function sceneState(){
+    try{return typeof structuredClone==='function'?structuredClone(P):JSON.parse(JSON.stringify(P));}
+    catch(_){return JSON.parse(JSON.stringify(P));}
+  }
+  function sceneRuntimeState(){
+    return {
+      running:!!running,activePreset,activeLook,savedAt:Date.now(),simW,simH,hasFloat:HAS_FLOAT,
+      morphActive:!!morphTo,morphT:+morphT||0,morphDur:+morphDur||0,
+      morphFrom:morphFrom?{...morphFrom}:null,morphTo:morphTo?{...morphTo}:null,
+      audioTime:audioEl&&Number.isFinite(audioEl.currentTime)?audioEl.currentTime:null,
+      audioPaused:audioEl?!!audioEl.paused:null,audioName:document.getElementById('fname')?.textContent||'',
+      imageName:currentImageName||''
+    };
+  }
+  function compactGesture(){return gestureTake.map(s=>[s.t,+s.x.toFixed(5),+s.y.toFixed(5),+s.px.toFixed(5),+s.py.toFixed(5),s.pid]);}
+  function expandGesture(g){return Array.isArray(g)?g.map(a=>({t:a[0],x:a[1],y:a[2],px:a[3],py:a[4],pid:a[5]})):[];}
+
+  function captureSimSnapshot(){
+    if(!simW||!simH||!tex[cur])return null;
+    const w=simW,h=simH,oldFb=gl.getParameter(gl.FRAMEBUFFER_BINDING);
+    try{
+      while(gl.getError()!==gl.NO_ERROR){}
+      gl.bindFramebuffer(gl.FRAMEBUFFER,fbo);
+      gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,tex[cur],0);
+      const out=new Uint8Array(w*h*2);
+      if(HAS_FLOAT){
+        const rgba=new Float32Array(w*h*4);gl.readPixels(0,0,w,h,gl.RGBA,gl.FLOAT,rgba);
+        if(gl.getError()!==gl.NO_ERROR)return null;
+        for(let i=0,j=0;i<rgba.length;i+=4,j+=2){out[j]=Math.max(0,Math.min(255,Math.round(rgba[i]*255)));out[j+1]=Math.max(0,Math.min(255,Math.round(rgba[i+1]*255)));}
+      }else{
+        const rgba=new Uint8Array(w*h*4);gl.readPixels(0,0,w,h,gl.RGBA,gl.UNSIGNED_BYTE,rgba);
+        if(gl.getError()!==gl.NO_ERROR)return null;
+        for(let i=0,j=0;i<rgba.length;i+=4,j+=2){out[j]=rgba[i];out[j+1]=rgba[i+1];}
+      }
+      return {w,h,data:out};
+    }catch(err){console.warn('Scene snapshot capture unavailable:',err);return null;}
+    finally{gl.bindFramebuffer(gl.FRAMEBUFFER,oldFb);}
+  }
+
+  function restoreSimSnapshot(rec){
+    if(!rec||!rec.data||!rec.w||!rec.h||!simW||!simH)return false;
+    try{
+      const srcData=rec.data instanceof Uint8Array?rec.data:new Uint8Array(rec.data);
+      if(srcData.length<rec.w*rec.h*2)return false;
+      const dst=makeBuf(),sw=rec.w,sh=rec.h,dw=simW,dh=simH;
+      for(let y=0;y<dh;y++){
+        const sy=Math.min(sh-1,Math.floor((y+.5)*sh/dh));
+        for(let x=0;x<dw;x++){
+          const sx=Math.min(sw-1,Math.floor((x+.5)*sw/dw)),si=(sy*sw+sx)*2,di=(y*dw+x)*4;
+          put(dst,di,srcData[si]/255,srcData[si+1]/255);
+        }
+      }
+      uploadState(dst);return true;
+    }catch(err){console.warn('Scene snapshot restore failed:',err);return false;}
+  }
+
+  function clearLoadedGesture(){
+    gesturePlaying=false;gestureRecording=false;gesturePlayIndex=0;gestureLastElapsed=0;
+    gestureTake=[];gestureDuration=0;replayPoint=null;gesturePointers.clear();
+  }
+  function loadSceneGesture(scene){
+    clearLoadedGesture();
+    if(Array.isArray(scene?.gesture)&&scene.gesture.length){
+      gestureTake=expandGesture(scene.gesture);
+      const derived=gestureTake.length?gestureTake[gestureTake.length-1].t+60:0;
+      gestureDuration=Number.isFinite(scene.gestureDuration)?Math.max(derived,scene.gestureDuration):derived;
+    }
+  }
+  function oneGesturePassMs(){return gestureTake.length&&gestureDuration>0?gestureDuration/Math.max(.01,P.gestureSpeed||1):0;}
+  function oneImagePassMs(){return hasImageMask?imageTiming().totalMs:0;}
+  function updateSceneHold(playGesture,playImage){
+    const base=Math.max(250,P.sceneSecs*1000);
+    const finger=playGesture?oneGesturePassMs()+150:0;
+    const image=playImage?oneImagePassMs()+150:0;
+    currentSceneHoldMs=Math.max(base,finger,image);
+  }
+
+  function captureImageRecord(){
+    const data=sourceMaskBytes();
+    if(!data)return null;
+    return {
+      w:sourceMaskCv.width,h:sourceMaskCv.height,format:'mask8',data,
+      name:currentImageName||'image',type:currentImageType||currentImageBlob?.type||'',
+      blob:currentImageBlob||null
+    };
+  }
+
+  async function restoreImageRecord(rec){
+    clearImageGesture();
+    if(!rec||!rec.data||!rec.w||!rec.h)return false;
+    currentImageName=rec.name||'saved image';currentImageType=rec.type||'';
+    setSourceMaskBytes(rec.w,rec.h,rec.data);
+    if(rec.blob){
+      currentImageBlob=rec.blob;
+      try{currentImageSource=await decodeImageBlob(rec.blob);}catch(err){console.warn('Original saved image could not be decoded; using stored mask.',err);}
+    }
+    rebuildPlacedMask();updateImageUI();return hasImageMask;
+  }
+
+  async function applyScene(scene,morphSec,opts={}){
+    if(!scene||!scene.state||sceneApplying)return false;
+    sceneApplying=true;
+    const preserveSceneCycle=!!opts.preserveSceneCycle;
+    const preserveTransport=opts.preserveTransport!==false;
+    const playSavedGesture=opts.playGesture!==false;
+    const playSavedImage=opts.playImage!==false;
+    const cycleWasOn=!!P.sceneCycle,runningWas=!!running;
+    const from={f:P.f,k:P.k,dA:P.dA,dB:P.dB};
+    const target={f:scene.state.f,k:scene.state.k,dA:scene.state.dA,dB:scene.state.dB};
+    try{
+      clearLoadedGesture();clearImageGesture();
+      Object.assign(P,scene.state);
+      P.sceneCycle=preserveSceneCycle?true:cycleWasOn;
+      if(preserveTransport)running=runningWas;
+      else if(scene.runtime&&typeof scene.runtime.running==='boolean')running=scene.runtime.running;
+      $('#btn-run').textContent=running?'Pause':'Run';
+
+      if(Number.isInteger(scene.activePreset))activePreset=scene.activePreset;
+      else if(Number.isInteger(scene.runtime?.activePreset))activePreset=scene.runtime.activePreset;
+      if(Number.isInteger(scene.activeLook))activeLook=scene.activeLook;
+      else if(Number.isInteger(scene.runtime?.activeLook))activeLook=scene.runtime.activeLook;
+      loadSceneGesture(scene);
+      setWrap();if(audioEl)audioEl.loop=P.loop;
+      syncAll();syncUpgradeSliders();resize(true);setWrap();
+
+      let restored=false;
+      if(scene.hasSnapshot||scene.snapshot){
+        try{const snap=await sceneDB.getState(scene.id);if(snap)restored=restoreSimSnapshot(snap);}catch(err){console.warn('Preset field snapshot unavailable:',err);}
+      }
+      if(!restored&&scene.schema>=3&&scene.hasSnapshot)console.warn('Preset snapshot missing; using saved variables and seed.');
+
+      let imageRestored=false;
+      if(scene.hasImageGesture||scene.imageMeta){
+        try{const rec=await sceneDB.getImage(scene.id);if(rec)imageRestored=await restoreImageRecord(rec);}catch(err){console.warn('Preset image gesture unavailable:',err);}
+      }
+      if(!imageRestored)clearImageGesture();
+
+      if(morphSec>0&&Number.isFinite(target.f)&&Number.isFinite(target.k)){
+        P.f=from.f;P.k=from.k;P.dA=from.dA;P.dB=from.dB;
+        morphFrom=from;morphTo=target;morphT=0;morphDur=morphSec;
+      }else morphTo=null;
+
+      syncAll();syncUpgradeSliders();paintChips();updateGestureUI();updateImageUI();renderSceneBank();
+      lastRandom=performance.now();lastSceneCycle=performance.now();
+
+      const fingerStarted=playSavedGesture&&gestureTake.length?startGesturePlay():false;
+      const imageStarted=playSavedImage&&hasImageMask?startImageGesture():false;
+      updateSceneHold(!!fingerStarted,!!imageStarted);
+      const tags=[];if(gestureTake.length)tags.push('gesture');if(hasImageMask)tags.push('image');
+      $('#mode').textContent='preset · '+scene.name.toLowerCase()+(tags.length?' · '+tags.join('+'):'');
+      return true;
+    }catch(err){console.error('Preset load failed:',err);$('#mode').textContent='preset load error';return false;}
+    finally{sceneApplying=false;}
+  }
+
+  const sceneSec=makeSection('s-scenes','Preset bank','snapshot · gestures · cycle',`
+    <div class="chips three">
+      <button class="chip" id="sc-save">Save current</button>
+      <button class="chip" id="sc-prev">Previous</button>
+      <button class="chip" id="sc-next">Next</button>
+    </div>
+    <div class="togs"><button class="tog" id="sc-cycle">Cycle armed</button></div>
+    <div id="sc-sliders"></div>
+    <div class="scene-list" id="scene-list"></div>
+    <div class="mini-stat" id="scene-stat">No saved presets.</div>
+    <div class="hint">SAVE stores the complete serializable engine state, active pattern/look, finger gesture, uploaded image mask/original image when available, and a live A/B chemical-field snapshot. LOAD restarts that scene's own finger and image gestures. ARM + CYCLE presents only armed scenes and waits long enough to showcase at least one full saved gesture/image performance before advancing.</div>
+  `);
+  outputSec.parentElement.insertBefore(sceneSec,outputSec);
+  addSlider(sceneSec.querySelector('#sc-sliders'),'sceneSecs','Preset interval (s)',1,60,.5,1);
+  addSlider(sceneSec.querySelector('#sc-sliders'),'sceneMorph','Chemistry morph (s)',0,8,.1,1);
+
+  function renderSceneBank(){
+    const list=sceneSec.querySelector('#scene-list');list.innerHTML='';
+    sceneBank.forEach((s,i)=>{
+      const row=document.createElement('div');row.className='scene-row';
+      const hasGesture=Array.isArray(s.gesture)&&s.gesture.length>0,hasImage=!!s.hasImageGesture;
+      const load=document.createElement('button');load.className='chip';
+      load.textContent=s.name+(hasGesture?' · G':'')+(hasImage?' · I':'');
+      load.title='Load scene and replay its saved performance';
+      load.onclick=async()=>{sceneCycleIndex=i;await applyScene(s,P.sceneMorph,{playGesture:true,playImage:true,preserveSceneCycle:!!P.sceneCycle,preserveTransport:true});};
+      const arm=document.createElement('button');arm.className='tog'+(s.armed?' on':'');arm.textContent='Arm';
+      arm.onclick=()=>{s.armed=!s.armed;saveBank();renderSceneBank();};
+      const del=document.createElement('button');del.className='tog';del.textContent='×';del.title='Delete';
+      del.onclick=async()=>{
+        if(confirm('Delete preset “'+s.name+'”?')){
+          sceneBank.splice(i,1);saveBank();renderSceneBank();
+          try{await Promise.all([sceneDB.deleteState(s.id),sceneDB.deleteImage(s.id)]);}catch(_){ }
+          if(sceneCycleIndex===i)sceneCycleIndex=-1;else if(sceneCycleIndex>i)sceneCycleIndex--;
+        }
+      };
+      row.append(load,arm,del);list.appendChild(row);
+    });
+    const armed=sceneBank.filter(s=>s.armed).length;
+    const gestured=sceneBank.filter(s=>Array.isArray(s.gesture)&&s.gesture.length).length;
+    const imaged=sceneBank.filter(s=>s.hasImageGesture).length;
+    sceneSec.querySelector('#scene-stat').textContent=sceneBank.length?`${sceneBank.length} saved · ${armed} armed · ${gestured} gesture · ${imaged} image`:'No saved presets.';
+    sceneSec.querySelector('#sc-cycle').classList.toggle('on',P.sceneCycle);
+  }
+
+  async function stepScene(dir){
+    if(!sceneBank.length||sceneApplying)return;
+    sceneCycleIndex=(sceneCycleIndex+dir+sceneBank.length)%sceneBank.length;
+    await applyScene(sceneBank[sceneCycleIndex],P.sceneMorph,{playGesture:true,playImage:true,preserveSceneCycle:!!P.sceneCycle,preserveTransport:true});
+  }
+
+  sceneSec.querySelector('#sc-save').onclick=async()=>{
+    if(sceneApplying)return;
+    if(gestureRecording)stopGestureRecord();
+    const name=(prompt('Preset name','Preset '+(sceneBank.length+1))||'').trim();if(!name)return;
+    const id=Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+    const imageRec=captureImageRecord();
+    const scene={
+      schema:SCENE_SCHEMA,id,name,armed:false,state:sceneState(),runtime:sceneRuntimeState(),
+      activePreset,activeLook,gesture:compactGesture(),gestureDuration,
+      hasSnapshot:false,snapshot:null,
+      hasImageGesture:!!imageRec,
+      imageMeta:imageRec?{w:imageRec.w,h:imageRec.h,name:imageRec.name,format:'mask8'}:null
+    };
+    $('#mode').textContent='saving preset · full state';
+    try{
+      const snap=captureSimSnapshot();
+      if(snap){await sceneDB.putState(id,snap);scene.hasSnapshot=true;scene.snapshot={w:snap.w,h:snap.h,format:'ab8'};}
+    }catch(err){console.warn('Preset field snapshot could not be stored:',err);}
+    if(imageRec){
+      try{await sceneDB.putImage(id,imageRec);}
+      catch(err){
+        console.warn('Original image storage failed; retrying with compact mask only.',err);
+        try{await sceneDB.putImage(id,{...imageRec,blob:null});}
+        catch(err2){console.warn('Image mask storage failed:',err2);scene.hasImageGesture=false;scene.imageMeta=null;}
+      }
+    }
+    sceneBank.push(scene);
+    if(!saveBank()){
+      sceneBank.pop();try{await Promise.all([sceneDB.deleteState(id),sceneDB.deleteImage(id)]);}catch(_){ }return;
+    }
+    renderSceneBank();
+    const tags=[];if(scene.gesture.length)tags.push('gesture');if(scene.hasImageGesture)tags.push('image');
+    $('#mode').textContent='saved preset · '+name.toLowerCase()+(tags.length?' · '+tags.join('+'):'');
+  };
+  sceneSec.querySelector('#sc-prev').onclick=()=>stepScene(-1);
+  sceneSec.querySelector('#sc-next').onclick=()=>stepScene(1);
+  sceneSec.querySelector('#sc-cycle').onclick=async()=>{
+    if(sceneApplying)return;
+    P.sceneCycle=!P.sceneCycle;
+    if(P.sceneCycle){
+      const armed=sceneBank.map((s,i)=>[s,i]).filter(([s])=>s.armed);
+      if(!armed.length){P.sceneCycle=false;$('#mode').textContent='arm at least one preset';renderSceneBank();return;}
+      let p=armed.findIndex(([,i])=>i===sceneCycleIndex);if(p<0)p=0;
+      sceneCycleIndex=armed[p][1];
+      await applyScene(armed[p][0],P.sceneMorph,{playGesture:true,playImage:true,preserveSceneCycle:true,preserveTransport:true});
+    }else{currentSceneHoldMs=0;renderSceneBank();}
+  };
+  loadBank();renderSceneBank();
+
+  /* -------------------- independent HD / 2K / 4K capture surface -------------------- */
+  const capCv=document.createElement('canvas');capCv.id='capture-canvas';document.body.appendChild(capCv);
+  const capCtx=capCv.getContext('2d',{alpha:false,desynchronized:true});
+  let capRunning=false,capRaf=0,capLast=0;
+  let usingDirectCapture=false,adaptiveCapFps=30;
+  const CAP_SIZES={screen:0,hd:1920,qhd:2560,uhd:3840};
+
+  const capUi=document.createElement('div');
+  capUi.innerHTML=`
+    <div class="upgrade-sub">Recording size</div><div id="cap-sizes"></div>
+    <div class="upgrade-sub">Recording rate</div><div id="cap-fps"></div>
+    <div class="togs"><button class="tog" id="cap-pace">Pace lock</button></div>
+    <div class="mini-stat" id="cap-note"></div>`;
+  outputSec.querySelector('.body').insertBefore(capUi,outputSec.querySelector('.hint'));
+  const repaintSize=chipGroup(capUi.querySelector('#cap-sizes'),[['screen','Screen'],['hd','HD'],['qhd','2K'],['uhd','4K']],()=>P.recSize,v=>{P.recSize=v;updateCaptureNote();});
+  const repaintFps=chipGroup(capUi.querySelector('#cap-fps'),[[30,'30 fps'],[60,'60 fps']],()=>P.recFps,v=>{P.recFps=v;updateCaptureNote();});
+  function requestedCaptureDims(){
+    const aspect=Math.max(.2,cv.clientWidth/Math.max(1,cv.clientHeight));
+    const longEdge=CAP_SIZES[P.recSize]||0;
+    if(!longEdge)return[Math.max(2,cv.width),Math.max(2,cv.height)];
+    if(aspect>=1)return[longEdge,Math.max(2,Math.round(longEdge/aspect))];
+    return[Math.max(2,Math.round(longEdge*aspect)),longEdge];
+  }
+
+  function captureDims(){
+    let [w,h]=requestedCaptureDims();
+    if(P.recPaceLock){
+      /* Upscaling a tablet canvas to 4K adds encoder/compositor load but no new
+         source detail. Pace Lock therefore treats the live canvas as the maximum
+         useful resolution. On a true 4K display, 4K remains 4K. */
+      const sw=Math.max(2,cv.width),sh=Math.max(2,cv.height);
+      const scale=Math.min(1,sw/w,sh/h);
+      if(scale<1){w=Math.max(2,Math.round(w*scale));h=Math.max(2,Math.round(h*scale));}
+    }
+    return[w,h];
+  }
+
+  function effectiveRecFps(){
+    let f=Math.max(1,Math.round(P.recFps||30));
+    /* On iPhone/iPad, 60 fps video encoding plus a high-resolution WebGL
+       simulation can starve the visualizer. Pace Lock prioritizes motion pace
+       and detail at 30 unique recorded frames/sec. */
+    if(IS_IOS&&P.recPaceLock)f=Math.min(30,f);
+    else if(IS_IOS&&P.recSize==='uhd')f=Math.min(30,f);
+    return f;
+  }
+
+  function captureNeedsComposite(){
+    return !!((hasImageMask&&P.imgShowOverlay)||P.showTouchViz);
+  }
+
+  function updateCaptureNote(){
+    const [w,h]=captureDims(),efps=effectiveRecFps();
+    const pace=P.recPaceLock?' · pace lock':' · exact size';
+    const iosCap=(IS_IOS&&P.recPaceLock&&P.recFps>30)?' · iOS 30fps stability cap':'';
+    const fast=(P.recPaceLock&&!captureNeedsComposite())?' · native fast path when recording':'';
+    capUi.querySelector('#cap-note').textContent=`${w}×${h} · ${efps} fps${pace}${iosCap}${fast}`;
+    capUi.querySelector('#cap-pace').classList.toggle('on',!!P.recPaceLock);
+    repaintSize();repaintFps();
+  }
+
+  capUi.querySelector('#cap-pace').onclick=()=>{
+    P.recPaceLock=!P.recPaceLock;
+    REC_PACE.enabled=!!P.recPaceLock;
+    updateCaptureNote();
+  };
+  function sizeCaptureCanvas(){
+    const[w,h]=captureDims();
+    if(capCv.width!==w||capCv.height!==h){capCv.width=w;capCv.height=h;}
+  }
+
+  function currentCaptureDrawFps(){
+    const requested=effectiveRecFps();
+    if(!P.recPaceLock)return requested;
+    const base=Math.max(15,REC_PACE.baselineHz||60);
+    const live=Math.max(1,REC_PACE.frameHz||base);
+    const debt=Math.max(0,REC_PACE.stepDebt||0);
+    const baseSteps=Math.max(1,Math.round(P.steps));
+
+    /* If encoding/compositing starts stealing frame time, reduce only the
+       expensive canvas-copy cadence. MediaRecorder keeps real timestamps, so
+       the movie keeps the correct duration and movement pace. */
+    if(live<base*.80||debt>baseSteps*2.5)adaptiveCapFps=Math.max(15,adaptiveCapFps-2);
+    else if(live>base*.93&&debt<baseSteps*.75)adaptiveCapFps=Math.min(requested,adaptiveCapFps+.5);
+    return Math.min(requested,adaptiveCapFps);
+  }
+
+  function drawCaptureFrame(now,force){
+    if(!capRunning&&!force)return;
+    const fpsNow=currentCaptureDrawFps();
+    if(!force&&now-capLast<1000/fpsNow)return;
+    capLast=now;
+    sizeCaptureCanvas();
+    capCtx.imageSmoothingEnabled=true;
+    try{capCtx.imageSmoothingQuality=IS_IOS?'medium':'high';}catch(_){ }
+    /* Full opaque draw replaces the previous frame; clearRect is unnecessary
+       and costs another full-surface pass on Retina iPads. */
+    capCtx.drawImage(cv,0,0,capCv.width,capCv.height);
+    if(imageVizWasDrawn)capCtx.drawImage(imgVizCv,0,0,capCv.width,capCv.height);
+    if(P.showTouchViz)capCtx.drawImage(touchCv,0,0,capCv.width,capCv.height);
+  }
+  function capturePump(now){
+    if(!capRunning)return;
+    drawCaptureFrame(now,false);
+    capRaf=requestAnimationFrame(capturePump);
+  }
+  function startCapturePump(){
+    capRunning=true;capLast=0;adaptiveCapFps=effectiveRecFps();
+    sizeCaptureCanvas();drawCaptureFrame(performance.now(),true);
+    cancelAnimationFrame(capRaf);capRaf=requestAnimationFrame(capturePump);
+  }
+  function stopCapturePump(){capRunning=false;cancelAnimationFrame(capRaf);}
+
+  const recResult=document.createElement('div');recResult.id='rec-result';
+  recResult.innerHTML=`<div class="rr-top"><b style="font-size:10px;letter-spacing:.12em">CAPTURE READY</b><div class="rr-name" id="rr-name">—</div></div>
+    <div class="rr-actions"><button class="tbtn" id="rr-share">Save / Share</button><button class="tbtn" id="rr-download">Download</button><button class="tbtn" id="rr-close">Close</button></div>`;
+  document.body.appendChild(recResult);
+  let resultUrl=null,resultBlob=null,resultName='';
+  function clearResult(){if(resultUrl)URL.revokeObjectURL(resultUrl);resultUrl=null;resultBlob=null;recResult.classList.remove('on');}
+  recResult.querySelector('#rr-close').onclick=clearResult;
+  recResult.querySelector('#rr-download').onclick=()=>{if(!resultUrl)return;const a=document.createElement('a');a.href=resultUrl;a.download=resultName;document.body.appendChild(a);a.click();a.remove();};
+  recResult.querySelector('#rr-share').onclick=async()=>{
+    if(!resultBlob)return;
+    try{const file=new File([resultBlob],resultName,{type:resultBlob.type||recMime});if(navigator.canShare?.({files:[file]}))await navigator.share({files:[file],title:'RD ENGINE capture'});else recResult.querySelector('#rr-download').click();}
+    catch(err){if(err?.name!=='AbortError')console.warn(err);}
+  };
+
+  function pickMime(){
+    const safariFirst=IS_IOS||/^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const mp4=['video/mp4;codecs=avc1.42E01E,mp4a.40.2','video/mp4'];
+    const webm=['video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'];
+    return(safariFirst?[...mp4,...webm]:[...webm,...mp4]).find(t=>window.MediaRecorder&&MediaRecorder.isTypeSupported(t))||'';
+  }
+  function bitrateForCapture(){
+    const [w,h]=usingDirectCapture?[Math.max(2,cv.width),Math.max(2,cv.height)]:captureDims();
+    const pixels=w*h,hdPixels=1920*1080;
+    let bits=8000000*Math.pow(Math.max(.35,pixels/hdPixels),.72)*(effectiveRecFps()>=60?1.35:1);
+    if(IS_IOS&&P.recPaceLock)bits=Math.min(bits,18000000);
+    return Math.round(Math.max(5000000,Math.min(36000000,bits)));
+  }
+
+  startRecording=async function(){
+    try{
+      if(!HTMLCanvasElement.prototype.captureStream||!window.MediaRecorder){$('#mode').textContent='recording unavailable in this browser';return false;}
+
+      await recDB.clear();chunks=[];totalRecordedSize=0;clearResult();
+
+      /* Lock to the visualizer's measured speed immediately before recording.
+         This makes an iPad that was running 60 fps preserve that 60-fps-equivalent
+         chemistry rate even if the encoder later pulls rendering down. */
+      REC_PACE.enabled=!!P.recPaceLock;
+      REC_PACE.baselineHz=Math.max(15,Math.min(120,REC_PACE.preRecordHz||fps||60));
+      REC_PACE.stepDebt=0;REC_PACE.droppedDebt=0;
+      REC_PACE.lastNow=performance.now()-1000/REC_PACE.baselineHz;
+
+      /* Fast path: when no separate overlay must be composited, Pace Lock records
+         the WebGL canvas itself. This removes the expensive per-frame 2D copy that
+         was the main iPad slowdown. */
+      usingDirectCapture=!!(P.recPaceLock&&!captureNeedsComposite());
+      let stream;
+      if(usingDirectCapture){
+        stopCapturePump();
+        stream=cv.captureStream(effectiveRecFps());
+      }else{
+        startCapturePump();
+        stream=capCv.captureStream(effectiveRecFps());
+      }
+
+      if(recDest?.stream?.getAudioTracks?.().length){try{stream.addTrack(recDest.stream.getAudioTracks()[0]);}catch(_){} }
+      const mime=pickMime();
+      if(!mime){stopCapturePump();usingDirectCapture=false;$('#mode').textContent='no supported recording codec';return false;}
+      recMime=mime;
+      try{recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:bitrateForCapture()});}
+      catch(_){recorder=new MediaRecorder(stream,{mimeType:mime});}
+
+      let pending=0,pendingBytes=0;
+      recorder.ondataavailable=async e=>{
+        if(!e.data?.size)return;
+        chunks.push(e.data);totalRecordedSize+=e.data.size;pending++;pendingBytes+=e.data.size;
+        /* Fewer IndexedDB writes = fewer iOS main-thread/storage stalls. */
+        if(pending>=12||pendingBytes>=48*1024*1024){
+          await flushChunksToDB();pending=0;pendingBytes=0;
+        }
+      };
+      recorder.onerror=e=>{
+        $('#mode').textContent='recording error';console.error(e.error||e);recState='error';
+        REC_PACE.active=false;stopCapturePump();usingDirectCapture=false;
+      };
+      recorder.onstop=()=>finalizeRecording();
+      recorder.start(1000);
+      recStart=performance.now();recState='recording';
+      REC_PACE.active=!!P.recPaceLock;
+      if(recInterval){clearInterval(recInterval);recInterval=null;}
+      $('#btn-rec').classList.add('on');
+      const dims=usingDirectCapture?[cv.width,cv.height]:captureDims();
+      $('#mode').textContent=`rec ${dims[0]}×${dims[1]} · ${effectiveRecFps()}fps${P.recPaceLock?' · pace lock':''}${usingDirectCapture?' · direct':''}`;
+      return true;
+    }catch(err){
+      REC_PACE.active=false;stopCapturePump();usingDirectCapture=false;
+      console.error(err);$('#mode').textContent='record startup error';recState='idle';return false;
+    }
+  };
+
+  finalizeRecording=async function(){
+    REC_PACE.active=false;REC_PACE.stepDebt=0;
+    stopCapturePump();usingDirectCapture=false;if(recMemWatch)clearInterval(recMemWatch);if(recInterval)clearInterval(recInterval);
+    try{
+      if(chunks.length)await flushChunksToDB();const dbChunks=await recDB.getAllChunks();if(!dbChunks.length)throw new Error('no recording data');
+      const blob=new Blob(dbChunks,{type:recMime});if(!blob.size)throw new Error('empty recording');
+      const ext=recMime.includes('mp4')?'mp4':'webm',filename='rd-capture-'+Date.now()+'.'+ext;
+      resultBlob=blob;resultName=filename;resultUrl=URL.createObjectURL(blob);
+      recResult.querySelector('#rr-name').textContent=`${filename} · ${Math.round(blob.size/1000000)}MB`;recResult.classList.add('on');
+      if(!IS_IOS){const a=document.createElement('a');a.href=resultUrl;a.download=filename;document.body.appendChild(a);a.click();a.remove();}
+      $('#mode').textContent=`saved ${Math.round(blob.size/1000000)}MB · ${((performance.now()-recStart)/1000).toFixed(1)}s`;
+      $('#btn-rec').classList.remove('on');$('#btn-rec').textContent='Record';await recDB.clear();chunks=[];totalRecordedSize=0;recState='idle';
+    }catch(err){console.error(err);$('#mode').textContent='save error: '+err.message;$('#btn-rec').classList.remove('on');$('#btn-rec').textContent='Record';recState='idle';}
+  };
+
+  $('#btn-rec').onclick=async()=>{
+    if(recState==='recording'){REC_PACE.active=false;$('#btn-rec').textContent='Stopping...';stopRecording();}
+    else if(recState==='idle'){$('#btn-rec').textContent='Starting...';const ok=await startRecording();$('#btn-rec').textContent=ok?'Stop':'Record';if(!ok)$('#btn-rec').classList.remove('on');}
+  };
+
+  /* -------------------- performance schedulers -------------------- */
+  function playGesture(now){
+    replayPoint=null;
+    if(!gesturePlaying||!gestureTake.length||gestureDuration<=0)return;
+    const speed=Math.max(.01,P.gestureSpeed||1);let elapsed=(now-gesturePlayStart)*speed;
+    if(elapsed>=gestureDuration){
+      if(P.gestureLoop){const rem=elapsed%gestureDuration;gesturePlayStart=now-rem/speed;elapsed=rem;gesturePlayIndex=0;gestureLastElapsed=0;}
+      else{stopGesturePlay();return;}
+    }
+    let safety=0;
+    while(gesturePlayIndex<gestureTake.length&&gestureTake[gesturePlayIndex].t<=elapsed&&safety<120){
+      const s=gestureTake[gesturePlayIndex++];splat(s.x,s.y,s.px,s.py,P.gestureStrength);replayPoint={x:s.x,y:s.y};
+      trail.push({x:s.x,y:s.y,t:now,cut:Math.hypot(s.x-s.px,s.y-s.py)<1e-5});safety++;
+    }
+    gestureLastElapsed=elapsed;
+  }
+
+  let paceSampleLast=performance.now();
+  function sampleFramePace(now){
+    const d=now-paceSampleLast;paceSampleLast=now;
+    if(!Number.isFinite(d)||d<4||d>120)return;
+    const hz=Math.max(8,Math.min(120,1000/d));
+    REC_PACE.frameHz=REC_PACE.frameHz*.88+hz*.12;
+    if(recState!=='recording'&&!capRunning){
+      REC_PACE.preRecordHz=REC_PACE.preRecordHz*.94+hz*.06;
+    }
+  }
+
+  function tick(now){
+    sampleFramePace(now);
+    if(placedMaskReady&&(placedSimW!==simW||placedSimH!==simH))rebuildPlacedMask();
+    if(P.randomOn&&now-lastRandom>=P.randomSecs*1000){lastRandom=now;randomize();paintChips();}
+    if(P.sceneCycle&&!sceneApplying){
+      const hold=currentSceneHoldMs>0?currentSceneHoldMs:Math.max(250,P.sceneSecs*1000);
+      if(now-lastSceneCycle>=hold){
+        lastSceneCycle=now;
+        const armed=sceneBank.map((s,i)=>[s,i]).filter(([s])=>s.armed);
+        if(armed.length){
+          let p=armed.findIndex(([,i])=>i===sceneCycleIndex);p=(p+1)%armed.length;sceneCycleIndex=armed[p][1];
+          applyScene(armed[p][0],P.sceneMorph,{playGesture:true,playImage:true,preserveSceneCycle:true,preserveTransport:true}).catch(err=>console.error(err));
+        }
+      }
+    }
+    playGesture(now);
+    playImageGesture(now);
+    drawImageOverlay(now);
+    drawTouchOverlay(now);
+    requestAnimationFrame(tick);
+  }
+
+  addEventListener('resize',()=>{resizeTouch();resizeImageViz();if(hasImageMask)rebuildPlacedMask();updateCaptureNote();});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden&&gestureRecording)stopGestureRecord();});
+  syncUpgradeSliders();updateGestureUI();updateImageUI();paintChips();resizeTouch();resizeImageViz();requestAnimationFrame(tick);
+
+  console.log('RD ENGINE Pace Lock build loaded: original idle timing preserved; recording uses pre-record pace compensation, native direct capture when possible, adaptive compositor cadence, and reduced iOS storage/copy overhead.');
+})();
+</script>
+</body>
+</html>
